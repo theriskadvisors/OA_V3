@@ -1,0 +1,221 @@
+﻿
+@model SEA_Application.Models.AspNetClass_FeeType
+@{
+    ViewBag.Title = "Create";
+}
+<script src="~/AdminLTE/selectone.js"></script>
+<style>
+    .valid {
+        box-shadow: 0 0 10px green;
+        -webkit-box-shadow: 0 0 10px green;
+        -moz-box-shadow: 0 0 10px green;
+    }
+</style>
+<script>
+    var FeeType =
+                {
+                    Id:'',
+                    ClassId: '',
+                    LedgerID: '',
+                    Amount: '',
+                    Type:''
+                };
+    feetypes = [];
+    $(document).ready(function () {
+
+
+        var allCookies = document.cookie;
+        cookieArray = allCookies.split(';');
+
+        for (var i = 0; i < cookieArray.length; i++) {
+            name = cookieArray[i].split('=')[0];
+            value = cookieArray[i].split('=')[1];
+
+            if (name == "ClassFeeID") {
+                $('#ClassID option[value=' + value + ']').attr("selected", "selected");
+                classFee(value);
+            }
+        }
+
+        $('#ClassID').click(function () {
+            var classID = $('#ClassID').val();
+            classFee(classID);
+        });
+
+        $('#cancel').click(function () {
+            window.location.href = '@Url.Action("Dashboard", "Account")';
+        });
+
+        $('#save_feetype').click(function () {
+
+
+            $('#dynamicTable tbody tr').each(function () {
+                FeeType = Object.create(FeeType);
+                FeeType.Id = $(this).attr('id');
+                FeeType.ClassId = $('#ClassID').val();
+                FeeType.LedgerID = $('#LedgerID', this).val();
+                FeeType.Amount = $('#amount', this).val();
+                FeeType.Type = $('#type', this).val();
+                console.log(FeeType);
+                if (FeeType.ClassId != "" && FeeType.LedgerID != "" && FeeType.Amount != "" && FeeType.Type != "") {
+                    feetypes.push(FeeType);
+                } else
+                    $("#myErrorModal").modal('show');
+            });
+
+            class_feeType = JSON.stringify({ 'class_feeType': feetypes });
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: '/AspNetClass_FeeType/AddClass_FeeType',
+                data: class_feeType,
+                success: function (data) {
+                    if (data == "True") {
+                        $('#partial').html('Fee Added Successfully');
+                        window.location.href = 'Index';
+                    }
+                    else {
+                        $('#partial').html('Fee Add Unsuccessful');
+
+                    }
+
+                },
+                failure: function (response) {
+                    $('#partial').html('Fee Add Unsuccessful');
+                }
+            });
+
+        });
+                
+            
+
+
+        $("#btnAdd").bind("click", function () {
+
+            $("#class_fee_body").append(GetDynamicTextBox(-1));
+            $('#dynamicTable tr:last td:first').append($("#LedgerID").clone());
+            $('#btnRemove').click(function () {
+                $(this).closest('tr').remove();
+            })
+
+        });
+    });
+
+    function classFee(classID) {
+        $("#class_fee_body").html("");
+        $.get('@Url.Action("GetClassFeeType")', { id: classID },
+            function (data) {
+                $.each(data, function (i, item) {
+                    $("#class_fee_body").append(GetDynamicTextBox(item.FeeId));
+                    $('#dynamicTable tr:last td:first').append($("#LedgerID").clone());
+                    $('#dynamicTable tr:last td:first #LedgerID').val(item.LedgerID);
+                    $('#dynamicTable tr:last  #amount').val(item.Amount);
+                    $('#dynamicTable tr:last  #type').val(item.Type);
+                });
+
+            });
+    }
+
+    function SomeDeleteRowFunction(btndel) {
+        if (typeof (btndel) == "object") {
+            Id = $(btndel).closest("tr").attr('id');
+            if (Id == -1)
+            {
+                $(btndel).closest("tr").remove();
+            }
+            else
+            {
+                $.get('@Url.Action("DeleteCnfm")', { id: Id },
+               function (data) {
+                   if (data == "True") {
+                       $(btndel).closest("tr").remove();
+                   }
+                   else {
+                       alert("Fee Type Delete Unsuccessful");
+                   }
+
+                });
+            }
+
+        } else {
+            return false;
+        }
+    }
+    function GetDynamicTextBox(value) {
+        var html = '<tr id='+value+'><td id="Ledger"></td><td><input type="text" id="amount" class="form-control"></td><td><select id="type" class="form-control"><option value="One Time">One Time</option><option value="Continue">Monthly</option></select></td><td><input type="button" class="btn btn-danger remove" value="Remove" onclick="SomeDeleteRowFunction(this);"></td></tr>';
+        return html;
+    }
+</script>
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">Fee Management</a> > @Html.ActionLink("Fee Type", "Index", "AspNetClass_FeeType") > <a href="#"><b>Create</b></a> </label>
+<h4>Create Class Fee</h4>
+
+<div class="box box-primary">
+    <div class="box-title"></div>
+    <div class="box-body">
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="control-label col-lg-1 col-md-2">Class<span class="red-mark">*</span></label>
+                    <div class="col-md-4">
+                        @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control " })
+                        @Html.ValidationMessageFor(model => model.ClassID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+               
+            </div>
+    </div>
+    <div class="box-footer">
+        <div class="form-group">
+            <button id="btnAdd" type="button" class="btn btn-primary col-lg-offset-1 col-md-offset-2">Add Fee Breadkdown</button>
+        </div>
+    </div>
+</div>
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h4>Fee Breakdown</h4>
+    </div>
+    <div class="box-body">
+        <table id="dynamicTable" class="table table-striped ">
+            <thead><tr><th>Fee Type<span class="red-mark">*</span></th><th>Amount<span class="red-mark">*</span></th><th>Duration Type<span class="red-mark">*</span></th></tr></thead>
+            <tbody id="class_fee_body"></tbody>
+        </table>
+        <div class="form-group">
+            <div class="col-md-10" hidden>
+                @Html.DropDownList("LedgerID", null, htmlAttributes: new { @class = "form-control variable_priority", @name = "select[]" , @hidden = true })
+            </div>
+        </div>  
+    </div>
+    <div class="box-footer">
+        <div class="form-group">
+            <div class="col-md-2 col-lg-1">
+                <button type="button" id="save_feetype" class="btn btn-primary">Save</button>
+            </div>
+            <div class="col-md-2 col-lg-1">
+                <button type="button" class="btn btn-default" onclick="window.location.href='Index'">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="myErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="exampleModalLabel">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-danger">
+                The * fields are required
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

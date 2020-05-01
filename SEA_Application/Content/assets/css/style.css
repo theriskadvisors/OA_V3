@@ -1,0 +1,254 @@
+body{
+    background-color: #f2f5fa;
+}
+body * {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+.sidebar {
+    background-color: #00b8ec;
+}
+.sidebar .logo {
+    background: #00b8ec;
+    margin-top: 10px;
+}.sidebar * {
+     color: #fff;
+ }
+.sidebar .nav li a, .sidebar .nav li .dropdown-menu a {
+    margin: 10px 0;
+}.sidebar .nav li:first-child > a {
+     margin: 0;
+ }
+.navbar{
+    box-shadow: 0 4px 18px 0px rgba(0, 0, 0, 0), 0 7px 10px -5px rgba(255, 255, 255, 0.15);
+
+}
+/*.navbar.navbar-transparent {*/
+
+/*    background-color: white !important;*/
+/*    !*box-shadow: none;*!*/
+
+/*}*/
+.sidebar{
+    box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.bread-crumbs ul li {
+    display: inline-block;
+}
+.bread-crumbs ul * {
+    color: #e2e2ee;
+    font-size: 14px;
+}
+.bread-crumbs ul li.active * {
+    color: #000b3a;
+}
+.bread-crumbs ul {
+    margin: 0;padding: 0;
+}
+.bread-crumbs ul li span {
+    margin: 0 8px;
+}
+.border-color-sea {
+    border-color: rgba(226, 226, 238, 0.94) !important;
+}
+.navbar .collapse .navbar-nav .nav-item .nav-link {
+     color: #a2a2c3;
+ }.navbar .collapse .navbar-nav .nav-item .nav-link svg {
+      width: 20px;
+      vertical-align: -7px;
+  }
+.navbar .collapse .navbar-nav .nav-item .nav-link {
+    margin-left: 10px;}
+.navbar .collapse .navbar-nav .nav-item.dropdown {
+    margin-left: 20px;}
+.upload-photo {
+    background-color: #f2f5fa !important;
+    min-height: 191.667px;
+    max-height: 100%;
+}.upload-photo div {
+     font-size: 14px;
+     font-weight: 600;
+
+ }
+input.form-control {
+    font-weight: normal;
+    font-size: 16px;
+    color: #000b3a;
+}
+.column-heading {
+    font-size: 32px;
+    font-weight: 600;
+    color: #141437;
+}
+.navbar .collapse .navbar-nav .nav-item .nav-link i {
+    margin-right: 6px;
+}
+select.form-control option {
+    color: #141437 !important; font-weight: 500;
+}
+select.form-control option:first-child {
+    color: #b9cbe1 !important;
+}
+input.form-control::placeholder{
+    font-size: 16px;
+    font-weight: 400;
+    color: #b9cbe1;
+}
+.form-check .form-check-sign .check{
+    border-color: #ced8e3;
+    background-color: #f5f6fa;
+}
+.form-check .form-check-input:checked ~ .form-check-sign .check{
+    background: #fff;
+}
+.form-check .form-check-input:checked ~ .form-check-sign .check::before {
+    color: #00b8ec;}
+.sidebar::before, .off-canvas-sidebar nav .navbar-collapse::before {
+    background-color: #00b8ec;
+}
+button.btn {
+    font-weight: 600;
+}
+.pageHeading h1 {
+    font-size: 34px;
+    font-weight: 600;
+    color: #00b8ec;
+}
+.searchBox:focus{
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.13);
+}
+.searchBox {
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.05);
+    width: 296px;
+    max-width: 100%;
+    height: 50px;
+    font-size: 14px;
+    letter-spacing: 0.28px;
+    text-align: left;
+    border: none;
+    border-radius: 8px;
+    font-weight: 400;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    background-image: url(../assets//icons/Icon-Search.png);
+    background-repeat: no-repeat;
+    background-position: 20px center;
+    padding-left: 55px !important;
+}
+.searchBox::placeholder{
+    line-height: 29px;
+    color: #d1d7df;
+}
+.createBtn {
+    width: 180px;
+    height: 50px;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600 !important;
+}
+
+.showEntries select {
+    width: 56px;
+    text-align: center;
+    margin-top: -1px;
+}
+.showEntriesCon{
+    color: #afbccc;font-size: 14px;
+    font-weight: normal;
+}
+.datatablesData *{
+    font-weight: normal !important;line-height: 24px;color: #646480 !important;font-size: 14px !important;
+    text-align: left;
+}
+.datatablesData th {
+    font-size: 14px !important;
+    font-weight: 500 !important;color: #646480 !important;
+}
+.datatablesData .dataTable > thead > tr > th:first-child,
+.datatablesData .dataTable > tbody > tr > th:first-child,
+.datatablesData .dataTable > tfoot > tr > th:first-child,
+.datatablesData .dataTable > thead > tr > td:first-child,
+.datatablesData .dataTable > tbody > tr > td:first-child,
+.datatablesData .dataTable > tfoot > tr > td:first-child{
+    padding-left: 20px !important;
+}
+.datatablesData .dataTable > thead > tr {
+    background-color: #f2f5fa;
+}
+.datatablesData .table > thead > tr > th {
+    border-bottom: none;
+}
+.datatableButtonsCon button {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    color: #00b8ec !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+}
+.btn-group, .btn-group-vertical {
+    position: relative;
+    margin: 10px 1px;
+}
+.datatableButtonsCon img {
+    margin-right: 5px;
+    vertical-align: -5px;
+}
+.datatableButtonsCon .dt-buttons.btn-group {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+.pagCon ul{
+    text-align: right;
+}
+.showingEntriesOfTotal, .showingEntriesOfTotal *{
+    font-size: 14px;
+    color: #afbccc;
+    font-weight: normal;
+}
+.showingEntriesOfTotal span {
+    font-weight: 600;
+    font-size: 14px;
+}
+.datatablesData .table td {
+    border-top: none !important;
+    border-bottom: 1px solid #f2f5fa;
+}
+#datatable_paginate ul.pagination {
+    justify-content: flex-end !important;
+}
+.pagination li.active > a {
+    color: #fff !important;
+}
+.pagination li > a {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    width: 35px !important;
+    height: 35px !important;
+    padding: 0;
+    text-align: center;
+    line-height: 33px;
+    border-radius: 50% !important;
+}
+.paginate_button.page-item + .paginate_button.page-item {
+    margin-left: 5px;
+}
+
+
+
+
+@media screen and (max-width: 551px) {
+    .content .createBtn {
+        width: 40%;
+    }
+    .searchBox{
+        width: calc(60% - 17px);
+    }
+    #datatable_paginate ul.pagination {
+        justify-content: flex-start !important;margin: 30px 0 !important;
+    }
+}
+@media screen and (max-width: 500px) {
+    .searchBox, .content .createBtn {
+        width: 100% !important; margin: 10px 0 !important;
+    }
+}

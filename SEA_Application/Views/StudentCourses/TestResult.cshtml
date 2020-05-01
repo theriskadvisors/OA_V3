@@ -1,0 +1,210 @@
+﻿
+@{
+    ViewBag.Title = "GetQuestions";
+    Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
+}
+
+<style>
+    .items {
+        display: block;
+        padding: 15px;
+        border-bottom:1px solid black;
+        width: 70%;
+        background: #F7F6F6;
+    }
+    h4{
+        color:red !important;
+    }
+    #jumbo
+    {
+        padding:10px;
+          width: 70%;
+    }
+
+    .page-sidebar .page-sidebar-menu, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 5000px !important;
+}
+</style>
+
+<script>
+
+
+    $(document).ready(function () {
+
+        //$('#Submit').click(function () {
+
+        // //   alert("Submit function");
+
+        //    debugger;
+        //    var options = $('.Option');
+        //    var answers = [];
+        //    var Questions = [];
+        //    var Question = [];
+        //    var Answer = [];
+        //    for (var i = 0; i < options.length; i++) {
+
+        //        answers[i] = $(options[i]).val();
+
+        //        Answer.push($(options[i]).val());
+
+        //        Questions[i] = $(options[i]).attr("id");
+
+        //        Question.push($(options[i]).attr("id"));
+
+
+        //    }
+
+        //  //  var quiz_id = $("#QuizId").val();
+
+        //    $.ajax({
+        //        url: '/StudentCourses/submit_question',
+        //        type: "GET",
+        //        data: { Question: Question.toString(),Answer:Answer.toString() },
+        //        cache: false,
+        //        contentType: "application/json; charset=utf-8",
+        //        dataType: "json",
+        //        success: function (data) {
+
+        //            debugger
+        //            //    window.location.href = "/StudentCourses/TestResult?Questions=" +data;
+
+
+        //            window.location.href = "/StudentCourses/TestResult";
+
+
+        //           // alert("Number of Correct answers are :" + result);
+        //        }
+        //    });
+
+        //});
+    });
+
+</script>
+
+<h2>&nbsp; Guidelines</h2>
+
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="col-md-12">
+            <div class="form-three widget-shadow">
+                <div>
+                    <ul>
+                        <li>one</li>
+                        <li>two</li>
+                        <li>three</li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    int counter = 1;
+}
+
+<h3> &nbsp; M.C.Q.S Section</h3>
+
+
+    
+
+<div class="box box-primary">
+    <div class="box-body">
+
+        <div class="col-md-12">
+
+          <h3>Result</h3>    
+
+            <div id="jumbo" class="jumbotron">
+
+                <h4>   @ViewBag.TotalScore</h4>
+                <h4>   @ViewBag.ReviseLessons</h4>
+
+
+            </div>
+
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-three widget-shadow">
+
+                <br>
+                @foreach (var item in ViewBag.QuestionsList)
+                {
+                    <h3><span>Question @counter: @item.name</span></h3>
+
+
+
+
+                    foreach (var item1 in item.options)
+                    {
+
+
+
+                        @*<li><input type="radio" class="col-md-1" name="@item.id" id="@item1.id" onchange="$('#' + @item.id).val(@item1.id)" />@item1.name </li>*@
+
+
+
+
+                        @*<span class="items"> @item1.name  <span style="float:right">Your Answer</span> </span>*@
+
+
+                        if (item1.id == item.CorrentAnswer && item1.id == item.StudentAnswer)
+                        {
+
+
+                            <span class="items" style=" background: #D4EDDA"> @item1.name  <span style="float:right">Your Answer</span> </span>
+
+                        }
+                        else if (item1.id == item.CorrentAnswer)
+                        {
+                            <span class="items" style="background:#bfbfbf"> @item1.name  <span style="float:right">Correct Answer</span> </span>
+                        }
+                        else if (item1.id == item.StudentAnswer)
+                        {
+                            <span style="background:#F8D7DA" class="items"> @item1.name  <span style="float:right">your Answer</span> </span>
+                        }
+
+                        else
+                        {
+                            <span class="items"> @item1.name  </span>
+
+                        }
+
+
+
+
+
+
+                    }
+
+
+
+                    <hr />
+                    counter = counter + 1;
+                }
+            </div>
+
+            @*<div class="form-three widget-shadow">
+                        <h4>Fill in Blanks Section</h4>
+                        @foreach (var item in ViewBag.questionList_Fill)
+                        {
+                            <span>@item.name: <input type="text" id="@item.id" /></span>
+                        }
+
+                </div>*@
+        </div>
+        <button id="Back" class="btn btn-success">Return to Courses</button>
+    </div>
+</div>
+
+
+
+
+
+
+

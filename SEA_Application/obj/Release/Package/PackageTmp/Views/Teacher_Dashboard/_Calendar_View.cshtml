@@ -1,0 +1,202 @@
+﻿
+<link href="~/css/monthly.css" rel="stylesheet" />
+<script src="~/Scripts/monthly.js"></script>
+<script>
+    var calendarEvents = "";
+    var events =
+        {
+            name: '',
+            startdate: '',
+            enddate: '',
+            color: '',
+            url:''
+        }
+    calendarEvents = [];
+
+    $("#Print").click(function () {
+        var printContents = document.getElementById('modal-body').innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    });
+    function MyFunction(LessonplanID)
+    {
+        $.get('@Url.Action("GetLessonPlanFromID","AspNetLessonPlan")',
+                 { Id: LessonplanID}, function (data) {
+                     document.getElementById("lessonplanheading").innerHTML = '<font size="4"><b>Lesson Plan</b></font>';
+                     $('#ClassHere').text(data.className);
+                     $('#SubjectHere').text(data.subjectName);
+                     $('#DayHere').text(data.Date);
+                     $('#DurationHere').text(data.Duration);
+                     $('#TopicHere').text('');
+                     document.getElementById("TopicHere").innerHTML = '';
+                     $.each(data.GetTopics, function (i, topic) {
+
+                         $('#TopicHere').append(topic + ',');
+                     });
+                     $('#breakdown_view').html(' ');
+                     $.each(data.BreakDown, function (i, breakdown) {
+                         $('#breakdown_view').append('<tr><td><b>' + breakdown.HeadingName + ':</b></td><td></td></tr><tr><td>' + breakdown.Description + '</td><td>' + breakdown.Minutes + ' Miniutes <br/>' + breakdown.Resources + '</td></tr>');
+                     });
+                 });
+
+        $('#myModal').modal('toggle');
+    }
+    $(document).ready(function () {
+        var selectedSubject = $('#SubjectID').val();
+        $.get('@Url.Action("TopicsBySubjectCalender", "AspNetTopic")',
+                { id: selectedSubject }, function (data) {
+                    calendarEvents = JSON.stringify(data);
+                    calendarEvents = [];
+                    $.each(data, function (i, item) {
+                        events = Object.create(events);
+                        events.name = item.title;
+                        events.startdate = item.start;
+   
+                        events.enddate = item.end;
+                        events.color = item.color;
+                        events.url = item.url;
+                        calendarEvents.push(events);
+                    });
+                    var sampleEvents = {
+                        "monthly": calendarEvents
+                    };
+                    console.log(JSON.stringify(calendarEvents));
+                    $('#mycalendar').monthly({
+                        mode: 'event',
+                        dataType: 'json',
+                        events: sampleEvents
+                    });
+                   
+		
+                });
+            
+        
+    });
+</script>
+<!doctype html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta charset='utf-8'>
+<head>
+    <style type="text/css">
+        body {
+            font-family: Calibri;
+            background-color: #f0f0f0;
+            padding: 0em 1em;
+        }
+
+        #mycalendar {
+            width: 100%;
+            margin: 2em auto 0 auto;
+            max-width: 80em;
+            border: 1px solid #666;
+        }
+    </style>
+    <style>
+        
+.modal-fullscreen {
+ 
+}
+.modal-fullscreen .modal-content {
+
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.modal-backdrop.modal-backdrop-fullscreen {
+  background: #ffffff;
+}
+.modal-backdrop.modal-backdrop-fullscreen.in {
+  opacity: .97;
+  filter: alpha(opacity=97);
+}
+
+/* .modal-fullscreen size: we use Bootstrap media query breakpoints */
+
+.modal-fullscreen .modal-dialog {
+  margin: 0;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+}
+
+
+
+    </style>
+
+</head>
+<body>
+    <div class="monthly" id="mycalendar" style="margin-top:10px"></div>
+    <div class="modal modal-fullscreen fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <button id="Print" type="button" class="btn btn-primary pull-right">Print</button>
+                   
+                    <h4 class="modal-title">Lesson Plan</h4>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <table class="table table-striped table-bordered">
+                                <tr>
+                                    <td align="center" valign="top" colspan="4" id="lessonplanheading"><font size="4"><b>Lesson Plan</b></font></td>
+                                </tr>
+                                <tr>
+                                    <td align="left" valign="middle"><font size="2"><b><u>Class: </u></b></font></td>
+                                    <td align="left" valign="middle"><font size="2" id="ClassHere"></font></td>
+                                    <td align="right" valign="middle"><font size="2"><b><u>Subject: </u></b></font></td>
+                                    <td align="right" valign="middle"><font size="2" id="SubjectHere"></font></td>
+                                </tr>
+                                <tr>
+                                    <td><font size="2"><b><u>Week: </u></b></font></td>
+                                    <td align="center"><font size="2" id="WeekHere"></font></td>
+                                    <td align="right" valign="middle"><font size="2"><b><u>Topics: </u></b></font></td>
+                                    <td align="right" valign="middle"><font size="2" id="TopicHere"></font></td>
+                                </tr>
+                                <tr>
+                                    <td><font size="2"><b><u>Day:</u></b></font></td>
+                                    <td align="center"><font size="2" id="DayHere"></font></td>
+                                    <td align="right" valign="middle"><font size="2"><b><u>Duration:</u></b></font></td>
+                                    <td align="right" valign="middle"><font size="2" id="DurationHere"></font> Minutes</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <cente> How it may be carried out</cente>
+                                        </th>
+                                        <th>
+                                            <center>Time/Resources</center>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="breakdown_view"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

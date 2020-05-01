@@ -1,0 +1,54 @@
+﻿@model SEA_Application.Models.AspNetNotification
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h4>Details</h4>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h4>Notification</h4>
+            </div>
+            <hr />
+            <div class="box-body">
+                <dl class="dl-horizontal">
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Subject)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Subject)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Time)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Time)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AspNetUser.UserName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AspNetUser.UserName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+                </dl>
+
+                <button class="btn btn-danger col-md-offset-5" onclick="window.location.href = '/Account/Dashboard'">Back</button>
+            </div>
+        </div>
+    </div>
+</div>

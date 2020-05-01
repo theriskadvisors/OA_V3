@@ -1,0 +1,159 @@
+﻿@model SEA_Application.Models.StudentRecurringFee
+
+@{
+    ViewBag.Title = "Edit";
+}
+<script>
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            debugger;
+            $('.eeniart0017').css("display", "block");
+
+        })
+        var sss=$("#total").val();
+        if (sss == "")
+        {
+            $("#total").val(0);
+        }
+        $(".code").on("keyup", function () {
+            TotalFee();
+        })
+       
+    })
+  
+    function TotalFee(a) {
+        var sum = 0;
+        var total = 0;
+
+        //var feetype = parseInt(e);
+        total = parseInt($("#total").val());
+        if (isNaN(total)) {
+            total = 0;
+            $("#total").val(total);
+
+        }
+        var sum = 0;
+        $(".code").each(function () {
+            debugger;
+            if (!isNaN(this.value) && this.value.length != 0) {
+                sum += +$(this).val();
+            }
+            $("#total").val(sum);
+
+        })
+    }
+</script>
+<h2>Edit</h2>
+<div class="box box-primary">
+    <div class="box-body">
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "Registerform" }))
+{
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Class Recurring Fee</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="form-group">
+                    <span class="col-md-2">Section</span>
+                    <div class="col-md-6">
+                        @Html.DropDownList("ClassId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Computer Lab Charges</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.ComputerLabCharges, new { htmlAttributes = new { @class = "form-control code" } })
+                        @Html.ValidationMessageFor(model => model.ComputerLabCharges, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Security Services</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.SecurityServices, new { htmlAttributes = new { @class = "form-control code" } })
+                        @Html.ValidationMessageFor(model => model.SecurityServices, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Lab Charges</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.LabCharges, new { htmlAttributes = new { @class = "form-control code" } })
+                        @Html.ValidationMessageFor(model => model.LabCharges, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Transportation</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Transportation, new { htmlAttributes = new { @class = "form-control code" } })
+                        @Html.ValidationMessageFor(model => model.Transportation, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Sports Shirt</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.SportsShirt, new { htmlAttributes = new { @class = "form-control code" } })
+                        @Html.ValidationMessageFor(model => model.SportsShirt, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Chinese Class Fee</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.ChineseClassFee, new { htmlAttributes = new { @class = "form-control code" } })
+                        @Html.ValidationMessageFor(model => model.ChineseClassFee, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Advance Tax</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.AdvanceTax, new { htmlAttributes = new { @class = "form-control code" } })
+                        @Html.ValidationMessageFor(model => model.AdvanceTax, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Other</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Other, new { htmlAttributes = new { @class = "form-control code" } })
+                        @Html.ValidationMessageFor(model => model.Other, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Tution Fee</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.TutionFee, new { htmlAttributes = new { @class = "form-control code" } })
+                        @Html.ValidationMessageFor(model => model.TutionFee, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Total Fee</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.TotalFee, new { htmlAttributes = new { @class = "form-control", @id = "total",@readonly="readonly" } })
+                        @Html.ValidationMessageFor(model => model.TotalFee, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                
+            </div>
+        }
+        <div class="col-md-offset-2 col-md-5">
+            <br />
+            <button class="col-md-2 form-control" onclick="window.location.href = '/StudentRecurringFees/Index'" style="border-radius:35px;border:hidden;background-color:red;margin-right:10px;color:white;font-size:11px;width:98px;height:38px;font-family:Montserrat" id="return"><i class="fa fa-arrow-left"></i> &nbsp;&nbsp; Return</button>
+            <input class="col-md-2 form-control" id="submit" form="Registerform" type="submit" value="Save" style="border-radius:35px;color:white;border:hidden;background-color:#128edb;font-size:11px;width:98px;height:38px;font-family:Montserrat" />
+            <br />
+            <br /><br />
+        </div>
+    </div>
+</div>
+

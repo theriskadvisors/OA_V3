@@ -1,0 +1,48 @@
+﻿@model SEA_Application.Models.EmployeePenaltyType
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Add New Type</h2>
+
+<div class="box box-primary">
+    <div class="box-body">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "Registerform" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Penalty Type</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <span class="col-md-2">Penalty Type</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.PenaltyType, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PenaltyType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Amount</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+          
+                </div>
+                }
+                   
+                    <div class="col-md-offset-2 col-md-5">
+                        <br />
+                        <button class="col-md-2 form-control" onclick="window.location.href = '/EmployeePenaltyTypes/PenaltyTypeIndex'" style="border-radius:35px;border:hidden;background-color:red;margin-right:10px;color:white;font-size:11px;width:98px;height:38px;font-family:Montserrat" id="return"><i class="fa fa-arrow-left"></i> &nbsp;&nbsp; Return</button>
+                        <input class="col-md-2 form-control" id="submit" form="Registerform" type="submit" value="Save" style="border-radius:35px;color:white;border:hidden;background-color:#128edb;font-size:11px;width:98px;height:38px;font-family:Montserrat" />
+                        <br />
+                        <br /><br />
+                    </div>
+            </div>
+    </div>
+

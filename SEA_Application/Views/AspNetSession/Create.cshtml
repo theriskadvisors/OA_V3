@@ -1,0 +1,181 @@
+﻿@model SEA_Application.Models.AspNetSession
+@{
+    ViewBag.Title = "Create";
+
+
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "Active",
+        Value = "Active"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "InActive",
+        Value = "InActive",
+    });
+
+}
+
+<head>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    
+
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    </head>
+
+<script>
+    $(document).ready(function () {
+        $("#SessionName").prop('required', true);
+        $("#Status").prop('required', true);
+        $("#SessionStartDate").prop('required', true);
+        $("#SessionStartDate").prop('type', 'date');
+        $("#SessionEndDate").prop('required', true);
+        $("#SessionEndDate").prop('type', 'date');
+
+     $("form").submit(function(){
+            
+                  $("#submit").attr("disabled", true);
+
+
+
+
+          });
+     
+        //$('#Status').click(function () {
+        //    debugger;
+        //    var Status = $(this).val();
+        //    $.post(
+        //          "/AspNetSession/CheckStatus", { status: Status },
+        //          function (value) {
+        //              debugger;
+        //              if (value != 'error') {
+        //               //   swal("Error! User Already Exist", "This username is already owned by someone else.", "error");
+        //                  //   $('#UserName').val('');
+        //                  //$.Toast("Toast title", "Toast message here");
+        //                  $.toaster({ priority: 'info', title: 'Notice', message: 'Your message here' });
+        //                  $("#submit").attr("disabled", false);
+        //              }
+        //          },
+        //          "text"
+        //      );
+        //});
+
+
+        //$("#SessionStartDate").datepicker({
+        //    dateFormat: 'dd/mm/yy',
+        //    changeMonth: true,
+        //    changeYear: true,
+        //    duration: "slow",
+        //    yearRange: '1960:2030'
+        //});
+
+        //$("#SessionEndDate").datepicker({
+        //    dateFormat: 'dd/mm/yy',
+        //    changeMonth: true,
+        //    changeYear: true,
+        //    duration: "slow",
+        //    yearRange: '1960:2030'
+        //});
+
+        $('#cancel').click(function () {
+            window.location.href = 'Index';
+        });
+    });
+
+    function isempty(item) {
+        var start = $("#SessionStartDate").val();
+        var end = $("#SessionEndDate").val();
+
+        if (start == "" && end == "") {
+            $(item).prop('placeholder', "Please add the date");
+            $('#submit').prop('disabled', true);
+        } else {
+            $('#submit').prop('disabled', false);
+        }
+    }
+
+
+    function onCancel() {
+        $('#cancel').click();
+    }
+    function onSave() {
+        $('#FormSubmit').click();
+    }
+
+</script>
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > @Html.ActionLink("Session", "Index", "AspNetSession") > <a href="#"><b>Create</b></a> </label>
+<h4 class="orange">Create </h4>
+@*<div class="row" style="padding-bottom: 10px; padding-top: 10px; padding-left: 20px; padding-right: 20px;">
+        <button class="btn btn-danger pull-left btn-sm" onclick="onCancel()">
+            Cancel
+        </button>
+        <button class="pull-right" style="background-color: transparent; border: none; outline: none; font-size: 20px; color: rgb(89, 89, 89) !important" onclick="onSave()">
+            <i class="fa fa-floppy-o"></i>
+        </button>
+    </div>*@
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="box box-primary">
+        <div class="box-title"></div>
+
+        <div class="box-body">
+            <div class="form-horizontal">
+                <h4> Start Session</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="col-md-1 col-lg-1 control-label" for="UserName">Session Name: <span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.SessionName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 col-lg-1 control-label" for="UserName">Session Start Date: <span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+                        @*@Html.TextBoxFor(model => model.SessionStartDate, new { @class = "form-control control-text datePicker", @onblur = "isempty(this)", @id = "IssueDate" })*@
+                        @Html.EditorFor(model => model.SessionStartDate, new { htmlAttributes = new { @class = "form-control", @onblur= "isempty(this)"} })
+                        @Html.ValidationMessageFor(model => model.SessionStartDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 col-lg-1 control-label" for="UserName">Session End Date: <span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.SessionEndDate, new { htmlAttributes = new { @class = "form-control", @onblur = "isempty(this)" } })
+                        @Html.ValidationMessageFor(model => model.SessionEndDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 col-lg-1 control-label" for="UserName">Total Fee: <span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Total_Fee, new { htmlAttributes = new { @class = "form-control", @onblur = "isempty(this)", required="required" } })
+                        @Html.ValidationMessageFor(model => model.Total_Fee, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    <label class="col-md-1 col-lg-1 control-label" for="UserName">Status: <span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(model => model.Status, listItems, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-lg-offset-1 col-md-2">
+                        <input type="submit" value="Create" id="submit" class="btn btn-primary" />
+                        <button type="button" id="cancel" class="btn btn-default">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

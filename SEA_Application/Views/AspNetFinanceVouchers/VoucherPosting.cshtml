@@ -1,0 +1,198 @@
+﻿@model SEA_Application.Models.AspNetFinancePeriod
+
+@{
+    ViewBag.Title = "VoucherPosting";
+}
+
+<script src="~/AdminLTE/selectone.js"></script>
+
+
+<script>
+
+    var CodeError = false;
+
+    $(document).ready(function () {
+
+      //  $("#Post_Table").hide();
+
+    });
+
+    function unpostVouchers() {
+        var D1 = $("#from").val();
+        var D2 = $("#to").val();
+        var period = $("#Period").val();
+
+        if (D1 != null && D1 != "" && D2 != null && D2 != "") {
+            console.log(D1 + D2 + period);
+            $.ajax({
+                type: "POST",
+                url: "/AspNetFinanceVouchers/unpostedVouchers",
+                data: { 'D1': D1, "D2": D2, "periodId": period },
+                success: function (data) {
+                    console.log(data);
+                    $("#show").html("There are " + data + " number of unposted vouchers");
+                }
+            });
+        }
+    }
+
+    function post() {
+        var D1 = $("#from").val();
+        var D2 = $("#to").val();
+        var period = $("#Period").val();
+
+        if (D1 != null && D1 != "" && D2 != null && D2 != "") {
+            console.log(D1 + D2 + period);
+            $.ajax({
+                type: "POST",
+                url: "/AspNetFinanceVouchers/postVouchers",
+                data: { 'D1': D1, "D2": D2, "periodId": period },
+                success: function (data) {
+                    console.log(data);
+                    console.log(data.VoucherDetailList);
+                    
+                    $("#show").html("");
+                    $("#show").html("Vouchers has been posted");
+                }
+            });
+        }
+    }
+
+    function PostSearch() {
+        var Code = $("#Code").val();
+        var period = $("#Period1").val();
+        $("#delay").fadeOut(3000);
+
+        if (CodeError == true) {
+
+            $.ajax({
+                type: "POST",
+                url: "/AspNetFinanceVouchers/PostSearch",
+                data: { "Code": Code, "Period": period },
+                success: function (data) {
+                    console.log(JSON.stringify(data));
+                    $("#total").html("");
+                    $("#Post_Table").html("");
+                    $("#Post_Table").append("<tr><th>V.Date</th><th>Voucher #</th><th>Transaction</th><th>Credit</th><th>Debit</th><th>Balance</th></tr>");
+                    $.each(data.VoucherDetailList, function (i, item) {
+                        console.log(item);
+                       
+                        $("#Post_Table").append("<tr><td>" + item.Time + "</td><td>" + item.Type + "</td><td>" + item.Transaction + "</td><td>" + item.Credit + "</td><td>" + item.Debit + "</td><td>" + item.balance + "</td></tr>")
+                    });
+                    $("#total").append("<a href='#' onclick='Export()'>ExportPDF</a>")
+                }
+            });
+        }
+    }
+
+    function Export() {
+        var Code = $("#Code").val();
+        var period = $("#Period1").val();
+
+        window.location.href = "ExportPDF?Code=" + Code + "&Period=" + period;
+    }
+
+        function checkCode() {
+            var Code = $("#Code").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/AspNetFinanceLedgers/CheckCode",
+                data: { "Code": Code },
+                success: function (data) {
+                    if (data == false) {
+                        CodeError = false;
+                        console.log("false");
+                        $("#Code").css('border-color', 'red');
+                    } else {
+                        console.log("true");
+                        CodeError = true;
+                        $("#Code").css('border-color', '#d2d6de');
+                    }
+
+                }
+            });
+        }
+    
+</script>
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">User </a> > <a href="#"><b>Voucher Posting</b></a> </label>
+
+<h4>Voucher Posting</h4>
+<label id="View">View Default</label>
+
+
+
+<div class="nav-tabs-custom">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab_1" data-toggle="tab">Post</a></li>
+        <li><a href="#tab_2" data-toggle="tab">Search</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab_1">
+            <div class="box box-primary">
+                    <div class="box-title"></div>
+                    <div class="box-body">
+
+                        @Html.DropDownList("Period", null, htmlAttributes: new { @class = "form-control" })
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input class="form-control col-md-3" placeholder="From" dateformat="M d y" type="date" id="from" onblur="unpostVouchers()" />
+                            </div>
+                            <div class="col-md-6">
+                                
+                                <input class="form-control col-md-3" type="date" dateformat="M d y" placeholder="To" id="to" onblur="unpostVouchers()" />
+                            </div>
+                        </div>
+                        <hr />
+                        <input type="button" class="btn btn-primary form-control" value="post" onclick="post()" />
+
+                        <div id="show"></div>
+
+                    </div>
+                </div>
+            </div>
+
+        
+        <div class="tab-pane" id="tab_2">
+            
+            @Html.DropDownList("Period1", null, htmlAttributes: new { @class = "form-control" })
+            <br />
+            <input type="text" id="Code" placeholder="Write Ledger Code Hare" class="form-control" onblur="checkCode()"/>
+            <br />
+            <input type="button" class="btn btn-primary form-control" value="post" onclick="PostSearch()" />
+            <input type="hidden" id="delay" />
+
+            <div id="PDFTable"></div>
+
+            <table id="Post_Table" class="table">
+
+                <tr>
+                    <th>
+                        V.Date
+                    </th>
+                    <th>
+                        Voucher #
+                    </th>
+                    <th>
+                        Transaction
+                    </th>
+                    <th>
+                        Credit
+                    </th>
+                    <th>
+                        Debit
+                    </th>
+                    <th>
+                        Balance
+                    </th>
+                </tr>
+
+            </table>
+            <div class="row">
+                <div class="col-md-5"></div>
+                <div class="col-md-7" id="total"></div>
+            </div>
+        </div>
+    </div>
+</div>

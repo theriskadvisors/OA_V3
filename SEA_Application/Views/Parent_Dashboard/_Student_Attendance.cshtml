@@ -1,0 +1,187 @@
+﻿<script type="text/javascript">
+    var table;
+    $(document).ready(function () {
+        table = $("#example").dataTable();
+        DrawTable();
+
+        var allCookies = document.cookie;
+        cookieArray = allCookies.split(';');
+
+        for (var i = 0; i < cookieArray.length; i++) {
+            name = cookieArray[i].split('=')[0];
+            value = cookieArray[i].split('=')[1];
+
+            if (name == "StudentAttendanceCookie" || name == " StudentAttendanceCookie") {
+                var selectSubject = document.getElementById('SubjectID');
+                selectSubject.value = value;
+                //   StudentAttendance(value);
+
+            }
+        }
+
+        $("#SubjectID").click(function () {
+            var selectedSubject = $("#SubjectID").val();
+            document.cookie = "StudentAttendanceCookie=" + selectedSubject + "; expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+            //StudentAttendance(selectedSubject);
+
+        });
+
+        AllAttendence();
+    });
+
+    function AllAttendence() {
+        $.get('@Url.Action("AllAttendance")',
+                function (data) {
+                    table.fnClearTable();
+                    $('#Attendance_Subject').text($("#Subject option:selected").text());
+                    $.each(data, function (i, item) {
+                        var date;
+
+                        if (item.Date == null) {
+                            date = '';
+                        }
+                        else {
+                            date = new Date(parseInt(item.Date.replace(/(^.*\()|([+-].*$)/g, '')));
+                            date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+                        }
+                        if (item.Reason == null) {
+                            item.Reason = '-/-';
+                        }
+                        //$('#attendance_table').append('<tr><td>' + $("#SubjectID option:selected").text() + '</td><td>' + item.Status + '</td><td>' + date + '</td><td>' + item.Reason + '</td></tr>');
+                        table.fnAddData([item.SubjectName, item.Status, date, item.Reason]);
+                    });
+                    table.fnDraw();
+                });
+    }
+
+    function class_click(item) {
+        $("#Subject option[value='']").remove();
+        if (item.value != '0')
+            $.get('@Url.Action("AttendanceBySubject")',
+               { subjectID: item.value }, function (data) {
+                   table.fnClearTable();
+                   $("#Subject option[value='']").remove();
+                   $('#Attendance_Subject').text($("#Class option:selected").text());
+                   $.each(data, function (i, item) {
+                       var date;
+
+                       if (item.Date == null) {
+                           date = '';
+                       }
+                       else {
+                           date = new Date(parseInt(item.Date.replace(/(^.*\()|([+-].*$)/g, '')));
+                           date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+                       }
+                       if (item.Reason == null) {
+                           item.Reason = '-/-';
+                       }
+                       //$('#attendance_table').append('<tr><td>' + $("#SubjectID option:selected").text() + '</td><td>' + item.Status + '</td><td>' + date + '</td><td>' + item.Reason + '</td></tr>');
+                       table.fnAddData([$("#Subject option:selected").text(), item.Status, date, item.Reason]);
+                   });
+                   table.fnDraw();
+                   $("#View").html("View Filtered");
+               });
+        else
+            AllAttendence();
+    }
+
+
+    function DrawTable() {
+        $("#SubjectID").prepend("<option value='0'>All</option>");
+        $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+        //$('#example_filter').addClass("col-lg-4 col-md-4 col-sm-12 col-xs-12");
+        $('#example_wrapper').css("text-align", "left");
+        $('#example_length').css("text-align", "left");
+        $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+        $("#example_length label").css("text-align", "left");
+       $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+       // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+       $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#12384C !important" });
+    //$('#example_length').css({ "overflow": "auto" });
+        $('#example_filter input').addClass("add");
+        $('#example_filter').append('<span class="glyphicon glyphicon-search form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+        var list = $("#SubjectID").html();
+         $('#example_length').append(
+             
+             '<div class="col-md-1" style="width:0%; padding-left:1px;">' +
+              '<div class="d-bar"></div>' +
+             '</div>'
+               +
+            '<lable class="col-md-2 col-lg-2 col-sm-12 col-xs-12 control-label" style="text-align:left; width:100px; padding-left:0px; padding-right:0px;">Select Subject</lable>' +
+            '<div class="col-md-2 col-lg-2">'+
+            '<select class="form-control input-sm" id="Subject" onclick=class_click(this) >'+list+'</select>' +
+            '</div>' +
+           
+             '<div class="col-md-1" style="width:0%; padding-left:1px;">' +
+                 '<div class="d-bar"></div>' +
+             '</div>'
+               +
+            '<div class="col-md-5 col-lg-2" style="padding-left:0px">'+
+            '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
+            '<div class="col-md-1 col-sm-3 col-xs-3"><a><span style="color:gray"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></span></a></div>' +
+            '<div class="col-md-1 col-sm-3 col-xs-3"><a><span style="color:gray"><i class="glyphicon glyphicon-download-alt" data-placement="bottom"></i></span></a></div>'+
+            ' <div class="col-md-1 col-sm-3 col-xs-3"><a><span style="color:gray"><i class="fa fa-ban" data-placement></i></span>' + '</a></div>' +
+            '<div class="col-md-1" style="padding-right:0px">' +
+             '<div class="d-bar"></div>' +
+            '</div>'  +
+            '</div>');
+         
+    }
+
+</script>
+@*<style>
+    .add {
+        padding: 17px;
+        padding-right: 55px;
+        border: 1px solid #f5f5f5;
+        font-size: 13px;
+        color: gray;
+        background-image: url('../../search.PNG');
+        background-repeat: no-repeat;
+        background-position: right center;
+        outline: 0;
+    }
+</style>*@
+<label>@Html.ActionLink("Home", "Dashboard", "Account") >  <b><a href="#">Attendance</a></b></label>
+<h4 class="orange">Attendance</h4>
+<div class="box box-primary" style="display:none">
+    <div class="box-header with-border">
+    </div>
+    <div class="box-body">
+        <form class="form-horizontal">
+            <div class="box-body">
+                <div class="form-group">
+                    <lable class="col-md-2 control-label"><b>Select Subject</b></lable>
+                    <div class="col-md-10">
+                        @Html.DropDownList("SubjectID", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="box box-primary">
+    <div class="box-body">
+        <table class="table table-striped table-bordered" id="example">
+            <thead>
+                <tr>
+                    <th>
+                        Subject
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Reason
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="attendance_table"></tbody>
+        </table>
+    </div>
+</div>

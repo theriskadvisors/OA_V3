@@ -1,0 +1,254 @@
+﻿@model SEA_Application.Models.AspNetMessage
+
+@{
+    ViewBag.Title = "Create";
+}
+    @Scripts.Render("~/Scripts/Mailbox/Compose/menu")
+<script>
+    $(document).ready(function () {
+        $("#SelectList").change(function () {
+
+            $('#StudentList').html('');
+            $('#ParentList').html('');
+            $('#TeacherList').html('');
+            $('#ClassList').html('');
+            
+
+            var selectedValue = $("option:selected", this).val();
+            if (selectedValue == "selectAll") {
+                $('option', this).prop('selected', true);
+
+            } else {
+                $(this).prop('selected', true);
+                $(this).siblings().prop('selected', true);
+
+            }
+            var selectedValues = $('#SelectList').val();
+
+            if (selectedValues.indexOf("selectTeachers")!=-1) {
+                $.get('@Url.Action("GetTeachers")', function (data) {
+                    $.each(data, function (i, item) {
+                        $('#TeacherList').append('<option value=' + item.Id + '>' + item.Name + ' (' + item.UserName + ')' + '</option>');
+                    });
+
+                });
+            }
+            if (selectedValues.indexOf("selectStudents") != -1) {
+                $.get('@Url.Action("GetStudents")', function (data) {
+                    $.each(data, function (i, item) {
+                        $('#StudentList').append('<option value=' + item.Id + '>' + item.Name + ' (' + item.UserName + ')' + '</option>');
+                    });
+
+                });
+
+                $.get('@Url.Action("GetClasses")', function (data) {
+                    $.each(data, function (i, item) {
+                        $('#ClassList').append('<option value=' + item.Id + '>' + item.ClassName + '</option>');
+                    });
+
+                });
+            }
+            if (selectedValues.indexOf("selectParents") != -1) {
+                $.get('@Url.Action("GetParents")', function (data) {
+                    $.each(data, function (i, item) {
+                        $('#ParentList').append('<option value=' + item.Id + '>' + item.Name + ' (' + item.UserName + ')' + '</option>');
+                    });
+
+                });
+            }
+        });
+
+        $("#ClassList").change(function () {
+            $('#StudentList').html('');
+            var selectedValues = $('#ClassList').val();
+            $.get('@Url.Action("GetStudentsByClass")',
+                { Classes: String(selectedValues) }, function (data) {
+                $.each(data, function (i, item) {
+                    $('#StudentList').append('<option value=' + item.Id + '>' + item.Name + ' (' + item.UserName + ')' + '</option>');
+                });
+
+            });
+
+        });
+
+        $("#Done").click(function () {
+            $("#ReceiverList").html('');
+            $("#StudentList option:selected").each(function () {
+                var value = $(this).val();
+                var text = $(this).text();
+                $("#ReceiverList").append("<option value=" + value + " selected>" + text + "</option>");
+               
+            });
+            $("#TeacherList option:selected").each(function () {
+                var value = $(this).val();
+                var text = $(this).text();
+                $("#ReceiverList").append("<option value=" + value + " selected>" + text + "</option>");
+
+            });
+            $("#ParentList option:selected").each(function () {
+                var value = $(this).val();
+                var text = $(this).text();
+                $("#ReceiverList").append("<option value=" + value + " selected>" + text + "</option>");
+
+            });  
+
+        });
+
+    });
+
+
+</script>
+
+@Styles.Render("~/AdminLTE/plugins/bootstrap-wysihtml5/css")
+<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
+
+
+<style>
+    .Description {
+        width:250px;
+        height:100%
+    }
+</style>
+<div class="row">
+    <div class="col-md-3">
+        <h3>SEA Mailbox </h3>
+        <a href="@Url.Action("Index","AspNetMessages")" class="btn btn-primary btn-block margin-bottom">Back to Inbox</a>
+        <div class="box box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">Folders</h3>
+                <div class="box-tools">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body no-padding">
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="@Url.Action("Inbox","AspNetMessages")"><i class="fa fa-inbox"></i> Inbox</a></li>
+                    <li><a href="@Url.Action("Sent","AspNetMessages")"><i class="fa fa-envelope-o"></i> Sent</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Compose New Message</h3>
+               
+            </div>
+            @using (Html.BeginForm("NewMessage", "AspNetMessages", FormMethod.Post, new { @class = "forms form-horizontal", role = "form" }))
+
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="box-body">
+                    <div class="col-md-12">
+                       @if (this.User.IsInRole("Parent"))
+                        {
+                        
+                            <div class="form-group">
+                                <label class="control-label">To:</label>
+                                
+                                    @Html.DropDownList("ReceiverList", null, htmlAttributes: new { @class = "form-control",name= "ReceiverList" })
+                                
+                            </div>
+
+                       }
+                       else
+                       {
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Filters</button>
+                        </div>
+                        <div class="form-group">
+                            <Select class="form-control" name="ReceiverList" id="ReceiverList" placeholder="To:" multiple required></Select>
+                        </div>
+                       }
+
+                        
+                        <div class="form-group">
+                            <input class="form-control" name="Subject" id="Subject" placeholder="Subject:">
+                        </div>
+                        <div class="form-group">
+                            
+                            <textarea id="compose-textarea" name="Message" class="form-control" style="height: 300px"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+                    <div class="box-footer">
+                        <div class="pull-right">
+                            <input type="checkbox" id="IsEmail" name="IsEmail" >Send Email
+                            <input type="checkbox" id="IsText" name="IsText" > Send Text Message
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Send</button>
+                        </div>
+                        <button type="reset" class="btn btn-default"><i class="fa fa-times"></i> Discard</button>
+                   
+                </div>
+            
+            }
+        </div>
+    </div>
+    </div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Filters</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <lable class="col-md-3 control-label"><b>Select List</b></lable>
+                        <select id="SelectList" class="col-md-6" multiple>
+                            <option value="selectAll">All Users</option>
+                            <option value="selectStudents">Students</option>
+                            <option value="selectTeachers">Teachers</option>
+                            <option value="selectParents">Parents</option>
+                        </select>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div id="ClassListDiv" class="form-group">
+                        <lable class="col-md-3 control-label"><b>Class List</b></lable>
+                        <select id="ClassList" class="col-md-6" multiple></select>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div id="StudentListDiv" class="form-group">
+                        <lable class="col-md-3 control-label"><b>Student List</b></lable>
+                        <select id="StudentList" class="col-md-6" multiple></select>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div id="ParentListDiv" class="form-group">
+                        <lable class="col-md-3 control-label"><b>Parent List</b></lable>
+                        <select id="ParentList" class="col-md-6" multiple></select>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div id="TeacherListDiv" class="form-group">
+                        <lable class="col-md-3 control-label"><b>Teacher List</b></lable>
+                        <select id="TeacherList" class="col-md-6" multiple></select>
+                    </div>
+                </div>
+                <hr />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="Done" class="btn btn-default" data-dismiss="modal">Done</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+    @Scripts.Render("~/AdminLTE/plugins/bootstrap-wysihtml5/js")
+    @Scripts.Render("~/Scripts/Mailbox/Compose.js")

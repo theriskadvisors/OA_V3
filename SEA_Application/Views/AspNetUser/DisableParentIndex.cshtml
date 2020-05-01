@@ -1,0 +1,151 @@
+﻿@model IEnumerable<SEA_Application.Models.AspNetUser>
+@{
+    ViewBag.Title = "Index";
+}
+<script>
+
+    var table;
+    var bgcolor;
+    $(document).ready(function () {
+
+        table = $("#example").dataTable();
+
+
+        $('.table').on('mouseover', 'tbody tr', function () {
+            bgcolor = $(this).css("background-color");
+            $(this).css({ "background-color": "#DBEEF4", "color": "blue", "cursor": "pointer" });
+        })
+
+        $('.table').on('mouseout', 'tbody tr', function () {
+            $(this).css({ "background-color": bgcolor, "color": "#222" });
+        })
+
+        $('.table').on('click', 'tbody tr', function () {
+            var td = $(this).children("td");
+            var userName = $(td[1]).html();
+            userName = userName.trim();
+
+            if ($(td).html() != "No data available in table")
+                window.location.href = "ParentDetail?userName=" + userName;
+        });
+
+        DrawTable();
+    });
+
+    function DrawTable() {
+        $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#ddd !important" });
+        $('#example_filter').append('<span class="glyphicon glyphicon-search form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+        $('#example_length').append(
+
+            '<div class="form-inline" style="margin-left: 140px !important; margin-top: -25px !important; z-index: -3 !important">'
+          +
+          '&nbsp;&nbsp;&nbsp;&nbsp;' +
+            '<div class="form-group">' +
+                 '<div class="d-bar"></div>' +
+             '</div>' +
+             '&nbsp;&nbsp;&nbsp;&nbsp;' +
+             '<div class="form-group">' +
+                 '<div class="edit-section">' +
+                     '<a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom" ></i></a>' +
+                     '<a class="" href="/Admin_Dashboard/ParentRegister" id="edit-view-3" data-toggle="tooltip" title="Create" data-placement="bottom">&nbsp;' +
+                         '<i class="glyphicon glyphicon-edit"></i>' +
+                     '</a>' +
+                     '<a href="/AspNetUser/DisableParentIndex" id="edit-view-3" data-toggle="tooltip" title="Disable" data-placement="bottom"><i class="fa fa-ban"></i></a>&nbsp;' +
+                     '<a href=""><i class="glyphicon glyphicon-download-alt"></i></a>&nbsp;' +
+                 '</div>' +
+             '</div>' +
+            '<div class="form-group">' +
+                 '<div class="d-bar"></div>' +
+             '</div>' +
+         '</div>');
+
+    }
+
+</script>
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">User</a> > @Html.ActionLink("Parent", "ParentIndex", "AspNetUser") > <a href="#">Disable</a></label>
+<h4>DisableParents</h4>
+<label id="View">View Default</label>
+
+
+@if (ViewBag.Error != null)
+{
+    <div class="success" id="work" style="background-color:aquamarine">
+        @ViewBag.Error
+    </div>
+}
+
+<div class="box box-primary">
+    <div class="box-title"></div>
+    <div class="box-body">
+        <br />
+        <div class="col-md-12">
+            <div class="form-three widget-shadow">
+                <div>
+                    <input type="hidden" id="modal" />
+                    <table class="table table-striped table-bordered" id="example">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UserName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    @*<td>
+                                            @Html.ActionLink("Edit", "ParentEdit", new { id = item.Id }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                            <a href="#" onclick="Model_Data(this)" id=@item.Id >Disable</a>
+                                        </td>*@
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!----------------------------------------------------------------------------------->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                After submitting you won't be able to change data
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="disable_student()" data-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

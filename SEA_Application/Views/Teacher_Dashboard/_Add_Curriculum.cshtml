@@ -1,0 +1,66 @@
+﻿
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ClassID").click(function () {
+            var selectedClass = $("#ClassID").val();
+            document.cookie = "ClassCookie_TestMarks=" + selectedClass + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+            SubjectsByClassID(selectedClass);
+        });
+        function SubjectsByClassID(selectedClass) {
+            $.get('@Url.Action("SubjectsByClass")',
+                { id: selectedClass }, function (data) {
+
+                    //alert(JSON.stringify(data));
+                    $('#SubjectID').html('');
+                    $('#SubjectID').prop('disabled', false);
+                    $.each(data, function (i, item) {
+                        $('#SubjectID').append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
+                    });
+
+                });
+        }
+       
+
+    });
+</script>
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="orange">Add Curriculum  &nbsp; <i class="fa fa-list" aria-hidden="true"></i></h3>
+    </div>
+@using (Html.BeginForm("CurriculumFromFile", "AspNetTopic", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="box-body">
+
+        
+            <div class="form-group">
+                <lable class="col-md-2 control-label">Select Class</lable>
+                <div class="col-md-10">
+                    @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <lable class="col-md-2 control-label">Select Subject</lable>
+                <div class="col-md-10">
+                    <select class="form-control" id="SubjectID" name="SubjectID"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <lable class="col-md-2 control-label">Excel File</lable>
+                <div class="col-md-10">
+                    <input id="curriculum" name="curriculum" type="file" />
+                </div>
+            </div>
+
+
+    </div>
+    <div class="box-footer with-border">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="Submit" type="submit" onclick="return formSubmit();" value="Submit" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+</div>

@@ -1,0 +1,154 @@
+﻿@model SEA_Application.Models.AspNetTopic
+
+@{
+    ViewBag.Title = "Create";
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script src="~/AdminLTE/selectone.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+
+        $("#ClassID").prop('required', true);
+        $("#SubjectID").prop('required', true);
+        $("#ChapterID").prop('required', true);
+        $("#TopicNo").prop('required', true);
+        $("#TopicName").prop('required', true);
+        $("#StartDate").prop('required', true);
+        $("#EndDate").prop('required', true);
+        $("#StartDate").prop('type', 'date');
+        $("#EndDate").prop('type', 'date');
+
+        $('#cancel').click(function () {
+            window.location.href = '@Url.Action("Dashboard", "Account")';
+        });
+
+        $('#SubjectID').prop('disabled', true);
+        $("#ClassID").change(function () {
+            var selectedClass = $("#ClassID").val();
+            $.get('@Url.Action("SubjectsByClass","AspNetTopic")',
+                { id: selectedClass }, function (data) {
+                    $('#SubjectID').html('');
+                    $('#SubjectID').prop('disabled', false);
+                    $.each(data, function (i, item) {
+                        $('#SubjectID').append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
+                    });
+
+                });
+        });
+
+        $("#SubjectID").click(function () {
+            var selectedSubject = $("#SubjectID").val();
+            $.get('@Url.Action("ChapterBySubject","AspNetTopic")',
+                { id: selectedSubject }, function (data) {
+
+                    $('#ChapterID').html('');
+                    $('#ChapterID').prop('disabled', false);
+                    $.each(data, function (i, item) {
+                        $('#ChapterID').append('<option value=' + item.Id + '>' + item.ChapterName + '</option>');
+                    });
+
+                });
+        });
+
+       
+
+
+    });
+</script>
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") >  @Html.ActionLink("Topic", "Topics", "Teacher_Dashboard") > <b><a href="#">Create</a></b></label>
+<h2>Create</h2>
+
+<div class="box box-primary">
+    <div class="box-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Topic</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="control-label col-md-2"><b>Class</b></label>
+                    <div class="col-md-6">
+                        @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br />
+                    <label class="control-label col-md-2"><b>Select Subject</b></label>
+                    <div class="col-md-6">
+                        <select class="form-control" id="SubjectID"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br />
+                    <label class="control-label col-md-2"><b>Chapter Name</b></label>
+                    <div class="col-md-6">
+                        @Html.DropDownList("ChapterID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ChapterID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label class="control-label col-md-2"><b>Topic No.</b></label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.TopicNo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TopicNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br />
+                    <label class="control-label col-md-2"><b>Topic Name</b></label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.TopicName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TopicName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br />
+                    <label class="control-label col-md-2"><b>Start Date</b></label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br />
+                    <label class="control-label col-md-2"><b>End Date</b></label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <br />
+                    <label class="control-label col-md-2"><b>Status</b></label>
+                    <div class="col-md-6">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.Status)
+                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br />
+                    <div class="col-md-offset-2 col-md-2">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-danger" onclick="window.location.href = '/Teacher_Dashboard/Topics'">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+

@@ -1,0 +1,194 @@
+﻿@model IEnumerable<SEA_Application.Models.TreeViewNodeVM>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script src="~/AdminLTE/plugins/jquery/js/jQuery-2.1.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+
+<style>
+    .no-padding-link {
+        font-size: 13px !important;
+        background-color: transparent !important;
+        padding: 0px !important;
+        margin: 0px !important;
+        color: #333 !important;
+    }
+
+    .no-section-padding {
+        background-color: transparent !important;
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+
+    .link-box-ledger {
+        border: 1px solid #ddd;
+        width: 100%;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+        .link-box-ledger .link-box-content {
+            padding: 8px;
+        }
+
+        .link-box-ledger .ledger-title {
+            font-size: 18px;
+            color: white !important;
+            font-weight: 500;
+            width: 100%;
+            padding: 10px;
+            background-color: rgb(24, 77, 105) !important;
+            border-radius: 5px 5px 0px 0px;
+            margin: 0px;
+        }
+
+        .link-box-ledger a {
+            color: black !important;
+        }
+
+            .link-box-ledger a:hover {
+                color: #21668a !important;
+            }
+</style>
+
+<script>
+
+    $(document).ready(function () {
+        var balance = $(".money");
+
+        $.each(balance, function (i, item) {
+            item.innerHTML = numberWithCommas(item.innerHTML);
+
+            $.ajax({
+                type: "POST",
+                url: "/AspNetFinanceLedgers/NetProfit",
+                success: function (data) {
+                    $("#NetProfitBalance").html(data);
+                }
+            });
+
+        });
+
+
+        $("#initial").hide();
+        var Assets = $("#Assets").html();
+        var BankCash = $("#BankCash").html();
+        var OtherAssets = $("#OtherAssets").html();
+        var Revenue = $("#Income").html();
+        var Liabilities = $("#Liabilities").html();
+        var Equity = $("#Equity").html();
+        var Expense = $("#Expense").html();
+        var HandCash = $("#HandCash").html();
+
+        $("#ROW").append("<div id='left' class='col-md-6'>" + BankCash + HandCash + Assets + Liabilities + Equity + "</div><div id='right' class='col-md-6'>" + Revenue + Expense + "</div>");
+    });
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function Create(Code) {
+        var type = Code.id;
+        console.log(type);
+        var code = Code.innerHTML;;
+        var ledger = code.split(' ');
+        window.location.href = "/AspNetFinanceLedgers/Create?Ledger=" + ledger[0] + "&Type=" + type;
+    }
+
+    function Edit(item) {
+        var code = item.id.split(' ');
+        window.location.href = "/AspNetFinanceLedgers/Edit?Ledger=" + code[0];
+    }
+</script>
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">User</a>> <a href="#"><b>Ledger</b></a> </label>
+
+<h4>Ledger View</h4>
+<label id="View">View Default</label>
+
+
+
+
+@*@Html.ActionLink("Create New", "Create")*@
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <center><h2>Chart of Accounts</h2></center>
+    </div>
+    <div class="box-body">
+        <div class="row" id="initial">
+
+            @foreach (var treeNode in Model)
+            {
+                var IDName = treeNode.Name.Trim();
+                if (IDName == "Cash At bank")
+                {
+                    IDName = "BankCash";
+                }
+                else if (IDName == "Other Assets")
+                {
+                    IDName = "OtherAssets";
+                }
+                else if (IDName == "Less Liabilities")
+                {
+                    IDName = "Liabilities";
+                }
+                else if (IDName == "Less Expense")
+                {
+                    IDName = "Expense";
+                }
+                else if (IDName == "Cash At Hand")
+                {
+                    IDName = "HandCash";
+                }
+
+                <div class="col-md-12" id="@IDName">
+                    <div class="link-box-ledger">
+                        <h3 class="ledger-title"><b>@treeNode.Name</b><span class="pull-right money"><b>@treeNode.Balance</b></span></h3>
+                        <p class="link-box-content">
+                            <div id="">
+                                <ul>
+                                    @if (treeNode != null)
+                                    {
+                                        if (treeNode.Balance == "0") { treeNode.Balance = "-"; }
+                                        <li>
+                                            <div>
+                                                <a href="#"><span onclick="Create(this)" id="@treeNode.Type">@treeNode.NodeName @*<span class="fa fa-plus"></span>*@</span></a><span style="margin-right:10px" class="pull-right"><a class="money" href="/AspNetFinanceLedgers/LedgerDetail?Code=@treeNode.NodeName">@treeNode.Balance</a></span>&nbsp;&nbsp;&nbsp;<span id="@treeNode.NodeName" onclick="Edit(this)"><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></span>
+                                            </div>
+
+                                            @if (treeNode.ChildNode.Count > 0)
+                                            {
+                                                @Html.Partial("ChildNode", treeNode.ChildNode)
+                                            }
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                    </div>
+                </div>
+                @*<hr class="LedgerLine" />*@
+            }
+        </div>
+
+        <div class="row" id="ROW">
+
+        </div>
+
+        <br />
+
+        <div class="row">
+
+            <div class="col-md-6 pull-left hidden" id="Income">
+                <div class="link-box-ledger">
+                    <h3 class="ledger-title"><b>Income</b><span class="pull-right money"><b id="IncomeBalance"></b></span></h3>
+                    <p class="link-box-content">
+                </div>
+            </div>
+
+            <div class="col-md-6 pull-right" id="NetProfit">
+                <div class="link-box-ledger">
+                    <h3 class="ledger-title"><b>Net Profit</b><span class="pull-right money"><b id="NetProfitBalance"></b></span></h3>
+                    <p class="link-box-content">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

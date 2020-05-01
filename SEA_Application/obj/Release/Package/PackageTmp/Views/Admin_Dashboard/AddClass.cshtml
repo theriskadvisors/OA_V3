@@ -1,0 +1,57 @@
+﻿@model SEA_Application.Models.AspNetClass
+
+@{
+    ViewBag.Title = "Create";
+}
+<script src="~/AdminLTE/selectone.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#ClassName").prop('required', true);
+    });
+</script>
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Class</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClassName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ClassName, new { htmlAttributes = new { @class = "form-control", @required = true  } } )
+                @Html.ValidationMessageFor(model => model.ClassName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TeacherID, "TeacherID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("TeacherID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TeacherID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+            <div class="col-md-2">
+                <button type="button" id="cancel" class="btn btn-danger" onclick="redirect()">Cancel</button>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script>
+    function redirect() {
+        var url = '@Url.Action("AccountantIndex", "AspNetUser")';
+        window.location.href = url;
+    }
+</script>

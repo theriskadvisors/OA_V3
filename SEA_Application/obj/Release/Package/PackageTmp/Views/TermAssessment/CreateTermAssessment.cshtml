@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "CreateTermAssessment";
+
+    if(ViewBag.Error == "" || ViewBag.Error == null)
+    {
+        ViewBag.Error = "";
+    }
+}
+
+<script>
+    $(document).ready(function () {
+
+        $("#TermID").prop('required', true);
+
+    });
+</script>
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">Academics</a> > <a href="#"><b>Term Assessment</b></a></label>
+<h4>Create Term Assessment</h4>
+
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="form-three widget-shadow">
+            @using (Html.BeginForm("CreateTermAssessments", "TermAssessment"))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="forms form-horizontal">
+
+                    <form class="forms form-horizontal">
+                        @if (ViewBag.Error == "")
+                        { 
+                            <div class="form-group">
+                                <lable class="col-md-1 col-lg-1 ">Select Term</lable>
+                                <div class="col-md-6">
+                                    @Html.DropDownList("TermID", null, htmlAttributes: new { @class = "form-control", name = "term" })
+                                </div>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-offset-1 col-lg-offset-1 col-md-10">
+                                <input type="submit" value="Submit" class="btn btn-primary" />
+                            </div>
+                        </div>
+                        }
+                        else
+                        {
+                            @ViewBag.Error;
+                        }
+                    </form>
+                </div>
+            }
+        </div>
+        </div>
+        </div>

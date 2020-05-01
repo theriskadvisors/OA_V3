@@ -1,0 +1,93 @@
+﻿@model SEA_Application.Models.AspNetStudent_Assessment
+@{
+    ViewBag.Title = "Student_Assessment_Submission";
+}
+
+<h2>Student_Assignment_Submission</h2>
+
+<div>
+    <h4>Student_Assignment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @using (Html.BeginForm("Student_Assessment_Submission", "Student_Dashboard", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <dt>
+                <input type="hidden" name="id" id="id" value=@Model.Id>
+            </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.AspNetAssessment.FileName)
+            </dt>
+            if (@Model.AspNetAssessment.FileName != "-/-")
+            {
+                <dd>
+                    @Html.ActionLink(Model.AspNetAssessment.FileName, "downloadAssessmentFile", new { id = Model.AspNetAssessment.Id })
+                </dd>
+            }
+            else
+            {
+
+                <dd>
+                    @Html.DisplayFor(model => model.AspNetAssessment.FileName)
+                </dd>
+            }
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AspNetAssessment.DueDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AspNetAssessment.DueDate)
+            </dd>
+           
+            <dt>
+                @Html.DisplayNameFor(model => model.SubmissionStatus)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SubmissionStatus)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.SubmittedFileName)
+            </dt>
+
+            if (@Model.SubmittedFileName != "-/-")
+            {
+                <dd>
+                    @Html.ActionLink(Model.SubmittedFileName, "downloadStudentSubmittedFile", new { id = Model.Id })
+                </dd>
+            }
+            else
+            {
+
+                <dd>
+                    @Html.DisplayFor(model => model.SubmittedFileName)
+                </dd>
+            }
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SubmissionDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.SubmissionDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.AspNetAssessment.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AspNetAssessment.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AspNetAssessment.AspNetSubject_Catalog.AspNetSubject.AspNetUser.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AspNetAssessment.AspNetSubject_Catalog.AspNetSubject.AspNetUser.Name)
+            </dd>
+           
+        }
+
+    </dl>
+</div>

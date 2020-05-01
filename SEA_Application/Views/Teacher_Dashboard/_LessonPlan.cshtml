@@ -1,0 +1,292 @@
+﻿@model SEA_Application.Models.AspNetLessonPlanBreakdown
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+
+
+
+        $("#btnAdd").bind("click", function () {
+
+            $("#class_Lesson_body").append(GetDynamicTextBox(""));
+            $('#class_Lesson_body tr:last td:first #DynamicDropDown').append($("#LessonPlanHeadingID").clone());
+            $('#btnRemove').click(function () {
+                $(this).closest('tr').remove();
+            })
+        });
+
+
+
+        $("#btnGet").bind("click", function () {
+            var values = "";
+            $("input[name=DynamicDropDown]").each(function () {
+                values += $(this).val() + "\n";
+            });
+            alert(values);
+        });
+        $("body").on("click", ".remove", function () {
+            $(this).closest("tr").remove();
+        });
+
+
+        function SomeDeleteRowFunction(btndel) {
+            if (typeof (btndel) == "object") {
+                $(btndel).closest("tr").remove();
+            } else {
+                return false;
+            }
+        }
+
+
+        function GetDynamicTextBox(value) {
+            //var html = '<tr><td id="DynamicDropDown"></td></tr><tr><td><input type="text" id="DynamicDescriptionValue" style="height: 100px;text-align: center; width:280px; " placeholder="Description" class="form-control"></td></tr><tr><td><input type="text" style="text-align: center;" id="DynamicTypeValue" placeholder="Type" class="form-control"></td></tr><tr><td><input type="number" style="text-align: center;" id="DynamicMinutesValue" placeholder="Minutes" class="form-control"></td></tr><tr><td><input type="number" style="text-align: center;" id="DynamicPriorityValue" placeholder="Priority" class="form-control"></td><td><input type="button" class="btn btn-danger remove" value="Delete Row" onclick="SomeDeleteRowFunction(this);"></td></tr>';
+            var html = '<tr><td><div id="DynamicDropDown"></div><br /><div class="col-md-10"><input type="text" id="DynamicDescriptionValue" style="height: 100px;text-align: center; width:280px; " placeholder="Description" class="form-control"></div><br /><div class="col-md-10"><input type="text" style="text-align: center;" id="DynamicTypeValue" placeholder="Resources" class="form-control"></div><br /><div class="col-md-10"><input type="number" style="text-align: center;" id="DynamicMinutesValue" placeholder="Minutes" class="form-control"></div><br /><div class="col-md-10"><input type="number" style="text-align: center;" id="DynamicPriorityValue" placeholder="Priority" class="form-control"></div><br /><div class="col-md-10"><input type="button" class="btn btn-danger remove" value="Delete Row" onclick="SomeDeleteRowFunction(this);"></div></td></tr>';
+            //var html = '<tr><td><div id="DynamicDropDown"></div><br /><div class="col-md-10"><form><div id="toolbar" style="display: none;"><a data-wysihtml5-command="bold" title="CTRL+B">bold</a> |<a data-wysihtml5-command="italic" title="CTRL+I">italic</a> |<a data-wysihtml5-command="createLink">insert link</a> |<a data-wysihtml5-command="insertImage">insert image</a> |<a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">h1</a> |<a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2">h2</a> |<a data-wysihtml5-command="insertUnorderedList">insertUnorderedList</a> |<a data-wysihtml5-command="insertOrderedList">insertOrderedList</a> |<a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red">red</a> | <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green">green</a> |<a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue">blue</a> |<a data-wysihtml5-command="insertSpeech">speech</a><a data-wysihtml5-action="change_view">switch to html view</a><div data-wysihtml5-dialog="createLink" style="display: none;"><label>Link:<input data-wysihtml5-dialog-field="href" value="http://"></label><a data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancel</a></div><div data-wysihtml5-dialog="insertImage" style="display: none;"><label>Image:<input data-wysihtml5-dialog-field="src" value="http://"></label><label>Align:<select data-wysihtml5-dialog-field="className"><option value="">default</option><option value="wysiwyg-float-left">left</option><option value="wysiwyg-float-right">right</option></select></label><a data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancel</a></div></div><textarea id="DynamicDescriptionValue" placeholder="Description ..."></textarea><br><input type="reset" value="Reset form!"></form><br /><div class="col-md-10"><input type="text" style="text-align: center;" id="DynamicTypeValue" placeholder="Resources" class="form-control"></div><br /><div class="col-md-10"><input type="number" style="text-align: center;" id="DynamicMinutesValue" placeholder="Minutes" class="form-control"></div><br /><div class="col-md-10"><input type="number" style="text-align: center;" id="DynamicPriorityValue" placeholder="Priority" class="form-control"></div><br /><div class="col-md-10"><input type="button" class="btn btn-danger remove" value="Delete Row" onclick="SomeDeleteRowFunction(this);"></div></td></tr>';
+
+            return html;
+        }
+
+
+        var LessonPlan =
+                {
+                    EnteredLessonPlanID: '',
+                    EnteredLessonHeadingID: '',
+                    EnteredDescription: '',
+                    EnteredResources: '',
+                    EnteredMinutes: '',
+                    EnteredPriority: '',
+
+                };
+        LessonPlans = [];
+        $(document).ready(function () {
+            $('#btnSave').click(function () {
+                LessonPlans = [];
+                $('table tbody tr').each(function () {
+                    LessonPlan = Object.create(LessonPlan);
+                    LessonPlan.EnteredLessonPlanID = $('#LessonPlansID').val();
+                    LessonPlan.EnteredLessonHeadingID = $('#LessonPlanHeadingID', this).val();
+                    LessonPlan.EnteredDescription = $('#DynamicDescriptionValue', this).val();
+                    LessonPlan.EnteredResources = $('#DynamicTypeValue', this).val();
+                    LessonPlan.EnteredMinutes = $('#DynamicMinutesValue', this).val();
+                    LessonPlan.EnteredPriority = $('#DynamicPriorityValue', this).val();
+                    LessonPlans.push(LessonPlan);
+                });
+                cur = JSON.stringify({ 'cur': LessonPlans });
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: '/Teacher_Dashboard/AddLessonPlanBreakdown',
+                    data: cur,
+                    success: function () {
+
+                        var popup = document.getElementById("myPopup");
+                        popup.innerHTML = "Successfuly Saved";
+                        popup.classList.toggle("show");
+                        console.log("popup data", popup.innerHTML);
+                        $('#partial').html('curriculum Successfully Save');
+                    },
+                    failure: function (response) {
+                        var popup = document.getElementById("myPopup");
+                        popup.innerHTML = "Save operation failed";
+                        popup.classList.toggle("show");
+                        console.log("popup data", popup.innerHTML);
+                        $('#partial').html('Something went wrong');
+                    }
+                });
+            });
+
+
+
+        });
+
+
+
+
+
+
+        $('#SubjectID').prop('disabled', true);
+        $("#ClassID").click(function () {
+            var selectedClass = $("#ClassID").val();
+            console.log("class", selectedClass);
+            document.cookie = "ClassCookie_ClassCurr=" + selectedClass + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+            SubjectsListByClass(selectedClass);
+        });
+        $("#SubjectID").click(function () {
+            var selectedSubject = $("#SubjectID").val();
+            console.log("class", selectedSubject);
+            document.cookie = "SubjectsCookie_ClassCurr=" + selectedSubject + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+            ChaptersBySub(selectedSubject);
+
+        });
+        $("#ChapterID").click(function () {
+            var selectedChapter = $("#ChapterID").val();
+            console.log("class", selectedChapter);
+            document.cookie = "SubjectsCookie_ClassCurr=" + selectedChapter + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+            TopicsByChapter(selectedChapter);
+
+        });
+        $("#TopicID").click(function () {
+            var selectedTopic = $("#TopicID").val();
+            //document.cookie = "SubjectsCookie_ClassCurr=" + selectedTopic + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+            LessonPlansByTopic(selectedTopic);
+
+        });
+
+
+
+
+        var lessonPlanId;
+        function LessonPlansByTopic(topicid) {
+            console.log("topic", topicid);
+            $.get('@Url.Action("LessonByTopic","Teacher_Dashboard")',
+                { id: topicid }, function (data) {
+                    $.each(data, function (i, item) {
+                        lessonPlanId = item.Id;
+                    });
+
+
+                });
+        }
+
+        function SubjectsListByClass(classid) {
+            $.get('@Url.Action("SubjectsByClass","Teacher_Dashboard")',
+                { id: classid }, function (data) {
+                    $('#SubjectID').html('');
+                    $('#SubjectID').prop('disabled', false);
+                    $.each(data, function (i, item) {
+                        $('#SubjectID').append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
+                    });
+
+                });
+        }
+
+
+
+
+        function ChaptersBySub(subID) {
+            $.get('@Url.Action("ChapterBySubject", "AspNetTopic")',
+                { id: subID }, function (data) {
+                    $('#ChapterID').html('');
+                    $('#ChapterID').prop('disabled', false);
+                    $.each(data, function (i, item) {
+                        //(item);
+                        $('#ChapterID').append('<option value=' + item.Id + '>' + item.ChapterName + '</option>');
+                    });
+
+                });
+        }
+
+
+        function TopicsByChapter(subID) {
+            $.get('@Url.Action("TopicsByChapter", "Teacher_Dashboard")',
+                { id: subID }, function (data) {
+                    //(subID);
+                    $('#TopicID').html('');
+                    $('#TopicID').prop('disabled', false);
+                    $.each(data, function (i, item) {
+                        //(item);
+                        $('#TopicID').append('<option value=' + item.Id + '>' + item.TopicName + '</option>');
+                    });
+
+                });
+        }
+
+        function LessonPlansByTopic(topID) {
+            $.get('@Url.Action("LessonPlansByTopic", "Teacher_Dashboard")',
+                { id: topID }, function (data) {
+                    console.log("data stringfy:", JSON.stringify(data));
+                    $('#LessonPlansID').html('');
+                    $('#LessonPlansID').prop('disabled', false);
+                    console.log("lesson plan function called");
+                    $.each(data, function (i, item) {
+                        $('#LessonPlansID').append('<option value=' + item.id + '>' + item.name + '</option>');
+                    });
+
+                });
+        }
+
+    });
+</script>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="form-horizontal">
+            <h4>AspNetLessonPlan</h4>
+            @* <hr />
+                @Html.ActionLink("New Lesson Plan", "AddLessonPlan", "AspNetLessonPlans")<br />
+                @Html.ActionLink("New Lesson Plan Heading", "Create", "AspNetLessonPlanHeadings")
+                <hr />*@
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <lable class="control-label col-md-3"><b>Class</b></lable>
+                <div class="col-md-8">
+                    @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+
+                </div>
+            </div>
+            <div class="form-group">
+                <br />
+                <label class="col-md-3 control-label"><b>Select Subject</b></label>
+                <div class="col-md-8">
+                    <select class="form-control" id="SubjectID" name="subjects"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <br />
+                <lable class="col-md-3 control-label"><b>Select Chapter</b></lable>
+                <div class="col-md-8">
+                    <select class="form-control" id="ChapterID" name="chapters"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <br />
+                <lable class="col-md-3 control-label"><b>Select Topic</b></lable>
+                <div class="col-md-8">
+                    <select class="form-control" id="TopicID" name="topics"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <br />
+                <lable class="col-md-3 control-label"><b>Select Lesson Plan</b></lable>
+                <div class="col-md-8">
+                    <select class="form-control" id="LessonPlansID" name="lessonplans"></select>
+                </div>
+            </div>
+
+            <br />
+            <hr />
+
+            <div class="form-group">
+                <button id="btnAdd" type="button" class="btn btn-primary">Add</button>
+
+            </div>
+            <div id="TextBoxContainer">
+                <!--Textboxes will be added here -->
+            </div>
+
+            <table id="TextBoxContainerTable" class="table table-striped ">
+                <tbody id="class_Lesson_body" style="align-content:center"></tbody>
+            </table>
+            <div class="form-group">
+                <div class="col-md-10" hidden>
+
+                    @Html.DropDownList("LessonPlanHeadingID", null, htmlAttributes: new { @class = "form-control", @hidden = true })
+
+                </div>
+
+            </div>
+
+            <div class="form-group" style="align-content:center">
+                <button id="btnSave" type="button" class="btn btn-primary">Save</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,67 @@
+﻿@model SEA_Application.Models.AspNetTimeTable
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AspNetTimeTable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Timestamp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Timestamp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Day)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Day)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetRoom.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetRoom.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetSubject.SubjectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetSubject.SubjectName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetTimeslot.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetTimeslot.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

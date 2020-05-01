@@ -1,0 +1,192 @@
+﻿@model SEA_Application.Models.AspNetSalary
+<script src="~/AdminLTE/selectone.js"></script>
+
+@{
+    ViewBag.Title = "Create";
+
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "January",
+        Value = "January"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "February",
+        Value = "February",
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "March",
+        Value = "March",
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "April",
+        Value = "April",
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "May",
+        Value = "May",
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "June",
+        Value = "June",
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "July",
+        Value = "July",
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "August",
+        Value = "August",
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "September",
+        Value = "September",
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "October",
+        Value = "October",
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "November",
+        Value = "November",
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "December",
+        Value = "December",
+    });
+
+    List<SelectListItem> YearItems = new List<SelectListItem>();
+    YearItems.Add(new SelectListItem
+    {
+        Text = "2017",
+        Value = "2017"
+    });
+    YearItems.Add(new SelectListItem
+    {
+        Text = "2018",
+        Value = "2018",
+    });
+    YearItems.Add(new SelectListItem
+    {
+        Text = "2019",
+        Value = "2019",
+    });
+    YearItems.Add(new SelectListItem
+    {
+        Text = "2020",
+        Value = "2020",
+    });
+    YearItems.Add(new SelectListItem
+    {
+        Text = "2021",
+        Value = "2021",
+    });
+}
+
+<script>
+    $(document).ready(function () {
+        $("#Month").prop('required', true);
+        $("#Month").prop('type', 'text');
+
+        $("#VirtualRoleID").prepend("<option value='0' selected>All</option>");
+    })
+
+    function redirect() {
+        var Month = $("#Month").val();
+        var Year = $("#Year").val();
+        var Title = $("#Title").val();
+        var VID = $("#VirtualRoleID").val();
+        
+        if (Month != null && Month != "" && Title != null && Title != "" && VID != null && VID != "") {
+            var url = '@Url.Action("Create", "AspNetSalaryDetail")';
+            var URL = url + "?Month=" + Month + "&Title=" + Title + "&VId=" + VID + "&Year=" + Year;
+            window.location.href = URL;
+        } else {
+            $("#myErrorModal").modal('show');
+        }
+
+        
+    }
+
+</script>
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">Accounts Management</a> > @Html.ActionLink("Salary", "Index", "AspNetSalaries") > <a href="#"><b>Create</b></a> </label>
+<h4>Create</h4>
+
+<div class="box box-primary">
+    <div class="box-body">
+
+        <div class="form-horizontal">
+            <h4>Salary</h4>
+            <hr />
+
+            <div class="form-group">
+                <label class="control-label col-md-1 col-lg-1">Year<span class="red-mark">*</span></label>
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.Year, YearItems, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-1 col-lg-1">Month<span class="red-mark">*</span></label>
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.Month, listItems,new { @class = "form-control"})
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-1 col-lg-1">Title<span class="red-mark">*</span></label>
+                <div class="col-md-6">
+                    <input type="text" id="Title" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-1 col-lg-1">Virtual Role<span class="red-mark">*</span></label>
+                <div class="col-md-6">
+                    @Html.DropDownList("VirtualRoleID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.VirtualRoleID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <hr />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-lg-offset-1 col-md-2">
+                    <button class="btn btn-primary" onclick="redirect()">Create</button>
+                    <button class="btn btn-default" onclick="window.location.href='Index'">Cancel</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="myErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="exampleModalLabel">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-danger">
+                The * fields are required
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

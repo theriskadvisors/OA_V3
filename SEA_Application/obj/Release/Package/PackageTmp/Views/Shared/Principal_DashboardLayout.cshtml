@@ -1,0 +1,222 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<aside class="main-sidebar">
+    <section class="sidebar">
+        @*<div class="user-panel">
+            <div class="pull-left image">
+                <img src="~/AdminLTE/dist/img/user.svg" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+        </div>*@
+
+        <ul class="sidebar-menu">
+            <li class="header">Users</li>
+            <li id="left-sidebar-menu-widgets">
+                <a href="@Url.Action("StudentsIndex", "AspNetUser")">
+                    <i class="fa fa-user"></i> <span style="color:#8aa4af !important">Students</span>
+                </a>
+            </li>
+            <li id="left-sidebar-menu-widgets">
+                <a href="@Url.Action("TeachersIndex", "AspNetUser")">
+                    <i class="fa fa-graduation-cap"></i> <span style="color:#8aa4af !important">Teachers</span>
+                </a>
+            </li>
+            <li id="left-sidebar-menu-widgets">
+                <a href="@Url.Action("ParentIndex", "AspNetUser")">
+                    <i class="fa fa-female"></i> <span style="color:#8aa4af !important">Parents</span>
+                </a>
+            </li>
+            <li id="left-sidebar-menu-widgets">
+                <a href="@Url.Action("AccountantIndex", "AspNetUser")">
+                    <i class="fa fa-bar-chart"></i> <span style="color:#8aa4af !important">Accountant</span>
+                </a>
+            </li>
+            <li id="left-sidebar-menu-widgets">
+                <a href="@Url.Action("Index", "AspNetEmployees")">
+                    <i class="fa fa-users"></i> <span style="color:#8aa4af !important">Employees</span>
+                </a>
+            </li>
+           
+            <li id="left-sidebar-menu-widgets">
+                <a href="@Url.Action("EmployeeAttendance", "Principal_Dashboard")">
+                    <i class="fa fa-plus"></i> <span style="color:#8aa4af !important">Attendance</span>
+                </a>
+            </li>
+
+            <li class="header">Academics</li>
+            @*<li id="left-sidebar-menu-widgets">
+                <a href="@Url.Action("Index", "AspNetSession")">
+                    <i class="fa fa-exchange"></i> <span style="color:#8aa4af !important">Session</span>
+
+                </a>
+            </li>
+            <li id="left-sidebar-menu-widgets">
+                <a href="@Url.Action("Index", "AspNetTerm")">
+                    <i class="fa fa-sitemap"></i> <span style="color:#8aa4af !important">Term</span>
+
+                </a>
+            </li>*@
+
+            @*<li id="left-sidebar-menu-widgets">
+                <a href="@Url.Action("Create", "AspNetCatalog")">
+                    <i class="fa fa-book"></i> <span>Add Catalog</span>
+                   
+                </a>
+            </li>*@
+            
+            <li id="left-sidebar-menu-widgets">
+                <a href="@(Url.Action("Class_Assessment", "Admin_Dashboard"))">
+                    <i class="fa fa-pie-chart"></i> <span style="color:#8aa4af !important">Student Term Assessement</span>
+
+                </a>
+            </li>
+            <li id="left-sidebar-menu-widgets">
+                <a href="@(Url.Action("Index", "AspNetHomeWorks"))">
+                    <i class="fa fa-pie-chart"></i> <span style="color:#8aa4af !important">Diary</span>
+
+                </a>
+            </li>
+            <li id="left-sidebar-menu-charts">
+                <a href="~/AspNetParentTeacherMeetings/Index">
+                    <i class="fa fa-clock-o"></i>
+                    <span style="color:#8aa4af !important">Parent Teacher Meeting </span>
+                </a>
+                @*<ul class="treeview-menu">
+                    <li id="left-sidebar-menu-charts-chartjs"><a href="@Url.Action("Create", "AspNetParentTeacherMeetings")"><i class="fa fa-circle-o"></i>Add PTM</a></li>
+                    <li id="left-sidebar-menu-charts-morris"><a href="@Url.Action("Index", "AspNetParentTeacherMeetings")"><i class="fa fa-circle-o"></i>View PTM</a></li>
+                    <li id="left-sidebar-menu-charts-morris"><a href="@Url.Action("ParentForm", "AspNetFeedBackForm")"><i class="fa fa-circle-o"></i> Parent Feedback Form</a></li>
+                    <li id="left-sidebar-menu-charts-morris"><a href="@Url.Action("TeacherForm", "AspNetFeedBackForm")"><i class="fa fa-circle-o"></i> Teacher Feedback Form</a></li>
+                </ul>*@
+            </li>
+            @*<li id="left-sidebar-menu-charts" class="treeview">
+                <a href="#">
+                    <i class="fa fa-tasks"></i>
+                    <span style="color:#8aa4af !important">Term Assessment</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li id="left-sidebar-menu-charts-morris"><a href="@Url.Action("Index", "AspNetAssessment_Questions_Category")"><i class="fa fa-circle-o"></i> Question Categories</a></li>
+                    
+                    <li id="left-sidebar-menu-charts-morris"><a href="@Url.Action("Index", "AspNetAssessment_Question")"><i class="fa fa-circle-o"></i> Subject Questions</a></li>
+                    <li id="left-sidebar-menu-charts-chartjs"><a href="@Url.Action("CreateTermAssessment","TermAssessment")"><i class="fa fa-circle-o"></i>Add Assessments</a></li>
+                </ul>
+            </li>*@
+
+
+            <li class="header">Hierarchy</li>
+            <li id="left-sidebar-menu-charts" class="treeview">
+                <a href="@Url.Action("Index", "AspNetClass")">
+                    <i class="fa fa-list-ol"></i>
+                    <span style="color:#8aa4af !important">Classes</span>
+                </a>
+                @*<ul class="treeview-menu">
+                    <li id="left-sidebar-menu-charts-chartjs"><a href="@Url.Action("Create", "AspNetClass")"><i class="fa fa-circle-o"></i>Add Class</a></li>
+                    <li id="left-sidebar-menu-charts-morris"><a href="@Url.Action("Index", "AspNetClass")"><i class="fa fa-circle-o"></i>View Classes</a></li>
+                </ul>*@
+            </li>
+            <li id="left-sidebar-menu-charts" class="treeview">
+                <a href="@Url.Action("ClassIndex", "AspNetSubject")">
+                    <i class="fa fa-list-ul"></i>
+                    <span style="color:#8aa4af !important">Subjects</span>
+                    @*<i class="fa fa-angle-left pull-right"></i>*@
+                </a>
+                @*<ul class="treeview-menu">
+                    <li id="left-sidebar-menu-charts-chartjs"><a href="@Url.Action("Create", "AspNetSubject")"><i class="fa fa-circle-o"></i> Add Subject</a></li>
+                    <li id="left-sidebar-menu-charts-morris"><a href="@Url.Action("ClassIndex", "AspNetSubject")"><i class="fa fa-circle-o"></i> View Subject</a></li>
+                </ul>*@
+            </li>
+
+            <li class="header">General</li>
+            <li id="left-sidebar-menu-widgets">
+                <a href="@Url.Action("ViewLogs", "AspNetLogs")">
+                    <i class="fa fa-eye"></i> <span style="color:#8aa4af !important">View Log</span>
+                </a>
+            </li>
+            
+            @*<li id="left-sidebar-menu-charts" class="treeview">
+                <a href="#">
+                    <i class="fa fa-bar-chart"></i>
+                    <span>Accountant</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li id="left-sidebar-menu-charts-chartjs"><a href="@Url.Action("AccountantRegister","Admin_Dashboard")"><i class="fa fa-circle-o"></i>Add Accountant</a></li>
+                    <li id="left-sidebar-menu-charts-morris"><a href="@Url.Action("AccountantIndex", "AspNetUser")"><i class="fa fa-circle-o"></i>View Accountants</a></li>
+                </ul>
+            </li>
+            <li id="left-sidebar-menu-charts" class="treeview">
+                <a href="#">
+                    <i class="fa fa-female"></i>
+                    <span>Parents</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li id="left-sidebar-menu-charts-chartjs"><a href="@Url.Action("ParentRegister","Admin_Dashboard")"><i class="fa fa-circle-o"></i>Add Parent</a></li>
+                    <li id="left-sidebar-menu-charts-morris"><a href="@Url.Action("ParentIndex", "AspNetUser")"><i class="fa fa-circle-o"></i> View Parent</a></li>
+                </ul>
+            </li>*@
+
+
+
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Inbox", "AspNetMessages"))">
+                    <i class="fa fa-envelope"></i>
+                    <span style="color:#8aa4af !important">MailBox</span>
+                </a>
+            </li>
+            
+            <li id="left-sidebar-menu-widgets">
+                <a href="https://smartereduanalytics.on.spiceworks.com/portal/tickets">
+                    <i class="fa fa-support"></i> <span style="color:#8aa4af !important">Support</span>
+                </a>
+            </li>
+
+            <li class="header">Teacher</li>
+
+            <li id="left-sidebar-menu-charts">
+                <a href="@(Url.Action("View_LessonPlan", "AspNetLessonPlan"))">
+                    <i class="fa fa-clock-o"></i>
+                    <span style="color:#8aa4af !important">Lesson Plans</span>
+                </a>
+            </li>
+
+            <li id="left-sidebar-menu-charts">
+                <a href="@(Url.Action("Index", "AspNetProject"))">
+                    <i class="fa fa-clock-o"></i>
+                    <span style="color:#8aa4af !important">Projects</span>
+                </a>
+            </li>
+
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Index", "AspNetStudentPerformanceReport"))">
+                    <i class="fa fa-bullhorn"></i>
+                    <span>Progress Report</span>
+                </a>
+            </li>
+
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Teacher_Announcement", "Teacher_Dashboard"))">
+                    <i class="fa fa-bullhorn"></i>
+                    <span>Announcement</span>
+                </a>
+            </li>
+
+            @*<li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Student_Attendance", "Student_Dashboard"))">
+                    <i class="fa fa-list-ol"></i>
+                    <span>Attendance</span>
+                </a>
+            </li>*@
+        </ul>
+    </section>
+</aside>
+<div class="content-wrapper">
+
+    <section class="content">
+        @RenderBody()
+    </section>
+</div>

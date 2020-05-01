@@ -1,0 +1,15 @@
+ function download() {
+        var classId = $("#Class").val();
+        var myUrlPattern = '.local';
+
+        if (window.location.hostname === "localhost" || location.hostname === "127.0.0.1" || window.location.hostname.indexOf(myUrlPattern) >= 0) {
+        var url = "http://localhost:1331/AspNetUser/StudentExcelRecord?ClassId=" + classId;
+        var WINDOW = window.open(url, '_blank');
+          
+        }
+        else {
+
+        var url = "http://sea-oacss.com/AspNetUser/StudentExcelRecord?ClassId=" + classId;
+        var WINDOW = window.open(url, '_blank');
+
+        }

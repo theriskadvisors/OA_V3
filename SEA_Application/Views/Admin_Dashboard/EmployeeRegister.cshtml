@@ -1,0 +1,216 @@
+﻿@model SEA_Application.Models.AspNetEmployee
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+<script>
+    function onCancel() {
+        $('#cancel').click();
+    }
+    function onSave() {
+        $('#FormSubmit').click();
+    }
+</script>
+
+<h4 class="orange">Add Employee</h4>
+<div class="row" style="padding-bottom: 10px; padding-top: 10px; padding-left: 20px; padding-right: 20px;">
+    <button class="btn btn-danger pull-left btn-sm" onclick="onCancel()">
+        Cancel
+    </button>
+    <button class="pull-right" style="background-color: transparent; border: none; outline: none; font-size: 20px; color: rgb(89, 89, 89) !important" onclick="onSave()">
+        <i class="fa fa-floppy-o"></i>
+    </button>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1" data-toggle="tab">Add Employee</a></li>
+                <li><a href="#tab_2" data-toggle="tab">Upload Excel File</a></li>
+            </ul>
+
+            <div class="tab-content" >
+                <div class="tab-pane active" id="tab_1">
+
+                    <div class="form-three widget-shadow">
+                        @using (Html.BeginForm("EmployeeRegister", "Admin_Dashboard", FormMethod.Post, new { @class = "forms form-horizontal", role = "form" }))
+            {
+                            @Html.AntiForgeryToken()
+
+                            <hr />
+                            <div class="box box-primary">
+                                <div class="box-header with-border"><h4>Create a new Employee</h4></div>
+                                <div class="box-body">
+                                    <!--Html.ValidationSummary("", new { class = "text-danger" })-->
+                                    <br />
+                                    <br />
+
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Position Applied For</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="appliedFor" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Date Available</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="dateAvailable" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Full Name</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="fullName" />
+                                        </div>
+                                    </div>
+
+                                    <br />
+                                    <br />
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="text-center">
+                                                <label class="control-label">BIRTH DATE (D/M/Y)</label>
+                                                <input type="date" name="birthDate" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="text-center">
+                                                <label class="control-label">NATIONALITY</label>
+                                                <input type="text" name="nationality" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="text-center">
+                                                <label>RELIGION</label>
+                                                <input type="text" name="religion" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="text-center">
+                                                <label>BOY / GIRL</label>
+                                                <input type="text" name="gender" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <br />
+
+                                    <div class="box box-primary">
+                                            <h3 class="box-title"><b>CONTACT DATA</b></h3>
+                                            <br />
+                                            <br />
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-md-2 control-label">Mailing Address</label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" id="inputEmail3" name="mailingAddress">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-md-2 control-label">Email</label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" id="inputEmail3" name="email">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-md-2 control-label">Cell No.</label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" id="inputEmail3" name="cellNo">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-md-2 control-label">Land line No.</label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" id="inputEmail3" name="landLine">
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                    <div class="box box-primary">
+                                            <h3 class="box-title"><b>SPOUSE DATA (if applicable)</b></h3>
+                                            <br />
+                                            <br />
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-md-2 control-label">Name of Spouse</label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" id="inputEmail3" name="spouseName">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-md-2 control-label">Highest Degree</label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" id="inputEmail3" name="spouseHighestDegree">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-md-2 control-label">Occupation</label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" id="inputEmail3" name="spouseOccupation">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-md-2 control-label">Business Address</label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" id="inputEmail3" name="spouseBusinessAddress">
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-offset-2 col-md-2">
+                                                <button type="submit" class="btn btn-primary" value="Register">Register</button>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button type="button" id="cancel" class="btn btn-danger">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="tab-pane" id="tab_2">
+                    <div class="box box-primary">
+                        <div class="box-header with-border"><h4>Upload Excel File</h4></div>
+
+                        <div class="form-three widget-shadow">
+                            @using (Html.BeginForm("StudentfromFile", "Admin_Dashboard", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <div class="form-group">
+                                    <div class="control-label col-md-3"><b>Excel File</b></div>
+                                    <div class="col-md-4">
+                                        <input id="students" name="students" type="file" />
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
+                                <div class="box-footer">
+                                    <div class="form-group">
+                                        <div class="col-md-2">
+                                            <input type="submit" class="btn btn-primary" value="Register" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

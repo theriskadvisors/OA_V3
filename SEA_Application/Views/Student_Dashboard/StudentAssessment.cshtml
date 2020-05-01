@@ -1,0 +1,100 @@
+﻿@model SEA_Application.Models.AspNetTerm
+@{
+    if (ViewBag.Error == "" || ViewBag.Error == null)
+    {
+        ViewBag.Error = "";
+    }
+}
+
+<script src="~/AdminLTE/plugins/jquery/js/jQuery-2.1.4.min.js"></script>
+<script>
+
+    $("document").ready(function () {
+
+        $("#TermId").click(function () {
+
+            var TermId = $("#TermId").val();
+            $.ajax({
+                type: "post",
+                url: "/Student_Dashboard/Assessment",
+                data: { 'TermId': TermId },
+                success: function (Assessment_DATA) {
+                    console.log(Assessment_DATA);
+
+                    $("#Student_assessment").html(' ');
+
+                    if (Assessment_DATA.PrincipleComment != null) {
+                        var z = 0;
+                        var categoryContainer = null;
+                        var subContainer = null;
+                        for (var i = 0; i < Assessment_DATA.assessment_data.length; i++) {
+                            $("#Student_assessment").append("<div style='background-color:Primaryblue' class='box box-primary box-body col-md-12 text-center text-bold'>" + Assessment_DATA.assessment_data[i].SubjectName + "</div>");
+
+                            for (var x = 0; x < Assessment_DATA.assessment_data[i].CatageoryList.length; x++) {
+                                var currentId = 'current_' + z;
+                                categoryContainer = '<div id = "' + currentId + '" class = "col-md-6">' +
+                                '<div class="text-bold">' + Assessment_DATA.assessment_data[i].CatageoryList[x].catageoryName + '</div>'
+                                + '</div>';
+                                $("#Student_assessment").append(categoryContainer);
+
+                                var subContainerId = 'subContainer_' + z;
+                                for (var y = 0; y < Assessment_DATA.assessment_data[i].CatageoryList[x].QuestionList.length; y++) {
+                                    subContainer = '<div id="' + subContainerId + '"><div class="col-md-11">' + Assessment_DATA.assessment_data[i].CatageoryList[x].QuestionList[y].Question + '<hr /></div> <div class="col-md-1">' + Assessment_DATA.assessment_data[i].CatageoryList[x].QuestionList[y].Answer + '</div></div>';
+
+                                    $("#" + currentId).append(subContainer);
+                                }
+                                z++;
+                            }
+
+                            $("#Student_assessment").append("<div class='col-md-11 text-bold'>Teacher Comments</div><div class='col-md-1'>" + Assessment_DATA.assessment_data[i].TeacherComment + "</div>");
+                        }
+                        $("#principal_comment").append("<div class='text-bold'>Principle Comments</div><div>" + Assessment_DATA.PrincipleComment + "</div>");
+                    } else {
+                        $("#Student_assessment").append("<tr><td>Your assessment is in processing</td></tr>")
+                    }
+
+                }
+
+
+            });
+
+        });
+
+    });
+
+</script>
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">User</a> > <a href="#"><b>Term Assessment</b></a></label>
+<h4>Assessment</h4>
+<div class="box box-primary">
+    <div class="box-title"></div>
+    <div class="box-body">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="box-body">
+                        <div class="form-group">
+                            <lable class="col-md-1 control-label"><b>Select Term</b></lable>
+                            <div class="col-md-offset-1 col-md-6">
+                                @Html.DropDownList("TermId", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="box-body">
+    <div class="dataTable" id="Student_assessment">
+
+    </div>
+</div>
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="dataTable" id="principal_comment">
+        </div>
+    </div>
+</div>
+
+
+
+
+

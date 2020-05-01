@@ -1,0 +1,123 @@
+﻿@model SEA_Application.Models.VoucherRecord
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<script>
+    $(document).ready(function () {
+     
+    })
+    function GetCurrentBalance()
+    {
+        var ledgerid = $("#LedgerId").val();
+        $.ajax({
+            type: "POST",
+            url: "/VoucherRecords/GetCurrentBalance",
+            data: { ledgerid: ledgerid },
+            success: function (data) {
+                debugger;
+                $("#CurrentBalance").val(data);
+            }
+        })
+    }
+    function GetAfterBalance() {
+        debugger;
+        var amount = $("#Amount").val();
+        var ledgerid = $("#LedgerId").val();
+        var type = $("#TrType").val();
+       // $('#Gender option[value="' + ge + '"]').prop('selected', true);
+
+        $.ajax({
+            type: "POST",
+            url: "/VoucherRecords/AfterBalance",
+            data: {amount:amount, ledgerid: ledgerid,type,type },
+            success: function (data) {
+                debugger;
+                $("#AfterBalance").val(data);
+            }
+        })
+    }
+</script>
+<div class="col-md-8 col-md-offset-1" style="background-color:#f1f2e5;border-radius:10px;margin-top:50px;box-shadow: rgba(0, 0, 0, 0.16) 5px 10px 5px, rgba(0, 0, 0, 0.23) 0px 3px 5px">
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "Registerform" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Voucher Record</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-3">
+                    <span>Ledger</span>
+                    @Html.DropDownList("LedgerId", null, htmlAttributes: new { @class = "form-control",@onblur= "GetCurrentBalance()" })
+                    @Html.ValidationMessageFor(model => model.LedgerId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                <div class="col-md-3">
+                    <span>
+                        Transaction Type
+                    </span>
+                    @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            <div class="form-group">
+                <div class="col-md-3">
+                    <span>
+                        Transaction Type
+                    </span>
+                    <select class="form-control" id="TrType">
+                        <option>---Select One---</option>
+                        <option value="Debit">Debit</option>
+                        <option value="Credit">Credit</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-3">
+                    <span>Amount</span>
+                    @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @onblur = "GetAfterBalance()" } })
+                    @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-3">
+                    <span>Current Balance</span>
+                    @Html.EditorFor(model => model.CurrentBalance, new { htmlAttributes = new { @class = "form-control",@readonly="readonly" } })
+                    @Html.ValidationMessageFor(model => model.CurrentBalance, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    <span>After Balance</span>
+                    @Html.EditorFor(model => model.AfterBalance, new { htmlAttributes = new { @class = "form-control",@readonly="readonly" } })
+                    @Html.ValidationMessageFor(model => model.AfterBalance, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    <span>Voucher</span>
+                    @Html.DropDownList("VoucherId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.VoucherId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+    }
+
+    <div class="col-md-5">
+        <br />
+        <button class="col-md-2" onclick="window.location.href = 'VoucherRecord'" style="border-radius:35px;border:hidden;margin-right:10px;background-color:#128edb;color:white;font-size:11px;width:98px;height:38px;font-family:Montserrat" id="return"><i class="fa fa-arrow-left"></i> &nbsp;&nbsp; Return</button>
+        <input class="col-md-2" id="submit" form="Registerform" type="submit" value="Save" style="border-radius:35px;color:white;border:hidden;background-color:#128edb;font-size:11px;width:98px;height:38px;font-family:Montserrat" />
+        <br />
+        <br /><br />
+    </div>
+    </div>
+

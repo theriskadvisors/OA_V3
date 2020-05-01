@@ -1,0 +1,87 @@
+﻿@model SEA_Application.Models.AspNetTimeslot
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > @Html.ActionLink("Room Slot", "Index", "AspNetTimeSlots") > <a href="#"><b>Detail</b></a> </label>
+<h4>Delete</h4>
+<div class="box box-primary">
+    <div class="box-body">
+
+        <div class="form-horizontal">
+
+            <hr />
+            <div class="form-group">
+                <label class="col-md-1 col-lg-1 control-label">Session Name:<span class="red-mark">*</span></label>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-md-1 col-lg-1 control-label">Session Start Date:<span class="red-mark">*</span></label>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Start_Time, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Start_Time, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-1 col-lg-1 control-label">Session End Date:<span class="red-mark">*</span></label>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.End_Time, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.End_Time, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-1 col-lg-1 control-label">Total Fee:<span class="red-mark">*</span></label>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Minutes, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Minutes, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-lg-offset-1 col-md-6">
+
+                    @using (Html.BeginForm("DeleteConfirmed", "AspNetTimeslots", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(model => model.Id)
+
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-actions no-color">
+                            <button type="button" id="back" class="btn btn-primary">Back</button>
+
+                            <input type="submit" value="Delete" class="btn btn-default" />
+
+
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+
+        $("#back").click(function () {
+
+            window.location.href = '/AspnetTimeSlots/index';
+
+        });
+
+    })
+
+
+
+
+</script>

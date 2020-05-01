@@ -1,0 +1,49 @@
+﻿@model SEA_Application.Models.AspNetDurationType
+
+@{
+    ViewBag.Title = "Edit";
+}
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">Fee Management</a> > @Html.ActionLink("Duration Types", "Index", "AspNetDurationTypes") > <a href="#"><b>Edit</b></a> </label>
+<h4>Edit Duration</h4>
+<div class="box box-primary">
+    <div class="box-body">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Duration Type</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="form-group">
+                    <label class="control-label col-md-1">Type Name</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.TypeName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TypeName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1">Months Duration</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.MonthsDuration, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MonthsDuration, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <hr />
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-lg-offset-1 col-md-6">
+                            <input type="submit" value="Update" class="btn btn-primary" />
+                            <button class="btn btn-default" onclick="window.location.href = 'Index'">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

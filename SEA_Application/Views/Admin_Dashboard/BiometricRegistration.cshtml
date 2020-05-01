@@ -1,0 +1,212 @@
+﻿
+@{
+    ViewBag.Title = "BiometricRegistration";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<style>
+    input[type='checkbox'] {
+        width: 25px;
+        height: 25px;
+    }
+</style>
+
+
+@if (ViewBag.Success != null)
+{
+    <div class="box-alert" id="work">
+        Student Successfully created and updated
+    </div>
+}
+<div>
+    <label>@Html.ActionLink("Home", "Dashboard", "Account") > @Html.ActionLink("Students", "StudentsIndex", "AspNetUser") > <a href="#">Biometric Registration</a></label>
+
+</div>
+
+<h4 class="orange"> Step 2 Biometric Registration </h4>
+
+
+<div class="box box-primary">
+    <div class="box-title"></div>
+    <div class="box-body">
+
+        <div class="form-horizontal">
+            <h4>Biometric Registration</h4>
+
+            <div class="form-group">
+
+                <label class="control-label col-md-2">Roll No</label>
+                <div class="col-md-4">
+
+                    @ViewBag.RollNo
+
+                    <input id="RollNo" type="hidden" name="name" value="@ViewBag.RollNo" />
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <label class="control-label col-md-2">Check Verification</label>
+                <div class="col-md-4">
+                    <input id="CheckVerification" type="checkbox" size="20" name="name" value="" />
+                </div>
+            </div>
+
+            <div class="form-group">
+
+
+                <div class="col-md-4">
+
+                    <span style="color:green" id="Success"> </span>
+                    <span style="color:red" id="Error"> </span>
+
+
+                </div>
+            </div>
+
+
+            <br />
+            <div class="form-group">
+                <div class=" col-md-10">
+                    <input type="submit" id="GoToStudents" value="Add Another Student" class="btn btn-primary" />
+
+                    <input class="btn btn-success" id="BiometricApplication" type="button" name="name" value="Biometric Application" />
+                    @*<button type="button" id="cancel" class="btn btn-default">Go To home</button>*@
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+
+        $(document).ready(function () {
+
+            BiometricApplication();
+
+
+            $("#BiometricApplication").click(function () {
+
+
+                BiometricApplication();
+
+            })
+
+
+
+            $("#CheckVerification").change(function () {
+                debugger
+
+
+                var RollNo = $("#RollNo").val();
+
+
+
+                if ($(this).is(':checked')) {
+                    //   alert(RollNo);
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin_Dashboard/CheckVerifiction",
+                        data: { "RollNo": RollNo },
+                        success: function (data) {
+                            if (data == "Yes") {
+       
+                                $("#Success").html("Verification Successful");
+
+                                $("#Error").css('display', 'none');
+                            }
+
+                            else {
+                                $("#Error").html("Verification Not Successful Open Biometric Application  For Registration");
+
+
+                                $("#Success").css('display', 'none');
+
+                            }
+
+                        }
+
+                    })
+
+                }
+
+                else {
+
+
+
+                }
+
+            })
+
+            $("#GoToStudents").click(function () {
+
+
+                var RollNo = $("#RollNo").val();
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin_Dashboard/CheckVerifiction",
+                    data: { "RollNo": RollNo },
+                    success: function (data) {
+                        if (data == "Yes") {
+
+                            $("#Success").html("Verification Successful");
+
+                            window.location.href = "/Admin_Dashboard/StudentRegister";
+                            //  $("#Error").css('display', 'none');
+                        }
+
+                        else {
+                            $("#Error").html("Please Registration First, Open Biometric Application  For Registration");
+
+                            $("#Success").css('display', 'none');
+
+                        }
+
+                    }
+
+
+
+                })
+
+
+
+
+
+            })
+
+
+
+
+            function BiometricApplication() {
+
+
+                document.dispatchEvent(new CustomEvent('funcIntraLaunch',
+                    {
+                        'detail': {
+                            task: 'run',
+                            program: 'C:\\Program Files (x86)\\Default Company Name\\Officers Academy-\\zk4500.exe',
+                            workingfolder: '',
+                            switches: '%MY_DOCUMENTS%\\switch.txt',
+                            windowstate: 'max',
+                            recallapp: '',
+                            options: '',
+                            log: '',
+                            playsound: 'http://www.yourdomain.com/sound.wav',
+                            showerrors: 'true'
+                        }
+                    }));
+
+            }
+
+        }) //end of document ready
+
+    </script>

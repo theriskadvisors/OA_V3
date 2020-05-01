@@ -1,0 +1,89 @@
+﻿@model SEA_Application.Models.AspNetProject
+@{
+    ViewBag.Title = "Edit";
+}
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas"><span style="background-color:#F7F7F7 !important">Main Navigation</span></a> > @Html.ActionLink("Project", "Index", "AspNetProject") > <b><a href="#">Create</a></b></label>
+<h2>Details</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Project</h4>
+
+        <script>
+            $(document).ready(function () {
+                $('input').prop('disabled', true);
+                $('select').prop('disabled', true);
+            })
+        </script>
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-group">
+            <label class="control-label col-md-2">Title:</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Description:</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*<div class="form-group">
+            <label class="control-label col-md-2">Publish Date:</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PublishDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Due Date:</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.DueDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DueDate, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+        <div class="form-group">
+            <label class="control-label col-md-2">File Name:</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.FileName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*<div class="form-group">
+            <label class="control-label col-md-2">Accept Submission:</label>
+            <div class="col-md-6">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.AcceptSubmission)
+                    @Html.ValidationMessageFor(model => model.AcceptSubmission, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>*@
+        <div class="form-group">
+            <label class="control-label col-md-2">Subject Name:</label>
+            <div class="col-md-6">
+                @Html.DropDownList("SubjectID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SubjectID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="col-md-offset-2 col-md-2">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            }
+            
+            <div class="col-md-2">
+                <button class="btn btn-danger" onclick="">Back</button>
+            </div>
+
+        </div>
+    </div>
+}

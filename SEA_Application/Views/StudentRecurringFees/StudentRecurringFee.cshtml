@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "StudentRecurringFee";
+}
+
+<h2>Add Student Recurring Fee</h2>
+<script>
+    var Classid="";
+    $(document).ready(function () {
+        $(".ClassIdDDL").prepend("<option value='0' selected>Select One</option>");
+
+        $(".ClassIdDDL").change(function () {
+            debugger;
+             Classid = $(this).val();
+            $.ajax({
+                type: "POST",
+                cache: false,
+                url: "/StudentDiscounts/StudentsList?id=" + Classid,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    debugger;
+                    var list = data.list;
+                    var totalfee = data.totalfee;
+                    $("#totalfee").val(totalfee);
+                    debugger;
+                    var sch = JSON.parse(list);
+                    for (i = 0; i < sch.length; i++) {
+
+                        var x = sch[i].Text;
+
+                    }
+                    var $el = $(".StudentIdDDL");
+                    $el.empty();
+                    if (sch.length > 0) {
+                        $el.append($("<option></option>").attr("value", 0).text('Select Student'));
+                        for (i = 0; i < sch.length; i++) {
+                            $el.append($("<option></option>").attr("value", sch[i].Value).text(sch[i].Text));
+                        }
+                    }
+                    else {
+                        $el.append($("<option></option>").attr("value", '').text('No Students Found'));
+                    }
+                }
+            });
+
+        });
+
+    });
+    function Save()
+    {
+        debugger;
+        var stdid = $("#StudentId").val();
+        $('.eeniart0017').css("display", "block");
+
+        $.ajax({
+            type: "POST",
+            cache: false,
+            url: "/StudentRecurringFees/SaveStudentFee?cid=" + Classid + "&&uid=" + stdid,
+            success: function (data) {
+                $('.eeniart0017').css("display", "none");
+
+                if (data == "Success")
+                {
+                    toastr.success('Success ! Student Fee Added.');
+                    window.location.href = "/StudentRecurringFees/Index";
+                }
+                   
+                else {
+                    toastr.error('Error ! Student Fee Already Added.');
+
+                }
+            }
+        })
+    }
+</script>
+<div class="box box-primary">
+    <div class="box-body">
+        <h4> Student Recurring Fee</h4>
+<hr />
+        <div class="col-md-12">
+            <span class="col-md-2">Class</span>
+            <div class="col-md-6">
+                @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control ClassIdDDL" })
+                <br />
+            </div>
+        </div>
+     
+        <div class="col-md-12">
+            <span class="col-md-2">Student Name</span>
+            <div class="col-md-6">
+                <select class="form-control StudentIdDDL" id="StudentId"></select>
+                <br />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <span class="col-md-2">Total Fee</span>
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="totalfee" readonly />
+                <br />
+            </div>
+        </div>
+        <div class="col-md-offset-2 col-md-5">
+            <br />
+            <button class="col-md-2 form-control" onclick="window.location.href = '/StudentRecurringFees/Index'" style="border-radius:35px;border:hidden;background-color:red;margin-right:10px;color:white;font-size:11px;width:98px;height:38px;font-family:Montserrat" id="return"><i class="fa fa-arrow-left"></i> &nbsp;&nbsp; Return</button>
+            <input class="col-md-2 form-control" id="submit" onclick="Save()" type="submit" value="Save" style="border-radius:35px;color:white;border:hidden;background-color:#128edb;font-size:11px;width:98px;height:38px;font-family:Montserrat" />
+            <br />
+            <br /><br />
+        </div>
+    </div>
+</div>

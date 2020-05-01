@@ -1,0 +1,272 @@
+﻿@model SEA_Application.Models.StudentFeeMultiplier
+
+@{
+    ViewBag.Title = "Create";
+}
+<style>
+    .container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+</style>
+<h2>Add Fee Multiplier</h2>
+<script>
+    var tution=0;
+    $(document).ready(function () {
+        $("input[id$='multiplier']").on('keyup', function () {
+            var multiple = $("#multiplier").val();
+            var instalment = 12 / multiple;
+            $("#instalment").val(instalment);
+            $("#remaininginstalment").val(instalment);
+            $("#paidinstalment").val(0);
+            var shareper = tution / instalment;
+            $("#share").val(shareper);
+
+            debugger;
+        });
+        $("#StudentId").on("click", function () {
+            debugger;
+            var stdid=$("#StudentId").val();
+            $.ajax({
+                type: "POST",
+                url: "/StudentFeeMultipliers/GetTotalFee",
+                data:{stdid:stdid},
+                success: function (data) {
+                    $("#tutionfee").val(data);
+                    tution = data;
+                    $("#remaining").val(data);
+                    $("#paid").val(0);
+                }
+            })
+        });
+    })
+    function Multiplier(e)
+    {
+        debugger;
+        var value = e.value;
+    }
+</script>
+
+<div class="col-md-12">
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="col-md-6" style="margin-top:10px">
+            <span class="text-danger">@ViewBag.ErrorMessage</span>
+
+        </div>
+    }
+</div>
+<div class="box box-primary">
+    <div class="box-body">
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "Registerform" }))
+{
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Student Fee Multiplier</h4>
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <span class="col-md-2">Student Name</span>
+                    <div class="col-md-6">
+                        @Html.DropDownList("StudentId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Tution Fee</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.TutionFee, new { htmlAttributes = new { @class = "form-control", @id = "tutionfee", @required = "required",@readonly="readonly" } })
+                        @Html.ValidationMessageFor(model => model.TutionFee, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-md-2">Multiplier</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Multiplier, new { htmlAttributes = new { @class = "form-control", @onblur = "Multiplier(this)", @id = "multiplier", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Multiplier, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-md-2">Paid Amount</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.PaidAmount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "paid" } })
+                        @Html.ValidationMessageFor(model => model.PaidAmount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Remaining Amount</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.RemainingAmount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "remaining" } })
+                        @Html.ValidationMessageFor(model => model.RemainingAmount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Share Per Instalment</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.SharePerInstalment, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "share" } })
+                        @Html.ValidationMessageFor(model => model.SharePerInstalment, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Instalments</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Instalments, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "instalment" } })
+                        @Html.ValidationMessageFor(model => model.Instalments, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Paid Instalments</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.PaidInstalments, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "paidinstalment" } })
+                        @Html.ValidationMessageFor(model => model.PaidInstalments, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Remaining Instalments</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.RemainingInstalments, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "remaininginstalment" } })
+                        @Html.ValidationMessageFor(model => model.RemainingInstalments, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom:50px">
+                    <div class="col-md-6 col-md-offset-2">
+                        <div class="col-md-4" style="height:8em">
+                          
+                            <label class="container">
+                                <input id="january" type="checkbox" value="January" name="MonthName" /><span style="font-size:15px"><b>January</b></span>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">
+                                <input id="February" type="checkbox" value="February" name="MonthName" /><span style="font-size:15px"><b>February</b></span>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">
+                                <input id="March" type="checkbox" value="March" name="MonthName" /><span style="font-size:15px"><b>March</b></span>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">
+                                <input id="April" type="checkbox" value="April" name="MonthName" /><span style="font-size:15px"><b>April</b></span>
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="col-md-4" style="height:8em">
+
+                            <label class="container">
+                                <input id="january" type="checkbox" value="May" name="MonthName" /><span style="font-size:15px"><b>May</b></span>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">
+                                <input id="February" type="checkbox" value="June" name="MonthName" /><span style="font-size:15px"><b>June</b></span>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">
+                                <input id="March" type="checkbox" value="July" name="MonthName" /><span style="font-size:15px"><b>July</b></span>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">
+                                <input id="April" type="checkbox" value="August" name="MonthName" /><span style="font-size:15px"><b>August</b></span>
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="col-md-4" style="height:8em">
+
+                            <label class="container">
+                                <input id="january" type="checkbox" value="September" name="MonthName" /><span style="font-size:15px"><b>September</b></span>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">
+                                <input id="February" type="checkbox" value="October" name="MonthName" /><span style="font-size:15px"><b>October</b></span>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">
+                                <input id="March" type="checkbox" value="November" name="MonthName" /><span style="font-size:15px"><b>November</b></span>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">
+                                <input id="April" type="checkbox" value="December" name="MonthName" /><span style="font-size:15px"><b>December</b></span>
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-md-offset-2 col-md-5">
+            <br />
+            <button class="col-md-2 form-control" onclick="window.location.href = '/StudentFeeMultipliers/Index'" style="border-radius:35px;border:hidden;background-color:red;margin-right:10px;color:white;font-size:11px;width:98px;height:38px;font-family:Montserrat" id="return"><i class="fa fa-arrow-left"></i> &nbsp;&nbsp; Return</button>
+            <input class="col-md-2 form-control" id="submit" form="Registerform" type="submit" value="Save" style="border-radius:35px;color:white;border:hidden;background-color:#128edb;font-size:11px;width:98px;height:38px;font-family:Montserrat" />
+            <br />
+            <br /><br />
+        </div>
+    </div>
+</div>
+

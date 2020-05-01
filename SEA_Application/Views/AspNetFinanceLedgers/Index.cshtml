@@ -1,0 +1,348 @@
+﻿@model IEnumerable<SEA_Application.Models.AspNetFinanceLedger>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<head>
+    
+    <style>            
+        .no-padding-link{
+            font-size: 13px !important;
+            background-color: transparent !important;
+            padding: 0px !important;
+            margin: 0px !important;
+            color: #333 !important
+        }
+
+        .no-section-padding{
+            background-color: transparent !important;
+            padding: 0px !important;
+            margin: 0px !important
+        }
+        .link-box-ledger{
+	        border:1px solid #ddd;
+	        width: 100%;
+	        margin-bottom: 10px;
+	        border-radius: 5px;
+        }
+        .link-box-ledger .link-box-content{
+	        padding: 8px;
+        }
+        .link-box-ledger .ledger-title{
+	        font-size: 18px;
+	        color: #fff !important;
+	        font-weight: 500;
+	        width: 100%;
+	        padding: 10px;
+	        background-color: #12384C;
+	        border-radius: 5px 5px 0px 0px;
+	        margin: 0px;
+        }
+
+    </style>
+</head>
+
+<h2>Index</h2>
+
+<script>
+
+    $(document).ready(function () {
+
+        $.ajax({
+            type: "POST",
+            url: "/AspNetFinanceLedgers/Home",
+            success: function (data) {
+                console.log(data);
+                $.each(data, function (i1, item1) {
+
+                });
+            }
+        });
+    });
+
+    function redirect(item) {
+        // window.location.href = "Details/" + item.id;
+        var id = "#_" + item.id;
+        console.log(id);
+        $(id).toggle("1500");
+    }
+
+</script>
+
+<div class="box box-primary">
+    <div class="box-title"></div>
+    <div class="box-body">
+        <div class="container">
+            <p>
+                @Html.ActionLink("Create New", "Create")
+            </p>
+
+            <div class="container-fluid">
+                    <div class="col-md-6">
+                        <div class="link-box-ledger">
+                            <h3 class="ledger-title">Assests</h3>
+                            <p class="link-box-content">
+                                <div id="Assests">
+                                    <ul>
+                                        @foreach (var item1 in ViewBag.Assests)
+                                        {
+
+                                            <li>
+                                                <a class="no-padding-link" id="@item1.Id" href="#" onclick="redirect(this)">@item1.Name</a><span class="caret"></span><div id="_@item1.Id" align="left" hidden><span>@item1.Balance</span><span class="col-md-offset-1"></span>@item1.Type<span></span></div>
+                                                <ul>
+                                                    @if (item1.Second != null && item1.Second.Count > 0)
+                                                    {
+                                                        foreach (var item2 in item1.Second)
+                                                        {
+                                                            <li>
+                                                                <a class="no-padding-link" id="@item2.Id" href="#" onclick="redirect(this)">@item2.Name</a><span class="caret"></span><div id="_@item2.Id" align="left" hidden><span>@item2.Balance</span><span class="col-md-offset-1"></span>@item2.Type<span></span></div>
+                                                                <ul>
+                                                                    @if (item2.Third != null && item2.Third.Count > 0)
+                                                                    {
+                                                                        foreach (var item3 in item2.Third)
+                                                                        {
+                                                                            <li>
+                                                                                <a class="no-padding-link" id="@item3.Id" href="#" onclick="redirect(this)">@item3.Name</a><span class="caret"></span><div id="_@item3.Id" align="left" hidden><span>@item3.Balance</span><span class="col-md-offset-1"></span>@item3.Type<span></span></div>
+                                                                                <ul>
+                                                                                    @if (item3.Forth != null && item3.Forth.Count > 0)
+                                                                                    {
+                                                                                        foreach (var item4 in item3.Forth)
+                                                                                        {
+                                                                                            <li>
+                                                                                                <a class="no-padding-link" id="@item4.Id" href="#" onclick="redirect(this)">@item4.Name</a><span class="caret"></span><div id="_@item4.Id" align="left" hidden><span>@item4.Balance</span><span class="col-md-offset-1"></span>@item4.Type<span></span></div>
+                                                                                            </li>
+                                                                                        }
+                                                                                    }
+                                                                                </ul>
+                                                                            </li>
+                                                                        }
+                                                                    }
+                                                                </ul>
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                    </ul>
+
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="link-box-ledger">
+                            <h3 class="ledger-title">Income</h3>
+                            <p class="link-box-content">
+                                <div id="Income">
+                                    <ul>
+                                        @foreach (var item1 in ViewBag.Income)
+                                        {
+
+                                            <li>
+                                                <section class="no-section-padding"><nav class="cl-effect-1"><a class="no-padding-link" id="@item1.Id" href="#" onclick="redirect(this)">@item1.Name</a></nav></section><div id="_@item1.Id" align="left" hidden><span>@item1.Balance</span><span class="col-md-offset-1"></span>@item1.Type<span></span></div>
+                                                <ul>
+                                                    @if (item1.Second != null && item1.Second.Count > 0)
+                                                    {
+                                                        foreach (var item2 in item1.Second)
+                                                        {
+                                                            <li>
+                                                                <section class="no-section-padding"><nav class="cl-effect-1 no-padding-link"><a class="no-padding-link" id="@item2.Id" href="#" onclick="redirect(this)">@item2.Name</a></nav></section><div id="_@item2.Id" align="left" hidden><span>@item2.Balance</span><span class="col-md-offset-1"></span>@item2.Type<span></span></div>
+                                                                <ul>
+                                                                    @if (item2.Third != null && item2.Third.Count > 0)
+                                                                    {
+                                                                        foreach (var item3 in item2.Third)
+                                                                        {
+                                                                            <li>
+                                                                                <section class="no-section-padding"><nav class="cl-effect-1"><a class="no-padding-link" id="@item3.Id" href="#" onclick="redirect(this)">@item3.Name</a></nav></section><div id="_@item3.Id" align="left" hidden><span>@item3.Balance</span><span class="col-md-offset-1"></span>@item3.Type<span></span></div>
+                                                                                <ul>
+                                                                                    @if (item3.Forth != null && item3.Forth.Count > 0)
+                                                                                    {
+                                                                                        foreach (var item4 in item3.Forth)
+                                                                                        {
+                                                                                            <li>
+                                                                                                <section class="no-section-padding"><nav class="cl-effect-1"><a class="no-padding-link" id="@item4.Id" href="#" onclick="redirect(this)">@item4.Name</a></nav></section><div id="_@item4.Id" align="left" hidden><span>@item4.Balance</span><span class="col-md-offset-1"></span>@item4.Type<span></span></div>
+                                                                                            </li>
+                                                                                        }
+                                                                                    }
+                                                                                </ul>
+                                                                            </li>
+                                                                        }
+                                                                    }
+                                                                </ul>
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                    </ul>
+
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="link-box-ledger">
+                            <h3 class="ledger-title">Liabilities</h3>
+                            <p class="link-box-content">
+                                <div id="Liabilities">
+                                    <ul>
+                                        @foreach (var item1 in ViewBag.Liabilities)
+                                        {
+
+                                            <li>
+                                                <section class="no-section-padding"><nav class="cl-effect-1"><a class="no-padding-link" id="@item1.Id" href="#" onclick="redirect(this)">@item1.Name</a></nav></section><div id="_@item1.Id" align="left" hidden><span>@item1.Balance</span><span class="col-md-offset-1"></span>@item1.Type<span></span></div>
+                                                <ul>
+                                                    @if (item1.Second != null && item1.Second.Count > 0)
+                                                    {
+                                                        foreach (var item2 in item1.Second)
+                                                        {
+                                                            <li>
+                                                                <section class="no-section-padding"><nav class="cl-effect-1 no-padding-link"><a class="no-padding-link" id="@item2.Id" href="#" onclick="redirect(this)">@item2.Name</a></nav></section><div id="_@item2.Id" align="left" hidden><span>@item2.Balance</span><span class="col-md-offset-1"></span>@item2.Type<span></span></div>
+                                                                <ul>
+                                                                    @if (item2.Third != null && item2.Third.Count > 0)
+                                                                    {
+                                                                        foreach (var item3 in item2.Third)
+                                                                        {
+                                                                            <li>
+                                                                                <section class="no-section-padding"><nav class="cl-effect-1"><a class="no-padding-link" id="@item3.Id" href="#" onclick="redirect(this)">@item3.Name</a></nav></section><div id="_@item3.Id" align="left" hidden><span>@item3.Balance</span><span class="col-md-offset-1"></span>@item3.Type<span></span></div>
+                                                                                <ul>
+                                                                                    @if (item3.Forth != null && item3.Forth.Count > 0)
+                                                                                    {
+                                                                                        foreach (var item4 in item3.Forth)
+                                                                                        {
+                                                                                            <li>
+                                                                                                <section class="no-section-padding"><nav class="cl-effect-1"><a class="no-padding-link" id="@item4.Id" href="#" onclick="redirect(this)">@item4.Name</a></nav></section><div id="_@item4.Id" align="left" hidden><span>@item4.Balance</span><span class="col-md-offset-1"></span>@item4.Type<span></span></div>
+                                                                                            </li>
+                                                                                        }
+                                                                                    }
+                                                                                </ul>
+                                                                            </li>
+                                                                        }
+                                                                    }
+                                                                </ul>
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                    </ul>
+
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="link-box-ledger">
+                            <h3 class="ledger-title">Expense</h3>
+                            <p class="link-box-content">
+                                <div id="Expense">
+                                    <ul>
+                                        @foreach (var item1 in ViewBag.Expense)
+                                        {
+
+                                            <li>
+                                                <section class="no-section-padding"><nav class="cl-effect-1"><a class="no-padding-link" id="@item1.Id" href="#" onclick="redirect(this)">@item1.Name</a></nav></section><div id="_@item1.Id" align="left" hidden><span>@item1.Balance</span><span class="col-md-offset-1"></span>@item1.Type<span></span></div>
+                                                <ul>
+                                                    @if (item1.Second != null && item1.Second.Count > 0)
+                                                    {
+                                                        foreach (var item2 in item1.Second)
+                                                        {
+                                                            <li>
+                                                                <section class="no-section-padding"><nav class="cl-effect-1 no-padding-link"><a class="no-padding-link" id="@item2.Id" href="#" onclick="redirect(this)">@item2.Name</a></nav></section><div id="_@item2.Id" align="left" hidden><span>@item2.Balance</span><span class="col-md-offset-1"></span>@item2.Type<span></span></div>
+                                                                <ul>
+                                                                    @if (item2.Third != null && item2.Third.Count > 0)
+                                                                    {
+                                                                        foreach (var item3 in item2.Third)
+                                                                        {
+                                                                            <li>
+                                                                                <section class="no-section-padding"><nav class="cl-effect-1"><a class="no-padding-link" id="@item3.Id" href="#" onclick="redirect(this)">@item3.Name</a></nav></section><div id="_@item3.Id" align="left" hidden><span>@item3.Balance</span><span class="col-md-offset-1"></span>@item3.Type<span></span></div>
+                                                                                <ul>
+                                                                                    @if (item3.Forth != null && item3.Forth.Count > 0)
+                                                                                    {
+                                                                                        foreach (var item4 in item3.Forth)
+                                                                                        {
+                                                                                            <li>
+                                                                                                <section class="no-section-padding"><nav class="cl-effect-1"><a class="no-padding-link" id="@item4.Id" href="#" onclick="redirect(this)">@item4.Name</a></nav></section><div id="_@item4.Id" align="left" hidden><span>@item4.Balance</span><span class="col-md-offset-1"></span>@item4.Type<span></span></div>
+                                                                                            </li>
+                                                                                        }
+                                                                                    }
+                                                                                </ul>
+                                                                            </li>
+                                                                        }
+                                                                    }
+                                                                </ul>
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                    </ul>
+
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="link-box-ledger">
+                            <h3 class="ledger-title">Equity</h3>
+                            <p class="link-box-content">
+                                <div id="Equity">
+                                    <ul>
+                                        @foreach (var item1 in ViewBag.Equity)
+                                        {
+
+                                            <li>
+                                                <section class="no-section-padding"><nav class="cl-effect-1"><a class="no-padding-link" id="@item1.Id" href="#" onclick="redirect(this)">@item1.Name</a></nav></section><div id="_@item1.Id" align="left" hidden><span>@item1.Balance</span><span class="col-md-offset-1"></span>@item1.Type<span></span></div>
+                                                <ul>
+                                                    @if (item1.Second != null && item1.Second.Count > 0)
+                                                    {
+                                                        foreach (var item2 in item1.Second)
+                                                        {
+                                                            <li>
+                                                                <section class="no-section-padding"><nav class="cl-effect-1 no-padding-link"><a class="no-padding-link" id="@item2.Id" href="#" onclick="redirect(this)">@item2.Name</a></nav></section><div id="_@item2.Id" align="left" hidden><span>@item2.Balance</span><span class="col-md-offset-1"></span>@item2.Type<span></span></div>
+                                                                <ul>
+                                                                    @if (item2.Third != null && item2.Third.Count > 0)
+                                                                    {
+                                                                        foreach (var item3 in item2.Third)
+                                                                        {
+                                                                            <li>
+                                                                                <section class="no-section-padding"><nav class="cl-effect-1"><a class="no-padding-link" id="@item3.Id" href="#" onclick="redirect(this)">@item3.Name</a></nav></section><div id="_@item3.Id" align="left" hidden><span>@item3.Balance</span><span class="col-md-offset-1"></span>@item3.Type<span></span></div>
+                                                                                <ul>
+                                                                                    @if (item3.Forth != null && item3.Forth.Count > 0)
+                                                                                    {
+                                                                                        foreach (var item4 in item3.Forth)
+                                                                                        {
+                                                                                            <li>
+                                                                                                <section class="no-section-padding"><nav class="cl-effect-1"><a class="no-padding-link" id="@item4.Id" href="#" onclick="redirect(this)">@item4.Name</a></nav></section><div id="_@item4.Id" align="left" hidden><span>@item4.Balance</span><span class="col-md-offset-1"></span>@item4.Type<span></span></div>
+                                                                                            </li>
+                                                                                        }
+                                                                                    }
+                                                                                </ul>
+                                                                            </li>
+                                                                        }
+                                                                    }
+                                                                </ul>
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                    </ul>
+
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        
+               
+     </div>
+</div>

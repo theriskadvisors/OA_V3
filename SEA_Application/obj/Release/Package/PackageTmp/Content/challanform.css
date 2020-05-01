@@ -1,0 +1,24 @@
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    /* padding: 8px; */
+    line-height: 1.42857143 !important; 
+    vertical-align: top !important;
+    /* border-top: 1px solid #ddd; */
+}
+section {
+    border: 1px solid black;
+    margin-top:10px;
+    padding:7px;
+}
+
+#fee{
+    height:300px;
+}
+
+#notes
+{
+    width:90%;
+ 
+    position:absolute;
+    bottom:0;
+}
+

@@ -1,0 +1,83 @@
+﻿@model SEA_Application.Models.AspnetQuestion
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AspnetQuestion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Is_Quiz)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Is_Quiz)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Is_Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Is_Active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspnetLesson.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspnetLesson.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspnetOption.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspnetOption.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,252 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+   
+
+    h2, option, select, b, th, td, h3, h4, li, label, button, input, span {
+        font-family: Montserrat;
+    }
+
+         #widget:hover{
+        background-color:#cbc9c9 !important;
+    }
+           .content{
+        background-color:#f5f5f5 !important
+    }
+    .content-wrapper{
+        background-color:#f5f5f5 !important;
+    }
+       .main-sidebar{
+    height: 100%;
+    overflow: auto;
+    width:256px;
+  
+}
+ .sea-background{
+         background: -webkit-radial-gradient(#ffffff, #ffffff) !important;
+ }     
+</style>
+
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+
+<aside class="main-sidebar">
+    <section class="sidebar">
+       
+        @*<div class="user-panel" id="userpannel" style="background:linear-gradient(to right, #128edb , black);width:325px;height:50px;margin-top:-41px">
+            <div style="margin-top:6px">
+                <span id="topname" style="color:white;font-weight:900;font-family:Montserrat; font-size:13px"></span>
+            </div>
+        </div>*@
+        <ul class="sidebar-menu">
+
+            <li class="header">Users</li>
+            <li id="left-sidebar-menu-widgets">
+                <a href="@Url.Action("StudentsIndex", "AspNetUser")">
+                    <i class="fa fa-user"></i> <span style="color:#8aa4af !important">Students</span>
+                </a>
+            </li>
+            <li id="left-sidebar-menu-widgets">
+                <a href="@Url.Action("Index", "AspNetEmployees")">
+                    <i class="fa fa-users"></i> <span style="color:#8aa4af !important">Employees</span>
+                </a>
+            </li>
+
+
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Inbox", "AspNetMessages"))">
+                    <i class="fa fa-envelope"></i>
+                    <span style="color:#8aa4af !important">MailBox</span>
+                </a>
+            </li>
+            <li class="header">MAIN NAVIGATION</li>
+
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Summary", "FinanceSummary"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-table"></i>
+                    <span style="color:#b8c7ce !important">Summary</span>
+                </a>
+            </li>
+            @*<li id="left-sidebar-menu-calendar">
+            <a href="@(Url.Action("LedgerList", "LedgerGroups"))">
+                <i style="color:black;font-size:13px" class="fa fa-object-group"></i>
+                <span style="color:#000000 !important">Ledger Group</span>
+            </a>
+        </li>*@
+            @*<li id="left-sidebar-menu-calendar">
+            <a href="@(Url.Action("JournalEntry", "FinanceSummary"))">
+                <i class="fa fa-calendar"></i>
+                <span>Journal Entry</span>
+            </a>
+        </li>*@
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("LedgerList", "Ledgers"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-list-ol"></i>
+                    <span style="color:#b8c7ce !important">Ledger</span>
+                </a>
+            </li>
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("CashIndex", "FinanceSummary"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-money"></i>
+                    <span style="color:#b8c7ce !important">Cash</span>
+                </a>
+            </li>
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("BankIndex", "FinanceSummary"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-bank"></i>
+                    <span style="color:#b8c7ce !important">Bank</span>
+                </a>
+            </li>
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Voucher", "Vouchers"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-pagelines"></i>
+                    <span style="color:#b8c7ce !important">Journal Entry</span>
+                </a>
+            </li>
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("InterTransaction", "FinanceSummary"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-exchange"></i>
+                    <span style="color:#b8c7ce !important">Inter Account Transfer</span>
+                </a>
+            </li>
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("ChartsOf_Accounts", "ChartOfAccounts"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-line-chart"></i>
+                    <span style="color:#b8c7ce !important">Chart of Accounts</span>
+                </a>
+            </li>
+
+
+
+            <li class="header">Challan Form</li>
+
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Index", "GrandTotal"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-newspaper-o"></i>
+                    <span style="color:#b8c7ce !important">Fee Challan</span>
+                </a>
+            </li>
+
+            <li class="header">Recurring Fee</li>
+            @*<li id="left-sidebar-menu-calendar">
+            <a href="@(Url.Action("DurationIndex", "DurationTypes"))">
+                <i style="color:black;font-size:13px" class="fa fa-times-circle"></i>
+                <span style="color:#000000 !important">Duration Type</span>
+            </a>
+        </li>*@
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Index", "StudentRecurringFees"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-newspaper-o"></i>
+                    <span style="color:#b8c7ce !important">Recurring Fee</span>
+                </a>
+            </li>
+            @*<li id="left-sidebar-menu-calendar">
+            <a href="@(Url.Action("Index", "StudentFeeMultipliers"))">
+                <i style="color:black;font-size:13px" class="fa fa-crosshairs"></i>
+                <span style="color:#000000 !important">Fee Multiplier</span>
+            </a>
+        </li>*@
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Index", "StudentFeeMonths"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-times-circle"></i>
+                    <span style="color:#b8c7ce !important">Monthly Fee</span>
+                </a>
+            </li>
+            <li class="header">NonRecurring Fee</li>
+
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Index", "NonRecurringFeeMultipliers"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-times-circle"></i>
+                    <span style="color:#b8c7ce !important">NonRecurring Fee</span>
+                </a>
+            </li>
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action( "PenaltyFeeIndex","PenaltyFees"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-paperclip"></i>
+                    <span style="color:#b8c7ce !important">Penalty Type</span>
+                </a>
+            </li>
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action( "StudentPaneltiesIndex","StudentPenalties"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-glass"></i>
+                    <span style="color:#b8c7ce !important">Student Penalty</span>
+                </a>
+            </li>
+            @*<li id="left-sidebar-menu-calendar">
+            <a href="@(Url.Action("Index", "NonRecurringMonths"))">
+                <i style="color:black;font-size:13px" class="fa fa-book"></i>
+                <span style="color:#000000 !important">Non Recurring Months</span>
+            </a>
+        </li>*@
+
+            <li class="header">Discount</li>
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("StudentDiscountIndex", "StudentDiscounts"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-minus-circle"></i>
+                    <span style="color:#b8c7ce !important">Student Discount</span>
+                </a>
+            </li>
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("FeeDiscountIndex", "FeeDiscounts"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-minus-square"></i>
+                    <span style="color:#b8c7ce !important">Discount Type</span>
+                </a>
+            </li>
+            <li class="header">Employee Salary Record</li>
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Index", "EmployeeSalaryRecord"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-minus-circle"></i>
+                    <span style="color:#b8c7ce !important">Employee Salary Record</span>
+                </a>
+            </li>
+
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Index", "EmployeeSalaries"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-minus-circle"></i>
+                    <span style="color:#b8c7ce !important">Employee Salary</span>
+                </a>
+            </li>
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Index", "EmployeeAdvanceSalaries"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-plus-square"></i>
+                    <span style="color:#b8c7ce !important">Advance Salary</span>
+                </a>
+            </li>
+
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action ("Index","TeacherPenaltyRecords"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-plus-circle"></i>
+                    <span style="color:#b8c7ce !important">Teacher Penalty</span>
+                </a>
+            </li>
+
+            @*<li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("PenaltyTypeIndex", "EmployeePenaltyTypes"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-plus-circle"></i>
+                    <span style="color:#b8c7ce !important">Penalty Types</span>
+                </a>
+            </li>
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("EmployeePenaltyIndex", "EmployeePenalties"))">
+                    <i style="color:#b8c7ce;font-size:13px" class="fa fa-plus-square"></i>
+                    <span style="color:#b8c7ce !important">Employee Penalties</span>
+                </a>
+                <br /><br />
+            </li>*@
+
+            @*<li id="left-sidebar-menu-widgets">
+            <a href="javascript:document.getElementById('logoutForm').submit()" id="widget">
+                <i class="glyphicon glyphicon-log-out" style="color:#b70d0d"></i><span style="color:#b70d0d !important"><b>Logout</b></span>
+            </a>
+            <br /><br />
+
+        </li>*@
+
+        </ul>
+    </section>
+</aside>
+<div class="content-wrapper">
+    <section class="content">
+        @RenderBody()
+    </section>
+</div>

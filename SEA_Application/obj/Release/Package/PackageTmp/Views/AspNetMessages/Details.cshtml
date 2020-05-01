@@ -1,0 +1,94 @@
+﻿@model SEA_Application.Models.AspNetMessage
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <h3>SEA Mailbox </h3>
+        @if (this.User.IsInRole("Admin") || this.User.IsInRole("Parent") || this.User.IsInRole("Teacher"))
+        {
+            <a href="@Url.Action("NewMessage", "AspNetMessages")" class="btn btn-primary btn-block margin-bottom">Compose</a>
+        }
+        <div class="box box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">Folders</h3>
+                <div class="box-tools">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body no-padding">
+                <ul class="nav nav-pills nav-stacked">
+                    <li>
+                        <a href="@Url.Action("Index","AspNetMessages")">
+                            <i class="fa fa-inbox"></i> Inbox
+                            @* <span class="label label-primary pull-right">12</span>*@
+                        </a>
+                    </li>
+                    @if (this.User.IsInRole("Admin") || this.User.IsInRole("Parent"))
+                    {
+                        <li><a href="@Url.Action("SentIndex", "AspNetMessages")"><i class="fa fa-envelope-o"></i> Sent</a></li>
+                        @*<li><a href="#"><i class="fa fa-file-text-o"></i> Drafts</a></li>
+                        <li><a href="#"><i class="fa fa-trash-o"></i> Trash</a></li>*@
+                    }
+                </ul>
+            </div>
+        </div>
+    </div><br /><br /><br />
+    <div class="col-md-9">
+        <div class="box box-info">
+            <div class="box-header"><h4><b>Mail</b></h4></div>
+            <div class="box-body">
+
+                <hr />
+                <dl class="dl-horizontal">
+
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Time)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Time)
+                    </dd>
+
+                    @*<dt>
+                            @Html.DisplayNameFor(model => model.IsOpen)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.IsOpen)
+                        </dd>*@
+
+                    <dt>
+                        Reciever @Html.DisplayNameFor(model => model.AspNetUser.UserName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AspNetUser.UserName)
+                    </dd>
+
+                    <dt>
+                        Sender @Html.DisplayNameFor(model => model.AspNetUser1.UserName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AspNetUser1.UserName)
+                    </dd>
+                    <hr />
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Message)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Message)
+                    </dd>
+
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>

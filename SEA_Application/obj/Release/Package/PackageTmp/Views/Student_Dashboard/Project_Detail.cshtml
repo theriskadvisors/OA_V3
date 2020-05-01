@@ -1,0 +1,107 @@
+﻿@model SEA_Application.Models.AspNetStudent_Project
+@{
+    ViewBag.Title = "Student_Project_Submission";
+}
+
+<h2>Student_Project_Submission</h2>
+
+<div>
+    <h4>Student_Project</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @using (Html.BeginForm("Student_Project_Submission", "Student_Dashboard", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <dt>
+                <input type="hidden" name="id" id="id" value=@Model.Id>
+            </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.AspNetProject.FileName)
+            </dt>
+            if (@Model.AspNetProject.FileName != "-/-")
+            {
+                <dd>
+                    @Html.ActionLink(Model.AspNetProject.FileName, "downloadProjectFile", new { id = Model.AspNetProject.Id })
+                </dd>
+            }
+            else
+            {
+
+                <dd>
+                    @Html.DisplayFor(model => model.AspNetProject.FileName)
+                </dd>
+            }
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AspNetProject.DueDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AspNetProject.DueDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SubmissionStatus)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SubmissionStatus)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.SubmittedFileName)
+            </dt>
+
+            if (@Model.SubmittedFileName != "-/-")
+            {
+                <dd>
+                    @Html.ActionLink(Model.SubmittedFileName, "downloadStudentSubmittedFile", new { id = Model.Id })
+                </dd>
+            }
+            else
+            {
+
+                <dd>
+                    @Html.DisplayFor(model => model.SubmittedFileName)
+                </dd>
+            }
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SubmissionDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.SubmissionDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.AspNetProject.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AspNetProject.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AspNetProject.AspNetSubject.AspNetUser.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AspNetProject.AspNetSubject.AspNetUser.Name)
+            </dd>
+            if (@Model.AspNetProject.AcceptSubmission == true)
+            {
+                <dt>
+                    File
+                </dt>
+                <dd>
+                    <input id="document" name="document" type="file" />
+                </dd>
+                <br>
+                <hr>
+
+                <dd>
+                    <input type="submit" value="Submit Assignment" class="btn btn-default" />
+                </dd>
+            }
+        }
+
+    </dl>
+</div>

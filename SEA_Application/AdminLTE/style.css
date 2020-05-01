@@ -1,0 +1,318 @@
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+
+html, body {
+    font-family: Open Sans !important;
+    font-weight: 400 !important;
+}
+
+.round-border {
+    border-radius: 5px !important;
+}
+
+input[type=text], input[type=password], input[type=email], input[type=number], inut[type=date], input[type=hidden] {
+    border-radius: 5px !important;
+}
+
+select, textarea {
+    border-radius: 5px !important;
+}
+
+label {
+    color: #888 !important;
+    text-align: left !important;
+    font-family: Open Sans !important;
+    font-weight: 500 !important;
+}
+
+h3 {
+    color: #3C8DBC !important;
+    margin-top: 0px;
+}
+
+.red-mark {
+    color: red;
+}
+
+.main-sidebar {
+    background-color: #12384C !important;
+    font-size: 12px;
+}
+
+body.hold-transition .content-wrapper, body.hold-transition .right-side, body.hold-transition .main-footer, body.hold-transition .main-sidebar, body.hold-transition .left-side, body.hold-transition .main-header > .navbar, body.hold-transition .main-header .logo {
+    -webkit-transition: .3s !important;
+    -o-transition: .3s !important;
+    transition: .3s !important;
+}
+
+li.header {
+    color: #fff !important;
+}
+
+.skin-blue .main-header .navbar, .logo, .logo-min, .sidebar-toggle {
+    background-color: rgb(24, 77, 105) !important;
+}
+
+.skin-blue .main-header .logo {
+    background-color: rgb(24, 77, 105) !important;
+    z-index: 1300 !important;
+}
+
+.main-header > .navbar {
+    z-index: -1;
+}
+
+.main-sidebar, .left-side {
+    padding-top: 41px !important;
+}
+
+/*.skin-blue .main-header .navbar, .logo, .logo-min, .sidebar-toggle{
+         white-space: nowrap !important;
+		 background-color: #154158 !important;
+		 background: -webkit-linear-gradient(to bottom, #0b232f 0%, #154158 100%) !important;
+		 background-image:  linear-gradient(rgb(11, 35, 47) 0%, rgb(21, 65, 88) 100%) !important;
+		 background-position-x: initial !important;
+		 background-position-y: initial !important;
+		 background-size: initial !important;
+		 background-attachment: initial !important;
+		 background-origin: initial !important;
+		 background-clip: initial !important;
+		 background-color: #154158 !important;
+}*/
+.sidebar-mini {
+    background-color: transparent !important;
+    z-index: 999 !important;
+    background-color: #12384C !important;
+}
+
+.treeview-menu {
+    background-color: #12384C !important;
+}
+
+.sea-background {
+    background: -webkit-radial-gradient(#5fb0da, #154158) !important;
+    width: 100% !important;
+    /*height: 100% !important;*/
+}
+
+.skin-blue .main-header .navbar {
+    z-index: -1 !important;
+}
+
+.padding-bottom {
+    padding-bottom: 10px !important;
+}
+
+.padding-top {
+    padding-top: 10px !important;
+}
+
+.user-image {
+    width: 20px !important;
+    height: 20px !important;
+    margin-top: 4px !important;
+}
+
+.content {
+    background-color: #F7F7F7;
+}
+
+.edit-section {
+    /*display: inline-block !important;*/
+    /*float: left;*/
+    /*text-align: center;*/
+    /*margin-top: -7px;*/
+    list-style-type: none;
+}
+
+    .edit-section a {
+        display: inline-block !important;
+        width: 30px;
+        height: 25px;
+        line-height: 22px;
+        font-size: 15px;
+        /*text-align: center;*/
+        /*border: 1px solid #3C8DBC;*/
+    }
+
+.custom-partial-link {
+    width: 30% !important;
+}
+
+@media screen and (max-width: 763px) {
+    .custome-mobile-nav {
+        /*width: 100% !important;*/
+        /*float: right !important;*/
+        /*margin-top: 0px !important;*/
+    }
+
+    .main-sidebar, .left-side {
+        margin-top: 41px !important;
+    }
+
+    .custom-partial-link {
+        width: 100% !important;
+        text-align: center !important;
+        /*display: block;*/
+        position: relative;
+        /*margin-top: -40px !important;*/
+    }
+
+    .sidebar-toggle {
+        margin-top: 40px !important;
+        position: absolute;
+    }
+
+    .mob-form {
+        width: 300px !important;
+        /*float: left;*/
+        margin-left: -135px;
+    }
+
+    .d-bar {
+        display: none !important;
+    }
+
+    .btn-primary {
+        background-color: #286090 !important;
+    }
+
+    .btn-danger {
+        background-color: #c9302c !important;
+    }
+
+    .table-responsive {
+        border: none !important;
+    }
+
+    .d-t-form {
+        width: 200%;
+        float: left;
+        margin-left: -130px;
+    }
+
+    .d-t-label {
+        float: left !important;
+        width: 100%;
+    }
+
+    .edit-section {
+        /*margin-left: -120px;*/
+    }
+
+    select.input-sm {
+        width: 84% !important;
+    }
+
+    #example_length select {
+        display: block;
+        width: 150px;
+        height: 30px;
+    }
+}
+
+#example_length select {
+    /*margin-top: 4px !important;*/
+    /*margin-bottom: -20px !important;*/
+}
+
+.reg_name {
+    width: 70px !important;
+    margin-top: -5px !important;
+    position: relative;
+    padding-top: -7px !important;
+    /*height: 30px !important;*/
+}
+/*create voucher buttons*/
+.display-no {
+    display: none !important;
+}
+
+.treeview-menu {
+    display: none;
+}
+
+.display-b {
+    display: block !important;
+    transition: all .5s ease-in-out !important;
+    overflow: visible;
+    /*animation-play-state: paused !important;*/
+}
+
+
+
+
+/*datatables bar*/
+.d-bar {
+    width: 1px;
+    margin-top: -5px;
+    margin-bottom: -10px;
+    background-color: #999;
+    height: 30px;
+    vertical-align: bottom !important;
+    color: #ddd;
+    z-index: 999;
+}
+
+.record-before {
+    background-color:;
+    color: #fff;
+    cursor: pointer;
+}
+
+.record-after {
+    background: #fff;
+    color: #222;
+    cursor: pointer;
+}
+
+.dataTableClass {
+    background-color: rgb(222,235,247);
+    color: rgb(132,151,176);
+}
+
+.padding-0 {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+.voucher-bg {
+    background-color: #F9F9F9 !important;
+}
+
+#Voucher-table tr td {
+    padding-right: 3px;
+}
+
+#Voucher-table tr {
+    margin-bottom: -10px !important;
+    padding-bottom: -10px !important;
+}
+
+#Voucher-table #TotalDebit, #TotalCredit {
+    text-align: right;
+}
+
+#Voucher-table > .remaining-frm {
+    width: 36px !important;
+}
+
+.box-alert {
+    background-color: rgb(226, 240, 217);
+    color: rgb(0,176,80);
+}
+
+.text-success-1 {
+    color: #3c763d !important;
+}
+
+.navigate {
+    margin-top: 0px !important;
+    position: relative !important;
+}
+
+thead tr th{
+    text-align:center;
+    /*font-family: Helvatica;*/
+}

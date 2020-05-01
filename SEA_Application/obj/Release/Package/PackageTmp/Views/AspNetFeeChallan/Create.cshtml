@@ -1,0 +1,240 @@
+﻿@model SEA_Application.Models.AspNetFeeChallan
+
+@{
+    ViewBag.Title = "Create";
+}
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="~/AdminLTE/selectone.js"></script>
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">Fee Management</a> > @Html.ActionLink("Challan Form", "Challan_Form", "FeeManagement") > <a href="#"><b>Create</b></a> </label>
+<h4>Create Fee Challan</h4>
+
+<script>
+    function pad(n) { return n < 10 ? '0' + n : n }
+    $(document).ready(function () {
+
+
+        $("#ClassID").prop('required', true);
+        $("#title").prop('required', true);
+        $("#DurationTypeID").prop('required', true);
+        $("#startDate").prop('required', true);
+        $("#startDate").prop('type', 'date');
+        $("#endDate").prop('required', true);
+        $("#endDate").prop('type', 'date');
+        $("#amount").prop('required', true);
+        $("#duedate").prop('required', true);
+        $("#duedate").prop('type', 'date');
+        $("#penalty").prop('required', true);
+        $("#validdate").prop('required', true);
+        $("#validdate").prop('type', 'date');
+
+
+        $("#endDate").blur(function () {
+            var start = $("#startDate").val();
+            var end = $("#endDate").val();
+
+            var StartDate = new Date(start);
+            var EndDate = new Date(end);
+
+            if (EndDate.getTime() < StartDate.getTime()) {
+                $("#submit").attr('Disabled', true);
+                $("#endDateValidatoion").html("End Date can not be less than start date");
+            } else {
+                $("#submit").attr('Disabled', false);
+                $("#endDateValidatoion").html(" ");
+            }
+        });
+        
+        $("#validdate").blur(function () {
+            var start = $("#duedate").val();
+            var end = $("#validdate").val();
+
+            var StartDate = new Date(start);
+            var EndDate = new Date(end);
+
+            if (EndDate.getTime() < StartDate.getTime()) {
+                $("#submit").attr('Disabled', true);
+                $("#ValidateDateValidatoion").html("Valis Date can not be less than due date");
+            } else {
+                $("#submit").attr('Disabled', false);
+                $("#ValidateDateValidatoion").html(" ");
+            }
+        });
+
+
+        $('#cancel').click(function () {
+            window.location.href = '/FeeManagement/Challan_Form';
+        });
+
+       
+        var Durationtotal = 0;
+        var OneTimeTotal = 0;
+       
+        $("#DurationTypeID").change(function () {
+
+            var selectedDuration = $("#DurationTypeID").val();
+            var selectedClass = $("#ClassID").val();
+            $.get('@Url.Action("ChallanByDuration", "AspNetFeeChallan")',
+                { classId: selectedClass, durationId: selectedDuration }, function (data) {
+                    console.log(JSON.stringify(data));
+                    Durationtotal = data.amount;
+                    $("#amount").val(OneTimeTotal + Durationtotal);
+                    
+                    var startDate = new Date(parseInt(data.startDate.replace(/(^.*\()|([+-].*$)/g, '')));
+                    startDate = startDate.getFullYear() + "-" + pad(startDate.getMonth() + 1) + "-" + pad(startDate.getDate());
+                    $("#startDate").val(startDate);
+                    $("#penalty").val(0);
+                    var endDate = new Date(parseInt(data.endDate.replace(/(^.*\()|([+-].*$)/g, '')));
+                    endDate = endDate.getFullYear() + "-" + pad(endDate.getMonth() + 1) + "-" + pad(endDate.getDate());
+                    $("#endDate").val(endDate);
+                });
+        });
+        $("#ClassID").change(function () {
+            var selectedClass = $("#ClassID").val();
+            $.get('@Url.Action("GetOneTimeFee", "AspNetFeeChallan")',
+                { classId: selectedClass }, function (data) {
+                    //alert(JSON.stringify(data));
+                    var html = '';
+                    $('#feeTypes').html(' ');
+                    $.each(data, function (i, item)
+                    {
+                        
+                        html+=item.Name+' : <input type="checkbox" id="onetimefee" name="onetimefee" value="'+item.Id+'"><br>';
+                    });
+                    $('#feeTypes').html(html);
+                    $('#feeTypes :checkbox').change(function (e) {
+                        var Fee = [];
+                        $.each($("input[name='onetimefee']:checked"), function () {
+                            Fee.push($(this).val());
+                        });
+
+                        FeeIds = JSON.stringify({ 'FeeIds': Fee });
+
+                        $.ajax({
+                            contentType: 'application/json; charset=utf-8',
+                            dataType: 'json',
+                            type: 'POST',
+                            url: '/AspNetFeeChallan/GetOneTimeFeeTotal',
+                            data: FeeIds,
+                            success: function (data) {
+                                console.log(JSON.stringify(data));
+                                OneTimeTotal = parseInt(data);
+                                $('#amount').val(Durationtotal + OneTimeTotal);
+                                
+                                $('#partial').html('Fee Added Successfully');
+                            },
+                            failure: function (response) {
+                                $('#partial').html('Something went wrong');
+                            }
+                        });
+                       
+                    });
+                });
+        });
+
+    });
+</script>
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h4>Add New Challan Form</h4>
+    </div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="box-body">
+       
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-lg-1"> Class</label>
+                    <div class="col-md-6">
+                        @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ClassID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-lg-1"> Duration Type</label>
+                    <div class="col-md-6">
+                        @Html.DropDownList("DurationTypeID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DurationTypeID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-lg-1">Fee Included</label>
+                    <div class="col-md-6" id="feeTypes">
+                       
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2 col-lg-1" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @id = "title" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-lg-1"> Start Date</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", @id = "startDate" } })
+                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-lg-1">End Date</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", @id = "endDate" } })
+                        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" , @id = "endDateValidatoion" })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-lg-1"> Total Amount</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.TotalAmount, new { htmlAttributes = new { @class = "form-control", @id = "amount" } })
+                        @Html.ValidationMessageFor(model => model.TotalAmount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-lg-1"> Due Date</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.DueDate, new { htmlAttributes = new { @class = "form-control", @id = "duedate" } })
+                        @Html.ValidationMessageFor(model => model.DueDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Penalty, htmlAttributes: new { @class = "control-label col-md-2 col-lg-1" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Penalty, new { htmlAttributes = new { @class = "form-control", @id = "penalty" } })
+                        @Html.ValidationMessageFor(model => model.Penalty, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-lg-1"> Valid Date</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.ValidDate, new { htmlAttributes = new { @class = "form-control", @id = "validdate" } })
+                        @Html.ValidationMessageFor(model => model.ValidDate, "", new { @class = "text-danger", @id= "ValidateDateValidatoion" })
+                    </div>
+                </div>
+                
+            </div>
+       
+    </div>
+    <div class="box-footer">
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-md-offset-2 col-md-2">
+                <input type="submit" id="submit" value="Create Challan" class="btn btn-primary" />
+           
+                <button type="button" id="cancel" class="btn btn-default">Cancel</button>
+            </div>
+        </div>
+    </div>
+        }
+</div>

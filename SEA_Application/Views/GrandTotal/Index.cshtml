@@ -1,0 +1,714 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AccountantDashboardLayout.cshtml";
+}
+<script src="~/Scripts/printThis.js"></script>
+<style>
+
+    #example tr > :nth-child(1) {
+        display: none;
+    }
+
+
+    /*input[type='checkbox'] {
+        -webkit-appearance: none;
+        width: 30px;
+        height: 30px;
+        background: white;
+        border-radius: 5px;
+        border: 2px solid #555;
+    }*/
+    /* Base for label styling */
+    [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: absolute;
+        left: -9999px;
+    }
+
+        [type="checkbox"]:not(:checked) + label,
+        [type="checkbox"]:checked + label {
+            position: relative;
+            padding-left: 1.95em;
+            cursor: pointer;
+        }
+
+            /* checkbox aspect */
+            [type="checkbox"]:not(:checked) + label:before,
+            [type="checkbox"]:checked + label:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 1.25em;
+                height: 1.25em;
+                border: 2px solid #ccc;
+                background: #fff;
+                border-radius: 4px;
+                box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
+            }
+            /* checked mark aspect */
+            [type="checkbox"]:not(:checked) + label:after,
+            [type="checkbox"]:checked + label:after {
+                content: '\2713\0020';
+                position: absolute;
+                top: .15em;
+                left: .22em;
+                font-size: 1.3em;
+                line-height: 0.8;
+                color: #09ad7e;
+                transition: all .2s;
+                font-family: 'Lucida Sans Unicode', 'Arial Unicode MS', Arial;
+            }
+            /* checked mark aspect changes */
+            [type="checkbox"]:not(:checked) + label:after {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            [type="checkbox"]:checked + label:after {
+                opacity: 1;
+                transform: scale(1);
+            }
+    /* disabled checkbox */
+    [type="checkbox"]:disabled:not(:checked) + label:before,
+    [type="checkbox"]:disabled:checked + label:before {
+        box-shadow: none;
+        border-color: #bbb;
+        background-color: #ddd;
+    }
+
+    [type="checkbox"]:disabled:checked + label:after {
+        color: #999;
+    }
+
+    [type="checkbox"]:disabled + label {
+        color: #aaa;
+    }
+    /* accessibility */
+    [type="checkbox"]:checked:focus + label:before,
+    [type="checkbox"]:not(:checked):focus + label:before {
+        border: 2px dotted blue;
+    }
+
+    /* hover style just for information *   /
+    label:hover:before {
+        border: 2px solid #4778d9 !important;
+    }
+
+
+    /* Useless styles, just for demo design */
+
+    body {
+        font-family: "Open sans", "Segoe UI", "Segoe WP", Helvetica, Arial, sans-serif;
+        color: #777;
+    }
+
+
+
+    .txtcenter {
+        margin-top: 4em;
+        font-size: .9em;
+        text-align: center;
+        color: #aaa;
+    }
+
+    .copy {
+        margin-top: 2em;
+    }
+
+        .copy a {
+            text-decoration: none;
+            color: #4778d9;
+        }
+
+    body {
+        -webkit-print-color-adjust: exact;
+    }
+
+    td,
+    th,
+    tr,
+    table {
+        border-top: 1px solid black;
+        border-collapse: collapse;
+    }
+
+        td.description,
+        th.description {
+            width: 115px;
+            max-width: 115px;
+            word-break: break-word;
+        }
+
+        td.quantity,
+        th.quantity {
+            width: 115px;
+            max-width: 115px;
+            word-break: break-word;
+        }
+
+
+        td.price {
+            padding-left: 10px;
+        }
+
+    .centered {
+        text-align: center;
+        align-content: center;
+    }
+
+    .ticket {
+        width: 230px;
+        max-width: 230px;
+        font-size: 12px;
+        font-family: 'Times New Roman';
+    }
+
+    img {
+    }
+
+    #bill {
+        margin-left: 30px;
+        display: none;
+    }
+
+    #btnPrint {
+        display: none;
+    }
+</style>
+<script type="text/javascript">
+    var table;
+    var Counter = 1;
+    var SelectedMonths = [];
+
+    $(document).ready(function () {
+       // $('.check_class').click(function () {
+
+    
+
+        $(document).on("click", ".check_class", function () {
+
+            var ischecked = $(this).is(':checked');
+            if (!ischecked) {
+                var selectedvalue = $(this).val();
+                var index = SelectedMonths.indexOf(selectedvalue);
+                SelectedMonths.splice(index, 1);
+                $("#counter").val(SelectedMonths);
+            }
+            else {
+                   var selectedvalue = $(this).val();
+                    SelectedMonths.push(selectedvalue);
+                    Counter++;
+                    $("#counter").val(SelectedMonths);
+                   }
+
+
+            $('#Print').click(function () {
+                var restorepage = $('body').html();
+                var printcontent = $('#ChallanForm').clone();
+                $('body').empty().html(printcontent);
+                window.print();
+                $('body').html(restorepage);
+            });
+        });
+
+            
+            table = $('#datatable').dataTable({
+                    buttons: [
+                        {
+                            text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
+                        },
+                        {
+                            text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
+                            //action: function (e, dt, button, config) {
+                            //    window.location.href = '';
+                            //}
+                        },
+                        {
+                            text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
+                        }
+                    ],
+                    "language": {
+                        "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
+                            "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
+                            "  </div>\n" +
+                            "  </div>",
+                        "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
+                        "paginate": {
+                            "first": "Firstt",
+                            "last": "Lastt",
+                            "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
+                            "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
+                        }
+                    },
+                    "searching": true,
+                    // dom: '<"class">Blfrtip',
+                    dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
+                        "<'row'<'col-sm-12 datatablesData'tr>>" +
+                        "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
+       });
+
+        
+    
+             $("#PageHeader").html("Fee Information");
+
+                $("#BreadCrumbs").append(' <li> <a href="/FinanceSummary/index"> Home </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Fee Information</a></li>');
+
+
+      //  table = $("#example").dataTable();
+        $.ajax({
+
+            type: "POST",
+            cache: false,
+            url: "/GrandTotal/ListAllStudents",
+            processData: false,
+            contentType: false,
+            success: function (data) {
+             $.each(data, function (i, item) {
+            debugger
+
+
+                    //Shahzad
+                    var checkbox = '<input type="button" class="btn btn-primary getinfo" onclick="GetChallanForm(' + item.Id + ')"  value="Print Challan"  class="check_class"  name="printcheck" id="test' + item.Id + '" /><label for="test' + item.Id + '"></label>';
+                   //  var checkbox = '<input type="checkbox" class="check_class"  value="' + item.Id + '" name="printcheck">';
+                    table.fnAddData([item.Id, item.Name, item.ClassName, item.Email, item.PhoneNumber, item.UserName, item.Months, item.Status, item.FeePayable,checkbox]);
+                })
+
+            }
+        });
+        drawTable();
+    });
+
+
+
+    function class_click(item) {
+        debugger
+        SelectedMonths.length = 0;
+        var select = item.value;
+       // alert(select);
+        $("#bill").css('display', 'none');
+      $("#btnPrint").css('display', 'none');
+
+
+        subFun(item.value);
+    }
+    function subFun(selectedClass) {
+
+      //  alert(selectedClass);
+        if (selectedClass != null) {
+            $('.eeniart0017').css("display", "block");
+        }
+
+        $.get('@Url.Action("ListofStudents", "GrandTotal")',
+
+
+            { id: selectedClass }, function (data) {
+                $('.eeniart0017').css("display", "none");
+
+                table.fnClearTable();
+                $.each(data, function (i, item) {
+
+                  // var checkbox = '<input type="checkbox" class="check_class"  value="' + item.Id + '" name="printcheck">';
+                  // var checkbox = '<input type="checkbox"   value="' + item.Id + '"   name="printcheck" id="test' + item.Id + '" /><label for="test' + item.Id + '"></label>';
+                     var checkbox = '<input type="button" class="btn btn-primary getinfo" onclick="GetChallanForm(' + item.Id + ')"     value="Print Challan"  class="check_class"  name="printcheck" id="test' + item.Id + '" /><label for="test' + item.Id + '"></label>';
+                    table.fnAddData([item.Id, item.Name, item.ClassName, item.Email, item.PhoneNumber, item.UserName, item.Months, item.Status, item.FeePayable, checkbox]);
+                });
+            });
+    }
+    function ChallandDate() {
+        $("#myModal1").modal('show');
+    }
+    $(document).on('click', '.btn-edit', function () {
+
+        var sid = $(this).attr("id");
+        if (sid != "" && sid != undefined) {
+            window.location.href = "/GrandTotal/ChallanPrintDetails?S_UID=" + sid;
+        }
+        else {
+            return false;
+        }
+
+    });
+
+         function drawTable() {
+             $('#example_filter').addClass("form-group");
+             $('#example_filter').addClass("has-feedback");
+             $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+             //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+
+             $('#example_wrapper').css("text-align", "left");
+             $('#example_length').css("text-align", "left");
+             $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+             $("#example_length label").css("text-align", "left");
+             $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+             // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+             $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-0px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+             //$('#example_length').css({ "overflow": "auto" });
+             $('#example_filter input').addClass("add");
+             $('#example_filter').append('<span class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -25px; color: #666;"></span>');
+             var list = $("#ClassID").html();
+             $('#example_length').append(
+
+                 '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+                 '<div class="d-bar" style="margin-top:0px;"></div>' +
+                 '</div>'
+                   +
+                '<div class="col-md-3 col-lg-3">' +
+                '<div class="col-md-6" style="padding:0px; margin-top:0px">' +
+                '<lable class="control-label"  style="margin-top:0px">Select Section</lable>' +
+                '</div>' +
+                 '<div class="col-md-6">' +
+
+                 '<select class="form-control  input-sm" id="ClassID" style="margin-top:0px" name="Position" onChange="class_click(this)">' +
+                 '<option value="0" selected>All</option>'+list +
+                '</select>' +
+                '</div>' +
+                '</div>'
+                +
+                '<div class="col-md-1">' +
+
+                '</div>'+
+                '<div class="col-md-1 col-md-offset-1">' +
+
+                '</div>');
+             $("#ClassID").prepend("<option value='0' selected>All</option>");
+         }
+         $(function () {
+             $("#epicker").datepicker();
+         });
+         $(function () {
+             $("#vpicker").datepicker();
+         });
+
+         $(document).on('click', '#SubmitDate', function () {
+             var formData = $(".dateform").serialize();
+             $('.eeniart0017').css("display", "block");
+             $.post(
+                    "/GrandTotal/AddChallanDate",
+                    $(".dateform").serialize(),
+                    function (value) {
+
+                        if (value != 'error') {
+
+                            $('.eeniart0017').css("display", "none");
+                            $('#myModal1').modal('hide');
+                        }
+                        else {
+                            $('.eeniart0017').css("display", "none");
+                        }
+                    },
+                    "text"
+                );
+         });
+
+
+         function download() {
+             var month = $("#MonthID").val();
+
+             var url = "http://www.sea-ngsipc.com/GrandTotal/FeeChallan_ExcelReport?month=" + month;
+             var WINDOW = window.open(url, '_blank');
+
+
+         }
+         function parseJsonDate(jsonDateString) {
+
+             var month_names_short = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+             var currentdate = new Date(parseInt(jsonDateString.replace('/Date(', '')));
+             return currentdate.getDate() + "-" + (month_names_short[currentdate.getMonth()]) + "-" + currentdate.getFullYear();
+         }
+         function numberWithCommas(x) {
+             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+         }
+
+         function GetChallanForm(id) {
+             debugger;
+         //     var selectedvalue = $(this).val();
+             var _Mnh = id;
+             var _Mnth = $("#MonthID").val();
+
+
+             $('.eeniart0017').css("display", "block");
+             $.get('@Url.Action("GetChallanForm")',
+               { month: _Mnth, Idlist: _Mnh }, function (data) {
+                   if (data == "Error")
+                   {
+                       $("#ErrorMessage").html("No data available !");
+                   }
+                   $('#billbody').html("");
+
+
+
+                       debugger
+                       var TableRow = "<tr>  <td class='description'>Student Name</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + data.StudentName + "</td></tr><tr>  <td class='description'>Student Session</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + data.StudentClass + "</td></tr> <tr>  <td class='description'>Student RollNo</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + data.StudentUserName + "</td></tr><tr>  <td class='description'>Fee Month</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + data.FeeMonth + "</td></tr><tr>  <td class='description'>Payable Fee</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + data.PayableFee + "</td></tr><tr>  <td class='description'>Status</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;Paid</td></tr>    "
+                        $('#billbody').append(TableRow);
+
+
+                   $("#challanNo").html(data.ChallanID);
+
+
+                    var d = new Date($.now());
+
+                    $("#DateTime").html(d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+
+                    $("#bill").css('display', 'block');
+                   $("#btnPrint").css('display', 'block');
+                   $("#btnPrint").attr('name', id);
+
+
+
+
+
+
+               });
+         }
+
+
+
+    $(document).ready(function () {
+
+        $("#btnPrint").click(function () {
+
+         var idOfStudentFeeMonth = $(this).attr('name');
+
+            $.ajax({
+
+                type: "POST",
+                url: "/GrandTotal/ChangeStatus",
+                data: { "Id": idOfStudentFeeMonth },
+                success: function (data) {
+
+
+
+
+        var mywindow = window.open('', '', '');
+
+        mywindow.document.write('<html><head><title>' + document.title + '</title>  ');
+
+        mywindow.document.write('<style>td,th,tr,table{border-top: 1px solid black;} td.description,th.description {width: 115px; max-width;115px;word-break: break-word;}  td.quantity,th.quantity{ width: 115px;max-width: 115px;word-break: break-word;} .centered {text-align: center;align-content: center;} .ticket{width:230px;max-width:230px;font-size: 12px}  img { } </style>');
+        mywindow.document.write('</head><body >');
+       // mywindow.document.write('<h1>' + document.title + '</h1>');
+        mywindow.document.write(document.getElementById('bill').innerHTML);
+        mywindow.document.write('</body></html>');
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10*/
+
+        mywindow.print();
+        mywindow.close();
+
+       window.location.href = '/GrandTotal/Index/';
+
+
+
+                }
+                
+
+            })
+
+
+
+
+           // var OrderId = $('#btnPrint').attr('name');
+
+
+   })
+  })
+
+
+</script>
+<style>
+
+    .inc-btn {
+        text-align: right;
+        padding-bottom: 15px;
+    }
+</style>
+
+
+<div class="card">
+    <div class="card-body p-4">
+
+
+        <div class="top-header">
+            @*<div class="Salary-tag">
+                    <h2>&nbsp;Fee Information</h2>
+                </div>*@
+            <div class="col-md-6">
+                <span style="color:darkred;font-weight:700" id="ErrorMessage"></span>
+            </div>
+            <div class="inc-btn">
+                @*<button value="Challan Date" class="btn btn-default" id="challan-date" onclick="ChallandDate()"><i class="fa fa-calendar"> </i>  Challan Date</button>*@
+            </div>
+        </div>
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="box-body">
+                    <div style="display: none">
+                        @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    @*<style>
+                            #example tr td:nth-child(2), tr td:nth-child(4) {
+                                text-align: right;
+                            }
+                        </style>*@
+                    <div class="table-responsive">
+                        <table id="datatable" class="table hover table-striped table-bordered" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Id
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Class
+                                    </th>
+                                    <th>
+                                        Email
+                                    </th>
+                                    <th>
+                                        PhoneNumber
+                                    </th>
+                                    <th>
+                                        Username
+                                    </th>
+                                    <th>Month</th>
+                                    <th>Status</th>
+                                    <th>Payable Fee</th>
+                                    <th>
+                                        Print
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblbody"></tbody>
+                        </table>
+                    </div>
+                    <div id="Error"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+        
+
+                <!----------------------------------------------------------------------------------->
+                <input type="hidden" name="counter" id="counter" />
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                After submitting you won't be able to change data
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="disable_student()" data-dismiss="modal">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Challan Date</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="dateform">
+                                    <div class="form-group">
+                                        <label class="control-label visible-ie8 visible-ie9">Validity Date</label>
+                                        <div class="input-icon">
+                                            <input class="form-control placeholder-no-fix" type="date" placeholder="Validity Date" name="ValidityDate" id="vpicker" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label visible-ie8 visible-ie9">Due Date</label>
+                                        <div class="input-icon">
+                                            <input class="form-control placeholder-no-fix" type="date" placeholder="Due Date" name="DueDate" id="epicker" required>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="SubmitDate">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="box-header with-border">
+                            @*<button id="Print" class="btn-primary">Print</button>*@
+                        </div>
+                        @*<div id="ChallanForm">
+
+                            </div>*@
+
+
+                        <div id="bill" style="margin-left:30px">
+
+                            <div class="ticket" id="ticket">
+                                <br>
+                                <center>
+                                    <img src="/Content/print-receipt-thermal-printer-master/print-receipt-thermal-printer-master/logo.PNG" />
+
+                                </center>
+
+
+                                <p class="centered">
+                                    Officer's Academy
+                                    <br><span id="Recipt">Recipt#<span id="challanNo"></span> </span>
+                                    <br><span id="DateTime"></span>
+                                </p>
+
+
+                                <br><b>Cashier:</b> Accountant
+
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="description" colspan="2">Challan Information</th>
+
+
+                                        </tr>
+
+
+                                    </thead>
+                                    <tbody id="billbody" style="border: 1px solid black">
+                                    </tbody>
+                                </table>
+                                <p class="centered">
+                                    Thanks for your purchase!
+                                    <br>Developed by : TheRiskAdvisors
+                                </p>
+                            </div>
+
+
+                        </div>
+                        <button id="btnPrint" style="display:none;margin-left:30px;" class="hidden-print">Print</button>
+                    </div>
+
+                    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>

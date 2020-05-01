@@ -1,0 +1,825 @@
+﻿
+@{
+    ViewBag.Title = "StudentLessons";
+    Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
+}
+
+
+<style>
+
+    .page-sidebar .page-sidebar-menu, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: 2000px !important;
+    }
+
+
+    .TopicsAndLesson {
+        height: 50px;
+        width: 100%;
+        line-height: 50px;
+        display: inline-block;
+        cursor: pointer;
+        margin: auto;
+        padding-left: 10px;
+    }
+
+    #TopicList {
+        width: 70%;
+        height: auto;
+    }
+
+        #TopicList h3 {
+            display: inline-block;
+        }
+
+    .TopicDiv {
+        background: rgb(51, 70, 102);
+        color: white;
+    }
+
+    #tab_3 table td {
+        width: 20%;
+    }
+
+    .box-body, .box {
+        background: white;
+    }
+
+    #AllCommentsHead {
+    }
+
+    #QADiv:hover {
+        background: #CDCDCD;
+    }
+
+    #TitleParagraph {
+        background: rgb(51, 70, 102);
+        color: white;
+    }
+
+    #QADiv {
+        border: 1px solid gray;
+        width: 80%;
+        cursor: pointer;
+        margin: auto;
+        cursor: pointer;
+    }
+
+    a {
+        color: black;
+    }
+
+        a:hover {
+            text-decoration: none;
+            color: black;
+        }
+        .submitAssignmentBtn{
+            display:none;
+        }
+</style>
+
+
+
+<div class="box box-primary">
+    <div class="box-title"></div>
+
+    <div class="box-body">
+
+
+
+        <h3 id="LessonName"></h3>
+
+
+
+
+        <input type="hidden" id="LessonID" name="name" value="@ViewBag.LessonID" />
+
+        <div id="LessonVideo" style=" margin-left: 100px; ">
+            @*<iframe width="800" height="450" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>*@
+
+            <iframe src="" width="900" height="450" frameborder="0" border="0" scrolling="auto" allowtransparency="true" allowfullscreen="1" style="border: none; background-color: transparent"></iframe>
+        </div>
+        <br />
+
+
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1" data-toggle="tab">Course Content</a></li>
+                <li><a href="#tab_2" data-toggle="tab">OverView</a></li>
+                <li><a href="#tab_3" data-toggle="tab">Reading Material</a></li>
+                <li><a href="#tab_4" data-toggle="tab">Assignment</a></li>
+                <li><a href="#tab_5" data-toggle="tab">Q/A</a></li>
+                <li><a href="#tab_6" data-toggle="tab" id="PerformTestTab" style="display:none">Activity</a></li>
+            </ul>
+        </div>
+
+        <div class="tab-content" style="padding: 10px 0px 0px 0px; ">
+
+            <div class="tab-pane active" id="tab_1">
+
+                <div class="col-md-12">
+
+
+                    <div id="TopicList" style=" margin: auto; ">
+
+
+                        <h3 style="color:black">Course Content</h3>
+
+                        <h3 style="float:right">Total Lessons &nbsp;&nbsp;<span id="TotalLessons"></span> </h3>
+
+
+                        <br />
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="tab-pane" id="tab_2">
+
+                <h3>Description</h3>
+                <p id="LessonDescription">
+
+                </p>
+
+            </div>
+
+            <div class="tab-pane" id="tab_3">
+
+
+                <div class="box" style="border:0">
+
+
+                    <div class="box-body">
+                        <div class="form-horizontal" id="AttachmentAndLinkTable">
+
+
+                            @*<table id="Attachment" style="width:40%;">
+                                </table>
+
+
+                                <table id="LinksTable" style="width:40%;">
+                                </table>*@
+
+
+
+                        </div> <!--End of Form Horizontal-->
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="tab_4">
+                @*<table id="Assignment" style="width:40%;">
+                    </table>*@
+
+                <div class="box" style="border:0">
+                    <div class="box-title" style="border:0"></div>
+
+
+                    <div class="box-body">
+                        <div class="form-horizontal" id="Assignment">
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group" id="">
+
+                    <span class="col-md-2"> Teacher Comments  </span>
+
+                    <div id="" class="col-md-6">
+                        <textarea readonly id="TeacherComments" style="height:120px;width:80%">
+
+
+                        </textarea>
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+
+                <div class="col-md-12">
+
+                    <div class="form-group">
+
+                        <span class="col-md-2"> Submit your Assignment </span>
+
+                        @*<i class="fa fa-paperclip" style="padding-left:80px"></i> Choose File
+                                <input type="file" style="padding-left:80px" id="SubmitAssignment" name="SubmitAssignment">
+                            </div>
+                            <div class="col-md-offset-2 col-lg-offset-2" style="padding-left:80px">
+                                <p class="help-block">Max. 32MB</p>
+                            </div>*@
+                        <div class="col-md-6">
+
+
+                            <input type="file" class="btn btn-default" id="SubmitAssignment" name="SubmitAssignment" />  <span style="color:blue" id="AssignmentMessage"></span>
+
+                            <br />
+                            <input class="btn btn-default" type="button" id="AssignmentSubmitButton" name="" value="Submit" />
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="tab-pane" id="tab_5">
+
+                <div class="col-md-12">
+
+                    <input type="button" class="btn btn-default" value="Comment" data-toggle="modal" data-target="#myModal" />
+
+                    <br />
+
+                </div>
+
+                <div id="AllCommentsHead" class="col-md-12">
+                    <br />
+                    <br />
+
+                </div>
+
+
+            </div>
+
+            <div class="tab-pane" id="tab_6">
+
+                <div class="col-md-12" style="padding-left:0;">
+
+                    @*@if (ViewBag.IsLastLesson == "Yes")
+                        {
+
+                            <a href="/StudentCourses/Test/@ViewBag.TopicId"> <button class="btn btn-primary"> Perform Test</button></a>
+
+
+                        }
+                        else
+                        {
+
+                        }*@
+
+
+
+
+                    <h2>&nbsp; Guidelines</h2>
+
+                    <div class="box box-primary">
+                        <div class="box-body">
+                            <div class="col-md-12">
+                                <div class="form-three widget-shadow">
+                                    <div>
+                                        <ul>
+                                            <li>one</li>
+                                            <li>two</li>
+                                            <li>three</li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @{
+                        int counter = 1;
+                    }
+
+                    <h3> &nbsp; M.C.Q.S Section</h3>
+                    @if (@ViewBag.questionList_MCQS.Count == 0)
+                    {
+                    }
+                    else
+                    {
+
+                        <div class="box box-primary">
+                            <div class="box-body" style="padding:0">
+                                <div class="col-md-12" style="padding-left:0">
+                                    <div class="form-three widget-shadow">
+
+                                        @foreach (var item in ViewBag.questionList_MCQS)
+                                        {
+                                            <div id="StudentTestQuestions">
+
+                                                <h3 class="QuestionNames"><span>Question @counter: @item.name</span></h3>
+
+                                                <input id="@item.id" class="Option" type="hidden" value="" />
+
+                                                <ol>
+                                                    @foreach (var item1 in item.options)
+                                                    {
+                                                        <li><input type="radio" class="col-md-1" name="@item.id" id="@item1.id" onchange="$('#' + @item.id).val(@item1.id)" />@item1.name </li>
+                                                    }
+
+                                                </ol>
+
+                                                <span id="@item.id"></span>
+
+                                                <hr />
+
+                                            </div><!--Student Test Questions-->
+                                            counter = counter + 1;
+
+                                        }
+                                    </div>
+
+                                    @*<div class="form-three widget-shadow">
+                    <h4>Fill in Blanks Section</h4>
+                    @foreach (var item in ViewBag.questionList_Fill)
+                    {
+                        <span>@item.name: <input type="text" id="@item.id" /></span>
+                    }
+
+            </div>*@
+                                </div>
+                                <div>
+
+                                    <button style="" id="Submit" class="btn btn-success">Submit </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    }
+
+
+                </div> <!--col md 12-->
+
+
+            </div> <!--tab 6-->
+
+        </div>
+
+    </div>
+
+    <!--Bootstrap Modal Section -->
+    <div class="modal fade" id="myModal" role="dialog" style="margin-top:100px;">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Create a new  thread </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+
+                        <div class="col-md-12">
+
+                            <label class="col-md-2">Title</label>
+                            <div class="col-md-10">
+
+                                <input type="text" name="ThreadTitle" id="ThreadTitle" value="" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+
+                    <div class="col-md-12">
+
+                        <div class="form-group">
+                            <label class="col-md-2">Body</label>
+                            <div class="col-md-6">
+
+                                <textarea id="ThreadBody" name="ThreadBody" rows="8" cols="60">
+                                </textarea>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div> <!--End modal body-->
+
+
+
+                <div class="modal-footer">
+                    <button type="button" id="ModalSaveButton" class="btn btn-primary">Save</button>
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        var LessonId = $("#LessonID").val();
+
+        $.ajax({
+
+
+            type: "POST",
+            url: "/StudentCourses/GetLessonVideo",
+            data: { "LessonID": LessonId },
+            success: function (data) {
+
+                debugger
+
+                $("iframe").attr('src', data.LessonVideo);
+                $("#LessonName").text(data.LessonName);
+                $("#LessonDescription").text(data.LessonDescription);
+
+            }
+
+
+        })
+
+
+        $.ajax({
+
+
+            type: "POST",
+            url: "/StudentCourses/ReadingMaterials",
+            data: { "LessonID": LessonId },
+            success: function (data) {
+
+                debugger
+
+                var Attachment = data.StuAttachment;
+                var Links = data.StuLinks;
+                $.each(Attachment, function (key, value1) {
+
+                    debugger
+
+
+                    var file = value1.AttachmentName.split('.').slice(0, -1).join('.');
+                    //  $("#Attachment").append('<tr><td>Attachment Name </td>  <td>' + file + '</td></tr>');
+                    //  $("#Attachment").append('<tr><td> Download Attach File  </td>  <td><a href ="/StudentCourses/DownloadFile/' + value1.AttachmentId + '">' + value1.AttachmentPath + '</a></td></tr>');
+
+
+                    $("#AttachmentAndLinkTable").append('<div class="form-group"> <span class="col-md-2">Attachment Name</span >  <div class="col-md-6">' + file + '</div></div> ');
+
+                    $("#AttachmentAndLinkTable").append('<div class="form-group"> <span class="col-md-2">Download Attach File</span > <div class="col-md-6"><a href ="/StudentCourses/DownloadFile/' + value1.AttachmentId + '">' + value1.AttachmentPath + '</div></div> ');
+                })
+
+
+                $.each(Links, function (key, value2) {
+
+                    // $("#LinksTable").append('<tr><td>Link URL  </td>  <td><a href =' + value2.LinkUrl + ' target="_blank">' + value2.LinkUrl + '</a></td></tr>');
+
+                    $("#AttachmentAndLinkTable").append('<div class="form-group"><span class="col-md-2">Link URL</span ><div class="col-md-6"><a href =' + value2.LinkUrl + ' target="_blank"> ' + value2.LinkUrl + '</a></div>');
+
+
+
+                })
+
+
+
+            }
+
+
+        })
+
+
+
+
+
+        $.ajax({
+
+            type: "POST",
+            url: "/StudentCourses/GetCourseContent",
+            data: { "LessonID": LessonId },
+            success: function (data) {
+
+
+                $.each(data, function (key, value1) {
+
+                    debugger
+
+                    Count = value1.TotalLessons;
+
+                    var lessonlist = value1.LessonList;
+
+
+                    $("#TopicList").append('<div   class ="TopicsAndLesson TopicDiv" style="border:1px solid black"><b> ' + value1.TopicName + '</b> <b><span style ="float:right">' + value1.TotalLessons1 + '  Lesson </span></b></div>');
+
+                    //  $("#TopicList").append('<div class="panel-group"> <div class="panel panel-default"> <div class="panel-heading"> <h4 class="panel-title"> <a data-toggle="collapse" href="#collapse1">Collapsible list group</a> </h4> </div> <div id="collapse1" class="panel-collapse collapse"> <ul class="list-group"> <li class="list-group-item">One</li> <li class="list-group-item">Two</li> <li class="list-group-item">Three</li> </ul> <div class="panel-footer">Footer</div> </div> </div> </div>');
+
+                    $.each(lessonlist, function (key, lesson) {
+
+                        if (lesson.LessonExistInTrackingTable == "Yes") {
+
+                            $("#TopicList").append('<div   class ="TopicsAndLesson" style="border:1px solid black"><a class="StudentLessons" name = "' + lesson.LessonId + '"  href = "/StudentCourses/StudentLessons/' + lesson.LessonId + '">' + lesson.LessonName + '</a><span class="glyphicon glyphicon-ok"></span></div>');
+                        }
+                        else {
+                            $("#TopicList").append('<div   class ="TopicsAndLesson" style="border:1px solid black"><a class="StudentLessons" name = "' + lesson.LessonId + '"  href = "/StudentCourses/StudentLessons/' + lesson.LessonId + '">' + lesson.LessonName + '</a></div>');
+
+                        }
+
+                    })
+
+                })
+
+                $("#TotalLessons").text(Count);
+
+            }
+        })
+
+        $("#TopicList").on('click', ".StudentLessons", function () {
+
+            var LessonId = $(this).attr('name');
+
+            // alert(LessonId);
+
+            $.ajax({
+                type: "POST",
+                url: "/StudentCourses/UpdateStudentLessonTracking",
+                data: { "LessonId": LessonId },
+
+                success: function (data) {
+
+                }
+
+
+            })
+
+        })
+
+
+        $.ajax({
+
+
+            type: "POST",
+            url: "/StudentCourses/StudentAssignment",
+            data: { "LessonID": LessonId },
+            success: function (data) {
+
+                debugger
+                //var value = new Date(parseInt(data.StudentAssignmentDueDate.replace(/(^.*\()|([+-].*$)/g, '')));
+                //var dat = value.getMonth() +
+                //    1 +
+                //    "/" +
+                //    value.getDate() +
+                //    "/" +
+                //    value.getFullYear();
+                if (data.FileName == "") {
+
+                    $("#AssignmentSubmitButton").addClass('submitAssignmentBtn');
+
+                }
+
+                $("#Assignment").append('<div class="form-group"><span class="col-md-2">Assignment Name</span ><div class="col-md-6">' + data.StudentAssigmentName + ' </div>');
+
+                $("#Assignment").append('<div class="form-group"><span class="col-md-2">Download Attach File</span ><div class="col-md-6"><a href ="/StudentCourses/DownloadFileOfAssignment/' + data.StudentAssignmentId + '">' + data.FileName + '</a></div> ');
+                $("#Assignment").append('<div class="form-group"><span class="col-md-2">Assignment DueDate</span><div class="col-md-6">' + data.StudentAssignmentDueDate + ' </div></div>');
+
+                //  $("#Assignment").append('<tr><td>Assignment Name </td>  <td>' + data.StudentAssigmentName + '</td></tr>');
+                //  $("#Assignment").append('<tr><td> Download Attach File  </td>  <td><a href ="/StudentCourses/DownloadFileOfAssignment/' + data.StudentAssignmentId + '">' + data.StudentAssigmentName + '</a></td></tr>');
+                // $("#Assignment").append('<tr><td>Assignment DueDate </td>  <td>' + data.StudentAssignmentDueDate + '</td></tr>');
+                $("#TeacherComments").text(data.TeacherComments);
+
+
+                
+
+            }
+
+        })
+
+        $("#AssignmentSubmitButton").click(function (evt) {
+
+
+            debugger
+            var fileUpload = $("#SubmitAssignment").get(0).files;
+
+            var data = new FormData();
+            data.append('LessonID', LessonId);
+
+            if (fileUpload.length > 0) {
+                data.append("file", fileUpload[0]);
+            }
+            $.ajax({
+                type: "POST",
+                url: "/StudentCourses/StudentAssignmentSubmission",
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (message) {
+
+                    $("#AssignmentMessage").html(message);
+
+                    //  window.location.href = "/StudentCourses/Index";
+
+
+                },
+                error: function () {
+                    alert("There was error uploading files!");
+                }
+            });
+        });
+
+
+        $("#ModalSaveButton").click(function () {
+
+            var ThreadTitle = $("#ThreadTitle").val();
+            var ThreadBody = $("#ThreadBody").val();
+
+            $.ajax({
+
+                type: "POST",
+                url: "/StudentCourses/SaveCommentHead",
+                data: { "LessonID": LessonId, "Title": ThreadTitle, "Body": ThreadBody },
+                success: function (data) {
+
+
+                    location.reload();
+
+                }
+
+            })
+
+
+        })
+
+        $.ajax({
+
+            type: "POST",
+            url: "/StudentCourses/AllCommentsHead",
+            data: { "LessonID": LessonId },
+            success: function (data) {
+
+                debugger
+
+
+
+                $.each(data, function (index) {
+
+                    //   Total = Total + data[index].Total;
+
+                    var value = new Date(parseInt(data[index].Date.replace(/(^.*\()|([+-].*$)/g, '')));
+                    var dat = value.getMonth() +
+                        1 +
+                        "/" +
+                        value.getDate() +
+                        "/" +
+                        value.getFullYear();
+
+                    var id = parseInt(data[index].CommentHeadId);
+
+                    $("#AllCommentsHead").append('<a href = "/StudentCourses/CommentsPage1/' + data[index].CommentHeadId + '"><div id="QADiv"  name ="' + data[index].CommentHeadId + '"   class ="CommentDivs" ><p id="TitleParagraph" class="titleParagraphs" style="padding:10px;" ><b>' + data[index].Title + '</b> </p> <div style="padding:10px;"> <p>' + data[index].Body + '</p> <p><b>' + dat + ' &nbsp;&nbsp;&nbsp; ' + data[index].UserName + '</b></p><p><b></p> </b></div> </div></a>');
+
+                });
+
+
+
+            }
+        })//end of ajax
+
+
+        //   $("#AllCommentsHead").on('click', ".CommentDivs", function () {
+
+
+        //       var id = $(this).attr('name');
+
+
+
+        ////  window.location.href = "/StudentCourses/CommentsPage1?Page=data&PostData=" + id;
+
+        //       $.ajax({
+
+        //           type: "POST",
+        //           url: "/StudentCourses/CommentsPage1",
+        //           data: { "CommentHeadId": id },
+        //           success: function (data) {
+
+        //               alert("usama");
+
+        //           }
+
+        //       })
+
+
+
+        //   })
+
+
+        $.ajax({
+
+            type: "POST",
+            url: "/StudentCourses/IsLastLesson",
+            data: { "LessonID": LessonId },
+            success: function (data) {
+
+                debugger
+
+                if (data.IsLastLesson == "Yes") {
+
+                    $("#PerformTestTab").css('display', 'block');
+                }
+                else {
+                    $("#PerformTestTab").css('display', 'none');
+
+                }
+
+
+
+            }
+        })
+
+        $('#Submit').click(function () {
+
+            //   alert("Submit function");
+
+            debugger;
+            var options = $('.Option');
+            var answers = [];
+            var Questions = [];
+            var Question = [];
+            var Answer = [];
+            for (var i = 0; i < options.length; i++) {
+
+                answers[i] = $(options[i]).val();
+
+                Answer.push($(options[i]).val());
+
+                Questions[i] = $(options[i]).attr("id");
+
+                Question.push($(options[i]).attr("id"));
+
+
+            }
+
+            //  var quiz_id = $("#QuizId").val();
+
+            $.ajax({
+                url: '/StudentCourses/submit_question',
+                type: "GET",
+                data: { Question: Question.toString(), Answer: Answer.toString() },
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+
+                    debugger
+
+                     $.each(result, function (key, data) {
+                        debugger
+                        if (data.IsCorrect == "Yes") {
+
+                            //	$("#usama span[id='2']").html();
+                            $("#StudentTestQuestions span[id='" + data.id + "']").html(data.Message);
+                            $("#StudentTestQuestions span[id='" + data.id + "']").css('display', 'block');
+                            $("#StudentTestQuestions span[id='" + data.id + "']").css('color', 'green');
+                        }
+                        else {
+
+                            $("#StudentTestQuestions span[id='" + data.id + "']").html(data.Message);
+                            $("#StudentTestQuestions span[id='" + data.id + "']").css('display', 'block');
+                            $("#StudentTestQuestions span[id='" + data.id + "']").css('color', 'red');
+
+                        }
+
+
+
+                    })
+
+
+                    //window.location.href = "/StudentCourses/TestResult?Questions=" +data  ;
+
+                    //  window.location.href = "/StudentCourses/TestResult?id=" + data.val();
+
+                    //window.location.href = "/StudentCourses/TestResult";
+
+
+                    // alert("Number of Correct answers are :" + result);
+                }
+            });
+
+        });
+
+
+
+
+
+    }) // end of document ready
+
+
+</script>

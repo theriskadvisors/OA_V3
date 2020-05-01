@@ -1,0 +1,48 @@
+﻿@model SEA_Application.Models.AspNetSubject_Homework
+
+@{
+    ViewBag.Title = "Edit";
+}
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">User</a> > @Html.ActionLink("Diary", "Index", "AspNetHomeworks") > <a href="#"><b>Edit Diary</b></a> </label>
+
+<h4>Edit Subject Diary</h4>
+<div class="box box-primary">
+    <div class="box-body">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.HomeworkID)
+                @Html.HiddenFor(model => model.SubjectID)
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Homework Detail</label>
+                    <div class="col-md-6">
+                        @Html.TextAreaFor(model => model.HomeworkDetail,   new { @class = "form-control"} )
+                        @Html.ValidationMessageFor(model => model.HomeworkDetail, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+               <style>
+                   .form-control{
+                      min-height:200px;
+                       width:100%;
+                   }
+               </style>
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-2">
+                        <button onclick="window.location.href='/AspNetHomeworks/Index'" class="btn btn-primary">Cancel</button>
+                        <input type="submit" value="Save" class="btn btn-default" />
+
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,95 @@
+﻿<head>
+    <link href="~/AdminLTE/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/AdminLTE/plugins/morris/css/morris.css" rel="stylesheet" />
+</head>
+
+<script src="~/AdminLTE/bootstrap/js/bootstrap.js"></script>
+
+<script src="~/AdminLTE/selectone.js"></script>
+
+
+<div class="row">
+    <div align="center">
+        <h2 class="">Party Ledger</h2>
+        <h4 >Finincial Year: @ViewBag.FinincialYear</h4>
+    </div>
+    <br />
+    <div>
+        <div class="col-md-3">
+            <h4>GL Code: @ViewBag.Code</h4>
+        </div>
+    </div>
+    
+    <div align="right" style="margin-right:15px">
+        Time: @DateTime.Now
+    </div>
+    <div align="left" style="margin-left:15px">
+        @ViewBag.Description
+    </div>
+</div>
+
+<br />
+
+<table id="Post_Table" class="table">
+
+    <tr>
+        <th>
+            V.Date
+        </th>
+        <th>
+            Voucher #
+        </th>
+        <th>
+            Transaction
+        </th>
+        <th>
+            Credit
+        </th>
+        <th>
+            Debit
+        </th>
+        <th>
+            Balance
+        </th>
+    </tr>
+
+    @foreach (var item in ViewBag.SearchResult.VoucherDetailList)
+    {
+        <tr>
+            <td>
+                @item.Time
+            </td>
+            <td>
+                @item.Type
+            </td>
+            <td>
+                @item.Transaction
+            </td>
+            <td>
+                @item.Credit
+            </td>
+            <td>
+                @item.Debit
+            </td>
+            <td>
+                @item.balance
+            </td>
+        </tr>
+    }
+
+</table>
+
+@*<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-7" id="total"><a href='#' onclick="Export()">ExportPDF</a></div>
+</div>
+
+
+<script>
+    function Export(){
+        var Code = $("#Code").val();
+        var period = $("#Period1").val();
+
+        window.location.href = "ExportPDF?Code=" + Code + "&Period=" + period;
+    }
+</script>*@

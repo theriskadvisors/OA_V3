@@ -1,0 +1,471 @@
+﻿
+@{
+    ViewBag.Title = "View_Attendance";
+}
+
+
+<script type="text/javascript">
+    var table;
+    var classid;
+    $(document).ready(function () {
+      table=  $('#example').dataTable();
+      $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "outline": "none", "padding-left": "10px", "color": "#ddd !important" });
+        $("#ClassID option[value='']").remove();
+        $("#ClassID").prepend("<option value='0' selected>All</option>")
+        drawTable();
+
+        $('.table').on('click', 'tbody tr', function() {
+            debugger;
+            var td = $(this).children("td");
+
+            if ($(td).html() != "No data available in table");
+            window.location.href = "Att_Details?userName=" + $(td[3]).html();
+        });
+        $('.eeniart0017').css("display", "block");
+
+        $.ajax({
+            type: "POST",
+            url: "/Admin_Dashboard/GetAttendance",
+            success: function (data) {
+                $('.eeniart0017').css("display", "none");
+
+                $('#submission_table').html('');
+                table.fnClearTable();
+                $.each(data, function (i, item) {
+                    var time = item.Date;
+                    var startsplit = time.split('(')[1];
+                    var endsplit = startsplit.split(')')[0];
+                    var endsp = parseInt(endsplit);
+                    var d = new Date(endsp);
+                    var ab = d.toLocaleDateString();// + " " + d.toLocaleTimeString();
+
+
+                    var tin = item.Timein;
+                    var h = tin.Hours;
+                    var m = tin.Minutes;
+                    var s = tin.Seconds;
+                    var timein = h + ':' + m + ':' + s;
+
+                    if (item.Timeout != null) {
+                        var tout = item.Timeout;
+                        var hh = tout.Hours;
+                        var mm = tout.Minutes;
+                        var ss = tout.Seconds;
+                        var timeout = hh + ':' + mm + ':' + ss;
+                        table.fnAddData([item.Name, item.Class,item.RollNumber, ab , timein, timeout]);
+                    }
+                    else {                    
+                        table.fnAddData([item.Name, item.Class, item.RollNumber, ab , timein, '-']);
+                    }
+                });
+            }
+        });
+     
+        $("#status").change(function () {
+            $('.eeniart0017').css("display", "block");
+
+            var cid = classid;
+            var value = $("#status").val();
+            if (cid == null)
+            {
+                cid = 0;
+            }
+            $.ajax({
+                type: "POST",
+                url: "/Admin_Dashboard/Filter_Attendance",
+                data: { 'type': value ,Classid:cid},
+                success: function (data) {
+                    $('.eeniart0017').css("display", "none");
+
+                    table.fnClearTable();
+                    $.each(data, function (i, item) {
+                        var ab = item.Date;
+                        if (item.Date != null) {
+                            var time = item.Date;
+                            var startsplit = time.split('(')[1];
+                            var endsplit = startsplit.split(')')[0];
+                            var endsp = parseInt(endsplit);
+                            var d = new Date(endsp);
+                            ab = d.toLocaleDateString();
+                        }
+
+                        if (item.Timein == null && item.Timeout==null)
+                        {
+                            table.fnAddData([item.Name, item.Class, item.RollNumber, ab, '-', '-']);
+                        }
+                        else if(item.Timeout==null && item.Timein!=null)
+                        {
+                            var tin = item.Timein;
+                            var h = tin.Hours;
+                            var m = tin.Minutes;
+                            var s = tin.Seconds;
+                            var timein = h + ':' + m + ':' + s;
+                            table.fnAddData([item.Name, item.Class, item.RollNumber, ab, timein, '-']);
+                        }
+                        else {
+                            var tin = item.Timein;
+                            var h = tin.Hours;
+                            var m = tin.Minutes;
+                            var s = tin.Seconds;
+                            var timein = h + ':' + m + ':' + s;
+
+                            var tout = item.Timeout;
+                            var hh = tout.Hours;
+                            var mm = tout.Minutes;
+                            var ss = tout.Seconds;
+                            var timeout = hh + ':' + mm + ':' + ss;
+                            table.fnAddData([item.Name, item.Class, item.RollNumber, ab, timein, timeout]);
+                        }
+                    });               
+                }                                        
+            });
+        });
+    });
+    function Settings()
+    {
+        $.ajax({
+            type: "POST",
+            url: "/AspNetRoles/Get_Time",
+            success: function (data) {
+                debugger;
+                $("#cab").html('');
+                $("#clt").html('');
+                var tin = data.AbsentTime;
+                var h = tin.Hours;
+                var m = tin.Minutes;
+                var s = tin.Seconds;
+                var AbsentTime = h + ':' + m + ':' + s;
+                var tin = data.LateTime;
+                var h = tin.Hours;
+                var m = tin.Minutes;
+                var s = tin.Seconds;
+                var LateTime = h + ':' + m + ':' + s;
+                $("#cab").append(AbsentTime);
+                $("#clt").append(LateTime);
+
+            }
+        })
+        $("#myModal1").modal('show');
+    }
+    function Datefilter()
+    {
+        debugger;
+        var start = $("#startdate").val();
+     
+        var cid = classid;
+        var value = $("#status").val();
+        if (cid == null)
+        {
+            cid = 0;
+        }
+       
+        debugger;
+        if (start == "")
+        {
+            $("#message").html('');
+            $("#message").append("Please select a date");
+        }
+        else
+        {
+            $('.eeniart0017').css("display", "block");
+            $.ajax({
+                type: "POST",
+                url: "/Admin_Dashboard/Att_DateFilter",
+                data: { 'type': value, Classid: cid, start: start },
+                success: function (data) {
+                    debugger;
+                    $('.eeniart0017').css("display", "none");
+
+                    table.fnClearTable();
+                    $.each(data, function (i, item) {
+                        debugger;
+                        var ab = item.Date;
+                        if (item.Date != null) {
+                            var time = item.Date;
+                            var startsplit = time.split('(')[1];
+                            var endsplit = startsplit.split(')')[0];
+                            var endsp = parseInt(endsplit);
+                            var d = new Date(endsp);
+                            ab = d.toLocaleDateString();
+                        }
+                        var timein = item.Timein;
+                        if (item.Timein != null) {
+                            var tin = item.Timein;
+                            var h = tin.Hours;
+                            var m = tin.Minutes;
+                            var s = tin.Seconds;
+                            timein = h + ':' + m + ':' + s;
+                        }
+                        var timeout = item.Timeout;
+                        if (item.Timeout != null) {
+                            var tout = item.Timeout;
+                            var hh = tout.Hours;
+                            var mm = tout.Minutes;
+                            var ss = tout.Seconds;
+                            timeout = hh + ':' + mm + ':' + ss;
+                        }
+                        table.fnAddData([item.Name, item.Class, item.RollNumber, ab, timein, timeout]);
+
+                    })
+                }
+            });
+        }
+       
+    }
+    function save()
+    {
+        debugger;
+        var absent = $("#absent").val();
+        var late = $("#late").val();
+        debugger;
+        if (absent == "")
+        {
+            $.ajax({
+                type: "POST",
+                url: "/AspNetRoles/Lt_Time_Setting",
+                data: { late: late },
+                success: function (data) {
+
+                }
+            })
+        }
+        else if (late == "")
+        {
+            $.ajax({
+                type: "POST",
+                url: "/AspNetRoles/Ab_Time_Setting",
+                data: { absent: absent },
+                success: function (data) {
+
+                }
+            })
+        }
+        else if (absent != 0 && late != 0)
+        {
+            $.ajax({
+                type: "POST",
+                url: "/AspNetRoles/Time_Setting",
+                data: { absent: absent, late: late },
+                success: function (data) {
+
+                }
+            })
+        }
+     
+
+    }
+    function class_click(e)
+    {
+        
+
+         classid = e.value;
+        $.ajax({
+            type: "POST",
+            url: "/Admin_Dashboard/Att_Class",
+            data: { Classid: classid},
+            success: function (data) {
+                $('#submission_table').html('');
+                debugger;
+                var name = data.nn;
+                var list = data.att_list;
+                table.fnClearTable();
+                $.each(list, function (i, item) {
+                    debugger;
+                    var ab = item.Date;
+                    if (item.Date != null)
+                    {
+                        var time = item.Date;
+                        var startsplit = time.split('(')[1];
+                        var endsplit = startsplit.split(')')[0];
+                        var endsp = parseInt(endsplit);
+                        var d = new Date(endsp);
+                         ab = d.toLocaleDateString();
+                    }
+                   
+                    
+                    var tin = item.TimeIn;
+                    var h = tin.Hours;
+                    var m = tin.Minutes;
+                    var s = tin.Seconds;
+                    var timein = h + ':' + m + ':' + s;
+                    if (item.TimeOut == null) {
+                        for (var k = 0; k < name.length; k++) {
+                            var n = name[k];
+                            if (n.UserName == item.Roll_Number) {
+                                table.fnAddData([n.Name, item.Class, item.Roll_Number, ab, timein, '-']);
+                                //$('#submission_table').append('<tr><td>' + n.Name + '</td><td>' + item.Class + '</td><td>' + item.Date + '</td><td>' + item.Roll_Number + '</td><td>' + timein + '</td><td>' + "-" + '</td></tr>');
+                            }
+                        }
+                    }
+                    else {
+                        var tout = item.TimeOut;
+                        var hh = tout.Hours;
+                        var mm = tout.Minutes;
+                        var ss = tout.Seconds;
+                        var timeout = hh + ':' + mm + ':' + ss;
+                        for (var k = 0; k < name.length; k++) {
+                            var n = name[k];
+                            if (n.UserName == item.Roll_Number) {
+                                table.fnAddData([n.Name, item.Class, item.Roll_Number, ab, timein, timeout]);
+                                //$('#submission_table').append('<tr><td>' + n.Name + '</td><td>' + item.Class + '</td><td>' + item.Date + '</td><td>' + item.Roll_Number + '</td><td>' + timein + '</td><td>' + timeout + '</td></tr>');
+                            }
+                        }
+                    }
+
+                });
+                document.getElementById("status").value = "Present";
+
+            }
+        });
+
+    }
+   
+    function drawTable()
+    {
+        $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+        //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+
+        $('#example_wrapper').css("text-align", "left");
+        $('#example_length').css("text-align", "left");
+        $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+        $("#example_length label").css("text-align", "left");
+        $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+        // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+        //$('#example_length').css({ "overflow": "auto" });
+        $('#example_filter input').addClass("add");
+        $('#example_filter').append('<span class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+        var list = $("#ClassID").html();
+        $('#example_length').append(
+            
+            '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+            '<div class="d-bar"></div>' +
+            '</div>'
+              +
+           '<div class="col-md-3 col-lg-3">' +
+               '<div class="col-md-4" style="padding:0px; margin-top:0px">' +
+               '<lable class="control-label">Select Class</lable>' +
+               '</div>' +
+               '<div class="col-md-8">' +
+               '<select class="form-control  input-sm" id="Class" style="margin-top:-4px" name="ClassID" onclick="class_click(this)">' + list +
+               '</select>' +
+               '</div>' +
+           '</div>' +
+            '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+                '<div class="d-bar"></div>' +
+            '</div>' +
+            '<div class="col-md-2">'+
+                '<select class="form-control input-sm" style="margin-top:-4px" id="status"><option value="Present">Present</option><option value="Absent">Absent</option><option value="Late">Late</option>' +
+                '</select>'+
+            '</div>' +
+            '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+                 '<div class="d-bar"></div>' +
+            '</div>' +            
+            '<div class="col-md-2"><input class="form-control input-sm" style="margin-top:-4px" type="date" id="startdate" />'+
+            '<span id="message" style="color:red; text-align:center"></span></div>' +
+            
+            '<input type="button" value="GO" class="btn btn-default" onclick="Datefilter()" input-sm" style="margin-top:-4px" />' +
+           
+           
+
+           //'<div class="col-md-3 col-lg-3">' +
+           //'<div class="col-md-6" style="padding:0px;  margin-top:0px">' +
+           //'<lable class="control-label">Select Subject</lable>' +
+           //'</div>' +
+           //'<div class="col-md-6">' +
+           //'<select class="form-control  input-sm" id="subjects" style="margin-top:-4px" onclick="sub_click(this)" style="padding-top:-4px !important;" name="subjects" disabled><option>Select one</option></select>' +
+           //'</div>' +
+           //'</div>' +
+
+           // '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+           // '<div class="d-bar"></div>' +
+           // '</div>' +
+
+           //'<div class="col-md-3 col-lg-3">' +
+           //'<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
+           //'<div class="col-md-1 col-sm-3 col-xs-3"><a href="/Admin_Dashboard/StudentRegister"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></a></div>' +
+           //'<div class="col-md-1 col-sm-3 col-xs-3"><a href="/AspNetUser/DisableStudentIndex"><i class="fa fa-ban" data-placement="bottom"></i>' + '</a></div>' +
+           //'<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><i onclick="download()"class="glyphicon glyphicon-download-alt" onclick="download()" data-placement="bottom"></i></a></div>' +
+           //'<div class="col-md-1" padding-left:0px;">' +
+           //'<div class="d-bar"></div>' +
+           //'</div>' +
+           '</div>');
+    }
+   
+</script>
+<div>
+    <label> @Html.ActionLink("Home", "Dashboard", "Account")  >  <b><a href="#">Attendacne</a></b></label>
+</div>
+
+<h4>Student Attendance</h4>
+<div style="margin-bottom:30px"><button class="btn btn-default" style="float:right" onclick="Settings()"><i class="fa fa-gear"></i> Settings</button>
+</div>
+<div class="box box-primary">
+    <div class="box-body">
+        <div style="display: none">
+            @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+        </div>
+       
+        <table class="table table-bordered table-striped" id="example">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Class Name
+                    </th>
+                   
+                    <th>
+                        Roll Number
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Time In
+                    </th>
+                    <th>
+                        Time Out
+                    </th>
+                </tr>
+
+            </thead>
+            <tbody id="submission_table">
+            
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Settings</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <span><b>Time Out : </b></span> <span id="cab"></span>
+                </div>
+                <div>
+                    <span><b>Late Time : </b></span> <span id="clt"></span><hr />
+                </div>
+               <div><span>Time Out</span><input type="time" id="absent" class="form-control" /></div>
+                <div><span>Late Time</span><input type="time" id="late" class="form-control"/></div>
+
+            </div>
+            <div class="modal-footer">
+             
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="save()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>

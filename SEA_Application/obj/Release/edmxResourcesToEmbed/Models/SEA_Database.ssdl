@@ -1,0 +1,3511 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NGS_DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AspNetAbsent_Student">
+    <Key>
+      <PropertyRef Name="AbsentId" />
+    </Key>
+    <Property Name="AbsentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Roll_Number" Type="varchar" MaxLength="25" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Class" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AspNetAnnouncement">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="varchar(max)" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="Date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AspNetAnnouncement_Subject">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubjectID" Type="int" />
+    <Property Name="AnnouncementID" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetAssessment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject_CatalogID" Type="int" />
+    <Property Name="Title" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="PublishDate" Type="datetime" />
+    <Property Name="DueDate" Type="datetime" />
+    <Property Name="TotalMarks" Type="int" />
+    <Property Name="Weightage" Type="int" />
+    <Property Name="FileName" Type="nvarchar(max)" />
+    <Property Name="AcceptSubmission" Type="bit" />
+  </EntityType>
+  <EntityType Name="AspNetAssessment_Question">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Question" Type="nvarchar(max)" />
+    <Property Name="SubjectID" Type="int" />
+    <Property Name="QuestionCategory" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetAssessment_Questions_Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetAssessment_Topic">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AssessmentID" Type="int" />
+    <Property Name="TopicID" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetAttendance">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubjectID" Type="int" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetCatalog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CatalogName" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetChapter">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ChapterNo" Type="float" />
+    <Property Name="ChapterName" Type="nvarchar(max)" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="EndDate" Type="datetime" />
+    <Property Name="SubjectID" Type="int" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <EntityType Name="AspNetClass">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassName" Type="nvarchar(max)" />
+    <Property Name="Class" Type="nvarchar(max)" />
+    <Property Name="Section" Type="nvarchar" MaxLength="10" />
+    <Property Name="TeacherID" Type="nvarchar" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="AspNetClass_FeeType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassID" Type="int" />
+    <Property Name="LedgerID" Type="int" />
+    <Property Name="Amount" Type="int" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AspNetCurriculum">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CurriculumName" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetDurationType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" />
+    <Property Name="MonthsDuration" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetEmp_Auto_Absent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AspNetEmp_Auto_Attendance">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="TimeIn" Type="time" Precision="7" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+    <Property Name="TimeOut" Type="time" Precision="7" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AspNetEmployee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PositionAppliedFor" Type="nvarchar(max)" />
+    <Property Name="DateAvailable" Type="nvarchar(max)" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="BirthDate" Type="nvarchar(max)" />
+    <Property Name="Nationality" Type="nvarchar(max)" />
+    <Property Name="Religion" Type="nvarchar(max)" />
+    <Property Name="Gender" Type="nvarchar(max)" />
+    <Property Name="MailingAddress" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="CellNo" Type="nvarchar(max)" />
+    <Property Name="Landline" Type="nvarchar(max)" />
+    <Property Name="SpouseName" Type="nvarchar(max)" />
+    <Property Name="SpouseHighestDegree" Type="nvarchar(max)" />
+    <Property Name="SpouseOccupation" Type="nvarchar(max)" />
+    <Property Name="SpouseBusinessAddress" Type="nvarchar(max)" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="GrossSalary" Type="int" />
+    <Property Name="BasicSalary" Type="int" />
+    <Property Name="MedicalAllowance" Type="int" />
+    <Property Name="Accomodation" Type="int" />
+    <Property Name="ProvidedFund" Type="int" />
+    <Property Name="Tax" Type="int" />
+    <Property Name="EOP" Type="int" />
+    <Property Name="Salary" Type="int" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="VirtualRoleId" Type="int" />
+    <Property Name="JoiningDate" Type="nvarchar(max)" />
+    <Property Name="Illness" Type="nvarchar(max)" />
+    <Property Name="Status" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="AspNetEmployee_Attendance">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AttendanceID" Type="int" />
+    <Property Name="EmployeeID" Type="int" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="Reason" Type="nvarchar" MaxLength="50" />
+    <Property Name="Month" Type="nvarchar" MaxLength="50" />
+    <Property Name="Time" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AspNetEmployeeAttendance">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AspNetFeeChallan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassID" Type="int" />
+    <Property Name="DueDate" Type="datetime" />
+    <Property Name="DurationTypeID" Type="int" />
+    <Property Name="TotalAmount" Type="int" />
+    <Property Name="StartDate" Type="date" />
+    <Property Name="EndDate" Type="date" />
+    <Property Name="Penalty" Type="int" />
+    <Property Name="ValidDate" Type="date" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" />
+    <Property Name="Created" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AspNetFeedBackForm">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Question" Type="nvarchar(max)" />
+    <Property Name="FormFor" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetFeeType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LedgerID" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetFinanceLedgers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="Balance" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="IsGroup" Type="bit" />
+    <Property Name="TakeAble" Type="bit" />
+    <Property Name="Head" Type="int" Nullable="false" />
+    <Property Name="StartingBalance" Type="float" />
+    <Property Name="ShowIndividual" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="AspNetFinanceLedgerType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="AspNetFinanceMonth">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Month" Type="varchar" MaxLength="50" />
+    <Property Name="StartData" Type="datetime" />
+    <Property Name="EndDate" Type="datetime" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="PeriodId" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetFinancePeriod">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Year" Type="nchar" MaxLength="60" />
+  </EntityType>
+  <EntityType Name="AspNetHoliday_Calendar_Notification">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="250" />
+    <Property Name="StartDate" Type="date" Nullable="false" />
+    <Property Name="EndDate" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetHomework">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassId" Type="int" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="PrincipalApproved_status" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetLessonPlan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LessonPlanNo" Type="int" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Duration" Type="int" />
+    <Property Name="SubjectID" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetLessonPlan_Topic">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LessonPlanID" Type="int" />
+    <Property Name="TopicID" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetLessonPlanBreakdown">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LessonPlanID" Type="int" />
+    <Property Name="BreakDownHeadingID" Type="int" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Minutes" Type="int" />
+    <Property Name="Resources" Type="nvarchar(max)" />
+    <Property Name="Priority" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetLessonPlanBreakdownHeading">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BreakDownHeadingName" Type="nvarchar" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="AspNetLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Operation" Type="nvarchar(max)" />
+    <Property Name="Time" Type="datetime" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="AspNetLoginTime">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StartTime" Type="datetime" Nullable="false" />
+    <Property Name="EndTime" Type="datetime" />
+    <Property Name="Duration" Type="datetime" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AspNetMessage_Receiver">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MessageID" Type="int" />
+    <Property Name="ReceiverID" Type="nvarchar" MaxLength="128" />
+    <Property Name="Seen" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SeenTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetMessages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="500" />
+    <Property Name="Message" Type="nvarchar(max)" />
+    <Property Name="Time" Type="datetime" />
+    <Property Name="SenderID" Type="nvarchar" MaxLength="128" />
+    <Property Name="IsEmail" Type="bit" />
+    <Property Name="IsText" Type="bit" />
+  </EntityType>
+  <EntityType Name="AspNetNotification">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Time" Type="datetime" />
+    <Property Name="SenderID" Type="nvarchar" MaxLength="128" />
+    <Property Name="Url" Type="nvarchar" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="AspNetNotification_User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" />
+    <Property Name="NotificationID" Type="int" />
+    <Property Name="Seen" Type="bit" />
+  </EntityType>
+  <EntityType Name="AspNetParent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" />
+    <Property Name="FatherName" Type="nvarchar(max)" />
+    <Property Name="FatherCellNo" Type="nvarchar(max)" />
+    <Property Name="FatherEmail" Type="nvarchar(max)" />
+    <Property Name="FatherOccupation" Type="nvarchar(max)" />
+    <Property Name="FatherEmployer" Type="nvarchar(max)" />
+    <Property Name="MotherName" Type="nvarchar(max)" />
+    <Property Name="MotherCellNo" Type="nvarchar(max)" />
+    <Property Name="MotherEmail" Type="nvarchar(max)" />
+    <Property Name="MotherOccupation" Type="nvarchar(max)" />
+    <Property Name="MotherEmployer" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetParent_Child">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentID" Type="nvarchar" MaxLength="128" />
+    <Property Name="ChildID" Type="nvarchar" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="AspNetParent_Notification">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentID" Type="nvarchar" MaxLength="128" />
+    <Property Name="SenderID" Type="nvarchar" MaxLength="128" />
+    <Property Name="Title" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Attachment" Type="nvarchar(max)" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="Time" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AspNetParentTeacherMeeting">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Time" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AspNetProject">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="PublishDate" Type="datetime" />
+    <Property Name="DueDate" Type="datetime" />
+    <Property Name="FileName" Type="nvarchar(max)" />
+    <Property Name="AcceptSubmission" Type="bit" Nullable="false" />
+    <Property Name="SubjectID" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetPTM_ParentFeedback">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PTMID" Type="int" />
+    <Property Name="HeadingID" Type="int" />
+    <Property Name="FeedBack" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetPTM_TeacherFeedback">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PTMID" Type="int" />
+    <Property Name="HeadingID" Type="int" />
+    <Property Name="FeedBack" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetPTMAttendance">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MeetingID" Type="int" />
+    <Property Name="ParentID" Type="nvarchar" MaxLength="128" />
+    <Property Name="SubjectID" Type="int" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="Rating" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetPTMFormRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="AspNetPushNotifications">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Message" Type="nvarchar(max)" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" />
+    <Property Name="Time" Type="datetime" />
+    <Property Name="IsOpenStudent" Type="bit" />
+    <Property Name="IsOpenParent" Type="bit" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="VirtualId" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetSalary">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Month" Type="nvarchar" MaxLength="50" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" />
+    <Property Name="VirtualRoleID" Type="int" />
+    <Property Name="Year" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AspNetSalaryDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GrossSalary" Type="int" />
+    <Property Name="MedicalAllowance" Type="int" />
+    <Property Name="AccomodationAllowance" Type="int" />
+    <Property Name="Tax" Type="int" />
+    <Property Name="BasicSalary" Type="int" />
+    <Property Name="FineCut" Type="int" />
+    <Property Name="AfterCutSalary" Type="int" />
+    <Property Name="AdvancePf" Type="int" />
+    <Property Name="EmployeePF" Type="int" />
+    <Property Name="AdvanceSalary" Type="int" />
+    <Property Name="EmployeeEOP" Type="int" />
+    <Property Name="Total" Type="int" />
+    <Property Name="SchoolEOP" Type="int" />
+    <Property Name="BTaxSalary" Type="int" />
+    <Property Name="ATaxSalary" Type="int" />
+    <Property Name="Bonus" Type="int" />
+    <Property Name="SalaryHold" Type="int" />
+    <Property Name="TotalSalary" Type="int" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="SalaryId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetSession">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SessionName" Type="nvarchar(max)" />
+    <Property Name="SessionStartDate" Type="date" />
+    <Property Name="SessionEndDate" Type="date" />
+    <Property Name="Status" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetStudent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClassID" Type="int" />
+    <Property Name="Level" Type="nvarchar(max)" />
+    <Property Name="SchoolName" Type="nvarchar(max)" />
+    <Property Name="BirthDate" Type="nvarchar(max)" />
+    <Property Name="Nationality" Type="nvarchar(max)" />
+    <Property Name="Religion" Type="nvarchar(max)" />
+    <Property Name="Gender" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AspNetStudent_Announcement">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="AnnouncementID" Type="int" />
+    <Property Name="Seen" Type="bit" />
+  </EntityType>
+  <EntityType Name="AspNetStudent_Assessment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AssessmentID" Type="int" />
+    <Property Name="StudentID" Type="nvarchar" MaxLength="128" />
+    <Property Name="MarksGot" Type="int" />
+    <Property Name="SubmissionStatus" Type="bit" />
+    <Property Name="SubmittedFileName" Type="nvarchar(max)" />
+    <Property Name="SubmissionDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AspNetStudent_Attendance">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AttendanceID" Type="int" Nullable="false" />
+    <Property Name="StudentID" Type="nvarchar" MaxLength="128" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="Reason" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetStudent_AutoAttendance">
+    <Key>
+      <PropertyRef Name="Attendance_id" />
+    </Key>
+    <Property Name="Attendance_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Roll_Number" Type="varchar" MaxLength="50" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="TimeIn" Type="time" Precision="7" Nullable="false" />
+    <Property Name="TimeOut" Type="time" Precision="7" />
+    <Property Name="Class" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AspNetStudent_Fine">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentID" Type="nvarchar" MaxLength="128" />
+    <Property Name="FineDetail" Type="nvarchar(max)" />
+    <Property Name="Amount" Type="int" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="Date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AspNetStudent_HomeWork">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentID" Type="nvarchar" MaxLength="128" />
+    <Property Name="HomeworkID" Type="int" />
+    <Property Name="Reading" Type="nvarchar(max)" />
+    <Property Name="TeacherComments" Type="nvarchar(max)" />
+    <Property Name="ParentComments" Type="nvarchar(max)" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AspNetStudent_Notification">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentID" Type="nvarchar" MaxLength="128" />
+    <Property Name="SenderID" Type="nvarchar" MaxLength="128" />
+    <Property Name="Title" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Attachment" Type="nvarchar(max)" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="Time" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AspNetStudent_Payment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentID" Type="nvarchar" MaxLength="128" />
+    <Property Name="FeeChallanID" Type="int" />
+    <Property Name="TotalAmount" Type="int" />
+    <Property Name="PaymentAmount" Type="int" />
+    <Property Name="PaymentDate" Type="datetime" />
+    <Property Name="Status" Type="nvarchar(max)" />
+    <Property Name="Remarks" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetStudent_PaymentDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Student_PaymentID" Type="int" />
+    <Property Name="LedgerID" Type="int" />
+    <Property Name="Amount" Type="int" />
+    <Property Name="PreviousFeeID" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetStudent_Project">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectID" Type="int" />
+    <Property Name="StudentID" Type="nvarchar" MaxLength="128" />
+    <Property Name="SubmissionStatus" Type="bit" />
+    <Property Name="SubmittedFileName" Type="nvarchar(max)" />
+    <Property Name="SubmissionDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AspNetStudent_Subject">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="SubjectID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetStudent_Term_Assessment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentID" Type="nvarchar" MaxLength="128" />
+    <Property Name="TermID" Type="int" />
+    <Property Name="SubjectID" Type="int" />
+    <Property Name="TeacherComments" Type="nvarchar(max)" />
+    <Property Name="PrincipalComments" Type="nvarchar(max)" />
+    <Property Name="ParentsComments" Type="nvarchar(max)" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="NotifyTeacher" Type="bit" />
+    <Property Name="SessionId" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetStudent_Term_Assessments_Answers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="STAID" Type="int" />
+    <Property Name="Answer" Type="nvarchar" MaxLength="50" />
+    <Property Name="Catageory" Type="nvarchar" MaxLength="50" />
+    <Property Name="FirstTermGrade" Type="nvarchar" MaxLength="50" />
+    <Property Name="SecondTermGrade" Type="nvarchar" MaxLength="50" />
+    <Property Name="ThirdTermGrade" Type="nvarchar" MaxLength="50" />
+    <Property Name="Question" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AspNetStudentPerformanceReport">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentID" Type="nvarchar" MaxLength="128" />
+    <Property Name="SubjectID" Type="int" />
+    <Property Name="Title" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="LearningConcept" Type="nvarchar" MaxLength="50" />
+    <Property Name="TimeManagement" Type="nvarchar" MaxLength="50" />
+    <Property Name="Homework" Type="nvarchar" MaxLength="50" />
+    <Property Name="ReadingSkills" Type="nvarchar" MaxLength="50" />
+    <Property Name="InstructionFollowing" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProjectLines" Type="nvarchar" MaxLength="50" />
+    <Property Name="Handwriting" Type="nvarchar" MaxLength="50" />
+    <Property Name="PerformanceSkills" Type="nvarchar" MaxLength="50" />
+    <Property Name="Punctuality" Type="nvarchar" MaxLength="50" />
+    <Property Name="Regularity" Type="nvarchar" MaxLength="50" />
+    <Property Name="Assessment" Type="nvarchar" MaxLength="50" />
+    <Property Name="Date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AspNetSubject_Catalog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubjectID" Type="int" />
+    <Property Name="CatalogID" Type="int" />
+    <Property Name="Weightage" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetSubject_Homework">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubjectID" Type="int" />
+    <Property Name="HomeworkDetail" Type="nvarchar(max)" />
+    <Property Name="HomeworkID" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetSubjects">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubjectName" Type="nvarchar(max)" />
+    <Property Name="ClassID" Type="int" />
+    <Property Name="TeacherID" Type="nvarchar" MaxLength="128" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="AspNetTeacher">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TeacherID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="JoiningDate" Type="date" />
+    <Property Name="DateAvailable" Type="nvarchar(max)" />
+    <Property Name="PositionAppliedFor" Type="nvarchar(max)" />
+    <Property Name="BirthDate" Type="nvarchar(max)" />
+    <Property Name="Nationality" Type="nvarchar(max)" />
+    <Property Name="Religion" Type="nvarchar(max)" />
+    <Property Name="Gender" Type="nvarchar(max)" />
+    <Property Name="MailingAddress" Type="nvarchar(max)" />
+    <Property Name="CellNo" Type="nvarchar(max)" />
+    <Property Name="Landline" Type="nvarchar(max)" />
+    <Property Name="SpouseName" Type="nvarchar(max)" />
+    <Property Name="SpouseHeighestDegree" Type="nvarchar(max)" />
+    <Property Name="SpouseOccupation" Type="nvarchar(max)" />
+    <Property Name="SpouseBusinessAddress" Type="nvarchar(max)" />
+    <Property Name="DegreeCertificate" Type="nvarchar(max)" />
+    <Property Name="MajorSubjects" Type="nvarchar(max)" />
+    <Property Name="Year" Type="nvarchar(max)" />
+    <Property Name="SchoolCollageUniversityCity" Type="nvarchar(max)" />
+    <Property Name="Illness" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetTerm">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TermName" Type="nvarchar(max)" />
+    <Property Name="SessionID" Type="int" />
+    <Property Name="TermStartDate" Type="date" />
+    <Property Name="TermEndDate" Type="date" />
+    <Property Name="Status" Type="nvarchar(max)" />
+    <Property Name="TermNo" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetTime_Setting">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AbsentTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="LateTime" Type="time" Precision="7" />
+  </EntityType>
+  <EntityType Name="AspNetTopic">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TopicNo" Type="float" />
+    <Property Name="TopicName" Type="nvarchar(max)" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="EndDate" Type="datetime" />
+    <Property Name="ChapterID" Type="int" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Status" Type="nvarchar" MaxLength="6" />
+    <Property Name="Image" Type="nvarchar(max)" />
+    <Property Name="LastPasswordChange" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AspNetVirtualRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Position" Type="varchar" MaxLength="50" />
+    <Property Name="Office" Type="varchar" MaxLength="50" />
+    <Property Name="Age" Type="int" />
+    <Property Name="Salary" Type="int" />
+  </EntityType>
+  <EntityType Name="Employee_SalaryIncrement">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PreviousSalary" Type="float" />
+    <Property Name="AfterSalary" Type="float" />
+    <Property Name="TimeStamp" Type="datetime" />
+    <Property Name="EmpSalaryRecordId" Type="int" />
+    <Property Name="IncrementAmount" Type="float" />
+  </EntityType>
+  <EntityType Name="Employee_SalaryRecord">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" />
+    <Property Name="StartingSalary" Type="float" />
+    <Property Name="CurrentSalary" Type="float" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeAdvanceSalary">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" />
+    <Property Name="AdvanceSalary" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Months" Type="nvarchar" MaxLength="50" />
+    <Property Name="Date" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="SessionId" Type="int" />
+  </EntityType>
+  <EntityType Name="EmployeePenalty">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" />
+    <Property Name="PenaltyId" Type="int" />
+    <Property Name="Month" Type="nvarchar(max)" />
+    <Property Name="Status" Type="nvarchar(max)" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeePenaltyType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PenaltyType" Type="varchar" MaxLength="50" />
+    <Property Name="Amount" Type="float" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeSalary">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" />
+    <Property Name="Salary" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Months" Type="nvarchar" MaxLength="50" />
+    <Property Name="Date" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="EventID" />
+    </Key>
+    <Property Name="EventID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="300" />
+    <Property Name="Start" Type="datetime" Nullable="false" />
+    <Property Name="End" Type="datetime" />
+    <Property Name="ThemeColor" Type="nvarchar" MaxLength="10" />
+    <Property Name="IsFullDay" Type="bit" Nullable="false" />
+    <Property Name="IsPublic" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FeeDateSetting">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DueDate" Type="datetime" />
+    <Property Name="ValidityDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="FeeDiscount">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Amount" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="Ledger">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" />
+    <Property Name="StartingBalance" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="CurrentBalance" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="256" />
+    <Property Name="LedgerGroupId" Type="int" />
+    <Property Name="Is_Default" Type="bit" />
+    <Property Name="LedgerHeadId" Type="int" />
+    <Property Name="SessionId" Type="int" />
+  </EntityType>
+  <EntityType Name="LedgerGroup">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" />
+    <Property Name="LedgerHeadID" Type="int" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="LedgerHead">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Month_Multiplier">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdjustedMonth" Type="nvarchar" MaxLength="50" />
+    <Property Name="StudentId" Type="int" />
+    <Property Name="FeeMonthId" Type="int" />
+    <Property Name="PaymentMonth" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="NonRecurringCharges">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExpenseType" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="NonRecurringFeeMultiplier">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentId" Type="int" />
+    <Property Name="DescriptionId" Type="int" />
+    <Property Name="TutionFee" Type="float" />
+    <Property Name="PaidAmount" Type="float" />
+    <Property Name="RemainingAmount" Type="float" />
+    <Property Name="SharePerInstalment" Type="float" />
+    <Property Name="Instalments" Type="int" />
+    <Property Name="PaidInstalments" Type="float" />
+    <Property Name="RemainingInstalments" Type="float" />
+    <Property Name="Multiplier" Type="float" />
+    <Property Name="Month" Type="nvarchar" MaxLength="50" />
+    <Property Name="Date" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="PenaltyFee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Amount" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="ruffdata">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentName" Type="nvarchar" MaxLength="200" />
+    <Property Name="FatherName" Type="nvarchar" MaxLength="200" />
+    <Property Name="FatherUserName" Type="nvarchar" MaxLength="200" />
+    <Property Name="FatherPassword" Type="nvarchar" MaxLength="200" />
+    <Property Name="StudentUserName" Type="nvarchar" MaxLength="200" />
+    <Property Name="StudentPassword" Type="nvarchar" MaxLength="200" />
+    <Property Name="StudentClassName" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Student_ChallanForm">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassChallanFormId" Type="int" />
+    <Property Name="StudentId" Type="int" />
+    <Property Name="AmountPayable" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="TutionFee" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="StudentChallanForm">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentId" Type="int" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+    <Property Name="StudentFeeMonthId" Type="int" />
+    <Property Name="ChallanNo" Type="numeric" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="StudentDiscount">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FeeDiscountId" Type="int" />
+    <Property Name="StudentId" Type="int" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="Month" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="StudentFeeMonth">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentId" Type="int" />
+    <Property Name="Months" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="InstalmentAmount" Type="float" />
+    <Property Name="IssueDate" Type="nvarchar" MaxLength="50" />
+    <Property Name="DueDate" Type="date" />
+    <Property Name="Multiplier" Type="float" />
+    <Property Name="FeePayable" Type="float" />
+    <Property Name="IsPrinted" Type="bit" />
+    <Property Name="SessionId" Type="int" />
+    <Property Name="ValildityDate" Type="date" />
+  </EntityType>
+  <EntityType Name="StudentPenalty">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentId" Type="int" />
+    <Property Name="PenaltyId" Type="int" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+    <Property Name="Date" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="StudentPenaltyType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PenaltyType" Type="varchar" MaxLength="50" />
+    <Property Name="Amount" Type="float" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="StudentRecurringFee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassId" Type="int" />
+    <Property Name="ComputerLabCharges" Type="float" />
+    <Property Name="SecurityServices" Type="float" />
+    <Property Name="LabCharges" Type="float" />
+    <Property Name="Transportation" Type="float" />
+    <Property Name="SportsShirt" Type="float" />
+    <Property Name="ChineseClassFee" Type="float" />
+    <Property Name="AdvanceTax" Type="float" />
+    <Property Name="Other" Type="float" />
+    <Property Name="TutionFee" Type="float" />
+    <Property Name="TotalFee" Type="float" />
+    <Property Name="SessionId" Type="int" />
+  </EntityType>
+  <EntityType Name="TeacherPenaltyRecord">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" />
+    <Property Name="PenaltyType" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Amount" Type="float" />
+    <Property Name="Months" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="Time" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ToDoList">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Description" Type="varchar" MaxLength="255" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="Status" Type="varchar(max)" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="Voucher">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" />
+    <Property Name="Notes" Type="nvarchar" MaxLength="256" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="256" />
+    <Property Name="VoucherNo" Type="int" />
+  </EntityType>
+  <EntityType Name="VoucherRecord">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LedgerId" Type="int" />
+    <Property Name="Type" Type="nvarchar" MaxLength="256" />
+    <Property Name="Amount" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="CurrentBalance" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="AfterBalance" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="VoucherId" Type="int" />
+    <Property Name="Description" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AggregatedCounter">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Key" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Value" Type="bigint" Nullable="false" />
+    <Property Name="ExpireAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Counter">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Key" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Value" Type="smallint" Nullable="false" />
+    <Property Name="ExpireAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Hash">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Key" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Field" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Value" Type="nvarchar(max)" />
+    <Property Name="ExpireAt" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StateId" Type="int" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="20" />
+    <Property Name="InvocationData" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Arguments" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+    <Property Name="ExpireAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="JobParameter">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="Value" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="JobQueue">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobId" Type="int" Nullable="false" />
+    <Property Name="Queue" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FetchedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="List">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Key" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Value" Type="nvarchar(max)" />
+    <Property Name="ExpireAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Schema">
+    <Key>
+      <PropertyRef Name="Version" />
+    </Key>
+    <Property Name="Version" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Server">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Data" Type="nvarchar(max)" />
+    <Property Name="LastHeartbeat" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Set">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Key" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Score" Type="float" Nullable="false" />
+    <Property Name="Value" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="ExpireAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="State">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Reason" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+    <Property Name="Data" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK__Event__UserId__52442E1F">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Event" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TeacherPe__Emplo__6B0FDBE9">
+    <End Role="AspNetEmployee" Type="Self.AspNetEmployee" Multiplicity="0..1" />
+    <End Role="TeacherPenaltyRecord" Type="Self.TeacherPenaltyRecord" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetEmployee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeacherPenaltyRecord">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AdvanceSalaryUser">
+    <End Role="AspNetEmployee" Type="Self.AspNetEmployee" Multiplicity="0..1" />
+    <End Role="EmployeeAdvanceSalary" Type="Self.EmployeeAdvanceSalary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetEmployee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmployeeAdvanceSalary">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Announcement_Subject_ToAnnouncement">
+    <End Role="AspNetAnnouncement" Type="Self.AspNetAnnouncement" Multiplicity="0..1" />
+    <End Role="AspNetAnnouncement_Subject" Type="Self.AspNetAnnouncement_Subject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetAnnouncement">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetAnnouncement_Subject">
+        <PropertyRef Name="AnnouncementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Announcement_Subject_ToSubject">
+    <End Role="AspNetSubjects" Type="Self.AspNetSubjects" Multiplicity="0..1" />
+    <End Role="AspNetAnnouncement_Subject" Type="Self.AspNetAnnouncement_Subject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSubjects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetAnnouncement_Subject">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetAssessment_Question_ToQuestionCategory">
+    <End Role="AspNetAssessment_Questions_Category" Type="Self.AspNetAssessment_Questions_Category" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetAssessment_Question" Type="Self.AspNetAssessment_Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetAssessment_Questions_Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetAssessment_Question">
+        <PropertyRef Name="QuestionCategory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetAssessment_Question_ToSubject">
+    <End Role="AspNetSubjects" Type="Self.AspNetSubjects" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetAssessment_Question" Type="Self.AspNetAssessment_Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSubjects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetAssessment_Question">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetAssessment_Topic_ToAssessment">
+    <End Role="AspNetAssessment" Type="Self.AspNetAssessment" Multiplicity="0..1" />
+    <End Role="AspNetAssessment_Topic" Type="Self.AspNetAssessment_Topic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetAssessment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetAssessment_Topic">
+        <PropertyRef Name="AssessmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetAssessment_Topic_ToTopic">
+    <End Role="AspNetTopic" Type="Self.AspNetTopic" Multiplicity="0..1" />
+    <End Role="AspNetAssessment_Topic" Type="Self.AspNetAssessment_Topic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetTopic">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetAssessment_Topic">
+        <PropertyRef Name="TopicID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetAssessment_ToSubjectCatalog">
+    <End Role="AspNetSubject_Catalog" Type="Self.AspNetSubject_Catalog" Multiplicity="0..1" />
+    <End Role="AspNetAssessment" Type="Self.AspNetAssessment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSubject_Catalog">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetAssessment">
+        <PropertyRef Name="Subject_CatalogID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetAttendance_ToSubject">
+    <End Role="AspNetSubjects" Type="Self.AspNetSubjects" Multiplicity="1" />
+    <End Role="AspNetAttendance" Type="Self.AspNetAttendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSubjects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetAttendance">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetChapter_ToSubject">
+    <End Role="AspNetSubjects" Type="Self.AspNetSubjects" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetChapter" Type="Self.AspNetChapter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSubjects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetChapter">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetClass_FeeType_ToClass">
+    <End Role="AspNetClass" Type="Self.AspNetClass" Multiplicity="0..1" />
+    <End Role="AspNetClass_FeeType" Type="Self.AspNetClass_FeeType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetClass">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetClass_FeeType">
+        <PropertyRef Name="ClassID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetClass_FeeType_ToFeeType">
+    <End Role="AspNetFinanceLedgers" Type="Self.AspNetFinanceLedgers" Multiplicity="0..1" />
+    <End Role="AspNetClass_FeeType" Type="Self.AspNetClass_FeeType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetFinanceLedgers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetClass_FeeType">
+        <PropertyRef Name="LedgerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetClass_ToAspNetClass">
+    <End Role="AspNetClass" Type="Self.AspNetClass" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetSubjects" Type="Self.AspNetSubjects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetClass">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetSubjects">
+        <PropertyRef Name="ClassID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetClass_ToAspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AspNetClass" Type="Self.AspNetClass" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetClass">
+        <PropertyRef Name="TeacherID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetClass_ToAspNetUsersTeacher">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AspNetSubjects" Type="Self.AspNetSubjects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetSubjects">
+        <PropertyRef Name="TeacherID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetEmployee_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AspNetEmployee" Type="Self.AspNetEmployee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetEmployee">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetEmployee_Attendance_TO_AspNetEmployee">
+    <End Role="AspNetEmployee" Type="Self.AspNetEmployee" Multiplicity="0..1" />
+    <End Role="AspNetEmployee_Attendance" Type="Self.AspNetEmployee_Attendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetEmployee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetEmployee_Attendance">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetEmployee_Attendance_To_AspNetEmployeeAttendance">
+    <End Role="AspNetEmployeeAttendance" Type="Self.AspNetEmployeeAttendance" Multiplicity="0..1" />
+    <End Role="AspNetEmployee_Attendance" Type="Self.AspNetEmployee_Attendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetEmployeeAttendance">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetEmployee_Attendance">
+        <PropertyRef Name="AttendanceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetEmployee_VirtualRole">
+    <End Role="AspNetVirtualRole" Type="Self.AspNetVirtualRole" Multiplicity="0..1" />
+    <End Role="AspNetEmployee" Type="Self.AspNetEmployee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetVirtualRole">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetEmployee">
+        <PropertyRef Name="VirtualRoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetFeeChallan_ToClass">
+    <End Role="AspNetClass" Type="Self.AspNetClass" Multiplicity="0..1" />
+    <End Role="AspNetFeeChallan" Type="Self.AspNetFeeChallan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetClass">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetFeeChallan">
+        <PropertyRef Name="ClassID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetFeeChallan_ToDurationType">
+    <End Role="AspNetDurationType" Type="Self.AspNetDurationType" Multiplicity="0..1" />
+    <End Role="AspNetFeeChallan" Type="Self.AspNetFeeChallan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetDurationType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetFeeChallan">
+        <PropertyRef Name="DurationTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetFeedBackForm_ToRole">
+    <End Role="AspNetPTMFormRoles" Type="Self.AspNetPTMFormRoles" Multiplicity="0..1" />
+    <End Role="AspNetFeedBackForm" Type="Self.AspNetFeedBackForm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetPTMFormRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetFeedBackForm">
+        <PropertyRef Name="FormFor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetFeeType_ToLedger">
+    <End Role="AspNetFinanceLedgers" Type="Self.AspNetFinanceLedgers" Multiplicity="0..1" />
+    <End Role="AspNetFeeType" Type="Self.AspNetFeeType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetFinanceLedgers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetFeeType">
+        <PropertyRef Name="LedgerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetFinanceMonth_AspNetFinancePeriod">
+    <End Role="AspNetFinancePeriod" Type="Self.AspNetFinancePeriod" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetFinanceMonth" Type="Self.AspNetFinanceMonth" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetFinancePeriod">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetFinanceMonth">
+        <PropertyRef Name="PeriodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetHomework_AspNetClass">
+    <End Role="AspNetClass" Type="Self.AspNetClass" Multiplicity="0..1" />
+    <End Role="AspNetHomework" Type="Self.AspNetHomework" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetClass">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetHomework">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetLessonPlan_Topic_ToLessonPlan">
+    <End Role="AspNetLessonPlan" Type="Self.AspNetLessonPlan" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetLessonPlan_Topic" Type="Self.AspNetLessonPlan_Topic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetLessonPlan">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetLessonPlan_Topic">
+        <PropertyRef Name="LessonPlanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetLessonPlan_Topic_ToTopic">
+    <End Role="AspNetTopic" Type="Self.AspNetTopic" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetLessonPlan_Topic" Type="Self.AspNetLessonPlan_Topic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetTopic">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetLessonPlan_Topic">
+        <PropertyRef Name="TopicID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetLessonPlan_ToSubject">
+    <End Role="AspNetSubjects" Type="Self.AspNetSubjects" Multiplicity="0..1" />
+    <End Role="AspNetLessonPlan" Type="Self.AspNetLessonPlan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSubjects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetLessonPlan">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetLog_ToUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AspNetLog" Type="Self.AspNetLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetLog">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetNotification_ToUser">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AspNetNotification" Type="Self.AspNetNotification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetNotification">
+        <PropertyRef Name="SenderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetNotification_User_ToNotification">
+    <End Role="AspNetNotification" Type="Self.AspNetNotification" Multiplicity="0..1" />
+    <End Role="AspNetNotification_User" Type="Self.AspNetNotification_User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetNotification">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetNotification_User">
+        <PropertyRef Name="NotificationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetNotification_User_ToUser">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AspNetNotification_User" Type="Self.AspNetNotification_User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetNotification_User">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetParent_Child_ChildToUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AspNetParent_Child" Type="Self.AspNetParent_Child" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetParent_Child">
+        <PropertyRef Name="ChildID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetParent_Child_ParentToUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetParent_Child" Type="Self.AspNetParent_Child" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetParent_Child">
+        <PropertyRef Name="ParentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetParent_Notification_ParentToUser">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AspNetParent_Notification" Type="Self.AspNetParent_Notification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetParent_Notification">
+        <PropertyRef Name="ParentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetParent_Notification_SenderToUser">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AspNetParent_Notification" Type="Self.AspNetParent_Notification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetParent_Notification">
+        <PropertyRef Name="SenderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetParent_ToParent">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AspNetParent" Type="Self.AspNetParent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetParent">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetProject_ToSubject">
+    <End Role="AspNetSubjects" Type="Self.AspNetSubjects" Multiplicity="0..1" />
+    <End Role="AspNetProject" Type="Self.AspNetProject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSubjects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetProject">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetPTM_ParentFeedback_ToForm">
+    <End Role="AspNetFeedBackForm" Type="Self.AspNetFeedBackForm" Multiplicity="0..1" />
+    <End Role="AspNetPTM_ParentFeedback" Type="Self.AspNetPTM_ParentFeedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetFeedBackForm">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetPTM_ParentFeedback">
+        <PropertyRef Name="HeadingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetPTM_ParentFeedback_ToPTM">
+    <End Role="AspNetPTMAttendance" Type="Self.AspNetPTMAttendance" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetPTM_ParentFeedback" Type="Self.AspNetPTM_ParentFeedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetPTMAttendance">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetPTM_ParentFeedback">
+        <PropertyRef Name="PTMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetPTM_TeacherFeedback_ToForm">
+    <End Role="AspNetFeedBackForm" Type="Self.AspNetFeedBackForm" Multiplicity="0..1" />
+    <End Role="AspNetPTM_TeacherFeedback" Type="Self.AspNetPTM_TeacherFeedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetFeedBackForm">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetPTM_TeacherFeedback">
+        <PropertyRef Name="HeadingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetPTM_TeacherFeedback_ToPTM">
+    <End Role="AspNetPTMAttendance" Type="Self.AspNetPTMAttendance" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetPTM_TeacherFeedback" Type="Self.AspNetPTM_TeacherFeedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetPTMAttendance">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetPTM_TeacherFeedback">
+        <PropertyRef Name="PTMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetPTMAttendance_ToMeeting">
+    <End Role="AspNetParentTeacherMeeting" Type="Self.AspNetParentTeacherMeeting" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetPTMAttendance" Type="Self.AspNetPTMAttendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetParentTeacherMeeting">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetPTMAttendance">
+        <PropertyRef Name="MeetingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetPTMAttendance_ToParent">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetPTMAttendance" Type="Self.AspNetPTMAttendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetPTMAttendance">
+        <PropertyRef Name="ParentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetPTMAttendance_ToSubject">
+    <End Role="AspNetSubjects" Type="Self.AspNetSubjects" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetPTMAttendance" Type="Self.AspNetPTMAttendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSubjects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetPTMAttendance">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetSalary_VirtualID">
+    <End Role="AspNetVirtualRole" Type="Self.AspNetVirtualRole" Multiplicity="0..1" />
+    <End Role="AspNetSalary" Type="Self.AspNetSalary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetVirtualRole">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetSalary">
+        <PropertyRef Name="VirtualRoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetSalaryDetail_AspNetEmployee">
+    <End Role="AspNetEmployee" Type="Self.AspNetEmployee" Multiplicity="1" />
+    <End Role="AspNetSalaryDetail" Type="Self.AspNetSalaryDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetEmployee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetSalaryDetail">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetSalaryDetail_SalaryTable">
+    <End Role="AspNetSalary" Type="Self.AspNetSalary" Multiplicity="1" />
+    <End Role="AspNetSalaryDetail" Type="Self.AspNetSalaryDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSalary">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetSalaryDetail">
+        <PropertyRef Name="SalaryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_Assessment_ToAssessment">
+    <End Role="AspNetAssessment" Type="Self.AspNetAssessment" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetStudent_Assessment" Type="Self.AspNetStudent_Assessment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetAssessment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Assessment">
+        <PropertyRef Name="AssessmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_Assessment_ToStudent">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetStudent_Assessment" Type="Self.AspNetStudent_Assessment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Assessment">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_Attendance_ToAttendance">
+    <End Role="AspNetAttendance" Type="Self.AspNetAttendance" Multiplicity="1" />
+    <End Role="AspNetStudent_Attendance" Type="Self.AspNetStudent_Attendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetAttendance">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Attendance">
+        <PropertyRef Name="AttendanceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_Attendance_ToUser">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AspNetStudent_Attendance" Type="Self.AspNetStudent_Attendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Attendance">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_Fine_ToStudent">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AspNetStudent_Fine" Type="Self.AspNetStudent_Fine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Fine">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_HomeWork_AspNetHomework">
+    <End Role="AspNetHomework" Type="Self.AspNetHomework" Multiplicity="0..1" />
+    <End Role="AspNetStudent_HomeWork" Type="Self.AspNetStudent_HomeWork" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetHomework">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_HomeWork">
+        <PropertyRef Name="HomeworkID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_HomeWork_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AspNetStudent_HomeWork" Type="Self.AspNetStudent_HomeWork" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_HomeWork">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_Notification_SenderToUser">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AspNetStudent_Notification" Type="Self.AspNetStudent_Notification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Notification">
+        <PropertyRef Name="SenderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_Notification_StudentToUser">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AspNetStudent_Notification" Type="Self.AspNetStudent_Notification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Notification">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_Payment_ToFeeChallan">
+    <End Role="AspNetFeeChallan" Type="Self.AspNetFeeChallan" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetStudent_Payment" Type="Self.AspNetStudent_Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetFeeChallan">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Payment">
+        <PropertyRef Name="FeeChallanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_Payment_ToStudent">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetStudent_Payment" Type="Self.AspNetStudent_Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Payment">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_PaymentDetail_ToLedger">
+    <End Role="AspNetFinanceLedgers" Type="Self.AspNetFinanceLedgers" Multiplicity="0..1" />
+    <End Role="AspNetStudent_PaymentDetail" Type="Self.AspNetStudent_PaymentDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetFinanceLedgers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_PaymentDetail">
+        <PropertyRef Name="LedgerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_PaymentDetail_ToStudentPayment">
+    <End Role="AspNetStudent_Payment" Type="Self.AspNetStudent_Payment" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetStudent_PaymentDetail" Type="Self.AspNetStudent_PaymentDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetStudent_Payment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_PaymentDetail">
+        <PropertyRef Name="Student_PaymentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_PaymentDetail_ToStudentPaymentPrevious">
+    <End Role="AspNetStudent_Payment" Type="Self.AspNetStudent_Payment" Multiplicity="0..1" />
+    <End Role="AspNetStudent_PaymentDetail" Type="Self.AspNetStudent_PaymentDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetStudent_Payment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_PaymentDetail">
+        <PropertyRef Name="PreviousFeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_Project_ToProject">
+    <End Role="AspNetProject" Type="Self.AspNetProject" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetStudent_Project" Type="Self.AspNetStudent_Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetProject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Project">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_Project_ToStudent">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetStudent_Project" Type="Self.AspNetStudent_Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Project">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_Term_Assessment_ToSession">
+    <End Role="AspNetSession" Type="Self.AspNetSession" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetStudent_Term_Assessment" Type="Self.AspNetStudent_Term_Assessment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSession">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Term_Assessment">
+        <PropertyRef Name="SessionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_Term_Assessment_ToSubject">
+    <End Role="AspNetSubjects" Type="Self.AspNetSubjects" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetStudent_Term_Assessment" Type="Self.AspNetStudent_Term_Assessment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSubjects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Term_Assessment">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_Term_Assessment_ToTerm">
+    <End Role="AspNetTerm" Type="Self.AspNetTerm" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetStudent_Term_Assessment" Type="Self.AspNetStudent_Term_Assessment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetTerm">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Term_Assessment">
+        <PropertyRef Name="TermID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_Term_Assessment_ToUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetStudent_Term_Assessment" Type="Self.AspNetStudent_Term_Assessment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Term_Assessment">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudent_Term_Assessments_Answers_ToStudent_Term_Assessment">
+    <End Role="AspNetStudent_Term_Assessment" Type="Self.AspNetStudent_Term_Assessment" Multiplicity="0..1" />
+    <End Role="AspNetStudent_Term_Assessments_Answers" Type="Self.AspNetStudent_Term_Assessments_Answers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetStudent_Term_Assessment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Term_Assessments_Answers">
+        <PropertyRef Name="STAID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudentPerformanceReport_ToSubject">
+    <End Role="AspNetSubjects" Type="Self.AspNetSubjects" Multiplicity="0..1" />
+    <End Role="AspNetStudentPerformanceReport" Type="Self.AspNetStudentPerformanceReport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSubjects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudentPerformanceReport">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetStudentPerformanceReport_ToUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AspNetStudentPerformanceReport" Type="Self.AspNetStudentPerformanceReport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudentPerformanceReport">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetSubject_Catalog_ToCatalog">
+    <End Role="AspNetCatalog" Type="Self.AspNetCatalog" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetSubject_Catalog" Type="Self.AspNetSubject_Catalog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetCatalog">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetSubject_Catalog">
+        <PropertyRef Name="CatalogID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetSubject_Catalog_ToSubject">
+    <End Role="AspNetSubjects" Type="Self.AspNetSubjects" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetSubject_Catalog" Type="Self.AspNetSubject_Catalog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSubjects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetSubject_Catalog">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetSubject_Homework_AspNetSubjects">
+    <End Role="AspNetSubjects" Type="Self.AspNetSubjects" Multiplicity="0..1" />
+    <End Role="AspNetSubject_Homework" Type="Self.AspNetSubject_Homework" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSubjects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetSubject_Homework">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetTerm_ToSession">
+    <End Role="AspNetSession" Type="Self.AspNetSession" Multiplicity="0..1" />
+    <End Role="AspNetTerm" Type="Self.AspNetTerm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSession">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetTerm">
+        <PropertyRef Name="SessionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetTopic_ToSubject">
+    <End Role="AspNetChapter" Type="Self.AspNetChapter" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetTopic" Type="Self.AspNetTopic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetChapter">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetTopic">
+        <PropertyRef Name="ChapterID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetVirtualRole_AspNetVirtualRole">
+    <End Role="AspNetVirtualRole" Type="Self.AspNetVirtualRole" Multiplicity="1" />
+    <End Role="AspNetVirtualRole1" Type="Self.AspNetVirtualRole" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetVirtualRole">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetVirtualRole1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeePenalty_Employee">
+    <End Role="AspNetEmployee" Type="Self.AspNetEmployee" Multiplicity="0..1" />
+    <End Role="EmployeePenalty" Type="Self.EmployeePenalty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetEmployee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmployeePenalty">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeePenalty_Penalty">
+    <End Role="EmployeePenaltyType" Type="Self.EmployeePenaltyType" Multiplicity="0..1" />
+    <End Role="EmployeePenalty" Type="Self.EmployeePenalty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeePenaltyType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmployeePenalty">
+        <PropertyRef Name="PenaltyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FeeMonth">
+    <End Role="StudentFeeMonth" Type="Self.StudentFeeMonth" Multiplicity="0..1" />
+    <End Role="Month_Multiplier" Type="Self.Month_Multiplier" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StudentFeeMonth">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Month_Multiplier">
+        <PropertyRef Name="FeeMonthId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HangFire_JobParameter_Job">
+    <End Role="Job" Type="Self.Job" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="JobParameter" Type="Self.JobParameter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobParameter">
+        <PropertyRef Name="JobId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HangFire_State_Job">
+    <End Role="Job" Type="Self.Job" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="State" Type="Self.State" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="State">
+        <PropertyRef Name="JobId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ledger_LedgerGroup">
+    <End Role="LedgerGroup" Type="Self.LedgerGroup" Multiplicity="0..1" />
+    <End Role="Ledger" Type="Self.Ledger" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LedgerGroup">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ledger">
+        <PropertyRef Name="LedgerGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ledger_LedgerHead">
+    <End Role="LedgerHead" Type="Self.LedgerHead" Multiplicity="0..1" />
+    <End Role="Ledger" Type="Self.Ledger" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LedgerHead">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ledger">
+        <PropertyRef Name="LedgerHeadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ledger_Session">
+    <End Role="AspNetSession" Type="Self.AspNetSession" Multiplicity="0..1" />
+    <End Role="Ledger" Type="Self.Ledger" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSession">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ledger">
+        <PropertyRef Name="SessionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LedgerGroup_LedgerHead">
+    <End Role="LedgerHead" Type="Self.LedgerHead" Multiplicity="0..1" />
+    <End Role="LedgerGroup" Type="Self.LedgerGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LedgerHead">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LedgerGroup">
+        <PropertyRef Name="LedgerHeadID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LessonPlanBreakdown_ToLessonPlan">
+    <End Role="AspNetLessonPlan" Type="Self.AspNetLessonPlan" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetLessonPlanBreakdown" Type="Self.AspNetLessonPlanBreakdown" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetLessonPlan">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetLessonPlanBreakdown">
+        <PropertyRef Name="LessonPlanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LessonPlanBreakdown_ToLessonPlanBreakDownHeading">
+    <End Role="AspNetLessonPlanBreakdownHeading" Type="Self.AspNetLessonPlanBreakdownHeading" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetLessonPlanBreakdown" Type="Self.AspNetLessonPlanBreakdown" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetLessonPlanBreakdownHeading">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetLessonPlanBreakdown">
+        <PropertyRef Name="BreakDownHeadingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MessageReceiver_Messages">
+    <End Role="AspNetMessages" Type="Self.AspNetMessages" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetMessage_Receiver" Type="Self.AspNetMessage_Receiver" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetMessages">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetMessage_Receiver">
+        <PropertyRef Name="MessageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MessageReceiver_User">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AspNetMessage_Receiver" Type="Self.AspNetMessage_Receiver" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetMessage_Receiver">
+        <PropertyRef Name="ReceiverID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MessagesSender_ToAspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AspNetMessages" Type="Self.AspNetMessages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetMessages">
+        <PropertyRef Name="SenderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NonRecurring_Description">
+    <End Role="NonRecurringCharges" Type="Self.NonRecurringCharges" Multiplicity="0..1" />
+    <End Role="NonRecurringFeeMultiplier" Type="Self.NonRecurringFeeMultiplier" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NonRecurringCharges">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NonRecurringFeeMultiplier">
+        <PropertyRef Name="DescriptionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NonRecurring_student">
+    <End Role="AspNetStudent" Type="Self.AspNetStudent" Multiplicity="0..1" />
+    <End Role="NonRecurringFeeMultiplier" Type="Self.NonRecurringFeeMultiplier" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetStudent">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NonRecurringFeeMultiplier">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notifications_ToAspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetPushNotifications" Type="Self.AspNetPushNotifications" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetPushNotifications">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecurringFeeClass">
+    <End Role="AspNetClass" Type="Self.AspNetClass" Multiplicity="0..1" />
+    <End Role="StudentRecurringFee" Type="Self.StudentRecurringFee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetClass">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentRecurringFee">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecurringFeeClass_Session">
+    <End Role="AspNetSession" Type="Self.AspNetSession" Multiplicity="0..1" />
+    <End Role="StudentRecurringFee" Type="Self.StudentRecurringFee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSession">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentRecurringFee">
+        <PropertyRef Name="SessionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SalaryIncrement_SalaryRecord">
+    <End Role="Employee_SalaryRecord" Type="Self.Employee_SalaryRecord" Multiplicity="0..1" />
+    <End Role="Employee_SalaryIncrement" Type="Self.Employee_SalaryIncrement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee_SalaryRecord">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee_SalaryIncrement">
+        <PropertyRef Name="EmpSalaryRecordId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SalaryRecord_EmployeeId">
+    <End Role="AspNetEmployee" Type="Self.AspNetEmployee" Multiplicity="0..1" />
+    <End Role="Employee_SalaryRecord" Type="Self.Employee_SalaryRecord" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetEmployee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee_SalaryRecord">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SalaryUser">
+    <End Role="AspNetEmployee" Type="Self.AspNetEmployee" Multiplicity="0..1" />
+    <End Role="EmployeeSalary" Type="Self.EmployeeSalary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetEmployee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmployeeSalary">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_Announcement_ToAnnouncement">
+    <End Role="AspNetAnnouncement" Type="Self.AspNetAnnouncement" Multiplicity="0..1" />
+    <End Role="AspNetStudent_Announcement" Type="Self.AspNetStudent_Announcement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetAnnouncement">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Announcement">
+        <PropertyRef Name="AnnouncementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_Announcement_ToStudent">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetStudent_Announcement" Type="Self.AspNetStudent_Announcement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Announcement">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_Subject_ToStudent">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetStudent_Subject" Type="Self.AspNetStudent_Subject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Subject">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_Subject_ToSubject">
+    <End Role="AspNetSubjects" Type="Self.AspNetSubjects" Multiplicity="1" />
+    <End Role="AspNetStudent_Subject" Type="Self.AspNetStudent_Subject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSubjects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent_Subject">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_ToAspNetClass">
+    <End Role="AspNetClass" Type="Self.AspNetClass" Multiplicity="0..1" />
+    <End Role="AspNetStudent" Type="Self.AspNetStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetClass">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent">
+        <PropertyRef Name="ClassID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_ToAspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="AspNetStudent" Type="Self.AspNetStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetStudent">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentChallan_Student">
+    <End Role="AspNetStudent" Type="Self.AspNetStudent" Multiplicity="0..1" />
+    <End Role="StudentChallanForm" Type="Self.StudentChallanForm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetStudent">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentChallanForm">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentChallan_StudentFeeMonth">
+    <End Role="StudentFeeMonth" Type="Self.StudentFeeMonth" Multiplicity="0..1" />
+    <End Role="StudentChallanForm" Type="Self.StudentChallanForm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StudentFeeMonth">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentChallanForm">
+        <PropertyRef Name="StudentFeeMonthId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_studentdiscount_Feedisocunt">
+    <End Role="FeeDiscount" Type="Self.FeeDiscount" Multiplicity="0..1" />
+    <End Role="StudentDiscount" Type="Self.StudentDiscount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FeeDiscount">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentDiscount">
+        <PropertyRef Name="FeeDiscountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_studentdiscount_student">
+    <End Role="AspNetStudent" Type="Self.AspNetStudent" Multiplicity="0..1" />
+    <End Role="StudentDiscount" Type="Self.StudentDiscount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetStudent">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentDiscount">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentFeeMonth_AspNetSession">
+    <End Role="AspNetSession" Type="Self.AspNetSession" Multiplicity="0..1" />
+    <End Role="StudentFeeMonth" Type="Self.StudentFeeMonth" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetSession">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentFeeMonth">
+        <PropertyRef Name="SessionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentFeeMonth_student">
+    <End Role="AspNetStudent" Type="Self.AspNetStudent" Multiplicity="0..1" />
+    <End Role="StudentFeeMonth" Type="Self.StudentFeeMonth" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetStudent">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentFeeMonth">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentPenalty_Penalty">
+    <End Role="PenaltyFee" Type="Self.PenaltyFee" Multiplicity="0..1" />
+    <End Role="StudentPenalty" Type="Self.StudentPenalty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PenaltyFee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentPenalty">
+        <PropertyRef Name="PenaltyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentPenalty_Stuedent">
+    <End Role="AspNetStudent" Type="Self.AspNetStudent" Multiplicity="0..1" />
+    <End Role="StudentPenalty" Type="Self.StudentPenalty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetStudent">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentPenalty">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Teacher_ToAspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="AspNetTeacher" Type="Self.AspNetTeacher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetTeacher">
+        <PropertyRef Name="TeacherID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ToDoList_ToAspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="ToDoList" Type="Self.ToDoList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ToDoList">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VoucherRecord_LedgerId">
+    <End Role="Voucher" Type="Self.Voucher" Multiplicity="0..1" />
+    <End Role="VoucherRecord" Type="Self.VoucherRecord" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Voucher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="VoucherRecord">
+        <PropertyRef Name="VoucherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VoucherRecord_Voucher">
+    <End Role="Ledger" Type="Self.Ledger" Multiplicity="0..1" />
+    <End Role="VoucherRecord" Type="Self.VoucherRecord" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ledger">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="VoucherRecord">
+        <PropertyRef Name="LedgerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="GetStudentBasicData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StudentId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="GetStudentSessionSubjectAssessment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StudentId" Type="nvarchar" Mode="In" />
+    <Parameter Name="SessionId" Type="int" Mode="In" />
+    <Parameter Name="SubjectId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetStudentSubjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StudentId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="GetStudentTermSubjectAssessment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StudentId" Type="nvarchar" Mode="In" />
+    <Parameter Name="TermId" Type="int" Mode="In" />
+    <Parameter Name="StudentSubjectId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetSubjctAssessmentQuestions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SubjectId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_MSforeach_worker" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="command1" Type="nvarchar" Mode="In" />
+    <Parameter Name="replacechar" Type="nchar" Mode="In" />
+    <Parameter Name="command2" Type="nvarchar" Mode="In" />
+    <Parameter Name="command3" Type="nvarchar" Mode="In" />
+    <Parameter Name="worker_type" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_MSforeachtable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="command1" Type="nvarchar" Mode="In" />
+    <Parameter Name="replacechar" Type="nchar" Mode="In" />
+    <Parameter Name="command2" Type="nvarchar" Mode="In" />
+    <Parameter Name="command3" Type="nvarchar" Mode="In" />
+    <Parameter Name="whereand" Type="nvarchar" Mode="In" />
+    <Parameter Name="precommand" Type="nvarchar" Mode="In" />
+    <Parameter Name="postcommand" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="NGS_DatabaseModelStoreContainer">
+    <EntitySet Name="AspNetAbsent_Student" EntityType="Self.AspNetAbsent_Student" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetAnnouncement" EntityType="Self.AspNetAnnouncement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetAnnouncement_Subject" EntityType="Self.AspNetAnnouncement_Subject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetAssessment" EntityType="Self.AspNetAssessment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetAssessment_Question" EntityType="Self.AspNetAssessment_Question" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetAssessment_Questions_Category" EntityType="Self.AspNetAssessment_Questions_Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetAssessment_Topic" EntityType="Self.AspNetAssessment_Topic" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetAttendance" EntityType="Self.AspNetAttendance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetCatalog" EntityType="Self.AspNetCatalog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetChapter" EntityType="Self.AspNetChapter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetClass" EntityType="Self.AspNetClass" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetClass_FeeType" EntityType="Self.AspNetClass_FeeType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetCurriculum" EntityType="Self.AspNetCurriculum" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetDurationType" EntityType="Self.AspNetDurationType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetEmp_Auto_Absent" EntityType="Self.AspNetEmp_Auto_Absent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetEmp_Auto_Attendance" EntityType="Self.AspNetEmp_Auto_Attendance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetEmployee" EntityType="Self.AspNetEmployee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetEmployee_Attendance" EntityType="Self.AspNetEmployee_Attendance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetEmployeeAttendance" EntityType="Self.AspNetEmployeeAttendance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetFeeChallan" EntityType="Self.AspNetFeeChallan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetFeedBackForm" EntityType="Self.AspNetFeedBackForm" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetFeeType" EntityType="Self.AspNetFeeType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetFinanceLedgers" EntityType="Self.AspNetFinanceLedgers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetFinanceLedgerType" EntityType="Self.AspNetFinanceLedgerType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetFinanceMonth" EntityType="Self.AspNetFinanceMonth" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetFinancePeriod" EntityType="Self.AspNetFinancePeriod" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetHoliday_Calendar_Notification" EntityType="Self.AspNetHoliday_Calendar_Notification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetHomework" EntityType="Self.AspNetHomework" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetLessonPlan" EntityType="Self.AspNetLessonPlan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetLessonPlan_Topic" EntityType="Self.AspNetLessonPlan_Topic" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetLessonPlanBreakdown" EntityType="Self.AspNetLessonPlanBreakdown" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetLessonPlanBreakdownHeading" EntityType="Self.AspNetLessonPlanBreakdownHeading" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetLog" EntityType="Self.AspNetLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetLoginTime" EntityType="Self.AspNetLoginTime" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetMessage_Receiver" EntityType="Self.AspNetMessage_Receiver" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetMessages" EntityType="Self.AspNetMessages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetNotification" EntityType="Self.AspNetNotification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetNotification_User" EntityType="Self.AspNetNotification_User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetParent" EntityType="Self.AspNetParent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetParent_Child" EntityType="Self.AspNetParent_Child" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetParent_Notification" EntityType="Self.AspNetParent_Notification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetParentTeacherMeeting" EntityType="Self.AspNetParentTeacherMeeting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetProject" EntityType="Self.AspNetProject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetPTM_ParentFeedback" EntityType="Self.AspNetPTM_ParentFeedback" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetPTM_TeacherFeedback" EntityType="Self.AspNetPTM_TeacherFeedback" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetPTMAttendance" EntityType="Self.AspNetPTMAttendance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetPTMFormRoles" EntityType="Self.AspNetPTMFormRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetPushNotifications" EntityType="Self.AspNetPushNotifications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetSalary" EntityType="Self.AspNetSalary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetSalaryDetail" EntityType="Self.AspNetSalaryDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetSession" EntityType="Self.AspNetSession" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetStudent" EntityType="Self.AspNetStudent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetStudent_Announcement" EntityType="Self.AspNetStudent_Announcement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetStudent_Assessment" EntityType="Self.AspNetStudent_Assessment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetStudent_Attendance" EntityType="Self.AspNetStudent_Attendance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetStudent_AutoAttendance" EntityType="Self.AspNetStudent_AutoAttendance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetStudent_Fine" EntityType="Self.AspNetStudent_Fine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetStudent_HomeWork" EntityType="Self.AspNetStudent_HomeWork" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetStudent_Notification" EntityType="Self.AspNetStudent_Notification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetStudent_Payment" EntityType="Self.AspNetStudent_Payment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetStudent_PaymentDetail" EntityType="Self.AspNetStudent_PaymentDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetStudent_Project" EntityType="Self.AspNetStudent_Project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetStudent_Subject" EntityType="Self.AspNetStudent_Subject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetStudent_Term_Assessment" EntityType="Self.AspNetStudent_Term_Assessment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetStudent_Term_Assessments_Answers" EntityType="Self.AspNetStudent_Term_Assessments_Answers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetStudentPerformanceReport" EntityType="Self.AspNetStudentPerformanceReport" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetSubject_Catalog" EntityType="Self.AspNetSubject_Catalog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetSubject_Homework" EntityType="Self.AspNetSubject_Homework" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetSubjects" EntityType="Self.AspNetSubjects" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetTeacher" EntityType="Self.AspNetTeacher" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetTerm" EntityType="Self.AspNetTerm" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetTime_Setting" EntityType="Self.AspNetTime_Setting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetTopic" EntityType="Self.AspNetTopic" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetVirtualRole" EntityType="Self.AspNetVirtualRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee_SalaryIncrement" EntityType="Self.Employee_SalaryIncrement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee_SalaryRecord" EntityType="Self.Employee_SalaryRecord" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeAdvanceSalary" EntityType="Self.EmployeeAdvanceSalary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeePenalty" EntityType="Self.EmployeePenalty" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeePenaltyType" EntityType="Self.EmployeePenaltyType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeSalary" EntityType="Self.EmployeeSalary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FeeDateSetting" EntityType="Self.FeeDateSetting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FeeDiscount" EntityType="Self.FeeDiscount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ledger" EntityType="Self.Ledger" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LedgerGroup" EntityType="Self.LedgerGroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LedgerHead" EntityType="Self.LedgerHead" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Month_Multiplier" EntityType="Self.Month_Multiplier" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NonRecurringCharges" EntityType="Self.NonRecurringCharges" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NonRecurringFeeMultiplier" EntityType="Self.NonRecurringFeeMultiplier" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PenaltyFee" EntityType="Self.PenaltyFee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ruffdata" EntityType="Self.ruffdata" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Student_ChallanForm" EntityType="Self.Student_ChallanForm" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StudentChallanForm" EntityType="Self.StudentChallanForm" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StudentDiscount" EntityType="Self.StudentDiscount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StudentFeeMonth" EntityType="Self.StudentFeeMonth" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StudentPenalty" EntityType="Self.StudentPenalty" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StudentPenaltyType" EntityType="Self.StudentPenaltyType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StudentRecurringFee" EntityType="Self.StudentRecurringFee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TeacherPenaltyRecord" EntityType="Self.TeacherPenaltyRecord" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ToDoList" EntityType="Self.ToDoList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Voucher" EntityType="Self.Voucher" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VoucherRecord" EntityType="Self.VoucherRecord" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AggregatedCounter" EntityType="Self.AggregatedCounter" Schema="HangFire" store:Type="Tables" />
+    <EntitySet Name="Counter" EntityType="Self.Counter" Schema="HangFire" store:Type="Tables" />
+    <EntitySet Name="Hash" EntityType="Self.Hash" Schema="HangFire" store:Type="Tables" />
+    <EntitySet Name="Job" EntityType="Self.Job" Schema="HangFire" store:Type="Tables" />
+    <EntitySet Name="JobParameter" EntityType="Self.JobParameter" Schema="HangFire" store:Type="Tables" />
+    <EntitySet Name="JobQueue" EntityType="Self.JobQueue" Schema="HangFire" store:Type="Tables" />
+    <EntitySet Name="List" EntityType="Self.List" Schema="HangFire" store:Type="Tables" />
+    <EntitySet Name="Schema" EntityType="Self.Schema" Schema="HangFire" store:Type="Tables" />
+    <EntitySet Name="Server" EntityType="Self.Server" Schema="HangFire" store:Type="Tables" />
+    <EntitySet Name="Set" EntityType="Self.Set" Schema="HangFire" store:Type="Tables" />
+    <EntitySet Name="State" EntityType="Self.State" Schema="HangFire" store:Type="Tables" />
+    <AssociationSet Name="FK__Event__UserId__52442E1F" Association="Self.FK__Event__UserId__52442E1F">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Event" EntitySet="Event" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TeacherPe__Emplo__6B0FDBE9" Association="Self.FK__TeacherPe__Emplo__6B0FDBE9">
+      <End Role="AspNetEmployee" EntitySet="AspNetEmployee" />
+      <End Role="TeacherPenaltyRecord" EntitySet="TeacherPenaltyRecord" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AdvanceSalaryUser" Association="Self.FK_AdvanceSalaryUser">
+      <End Role="AspNetEmployee" EntitySet="AspNetEmployee" />
+      <End Role="EmployeeAdvanceSalary" EntitySet="EmployeeAdvanceSalary" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Announcement_Subject_ToAnnouncement" Association="Self.FK_Announcement_Subject_ToAnnouncement">
+      <End Role="AspNetAnnouncement" EntitySet="AspNetAnnouncement" />
+      <End Role="AspNetAnnouncement_Subject" EntitySet="AspNetAnnouncement_Subject" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Announcement_Subject_ToSubject" Association="Self.FK_Announcement_Subject_ToSubject">
+      <End Role="AspNetSubjects" EntitySet="AspNetSubjects" />
+      <End Role="AspNetAnnouncement_Subject" EntitySet="AspNetAnnouncement_Subject" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetAssessment_Question_ToQuestionCategory" Association="Self.FK_AspNetAssessment_Question_ToQuestionCategory">
+      <End Role="AspNetAssessment_Questions_Category" EntitySet="AspNetAssessment_Questions_Category" />
+      <End Role="AspNetAssessment_Question" EntitySet="AspNetAssessment_Question" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetAssessment_Question_ToSubject" Association="Self.FK_AspNetAssessment_Question_ToSubject">
+      <End Role="AspNetSubjects" EntitySet="AspNetSubjects" />
+      <End Role="AspNetAssessment_Question" EntitySet="AspNetAssessment_Question" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetAssessment_Topic_ToAssessment" Association="Self.FK_AspNetAssessment_Topic_ToAssessment">
+      <End Role="AspNetAssessment" EntitySet="AspNetAssessment" />
+      <End Role="AspNetAssessment_Topic" EntitySet="AspNetAssessment_Topic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetAssessment_Topic_ToTopic" Association="Self.FK_AspNetAssessment_Topic_ToTopic">
+      <End Role="AspNetTopic" EntitySet="AspNetTopic" />
+      <End Role="AspNetAssessment_Topic" EntitySet="AspNetAssessment_Topic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetAssessment_ToSubjectCatalog" Association="Self.FK_AspNetAssessment_ToSubjectCatalog">
+      <End Role="AspNetSubject_Catalog" EntitySet="AspNetSubject_Catalog" />
+      <End Role="AspNetAssessment" EntitySet="AspNetAssessment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetAttendance_ToSubject" Association="Self.FK_AspNetAttendance_ToSubject">
+      <End Role="AspNetSubjects" EntitySet="AspNetSubjects" />
+      <End Role="AspNetAttendance" EntitySet="AspNetAttendance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetChapter_ToSubject" Association="Self.FK_AspNetChapter_ToSubject">
+      <End Role="AspNetSubjects" EntitySet="AspNetSubjects" />
+      <End Role="AspNetChapter" EntitySet="AspNetChapter" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetClass_FeeType_ToClass" Association="Self.FK_AspNetClass_FeeType_ToClass">
+      <End Role="AspNetClass" EntitySet="AspNetClass" />
+      <End Role="AspNetClass_FeeType" EntitySet="AspNetClass_FeeType" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetClass_FeeType_ToFeeType" Association="Self.FK_AspNetClass_FeeType_ToFeeType">
+      <End Role="AspNetFinanceLedgers" EntitySet="AspNetFinanceLedgers" />
+      <End Role="AspNetClass_FeeType" EntitySet="AspNetClass_FeeType" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetClass_ToAspNetClass" Association="Self.FK_AspNetClass_ToAspNetClass">
+      <End Role="AspNetClass" EntitySet="AspNetClass" />
+      <End Role="AspNetSubjects" EntitySet="AspNetSubjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetClass_ToAspNetUsers" Association="Self.FK_AspNetClass_ToAspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetClass" EntitySet="AspNetClass" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetClass_ToAspNetUsersTeacher" Association="Self.FK_AspNetClass_ToAspNetUsersTeacher">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetSubjects" EntitySet="AspNetSubjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetEmployee_AspNetUsers" Association="Self.FK_AspNetEmployee_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetEmployee" EntitySet="AspNetEmployee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetEmployee_Attendance_TO_AspNetEmployee" Association="Self.FK_AspNetEmployee_Attendance_TO_AspNetEmployee">
+      <End Role="AspNetEmployee" EntitySet="AspNetEmployee" />
+      <End Role="AspNetEmployee_Attendance" EntitySet="AspNetEmployee_Attendance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetEmployee_Attendance_To_AspNetEmployeeAttendance" Association="Self.FK_AspNetEmployee_Attendance_To_AspNetEmployeeAttendance">
+      <End Role="AspNetEmployeeAttendance" EntitySet="AspNetEmployeeAttendance" />
+      <End Role="AspNetEmployee_Attendance" EntitySet="AspNetEmployee_Attendance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetEmployee_VirtualRole" Association="Self.FK_AspNetEmployee_VirtualRole">
+      <End Role="AspNetVirtualRole" EntitySet="AspNetVirtualRole" />
+      <End Role="AspNetEmployee" EntitySet="AspNetEmployee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetFeeChallan_ToClass" Association="Self.FK_AspNetFeeChallan_ToClass">
+      <End Role="AspNetClass" EntitySet="AspNetClass" />
+      <End Role="AspNetFeeChallan" EntitySet="AspNetFeeChallan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetFeeChallan_ToDurationType" Association="Self.FK_AspNetFeeChallan_ToDurationType">
+      <End Role="AspNetDurationType" EntitySet="AspNetDurationType" />
+      <End Role="AspNetFeeChallan" EntitySet="AspNetFeeChallan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetFeedBackForm_ToRole" Association="Self.FK_AspNetFeedBackForm_ToRole">
+      <End Role="AspNetPTMFormRoles" EntitySet="AspNetPTMFormRoles" />
+      <End Role="AspNetFeedBackForm" EntitySet="AspNetFeedBackForm" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetFeeType_ToLedger" Association="Self.FK_AspNetFeeType_ToLedger">
+      <End Role="AspNetFinanceLedgers" EntitySet="AspNetFinanceLedgers" />
+      <End Role="AspNetFeeType" EntitySet="AspNetFeeType" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetFinanceMonth_AspNetFinancePeriod" Association="Self.FK_AspNetFinanceMonth_AspNetFinancePeriod">
+      <End Role="AspNetFinancePeriod" EntitySet="AspNetFinancePeriod" />
+      <End Role="AspNetFinanceMonth" EntitySet="AspNetFinanceMonth" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetHomework_AspNetClass" Association="Self.FK_AspNetHomework_AspNetClass">
+      <End Role="AspNetClass" EntitySet="AspNetClass" />
+      <End Role="AspNetHomework" EntitySet="AspNetHomework" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetLessonPlan_Topic_ToLessonPlan" Association="Self.FK_AspNetLessonPlan_Topic_ToLessonPlan">
+      <End Role="AspNetLessonPlan" EntitySet="AspNetLessonPlan" />
+      <End Role="AspNetLessonPlan_Topic" EntitySet="AspNetLessonPlan_Topic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetLessonPlan_Topic_ToTopic" Association="Self.FK_AspNetLessonPlan_Topic_ToTopic">
+      <End Role="AspNetTopic" EntitySet="AspNetTopic" />
+      <End Role="AspNetLessonPlan_Topic" EntitySet="AspNetLessonPlan_Topic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetLessonPlan_ToSubject" Association="Self.FK_AspNetLessonPlan_ToSubject">
+      <End Role="AspNetSubjects" EntitySet="AspNetSubjects" />
+      <End Role="AspNetLessonPlan" EntitySet="AspNetLessonPlan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetLog_ToUsers" Association="Self.FK_AspNetLog_ToUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetLog" EntitySet="AspNetLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetNotification_ToUser" Association="Self.FK_AspNetNotification_ToUser">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetNotification" EntitySet="AspNetNotification" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetNotification_User_ToNotification" Association="Self.FK_AspNetNotification_User_ToNotification">
+      <End Role="AspNetNotification" EntitySet="AspNetNotification" />
+      <End Role="AspNetNotification_User" EntitySet="AspNetNotification_User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetNotification_User_ToUser" Association="Self.FK_AspNetNotification_User_ToUser">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetNotification_User" EntitySet="AspNetNotification_User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetParent_Child_ChildToUsers" Association="Self.FK_AspNetParent_Child_ChildToUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetParent_Child" EntitySet="AspNetParent_Child" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetParent_Child_ParentToUsers" Association="Self.FK_AspNetParent_Child_ParentToUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetParent_Child" EntitySet="AspNetParent_Child" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetParent_Notification_ParentToUser" Association="Self.FK_AspNetParent_Notification_ParentToUser">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetParent_Notification" EntitySet="AspNetParent_Notification" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetParent_Notification_SenderToUser" Association="Self.FK_AspNetParent_Notification_SenderToUser">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetParent_Notification" EntitySet="AspNetParent_Notification" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetParent_ToParent" Association="Self.FK_AspNetParent_ToParent">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetParent" EntitySet="AspNetParent" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetProject_ToSubject" Association="Self.FK_AspNetProject_ToSubject">
+      <End Role="AspNetSubjects" EntitySet="AspNetSubjects" />
+      <End Role="AspNetProject" EntitySet="AspNetProject" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetPTM_ParentFeedback_ToForm" Association="Self.FK_AspNetPTM_ParentFeedback_ToForm">
+      <End Role="AspNetFeedBackForm" EntitySet="AspNetFeedBackForm" />
+      <End Role="AspNetPTM_ParentFeedback" EntitySet="AspNetPTM_ParentFeedback" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetPTM_ParentFeedback_ToPTM" Association="Self.FK_AspNetPTM_ParentFeedback_ToPTM">
+      <End Role="AspNetPTMAttendance" EntitySet="AspNetPTMAttendance" />
+      <End Role="AspNetPTM_ParentFeedback" EntitySet="AspNetPTM_ParentFeedback" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetPTM_TeacherFeedback_ToForm" Association="Self.FK_AspNetPTM_TeacherFeedback_ToForm">
+      <End Role="AspNetFeedBackForm" EntitySet="AspNetFeedBackForm" />
+      <End Role="AspNetPTM_TeacherFeedback" EntitySet="AspNetPTM_TeacherFeedback" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetPTM_TeacherFeedback_ToPTM" Association="Self.FK_AspNetPTM_TeacherFeedback_ToPTM">
+      <End Role="AspNetPTMAttendance" EntitySet="AspNetPTMAttendance" />
+      <End Role="AspNetPTM_TeacherFeedback" EntitySet="AspNetPTM_TeacherFeedback" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetPTMAttendance_ToMeeting" Association="Self.FK_AspNetPTMAttendance_ToMeeting">
+      <End Role="AspNetParentTeacherMeeting" EntitySet="AspNetParentTeacherMeeting" />
+      <End Role="AspNetPTMAttendance" EntitySet="AspNetPTMAttendance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetPTMAttendance_ToParent" Association="Self.FK_AspNetPTMAttendance_ToParent">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetPTMAttendance" EntitySet="AspNetPTMAttendance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetPTMAttendance_ToSubject" Association="Self.FK_AspNetPTMAttendance_ToSubject">
+      <End Role="AspNetSubjects" EntitySet="AspNetSubjects" />
+      <End Role="AspNetPTMAttendance" EntitySet="AspNetPTMAttendance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetSalary_VirtualID" Association="Self.FK_AspNetSalary_VirtualID">
+      <End Role="AspNetVirtualRole" EntitySet="AspNetVirtualRole" />
+      <End Role="AspNetSalary" EntitySet="AspNetSalary" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetSalaryDetail_AspNetEmployee" Association="Self.FK_AspNetSalaryDetail_AspNetEmployee">
+      <End Role="AspNetEmployee" EntitySet="AspNetEmployee" />
+      <End Role="AspNetSalaryDetail" EntitySet="AspNetSalaryDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetSalaryDetail_SalaryTable" Association="Self.FK_AspNetSalaryDetail_SalaryTable">
+      <End Role="AspNetSalary" EntitySet="AspNetSalary" />
+      <End Role="AspNetSalaryDetail" EntitySet="AspNetSalaryDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_Assessment_ToAssessment" Association="Self.FK_AspNetStudent_Assessment_ToAssessment">
+      <End Role="AspNetAssessment" EntitySet="AspNetAssessment" />
+      <End Role="AspNetStudent_Assessment" EntitySet="AspNetStudent_Assessment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_Assessment_ToStudent" Association="Self.FK_AspNetStudent_Assessment_ToStudent">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetStudent_Assessment" EntitySet="AspNetStudent_Assessment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_Attendance_ToAttendance" Association="Self.FK_AspNetStudent_Attendance_ToAttendance">
+      <End Role="AspNetAttendance" EntitySet="AspNetAttendance" />
+      <End Role="AspNetStudent_Attendance" EntitySet="AspNetStudent_Attendance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_Attendance_ToUser" Association="Self.FK_AspNetStudent_Attendance_ToUser">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetStudent_Attendance" EntitySet="AspNetStudent_Attendance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_Fine_ToStudent" Association="Self.FK_AspNetStudent_Fine_ToStudent">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetStudent_Fine" EntitySet="AspNetStudent_Fine" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_HomeWork_AspNetHomework" Association="Self.FK_AspNetStudent_HomeWork_AspNetHomework">
+      <End Role="AspNetHomework" EntitySet="AspNetHomework" />
+      <End Role="AspNetStudent_HomeWork" EntitySet="AspNetStudent_HomeWork" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_HomeWork_AspNetUsers" Association="Self.FK_AspNetStudent_HomeWork_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetStudent_HomeWork" EntitySet="AspNetStudent_HomeWork" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_Notification_SenderToUser" Association="Self.FK_AspNetStudent_Notification_SenderToUser">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetStudent_Notification" EntitySet="AspNetStudent_Notification" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_Notification_StudentToUser" Association="Self.FK_AspNetStudent_Notification_StudentToUser">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetStudent_Notification" EntitySet="AspNetStudent_Notification" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_Payment_ToFeeChallan" Association="Self.FK_AspNetStudent_Payment_ToFeeChallan">
+      <End Role="AspNetFeeChallan" EntitySet="AspNetFeeChallan" />
+      <End Role="AspNetStudent_Payment" EntitySet="AspNetStudent_Payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_Payment_ToStudent" Association="Self.FK_AspNetStudent_Payment_ToStudent">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetStudent_Payment" EntitySet="AspNetStudent_Payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_PaymentDetail_ToLedger" Association="Self.FK_AspNetStudent_PaymentDetail_ToLedger">
+      <End Role="AspNetFinanceLedgers" EntitySet="AspNetFinanceLedgers" />
+      <End Role="AspNetStudent_PaymentDetail" EntitySet="AspNetStudent_PaymentDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_PaymentDetail_ToStudentPayment" Association="Self.FK_AspNetStudent_PaymentDetail_ToStudentPayment">
+      <End Role="AspNetStudent_Payment" EntitySet="AspNetStudent_Payment" />
+      <End Role="AspNetStudent_PaymentDetail" EntitySet="AspNetStudent_PaymentDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_PaymentDetail_ToStudentPaymentPrevious" Association="Self.FK_AspNetStudent_PaymentDetail_ToStudentPaymentPrevious">
+      <End Role="AspNetStudent_Payment" EntitySet="AspNetStudent_Payment" />
+      <End Role="AspNetStudent_PaymentDetail" EntitySet="AspNetStudent_PaymentDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_Project_ToProject" Association="Self.FK_AspNetStudent_Project_ToProject">
+      <End Role="AspNetProject" EntitySet="AspNetProject" />
+      <End Role="AspNetStudent_Project" EntitySet="AspNetStudent_Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_Project_ToStudent" Association="Self.FK_AspNetStudent_Project_ToStudent">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetStudent_Project" EntitySet="AspNetStudent_Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_Term_Assessment_ToSession" Association="Self.FK_AspNetStudent_Term_Assessment_ToSession">
+      <End Role="AspNetSession" EntitySet="AspNetSession" />
+      <End Role="AspNetStudent_Term_Assessment" EntitySet="AspNetStudent_Term_Assessment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_Term_Assessment_ToSubject" Association="Self.FK_AspNetStudent_Term_Assessment_ToSubject">
+      <End Role="AspNetSubjects" EntitySet="AspNetSubjects" />
+      <End Role="AspNetStudent_Term_Assessment" EntitySet="AspNetStudent_Term_Assessment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_Term_Assessment_ToTerm" Association="Self.FK_AspNetStudent_Term_Assessment_ToTerm">
+      <End Role="AspNetTerm" EntitySet="AspNetTerm" />
+      <End Role="AspNetStudent_Term_Assessment" EntitySet="AspNetStudent_Term_Assessment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_Term_Assessment_ToUsers" Association="Self.FK_AspNetStudent_Term_Assessment_ToUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetStudent_Term_Assessment" EntitySet="AspNetStudent_Term_Assessment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudent_Term_Assessments_Answers_ToStudent_Term_Assessment" Association="Self.FK_AspNetStudent_Term_Assessments_Answers_ToStudent_Term_Assessment">
+      <End Role="AspNetStudent_Term_Assessment" EntitySet="AspNetStudent_Term_Assessment" />
+      <End Role="AspNetStudent_Term_Assessments_Answers" EntitySet="AspNetStudent_Term_Assessments_Answers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudentPerformanceReport_ToSubject" Association="Self.FK_AspNetStudentPerformanceReport_ToSubject">
+      <End Role="AspNetSubjects" EntitySet="AspNetSubjects" />
+      <End Role="AspNetStudentPerformanceReport" EntitySet="AspNetStudentPerformanceReport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetStudentPerformanceReport_ToUsers" Association="Self.FK_AspNetStudentPerformanceReport_ToUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetStudentPerformanceReport" EntitySet="AspNetStudentPerformanceReport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetSubject_Catalog_ToCatalog" Association="Self.FK_AspNetSubject_Catalog_ToCatalog">
+      <End Role="AspNetCatalog" EntitySet="AspNetCatalog" />
+      <End Role="AspNetSubject_Catalog" EntitySet="AspNetSubject_Catalog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetSubject_Catalog_ToSubject" Association="Self.FK_AspNetSubject_Catalog_ToSubject">
+      <End Role="AspNetSubjects" EntitySet="AspNetSubjects" />
+      <End Role="AspNetSubject_Catalog" EntitySet="AspNetSubject_Catalog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetSubject_Homework_AspNetSubjects" Association="Self.FK_AspNetSubject_Homework_AspNetSubjects">
+      <End Role="AspNetSubjects" EntitySet="AspNetSubjects" />
+      <End Role="AspNetSubject_Homework" EntitySet="AspNetSubject_Homework" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetTerm_ToSession" Association="Self.FK_AspNetTerm_ToSession">
+      <End Role="AspNetSession" EntitySet="AspNetSession" />
+      <End Role="AspNetTerm" EntitySet="AspNetTerm" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetTopic_ToSubject" Association="Self.FK_AspNetTopic_ToSubject">
+      <End Role="AspNetChapter" EntitySet="AspNetChapter" />
+      <End Role="AspNetTopic" EntitySet="AspNetTopic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetVirtualRole_AspNetVirtualRole" Association="Self.FK_AspNetVirtualRole_AspNetVirtualRole">
+      <End Role="AspNetVirtualRole" EntitySet="AspNetVirtualRole" />
+      <End Role="AspNetVirtualRole1" EntitySet="AspNetVirtualRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeePenalty_Employee" Association="Self.FK_EmployeePenalty_Employee">
+      <End Role="AspNetEmployee" EntitySet="AspNetEmployee" />
+      <End Role="EmployeePenalty" EntitySet="EmployeePenalty" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeePenalty_Penalty" Association="Self.FK_EmployeePenalty_Penalty">
+      <End Role="EmployeePenaltyType" EntitySet="EmployeePenaltyType" />
+      <End Role="EmployeePenalty" EntitySet="EmployeePenalty" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FeeMonth" Association="Self.FK_FeeMonth">
+      <End Role="StudentFeeMonth" EntitySet="StudentFeeMonth" />
+      <End Role="Month_Multiplier" EntitySet="Month_Multiplier" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HangFire_JobParameter_Job" Association="Self.FK_HangFire_JobParameter_Job">
+      <End Role="Job" EntitySet="Job" />
+      <End Role="JobParameter" EntitySet="JobParameter" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HangFire_State_Job" Association="Self.FK_HangFire_State_Job">
+      <End Role="Job" EntitySet="Job" />
+      <End Role="State" EntitySet="State" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ledger_LedgerGroup" Association="Self.FK_Ledger_LedgerGroup">
+      <End Role="LedgerGroup" EntitySet="LedgerGroup" />
+      <End Role="Ledger" EntitySet="Ledger" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ledger_LedgerHead" Association="Self.FK_Ledger_LedgerHead">
+      <End Role="LedgerHead" EntitySet="LedgerHead" />
+      <End Role="Ledger" EntitySet="Ledger" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ledger_Session" Association="Self.FK_Ledger_Session">
+      <End Role="AspNetSession" EntitySet="AspNetSession" />
+      <End Role="Ledger" EntitySet="Ledger" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LedgerGroup_LedgerHead" Association="Self.FK_LedgerGroup_LedgerHead">
+      <End Role="LedgerHead" EntitySet="LedgerHead" />
+      <End Role="LedgerGroup" EntitySet="LedgerGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LessonPlanBreakdown_ToLessonPlan" Association="Self.FK_LessonPlanBreakdown_ToLessonPlan">
+      <End Role="AspNetLessonPlan" EntitySet="AspNetLessonPlan" />
+      <End Role="AspNetLessonPlanBreakdown" EntitySet="AspNetLessonPlanBreakdown" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LessonPlanBreakdown_ToLessonPlanBreakDownHeading" Association="Self.FK_LessonPlanBreakdown_ToLessonPlanBreakDownHeading">
+      <End Role="AspNetLessonPlanBreakdownHeading" EntitySet="AspNetLessonPlanBreakdownHeading" />
+      <End Role="AspNetLessonPlanBreakdown" EntitySet="AspNetLessonPlanBreakdown" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MessageReceiver_Messages" Association="Self.FK_MessageReceiver_Messages">
+      <End Role="AspNetMessages" EntitySet="AspNetMessages" />
+      <End Role="AspNetMessage_Receiver" EntitySet="AspNetMessage_Receiver" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MessageReceiver_User" Association="Self.FK_MessageReceiver_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetMessage_Receiver" EntitySet="AspNetMessage_Receiver" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MessagesSender_ToAspNetUsers" Association="Self.FK_MessagesSender_ToAspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetMessages" EntitySet="AspNetMessages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NonRecurring_Description" Association="Self.FK_NonRecurring_Description">
+      <End Role="NonRecurringCharges" EntitySet="NonRecurringCharges" />
+      <End Role="NonRecurringFeeMultiplier" EntitySet="NonRecurringFeeMultiplier" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NonRecurring_student" Association="Self.FK_NonRecurring_student">
+      <End Role="AspNetStudent" EntitySet="AspNetStudent" />
+      <End Role="NonRecurringFeeMultiplier" EntitySet="NonRecurringFeeMultiplier" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notifications_ToAspNetUsers" Association="Self.FK_Notifications_ToAspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetPushNotifications" EntitySet="AspNetPushNotifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecurringFeeClass" Association="Self.FK_RecurringFeeClass">
+      <End Role="AspNetClass" EntitySet="AspNetClass" />
+      <End Role="StudentRecurringFee" EntitySet="StudentRecurringFee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecurringFeeClass_Session" Association="Self.FK_RecurringFeeClass_Session">
+      <End Role="AspNetSession" EntitySet="AspNetSession" />
+      <End Role="StudentRecurringFee" EntitySet="StudentRecurringFee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SalaryIncrement_SalaryRecord" Association="Self.FK_SalaryIncrement_SalaryRecord">
+      <End Role="Employee_SalaryRecord" EntitySet="Employee_SalaryRecord" />
+      <End Role="Employee_SalaryIncrement" EntitySet="Employee_SalaryIncrement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SalaryRecord_EmployeeId" Association="Self.FK_SalaryRecord_EmployeeId">
+      <End Role="AspNetEmployee" EntitySet="AspNetEmployee" />
+      <End Role="Employee_SalaryRecord" EntitySet="Employee_SalaryRecord" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SalaryUser" Association="Self.FK_SalaryUser">
+      <End Role="AspNetEmployee" EntitySet="AspNetEmployee" />
+      <End Role="EmployeeSalary" EntitySet="EmployeeSalary" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_Announcement_ToAnnouncement" Association="Self.FK_Student_Announcement_ToAnnouncement">
+      <End Role="AspNetAnnouncement" EntitySet="AspNetAnnouncement" />
+      <End Role="AspNetStudent_Announcement" EntitySet="AspNetStudent_Announcement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_Announcement_ToStudent" Association="Self.FK_Student_Announcement_ToStudent">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetStudent_Announcement" EntitySet="AspNetStudent_Announcement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_Subject_ToStudent" Association="Self.FK_Student_Subject_ToStudent">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetStudent_Subject" EntitySet="AspNetStudent_Subject" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_Subject_ToSubject" Association="Self.FK_Student_Subject_ToSubject">
+      <End Role="AspNetSubjects" EntitySet="AspNetSubjects" />
+      <End Role="AspNetStudent_Subject" EntitySet="AspNetStudent_Subject" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_ToAspNetClass" Association="Self.FK_Student_ToAspNetClass">
+      <End Role="AspNetClass" EntitySet="AspNetClass" />
+      <End Role="AspNetStudent" EntitySet="AspNetStudent" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_ToAspNetUsers" Association="Self.FK_Student_ToAspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetStudent" EntitySet="AspNetStudent" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentChallan_Student" Association="Self.FK_StudentChallan_Student">
+      <End Role="AspNetStudent" EntitySet="AspNetStudent" />
+      <End Role="StudentChallanForm" EntitySet="StudentChallanForm" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentChallan_StudentFeeMonth" Association="Self.FK_StudentChallan_StudentFeeMonth">
+      <End Role="StudentFeeMonth" EntitySet="StudentFeeMonth" />
+      <End Role="StudentChallanForm" EntitySet="StudentChallanForm" />
+    </AssociationSet>
+    <AssociationSet Name="FK_studentdiscount_Feedisocunt" Association="Self.FK_studentdiscount_Feedisocunt">
+      <End Role="FeeDiscount" EntitySet="FeeDiscount" />
+      <End Role="StudentDiscount" EntitySet="StudentDiscount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_studentdiscount_student" Association="Self.FK_studentdiscount_student">
+      <End Role="AspNetStudent" EntitySet="AspNetStudent" />
+      <End Role="StudentDiscount" EntitySet="StudentDiscount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentFeeMonth_AspNetSession" Association="Self.FK_StudentFeeMonth_AspNetSession">
+      <End Role="AspNetSession" EntitySet="AspNetSession" />
+      <End Role="StudentFeeMonth" EntitySet="StudentFeeMonth" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentFeeMonth_student" Association="Self.FK_StudentFeeMonth_student">
+      <End Role="AspNetStudent" EntitySet="AspNetStudent" />
+      <End Role="StudentFeeMonth" EntitySet="StudentFeeMonth" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentPenalty_Penalty" Association="Self.FK_StudentPenalty_Penalty">
+      <End Role="PenaltyFee" EntitySet="PenaltyFee" />
+      <End Role="StudentPenalty" EntitySet="StudentPenalty" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentPenalty_Stuedent" Association="Self.FK_StudentPenalty_Stuedent">
+      <End Role="AspNetStudent" EntitySet="AspNetStudent" />
+      <End Role="StudentPenalty" EntitySet="StudentPenalty" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Teacher_ToAspNetUsers" Association="Self.FK_Teacher_ToAspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetTeacher" EntitySet="AspNetTeacher" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ToDoList_ToAspNetUsers" Association="Self.FK_ToDoList_ToAspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ToDoList" EntitySet="ToDoList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VoucherRecord_LedgerId" Association="Self.FK_VoucherRecord_LedgerId">
+      <End Role="Voucher" EntitySet="Voucher" />
+      <End Role="VoucherRecord" EntitySet="VoucherRecord" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VoucherRecord_Voucher" Association="Self.FK_VoucherRecord_Voucher">
+      <End Role="Ledger" EntitySet="Ledger" />
+      <End Role="VoucherRecord" EntitySet="VoucherRecord" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

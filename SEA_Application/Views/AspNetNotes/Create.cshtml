@@ -1,0 +1,403 @@
+﻿@model SEA_Application.Models.AspNetNote
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > @Html.ActionLink("Notes", "Index", "AspnetNotes") > <a href="#"><b>Create</b></a> </label>
+
+<h4 class="orange">Add Notes </h4>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="box box-primary">
+        <div class="box-title"></div>
+
+        <div class="box-body">
+            <div class="form-horizontal">
+                <h4>Notes</h4>
+                <hr />
+
+                <input type="hidden" id="grandTotalHidden" name="grandTotalHidden" />
+                <input type="hidden" id="photoCopierHidden" name="photoCopierHidden" />
+                <input type="hidden" id="oAHidden" name="oAHidden" />
+                
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @required = true  } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Subject</label>
+                    <div class="col-md-4">
+                        @Html.DropDownList("SubjectID", null, htmlAttributes: new { @class = "form-control", @required = true  })
+                        @Html.ValidationMessageFor(model => model.SubjectID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CourseType, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <div>
+                            <select name="CourseType" class="form-control" required>
+                                <option value="CSS">CSS</option>
+                                <option value="PMS">PMS</option>
+                            </select>
+
+                            <span id="Phone-Error" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NotesType, htmlAttributes: new { @class = "control-label col-md-2",  @required = true  })
+                    <div class="col-md-4">
+
+                        <div>
+                            <select id="Notestype" name="NotesType" class="form-control" required>
+                                <option value="Choose">Select One</option>
+                                <option value="Notes">Notes</option>
+                                <option value="Books">Books</option>
+
+                            </select>
+                            @Html.ValidationMessageFor(model => model.NotesType, "", new { @class = "text-danger",@id="NotesTypeValidation" })
+
+                            <span id="Phone-Error" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <label class="control-label col-md-2">Price</label>
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @id = "price", @min = "0", @class = "form-control", @required = true } })
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                        <span style="color:red;display:none;" id="priceMsg"></span>
+                    </div>
+                </div>
+                <div class="form-group" id="bookPercentageBlock" style="display:none">
+
+                    <div>
+
+                        <label class="control-label col-md-2">Book Percentage</label>
+                        <div class="col-md-4">
+                            @*<input type="number" min="0" class="form-control" id="bookPercentage" name="bookPercentage" value="" />*@
+                            @Html.EditorFor(model => model.OABookPercentage, new { htmlAttributes = new {  @id="bookPercentage" , @class = "form-control"} })
+                            @Html.ValidationMessageFor(model => model.OABookPercentage, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group" id="totalPagesBlock" style="display:none">
+                    <div>
+
+                        <label class="control-label col-md-2">Total Pages</label>
+                        <div class="col-md-4">
+
+                            @*<input type="number" min="0"  class="form-control" id="totalPages" name="totalPages" value="" />*@
+                            @Html.EditorFor(model => model.Pages, new { htmlAttributes = new { @id="totalPages", @class = "form-control" } })
+
+                            @Html.ValidationMessageFor(model => model.Pages, "", new { @class = "text-danger" })
+
+
+                        </div>
+                    </div>
+                  </div>
+
+                <div class="form-group" id="perPagePriceBlock" style="display:none">
+                    <div>
+
+                        <label class="control-label col-md-2">Per Page Price</label>
+                        <div class="col-md-4">
+
+
+                            @*<input type="number" min="0" id="perPagePrice" class="form-control" name="perPagePrice" value="" />*@
+                            @Html.EditorFor(model => model.PerPagePrice, new { htmlAttributes = new { @id="perPagePrice", @class = "form-control" } })
+
+                            @Html.ValidationMessageFor(model => model.PerPagePrice, "", new { @class = "text-danger" })
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="control-label col-md-2">Binding Price</label>
+                    <div class="col-md-4">
+                        @*<input type="number" min="0" id="bindingPrice" class="form-control"  name="bindingPrice" value="" />*@
+                        @Html.EditorFor(model => model.BindingPrice, new { htmlAttributes = new { @id="bindingPrice", @class = "form-control",@required = true  } })
+
+                        @Html.ValidationMessageFor(model => model.BindingPrice, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <label class="control-label col-md-2">OA Price</label>
+                    <div class="col-md-4">
+                       Rs <span id="oAPrice" >0.0</span>/-
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <label class="control-label col-md-2">PhotoCopier Price</label>
+                    <div class="col-md-4">
+                       Rs <span id="photoCopierPrice" >0.0</span>/-
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <label class="control-label col-md-2">Grand Total</label>
+                    <div class="col-md-4">
+                       Rs <span id="grandTotal" >0.0</span>/-
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create"  class="btn btn-primary" />
+                        <button type="button" id="cancel" class="btn btn-default">Back</button>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+
+
+        $("#cancel").click(function () {
+
+            window.location.href = '/AspNetNotes/index';
+
+        });
+
+
+
+        //$('input[type=submit]').on('click', function (e) {
+
+        //    e.preventDefault();
+
+
+        //});
+      
+
+        $("#Notestype").click(function () {
+
+
+            $("#NotesTypeValidation").css('display', 'none');
+           
+        })
+
+        $("#Notestype").change(function () {
+
+            var NotesType = $("#Notestype option:selected").val()
+            $("#oAPrice").html('0.0');
+            $("#photoCopierPrice").html('0.0');
+            $("#grandTotal").html('0.0');
+
+            if (NotesType == "Notes") {
+
+                $("#totalPagesBlock").css('display', 'block');
+                $("#perPagePriceBlock").css('display', 'block');
+                $("#bookPercentageBlock").css('display', 'none');
+
+                $("#totalPages").prop('required', true);
+                $("#perPagePrice").prop('required', true);
+                $("#bindingPrice").prop('required', true);
+                $("#bookPercentage").prop('required', false);
+
+
+            }
+            else if (NotesType == "Choose") {
+
+
+                $("#totalPagesBlock").css('display', 'none');
+                $("#perPagePriceBlock").css('display', 'none');
+                $("#bookPercentageBlock").css('display', 'none');
+                $("#bookPercentageBlock").css('display', 'none');
+                $("#bindingPrice").prop('required', true);
+
+            }
+            else {
+
+
+                $("#totalPagesBlock").css('display', 'none');
+                $("#perPagePriceBlock").css('display', 'none');
+                $("#bookPercentageBlock").css('display', 'block');
+                $("#totalPages").prop('required', false);
+                $("#perPagePrice").prop('required', false);
+                $("#bindingPrice").prop('required', true);
+                $("#bookPercentage").prop('required', true);
+
+
+            }
+
+
+        })
+
+
+        $("#totalPages").bind('keyup mouseup', function () {    
+
+
+            Calculations();
+
+
+        });
+
+
+        $("#perPagePriceBlock").bind('keyup mouseup', function () {
+
+
+            Calculations();
+
+
+        });
+
+        $("#bindingPrice").bind('keyup mouseup', function () {
+
+            Calculations();
+
+
+        });
+        $("#bookPercentage").bind('keyup mouseup', function () {
+
+            Calculations();
+
+
+        });
+
+
+
+
+        $("#price").bind('keyup mouseup', function () {
+
+
+            $("#priceMsg").css('display', 'none');
+            Calculations();
+
+
+        });
+
+
+
+
+
+        function Calculations() {
+            debugger
+            var NotesType = $("#Notestype option:selected").val();
+            var price = $("#price").val();
+            var bookPercentage = $("#bookPercentage").val();
+            var totalPages = $("#totalPages").val();
+            var perPagePrice = $("#perPagePrice").val();
+
+            var perPagePrice = $("#perPagePrice").val();
+            var bindingPrice = $("#bindingPrice").val();
+
+            if (bindingPrice == "") {
+                bindingPrice = 0;
+                // alert("0");
+            }
+
+            var photoCopier = 0;
+            var OAPrice = 0;
+
+
+            if (NotesType == "Notes") {
+
+                if (price != "" && totalPages != "" && perPagePrice != "" && bindingPrice != "") {
+                    debugger;
+
+                    if (parseInt(price) > parseFloat(bindingPrice)) {
+
+                        var NotesPrice = 0;
+
+                        NotesPrice = (totalPages * perPagePrice);
+
+                        photoCopier = (NotesPrice + parseFloat(bindingPrice));
+
+                        $("#photoCopierPrice").html(photoCopier);
+                        $("#photoCopierHidden").val(photoCopier);
+                        OAPrice = price - NotesPrice;
+                        $("#oAPrice").html(OAPrice);
+                        $("#oAHidden").val(OAPrice);
+                        var GrandTotal = (parseFloat(price) + parseFloat(bindingPrice));
+
+                        // grandTotal
+                        $("#grandTotal").html(GrandTotal);
+                        $("#grandTotalHidden").val(GrandTotal);
+
+                    }
+                    else {
+
+                        $("#priceMsg").css('display', 'block');
+                        $("#priceMsg").html("Price should be greater the binding price");
+
+                    }
+
+                }
+            }
+            else if (NotesType == "Books") {
+
+                if (price != "" && bookPercentage != "" && bindingPrice != "") {
+
+                    OAPrice = price * (parseFloat(bookPercentage) / 100);
+
+                    $("#oAPrice").html(OAPrice);
+                    $("#oAHidden").val(OAPrice);
+
+                    photoCopier = (parseFloat(price) - parseFloat(OAPrice)) + parseFloat(bindingPrice);
+
+
+                    $("#photoCopierPrice").html(photoCopier);
+                    $("#photoCopierHidden").val(photoCopier);
+
+                    var GrandTotal = (parseFloat(price) + parseFloat(bindingPrice));
+
+                    // grandTotal
+                    $("#grandTotal").html(GrandTotal);
+
+                    $("#grandTotalHidden").val(GrandTotal);
+
+                    $("#photoCopierPrice").html(photoCopier);
+
+                }
+
+            }
+            else {
+
+            }
+
+        }// end of Calculation Function
+
+    })
+
+</script>

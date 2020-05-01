@@ -1,0 +1,476 @@
+﻿<script src="~/AdminLTE/selectone.js"></script>
+
+<script type="text/javascript">
+    var table;
+    $(document).ready(function () {
+
+        table = $("#example").dataTable();
+
+        var subjectcookieval = null;
+        var ClassCookie_ViewLsnPlnval = null;
+        var DateCookieVal = null;
+        var allcookies = document.cookie;
+
+        cookiearray = allcookies.split(';');
+
+        for (var i = 0; i < cookiearray.length; i++) {
+            name = cookiearray[i].split('=')[0];
+            value = cookiearray[i].split('=')[1];
+
+
+            if (cookiearray[i].split('=')[0] == " ClassCookie_ViewLsnPln" || cookiearray[i].split('=')[0] == "ClassCookie_ViewLsnPln") {
+                ClassCookie_ViewLsnPlnval = cookiearray[i].split('=')[1];
+
+            }
+
+            if (cookiearray[i].split('=')[0] == " SubjectsCookie_ViewLsnPln" || cookiearray[i].split('=')[0] == "SubjectsCookie_ViewLsnPln") {
+                subjectcookieval = cookiearray[i].split('=')[1];
+
+            }
+
+            if (cookiearray[i].split('=')[0] == " DateCookie_ViewLsnPln" || cookiearray[i].split('=')[0] == "DateCookie_ViewLsnPln") {
+                DateCookieVal = cookiearray[i].split('=')[1];
+
+            }
+        }
+        if (ClassCookie_ViewLsnPlnval != null) {
+
+            var selectClass = document.getElementById('ClassID');
+            selectClass.value = ClassCookie_ViewLsnPlnval;
+            SubjectsListGet(ClassCookie_ViewLsnPlnval);
+            //class_click1(ClassCookie_ViewLsnPlnval);
+
+
+            if(subjectcookieval != null && DateCookieVal != null)
+            {
+                var dateval = document.getElementById('Date');
+                dateval.value = DateCookieVal;
+
+                var Subjval = document.getElementById('SubjectID');
+                Subjval.value = subjectcookieval;
+                ViewLessonPlan(subjectcookieval, DateCookieVal)
+
+            }
+
+        }
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        $("#Print").click(function () {
+            var printContents = document.getElementById('LessonPlan').innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+        });
+
+        $("#EditButton").click(function () {
+
+
+            var GetLessonPlanID = $("LessonPlanId").val()
+
+                    $.ajax({
+
+                        url: '@Url.Action("EditLessonPlan", "AspNetLessonPlan")' + "?id=" + GetLessonPlanID,
+                        type: "POST",
+                        cache: false,
+                        success: function (data) {
+                            //Fill div with results
+                            alert(data);
+                        },
+                        error: function (xhr, status, error) {
+                            alert(xhr.responseText);
+                        }
+
+
+                    });
+        });
+
+    });
+
+    function ViewLessonPlan(LessonPlanID, type) {
+
+        $.get('@Url.Action("GetLessonPlanFromID")',
+            { Id: LessonPlanID }, function (data) {
+                if (type == '1') {
+                    document.getElementById("lessonplanheading").innerHTML = '<font size="4"><b>Lesson Plan</b></font><a id="editbuttonLessonPlan" href="/AspNetLessonPlan/Edit?id=' + LessonPlanID + '" class="btn btn-primary pull-right">Edit</a>';
+                } else {
+                    document.getElementById("lessonplanheading").innerHTML = '<font size="4"><b>Lesson Plan</b></font>';
+                }
+
+                $('#ClassHere').text(data.className);
+                $('#SubjectHere').text(data.subjectName);
+                if (data.Date == null) {
+                    data.Date = '';
+                }
+                else {
+                    data.Date = new Date(parseInt(data.Date.replace(/(^.*\()|([+-].*$)/g, '')));
+                    data.Date = data.Date.getMonth() + 1 + "/" + data.Date.getDate() + "/" + data.Date.getFullYear();
+                }
+                $('#DayHere').text(data.Date);
+                $('#DurationHere').text(data.Duration);
+                $('#TopicHere').text('');
+                document.getElementById("TopicHere").innerHTML = '';
+                $.each(data.GetTopics, function (i, topic) {
+
+                    $('#TopicHere').append(topic + ',');
+                });
+                $('#breakdown_view').html(' ');
+                $.each(data.BreakDown, function (i, breakdown) {
+                    if (breakdown.Resources == null) {
+                        console.log(breakdown.Resources);
+                        breakdown.Resources = "";
+                        console.log(breakdown.Resources);
+                    }
+                    if (type == '1') {
+                        $('#breakdown_view').append('<tr><td><b>' + breakdown.HeadingName + ':<a href="/AspNetLessonPlanBreakdown/Edit?id=' + breakdown.Id + '" class="btn btn-primary pull-right">Edit</a></b></td><td></td></tr><tr><td>' + breakdown.Description + '</td><td>' + breakdown.Minutes + ' Miniutes <br/>' + breakdown.Resources + '</td></tr>');
+                    } else {
+                        $('#breakdown_view').append('<tr><td><b>' + breakdown.HeadingName + ':</b></td><td></td></tr><tr><td>' + breakdown.Description + '</td><td>' + breakdown.Minutes + ' Miniutes <br/>' + breakdown.Resources + '</td></tr>');
+                    }
+
+                });
+            });
+    }
+
+    function SubjectsListGet(selectedClass) {
+        $.get('@Url.Action("lesssonSubjectsByClasses", "AspNetTopic")',
+            { id: selectedClass }, function (data) {
+                $('#Subject').html('');
+                $('#Subject').prop('disabled', false);
+                $.each(data.Subjects, function (i, item) {
+                    $('#Subject').append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
+                });
+
+                table.fnClearTable();
+                $.each(data.lessonlist, function (i, item) {
+                    item.Date = item.Date.split(' ');
+                    table.fnAddData([item.LessonPlanNo + "<input type='hidden' value = " + item.Id + "  />", item.SubjectName, item.Duration, item.Date[0]]);
+                });
+                table.fnDraw();
+            });
+    }
+
+    function class_click1(item) {
+        $.get('@Url.Action("SubjectsProgerssByClass", "AspNetStudentPerformanceReport")',
+                { ClassID: item.value }, function (data) {
+                    $('#Subject').html('');
+                    $('#Subject').prop('disabled', false);
+                    $.each(data.Subjects, function (i, item) {
+                        $('#Subject').append('<option value=' + item.Id + '>' + item.Subjectname + '</option>');
+                    });
+
+                    table.fnClearTable();
+                    $.each(data.lessonlist, function (i, item) {
+                        item.Date = item.Date.split(' ');
+                        table.fnAddData([item.LessonPlanNo + "<input type='hidden' value = " + item.Id + "  />", item.SubjectName, item.Duration, item.Date[0]]);
+                    });
+                    table.fnDraw();
+                });
+    }
+
+    function DrawTable() {
+        $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+        //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+
+        $('#example_wrapper').css("text-align", "left");
+        $('#example_length').css("text-align", "left");
+        $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+        $("#example_length label").css("text-align", "left");
+        $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+        // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+        //$('#example_length').css({ "overflow": "auto" });
+        $('#example_filter input').addClass("add");
+        $('#example_filter').append('<span class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+        var list = $("#ClassID").html();
+        $('#example_length').append(
+
+            '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+            '<div class="d-bar"></div>' +
+            '</div>'
+              +
+           '<div class="col-md-3 col-lg-3">' +
+           '<div class="col-md-6" style="padding:0px; margin-top:5px">' +
+           '<lable class="control-label">Select Class</lable>' +
+           '</div>' +
+           '<div class="col-md-6">' +
+           '<select class="form-control input-sm" id="Class" name="ClassID" onclick="class_click(this)">' + list + '</select>' +
+           '</div>' +
+           '</div>' +
+            '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+            '<div class="d-bar"></div>' +
+            '</div>' +
+
+           '<div class="col-md-3 col-lg-3">' +
+           '<div class="col-md-6" style="padding:0px;  margin-top:5px">' +
+           '<lable class="control-label">Select Subject</lable>' +
+           '</div>' +
+           '<div class="col-md-6">' +
+           '<select class="form-control input-sm" id="Subject" name="Subject" onclick="sub_click()" disabled><option>Select one</option></select>' +
+           '</div>'+
+           '</div>' +
+
+            '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+            '<div class="d-bar"></div>' +
+            '</div>' +
+
+           '<div class="col-md-3 col-lg-3">' +
+           '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/AspNetLessonPlan/Create"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="glyphicon glyphicon-download-alt"  data-placement="bottom"></i></span></a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="fa fa-ban" data-placement="bottom"></i></span>' + '</a></div>' + '<div class="col-md-1" padding-left:0px;">' +
+           '<div class="d-bar"></div>' +
+           '</div>' +
+           '</div>');
+        //$("#Class").prepend("<option value='0'>Select One</option>");
+    }
+
+
+
+    function DrawTable1() {
+        $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+        $('#example_filter').append('<span class="glyphicon glyphicon-search form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+        var list = $("#ClassID").html();
+        $('#example_length').append(
+            '<div class="form-inline" style="margin-left: 140px !important; margin-top: -25px !important; z-index: -3 !important">'
+          +
+          '&nbsp;&nbsp;&nbsp;&nbsp;' +
+
+                      '<div class="form-group mob-form">' +
+                             '<div class="d-bar"></div>' +
+                        '</div>' +
+                        '&nbsp;&nbsp;&nbsp;&nbsp;' +
+                        '<div class="form-group d-t-form">' +
+                             '<label for="Class" class="d-t-label">Select Class&nbsp;</label>' +
+                        '<select class="form-control reg_name input-sm" id="Class" name="ClassID" onclick="class_click()">' +
+                            list +
+                    '</select>' +
+                        '</div>&nbsp;&nbsp;&nbsp;&nbsp;' +
+                        '<div class="form-group">' +
+                             '<div class="d-bar"></div>' +
+                        '</div>' +
+                        '&nbsp;&nbsp;&nbsp;&nbsp;' +
+                        '<div class="form-group d-t-form">' +
+                             '<label for="firstname" class="d-t-label">Select Subject&nbsp;</label>' +
+                             '<select class="form-control reg_name input-sm" id="Subject"  onclick="sub_click()" style="padding-top:-4px !important;" name="subjects" disabled><option>Select one</option></select>' +
+                        '</div>&nbsp;&nbsp;&nbsp;&nbsp;' +
+                        '<div class="form-group">' +
+                             '<div class="d-bar"></div>' +
+                        '</div>' +
+            '&nbsp;&nbsp;&nbsp;&nbsp;' +
+                 '<div class="form-group">' +
+                     '<div class="edit-section">' +
+                         '<a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a>' +
+                         '<span style="color:gray">&nbsp;' +
+                             '<i class="glyphicon glyphicon-edit"></i>' +
+                         '</span>&nbsp;&nbsp;&nbsp;' +
+                         '<span style="color:gray">' +
+                            '<i class="fa fa-ban"></i>' +
+                         '</span>&nbsp;&nbsp;&nbsp;' +
+                         '<span style="color:gray" ><i class="glyphicon glyphicon-download-alt"></i></span>&nbsp;&nbsp;&nbsp;' +
+                     '</div>' +
+                 '</div>' +
+             '<div class="form-group">' +
+                 '<div class="d-bar"></div>' +
+             '</div>' +
+         '</div>'
+         );
+
+    }
+
+    function class_click() {
+        var selectedClass = $("#Class").val();
+        document.cookie = "ClassCookie_ViewLsnPln=" + selectedClass + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+        SubjectsListGet(selectedClass);
+        //class_click1(ClassCookie_ViewLsnPlnval);
+    }
+
+    function sub_click() {
+        var selectedSubject = $("#Subject").val();
+        var text = $("#Subject option[value=" + selectedSubject + "]").text()
+        document.cookie = "SubjectsCookie_ViewLsnPln=" + selectedSubject + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+        //var selectedDate = $("#Date").val();
+        //document.cookie = "DateCookie_ViewLsnPln=" + selectedDate + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+        //ViewLessonPlan(selectedSubject, selectedDate);
+
+        $.get('@Url.Action("LessonBySubject","AspNetTopic")',
+           { id: selectedSubject }, function (data) {
+
+               table.fnClearTable();
+               $.each(data, function (i, item) {
+                   item.Date = new Date(parseInt(item.Date.replace(/(^.*\()|([+-].*$)/g, '')));
+                   item.Date = item.Date.getMonth() + 1 + "/" + item.Date.getDate() + "/" + item.Date.getFullYear();
+                   table.fnAddData([item.LessonPlanNo + "<input type='hidden' value = " + item.Id + "  />", text, item.Duration, item.Date]);
+               });
+               table.fnDraw();
+           });
+
+    }
+</script>
+
+
+@if (User.IsInRole("Teacher"))
+{
+    <label>@Html.ActionLink("Home", "Dashboard", "Account") >  <a href="#"><b>Lesson Plan</b></a></label>
+    <script>
+        $(document).ready(function () {
+            DrawTable();
+
+            $('.table').on('click', 'tbody tr', function () {
+                var td = $(this).children("td");
+                var userName = $(td[0]).children("input").val();
+                userName = userName.trim();
+
+                $("#LessonPlanId").val(userName);
+
+                ViewLessonPlan(userName, '1')
+                // window.location.href = "/AspNetSession/Details?id=" + userName;
+            });
+        })
+    </script>
+}
+else
+{
+    <label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">Teacher</a> > <a href="#"><b>Lesson Plan</b></a></label>
+
+    <script>
+        $(document).ready(function () {
+            DrawTable1();
+
+            $('.table').on('click', 'tbody tr', function () {
+                var td = $(this).children("td");
+                var userName = $(td[0]).children("input").val();
+                userName = userName.trim();
+
+                $("#LessonPlanId").val(userName);
+
+                ViewLessonPlan(userName, '2')
+                // window.location.href = "/AspNetSession/Details?id=" + userName;
+            });
+        })
+    </script>
+}
+
+
+
+
+<h4>View Lesson Plan</h4>
+<input type="hidden" id="LessonPlanId" />
+<div class="box box-primary" style="display:none">
+    <div class="box-body">
+    <div class="box-header with-border">
+        <h3 class="box-title">View Lesson Plan</h3>
+    </div>
+    <form class="form-horizontal" >
+            <div class="form-group">
+                <label class="control-label col-md-2">Class</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Select Subject</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="SubjectID" ></select>
+                </div>
+            </div>
+  
+        </form>
+    </div>
+</div>
+<style>
+    .table tr td:nth-child(1), tr td:nth-child(3){
+        text-align:right
+    }
+</style>
+<div class="box box-primary">
+    <div class="box-body">
+        <table class="table table-striped table-bordered" id="example">
+            <thead>
+                <tr>
+                    <td style="text-align:left">
+                        Lesson Plan No.
+                    </td>
+                    <td>
+                        Subject Name
+                    </td>
+                    <td style="text-align:left">
+                        Duration
+                    </td>
+                    <td>
+                        Date
+                    </td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Lesson Plan</h3>
+        <button id="Print" type="button" class="btn btn-primary pull-right">Print</button>
+    </div>
+    <div class="box-body" id="LessonPlan">
+        <div class="form-group">
+            <div class="col-md-12">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <td align="center" valign="top" colspan="4" id="lessonplanheading"><font size="4"><b>Lesson Plan</b></font></td>
+                    </tr>
+                    <tr>
+                        <td align="left" valign="middle"><font size="2"><b><u>Class: </u></b></font></td>
+                        <td align="left" valign="middle"><font size="2" id="ClassHere"></font></td>
+                        <td align="right" valign="middle"><font size="2"><b><u>Subject: </u></b></font></td>
+                        <td align="right" valign="middle"><font size="2" id="SubjectHere"></font></td>
+                    </tr>
+                    <tr>
+                        <td><font size="2"><b><u>Week: </u></b></font></td>
+                        <td align="center"><font size="2" id="WeekHere"></font></td>
+                        <td align="right" valign="middle"><font size="2"><b><u>Topics: </u></b></font></td>
+                        <td align="right" valign="middle"><font size="2" id="TopicHere"></font></td>
+                    </tr>
+                    <tr>
+                        <td><font size="2"><b><u>Day:</u></b></font></td>
+                        <td align="center"><font size="2" id="DayHere"></font></td>
+                        <td align="right" valign="middle"><font size="2"><b><u>Duration:</u></b></font></td>
+                        <td align="right" valign="middle"><font size="2" id="DurationHere"></font> Minutes</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                <center> How it may be carried out</center>
+                            </th>
+                            <th>
+                                <center>Time/Resources</center>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="breakdown_view"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

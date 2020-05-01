@@ -1,0 +1,173 @@
+﻿
+@{
+    ViewBag.Title = "StudentsIndex";
+}
+
+
+@*<script src="~/AdminLTE/selectone.js"></script>*@
+
+<script src="~/AdminLTE/plugins/jquery/js/jQuery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        // var table = $('#datatable').dataTable();
+
+           var table = $('#datatable').dataTable({
+            buttons: [
+                {
+                    text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
+                },
+                {
+                    text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
+                    action: function (e, dt, button, config) {
+                        window.location.href = '/Admin_dashboard/StudentRegister';
+                      }
+                },
+                {
+                    text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
+                }
+            ],
+            "language": {
+                "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
+                    "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
+                    "  </div>\n" +
+                    "  </div>",
+                "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
+                "paginate": {
+                    "first": "Firstt",
+                    "last": "Lastt",
+                    "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
+                    "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
+                }
+            },
+            "searching": true,
+            // dom: '<"class">Blfrtip',
+            dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
+                "<'row'<'col-sm-12 datatablesData'tr>>" +
+                "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
+        });
+        $('input#global_filter').on('keyup click', function () {
+            filterGlobal();
+        });
+       $.get('@Url.Action("AllStudents", "AspNetUser")',
+                function (data) {
+
+                    table.fnClearTable();
+                    $.each(data, function (i, item) {
+                        table.fnAddData([item.Name + "<input type=hidden value="+ item.Id +">", item.UserName, item.Email, item.PhoneNumber, item.ClassName]);
+                    });
+                    table.fnDraw();
+                    $('.eeniart0017').css("display", "none");
+
+
+           });
+
+
+      $('.table').on('click', 'tbody tr', function() {
+            var td = $(this).children("td");
+
+       
+            if ($(td).html() != "No data available in table");
+
+             window.location.href = "StudentDetail?userName=" + $(td[1]).html();
+
+      });
+
+
+
+        $("#PageHeader").html("Students");
+
+        $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Students</a></li>');
+
+
+    }) //end of document ready
+
+</script>
+
+@*<h4>Students</h4>*@
+@*<label id="View">View Default</label>*@
+
+
+
+
+    <div class="tab-pane active" id="tab_1">
+        <div class="card">
+            <div class="card-body p-4">
+
+
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <div class="box-body">
+                            <div style="display: none">
+                                @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <style>
+                                /*#example tr td:nth-child(2), tr td:nth-child(4) {
+                                    text-align: right
+                                }*/
+                            </style>
+                            <div class="table-responsive">
+                                <table id="datatable" class="table hover  table-bordered" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Name
+                                            </th>
+                                            <th>
+                                                Roll Number
+                                            </th>
+                                            <th>
+                                                Email
+                                            </th>
+                                            <th>
+                                                Phone Number
+                                            </th>
+                                            <th>
+                                                Section
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="submission_table"></tbody>
+
+                                </table>
+                            </div>
+                            <div id="Error"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+  
+
+<!----------------------------------------------------------------------------------->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                After submitting you won't be able to change data
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="disable_student()" data-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>

@@ -1,0 +1,300 @@
+﻿
+
+<style>
+  .content{
+      background-color:white !important;
+  }
+  .content-wrapper{
+      background-color:white !important;
+  }
+            #example tr > :nth-child(1) {
+    display: none;
+}
+             
+ #example td{
+      border-top:none;
+      font-family:Montserrat;
+  }
+   .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > th, .table > caption + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > td, .table > thead:first-child > tr:first-child > td {
+    border-top: 0;
+    padding-top:0px;
+}
+</style>
+
+<script>
+   
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    function redirect(item) {
+        
+        // window.location.href = "Details/" + item.id;
+   
+        $('.table').on('click', 'tbody tr', function () {
+            
+            var td = $(this).children("td");
+            window.location.href = "JournalEntryList?id=" + $(td[0]).html();
+
+        })
+    }
+
+    $(document).ready(function () {
+
+        var _income = 0;
+        var _expense = 0;
+        $('.eeniart0017').css("display", "block");
+        $.ajax({
+            type: "POST",
+            url: "/FinanceSummary/GetSumamryReport",
+            success: function (data) {
+                $('.eeniart0017').css("display", "none");
+                
+                $("#SubmitTable1").append('');
+                $("#SubmitTable2").append('');
+                $("#SubmitTable3").append('');
+                $("#SubmitTable4").append('');
+
+                $("#SubmitTable5").append('');
+             
+                $.each(data, function (i, item) {
+                    
+                    var head = data[i];
+                    if (head.HeadName == "Assets")
+                    {
+                        var total = 0;
+                        
+                        $("#SubmitTable1").append('<tr style="background-color:#f7f7f7;height:60px;font-weight:700;"><td>' + head.HeadId + '</td><td style="font-size:20px;">' + head.HeadName + '</td><td style="font-size:20px;padding-left:300px">' + numberWithCommas(head.TotalAmount) + '</td></tr></div>');
+                        var ledgergroup = head.ledgerGroup;
+                        for (var i = 0; i < ledgergroup.length; i++) {
+                            var grouptotal = "-";
+                            if (ledgergroup[i].GroupTotal!=0)
+                            {
+                                grouptotal = ledgergroup[i].GroupTotal;
+                            }
+                            $("#SubmitTable1").append('<tr><td>' + ledgergroup[i].GroupId + '</td><td><b>' + ledgergroup[i].GroupName + '</b></td><td style="float:right !important">' + numberWithCommas(grouptotal) + '</td></tr>');
+                            if (ledgergroup[i].GroupName == "Cash" || ledgergroup[i].GroupName == "Bank")
+                            {
+
+                            }
+                            else {
+                                var lgr = ledgergroup[i].ledger;
+                                for (var j = 0; j < lgr.length; j++) {
+                                    var amount = "-";
+                                    if (lgr[j].LedgerAmount != 0) {
+                                        amount = lgr[j].LedgerAmount;
+                                    }
+                                    $("#SubmitTable1").append('<tr><td>' + lgr[j].LedgerId + '</td><td style="padding-left:30px" >' + lgr[j].LedgerName + '</td><td style="float:right" >' + numberWithCommas(amount) + '</td></tr>');
+                                }
+                            }
+                         
+                        }
+                        var ledger = head.ledger;
+                            for (var i = 0; i < ledger.length; i++)
+                            {
+                                var amount ="-";
+                                if (ledger[i].LedgerAmount != 0)
+                                {
+                                    amount = ledger[i].LedgerAmount;
+                                }
+                                $("#SubmitTable1").append('<tr  onclick=redirect(this)><td>' + ledger[i].LedgerId + '</td><td>' + ledger[i].LedgerName + '</td><td><a href="#" style="float:right">' + numberWithCommas(amount) + '</a></td></tr>');
+                            }
+                         
+                    }
+                    else if (head.HeadName == "Income") {
+                        $("#SubmitTable2").append('<tr style="background-color:#f7f7f7;height:60px;font-weight:700;"><td>' + head.HeadId + '</td><td style="font-size:20px">' + head.HeadName + '</td><td style="font-size:20px;padding-left:380px">' + numberWithCommas(head.TotalAmount) + '</td></tr>');
+                        _income = head.TotalAmount;
+                        var ledger = head.ledger;
+                        for (var i = 0; i < ledger.length; i++) {
+                            var amount = "-";
+                            if (ledger[i].LedgerAmount != 0) {
+                                amount = ledger[i].LedgerAmount;
+                            }
+                            $("#SubmitTable2").append('<tr onclick=redirect(this)><td>' + ledger[i].LedgerId + '</td><td>' + ledger[i].LedgerName + '</td><td><a href="#" style="float:right">' + numberWithCommas(amount) + '<a></td></tr>');
+                        }
+                        var ledgergroup = head.ledgerGroup;
+                        for (var i = 0; i < ledgergroup.length; i++) {
+                            $("#SubmitTable2").append('<tr><td>' + ledgergroup[i].GroupId + '</td><td style="padding-left:30px"><b>' + ledgergroup[i].GroupName + '</b></td><td></td></tr>');
+                            var lgr = ledgergroup[i].ledger;
+                            for (var j = 0; j < lgr.length; j++) {
+                                var amount = "-";
+                                if (lgr[j].LedgerAmount != 0) {
+                                    amount = lgr[j].LedgerAmount;
+                                }
+                                $("#SubmitTable2").append('<tr><td>' + lgr[j].LedgerId + '</td><td style="padding-left:30px" >' + lgr[j].LedgerName + '</td><td style="float:right">' + numberWithCommas(amount) + '</td></tr>');
+                            }
+                        }
+                    }
+                    else if(head.HeadName=="Liabilities")
+                    {
+                        $("#SubmitTable3").append('<tr style="background-color:#f7f7f7;height:60px;font-weight:700;"><td>' + head.HeadId + '</td><td style="font-size:20px">' + '<u>Less</u>' + '&nbsp' + head.HeadName + '</td><td style="font-size:20px;padding-left:250px">' + numberWithCommas(head.TotalAmount) + '</td></tr>');
+
+                        var ledger = head.ledger;
+                        for (var i = 0; i < ledger.length; i++) {
+                            var amount = "-";
+                            if (ledger[i].LedgerAmount != 0) {
+                                amount = ledger[i].LedgerAmount;
+                            }
+                            $("#SubmitTable3").append('<tr onclick=redirect(this)><td>' + ledger[i].LedgerId + '</td><td>' + ledger[i].LedgerName + '</td><td><a href="#" style="float:right">' + numberWithCommas(amount) + '<a></td></tr>');
+                        }
+                        var ledgergroup = head.ledgerGroup;
+                        for (var i = 0; i < ledgergroup.length; i++) {
+                            $("#SubmitTable3").append('<tr><td>' + ledgergroup[i].GroupId + '</td><td style="padding-left:30px"><b>' + ledgergroup[i].GroupName + '</b></td><td></td></tr>');
+                            var lgr = ledgergroup[i].ledger;
+                            for (var j = 0; j < lgr.length; j++) {
+                                var amount = "-";
+                                if (lgr[j].LedgerAmount != 0) {
+                                    amount = lgr[j].LedgerAmount;
+                                }
+                                $("#SubmitTable3").append('<tr><td>' + lgr[j].LedgerId + '</td><td style="padding-left:30px" >' + lgr[j].LedgerName + '</td><td style="float:right">' + numberWithCommas(amount) + '</td></tr>');
+                            }
+                        }
+                    }
+                    else if (head.HeadName == "Expense") {
+                        debugger;
+                        $("#SubmitTable4").append('<tr style="background-color:#f7f7f7;height:60px;font-weight:700;"><td>' + head.HeadId + '</td><td style="font-size:20px">' + '<u>Less</u>' + '&nbsp' + head.HeadName + '</td><td style="font-size:20px;padding-left:340px">' + numberWithCommas(head.TotalAmount) + '</td></tr>');
+                        _expense = head.TotalAmount;
+                        var ledger = head.ledger;
+                        for (var i = 0; i < ledger.length; i++) {
+                            var amount = "-";
+                            if (ledger[i].LedgerAmount != 0) {
+                                amount = ledger[i].LedgerAmount;
+                            }
+                            $("#SubmitTable4").append('<tr onclick=redirect(this)><td>' + ledger[i].LedgerId + '</td><td>' + ledger[i].LedgerName + '</td><td><a href="#" style="float:right">' + numberWithCommas(amount) + '<a></td></tr>');
+                        }
+                        var ledgergroup = head.ledgerGroup;
+                        for (var i = 0; i < ledgergroup.length; i++) {
+                            $("#SubmitTable4").append('<tr><td>' + ledgergroup[i].GroupId + '</td><td style="padding-left:30px"><b>' + ledgergroup[i].GroupName + '</b></td><td></td></tr>');
+                            var lgr = ledgergroup[i].ledger;
+                            for (var j = 0; j < lgr.length; j++) {
+                                var amount = "-";
+                                if (lgr[j].LedgerAmount != 0) {
+                                    amount = lgr[j].LedgerAmount;
+                                }
+                                $("#SubmitTable4").append('<tr><td>' + lgr[j].LedgerId + '</td><td style="padding-left:30px" >' + lgr[j].LedgerName + '</td><td style="float:right">' + numberWithCommas(amount) + '</td></tr>');
+                            }
+                        }
+                    }
+                    else {
+                        $("#SubmitTable5").append('<tr style="background-color:#f7f7f7;height:60px;font-weight:700;"><td>' + head.HeadId + '</td><td style="font-size:20px">' + head.HeadName + '</td><td style="font-size:20px;padding-left:403px">' + numberWithCommas(head.TotalAmount) + '</td></tr>');
+
+                        var ledger = head.ledger;
+                        for (var i = 0; i < ledger.length; i++) {
+                            var amount = "-";
+                            if (ledger[i].LedgerAmount != 0) {
+                                amount = ledger[i].LedgerAmount;
+                            }
+                            $("#SubmitTable5").append('<tr onclick=redirect(this)><td>' + ledger[i].LedgerId + '</td><td>' + ledger[i].LedgerName + '</td><td><a href="#" style="float:right">' + numberWithCommas(amount) + '<a></td></tr>');
+                        }
+
+                        var ledgergroup = head.ledgerGroup;
+                        for (var i = 0; i < ledgergroup.length; i++) {
+                            
+                           
+                            $("#SubmitTable5").append('<tr><td>' + ledgergroup[i].GroupId + '</td><td style="padding-left:30px" style="float:right"><b>' + numberWithCommas(amount) + '<b></td><td></td></tr>');
+                            var lgr = ledgergroup[i].ledger;
+                            for (var j = 0; j < lgr.length; j++) {
+                                
+                                var amount = "-";
+                                if (lgr[j].LedgerAmount != 0) {
+                                    amount = lgr[j].LedgerAmount;
+                                }
+                                $("#SubmitTable5").append('<tr><td>' + lgr[j].LedgerId + '</td><td style="padding-left:30px" style="float:right">' + lgr[j].LedgerName + '</td><td>' + numberWithCommas(amount) + '</td></tr>');
+                            }
+                        }
+                    }
+
+                })
+                debugger;   
+                var Result = parseInt(_income) - parseInt(_expense);
+                $("#SubmitTable6").append('<tr style="background-color:#f7f7f7;height:60px;font-weight:700;"><td>' + 'Headid' + '</td><td style="font-size:20px;">' + ' Profit And Loss' + '</td><td style="font-size:20px;padding-left:300px">' + '' + '</td></tr></div>');
+                
+                if (Result > 0)
+                {
+                    //profit
+                    $("#SubmitTable6").append('<tr><td>' + 'ID' + '</td><td>' + 'Profit' + '</td><td><a href="#" style="float:right">' + numberWithCommas(Result) + '<a></td></tr>');
+
+                }
+                if (Result < 0) {
+                    //loss
+                    $("#SubmitTable6").append('<tr><td>' + 'ID' + '</td><td>' + 'Loss' + '</td><td><a href="#" style="float:right">' + numberWithCommas (- Result) + '<a></td></tr>');
+
+                }
+            }
+        })
+    })
+</script>
+    <div style="border:1px solid #f7f7f7;height:60px;background-color:#f7f7f7;border-radius:5px;margin:28px;">
+        <br />
+    <span style="margin:15px;font-size:15px; font-family:Montserrat" ><b>Finance Summary</b></span>
+
+</div>
+<style>
+    /*#example {
+    border: 1px solid gray;
+    padding: 10px;
+    box-shadow: 1px 1px;
+}*/
+</style>
+<br /><br />
+<div class="col-md-6">
+    <div class="col-md-12">
+        <table class="table" style="border-radius:5px;margin-bottom:30px;box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 0px, rgba(0, 0, 0, 0.23) 1px 1px 1px,rgba(0, 0, 0, 0) 1px 1px 1px,rgba(0, 0, 0, 0.23) 1px 1px 2px" id="example">
+            <thead>
+               
+            </thead>
+            <tbody id="SubmitTable1"></tbody>
+        </table>
+    </div>
+    <br /><br />
+    <div class="col-md-12">
+        <table class="table" style="border-radius:5px;margin-bottom:30px;box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 0px, rgba(0, 0, 0, 0.23) 1px 1px 1px,rgba(0, 0, 0, 0) 1px 1px 1px,rgba(0, 0, 0, 0.23) 1px 1px 2px" id="example">
+            <thead>
+                @*<tr>
+                    <th>Id</th>
+                    <th></th>
+                    <th style="width:20px"></th>
+                </tr>*@
+            </thead>
+            <tbody id="SubmitTable3"></tbody>
+        </table>
+    </div>
+    <div class="col-md-12">
+        <table class="table" style="border-radius:5px;margin-bottom:30px;box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 0px, rgba(0, 0, 0, 0.23) 1px 1px 1px,rgba(0, 0, 0, 0) 1px 1px 1px,rgba(0, 0, 0, 0.23) 1px 1px 2px" id="example">
+            <thead>
+              
+            </thead>
+            <tbody id="SubmitTable5"></tbody>
+        </table>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="col-md-12">
+        <table class="table" style="border-radius:5px;margin-bottom:30px;box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 0px, rgba(0, 0, 0, 0.23) 1px 1px 1px,rgba(0, 0, 0, 0) 1px 1px 1px,rgba(0, 0, 0, 0.23) 1px 1px 2px" id="example">
+            <thead>
+             
+            </thead>
+            <tbody id="SubmitTable2"></tbody>
+        </table>
+    </div>
+
+    <div class="col-md-12" >
+        <table class="table" style="border-radius:5px;margin-bottom:30px;box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 0px, rgba(0, 0, 0, 0.23) 1px 1px 1px,rgba(0, 0, 0, 0) 1px 1px 1px,rgba(0, 0, 0, 0.23) 1px 1px 2px" id="example">
+            <thead>
+              
+            </thead>
+            <tbody id="SubmitTable4"></tbody>
+        </table>
+    </div>
+
+
+    <div class="col-md-12">
+        <table class="table" style="border-radius:5px;margin-bottom:30px;box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 0px, rgba(0, 0, 0, 0.23) 1px 1px 1px,rgba(0, 0, 0, 0) 1px 1px 1px,rgba(0, 0, 0, 0.23) 1px 1px 2px" id="example">
+            <thead>
+
+            </thead>
+            <tbody id="SubmitTable6"></tbody>
+        </table>
+    </div>
+
+</div>
+

@@ -1,0 +1,205 @@
+﻿
+@using Microsoft.AspNet.Identity
+@using System.Security.Claims;
+@{
+//   var cp = (ClaimsPrincipal)User;
+
+//   var nameClaim = cp.FindFirst(ClaimTypes.Name);
+
+//   ViewBag.Name = nameClaim.Value;
+}
+<script src="~/AdminLTE/plugins/jquery/js/jQuery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //$('input[type=number]').css("text-align", "right");
+        //$("select").prepend("<option value=''>Select one</option>");
+        //$("select option[value='']").attr("selected", "selected");
+        //$("select").select2();
+
+        $.get('@Url.Action("GetNotifications","AspNetPushNotifications")', function (data) {
+            if (data.length == 0) {
+                $('#notification_numbers').html('');
+            }
+            else {
+                $('#notification_numbers').html(data.length);
+            }
+
+            $('#notifications_header').html('You have ' + data.length + ' unread notifications');
+            $.each(data, function (i, item) {
+                // item.Message = item.Message.substring(0, 10);
+                //item.Message = item.Message + "...";
+                // $('#notification_Dropdown_area').append('<li><a href="/AspNetPushNotifications/Details?id=' + item.Id + '"><p>' + item.Message + '</p></a></li>');
+                $('#notification_Dropdown_area').append('<li><a href="/AspNetPushNotifications/Details?id=' + item.Id + '"> ' + "Description: " + item.Description + '</a></li>')
+
+            });
+        });
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        $.get('@Url.Action("GetMessages","AspNetMessages")', function (data) {
+            if (data.length == 0) {
+                $('#message_highlight').html('');
+            }
+            else {
+                $('#messages_numbers').html(data.length);
+            }
+            $('#messages_numbers').html(data.length);
+            $('#messages_header').html('You have ' + data.length + ' unread messages');
+            $.each(data, function (i, item) {
+                //item.Message = item.Message.substring(0, 10);
+                //$('#messages_Dropdown_area').append('<li><a href="@*@Url.Action("Details", "AspNetMessages", new { id=item.ID }) '"><p><b>' + item.UserName + '</b>: ' + item.Message + '</p></div><div class="clearfix"></div></a></li>');*@
+                $('#messages_Dropdown_area').append('<li><a href="/AspNetMessages/ReceiveMessageDetail?messageID=' + item.Id + '"><b>' + item.UserName + '</b>: ' + item.Subject + '</p></a></li>');
+            });
+        });
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    });
+
+
+</script>
+<body>
+
+    @if (Request.IsAuthenticated)
+    {
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        @*<a style="height:40px;" href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>*@
+        <a style="height:40px; font-family: Josefin Sans !important;" href="@Url.Action("Dashboard", "Account" )" class="logo custom-partial-link">
+            <span class="logo-mini" style="color:white !important">&nbsp;&nbsp;&nbsp;Smarter Education Analytics</span>
+            <span class="logo-lg" style="font-size: 18px !important; z-index: 1200 !important;">Smarter Education Analytics</span>
+        </a>
+        <nav class="navbar navbar-xs navbar-static-top custome-mobile-nav" role="navigation">
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav" style="margin-right:15px;">
+                        <li class="dropdown messages-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-envelope-o"></i>
+                                <span id="message_highlight">
+                                    <span class="label label-success" id="messages_numbers"></span>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header" id="messages_header"></li>
+                                <li>
+                                    <ul class="menu" id="messages_Dropdown_area"></ul>
+                                </li>
+                                <li class="footer"><a href="/AspNetMessages/Inbox">View All Messages</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell-o"></i>
+                                <span id="notification_highlight">
+                                    <span class="label label-warning" id="notification_numbers"></span>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header" id="notifications_header"></li>
+                                <li>
+                                    <ul class="menu" id="notification_Dropdown_area"></ul>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        @*
+                            <li class="dropdown tasks-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-flag-o"></i>
+                                    <span class="label label-danger">9</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="header">You have 9 tasks</li>
+                                    <li>
+                                        <ul class="menu"></ul>
+                                    </li>
+                                    <li class="footer">
+                                        <a href="#">View all tasks</a>
+                                    </li>
+                                </ul>
+                            </li>*@
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="~/AdminLTE/dist/img/user.svg" style="width:20px !important; height:20px !important; margin-top: 4px !important; margin-right: 2px !important" class="user-image" alt="User Image">
+                                @*<span class="hidden-xs" style="color:white !important">@User.Identity.Name</span>*@
+                                @{ var us = (System.Security.Claims.ClaimsIdentity)User.Identity; }
+                                <small>@us.FindFirstValue("CustomName")</small>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="user-header">
+                                    <img src="~/AdminLTE/dist/img/user.svg" class="img-circle" alt="User Image">
+                                    <p>
+                                        @{ var user = (System.Security.Claims.ClaimsIdentity)User.Identity; }
+                                        <small>@user.FindFirstValue("CustomName")</small>
+                                    </p>
+                                </li>
+                                @*
+                                    <li class="user-body">
+                                        <div class="row">
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Followers</a>
+                                            </div>
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Sales</a>
+                                            </div>
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Friends</a>
+                                            </div>
+                                        </div>
+                                    </li>*@
+                                <li class="user-footer">
+
+                                    <div class="pull-left">
+                                        @Html.ActionLink("Profile", "Index", "Manage", routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-flat", title = "Manage" })
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-danger btn-flat">Sign out</a>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+                                            }
+        </nav>
+
+                                            }
+                                            else
+                                            {
+
+                                            }
+
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw eeniart0017"> </i>
+    <style>
+        .eeniart0017 {
+            display: none;
+            color:rgb(24, 77, 105) !important;
+            position: fixed !important;
+            /*z-index: 999;*/
+            margin: auto;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            font-size: 100px !important;
+            height: 100px !important;
+            width: 100px !important;
+            /*background-color: blue;*/
+        }
+    </style>
+    
+
+
+</body>

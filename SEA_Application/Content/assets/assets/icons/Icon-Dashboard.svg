@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
+    <defs>
+        <style>
+            .prefix__cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px}
+        </style>
+    </defs>
+    <g id="prefix__Icon-Dashboard" transform="translate(-1527.626 -631.441)">
+        <rect id="prefix__Rectangle_766" width="10.098" height="11.894" class="prefix__cls-1" data-name="Rectangle 766" rx="1" transform="translate(1528.626 632.441)"/>
+        <rect id="prefix__Rectangle_767" width="10.098" height="8.394" class="prefix__cls-1" data-name="Rectangle 767" rx="1" transform="translate(1542.527 632.441)"/>
+        <path id="prefix__Path_412" d="M1552.626 651.389v4.052a1 1 0 0 1-1 1h-8.1a1 1 0 0 1-1-1v-9.894a1 1 0 0 1 1-1h8.1a1 1 0 0 1 1 1v2.3" class="prefix__cls-1" data-name="Path 412"/>
+        <rect id="prefix__Rectangle_768" width="10.098" height="8.394" class="prefix__cls-1" data-name="Rectangle 768" rx="1" transform="translate(1528.626 648.047)"/>
+    </g>
+</svg>

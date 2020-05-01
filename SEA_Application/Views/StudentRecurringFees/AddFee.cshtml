@@ -1,0 +1,161 @@
+﻿
+﻿@model SEA_Application.Models.FeesData
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AccountantDashboardLayout.cshtml";
+}
+<style>
+    #error-tag {
+        color: red;
+    }
+</style>
+@{
+
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "Full Fee",
+        Value = "FullFee"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Installment",
+        Value = "Installment",
+        Selected = true
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "PerMonth",
+        Value = "PerMonth"
+    });
+
+
+}
+
+<h2>Add Recurring Fee</h2>
+<script>
+    $(document).ready(function () {
+        debugger;
+        $("#error-tag").hide();
+       var classid = '@ViewBag.Class_ID';
+        var defaultclassid = $("#ClassId").val();
+        if(classid == defaultclassid)
+        {
+            $("#error-tag").show();
+            $('#submit').prop("disabled", true);
+
+        }
+
+
+          $("#ClassId").click(function () {
+                                 debugger
+            var selectedClass = $("#ClassId").val();
+            $.get('@Url.Action("StudentByClass")',
+                { id: selectedClass }, function (data) {
+
+                    $('#students').html('');
+
+                    $.each(data, function (i, item) {
+
+                        $('#students').append('<option value=' + item.Id + '>' + item.Name + '</option>');
+                    });
+
+                });
+        });
+
+
+
+
+
+
+        $("#total").val(0);
+        $(".code").on("keyup", function () {
+            TotalFee();
+        })
+
+    })
+
+    function TotalFee(a) {
+        debugger;
+        var sum = 0;
+        var total = 0;
+
+        //var feetype = parseInt(e);
+        total = parseInt($("#total").val());
+        if (isNaN(total)) {
+            total = 0;
+            $("#total").val(total);
+
+        }
+
+        var sum = 0;
+        $(".code").each(function () {
+            debugger;
+            if (!isNaN(this.value) && this.value.length != 0) {
+                sum += +$(this).val();
+            }
+            $("#total").val(sum);
+
+        })
+    }
+
+
+
+</script>
+<div class="box box-primary">
+    <div class="box-body">
+        <h4>Session Recurring Fee</h4>
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div style="margin-top:10px">
+                <span class="text-danger">@ViewBag.ErrorMessage</span>
+            </div>
+        }
+        @using (Html.BeginForm("AddData", "StudentRecurringFees", FormMethod.Post, new { @class = "forms form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <span class="col-md-2">Session</span>
+                    <div class="col-md-6">
+                        @Html.DropDownList("ClassId", null, htmlAttributes: new { @class = "form-control", @id = "ClassId" })
+                        @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
+                        <div class="error" id="error-tag">Session Already Exists !</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-lg-2">Students: <span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+                        <select multiple class="form-control" id="students" name="students" required></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-lg-2"> Fee Type: <span class="red-mark">*</span></label>
+                    @*<div class="col-md-6">
+                        <select class="form-control" id="feeType">
+                            <option value="Full Fee">Full Fee</option>
+                            <option value="Installment">Installment</option>
+                            <option value="PerMonth">PerMonth</option>
+                      </select>*@
+                    <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.FeeType, listItems, "-- Select Status --", new { @class = "form-control", required = "required" })
+</div>
+                </div>
+            </div>
+
+            <div class="col-md-offset-2 col-md-5">
+                <br />
+                <button class="col-md-2 form-control" onclick="window.location.href = '/StudentRecurringFees/Index'" style="border-radius:35px;border:hidden;background-color:red;margin-right:10px;color:white;font-size:11px;width:98px;height:38px;font-family:Montserrat" id="return"><i class="fa fa-arrow-left"></i> &nbsp;&nbsp; Return</button>
+                <input class="col-md-2 form-control" id="submit" type="submit" value="Save" style="border-radius:35px;color:white;border:hidden;background-color:#128edb;font-size:11px;width:98px;height:38px;font-family:Montserrat" />
+                <br />
+                <br /><br />
+            </div>
+
+        }
+    </div>
+</div>
+

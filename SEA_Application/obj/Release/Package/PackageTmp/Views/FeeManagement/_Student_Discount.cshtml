@@ -1,0 +1,124 @@
+﻿<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#ClassID").click(function () {
+            var selectedClass = $("#ClassID").val();
+            $.get('@Url.Action("StudentsByClass")',
+                { id: selectedClass }, function (data) {
+                    $('#StudentTable').html(' ');
+                    $.each(data, function (i, item) {
+                        $('#StudentTable').append("<tr><td>" + item.UserName + "</td><td>" + item.Name + "</td><td><a id='myLink' href='#' onclick='MyFunction(\"" + item.Id + "\");return false;'>View Discounts</a></td></tr>");
+                    });
+
+                });
+        });
+    });
+
+
+
+    function MyFunction(studentID) {
+        $.get('@Url.Action("DiscountByStudent")',
+          { studentID: studentID }, function (data) {
+              $('#StudentDiscountTable').html(' ');
+              $('#detail').prop('hidden', false);
+              $.each(data, function (i, item) {
+                  $('#StudentDiscountTable').append('<tr><td>' + item.TypeName + '</td><td>' + item.Percentage + '</td><td><a href="/AspNetStudent_Discount/Edit?id=' + item.Id + '">Edit</a>|<a href="/AspNetStudent_Discount/Details?id=' + item.Id + '">Detail</a>|<a href="/AspNetStudent_Discount/Delete?id=' + item.Id + '">Delete</a></td></tr>');
+              });
+          });
+
+        $.get('@Url.Action("DiscountApplicableByStudent")',
+          { studentID: studentID }, function (data) {
+              $('#StudentDiscountApplicable').html(' ');
+              $('#Applicable').prop('hidden', false);
+              $.each(data, function (i, item) {
+                  $('#StudentDiscountApplicable').append('<tr><td>' + item.Name + '</td><td><a href="/AspNetStudent_Discount_Applicable/Edit?id=' + item.Id + '">Edit</a>|<a href="/AspNetStudent_Discount_Applicable/Details?id=' + item.Id + '">Detail</a>|<a href="/AspNetStudent_Discount_Applicable/Delete?id=' + item.Id + '">Delete</a></td></tr>');
+              });
+          });
+
+
+    }
+</script>
+<h2 class="orange">Students Discount &nbsp; <i class="fa fa-tags" aria-hidden="true"></i></h2>
+<p>
+    @Html.ActionLink("Add New Student", "Create", "AspNetStudent_Discount")
+</p>
+<div class="box box-primary">
+    <div class="box-title"></div>
+    <div class="box-body">
+        <div class="container">
+            <div class="row">
+                <div class="form-horizontal">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <lable class="col-md-3 control-label"><b>Select Class</b></lable>
+                            <div class="col-md-8">
+                                @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="box box-primary">
+    <div class="box-title"></div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>UserName</th>
+                            <th>Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="StudentTable"></tbody>
+                </table>
+            </div>         
+        </div>
+    </div>
+</div>
+
+<div class="box box-primary" id="detail" hidden>
+    <div class="box-title"></div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Discount Type</th>
+                            <th>Percent</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="StudentDiscountTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="box box-primary" id="Applicable" hidden>
+    <div class="box-title"></div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Fee Type</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="StudentDiscountApplicable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

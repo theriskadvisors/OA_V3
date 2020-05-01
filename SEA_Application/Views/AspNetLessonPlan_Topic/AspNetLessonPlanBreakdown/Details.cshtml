@@ -1,0 +1,97 @@
+﻿@model SEA_Application.Models.AspNetLessonPlanBreakdown
+@{
+    ViewBag.Title = "Edit";
+}
+<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
+<h2>Edit</h2>
+<script>
+            $(document).ready(function () {
+                $('#input').prop('disabled',true)
+            })
+</script>
+<style>
+    textarea {
+        Width: 99%;
+        height: 250px;
+    }
+</style>
+
+<div class="box box-primary">
+    <div class="box-header with-border ">
+        <h3>Edit Lesson Plan Breakdown</h3>
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            <div class="box-body">
+                <div hidden>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LessonPlanID, "LessonPlanID", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("LessonPlanID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.LessonPlanID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BreakDownHeadingID, "BreakDownHeadingID", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("BreakDownHeadingID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BreakDownHeadingID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Minutes, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Minutes, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Minutes, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Resources, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Resources, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Resources, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div hidden>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Priority, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        bkLib.onDomLoaded(function () { });
+        area2 = new nicEditor({ fullPanel: true }).panelInstance('Description');
+
+    });
+</script>

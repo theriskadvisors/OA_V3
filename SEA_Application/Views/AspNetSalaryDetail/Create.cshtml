@@ -1,0 +1,487 @@
+﻿@model SEA_Application.Models.AspNetSalaryDetail
+
+@{
+    ViewBag.Title1 = "Create";
+    Layout = "~/Views/Shared/_AccountantDashboardLayout.cshtml";
+}
+<script src="~/AdminLTE/selectone.js"></script>
+
+<script type="text/javascript">
+
+    var count = 0;
+    var totalSalary = [];
+    $(document).ready(function () {
+            getData();
+        });
+   
+    function fineCut(item) {
+        var id = item.id;
+        var number = id.split('_');
+        var fineId = "Fine_" + number[1];
+        var slaryId = "Gross_" + number[1];
+
+        var fine = parseInt(document.getElementById(fineId).value);
+        var salary = parseInt(document.getElementById(slaryId).value);
+        var remaining;
+
+        if (!isNaN(fine) && !isNaN(salary)) {
+             remaining = salary - fine;
+        }
+
+        var afterId = "AfterFine_" + number[1];
+        var total = "Total_" + number[1];
+        var SalaryTotal = "TotalSalary_"  + number[1];
+        var btax = "BTaxSalary_" + number[1];
+        document.getElementById(afterId).value = remaining;
+        document.getElementById(total).value = remaining;
+        document.getElementById(SalaryTotal).value = remaining;
+        totalSalary[number[1]] = remaining;
+        document.getElementById(btax).value = remaining;
+    }
+        
+
+    function TaxCut(item) {
+        var id = item.id;
+        var number = id.split('_');
+
+        var BeforeTaxId = "BTaxSalary_" + number[1];
+        var TaxId = "Tax_" + number[1];
+        var AfterTaxId = "ATaxSalary_" + number[1];
+        var TotalSalaryId = "TotalSalary_" + number[1];
+
+        var BeforeTax = parseInt(document.getElementById(BeforeTaxId).value);
+        var Tax = parseInt(document.getElementById(TaxId).value);
+        var remaining;
+
+        if (!isNaN(BeforeTax) && !isNaN(Tax)) {
+            remaining = BeforeTax - Tax;
+        }
+
+        document.getElementById(AfterTaxId).value = remaining;
+        document.getElementById(TotalSalaryId).value = remaining;
+        totalSalary[number[1]] = remaining;
+    }
+
+    function SalaryHold(item) {
+        var id = item.id;
+        var number = id.split('_');
+
+        var SalariesHoldId = "Hold_" + number[1];
+        var totalId = "TotalSalary_" + number[1];
+        var total = parseInt(totalSalary[number[1]]);
+        var SalariesHold = document.getElementById(SalariesHoldId).value;
+
+        var individuals = SalariesHold.split(',');
+
+        $.each(individuals, function (i, item) {
+            var v = item.split('_');
+            var one = parseInt(item[0]);
+            total += one;
+        });
+        document.getElementById(totalId).value = total;
+    }
+
+    function Bonus(item) {
+        var id = item.id;
+        var number = id.split('_');
+
+        //var HoldId = "Hold_" + number[1];
+        var AfterTaxId = "ATaxSalary_" + number[1];
+        var BonusId = "Bonus_" + number[1]; 
+        var TotalSalaryId = "TotalSalary_" + number[1];
+
+        //var Hold = parseInt(document.getElementById(HoldId).value);
+        var AfterTax = parseInt(document.getElementById(AfterTaxId).value);
+        var Bonus = parseInt(document.getElementById(BonusId).value);
+        var remaining;
+
+        if ( !isNaN(AfterTax) && !isNaN(Bonus)) {
+            remaining = AfterTax  + Bonus;
+        }
+
+        document.getElementById(TotalSalaryId).value = remaining;
+        totalSalary[number[1]] = remaining;
+    }
+
+    function TotalCut(item) {
+        var id = item.id;
+        var number = id.split('_');
+        
+        var AdvSalaryId = "AdvSalary_" + number[1];
+        var AdvPFId = "AdvPF_" + number[1];
+        var EmployeePFId = "EmployeePF_" + number[1];
+        var EmployeeEOPId = "EmployeeEOP_" + number[1];
+        var AfterId = "AfterFine_" + number[1];
+
+        var After = parseInt(document.getElementById(AfterId).value);
+        var AdvSalary = parseInt(document.getElementById(AdvSalaryId).value);
+        var AdvPF = parseInt(document.getElementById(AdvPFId).value);
+        var EmployeePF = parseInt(document.getElementById(EmployeePFId).value);
+        var EmployeeEOP = parseInt(document.getElementById(EmployeeEOPId).value);
+        var remaining;
+
+
+        if (!isNaN(AdvSalary) && !isNaN(EmployeeEOP)) {
+            remaining = After - AdvSalary - EmployeeEOP;
+        }
+
+        var TotalId = "Total_" + number[1];
+        var BeforeTaxId = "BTaxSalary_" + number[1];
+        var TaxId = "Tax_" + number[1];
+        var AfterTaxId = "ATaxSalary_" + number[1];
+        var TotalSalaryId = "TotalSalary_" + number[1];
+
+        var Tax = parseInt(document.getElementById(TaxId).value);
+
+        document.getElementById(TotalId).value = remaining;
+        document.getElementById(BeforeTaxId).value = remaining;
+        document.getElementById(AfterTaxId).value = (remaining - Tax);
+        document.getElementById(TotalSalaryId).value = (remaining - Tax);
+        totalSalary[number[1]] = (remaining - Tax);
+    }
+
+    function hold(items) {
+        var id = items.id;
+        var number = id.split('_');
+
+        var value = $("#" + id).val();
+        
+        var total = parseInt(totalSalary[number[1]]);
+
+        $.each(value, function (i, item) {
+            var str = item.split("_");
+            total += parseInt(str[0]);
+        })
+
+        var TotalSalaryId = "TotalSalary_" + number[1];
+        document.getElementById(TotalSalaryId).value = total;
+    }
+
+    function getData() {
+        var rID = $("#VirtualID").val();
+        var Month = document.getElementById("MonthID").value;
+            $.get('@Url.Action("UsersByVirtualRole", "AspNetSalaryDetail")',
+                    { id: rID, Month: Month }, function (data) {
+                        $('#submission_table').html('');
+                        console.log(data);
+                        $.each(data, function (i, item) {
+                            console.log(item);
+                            var fine = item.GrossSalary - item.Fine;
+                            var total = item.GrossSalary - item.Fine - item.EOP;
+                            var ataxS = item.GrossSalary - item.Fine - item.EOP - item.Tax;
+                            $('#submission_table').append("<tr><td><input type='text' id='Name_" + count + "' value=" + item.Name + " class='form-control col-md-5' disabled/><input type='hidden' id='Id_" + count + "' value=" + item.Id + " /></td>"
+                                                              + "<td><input type='number' id='Gross_" + count + "' value=" + item.GrossSalary + " class='form-control col-md-5' disabled /></td>"
+                                                              + "<td><input type='number' id='Fine_" + count + "' class='form-control col-md-5' value=" + item.Fine + " onblur='fineCut(this)' /></td>"
+                                                              + "<td><input type='number' id='AfterFine_" + count + "' class='form-control col-md-5' value=" + fine + " disabled/></td>"
+                                                              + "<td><input type='number' id='AdvSalary_" + count + "' class='form-control col-md-5' value='0' onblur='TotalCut(this)'/></td>"
+                                                              + "<td><input type='number' id='EmployeeEOP_" + count + "' value=" + item.EOP + " value='0' class='form-control col-md-5' onblur='TotalCut(this)'/></td>"
+                                                              + "<td><input type='number' id='Total_" + count + "' class='form-control col-md-5' value=" + total + " disabled/></td>"
+                                                              + "<td><input type='number' id='BTaxSalary_" + count + "' class='form-control col-md-5' value=" + total + " disabled/></td>"
+                                                              + "<td><input type='number' id='Tax_" + count + "' value=" + item.Tax + " onblur='TaxCut(this)' class='form-control col-md-5' /></td>"
+                                                              + "<td><input type='number' id='ATaxSalary_" + count + "' class='form-control col-md-5' value=" + ataxS + " disabled/></td>"
+                                                              + "<td><input type='number' id='Bonus_" + count + "' class='form-control col-md-5' value='0' onblur='Bonus(this)'/></td>"
+                                                              + "<td><select onclick='hold(this)' class='form-control col-md-5' multiple id = 'Hold_" + count + "' ></select></td>"
+                                                              + "<td><input type='number' id='TotalSalary_" + count + "' value=" + ataxS + " class='form-control col-md-5' disabled/></td>"
+                                                              + "<td><select id='Status_" + count + "' class='form-control col-md-5'><option value='Paid'>Paid</option><option value='Hold'>Hold</option></select></td>"
+                                                              + "</tr>");
+                            SalaryHold(item.Id, count);
+                            totalSalary[count] = item.GrossSalary; // Array
+                            count++;
+                        });
+
+                        
+
+                        $("#example").dataTable({
+                            aLengthMenu: [
+                                [10 , 25, 50, 100, 200, -1],
+                                [10 , 25, 50, 100, 200, "All"]
+                            ],
+                            iDisplayLength: -1
+                        });
+                        $('#example_filter').addClass("form-group");
+                        $('#example_filter').addClass("has-feedback");
+                        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "0px", "outline": "none", "padding-left": "10px", "color": "#ddd !important" });
+                        $('#example_filter').append('<span class="glyphicon glyphicon-search form-control-feedback" style="margin-top: -28px; color: #666;"></span>');
+                    });
+    }
+
+    function SalaryHold(Id, number) {
+        $.ajax({
+            type: "POST",
+            url: "/AspNetSalaryDetail/SalaryHold",
+            data:{ "Id":Id },
+            success: function (data) {
+                var HoldId = "Hold_" + number;
+                document.getElementById(HoldId).innerHTML = data;
+            }
+        });
+    }
+
+    var SalariesHold = [];
+
+    var EmployeeSalary =
+        {
+            Id: '',
+            GrossSalary: '',
+            MedicalAllowance: '',
+            Accomodation: '',
+            BasicSalary: '',
+            FineCut: '',
+            AfterCutSalary: '',
+            AdvanceSalary: '',
+            AdvancePF: '',
+            EmployeePF: '',
+            EmployeeEOP: '',
+            Total: '',
+            SchoolEOP: '',
+            BeforeTaxSalary: '',
+            Tax: '',
+            AfterTaxSalary: '',
+            Bonus: '',
+            //SalaryHold: '',
+            hold:[],
+            TotalSalary: '',
+            Status: '',
+            SalaryID:''
+        };
+
+    var HOLD = {
+        id: '',
+        value: ''
+    }
+
+    var Salary = {
+        Month: '',
+        Title: '',
+        Year:'',
+        VId: '',
+        EmployeeSalary: []
+    }
+
+    Salaries = [];
+
+    function SaveSalaries() {
+
+        $("#saveSalaries").prop('readonly', true);
+        var rows = $('#submission_table tr').length;
+
+        if (rows == count) {
+            $("#saveSalaries").removeClass();
+            $("#saveSalaries").addClass("btn btn-primary");
+            $("#saveSalaries").html("Generating Salaries. Please wait...");
+        } else {
+            $("#saveSalaries").removeClass();
+            $("#saveSalaries").addClass("btn btn-danger");
+            $("#saveSalaries").html("Select all employees before generating their Salaries");
+        }
+        
+
+        Salary = Object.create(Salary);
+        Salary.Month = document.getElementById("MonthID").value;
+        Salary.Title = document.getElementById("TitleID").value;
+        Salary.VId = document.getElementById("VirtualID").value;
+        Salary.Year = document.getElementById("YearID").value;
+
+        Salary.EmployeeSalary = [];
+        for (var i = 0; i < count; i++) {
+            EmployeeSalary = Object.create(EmployeeSalary);
+
+            var Id = "Id_" + i;
+            EmployeeSalary.Id = document.getElementById(Id).value;
+            
+            var Gross = "Gross_" + i;
+            EmployeeSalary.GrossSalary = document.getElementById(Gross).value;
+            var Medical = "Medical_" + i;
+            EmployeeSalary.MedicalAllowance = document.getElementById(Medical).value;
+            var Accomodation = "Accomodation_" + i;
+            EmployeeSalary.Accomodation = document.getElementById(Accomodation).value;
+            var BasicSalary = "BasicSalary_" + i;
+            EmployeeSalary.BasicSalary = document.getElementById(BasicSalary).value;
+            var Fine = "Fine_" + i;
+            EmployeeSalary.FineCut = document.getElementById(Fine).value;
+            var AfterFine = "AfterFine_" + i;
+            EmployeeSalary.AfterCutSalary = document.getElementById(AfterFine).value;
+            var AdvSalary = "AdvSalary_" + i;
+            EmployeeSalary.AdvanceSalary = document.getElementById(AdvSalary).value;
+            var AdvPF = "AdvPF_" + i;
+            EmployeeSalary.AdvancePF = document.getElementById(AdvPF).value;
+            var EmployeePF = "EmployeePF_" + i;
+            EmployeeSalary.EmployeePF = document.getElementById(EmployeePF).value;
+            var EmployeeEOP = "EmployeeEOP_" + i;
+            EmployeeSalary.EmployeeEOP = document.getElementById(EmployeeEOP).value;
+            var Total = "Total_" + i;
+            EmployeeSalary.Total = document.getElementById(Total).value;
+            var SchoolEOP = "SchoolEOP_" + i;
+            EmployeeSalary.SchoolEOP = document.getElementById(SchoolEOP).value;
+            var BTaxSalary = "BTaxSalary_" + i;
+            EmployeeSalary.BeforeTaxSalary = document.getElementById(BTaxSalary).value;
+            var Tax = "Tax_" + i;
+            EmployeeSalary.Tax = document.getElementById(Tax).value;
+            var ATaxSalary = "ATaxSalary_" + i;
+            EmployeeSalary.AfterTaxSalary = document.getElementById(ATaxSalary).value;
+            var Bonus = "Bonus_" + i;
+            EmployeeSalary.Bonus = document.getElementById(Bonus).value;
+
+            var Hold = "#Hold_" + i;
+            var hold = $(Hold).val();
+            
+            EmployeeSalary.HOLD = [];
+            if (hold != null && hold != "")  // hold.length > 0  &&
+                $.each(hold, function (i, item) {
+                HOLD = Object.create(HOLD);
+                var id = item.split('_');
+                HOLD.id = id[1];
+                HOLD.value = id[0];
+                EmployeeSalary.HOLD.push(HOLD);
+            });
+
+            var TotalSalary = "TotalSalary_" + i;
+            EmployeeSalary.TotalSalary = document.getElementById(TotalSalary).value;
+            var Status = "Status_" + i;
+            EmployeeSalary.Status = document.getElementById(Status).value;
+
+            Salary.EmployeeSalary.push(EmployeeSalary);
+           
+        }
+        Salaries = JSON.stringify({ 'Salaries': Salary });
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '/AspNetSalaryDetail/SaveSalary',
+            data: Salaries,
+            success: function (data) {
+                redirect();
+            }
+        });
+    }
+
+    function redirect() {
+       // var id = $("#Index").val();
+        window.location.href = "/AspNetSalaries/SaveIndex";
+    }
+
+</script>
+<h2>Create</h2>
+
+@*<div class="box box-primary">
+    <div class="box-header with-border"></div>
+    <div class="box-body">
+        <div class="form form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-2">Select Virtual Role</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("VirtualRoleID", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<input type="hidden" id="VirtualID" value="@ViewBag.VId" />
+<input type="hidden" id="MonthID" value="@ViewBag.Month" />
+<input type="hidden" id="TitleID" value="@ViewBag.Title" />
+<input type="hidden" id="YearID" value="@ViewBag.Year" />
+
+
+<div class="box box-primary">
+    <div class="box-header with-border"></div>
+    <div class="box-body">
+        <div class="table-responsive">
+            <table class="table borderless" id="example">
+                <thead>
+                    <tr>
+                        <th>
+                           <div class="col-md-5">Name</div>
+                        </th>
+                        <th>
+                            <div class="col-md-5">Gross Salary</div>
+                        </th>
+                        @*<th>
+                            <div class="col-md-5">Medical Allowance</div>
+                        </th>
+                        <th>
+                            <div class="col-md-5">Accomodation</div>
+                        </th>
+                        <th>
+                            <div class="col-md-5">Basic Salary</div>
+                        </th>*@
+                        <th>
+                            <div class="col-md-5">Fine Cut</div>
+                        </th>
+                        <th>
+                            <div class="col-md-5">After Cut Salary</div>
+                        </th>
+                        <th>
+                            <div class="col-md-5">Advance Salary</div>
+                        </th>
+                        @*<th>
+                            <div class="col-md-5">Advance PF</div>
+                        </th>
+                        <th>
+                            <div class="col-md-5">Employee PF</div>
+                        </th>*@
+                        <th>
+                            <div class="col-md-5">EOBI Employee</div>
+                        </th>
+                        <th>
+                            <div class="col-md-5">Total</div>
+                        </th>
+                        @*<th>
+                            <div class="col-md-5">School EOP</div>
+                        </th>*@
+                        <th>
+                            <div class="col-md-5">Before Tax Salary</div>
+                        </th>
+                        <th>
+                            <div class="col-md-5">Tax</div>
+                        </th>
+                        <th>
+                            <div class="col-md-5">After Tax Salary</div>
+                        </th>
+                        <th>
+                            <div class="col-md-5">Bonus</div>
+                        </th>
+                        <th>
+                            <div class="col-md-5">SalaryHold</div>
+                        </th>
+                        <th>
+                            <div class="col-md-5">Total Salary</div>
+                        </th>
+                        <th>
+                            <div class="col-md-5">Status</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="submission_table"></tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-4">
+                <button type="button" class="btn btn-primary" id="saveSalaries" onclick="SaveSalaries()">Generate Salary</button>
+                <button type="button" class="btn btn-danger col-md-offset-1" onclick="window.location.href = '/AspNetSalaries/Index'">Cancel</button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Complete</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="redirect()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="Index" />
+            Thanks. Salaries has been Saved
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="redirect()">Close</button>
+        </div>
+    </div>
+</div>
+</div>

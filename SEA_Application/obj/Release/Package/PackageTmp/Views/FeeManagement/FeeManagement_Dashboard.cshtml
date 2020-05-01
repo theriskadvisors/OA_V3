@@ -1,0 +1,262 @@
+﻿<!-- header -->
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<style>
+    #pie {
+        width: 50%;
+        height: 500px;
+    }
+
+    #guage {
+        width: 50%;
+        height: 500px;
+    }
+
+    #chartdiv {
+        width: 50%;
+        height: 500px;
+    }
+
+    #chartdiv1 {
+        width: 100%;
+        height: 500px;
+    }
+</style>
+
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/gauge.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light/all.min.css" />
+<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/jszip.min.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="https://www.amcharts.com/lib/3/amstock.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".nav-tabs a").click(function () {
+            $(this).tab('show');
+        });
+        $('#fee_type').click(function () {
+            $.ajax({
+                url: "@(Url.Action("Fee_Type", "FeeManagement"))",
+                type: "GET",
+
+                cache: false,
+                success: function (data) {
+                    //Fill div with results
+                    $("#partial").html(data);
+                },
+                error: function (xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
+        });
+
+        $('#discount_type').click(function () {
+            $.ajax({
+                url: "@(Url.Action("Discount_Type", "FeeManagement"))",
+                type: "GET",
+
+                cache: false,
+                success: function (data) {
+                    //Fill div with results
+                    $("#partial").html(data);
+                },
+                error: function (xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
+        });
+        $('#duration_type').click(function () {
+            $.ajax({
+                url: "@(Url.Action("Duration_Type", "FeeManagement"))",
+                type: "GET",
+
+                cache: false,
+                success: function (data) {
+                    //Fill div with results
+                    $("#partial").html(data);
+                },
+                error: function (xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
+        });
+
+        $('#class_fee').click(function () {
+            $.ajax({
+                url: "@(Url.Action("Class_Fee", "FeeManagement"))",
+                type: "GET",
+
+            cache: false,
+            success: function (data) {
+                //Fill div with results
+                $("#partial").html(data);
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+        });
+
+        $('#student_discount').click(function () {
+            $.ajax({
+                url: "@(Url.Action("Student_Discount", "FeeManagement"))",
+                type: "GET",
+
+            cache: false,
+            success: function (data) {
+                //Fill div with results
+                $("#partial").html(data);
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+        });
+
+        $('#challan_form').click(function () {
+            $.ajax({
+                url: "@(Url.Action("Challan_Form", "FeeManagement"))",
+                type: "GET",
+
+            cache: false,
+            success: function (data) {
+                //Fill div with results
+                $("#partial").html(data);
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+        });
+        $('#defaulters').click(function () {
+            $.ajax({
+                url: "@(Url.Action("Defaulters", "FeeManagement"))",
+                type: "GET",
+
+            cache: false,
+            success: function (data) {
+                //Fill div with results
+                $("#partial").html(data);
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+        });
+
+        $('#student_history').click(function () {
+            $.ajax({
+                url: "@(Url.Action("Student_History", "FeeManagement"))",
+                type: "GET",
+
+            cache: false,
+            success: function (data) {
+                //Fill div with results
+                $("#partial").html(data);
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+        });
+
+        $('#student_challan_form').click(function () {
+            $.ajax({
+                url: "@(Url.Action("Student_Challan_Form", "FeeManagement"))",
+                type: "GET",
+
+            cache: false,
+            success: function (data) {
+                //Fill div with results
+                $("#partial").html(data);
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+        });
+
+        $('#status_clear').click(function () {
+            $.ajax({
+                url: "@(Url.Action("Student_Status_Clear", "FeeManagement"))",
+                type: "GET",
+
+            cache: false,
+            success: function (data) {
+                //Fill div with results
+                $("#partial").html(data);
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+    });
+        
+
+    });
+</script>
+
+<!-- /Header -->
+<!-- Main -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3">
+            <!-- Left column -->
+            <a href="#"><strong><i class="glyphicon glyphicon-wrench"></i> Tools</strong></a>
+
+            <hr>
+            <ul class="nav nav-stacked">
+                <li class="nav-header">
+                    <a href="#" id="fee_type" data-toggle="collapse" data-target="#">Fee Types</a>
+                </li>
+                <li class="nav-header">
+                    <a href="#" id="duration_type" data-toggle="collapse" data-target="#">Duration Types</a>
+                </li>
+                <li class="nav-header">
+                    <a href="#" id="discount_type" data-toggle="collapse" data-target="#">Discount Types</a>
+                </li>
+                <li class="nav-header">
+                    <a href="#" id="challan_form" data-toggle="collapse" data-target="#">Challan Forms</a>
+                </li>
+                <li class="nav-header">
+                    <a href="#" id="class_fee" data-toggle="collapse" data-target="#">Class Fee</a>
+                </li>
+                <li class="nav-header">
+                    <a href="#" id="student_discount" data-toggle="collapse" data-target="#">Students Discount</a>
+                </li>
+                <li class="nav-header">
+                    <a href="#" id="defaulters" data-toggle="collapse" data-target="#">Defaulters</a>
+                </li>
+                <li class="nav-header">
+                    <a href="#" id="student_history" data-toggle="collapse" data-target="#">Student History</a>
+                </li>
+                <li class="nav-header">
+                    <a href="#" id="student_challan_form" data-toggle="collapse" data-target="#">Print Student Challan</a>
+                </li>
+                <li class="nav-header">
+                    <a href="#" id="status_clear" data-toggle="collapse" data-target="#">Student Status Clear</a>
+                </li>
+
+            </ul>
+        </div>
+        <!-- /col-3 -->
+        <div class="col-sm-9">
+
+            <a href="#"><strong><i class="glyphicon glyphicon-dashboard"></i> My Dashboard</strong></a>
+            <hr>
+
+            <div id="partial">
+
+            </div>
+        </div>
+        <!--/col-span-9-->
+    </div>
+</div>
+<!-- /Main -->
+<!-- /.modal -->

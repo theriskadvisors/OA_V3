@@ -1,0 +1,294 @@
+﻿<label>@Html.ActionLink("Home", "Dashboard", "Account") >  @Html.ActionLink("Subject", "ClassIndex", "AspNetSubject") > <a href="#"><b>Edit</b></a> </label>
+
+<style>
+    #CSSGroupDiv {
+        display: none;
+    }
+
+    #PMSGroupDiv {
+        display: none;
+    }
+
+    #IsManadatory {
+        height: 30px;
+        width: 30px;
+    }
+</style>
+
+<h4>Edit </h4>
+<div class="box box-primary">
+    <div class="box-body">
+
+        <link href="~/Content/JS/Toggle.css" rel="stylesheet" />
+        <script src="~/Content/JS/Toggle.js"></script>
+        @model SEA_Application.Models.AspNetSubject
+
+        @{
+            ViewBag.Title = "Edit";
+        }
+        <script>
+        $(document).ready(function () {
+            $("#ClassID option[value='']").remove();
+            $("#TeacherID option[value='']").remove();
+
+           $('#cancel').click(function () {
+            window.location.href = '@Url.Action("ClassIndex", "AspNetSubject")';
+           });
+        });
+        </script>
+        @if (ViewBag.Error != null)
+        {
+            <span style="color:red">ViewBag.Error</span>
+        }
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Edit Subject</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Subject Name<span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.SubjectName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SubjectName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Course Type<span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+
+
+                        <select id="CourseType" name="CourseType" class="form-control" required>
+                            <option value="CSS">CSS</option>
+                            <option value="PMS">PMS</option>
+                        </select>
+                        <span id="Phone-Error" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Is Mandatory<span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+
+                        <input type="checkbox" style="width:30px;height:30px" id="IsMandatory" name="IsMandatory">
+
+                        @*@Html.CheckBox("IsManadatory", Model.IsManadatory.HasValue ? Model.IsManadatory : false)*@
+
+                        <span id="Phone-Error" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <input type="hidden" name="name" id="SubjectGroupValue" value="@ViewBag.SubjectGroup" />
+                <div class="form-group" id="CSSGroupDiv">
+                    <label for="Points" class="col-md-2 col-lg-2 control-label"> CSS Group: <span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+                        <select name="CSSGroup" id="CSSGroup" class="form-control">
+                            <option value="1">Group 1</option>
+                            <option value="2">Group 2</option>
+                            <option value="3">Group 3</option>
+                            <option value="4">Group 4</option>
+                            <option value="5">Group 5</option>
+                            <option value="6">Group 6</option>
+                            <option value="7">Group 7</option>
+                        </select>
+                        <span id="Phone-Error" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group" id="PMSGroupDiv">
+                    <label for="Points" class="col-md-2 col-lg-2 control-label"> PMS Group: <span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+                        <select name="PMSGroup" id="PMSGroup" class="form-control">
+
+                            <option value="1">Group 1</option>
+                            <option value="2">Group 2</option>
+                            <option value="3">Group 3</option>
+                            <option value="4">Group 4</option>
+                            <option value="5">Group 5</option>
+
+                        </select>
+                        <span id="Phone-Error" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Points<span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+
+                        <select name="Points" class="form-control" required>
+                            <option value="100">100</option>
+                            <option value="200">200</option>
+                        </select>
+
+                        <span id="Phone-Error" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Teacher Name<span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+                        @Html.DropDownList("TeacherID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TeacherID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-2">
+                        <input type="submit" value="Update" class="btn btn-primary" />
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" id="cancel" class="btn btn-danger">Cancel</button>
+                    </div>
+                </div>
+
+            </div>
+        }
+
+        <div>
+        </div>
+
+
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+
+
+
+
+        var SubjectGroup = $("#SubjectGroupValue").val();
+        if ($("#IsMandatory").prop("checked") == true) {
+
+            $("#CSSGroupDiv").css('display', 'none');
+            $("#PMSGroupDiv").css('display', 'none');
+
+        }
+        else {
+
+            var CourseTypeVal = $("#CourseType").val();
+
+            if (CourseTypeVal == "CSS") {
+
+                $("#CSSGroupDiv").css('display', 'block');
+
+                $('#CSSGroup').val(SubjectGroup);
+
+            }
+            else if (CourseTypeVal == "PMS") {
+
+                $("#PMSGroupDiv").css('display', 'block');
+
+                $('#PMSGroup').val(SubjectGroup);
+
+            }
+            else {
+
+            }
+
+
+
+        }
+
+        $("#IsMandatory").change(function () {
+
+
+            alert("usama");
+              var CourseType =   $("#CourseType").val();
+            if (this.checked) {
+
+                //alert("Checkbox checked");
+                  $("#CSSGroupDiv").css('display', 'none');
+                $("#PMSGroupDiv").css('display', 'none');
+                $("#CSSGroup").prop('required', false);
+               $("#PMSGroup").prop('required',false);
+            }
+            else {
+                // alert("checkbox is not checked ");
+               // alert(CourseType);
+                if (CourseType != "") {
+
+                   if (CourseType == "CSS") {
+
+                        $("#CSSGroupDiv").css('display', 'block');
+                         $("#PMSGroupDiv").css('display', 'none');
+
+                        $("#CSSGroup").prop('required',true);
+                        $("#PMSGroup").prop('required',false);
+                }
+                      if (CourseType == "PMS") {
+
+                        $("#PMSGroupDiv").css('display', 'block');
+                        $("#CSSGroupDiv").css('display', 'none');
+                         $("#PMSGroup").prop('required',true);
+                        $("#CSSGroup").prop('required',false);
+
+                    }
+
+                }
+                }
+
+
+
+
+        })
+
+
+        $("#CourseType").change(function () {
+         
+          var CourseType =   $(this).val();
+
+            if (CourseType != "") {
+            
+
+                if ($("#IsMandatory").prop('checked') == false) {
+
+                    if (CourseType == "CSS") {
+
+                        $("#CSSGroupDiv").css('display', 'block');
+                        $("#PMSGroupDiv").css('display', 'none');
+
+                        $("#CSSGroup").prop('required', true);
+                        $("#PMSGroup").prop('required', false);
+                    }
+                    else {
+
+                        $("#PMSGroupDiv").css('display', 'block');
+                        $("#CSSGroupDiv").css('display', 'none');
+                        $("#PMSGroup").prop('required', true);
+                        $("#CSSGroup").prop('required', false);
+
+                    }
+
+                }
+
+
+            }
+            else {
+
+                $("#PMSGroupDiv").css('display', 'none');
+                        $("#CSSGroupDiv").css('display', 'none');
+                        $("#PMSGroup").prop('required', false);
+                        $("#CSSGroup").prop('required', false);
+            }
+
+
+
+
+        })
+
+
+
+
+
+
+    })
+
+
+</script>

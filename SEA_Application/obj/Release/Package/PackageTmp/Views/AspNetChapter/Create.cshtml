@@ -1,0 +1,128 @@
+﻿@model SEA_Application.Models.AspNetChapter
+@{
+    ViewBag.Title = "Create";
+}
+<script src="~/AdminLTE/selectone.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $("#ClassID").prop('required', true);
+        $("#SubjectID").prop('required', true);
+        $("#ChapterNo").prop('required', true);
+        $("#ChapterName").prop('required', true);
+        $("#StartDate").prop('required', true);
+        $("#EndDate").prop('required', true);
+        $("#StartDate").prop('type', 'date');
+        $("#EndDate").prop('type', 'date');
+        //$("#Status").prop('required', true);
+
+
+        $('#cancel').click(function () {
+            window.location.href = '@Url.Action("Dashboard", "Account")';
+        });
+
+        $('#SubjectID').prop('disabled', true);
+        $("#ClassID").change(function () {
+            var selectedClass = $("#ClassID").val();
+            $.get('@Url.Action("SubjectsByClass","AspNetTopic")',
+                { id: selectedClass }, function (data) {
+                    $('#SubjectID').html('');
+                    $('#SubjectID').prop('disabled', false);
+                    $.each(data, function (i, item) {
+                        $('#SubjectID').append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
+                    });
+
+                });
+        });
+
+
+
+
+    });
+</script>
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > @Html.ActionLink("Chapter", "Topics", "Teacher_Dashboard") > <b><a href="#">Create</a></b></label>
+
+<h3 class="orange">Add New Chapter &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></h3>
+<div class="box box-primary">
+    <div class="box-title"></div>
+    <div class="box-body">
+        
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="control-label col-md-2"><b>Class</b></label>
+                    <div class="col-md-6">
+                        @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br />
+                    @Html.LabelFor(model => model.SubjectID, "SubjectID", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.DropDownList("SubjectID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.SubjectID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br />
+                    @Html.LabelFor(model => model.ChapterNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.ChapterNo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ChapterNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br />
+                    @Html.LabelFor(model => model.ChapterName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.ChapterName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ChapterName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br />
+                    @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br />
+                    @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <br />
+                    @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.Status)
+                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br />
+                    <div class="col-md-offset-2 col-md-2">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-danger" onclick="window.location.href = '/Teacher_Dashboard/Topics'">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+    </div>
+

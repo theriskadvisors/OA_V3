@@ -1,0 +1,148 @@
+﻿@{
+    ViewBag.Title = "Calendar";
+    ViewBag.SubTitle = "";
+}
+<style>
+    .content {
+        padding: 0px;
+        min-height: 170px;
+    }
+</style>
+
+<div class="content" style="background-color:#1c3349 !important">
+    <div class="col-md-5">
+        <br />
+        <span id="name" style="color:white;font-size:32px;font-family:Montserrat"></span>
+    </div>
+    <div class="col-md-2 pull-right">
+        <br />
+        <span id="time" class="col-md-12 pull-right" style="color:white;font-size:32px;font-family:Montserrat"></span>
+    </div>
+    <div class="col-md-12">
+        <span id="date" style="color:white;font-size:20px;font-family:Montserrat"></span>
+    </div>
+</div>
+<div class="monthly" id="mycalendar" style="margin-top:10px"></div>
+
+
+<link href="~/css/monthly.css" rel="stylesheet" />
+<script src="~/Scripts/monthly.js"></script>
+<script>
+                
+    $(document).ready(function () {
+        var PTM = [];
+        var HW = [];
+        var Pro = [];
+        var ATT = [];
+        var Hd = [];
+        $.ajax({
+            type: "POST",
+            url: "/Parent_Dashboard/CalendarNotification",
+            success: function (data) {
+    
+                var ptm = data.PTMlist;
+                var pro = data.PROlist;
+                var att = data.ATTlist;
+                var hd = data.Hollyday;
+                var events = [];
+         
+                var status = "";
+                var ck = data.checkdate;
+                var starttimesplit = ck.split('(')[1];
+                var endtimesplit = starttimesplit.split(')')[0];
+                var etsplit = parseInt(endtimesplit);
+                var e = new Date(etsplit);
+                var tt = e.toLocaleTimeString();
+                var onlytime = tt.split(' ');
+                var AMPM = onlytime[1];
+                var timepart = onlytime[0].split(':');
+                var hours = timepart[0];
+                var min = timepart[1];
+                var time = hours + ' : ' + min + ' ' + AMPM;
+                if (hours >= 6 && hours < 12 && AMPM == "AM") {
+                    status = "Good Morning " + data.name + "!";
+                }
+                else if (hours >= 12 && AMPM == "PM") {
+                    status = "Good Afternoon " + data.name + "!";
+                }
+                else if (hours >= 1 && hours < 6 && AMPM == "PM") {
+                    status = "Good Afternoon " + data.name + "!";
+                }
+                else if (hours >= 6 && AMPM == "PM") {
+                    status = "Good Evening " + data.name + "!";
+                }
+                else if (hours >= 12 && AMPM == "AM") {
+                    status = "Good Night " + data.name + "!";
+                }
+                else if (hours >= 1 && hours < 6 && AMPM == "AM") {
+                    status = "Good Night " + data.name + "!";
+                }
+                var date = "Today is " + data.Date;
+
+                $("#time").html(time);
+                $("#date").html(date);
+                $("#name").html(status);
+                for (i = 0; i < ptm.length; i++) {
+                    events.push({
+                        "id": ptm[i].Id,
+                        "name": ptm[i].Name,
+                        "startdate": ptm[i].StartDate,
+                        "enddate": ptm[i].EndDate,
+                        "starttime": ptm[i].starttime,
+                        "endtime": ptm[i].endtime,
+                        "color": ptm[i].Color,
+                        "url": ""
+
+                    });
+                }
+                for (i = 0; i < hd.length; i++) {
+                    events.push({
+                        "id": hd[i].Id,
+                        "name": hd[i].Name,
+                        "startdate": hd[i].StartDate,
+                        "enddate": hd[i].EndDate,
+                        "starttime": hd[i].starttime,
+                        "endtime": hd[i].endtime,
+                        "color": hd[i].Color,
+                        "url": ""
+
+                    });
+                }
+                //for (i = 0; i < att.length; i++) {
+                //    events.push({
+                //        "id": att[i].Id,
+                //        "name":att[i].Name +" " +'<i class="fa fa-check"></i>',
+                //        "startdate": att[i].StartDate,
+                //        "enddate": att[i].EndDate,
+                //        "starttime": att[i].starttime,
+                //        "endtime": att[i].endtime,
+                //        "color": att[i].Color,
+                //        "url": ""
+                //    });
+                //}
+                for (i = 0; i < pro.length; i++) {
+                    events.push({
+                        "id": pro[i].Id,
+                        "name": pro[i].Name,
+                        "startdate": pro[i].StartDate,
+                        "enddate": pro[i].EndDate,
+                        "starttime": pro[i].starttime,
+                        "endtime": pro[i].endtime,
+                        "color": pro[i].Color,
+                        "url": ""
+                    });
+                }
+            
+                var evettnt = { "monthly": events };
+                $('#mycalendar').monthly({
+                    mode: 'event',
+                    dataType: 'json',
+                    events: evettnt
+                });
+
+
+            }
+        });     
+    });
+</script>
+

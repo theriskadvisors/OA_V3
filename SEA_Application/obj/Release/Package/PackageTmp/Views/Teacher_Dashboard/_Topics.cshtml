@@ -1,0 +1,267 @@
+﻿
+
+<style>
+    .row {
+        margin-top: 40px;
+        padding: 0 10px;
+    }
+
+    .clickable {
+        cursor: pointer;
+    }
+
+    .panel-heading span {
+        margin-top: -20px;
+        font-size: 15px;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var subjectcookieval = null;
+        var classcookieval = null;
+        var allcookies = document.cookie;
+
+        // Get all the cookies pairs in an array
+        cookiearray = allcookies.split(';');
+
+        // Now take key value pair out of this array
+        for (var i = 0; i < cookiearray.length; i++) {
+            name = cookiearray[i].split('=')[0];
+            value = cookiearray[i].split('=')[1];
+
+           
+
+            if (cookiearray[i].split('=')[0] == " ClassCookie" || cookiearray[i].split('=')[0] == "ClassCookie") {
+                classcookieval = cookiearray[i].split('=')[1];
+
+            }
+
+            if (cookiearray[i].split('=')[0] == " SubjectsCookie" || cookiearray[i].split('=')[0] == "SubjectsCookie") {
+                subjectcookieval = cookiearray[i].split('=')[1];
+
+            }
+        }
+
+        if (classcookieval != null && subjectcookieval != null) {
+
+            var selectClass = document.getElementById('ClassID');
+            selectClass.value = classcookieval;
+            SubjectsByClassFunction(classcookieval);
+            TopicsBySubjectFunction(subjectcookieval);
+        }
+
+        function TopicsBySubjectFunction(selectedSubject) {
+            $.get('@Url.Action("TopicsBySubject", "AspNetTopic")',
+                { id: selectedSubject }, function (data) {
+                    $('#topics').html(' ');
+                  
+                    console.log(data);
+
+                    $.each(data, function (i, item) {
+                       
+                        var html = '';
+
+                        var tick = "";
+                        if (item.Status == true)
+                        {
+                            tick = '<div class="col-md-1"><span style="color:lightgreen"class="glyphicon glyphicon-ok"></span></div>';
+                        }
+                        else
+                        {
+                            tick = '<div class="col-md-1"><span style="color:lightgray"class="glyphicon glyphicon-ok"></span></div>';
+                        }
+                        html = '<div class="col-md-12"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title"><a data-toggle="collapse" style="color:white !important" href="#' + item.ChapterNo + '">' + item.ChapterNo + '-' + item.ChapterName + '</a>' + tick + '</h3><span class="pull-right"><a href="/AspNetChapter/Edit?id=' + item.Id + '"><font color="white">Edit</font</a>|<a href="/AspNetChapter/Details?id=' + item.Id + '"><font color="white">Detail</font</a>|<a href="/AspNetChapter/Delete?id=' + item.Id + '"><font color="white">Delete</font></a></span></div><div id="' + item.ChapterNo + '" class="panel-collapse collapse"><table class="table table-striped"><thead><tr><th>Status</th><th>Topic No</th><th>Topic Name</th><th></th></tr></thead><tbody id="chapterTopic">';
+                        $.each(item.AspNetTopics, function (i, topic) {
+                           
+                            if (topic.Status == true) {
+                                tick = '<div class="col-md-1"><a id=' + topic.Id + ' onclick ="topic_status(this)" href="#"><span id=' + '_'+topic.Id + ' style="color:lightgreen"class="glyphicon glyphicon-ok"></span></a></div>';
+                            }
+                            else {
+                                tick = '<div class="col-md-1"><a id=' + topic.Id + ' onclick ="topic_status(this)" href="#"><span id=' + '_'+topic.Id + ' style="color:lightgray"class="glyphicon glyphicon-ok"></span></a></div>';
+                            }
+                            html = html + '<tr><td>'+tick+'</td><td>' + topic.TopicNo + '</td><td>' + topic.TopicName + '</td><td><a href="/AspNetTopic/Edit?id=' + topic.Id + '"><font>Edit</font</a>|<a href="/AspNetTopic/Details?id=' + topic.Id + '"><font>Detail</font</a>|<a href="/AspNetTopic/Delete?id=' + topic.Id + '"><font >Delete</font></a></td></tr>';
+                        });
+                        html = html + '</tbody></table></div> </div></div>';
+                       
+                        $('#topics').append(html);
+                       
+                    });
+
+
+                });
+        }
+
+        
+
+        function SubjectsByClassFunction(selectedClass) {
+            $.get('@Url.Action("SubjectsByClass")',
+                { id: selectedClass }, function (data) {
+
+                    //alert(JSON.stringify(data));
+                    $('#SubjectID').html('');
+                    $('#SubjectID').prop('disabled', false);
+                    $.each(data, function (i, item) {
+                        $('#SubjectID').append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
+                    });
+
+                });
+        }
+
+        $("#ClassID").click(function () {
+            var selectedClass = $("#ClassID").val();
+            document.cookie = "ClassCookie=" + selectedClass + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+            SubjectsByClassFunction(selectedClass);
+
+        });
+        $("#SubjectID").click(function () {
+            var selectedSubject = $("#SubjectID").val();
+            document.cookie = "SubjectsCookie=" + selectedSubject + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+
+            TopicsBySubjectFunction(selectedSubject);
+
+
+        });
+
+        $('#Add_Curriculum').click(function () {
+            $.ajax({
+                url: "@(Url.Action("Add_Curriculum", "Teacher_Dashboard"))",
+                type: "GET",
+
+            cache: false,
+            success: function (data) {
+                //Fill div with results
+                $("#partial").html(data);
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+
+        });
+
+        $('#Calender_View').click(function () {
+            
+            $.ajax({
+                url: "@(Url.Action("Calendar_View", "Teacher_Dashboard"))",
+                type: "GET",
+
+            cache: false,
+            success: function (data) {
+                //Fill div with results
+                $("#calendar1").html(data);
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+
+    });
+
+
+
+    });
+
+    function topic_status(topic) {
+
+        var topicId = topic.id;
+       
+        $.get('@Url.Action("Topic_status", "Teacher_Dashboard")',
+                { "id": topicId }, function (data) {
+                    console.log(data);
+                    if (data == true) {
+                        console.log("true");
+                        console.log(topicId);
+                        document.getElementById('_'+topicId).style.color = "lightgreen";
+                    } else {
+                        
+                        document.getElementById('_'+topicId).style.color =  "lightgray";
+                    }
+                    
+                });
+    }
+
+</script>
+
+@if (ViewBag.CreateChapter != null)
+{
+    <div class="box-alert" id="work">
+        @ViewBag.Chapter
+    </div>
+}
+
+@if (ViewBag.CreateTopic != null)
+{
+    <div class="box-alert" id="work">
+        @ViewBag.CreateTopic
+    </div>
+}
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#"><b>Manage Topics</b></a></label>
+<h4>Topics</h4>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1" data-toggle="tab">Home</a></li>
+                <li><a href="#tab_2" data-toggle="tab">List View</a></li>
+                <li><a href="#calendarmenu" id="Calender_View" data-toggle="tab">Calendar View</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="orange">Manage Topics &nbsp; <i class="fa fa-tasks" aria-hidden="true"></i></h3>
+                        </div>
+                        <div class="box-body">
+                            <p>
+                                @Html.ActionLink("New Chapter", "Create", "AspNetChapter")
+                            </p>
+                            <p>
+                                @Html.ActionLink("New Topics", "Create", "AspNetTopic")
+                            </p>
+                            <p>
+                                <a href="@Url.Action("Add_Curriculum", "Teacher_Dashboard")" id="Ad_Curriculum">Add Curriculum from File</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab_2">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="orange">Progress Report &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></h3>
+                        </div>
+                        <form class="form-horizontal">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Select Class</label>
+                                    <div class="col-md-10">
+                                        @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Subjects</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" id="SubjectID" name="SubjectID" disabled></select>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group">
+                                    <div id="topics">
+
+                                    </div>
+                                </div>
+                            </div>
+                            </form>
+</div>
+                </div>
+                <div class="tab-pane" id="calendarmenu">
+                    <div id='calendar1'></div>
+                    </div>
+
+                </div>
+        </div>
+    </div>
+</div>
+

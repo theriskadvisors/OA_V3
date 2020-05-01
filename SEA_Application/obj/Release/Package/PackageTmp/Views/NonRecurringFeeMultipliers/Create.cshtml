@@ -1,0 +1,219 @@
+﻿@model SEA_Application.Models.NonRecurringFeeMultiplier
+
+@{
+    ViewBag.Title = "Create";
+}
+<style>
+    #error-tag {
+        color: red;
+    }
+</style>
+
+
+<h2>Add NonRecurring Fee</h2>
+<script>
+    var tution;
+    $(document).ready(function (){
+
+
+
+        $("#error-tag").hide();
+        $('#tutionFee').change(function () {
+            debugger;
+            var balance = $(this).val();
+
+            if (balance > 0) {
+
+                $('#submit').prop("disabled", false);
+                $("#error-tag").hide();
+            }
+            else {
+
+                $("#error-tag").show();
+                $('#submit').prop("disabled", true);
+            }
+
+        });
+
+
+        $('#submit').prop("disabled", true);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $("input[id$='tutionFee']").on('blur', function () {
+            tution = $("#tutionFee").val();
+            $("#remainingamount").val(tution);
+            $("#paidamount").val(0);
+        
+
+            debugger;
+        })
+        $("input[id$='instalments']").on('keyup', function () {
+         
+            var instalment = $("#instalments").val()
+            var share = tution / instalment;
+            $("#share").val(share);
+            $("#paidInstalment").val(0);
+            $("#remainingInstalment").val(instalment);
+
+            debugger;
+        })
+    })
+</script>
+<div class="box box-primary">
+    <div class="box-body">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "Registerform" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Class NonRecurring Fee</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.StudentId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.StudentId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+                <div class="form-group">
+                    <span class="col-md-2">Class</span>
+                    <div class="col-md-6">
+                        @Html.DropDownList("ClassId", null, htmlAttributes: new { @class = "form-control", @name = "Class" })
+                        @Html.ValidationMessageFor(model => model.DescriptionId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-md-2">Description</span>
+                    <div class="col-md-6">
+                        @Html.DropDownList("DescriptionId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DescriptionId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-md-2">Fee</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.TutionFee, new { htmlAttributes = new { @class = "form-control",@required="required", @id = "tutionFee" } })
+                        @Html.ValidationMessageFor(model => model.TutionFee, "", new { @class = "text-danger" })
+                        <div class="error" id="error-tag">Fee must be greater than 0</div>
+
+                     </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-md-2">Months</span>
+                    <div class="col-md-6">
+                        <select class="form-control" name="Month" required>
+                            <option>January</option>
+                            <option>February</option>
+                            <option>March</option>
+                            <option>April</option>
+                            <option>May</option>
+                            <option>June</option>
+                            <option>July</option>
+                            <option>August</option>
+                            <option>September</option>
+                            <option>October</option>
+                            <option>November</option>
+                            <option>December</option>
+                        </select>
+                        @*@Html.EditorFor(model => model.Month, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Month, "", new { @class = "text-danger" })
+                        <div class="error" id="error-tag">Fee must be greater than 0</div>*@
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-md-2">Issue Date</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @required = "required",@type="date" } })
+                        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.Instalments, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Instalments, new { htmlAttributes = new { @class = "form-control", @id = "instalments" } })
+                        @Html.ValidationMessageFor(model => model.Instalments, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SharePerInstalment, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SharePerInstalment, new { htmlAttributes = new { @class = "form-control",@readonly="readonly", @id = "share" } })
+                        @Html.ValidationMessageFor(model => model.SharePerInstalment, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PaidAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PaidAmount, new { htmlAttributes = new { @class = "form-control",@readonly="readonly", @id = "paidamount" } })
+                        @Html.ValidationMessageFor(model => model.PaidAmount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RemainingAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.RemainingAmount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "remainingamount" } })
+                        @Html.ValidationMessageFor(model => model.RemainingAmount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PaidInstalments, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PaidInstalments, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "paidInstalment" } })
+                        @Html.ValidationMessageFor(model => model.PaidInstalments, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RemainingInstalments, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.RemainingInstalments, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly",@id = "remainingInstalment" } })
+                        @Html.ValidationMessageFor(model => model.RemainingInstalments, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.Multiplier, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Multiplier, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly",@id="multiplier" } })
+                        @Html.ValidationMessageFor(model => model.Multiplier, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+       
+            </div>
+        }
+        <div class="col-md-offset-2 col-md-5">
+            <br />
+            <button class="col-md-2 form-control" onclick="window.location.href = '/NonRecurringFeeMultipliers/Index'" style="border-radius:35px;border:hidden;background-color:red;margin-right:10px;color:white;font-size:11px;width:98px;height:38px;font-family:Montserrat" id="return"><i class="fa fa-arrow-left"></i> &nbsp;&nbsp; Return</button>
+            <input class="col-md-2 form-control" id="submit" form="Registerform" type="submit" value="Save" style="border-radius:35px;color:white;border:hidden;background-color:#128edb;font-size:11px;width:98px;height:38px;font-family:Montserrat" />
+            <br />
+            <br /><br />
+        </div>
+    </div>
+</div>
+

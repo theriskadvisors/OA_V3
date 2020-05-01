@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewBag.Title = "GetQuestions";
+    Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
+}
+
+
+<script>
+
+
+    $(document).ready(function () {
+
+        $('#Submit').click(function () {
+
+            //   alert("Submit function");
+
+            debugger;
+            var options = $('.Option');
+            var answers = [];
+            var Questions = [];
+            var Question = [];
+            var Answer = [];
+            for (var i = 0; i < options.length; i++) {
+
+                answers[i] = $(options[i]).val();
+
+                Answer.push($(options[i]).val());
+
+                Questions[i] = $(options[i]).attr("id");
+
+                Question.push($(options[i]).attr("id"));
+
+
+            }
+
+            //  var quiz_id = $("#QuizId").val();
+
+            $.ajax({
+                url: '/StudentCourses/submit_question',
+                type: "GET",
+                data: { Question: Question.toString(), Answer: Answer.toString() },
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                    debugger
+                    //window.location.href = "/StudentCourses/TestResult?Questions=" +data  ;
+
+                    //  window.location.href = "/StudentCourses/TestResult?id=" + data.val();
+
+                    window.location.href = "/StudentCourses/TestResult";
+
+
+                    // alert("Number of Correct answers are :" + result);
+                }
+            });
+
+        });
+    });
+
+</script>
+
+<h2>&nbsp; Guidelines</h2>
+
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="col-md-12">
+            <div class="form-three widget-shadow">
+                <div>
+                    <ul>
+                        <li>one</li>
+                        <li>two</li>
+                        <li>three</li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    int counter = 1;
+}
+
+<h3> &nbsp; M.C.Q.S Section</h3>
+@if (@ViewBag.questionList_MCQS.Count == 0)
+{
+}
+else
+{
+
+    <div class="box box-primary">
+        <div class="box-body">
+            <div class="col-md-12">
+                <div class="form-three widget-shadow">
+
+                    @foreach (var item in ViewBag.questionList_MCQS)
+                    {
+                        <h3><span>Question @counter: @item.name</span></h3>
+
+                        <input id="@item.id" class="Option" type="hidden" value="" />
+
+                        <ol>
+                            @foreach (var item1 in item.options)
+                            {
+                                <li><input type="radio" class="col-md-1" name="@item.id" id="@item1.id" onchange="$('#' + @item.id).val(@item1.id)" />@item1.name </li>
+                            }
+
+                        </ol>
+
+                        <hr />
+                        counter = counter + 1;
+
+                    }
+                </div>
+
+                @*<div class="form-three widget-shadow">
+                            <h4>Fill in Blanks Section</h4>
+                            @foreach (var item in ViewBag.questionList_Fill)
+                            {
+                                <span>@item.name: <input type="text" id="@item.id" /></span>
+                            }
+
+                    </div>*@
+            </div>
+            <button id="Submit" class="btn btn-success">Submit Test</button>
+        </div>
+    </div>
+
+
+
+}
+

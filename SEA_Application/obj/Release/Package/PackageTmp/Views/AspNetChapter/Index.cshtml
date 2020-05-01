@@ -1,0 +1,68 @@
+﻿@model IEnumerable<SEA_Application.Models.AspNetChapter>
+@{
+    ViewBag.Title = "Index";
+}
+
+<script src="~/AdminLTE/selectone.js"></script>
+
+<h3 class="orange">View Chapter &nbsp; <i class="fa fa-eye" aria-hidden="true"></i></h3>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="box box-primary">
+    <div class="box-title"></div>
+    <div class="box-body">
+
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ChapterNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ChapterName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AspNetSubject.SubjectName)
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChapterNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChapterName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AspNetSubject.SubjectName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </table>
+        </div>
+    </div>

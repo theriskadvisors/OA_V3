@@ -1,0 +1,331 @@
+﻿@model IEnumerable<SEA_Application.Models.StudentFeeDetail>
+
+@{
+    ViewBag.Title = "FeePreview";
+}
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="~/Scripts/printPreview.js"></script>
+
+
+
+<script>
+   
+    $(document).ready(function () {
+        $("#PreviousFee option").prop("selected", false);
+    });
+    var ClassFeeBreakdown=
+        {
+            Id: '',
+            Amount:'',
+        }
+
+    var Previous=
+        {
+            Id: '',
+            Title:''
+        }
+
+    var StudentFeeDetail={
+        StudentId: '',
+        ChallanNo:'',
+        StudentName:'',
+        StudentRegNo:'',
+        FeeBreakdown: [],
+        PreviousFee:[],
+        Discount: '',
+        Fine:'',
+        GrossFee:'',
+        TotalFee:''
+
+    }
+   
+    var TotalAmount = 0;
+    var PreviousAmount = 0;
+    var finetotal = 0;
+    function printDiv() {
+       
+        var printContents = document.getElementById('Printable').innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+    function OptionsSelected(checkbox)
+    {
+        var a = checkbox.closest("div");
+        var tr = checkbox.closest("tr");
+        var StudentID = tr.id;
+        TotalAmount = 0;
+        finetotal = parseInt($('#Fine', tr).val());
+        if (checkbox.checked)
+        {
+            $.get('@Url.Action("GetFeeAmount", "AspNetFeeChallan")',
+               { FeeTypeID: checkbox.id, studentID: StudentID }, function (data) {
+                   $("input[name='items']", a).val(data);
+                   $("input[name='items']", tr).each(function () {
+                       TotalAmount += parseInt($(this).val());
+                   });
+                   finetotal = parseInt($('#Fine', tr).val());
+                   $("#TotalFee", tr).val(TotalAmount + PreviousAmount + finetotal);
+
+                  
+               });
+        }
+        else
+        {
+            $("input[name='items']", a).val(0);
+            $("input[name='items']", tr).each(function () {
+                TotalAmount += parseInt($(this).val());
+            });
+            finetotal = parseInt($('#Fine', tr).val());
+            $("#TotalFee", tr).val(parseInt(TotalAmount) + parseInt(PreviousAmount) + parseInt(finetotal));
+
+        } 
+    }
+
+    function GetTotal(fine)
+    {
+        var tr = fine.closest("tr");
+        finetotal = parseInt($('#Fine', tr).val());
+        TotalAmount = 0;
+        $("input[name='items']", tr).each(function () {
+            TotalAmount += parseInt($(this).val());
+        });
+        
+        var value = parseInt(TotalAmount) + parseInt(PreviousAmount) + parseInt(finetotal);
+        $("#TotalFee", tr).val(value);
+        
+    }
+
+    function PreviousFeeAdd(select)
+    {
+        
+        var tr = select.closest("tr");
+        TotalAmount = 0;
+        var temp = $(select).val();
+       
+        $.ajax({
+            url: '@Url.Action("GetPreviousFee", "AspNetFeeChallan")',
+            type: 'GET',
+            dataType: 'json',
+            cache: false,
+            traditional: true,
+            data: { PaymentIDs: temp },
+
+        }).done(function (amount) {
+            PreviousAmount = parseInt(amount);
+
+            $("input[name='items']", tr).each(function () {
+                TotalAmount += parseInt($(this).val());
+            });
+            finetotal = parseInt($('#Fine', tr).val());
+            $("#TotalFee", tr).val(parseInt(TotalAmount) + parseInt(PreviousAmount) + parseInt(finetotal));
+
+        });
+        
+    }
+
+    function Approve()
+    {
+        //$('table tbody tr').each(function () {
+        //    $("input[name='items[]']").each(function () {
+        //        console.log($(this).val());
+        //    });
+        //});
+        StudentFeeDetails = [];
+        $('table tbody tr').each(function () {
+            StudentFeeDetail = Object.create(StudentFeeDetail);
+            StudentFeeDetail.StudentId = $(this).attr('id');
+            StudentFeeDetail.ChallanNo = 0;
+            StudentFeeDetail.StudentName = $('#StudentName', this).text();
+            StudentFeeDetail.StudentRegNo = $('#StudentRegNo', this).text();
+            StudentFeeDetail.FeeBreakdown = [];
+            
+            $("input[name='items']", this).each(function () {
+                ClassFeeBreakdown = Object.create(ClassFeeBreakdown);
+                ClassFeeBreakdown.Id = $(this).attr('id');
+                ClassFeeBreakdown.Amount = $(this).val();
+                StudentFeeDetail.FeeBreakdown.push(ClassFeeBreakdown);
+            });
+            StudentFeeDetail.PreviousFee = [];
+            $('#PreviousFee > option:selected', this).each(function () {
+                Previous = Object.create(Previous);
+                Previous.Id = $(this).val();
+                Previous.Title = $(this).text();
+                StudentFeeDetail.PreviousFee.push(Previous);
+            });
+            StudentFeeDetail.Fine = $('#Fine', this).val();
+            StudentFeeDetail.Discount = $('#Discount', this).val();
+            StudentFeeDetail.GrossFee = $('#GrossFee', this).val();
+            StudentFeeDetail.TotalFee = $('#TotalFee', this).val();
+            
+            StudentFeeDetails.push(StudentFeeDetail);
+
+        });
+
+        var studentFeeDetails = JSON.stringify({ 'StudentFeeDetails': StudentFeeDetails });
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '/AspNetFeeChallan/SaveChallanFee',
+            data: studentFeeDetails,
+            success: function (data) {
+                if (data == "True")
+                {
+                    $('#partial').html('Fee Challan Successfully Save');
+                    $("#myModal").modal('show');
+                }
+                else
+                {
+                    $('#partial').html('Fee Challan Save Unsuccessful');
+                    $("#myModal").modal('show');
+                }
+               
+            },
+            failure: function (response) {
+                $('#partial').html('Fee Challan Save Unsuccessful');
+                $("#myModal").modal('show');
+            }
+        });
+    }
+
+    function redirect() {
+        window.location.href = "Index";
+    }
+</script>
+
+<h2>FeePreview</h2>
+<div class="box box-primary">
+    <div id="Printable">
+    <div class="box-header with-border">
+        <center><h2>@ViewBag.ClassTitle </h2></center>
+    </div>
+    <div class="box-body">
+
+        <table class="table table-striped table-bordered">
+           <thead>
+               <tr>
+                   @foreach (var head in ViewBag.Heads)
+                   {
+                       <th>@head</th>
+                   }
+               </tr>
+           </thead>
+            @foreach (var item in Model)
+            {
+                <tr id="@item.StudentId">
+                    
+                    <td id="StudentName">
+                        
+                        @Html.DisplayFor(modelItem => item.StudentName)
+                    </td>
+                    <td id="StudentRegNo">
+                       
+                        @Html.DisplayFor(modelItem => item.StudentRegNo)
+                    </td>
+                    @foreach (var fee in item.FeeBreakdown)
+                    {
+                        if (fee.Type == "One Time")
+                        {
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        @if (fee.Amount == 0)
+                                        {
+                                            <input id="@fee.Id" type="checkbox" onclick="return OptionsSelected(this)">
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" id="@fee.Id" checked onclick="return OptionsSelected(this)">
+                                        }
+                                    </span>
+                                    <input type="text" class="form-control input-sm" id="@fee.Id" name="items" value="@fee.Amount" readonly>
+                                </div>
+                            </td>
+                            
+                        }
+                        else
+                        {
+                            <td>
+                                <input type="text" class="form-control input-sm" id="@fee.Id" name="items" value="@fee.Amount" readonly>
+                               
+                            </td>
+                        }
+
+                    }
+
+                   
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control select2" multiple="multiple" id="PreviousFee" onchange="PreviousFeeAdd(this)" >
+                                   @foreach (var previousfee in item.PreviousFee)
+                                   { 
+                                       <option value="@previousfee.Id">@previousfee.Title</option>
+                                   }
+                                </select>
+                            </div>
+                        </td>
+                    
+                    <td>
+                        <input type="text" id="Fine" class="form-control input-sm" onkeyup="GetTotal(this)" value="@item.Fine" >
+                    </td>
+                   
+                    <td >
+                        <input type="text" id="Discount" class="form-control input-sm" value="@item.Discount" readonly>
+                    </td>
+                    
+                    <td >
+                        <input type="text" id="TotalFee" class="form-control input-sm" value="@item.TotalFee" readonly>
+                        <input type="text" id="hiddenTotal" value="@item.GrossFee"  hidden>
+                    </td>
+                   
+                </tr>
+            }
+        </table>
+    </div>
+        
+        </div>
+
+    <div class="box-footer">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-1">
+                        <button type="button" onclick="printDiv()" class="btn btn-primary">Print</button>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" id="cancel" onclick="window.location.href = '/FeeManagement/Challan_Form'" class="btn btn-danger">Cancel</button>
+                    </div>
+                    <div class="col-md-1 pull-right">
+                        <button type="button" class="btn btn-success pull-right" onclick="Approve()">Approve</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Complete</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="redirect()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            Thanks. Fee Challan Successfully Saved
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="redirect()">Close</button>
+        </div>
+    </div>
+</div>
+            </div>

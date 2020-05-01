@@ -1,0 +1,14 @@
+﻿@if (this.User.IsInRole("Admin"))
+{
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+else if(this.User.IsInRole("Principal"))
+{
+    Layout = "~/Views/Shared/Principal_DashboardLayout.cshtml";
+}
+else
+{
+    Layout = "~/Views/Shared/_AccountantDashboardLayout.cshtml";
+
+}
+

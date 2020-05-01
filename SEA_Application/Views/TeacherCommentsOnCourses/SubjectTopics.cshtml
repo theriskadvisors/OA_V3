@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = "SubjectTopics";
+    Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
+}
+
+
+<h2>SubjectTopics</h2>
+
+<style>
+
+    .TopicsAndLesson {
+        height: 50px;
+        width: 100%;
+        line-height: 50px;
+        display: inline-block;
+        cursor: pointer;
+        margin: auto;
+        padding-left: 10px;
+    }
+
+    #TopicList {
+        width: 70%;
+        height: auto;
+    }
+
+        #TopicList h3 {
+            display: inline-block;
+        }
+
+    .TopicDiv {
+        background: rgb(51, 70, 102);
+        color: white;
+    }
+
+    .page-sidebar .page-sidebar-menu, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: 2200px !important;
+    }
+</style>
+
+<input type="hidden" id="SubjectId" name="name" value="@ViewBag.SubjectId" />
+
+<div class="col-md-12">
+
+
+    <div id="TopicList" style=" margin: auto;">
+
+
+        <h3 style="color:black">Course Content</h3>
+
+        <h3 style="float:right">Total Lessons &nbsp;&nbsp;<span id="TotalLessons"></span> </h3>
+
+
+        <br />
+    </div>
+    <br />
+    <br />
+</div>
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+
+        // $("#SubjectBoxesDiv").append('<div class="SubjectBoxes"><h3> usama </h3> </div>')
+
+
+
+        var sub = $("#SubjectId").val();
+        var Count = 0;
+        $.ajax({
+
+
+            type: "POST",
+            url: "/TeacherCommentsOnCourses/GetSubjectTopicsAndLessons",
+            data: { "SubjectId": sub },
+            success: function (data) {
+
+                $.each(data, function (key, value1) {
+
+                    debugger
+
+                    Count = value1.TotalLessons;
+
+                    var lessonlist = value1.LessonList;
+
+                    $("#TopicList").append('<div   class ="TopicsAndLesson TopicDiv" style="border:1px solid black"><b> ' + value1.TopicName + '</b> <b><span style ="float:right">' + value1.TotalLessons1 + '  Lesson </span></b></div>');
+
+                    $.each(lessonlist, function (key, lesson) {
+
+                        $("#TopicList").append('<div   class ="TopicsAndLesson" style="border:1px solid black"><a href = "/TeacherCommentsOnCourses/StudentLessons/' + lesson.LessonId + '">' + lesson.LessonName + '</a></div>');
+
+
+                    })
+
+                })
+
+                $("#TotalLessons").text(Count);
+
+            }
+
+        })
+
+        $(".TopicDiv").click(function () {
+
+            $(".div2").fadeToggle("slow");
+
+        })
+
+
+    })
+
+
+
+    </script>

@@ -1,0 +1,56 @@
+﻿@model SEA_Application.Models.AspNetMessage_Receiver
+
+<div class="row">
+    <div class="col-md-3">
+        <a href="@Url.Action("NewMessage", "AspNetMessages")" class="btn btn-primary btn-block margin-bottom">Compose</a>
+        <div class="box box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">Folders</h3>
+                <div class="box-tools">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body no-padding">
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active">
+                        <a href="@Url.Action("Inbox","AspNetMessages")">
+                            <i class="fa fa-inbox"></i> Inbox
+
+                        </a>
+                    </li>
+                    <li><a href="@Url.Action("Sent","AspNetMessages")"><i class="fa fa-envelope-o"></i> Sent</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Read Message</h3>
+
+            </div>
+            <div class="box-body no-padding">
+                <div class="mailbox-read-info">
+                    <h3>@Model.AspNetMessage.Subject</h3>
+                    <h5>
+                        From: @Model.AspNetMessage.AspNetUser.UserName
+                        <span class="mailbox-read-time pull-right">@Model.AspNetMessage.Time</span>
+                    </h5>
+                </div>
+                <div class="mailbox-read-message">
+                    <span class="border">@Html.Raw(@Model.AspNetMessage.Message)</span> 
+                </div>
+            </div>
+            <div class="box-footer">
+                
+                <button onclick="window.location.href='/AspNetMessages/Inbox'" class="btn btn-default"> Back</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>

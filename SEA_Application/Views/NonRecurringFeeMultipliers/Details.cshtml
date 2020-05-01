@@ -1,0 +1,98 @@
+﻿@model SEA_Application.Models.NonRecurringFeeMultiplier
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>NonRecurringFeeMultiplier</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TutionFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TutionFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaidAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaidAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RemainingAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RemainingAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SharePerInstalment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SharePerInstalment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Instalments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Instalments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaidInstalments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaidInstalments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RemainingInstalments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RemainingInstalments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Multiplier)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Multiplier)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NonRecurringCharge.ExpenseType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NonRecurringCharge.ExpenseType)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

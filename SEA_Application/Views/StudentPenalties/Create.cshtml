@@ -1,0 +1,119 @@
+﻿@model SEA_Application.Models.StudentPenalty
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<script>
+    var LoadClassDDL = function () {
+        $.ajax({
+            type: "POST",
+            cache: false,
+            url: "/StudentDiscounts/ClassDDL",
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                var sch = JSON.parse(data);
+                var $el = $(".ClassIdDDL");
+                $el.empty();
+                if (sch.length > 0) {
+                    $el.append($("<option></option>")
+                                 .attr("value", 0).text('Select Class'));
+                    for (i = 0; i < sch.length; i++) {
+
+                        $el.append($("<option></option>")
+                                .attr("value", sch[i].Value).text(sch[i].Text));
+                    }
+                }
+                else {
+                    $el.append($("<option></option>")
+                               .attr("value", '').text('Select'));
+                }
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        LoadClassDDL();
+
+        $(".ClassIdDDL").change(function () {
+            debugger;
+            var Classid = $(this).val();
+            $.ajax({
+                type: "POST",
+                cache: false,
+                url: "/StudentDiscounts/StudentsDDL?id=" + Classid,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    debugger;
+                    var sch = JSON.parse(data);
+                    for (i = 0; i < sch.length; i++) {
+
+                        var x = sch[i].Text;
+
+                    }
+                    var $el = $(".StudentIdDDL");
+                    $el.empty();
+                    if (sch.length > 0) {
+                        $el.append($("<option></option>")
+                                     .attr("value", 0).text('Select Student'));
+                        for (i = 0; i < sch.length; i++) {
+                            $el.append($("<option></option>")
+                                    .attr("value", sch[i].Value).text(sch[i].Text));
+                        }
+                    }
+                    else {
+                        $el.append($("<option></option>")
+                                   .attr("value", '').text('No Students Found'));
+                    }
+                }
+            });
+
+        });
+
+    });
+</script>
+
+<h2>Create</h2>
+<div class="box box-primary">
+    <div class="box-body">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "Registerform" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>StudentPenalty</h4>
+                <hr />
+                <div class="form-group">
+                    <span class="col-md-2">Class</span>
+                    <div class="col-md-6">
+                        <select class="form-control ClassIdDDL" id="ClassId" name="ClassId"></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Student Name</span>
+                    <div class="col-md-6">
+                        <select class="form-control StudentIdDDL" id="StudentId" name="StudentId"></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PenaltyId, "PenaltyId", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.DropDownList("PenaltyId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.PenaltyId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+        }
+        <div class="col-md-12 col-md-offset-2 col-sm-12 col-lg-12">
+            <br />
+            <button class="col-md-2 form-control" onclick="Return()" style="border-radius:35px;border:hidden;margin-right:10px;background-color:#ff0000;color:white;font-size:11px;width:98px;height:38px;font-family:Montserrat" id="return"><i class="fa fa-arrow-left"></i> &nbsp;&nbsp; Return</button>
+            <input class="col-md-2 form-control" id="submit" type="submit" form="Registerform" value="Save" style="border-radius:35px;color:white;border:hidden;background-color:#128edb;font-size:11px;width:98px;height:38px;font-family:Montserrat" />
+            <br /><br /><br />
+        </div>
+    </div>
+    </div>

@@ -1,0 +1,1255 @@
+﻿@*@model SEA_Application.Models.AspNetAttendance*@
+<link href="~/Content/EeNiArTWork.css" rel="stylesheet" />
+<script type="text/javascript">
+
+
+
+    $(document).ready(function () {
+
+        debugger;
+        var classcookieval = null;
+        var allcookies = document.cookie;
+
+
+        $('#Comment_Save').prop('disabled', true);
+
+        // Get all the cookies pairs in an array
+        cookiearray = allcookies.split(';');
+
+        // Now take key value pair out of this array
+        for (var i = 0; i < cookiearray.length; i++) {
+            name = cookiearray[i].split('=')[0];
+            value = cookiearray[i].split('=')[1];
+
+            console.log(cookiearray[i]);
+
+            if (cookiearray[i].split('=')[0] == " ClassCookieassessment" || cookiearray[i].split('=')[0] == "ClassCookieattendance") {
+                classcookieval = cookiearray[i].split('=')[1];
+
+            }
+
+
+        }
+
+
+        function getUserList() {
+
+            $('.eeniart0017').css("display", "block");
+
+            var selectedClass = $("#ClassID").val();
+            $.get('@Url.Action("StudentsByClass_Teacher", "TermAssessment")',
+                { id: selectedClass },
+                function (data) {
+                    $('.eeniart0017').css("display", "none");
+                    $('#StudentTable').html(' ');
+                    debugger;
+                    if (data != "Term of the latest session is not started yet") {
+                        $.each(data, function (i, item) {
+
+                            var Status;
+                            if (item.Status == "pending") {
+                                Status = "<span class='glyphicon glyphicon-question-sign text-danger'></span>";
+                            } else if (item.Status == "ok") {
+                                Status = "<span class='glyphicon glyphicon-ok-circle text-success'></span>";
+                            } else if (item.Status == "not submitted") {
+                                Status = "<span style='color:moccasin' class='glyphicon glyphicon-exclamation-sign'></span>";
+                            }
+                            debugger;
+                            $('#StudentTable').append("<tr id=" + item.Id + "><td><div>" + item.Name + "</div> </td><td><a id='" + item.Id + "' href='#' + onclick ='Student_Evaluation(this)' >Evaluate Student</a></td><td>" + Status + "</td></tr>");
+                        });
+                    } else {
+                        console.log("ok");
+                        $('#myModal2').modal('show');
+                    }
+                });
+
+        }
+
+        $("#ClassID").change(function () {
+            var trrmid = $("#TermID").val();
+            var classId = $("#ClassID").val();
+
+            if (trrmid != "" && classId != "") {
+                getUserList()
+            }
+
+        });
+
+        $("#TermID").change(function () {
+            var classId = $("#ClassID").val();
+            var trrmid = $("#TermID").val();
+
+            if (trrmid != "" && classId != "") {
+                getUserList()
+            }
+
+        });
+
+        //$("#Print").click(function () {
+        //    debugger;
+        //    var restorepage = $('body').html();
+        //    var printcontent = $('#load').clone();
+        //    $('body').empty().html(printcontent);
+        //    window.print();
+        //    $('body').html(restorepage);
+        //});
+
+    });
+    function PrintModal() {
+        $("#printmodal").modal('show');
+    }
+    function Print()
+    {
+        debugger;
+
+            var restorepage = $('body').html();
+            var printcontent = $('#load').clone();
+            $('body').empty().html(printcontent);
+            window.print();
+        $('body').html(restorepage);
+
+        //var print = document.getElementById('printDiv');
+        //var printWindow = window.open('', '', "width=200,height=auto");
+        //printWindow.document.write(print.innerHTML);
+        //printWindow.document.getElementById('load').style.display = 'block';
+        //printWindow.document.close();
+        //printWindow.focus();
+        //printWindow.print();
+        //printWindow.close();
+        //return false;
+
+    }
+    function selectclasschange() {
+        var selectedClass = $("#ClassID").val();
+        $.get('@Url.Action("StudentsByClass_Teacher", "TermAssessment")',
+            { id: selectedClass },
+            function (data) {
+
+                $('#StudentTable').html(' ');
+                debugger;
+                if (data != "Term of the latest session is not started yet") {
+                    $.each(data, function (i, item) {
+
+                        var Status;
+                        if (item.Status == "pending") {
+                            Status = "<span class='glyphicon glyphicon-question-sign text-danger'></span>";
+                        } else if (item.Status == "ok") {
+                            Status = "<span class='glyphicon glyphicon-ok-circle text-success'></span>";
+                        } else if (item.Status == "not submitted") {
+                            Status = "<span style='color:moccasin' class='glyphicon glyphicon-exclamation-sign'></span>";
+                        }
+                        debugger;
+                        $('#StudentTable').append("<tr id=" + item.Id + "><td><div>" + item.Name + "</div> </td><td><a id='" + item.Id + "' href='#' + onclick ='Student_Evaluation(this)' >Evaluate Student</a></td><td>" + Status + "</td></tr>");
+                    });
+                } else {
+                    console.log("ok");
+                    $('#myModal2').modal('show');
+                }
+            });
+    }
+    function Tcomment()
+    {
+       var stdid= $('#hidden').val();
+        var tc = $("#TC").val();
+        var termid = $("#TermID").val();
+        $.ajax({
+            type: "POST",
+            url: "/TermAssessment/SaveComments",
+            data: { 'tc': tc, 'stdid': stdid, 'termid': termid, 'type': 'teacher' },
+            success: function () {
+            }
+
+        });
+    }
+    function Student_Evaluation(item) {
+
+
+        $('.eeniart0017').css("display", "block");
+        $('#hidden').val(item.id);
+        console.log(item);
+        var name = item.closest("tr");
+        name = $(name).find("td div");
+        name = $(name).html();
+        $("#StudentName").html(name);
+        $("#pStudentName").html(name);
+
+        var cn = $("#ClassID").val();
+
+        name = item.closest("tr");
+        $("#trId").val(name.id);
+
+        var trrmid = $("#TermID").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/TermAssessment/ClassEvaluations",
+            data: { 'StudentId': item.id, "type": "teacher", TermId: trrmid },
+            success: function (data) {
+                $('.eeniart0017').css("display", "none");
+                if (data.status == "success")
+                {
+                    evalutionfrom();
+                    var classname = data.classname;
+                    var studentname = data.studentname;
+                    var teachername = data.teachername;
+
+                    var termid = data.TId;
+                    var subjects = data.Value
+                    var teacherComment = data.teacherComent;
+                    var parentComment=data.parentComment;
+                    var principalcomment=data.principalcomment;
+                    $('#Evaluation_data').html('');
+
+                    $("#className").html(classname+' Progress Report');
+                    $("#stdname").html(studentname);
+                    $("#teachername").html(teachername);
+
+                    $("#pclassName").html(classname + ' Progress Report');
+                    $("#pstdname").html(studentname);
+                    $("#pteachername").html(teachername);
+
+                    var table = $('<table class="table" id="Evaluation_Question_Table"><tr style="display:none"><th>Questions</th><th>Assessment</th></tr></table>');
+                    $('#Evaluation_data').append(table);
+                    for (var i = 0; i < subjects.length; i++)
+                    {
+                        var Data = subjects[i];
+                        var dfdf = $('<td class="text-bold"><h3>' + Data.SubjectName + '</h3></td><td style="float:right"><button class="btn btn-primary save_comment">Assessment Report</button></td>')
+                        //.append($('<div>').addClass('icheckbox_flat-blue').css({ "position": "relative" }).attr("id", Data.Id).click(Singlecheak).data(Data)
+                        $('#Evaluation_Question_Table').append($('<tr>').attr("id", Data.Id).click(Data, Reportit).data(Data).append(dfdf))
+                        $('#Evaluation_Question_Table').append($('<tr>').append($('<td>').attr("id", "eeniart" + Data.Id).attr("colspan", "2")))
+                    }
+                    $('#TC').val(teacherComment);
+                    $('#PC').val(parentComment);
+                    $('#PrC').val(principalcomment);
+                }
+                else {
+
+                }
+
+
+
+                //$('#Evaluation_data').html(data);
+                $('Comment_Evaluation').prop('disabled', false);
+            },
+            error: function (xhr) {
+                debugger;
+                alert(xhr.responseText);
+            }
+        });
+        printpreview();
+    }
+
+    function evalutionfrom() {
+        $("#TermID").prop('disabled', true);
+        $("#ClassID").prop('disabled', true);
+        $("#saceassess").prop('disabled', false);
+        $("#evaliationformeeniart").css("display", "block");
+        $("#studentseeniart").css("display", "none");
+    }
+    function studentseeni() {
+        $("#TermID").prop('disabled', false);
+        $("#ClassID").prop('disabled', false);
+        $("#evaliationformeeniart").css("display", "none");
+        $("#studentseeniart").css("display", "block");
+    }
+
+    function Reportit(e) {
+
+        //var subid = e.parentElement.parentElement.id;
+        var sub = e.data;
+        var trrmid = $("#TermID").val();
+        $('.eeniart0017').css("display", "block");
+        $.ajax({
+            type: "POST",
+            url: "/TermAssessment/subqueEvaluations",
+            data: { StudentId: sub.StudentID, SubId: sub.Id, TermId: trrmid },
+            success: function (data) {
+                $('.eeniart0017').css("display", "none");
+                if (data.status == "success") {
+                    openquesrom(sub.Id);
+
+                    var questions = data.Value
+                    var category = data.categoryname
+                    var appendarea = $("#Evaluation_Question_Table").find("#eeniart" + sub.Id)[0]
+                    $(appendarea).html('<table style="width: 100%;" id ="sub' + sub.Id + '"></table>')
+                    var ddder = $('<tr style="border-bottom:1px solid #f4f4f4;"><th></th><th class="form-group"><div class="col-md-4"></div><div class="col-md-8"><div class="col-md-2 eeniart001">1st Term</div><div class="col-md-2 eeniart001">2nd Term</div><div class="col-md-2 eeniart001">3rd Term</div></div></th></tr>')
+                    var ddder1 = $('<tr style="border-bottom:1px solid #f4f4f4;"><th>Headings</th><th class="form-group"><div class="col-md-6 col-md-offset-1 eeniart001">Term Evaluation</div></th></tr>')
+                    if (data.ClassId == 88 || data.ClassId == 89 || data.ClassId == 91 || data.ClassId == 95 || data.ClassId == 96) {
+
+                            //$("#key").append('<h4 style="font-family:Times New Roman, Times, serif;">KEY</h4>' +
+                            //    '<div class="col-md-12" style="border:1px solid black; margin-bottom:30px">' +
+                            //   '<div class="col-md-3"><span style="font-size: 15px"><b>Y</b> - Yes</span></div>' +
+                            //   '<div class="col-md-3"><span style="font-size: 15px"><b>W</b> - With Help</span></div>' +
+                            //   '<div class="col-md-3"><span style="font-size: 15px"><b>N</b> - Not Yet</span></div>' +
+                            //   '<div class="col-md-3"><span style="font-size: 15px"><b>X</b> - Not Assessed</span></div></div>')
+
+
+                        $("#sub" + sub.Id).append(ddder)
+                    }
+                    else if (data.ClassId == 86 || data.ClassId == 87 || data.ClassId == 92 || data.ClassId == 93 || data.ClassId == 94) {
+
+                        $("#sub" + sub.Id).append(ddder1)
+                    }
+
+                    if (category.length > 1 && (e.data.SubjectName == "English Language Development" || e.data.SubjectName == "Urdu Language Development"))
+                    {
+                        for (var j = 0; j < category.length; j++)
+                        {
+                            var cname = category[j];
+                            $("#sub" + sub.Id).append('<tr><td><b>'+(cname.CategoryName));
+                            $("#sub" + sub.Id).append('</b></td></tr>');
+                            for (var i = 0; i < questions.length; i++) {
+                                var varvar = questions[i];
+                                if(cname.CategoryName==varvar.Catageory)
+                                {
+                                    var Data = questions[i];
+                                    if (data.ClassId == 88 || data.ClassId == 89 || data.ClassId == 91 || data.ClassId == 95 || data.ClassId == 96) {
+
+                                        //if (data.TId == 1) {
+                                        if (Data.FirstTermGrade == "y" || Data.FirstTermGrade == "Y") {
+                                            var dffdf1 = 'Y';
+                                        }
+                                        else if (Data.FirstTermGrade == "w" || Data.FirstTermGrade == "W") {
+                                            var dffdf1 = 'W';
+                                        }
+                                        else if (Data.FirstTermGrade == "n" || Data.FirstTermGrade == "N") {
+                                            var dffdf1 = 'N';
+                                        }
+                                        else if (Data.FirstTermGrade == "x" || Data.FirstTermGrade == "" || Data.FirstTermGrade == null || Data.FirstTermGrade == "X") {
+                                            var dffdf1 = 'X';
+                                        }
+                                        //}
+                                        //else if (data.TId == 2) {
+                                        if (Data.SecondTermGrade == "y" || Data.SecondTermGrade == "Y") {
+                                            var dffdf2 = 'Y'
+                                        }
+                                        else if (Data.SecondTermGrade == "w" || Data.SecondTermGrade == "W") {
+                                            var dffdf2 = 'W';
+                                        }
+                                        else if (Data.SecondTermGrade == "n" || Data.SecondTermGrade == "N") {
+                                            var dffdf2 = 'N';
+                                        }
+                                        else if (Data.SecondTermGrade == "x" || Data.SecondTermGrade == "" || Data.SecondTermGrade == null || Data.SecondTermGrade == "X") {
+                                            var dffdf2 = 'X';
+                                        }
+                                        //}
+                                        //else {
+                                        if (Data.ThirdTermGrade == "y" || Data.ThirdTermGrade == "Y") {
+                                            var dffdf3 = 'Y';
+                                        }
+                                        else if (Data.ThirdTermGrade == "w" || Data.ThirdTermGrade == "W") {
+                                            var dffdf3 = 'W';
+                                        }
+                                        else if (Data.ThirdTermGrade == "n" || Data.ThirdTermGrade == "N") {
+                                            var dffdf3 = 'N';
+                                        }
+                                        else if (Data.ThirdTermGrade == "x" || Data.ThirdTermGrade == "" || Data.ThirdTermGrade == null || Data.ThirdTermGrade == "X") {
+                                            var dffdf3 = 'X';
+                                        }
+                                        //}
+
+                                        //.append($('<div>').addClass('icheckbox_flat-blue').css({ "position": "relative" }).attr("id", Data.Id).click(Singlecheak).data(Data)
+
+                                        if (trrmid == 22) {
+                                            var que1tr = $('<tr style=" border-bottom: 1px solid #f4f4f4;"><td style="width:30%">' + Data.Question + '</td><td class="form-group">' +
+                                                '<div class="col-md-4"></div><div class="col-md-4" style="float:left">' +
+                                                '<div class="col-md-4 pull-left"><input type="text" id="1t' + Data.Id + '" onfocusout="goodert(this)" class="form-control" value=' + dffdf1 + '></div>' +
+                                                '<div class="col-md-4"><input type="text" disabled id="2t' + Data.Id + '" onfocusout="goodert(this)" class="form-control" value=' + dffdf2 + '></div>' +
+                                                '<div class="col-md-4"><input type="text" disabled id="3t' + Data.Id + '" onfocusout="goodert(this)" class="form-control" value=' + dffdf3 + '></div></div><div class="col-md-4"></div></td></tr>');
+                                        }
+                                        else if (trrmid == 23) {
+                                            var que1tr = $('<tr style=" border-bottom: 1px solid #f4f4f4;"><td style="width:30%">' + Data.Question + '</td><td class="form-group">' +
+                                                            '<div class="col-md-4"></div><div class="col-md-4" style="float:left">' +
+                                                            '<div class="col-md-4 pull-left"><input type="text" disabled id="1t' + Data.Id + '" onfocusout="goodert(this)" class="form-control" value=' + dffdf1 + '></div>' +
+                                                            '<div class="col-md-4"><input type="text" id="2t' + Data.Id + '" onfocusout="goodert(this)" class="form-control" value=' + dffdf2 + '></div>' +
+                                                            '<div class="col-md-4"><input type="text" disabled id="3t' + Data.Id + '" onfocusout="goodert(this)" class="form-control" value=' + dffdf3 + '></div></div><div class="col-md-4"></div></td></tr>');
+                                        }
+                                        else {
+                                            var que1tr = $('<tr style=" border-bottom: 1px solid #f4f4f4;"><td style="width:30%">' + Data.Question + '</td><td class="form-group">' +
+                                                        '<div class="col-md-4"></div><div class="col-md-4" style="float:left">' +
+                                                        '<div class="col-md-4 pull-left"><input type="text" disabled id="1t' + Data.Id + '" onfocusout="goodert(this)" class="form-control" value=' + dffdf1 + '></div>' +
+                                                        '<div class="col-md-4"><input type="text" disabled id="2t' + Data.Id + '" onfocusout="goodert(this)" class="form-control" value=' + dffdf2 + '></div>' +
+                                                        '<div class="col-md-4"><input type="text" id="3t' + Data.Id + '" onfocusout="goodert(this)" class="form-control" value=' + dffdf3 + '></div></div><div class="col-md-4"></div></td></tr>');
+                                        }
+
+                                    }
+                                    else if (data.ClassId == 86 || data.ClassId == 87 || data.ClassId == 92 || data.ClassId == 93 || data.ClassId == 94) {
+
+                                        debugger;
+                                        if (trrmid == 22) {
+                                            if (Data.FirstTermGrade == "b") {
+                                                var dffdf1 = '<option value="a">EXCELLENT</option><option selected value="b">GOOD</option><option value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                            }
+                                            else if (Data.FirstTermGrade == "a") {
+                                                var dffdf1 = '<option selected value="a">EXCELLENT</option><option value="b">GOOD</option><option value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                            }
+                                            else if (Data.FirstTermGrade == "c") {
+                                                var dffdf1 = '<option value="a">EXCELLENT</option><option value="b">GOOD</option><option selected value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                            }
+                                            else if (Data.FirstTermGrade == "n.a" || Data.FirstTermGrade == "" || Data.FirstTermGrade == null) {
+                                                var dffdf1 = '<option value="a">EXCELLENT</option><option value="b">GOOD</option><option value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option selected value="n.a">NOT APPLICABLE</option>';
+                                            }
+                                            else if (Data.FirstTermGrade == "d") {
+                                                var dffdf1 = '<option value="a">EXCELLENT</option><option value="b">GOOD</option><option value="c">SATISFACTORY</option><option selected value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                            }
+
+                                            var que1tr = $('<tr style=" border-bottom: 1px solid #f4f4f4;"><td>' + Data.Question + '</td><td class="form-group"><div class="col-md-6 col-md-offset-1 eeniart001"><select id="1t' + Data.Id + '" onchange="goodert(this)" class="form-control">' + dffdf1 + '</select></div></td></tr>');
+                                        }
+                                        else if (trrmid == 23) {
+                                            if (Data.SecondTermGrade == "b") {
+                                                var dffdf1 = '<option value="a">EXCELLENT</option><option selected value="b">GOOD</option><option value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                            }
+                                            else if (Data.SecondTermGrade == "a") {
+                                                var dffdf1 = '<option selected value="a">EXCELLENT</option><option value="b">GOOD</option><option value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                            }
+                                            else if (Data.SecondTermGrade == "c") {
+                                                var dffdf1 = '<option value="a">EXCELLENT</option><option value="b">GOOD</option><option selected value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                            }
+                                            else if (Data.SecondTermGrade == "n.a" || Data.SecondTermGrade == "" || Data.SecondTermGrade == null) {
+                                                var dffdf1 = '<option value="a">EXCELLENT</option><option value="b">GOOD</option><option value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option selected value="n.a">NOT APPLICABLE</option>';
+                                            }
+                                            else if (Data.SecondTermGrade == "d") {
+                                                var dffdf1 = '<option value="a">EXCELLENT</option><option value="b">GOOD</option><option value="c">SATISFACTORY</option><option selected value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                            }
+
+                                            var que1tr = $('<tr style=" border-bottom: 1px solid #f4f4f4;"><td>' + Data.Question + '</td><td class="form-group"><div class="col-md-6 col-md-offset-1 eeniart001"><select id="1t' + Data.Id + '" onchange="goodert(this)" class="form-control">' + dffdf1 + '</select></div></td></tr>');
+                                        }
+                                        else {
+                                            if (Data.ThirdTermGrade == "b") {
+                                                var dffdf1 = '<option value="a">EXCELLENT</option><option selected value="b">GOOD</option><option value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                            }
+                                            else if (Data.ThirdTermGrade == "a") {
+                                                var dffdf1 = '<option selected value="a">EXCELLENT</option><option value="b">GOOD</option><option value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                            }
+                                            else if (Data.ThirdTermGrade == "c") {
+                                                var dffdf1 = '<option value="a">EXCELLENT</option><option value="b">GOOD</option><option selected value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                            }
+                                            else if (Data.ThirdTermGrade == "n.a" || Data.ThirdTermGrade == "" || Data.ThirdTermGrade == null) {
+                                                var dffdf1 = '<option value="a">EXCELLENT</option><option value="b">GOOD</option><option value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option selected value="n.a">NOT APPLICABLE</option>';
+                                            }
+                                            else if (Data.ThirdTermGrade == "d") {
+                                                var dffdf1 = '<option value="a">EXCELLENT</option><option value="b">GOOD</option><option value="c">SATISFACTORY</option><option selected value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                            }
+
+                                            var que1tr = $('<tr style=" border-bottom: 1px solid #f4f4f4;"><td style="width:30%">' + Data.Question + '</td><td class="form-group"><div class="col-md-6 col-md-offset-1 eeniart001"><select id="1t' + Data.Id + '" onchange="goodert(this)" class="form-control">' + dffdf1 + '</select></div></td></tr>');
+                                        }
+
+
+                                    }
+
+                                    var appendarea = $("#Evaluation_Question_Table").find("#eeniart" + sub.Id)[0];
+                                    $("#sub" + sub.Id).append(que1tr)
+
+
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        for (var i = 0; i < questions.length; i++) {
+
+                                var Data = questions[i];
+                                if (data.ClassId == 88 || data.ClassId == 89 || data.ClassId == 91 || data.ClassId == 95 || data.ClassId == 96) {
+
+                                    //if (data.TId == 1) {
+                                    if (Data.FirstTermGrade == "y" || Data.FirstTermGrade == "Y") {
+                                        var dffdf1 = 'Y';
+                                    }
+                                    else if (Data.FirstTermGrade == "w" || Data.FirstTermGrade == "W") {
+                                        var dffdf1 = 'W';
+                                    }
+                                    else if (Data.FirstTermGrade == "n" || Data.FirstTermGrade == "W") {
+                                        var dffdf1 = 'N';
+                                    }
+                                    else if (Data.FirstTermGrade == "x" || Data.FirstTermGrade == "" || Data.FirstTermGrade == null || Data.FirstTermGrade == "X") {
+                                        var dffdf1 = 'X';
+                                    }
+                                    //}
+                                    //else if (data.TId == 2) {
+                                    if (Data.SecondTermGrade == "y" || Data.SecondTermGrade == "Y") {
+                                        var dffdf2 = 'Y'
+                                    }
+                                    else if (Data.SecondTermGrade == "w" || Data.SecondTermGrade == "W") {
+                                        var dffdf2 = 'W';
+                                    }
+                                    else if (Data.SecondTermGrade == "n" || Data.SecondTermGrade == "N") {
+                                        var dffdf2 = 'N';
+                                    }
+                                    else if (Data.SecondTermGrade == "x" || Data.SecondTermGrade == "" || Data.SecondTermGrade == null || Data.SecondTermGrade == "X") {
+                                        var dffdf2 = 'X';
+                                    }
+                                    //}
+                                    //else {
+                                    if (Data.ThirdTermGrade == "y" || Data.ThirdTermGrade == "Y") {
+                                        var dffdf3 = 'Y';
+                                    }
+                                    else if (Data.ThirdTermGrade == "w" || Data.ThirdTermGrade == "W") {
+                                        var dffdf3 = 'W';
+                                    }
+                                    else if (Data.ThirdTermGrade == "n" || Data.ThirdTermGrade == "N") {
+                                        var dffdf3 = 'N';
+                                    }
+                                    else if (Data.ThirdTermGrade == "x" || Data.ThirdTermGrade == "" || Data.ThirdTermGrade == null || Data.ThirdTermGrade == "X") {
+                                        var dffdf3 = 'X';
+                                    }
+                                    //}
+
+                                    //.append($('<div>').addClass('icheckbox_flat-blue').css({ "position": "relative" }).attr("id", Data.Id).click(Singlecheak).data(Data)
+
+                                    if (trrmid == 22) {
+                                        var que1tr = $('<tr style=" border-bottom: 1px solid #f4f4f4;"><td style="width:30%">' + Data.Question + '</td><td class="form-group">' +
+                                            '<div class="col-md-4"></div><div class="col-md-4" style="float:left">' +
+                                            '<div class="col-md-4 pull-left"><input type="text" id="1t' + Data.Id + '" onfocusout="goodert(this)" class="form-control" value=' + dffdf1 + '></div>' +
+                                            '<div class="col-md-4"><input type="text" disabled id="2t' + Data.Id + '" onfocusout="goodert(this)" class="form-control" value=' + dffdf2 + '></div>' +
+                                            '<div class="col-md-4"><input type="text" disabled id="3t' + Data.Id + '" onfocusout="goodert(this)" class="form-control" value=' + dffdf3 + '></div></div><div class="col-md-4"></div></td></tr>');
+                                    }
+                                    else if (trrmid == 23) {
+                                        var que1tr = $('<tr style=" border-bottom: 1px solid #f4f4f4;"><td style="width:30%">' + Data.Question + '</td><td class="form-group">' +
+                                                        '<div class="col-md-4"></div><div class="col-md-4" style="float:left">' +
+                                                        '<div class="col-md-4 pull-left"><input type="text" disabled id="1t' + Data.Id + '" onfocusout="goodert(this)" class="form-control" value=' + dffdf1 + '></div>' +
+                                                        '<div class="col-md-4"><input type="text" id="2t' + Data.Id + '" onfocusout="goodert(this)" class="form-control" value=' + dffdf2 + '></div>' +
+                                                        '<div class="col-md-4"><input type="text" disabled id="3t' + Data.Id + '" onfocusout="goodert(this)" class="form-control" value=' + dffdf3 + '></div></div><div class="col-md-4"></div></td></tr>');
+                                    }
+                                    else {
+                                        var que1tr = $('<tr style=" border-bottom: 1px solid #f4f4f4;"><td style="width:30%">' + Data.Question + '</td><td class="form-group">' +
+                                                    '<div class="col-md-4"></div><div class="col-md-4" style="float:left">' +
+                                                    '<div class="col-md-4 pull-left"><input type="text" disabled id="1t' + Data.Id + '" onfocusout="goodert(this)" class="form-control" value=' + dffdf1 + '></div>' +
+                                                    '<div class="col-md-4"><input type="text" disabled id="2t' + Data.Id + '" onfocusout="goodert(this)" class="form-control" value=' + dffdf2 + '></div>' +
+                                                    '<div class="col-md-4"><input type="text" id="3t' + Data.Id + '" onfocusout="goodert(this)" class="form-control" value=' + dffdf3 + '></div></div><div class="col-md-4"></div></td></tr>');
+                                    }
+
+                                }
+                                else if (data.ClassId == 86 || data.ClassId == 87 || data.ClassId == 92 || data.ClassId == 93 || data.ClassId == 94) {
+                                    debugger;
+                                    if (trrmid == 22) {
+                                        if (Data.FirstTermGrade == "b") {
+                                            var dffdf1 = '<option value="a">EXCELLENT</option><option selected value="b">GOOD</option><option value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                        }
+                                        else if (Data.FirstTermGrade == "a") {
+                                            var dffdf1 = '<option selected value="a">EXCELLENT</option><option value="b">GOOD</option><option value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                        }
+                                        else if (Data.FirstTermGrade == "c") {
+                                            var dffdf1 = '<option value="a">EXCELLENT</option><option value="b">GOOD</option><option selected value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                        }
+                                        else if (Data.FirstTermGrade == "n.a" || Data.FirstTermGrade == "" || Data.FirstTermGrade == null) {
+                                            var dffdf1 = '<option value="a">EXCELLENT</option><option value="b">GOOD</option><option value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option selected value="n.a">NOT APPLICABLE</option>';
+                                        }
+                                        else if (Data.FirstTermGrade == "d") {
+                                            var dffdf1 = '<option value="a">EXCELLENT</option><option value="b">GOOD</option><option value="c">SATISFACTORY</option><option selected value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                        }
+
+                                        var que1tr = $('<tr style=" border-bottom: 1px solid #f4f4f4;"><td>' + Data.Question + '</td><td class="form-group"><div class="col-md-6 col-md-offset-1 eeniart001"><select id="1t' + Data.Id + '" onchange="goodert(this)" class="form-control">' + dffdf1 + '</select></div></td></tr>');
+                                    }
+                                    else if (trrmid == 23) {
+                                        if (Data.SecondTermGrade == "b") {
+                                            var dffdf1 = '<option value="a">EXCELLENT</option><option selected value="b">GOOD</option><option value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                        }
+                                        else if (Data.SecondTermGrade == "a") {
+                                            var dffdf1 = '<option selected value="a">EXCELLENT</option><option value="b">GOOD</option><option value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                        }
+                                        else if (Data.SecondTermGrade == "c") {
+                                            var dffdf1 = '<option value="a">EXCELLENT</option><option value="b">GOOD</option><option selected value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                        }
+                                        else if (Data.SecondTermGrade == "n.a" || Data.SecondTermGrade == "" || Data.SecondTermGrade == null) {
+                                            var dffdf1 = '<option value="a">EXCELLENT</option><option value="b">GOOD</option><option value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option selected value="n.a">NOT APPLICABLE</option>';
+                                        }
+                                        else if (Data.SecondTermGrade == "d") {
+                                            var dffdf1 = '<option value="a">EXCELLENT</option><option value="b">GOOD</option><option value="c">SATISFACTORY</option><option selected value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                        }
+
+                                        var que1tr = $('<tr style=" border-bottom: 1px solid #f4f4f4;"><td>' + Data.Question + '</td><td class="form-group"><div class="col-md-6 col-md-offset-1 eeniart001"><select id="2t' + Data.Id + '" onchange="goodert(this)" class="form-control">' + dffdf1 + '</select></div></td></tr>');
+                                    }
+                                    else {
+                                        if (Data.ThirdTermGrade == "b") {
+                                            var dffdf1 = '<option value="a">EXCELLENT</option><option selected value="b">GOOD</option><option value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                        }
+                                        else if (Data.ThirdTermGrade == "a") {
+                                            var dffdf1 = '<option selected value="a">EXCELLENT</option><option value="b">GOOD</option><option value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                        }
+                                        else if (Data.ThirdTermGrade == "c") {
+                                            var dffdf1 = '<option value="a">EXCELLENT</option><option value="b">GOOD</option><option selected value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                        }
+                                        else if (Data.ThirdTermGrade == "n.a" || Data.ThirdTermGrade == "" || Data.ThirdTermGrade == null) {
+                                            var dffdf1 = '<option value="a">EXCELLENT</option><option value="b">GOOD</option><option value="c">SATISFACTORY</option><option value="d">CAUSE FOR CONCERN</option><option selected value="n.a">NOT APPLICABLE</option>';
+                                        }
+                                        else if (Data.ThirdTermGrade == "d") {
+                                            var dffdf1 = '<option value="a">EXCELLENT</option><option value="b">GOOD</option><option value="c">SATISFACTORY</option><option selected value="d">CAUSE FOR CONCERN</option><option value="n.a">NOT APPLICABLE</option>';
+                                        }
+
+                                        var que1tr = $('<tr style=" border-bottom: 1px solid #f4f4f4;"><td style="width:30%">' + Data.Question + '</td><td class="form-group"><div class="col-md-6 col-md-offset-1 eeniart001"><select id="3t' + Data.Id + '" onchange="goodert(this)" class="form-control">' + dffdf1 + '</select></div></td></tr>');
+                                    }
+
+
+                                }
+
+                                var appendarea = $("#Evaluation_Question_Table").find("#eeniart" + sub.Id)[0];
+                                $("#sub" + sub.Id).append(que1tr)
+
+
+
+                        }
+
+
+                    }
+
+
+
+                } else {
+
+                }
+
+
+
+                //$('#Evaluation_data').html(data);
+                //$('Comment_Evaluation').prop('disabled', false);
+            },
+            error: function (xhr) {
+                $('.eeniart0017').css("display", "none");
+                alert(xhr.responseText);
+            }
+        });
+
+
+    }
+    function openquesrom(e) {
+        var questionstr = $("#Evaluation_Question_Table").find("#eeniart" + e);
+
+    }
+
+    function goodert(e) {
+        debugger;
+       // alert(e.value);
+        var qid = e.id;
+        var grade = e.value;
+
+        $.ajax({
+            type: "POST",
+            url: "/TermAssessment/addgrade",
+            data: { Ques: qid, Grade: grade },
+            success: function (data) {
+                if (data.status == "success") {
+
+
+
+                } else {
+
+                }
+
+
+            },
+            error: function (xhr) {
+                alert(xhr.responseText);
+            }
+        });
+    }
+
+    function goodert1(e) {
+        alert(e.value);
+        var qid = e.id;
+        var grade = e.value;
+
+        $.ajax({
+            type: "POST",
+            url: "/TermAssessment/addgrade1",
+            data: { Ques: qid, Grade: grade },
+            success: function (data) {
+                if (data.status == "success") {
+
+
+
+                } else {
+
+                }
+
+
+            },
+            error: function (xhr) {
+                alert(xhr.responseText);
+            }
+        });
+    }
+
+    function submit_Evaluation() {
+        var classID = $("#ClassID").val();
+        var studentId = $("#hidden").val();
+        $.get('@Url.Action("submit_Evaluation","TermAssessment")',
+           { StudentId: studentId, ClassID: classID }, function (data) {
+
+               $("#Evaluation_Question_Table").find("select,input,textarea").attr("disabled", true);
+               $('#Comment_Save').prop('disabled', true);
+
+           });
+
+
+        var id = $("#trId").val();
+        id = "#" + id;
+        $(id).find("td span").removeClass();
+        $(id).find("td span").addClass("glyphicon glyphicon-ok-circle text-success");
+        $(id).find("td span").css({ "color": "#3c763d" })
+
+    }
+
+
+
+
+
+
+    function printpreview()
+    {
+        var i = 0;
+        var trrmid = $("#TermID").val();
+        var studentId = $("#hidden").val();
+        $.ajax({
+            type: "POST",
+            url: "/TermAssessment/PrintPreviewData",
+            data: { StudentId: studentId, "type": "teacher", TermId: trrmid },
+            success: function (data) {
+                var s = 0;
+                $.each(data.subValue, function (i, item) {
+                    var subjectid = data.subValue[i];
+                    var SId = subjectid.Id;
+                    $('.eeniart0017').css("display", "block");
+                    $.ajax({
+                        type: "POST",
+                        url: "/TermAssessment/Assessment_PrintPreview",
+                        data: { StudentId: studentId, SID: SId},
+                        success: function (data1) {
+                            $('.eeniart0017').css("display", "none");
+                            if (data.ClassId == 88 || data.ClassId == 89 || data.ClassId == 91 || data.ClassId == 95 || data.ClassId == 96)
+                              {
+                                var Subject = data.subValue[i];
+                                $("#load").append('<div id="main' + s + '" class="section" style="margin-bottom:5px;padding:8px;width:100%">' +
+                                                 '<link href="~/Content/EeNiArTWork.css" rel="stylesheet" />' +
+                                                 '<link href="~/AdminLTE/bootstrap/css/bootstrap.css" rel="stylesheet" />' +
+                                                 '<link type="text/css" rel="stylesheet" media="print" href="/css/print.css" />' +
+                                                 '<span class="col-xs-12" style="text-align:center;display:block;font-size: 120%;margin-bottom:5px;margin-top:5px;border:1px solid black"><b>' + Subject.SubjectName + '</b></span></div><br />')
+                                if (Subject.SubjectName == "English Language Development" || Subject.SubjectName == "Urdu Language Development") {
+                                    for (var j = 0; j < data.categoryname.length; j++) {
+                                        var Category = data.categoryname[j];
+
+                                        for (var k = 0; k < data1.Value.length; k++) {
+                                            var quesGrade = data1.Value[k];
+                                            if (Category.CategoryName == quesGrade.Catageory) {
+                                                if (data.ClassId == 88 || data.ClassId == 89 || data.ClassId == 91 || data.ClassId == 95 || data.ClassId == 96) {
+
+                                                    //if (data.TId == 1) {
+                                                    if (quesGrade.FirstTermGrade == "y") {
+                                                        var dffdf1 = 'Y';
+                                                    }
+                                                    else if (quesGrade.FirstTermGrade == "w") {
+                                                        var dffdf1 = 'W';
+                                                    }
+                                                    else if (quesGrade.FirstTermGrade == "n") {
+                                                        var dffdf1 = 'N';
+                                                    }
+                                                    else if (quesGrade.FirstTermGrade == "x" || quesGrade.FirstTermGrade == "" || quesGrade.FirstTermGrade == null) {
+                                                        var dffdf1 = 'X';
+                                                    }
+                                                    //}
+                                                    //else if (data.TId == 2) {
+                                                    if (quesGrade.SecondTermGrade == "y") {
+                                                        var dffdf2 = 'Y'
+                                                    }
+                                                    else if (quesGrade.SecondTermGrade == "w") {
+                                                        var dffdf2 = 'W';
+                                                    }
+                                                    else if (quesGrade.SecondTermGrade == "n") {
+                                                        var dffdf2 = 'N';
+                                                    }
+                                                    else if (quesGrade.SecondTermGrade == "x" || quesGrade.SecondTermGrade == "" || quesGrade.SecondTermGrade == null) {
+                                                        var dffdf2 = 'X';
+                                                    }
+                                                    //}
+                                                    //else {
+                                                    if (quesGrade.ThirdTermGrade == "y") {
+                                                        var dffdf3 = 'Y';
+                                                    }
+                                                    else if (quesGrade.ThirdTermGrade == "w") {
+                                                        var dffdf3 = 'W';
+                                                    }
+                                                    else if (quesGrade.ThirdTermGrade == "n") {
+                                                        var dffdf3 = 'N';
+                                                    }
+                                                    else if (quesGrade.ThirdTermGrade == "x" || quesGrade.ThirdTermGrade == "" || quesGrade.ThirdTermGrade == null) {
+                                                        var dffdf3 = 'X';
+                                                    }
+                                                }
+
+
+                                                $("#main" + s).append(
+                                                   '<div class="col-xs-6">' +
+                                                     '<span style="text-align:left" id="category"><b>' + Category.CategoryName + '</b></span>' +
+
+                                                        '<div class="col-xs-12" id="questions">' +
+
+                                                           '<div class="col-xs-6">' +
+                                                               '<span style="text-align:left;style="margin-bottom:2px" id="question">' + quesGrade.Question + '</span>' +
+                                                           '</div>' +
+                                                           '<div class="col-xs-6">' +
+                                                               '<div class="col-xs-2" style="border:1px solid black">' + dffdf1 + '</div>' +
+                                                               '<div class="col-xs-2 col-xs-offset-2" style="border:1px solid black">' + dffdf2 + '</div>' +
+                                                               '<div class="col-xs-2 col-xs-offset-2" style="border:1px solid black">' + dffdf3 + '</div>' +
+                                                           '</div>' +
+                                                           '</div>' +
+                                                   '</div>')
+                                            }
+
+
+                                        }
+                                    }
+                                }
+                                else {
+                                    for (var k = 0; k < data1.Value.length; k++) {
+                                        var quesGrade = data1.Value[k];
+                                        if (data.ClassId == 88 || data.ClassId == 89 || data.ClassId == 91 || data.ClassId == 95 || data.ClassId == 96) {
+
+                                            //if (data.TId == 1) {
+                                            if (quesGrade.FirstTermGrade == "y") {
+                                                var dffdf1 = 'Y';
+                                            }
+                                            else if (quesGrade.FirstTermGrade == "w") {
+                                                var dffdf1 = 'W';
+                                            }
+                                            else if (quesGrade.FirstTermGrade == "n") {
+                                                var dffdf1 = 'N';
+                                            }
+                                            else if (quesGrade.FirstTermGrade == "x" || quesGrade.FirstTermGrade == "" || quesGrade.FirstTermGrade == null) {
+                                                var dffdf1 = 'X';
+                                            }
+                                            //}
+                                            //else if (data.TId == 2) {
+                                            if (quesGrade.SecondTermGrade == "y") {
+                                                var dffdf2 = 'Y'
+                                            }
+                                            else if (quesGrade.SecondTermGrade == "w") {
+                                                var dffdf2 = 'W';
+                                            }
+                                            else if (quesGrade.SecondTermGrade == "n") {
+                                                var dffdf2 = 'N';
+                                            }
+                                            else if (quesGrade.SecondTermGrade == "x" || quesGrade.SecondTermGrade == "" || quesGrade.SecondTermGrade == null) {
+                                                var dffdf2 = 'X';
+                                            }
+                                            //}
+                                            //else {
+                                            if (quesGrade.ThirdTermGrade == "y") {
+                                                var dffdf3 = 'Y';
+                                            }
+                                            else if (quesGrade.ThirdTermGrade == "w") {
+                                                var dffdf3 = 'W';
+                                            }
+                                            else if (quesGrade.ThirdTermGrade == "n") {
+                                                var dffdf3 = 'N';
+                                            }
+                                            else if (quesGrade.ThirdTermGrade == "x" || quesGrade.ThirdTermGrade == "" || quesGrade.ThirdTermGrade == null) {
+                                                var dffdf3 = 'X';
+                                            }
+                                        }
+                                        $("#main" + s).append(
+                                           '<div class="col-xs-6">' +
+                                             '<span style="text-align:left" id="category">' + "" + '</span>' +
+
+                                                '<div class="col-xs-12" style="margin-bottom:2px" id="questions">' +
+
+                                                   '<div class="col-xs-6">' +
+                                                       '<span style="text-align:left" id="question">' + quesGrade.Question + '</span>' +
+                                                   '</div>' +
+                                                   '<div class="col-xs-6">' +
+                                                       '<div class="col-xs-2" style="border:1px solid black">' + dffdf1 + '</div>' +
+                                                       '<div class="col-xs-2 col-xs-offset-2" style="border:1px solid black">' + dffdf2 + '</div>' +
+                                                       '<div class="col-xs-2 col-xs-offset-2" style="border:1px solid black">' + dffdf3 + '</div>' +
+                                                   '</div>' +
+                                                   '</div><br />' +
+                                           '</div>')
+                                    }
+                                }
+                                s++;
+                            }
+                            else
+                            {
+                                var Subject = data.subValue[i];
+                              //  $("#Grade").append('<tr style="border-bottom:1px solid #f4f4f4;"><th class="eeniart003" style="width:40%">Topics</th><th class="eeniart003" style="width:20%">1st Term</th><th class="eeniart003" style="width:20%">2nd Term</th><th class="eeniart003" style="width:20%">3rd Term</th></tr>');
+
+
+
+                                $("#load").append('<div id="mainN'+s+'" class="section" style="margin-bottom:5px;padding:8px;width:100%">' +
+                                                '<link href="~/Content/EeNiArTWork.css" rel="stylesheet" />' +
+                                                '<link href="~/AdminLTE/bootstrap/css/bootstrap.css" rel="stylesheet" />' +
+                                                '<link type="text/css" rel="stylesheet" media="print" href="/css/print.css" />' +
+                                                '<table style="width:100%;margin-bottom:-0.5%"><tr><th style="width:50%"><span class="col-xs-12" style="text-align:left;display:block;font-size: 120%;margin-bottom:5px;margin-top:5px;border:1px solid black"><b>' + Subject.SubjectName + '</b></span></th><th><span class="col-xs-12" style="text-align:left;display:block;font-size: 120%;margin-bottom:5px;margin-top:5px;border:1px solid black"><b>TERM EVALUATION</b></span></th></tr></div><br />');
+
+                                for (var k = 0; k < data1.Value.length; k++) {
+
+                                    var quesGrade = data1.Value[k];
+
+
+                                    if (trrmid == 22) {
+                                        if (quesGrade.FirstTermGrade == "a") {
+                                            var dffdf1 = 'EXCELLENT';
+                                        }
+                                        else if (quesGrade.FirstTermGrade == "b") {
+                                            var dffdf1 = 'GOOD';
+                                        }
+                                        else if (quesGrade.FirstTermGrade == "c") {
+                                            var dffdf1 = 'SATISFACTORY';
+                                        }
+                                        else if (quesGrade.FirstTermGrade == "n.a" || quesGrade.FirstTermGrade == "" || quesGrade.FirstTermGrade == null) {
+                                            var dffdf1 = 'NOT APPLICABLE';
+                                        }
+                                        else if (quesGrade.FirstTermGrade == "d") {
+                                            var dffdf1 = 'CAUSE FOR CONCERN';
+                                        }
+
+                                        var que1tr = $('<table style="width:100%;"><tr style=" border-bottom: 1px solid #f4f4f4;width=100%;"><td style="width:50%;border-left:0.5px solid black;border-right:0.5px solid black;border-bottom:0.5px solid black">' + quesGrade.Question + '</td><td class="form-group" style="border-bottom:0.5px solid black;border-right:0.5px solid black"><div class="col-md-6 eeniart001">' + dffdf1 + '</div></td></tr></table>');
+                                    }
+
+                                    else if (trrmid == 23) {
+                                        if (quesGrade.SecondTermGrade == "b") {
+                                            var dffdf1 = 'GOOD';
+                                        }
+                                        else if (quesGrade.SecondTermGrade == "a") {
+                                            var dffdf1 = 'EXCELLENT';
+                                        }
+                                        else if (quesGrade.SecondTermGrade == "c") {
+                                            var dffdf1 = 'SATISFACTORY';
+                                        }
+                                        else if (quesGrade.SecondTermGrade == "n.a" || quesGrade.SecondTermGrade == "" || quesGrade.SecondTermGrade == null) {
+                                            var dffdf1 = 'NOT APPLICABLE';
+                                        }
+                                        else if (quesGrade.SecondTermGrade == "d") {
+                                            var dffdf1 = 'CAUSE FOR CONCERN';
+                                        }
+
+                                        var que1tr = $('<table style="width:100%"><tr style=" border-bottom: 1px solid #f4f4f4;width=100%;"><td style="width:50%;border:0.5px solid black">' + quesGrade.Question + '</td><td class="form-group" style="border:0.5px solid black"><div class="col-md-6 eeniart001">' + dffdf1 + '</div></td></tr></table>');
+                                    }
+                                    else {
+                                        if (quesGrade.ThirdTermGrade == "b") {
+                                            var dffdf1 = 'GOOD';
+                                        }
+                                        else if (quesGrade.ThirdTermGrade == "a") {
+                                            var dffdf1 = 'EXCELLENT';
+                                        }
+                                        else if (quesGrade.ThirdTermGrade == "c") {
+                                            var dffdf1 = 'SATISFACTORY';
+                                        }
+                                        else if (quesGrade.ThirdTermGrade == "n.a" || quesGrade.ThirdTermGrade == "" || quesGrade.ThirdTermGrade == null) {
+                                            var dffdf1 = 'NOT APPLICABLE';
+                                        }
+                                        else if (quesGrade.ThirdTermGrade == "d") {
+                                            var dffdf1 = 'CAUSE FOR CONCERN';
+                                        }
+
+                                        var que1tr = $('<table style="width:100%"><tr style=" border-bottom: 1px solid #f4f4f4;width=100%;"><td style="width:50%;border:0.5px solid black">' + quesGrade.Question + '</td><td class="form-group" style="border:0.5px solid black"><div class="col-md-6 eeniart001">' + dffdf1 + '</div></td></tr></table>');
+                                    }
+
+                                    $("#mainN"+s).append(que1tr);
+
+
+
+                                }
+                                s++;
+                                }
+
+
+
+
+                        }
+
+                    });
+
+                });
+
+
+            }
+        });
+
+    }
+
+
+</script>
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <b><a href="#">Class Assessment</a></b> </label>
+<h4>Class Assessment</h4>
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="row">
+            <div class="form-horizontal">
+                @*<div class="col-md-8">*@
+
+                <div class="form-group">
+                    <lable class="col-md-2 col-lg-2 control-label"><b>Select Term</b></lable>
+                    <div class="col-md-6">
+                        @{
+                            List<SelectListItem> listItems = new List<SelectListItem>();
+                            listItems.Add(new SelectListItem
+                            {
+                                Text = "First Term",
+                                Value = "12",
+                                Selected = true
+                            });
+                            listItems.Add(new SelectListItem
+                            {
+                                Text = "Second Term",
+                                Value = "13",
+                            });
+                            listItems.Add(new SelectListItem
+                            {
+                                Text = "Third Term",
+                                Value = "14",
+                            });
+                            listItems.Add(new SelectListItem
+                            {
+                                Text = "Final Term",
+                                Value = "16",
+                            });
+                        }
+
+                        @Html.DropDownList("TermID", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <lable class="col-md-2 col-lg-2 control-label"><b>Select Class</b></lable>
+                    <div class="col-md-6">
+                        @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*</div>*@
+        <style>
+            .table tr td:nth-child(1) {
+                text-align: left;
+            }
+        </style>
+        <div class="row" id="studentseeniart">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Evaluation</th>
+                        <th>Status<input id="hidden" value="empty" type="hidden" /></th>
+                    </tr>
+                </thead>
+                <tbody id="StudentTable" style="text-align:center"></tbody>
+            </table>
+        </div>
+
+        <div class="row" id="evaliationformeeniart" style="display:none">
+            <div class="col-md-12">
+                <div class="box box-primary">
+
+                    @*<div class="box-body">
+                        <span id="StudentName" class="text-success evaluate eeniart002"></span>
+                        <input type="hidden" id="trId" />
+                        <div id="Evaluation_data">
+                        </div>
+                    </div>*@
+                    
+                   <h1 id="pclassName" style="text-align:center;margin-bottom:30px; font-family:Times New Roman, Times, serif; "></h1>
+                    <div class="col-md-12 row" style="margin-bottom:30px">
+                        <div class="col-md-6">
+                            <span class="col-md-2"><b>Name:</b></span><label class="col-md-10 pull-left" id="pStudentName" style="text-align:left; border-bottom:1px solid black"></label>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="col-md-4"><b>Student No.</b></span><label id="pstdname" style="border-bottom:1px solid black" class="col-md-8 pull-left"></label>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="col-md-4"><b>Teacher</b></span><label style="border-bottom:1px solid black" id="pteachername" class="col-md-8 pull-left"></label>
+                        </div>
+
+                     </div>
+                 
+                    <div style="border:1px solid black; margin-bottom:30px" class="col-md-12">
+                        <div class="col-md-5" style="border-right:1px solid black;height:100%">
+                            <div  class="col-md-6" style="border-right:1px solid black;height:100%;">
+                               <span style="text-align:center">Age:</span><br /> <input type="text" style="border:none" />
+                            </div>
+                            <div class="col-md-6">
+                                <span>Height: </span><br /><input type="text" style="border:none" />
+                                
+                            </div>
+                        </div>
+                        <div style="border-right:1px solid black" class="col-md-2">
+                            <span>Weight: </span><input type="text" style="border:none" />
+                        </div>
+                        <div class="col-md-5" >
+                            <div  class="col-md-6" style="border-right:1px solid black;height:100%">
+                                <span>Days attended:</span><br /> <input type="text" style="border:none" />
+                            </div>
+                            <div class="col-md-6">
+                                <span>Days Absent:</span> <br /><input type="text" style="border:none" />
+                            </div>
+                        </div>
+                    </div>
+                        <div id="key">
+                           
+                        </div>
+                    
+                    @*<div class="col-md-12" style="border:1px solid black; margin-bottom:30px">
+                        <div class="col-md-3"><span style="font-size: 15px"><b>Y</b> - Yes</span></div>
+                        <div class="col-md-3"><span style="font-size: 15px"><b>W</b> - With Help</span></div>
+                        <div class="col-md-3"><span style="font-size: 15px"><b>N</b> - Not Yet</span></div>
+                        <div class="col-md-3"><span style="font-size: 15px"><b>X</b> - Not Assessed</span></div>
+                    </div>*@
+
+                     <div id="Evaluation_data"></div>
+                    
+         <!-------------------------------------------Print Preview Modal----------------------------------------------->
+                    <div class="modal fade" id="printmodal" tabindex="-1" role="dialog" style="width:1250px" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="Print" data-dismiss="modal">Print Preview</button>
+                                </div>
+                            
+                               
+
+                                </div>
+                            </div>
+                         </div>
+                                                    <!--------Print Preview web------->
+
+                    
+                    <div id="printDiv"  style="display:none;" >
+                       <div id="load">
+                           <div>
+                               <div>
+                                   <h1 id="className" style="text-align:center;margin-bottom:30px; font-family:Times New Roman, Times, serif; "></h1>
+                                   <div class="col-xs-12 row" style="margin-bottom:30px">
+                                       <div class="col-xs-5">
+                                           <span class="col-xs-2"><b>Name:</b></span><label class="col-xs-10 pull-left" id="StudentName" style="text-align:left; border-bottom:1px solid black"></label>
+                                       </div>
+                                       <div class="col-xs-3">
+                                           <span class="col-xs-6"><b>Student No.</b></span><label id="stdname" style="border-bottom:1px solid black" class="col-xs-6 pull-left"></label>
+                                       </div>
+                                       <div class="col-xs-4">
+                                           <span class="col-xs-4"><b>Teacher</b></span><label style="border-bottom:1px solid black" id="teachername" class="col-xs-8 pull-left"></label>
+                                       </div>
+
+                                   </div>
+                               </div>
+                               <br />
+                               <div style="border:1px solid black; margin-bottom:30px" class="col-xs-12">
+                                   <div class="col-xs-5" style="border-right:1px solid black;height:100%">
+                                       <div class="col-xs-6" style="border-right:1px solid black;height:100%;">
+                                           <span style="text-align:center">Age:</span><br /> <input type="text" style="border:none" />
+                                       </div>
+                                       <div class="col-xs-6">
+                                           <span>Height: </span><br /><input type="text" style="border:none" />
+
+                                       </div>
+                                   </div>
+                                   <div style="border-right:1px solid black" class="col-xs-2">
+                                       <span>Weight: </span><input type="text" style="border:none" />
+                                   </div>
+                                   <div class="col-xs-5">
+                                       <div class="col-xs-6" style="border-right:1px solid black;height:100%">
+                                           <span>Days attended:</span><br /> <input type="text" style="border:none" />
+                                       </div>
+                                       <div class="col-xs-6">
+                                           <span>Days Absent:</span> <br /><input type="text" style="border:none" />
+                                       </div>
+                                   </div>
+                                   <br /><br />
+                               </div>
+                               
+                               <div class="col-xs-12" style="border:1px solid black; margin-bottom:30px;margin-top:30px">
+                                   <div class="col-xs-3"><span style="font-size: 15px"><b>Y</b> - Yes</span></div>
+                                   <div class="col-xs-3"><span style="font-size: 15px"><b>W</b> - With Help</span></div>
+                                   <div class="col-xs-3"><span style="font-size: 15px"><b>N</b> - Not Yet</span></div>
+                                   <div class="col-xs-3"><span style="font-size: 15px"><b>X</b> - Not Assessed</span></div>
+                               </div>
+
+                           </div>
+                       </div>
+
+                    </div>
+
+                    
+                   
+                          <!-------------------------------------------------Comments--------------------------------------------->
+
+
+
+                                <div class="col-md-8">
+                                    <br />
+                                    <label class="control-label col-md-2">Teacher Comment</label>
+                                    <div class="col-md-10">
+                                        <input onblur="Tcomment()" class="form-control" type="text" id="TC" />
+                                    </div>
+                                    <br /><br /><br />
+                                </div>
+                                <div class="col-md-8">
+                                    <label class="control-label col-md-2">Parent Comment</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="PC" readonly />
+                                    </div>
+                                    <br /><br /><br />
+                                </div>
+                                <div class="col-md-8">
+                                    <label class="control-label col-md-2">Principal Comment</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="PrC" readonly />
+                                    </div>
+                                    <br /><br /><br />
+                                </div>
+                                <div class="box-footer">
+                                    <button type="button" onclick="studentseeni()" id="saceassess" class="col-md-3 col-md-offset-4 btn btn-primary">Done With Assessment</button>
+                                </div>
+                                <div>
+                                    <button class="btn btn-primary pull-right" onclick="Print()">Print</button>
+                                </div>
+                                <div id="partial">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+      
+
+        <div class="row">
+
+        </div>
+    </div>
+</div>
+<!----------------------------------------------------------------------------------->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                After submitting you won't be able to change data
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="submit_Evaluation()" data-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---------------------------------------------------------------------------------------------->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Complete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Term of the latest session is not started yet
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

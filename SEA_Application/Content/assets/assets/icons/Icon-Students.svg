@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
+    <defs>
+        <style>
+            .prefix__cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px}
+        </style>
+    </defs>
+    <g id="prefix__Icon-Students" transform="translate(-1648.702 -688.955)">
+        <circle id="prefix__Ellipse_186" cx="5.607" cy="5.607" r="5.607" class="prefix__cls-1" data-name="Ellipse 186" transform="translate(1656.095 689.955)"/>
+        <path id="prefix__Path_419" d="M1653.474 700.62a5.952 5.952 0 0 0-3.772 5.779v4.04a3.405 3.405 0 0 0 3.26 3.516h17.479a3.406 3.406 0 0 0 3.261-3.516V706.4a5.964 5.964 0 0 0-3.6-5.711" class="prefix__cls-1" data-name="Path 419"/>
+        <path id="prefix__Path_420" d="M1669.093 708.366a4.639 4.639 0 0 0-2.3-3.942" class="prefix__cls-1" data-name="Path 420"/>
+    </g>
+</svg>

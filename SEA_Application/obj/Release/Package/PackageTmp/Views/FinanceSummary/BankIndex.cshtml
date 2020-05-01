@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "BankIndex";
+}
+<h2 style="font-family:Montserrat">Bank Account</h2>
+<script>
+    $(document).ready(function () {
+        table = $('#example').dataTable();
+        $('.table').on('click', 'tbody tr', function () {
+            debugger;
+            var td = $(this).children("td");
+            window.location.href = "JournalEntryList?id=" + $(td[0]).html();
+        })
+
+        drawTable();
+        $.ajax({
+            type: "POST",
+            url: "/FinanceSummary/BankList",
+            success: function (data) {
+                debugger;
+                table.fnClearTable();
+                $.each(data, function (i, item) {
+                    debugger;
+                    table.fnAddData([item.Id, item.Name, numberWithCommas(item.StartingBalance), numberWithCommas(item.CurrentBalance), item.g_name, item.h_name]);
+
+                })
+
+            }
+        })
+    })
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    function NewAccount() {
+        window.location.href = "/Ledgers/BankCreate";
+    }
+    function drawTable() {
+        $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+        //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+
+        $('#example_wrapper').css("text-align", "left");
+        $('#example_length').css("text-align", "left");
+        $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+        $("#example_length label").css("text-align", "left");
+        $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+        // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+        //$('#example_length').css({ "overflow": "auto" });
+        $('#example_filter input').addClass("add");
+        $('#example_filter').append('<span class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+        var list = $("#ClassID").html();
+        $('#example_length').append(
+
+            '<div class="col-md-1 col-lg-1" style="width:0%;margin-top:10px ;padding-left:1px;">' +
+            '<div class="d-bar"></div>' +
+            '</div>'
+            +
+            '<div class="col-md-3 col-lg-3" style="margin-top:-10px">' +
+            '<input type="button" class="btn btn-default" onclick="NewAccount()" style="background-color:white;font-family:Montserrat;margin-top:7px;font-weight:700" value="New Account" />' +
+            '</div>' +
+            '</div>');
+        $("#Class").prepend("<option value='0' selected>All</option>");
+    }
+</script>
+<style>
+    #example tr > :nth-child(1) {
+        display: none;
+    }
+</style>
+@Html.ActionLink("New Bank Entry", "Bank", "FinanceSummary")
+<div class="box box-primary">
+    <div class="box-body">
+        <table class="table table-bordered" style="font-family:Montserrat" cellpadding="0" cellspacing="0" border="0" ; id="example">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Starting Balance</th>
+                    <th>Current Balance</th>
+                    <th>Group</th>
+                    <th>Accounting Head</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+

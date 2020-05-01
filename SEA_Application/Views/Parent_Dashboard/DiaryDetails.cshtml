@@ -1,0 +1,136 @@
+﻿@model IEnumerable<SEA_Application.Models.AspNetSubject_Homework>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > @Html.ActionLink("Diary", "Student_HomeWork", "Parent_Dashboard") > <a href="#"><b>Diary Details</b></a> </label>
+
+<h4>Diary Details</h4>
+<div class="box box-primary">
+    <div class="box-body">
+        @foreach (var item in Model)
+            {
+            <div id="div1" class="col-md-10 col-md-offset-1">
+                <div class="col-md-2" style="border:1px solid;padding-top: 10px;border-radius:5px;height:100px;margin-bottom:2px;background-color:lightgrey">
+                    <lable>@Html.DisplayFor(modelItem => item.AspNetSubject.SubjectName)</lable>
+                </div>
+                <div id="div2" class="col-md-10" style="border:1px solid;padding-left:0px;padding-right:0px;border-radius:5px;height:100px;margin-bottom:2px;background-color:lightblue">
+                    <textarea id="text" style="width:100%;background-color:white ;padding:10px;height:98px" disabled>@Html.DisplayFor(modelItem => item.HomeworkDetail)</textarea>
+                    <input type="hidden" id="homeworkid" value="@item.HomeworkID" />
+                </div>
+            </div>
+        }
+        <input type="hidden" id="studentid" value="@ViewBag.StudentId" />
+
+        <div class="col-md-10 col-md-offset-1" id="Comment">
+            <div class="col-md-2" style="border:1px solid;padding-top: 10px;border-radius:5px;height:100px;margin-bottom:2px;background-color:lightgrey">
+                <lable>Reading</lable>
+            </div>
+            <div id="div2" class="col-md-10" style="border:1px solid;padding-left:0px;padding-right:0px;border-radius:5px;height:100px;margin-bottom:2px;background-color:lightblue">
+                <textarea id="text" style="width:100%;background-color:white ;padding:10px;height: 100%" disabled>@ViewBag.Reading</textarea>
+            </div> 
+        </div>
+        <div class="col-md-10  col-md-offset-1" id="Comment">
+            <div class="col-md-2" style="border:1px solid;padding-top: 10px;border-radius:5px;height:100px;margin-bottom:2px;background-color:lightgrey">
+                <lable style="margin-top:20%">Teacher's Comment</lable>
+            </div>
+            <div id="div2" class="col-md-10" style="border:1px solid;padding-left:0px;padding-right:0px;border-radius:5px;height:100px;margin-bottom:2px;background-color:lightblue">
+                <textarea id="text" style="width:100%;background-color:white ;padding:10px;height: 100%" disabled>@ViewBag.teachercomment</textarea>
+            </div>
+        </div>
+        
+        <div class="col-md-10 col-md-offset-1" id="Comment" style="margin-top:1em">
+            <div class="col-md-2" style="border:1px solid;padding-top: 10px;border-radius:5px;height:100px;margin-bottom:2px;background-color:#cdfdd1">
+                <lable style="margin-top:20%">Parent's Comment</lable>
+            </div>
+            
+            <div id="div2" class="col-md-10"style="border:1px solid;padding-left:0px;padding-right:0px;border-radius:5px;height:100px;margin-bottom:2px;background-color:lightblue">
+                <textarea id="parent" style="width:100%;background-color:white ;padding:10px;height: 100%">@ViewBag.parentcomment</textarea>
+            </div>
+        </div>
+        <div class="col-md-10 col-md-offset-1">
+        
+               <div class="col-md-2" hidden>
+                <label class="col-md-1 col-lg-1 control-label" for="UserName">HomeWork Status</label>      
+              </div>
+            <div class="col-md-10" id="select" hidden>
+                   <select class="form-control" id="myselect">
+                   <option value="1">@ViewBag.Status</option>
+                   <option value="2">Completed</option>
+               </select>
+            </div>
+        </div>
+        <br /><br />
+        <div class="col-md-10 col-md-offset-1">
+
+            <hr />
+            <button onclick="window.location.href = '/Parent_Dashboard/Dashboard'" style="margin-top:10px" class="btn btn-primary">Back</button>
+            <button id="save" style="margin-top:10px" class="btn btn-default">Save</button>
+            
+        </div>
+
+    </div>
+
+</div>
+<script>
+ 
+    function Diary() {
+        $.get('@Url.Action("StudentHomeWork", "Parent_Dashboard")',
+                function (data) {
+                    $("#attendance_table").html('');    
+                    $.each(data, function (i, item) {                      
+                        $('#attendance_table').append('<tr><td>' + date + '<input id="diaryId" type="hidden" value="' + item.Id + '"></td><td>' + item.Reading + '</td><td>' + item.TeacherComments + '</td></tr>');
+                    });
+                });
+    }
+    
+    $(document).ready(function () {
+        //Diary Seen Code
+       
+        var ii = $('#homeworkid').val();
+        var stdid = $('#studentid').val();
+
+            debugger;
+            $.get('@Url.Action("SeenByParent")',
+                { HomeWorkId: ii,sid:stdid },
+                function (data) {
+
+                });
+      
+
+
+        var status = $("#myselect option:selected").text();
+        if (status == "Completed")
+        {
+            $("#myselect").prop('disabled', true);
+        }
+        var cmnt = $('#parent').val();
+        if(cmnt!="")
+        {
+            $("#parent").prop('disabled', true);
+        }
+
+
+        $('#save').click(function () {
+            debugger;
+            var cmnt = $('#parent').val();
+            var DiaryId = $('#homeworkid').val();
+            var status = $("#myselect option:selected").text();
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: '/Parent_Dashboard/ParentComment',
+                data: JSON.stringify({ comment: cmnt,status:status, homeworkId: DiaryId }),
+                success: function () {
+                    $('#partial').html('Attendance Successfully Save');
+                    window.location.href = "Student_HomeWork";
+                },
+                failure: function (response) {
+                    $('#partial').html('Something went wrong');
+                }
+            });
+        });
+    });
+</script>

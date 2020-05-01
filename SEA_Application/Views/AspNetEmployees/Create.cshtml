@@ -1,0 +1,862 @@
+﻿@model SEA_Application.Models.AspNetEmployee
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas"><span style="background-color:#F7F7F7 !important">User</span></a> > @Html.ActionLink("Employee","Index", "AspNetEmployees") > <b><a href="#">Create</a></b></label>
+
+<script src="~/AdminLTE/selectone.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var date = new Date();
+        var dd = date.toISOString()
+        dd = dd.split("T");
+
+        $("#JoiningDate").val(dd[0]);
+        $("#dateAvailable").val(dd[0]);
+
+        $("#UserName").bind('blur', function () {
+            var userName = $("#UserName").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/AspNetUser/GetUserName",
+                data: { "userName": userName },
+                success: function (data) {
+                    console.log(data);
+                    if (data.count == 0) {
+                        $('#FormSubmit').removeAttr('disabled');
+                    }
+                    else {
+                        $('#UserName-Error').html("UserName Already taken by " + data.by);
+                        $('#FormSubmit').prop('disabled', true);
+                    }
+
+                }
+            });
+
+        });
+
+        $("#Email").bind('blur', function () {
+            var email = $("#Email").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/AspNetUser/Email",
+                data: { "Email": email },
+                success: function (data) {
+                    console.log(data);
+                    if (data == 0) {
+                        $('#FormSubmit').prop('disabled', false);
+                    }
+                    else {
+                        $('#Email-Error').html("Email Already taken");
+                        $('#FormSubmit').prop('disabled', true);
+                    }
+
+                }
+            });
+
+        });
+
+        $("#birthDate").bind('blur', function () {
+            var dob = $("#birthDate").val();
+            var dob = dob.split("-");
+            var date = new Date();
+
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+
+            if (dob[0] <= year) {
+                $('#FormSubmit').prop('disabled', false);
+                $('#DOB-Error').html(" ");
+                if (dob[0] == year) {
+                    if (dob[1] <= month) {
+                        $('#FormSubmit').prop('disabled', false);
+                        $('#DOB-Error').html(" ");
+                        if (dob[1] == month) {
+                            if (dob[2] < day) {
+                                $('#FormSubmit').prop('disabled', false);
+                                $('#DOB-Error').html(" ");
+                            } else {
+                                $('#FormSubmit').prop('disabled', true);
+                                $('#DOB-Error').html("Enter a date less than today");
+                            }
+                        } else if (dob[1] > month) {
+                            $('#FormSubmit').prop('disabled', true);
+                            $('#DOB-Error').html("Enter a date less than today");
+                        }
+                    } else {
+                        $('#FormSubmit').prop('disabled', true);
+                        $('#DOB-Error').html("Enter a date less than today");
+                    }
+                }
+            } else {
+                $('#FormSubmit').prop('disabled', true);
+                $('#DOB-Error').html("Enter a date less than today")
+            }
+
+        });
+
+        $("#dateAvailable").bind('blur', function () {
+            var dob = $("#dateAvailable").val();
+            var dob = dob.split("-");
+
+            var date = new Date();
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+
+            if (dob[0] >= year) {
+                $('#FormSubmit').prop('disabled', false);
+                $('#Avail-Error').html(" ");
+                if (dob[0] == year) {
+                    if (dob[1] >= month) {
+                        $('#FormSubmit').prop('disabled', false);
+                        $('#Avail-Error').html(" ");
+                        if (dob[1] == month) {
+                            if (dob[2] >= day) {
+                                $('#FormSubmit').prop('disabled', false); // ok
+                                $('#Avail-Error').html(" ");
+                            } else {
+                                $('#FormSubmit').prop('disabled', true);
+                                $('#Avail-Error').html("Enter a date greater than today");
+                            }
+                        } else if (dob[1] < month) {
+                            $('#FormSubmit').prop('disabled', true);
+                            $('#Avail-Error').html("Enter a date greater than today");
+                        }
+                    } else {
+                        $('#FormSubmit').prop('disabled', true);
+                        $('#Avail-Error').html("Enter a date greater than today");
+                    }
+                }
+            } else {
+                $('#FormSubmit').prop('disabled', true);
+                $('#Avail-Error').html("Enter a date greater than today");
+            }
+
+        });
+
+        $("#JoiningDate").bind('blur', function () {
+            var dob = $("#JoiningDate").val();
+            var dob = dob.split("-");
+
+            var date = new Date();
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+
+            if (dob[0] >= year) {
+                $('#FormSubmit').prop('disabled', false);
+                $('#join-Error').html(" ");
+                if (dob[0] == year) {
+                    if (dob[1] >= month) {
+                        $('#FormSubmit').prop('disabled', false);
+                        $('#join-Error').html(" ");
+                        if (dob[1] == month) {
+                            if (dob[2] >= day) {
+                                $('#FormSubmit').prop('disabled', false); // ok
+                                $('#join-Error').html(" ");
+                            } else {
+                                $('#FormSubmit').prop('disabled', true);
+                                $('#join-Error').html("Enter a date greater than today");
+                            }
+                        } else if (dob[1] < month) {
+                            $('#FormSubmit').prop('disabled', true);
+                            $('#join-Error').html("Enter a date greater than today");
+                        }
+                    } else {
+                        $('#FormSubmit').prop('disabled', true);
+                        $('#join-Error').html("Enter a date greater than today");
+                    }
+                }
+            } else {
+                $('#FormSubmit').prop('disabled', true);
+                $('#join-Error').html("Enter a date greater than today");
+            }
+        });
+
+        //$("#UserName").prop('required', true);
+        $("#UserName").val("-");
+        $("#Email").prop('required', true);
+        $("#Email").prop('type' , 'email');
+        $("#Name").prop('required', true);
+        $("#CellNo").prop('required', true);
+        //$("#CellNo").prop('minlength', '11');
+        //$("#CellNo").prop('maxlength', '11');
+        $("#CellNo").prop('pattern', ".{11,11}");
+
+        //$("#UserName").bind('blur', function () {
+        //    var userName = $("#UserName").val();
+
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/AspNetUser/GetUserName",
+        //        data: { "userName": userName },
+        //        success: function (data) {
+        //            if (data.count == 0) {
+        //                $('#FormSubmit').removeAttr('disabled');
+        //                $('#UserName-Error').html(" ");
+        //            }
+        //            else {
+        //                $('#UserName-Error').html("UserName Already taken by " + data.by);
+        //                $('#FormSubmit').prop('disabled', true);
+        //            }
+
+        //        }
+        //    });
+
+        //});
+
+        
+        $("#CellNo").bind('blur', function () {
+
+            var phone = $("#CellNo").val();
+            var length = phone.length;
+
+            if (length == 11) {
+                var patt = new RegExp("^[0]+[0-9]{10,}$");
+                var test = patt.test(phone);
+                if (test == false) {
+                    $('#Phone-Error').html("Phone number is not in correct formate");
+                    $('#FormSubmit').prop('disabled', true);
+                } else {
+                    $('#FormSubmit').prop('disabled', false);
+                    $('#Phone-Error').html(" ");
+                }
+            } else {
+                $('#Phone-Error').html("Phone number is not in correct formate");
+                $('#FormSubmit').prop('disabled', true);
+            }
+
+        });
+
+
+        $("#Email").bind('blur', function () {
+            var email = $("#Email").val();
+            $.ajax({
+                type: "POST",
+                url: "/AspNetUser/Email",
+                data: { "Email": email },
+                success: function (data) {
+                    console.log(data);
+                    if (data == 0) {
+                        $('#FormSubmit').prop('disabled', false);
+                        $('#Email-Error').html(" ");
+                    }
+                    else {
+                        $('#Email-Error').html("Email Already taken");
+                        $('#FormSubmit').prop('disabled', true);
+                    }
+
+                }
+            });
+
+        });
+
+
+       $('#GrossSalary').change(function () {
+           Basic_Salary();
+           Medical_Allowance();
+           Accomodationn();
+           var eop = 130;
+           document.getElementById("EOP").value = eop;
+        });
+    });
+
+    function Basic_Salary() {
+        var gross = $("#GrossSalary").val();
+        var bs = (2 / 3) * gross;
+        bs = parseInt(bs);
+        document.getElementById("BasicSalary").value = bs;
+    }
+
+    function Medical_Allowance() {
+        var basic = $("#BasicSalary").val();
+        var ma = (10 / 100) * basic;
+        ma = parseInt(ma);
+        document.getElementById("MedicalAllowance").value = ma;
+    }
+    function Accomodationn() {
+        var basic = $("#BasicSalary").val();
+        var acc = (basic / 100) * 40;
+        acc = parseInt(acc);
+        document.getElementById("Accomodation").value = acc;
+
+    }
+
+    function redirect() {
+        var url = '@Url.Action("Index", "AspNetEmployees")';
+        window.location.href = url;
+    }
+
+    
+    function checkPhone(phone) {
+        //var phone = $("#inputEmail3").val();
+        var length = phone.value.length;
+        console.log(length);
+
+        if (length == 11) {
+            var patt = new RegExp("^[0]+[0-9]{10,}$");
+            var test = patt.test(phone.value);
+            if (test == false) {
+                $('#Phone-Error').html("Phone number is not in correct formate");
+                $('#FormSubmit').prop('disabled', true);
+            } else {
+                $('#FormSubmit').prop('disabled', false);
+                $('#Phone-Error').html(" ");
+            }
+        } else {
+            $('#Phone-Error').html("Phone number is not in correct formate");
+            $('#FormSubmit').prop('disabled', true);
+        }
+    }
+
+    function onCancel() {
+        $('#cancel').click();
+    }
+    function onSave() {
+        $('#FormSubmit').click();
+    }
+
+</script>
+<h4 class="orange">Add Employee</h4>
+<div class="row" style="padding-bottom: 10px; padding-top: 10px; padding-left: 20px; padding-right: 20px;">
+    <button class="btn btn-default pull-left btn-sm" onclick="onCancel()">
+        Cancel
+    </button>
+    <button class="pull-right" style="background-color: transparent; border: none; outline: none; font-size: 20px; color: rgb(89, 89, 89) !important" onclick="onSave()">
+        <i class="fa fa-floppy-o"></i>
+    </button>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1" data-toggle="tab">Add Employee</a></li>
+                <li><a href="#tab_2" data-toggle="tab">Upload Excel File</a></li>
+            </ul>
+
+            <div class="tab-content" style="background-color: #ECF0F5; padding: 10px 0px 0px 0px;">
+                <div class="tab-pane active" id="tab_1">
+
+                    <div class="form-three widget-shadow">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="box box-primary">
+                                        <div class="box-header with-border"><h3 class="orange">User Information<span class="red-mark">*</span></h3></div>
+
+                                    <div class="box-body">
+
+                                        <div class="form-group">
+                                            <label class="col-md-1 col-lg-1 control-label">Position Applied for: </label>
+                                            <div class="col-md-6">
+                                                @Html.EditorFor(model => model.PositionAppliedFor, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.PositionAppliedFor, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-1 col-lg-1 control-label">Date Available: <span class="red-mark">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="date" class="form-control round-border" id="dateAvailable" name="dateAvailable" required />
+                                                <span id="Avail-Error" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-1 col-lg-1 control-label">Joining Date: <span class="red-mark">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="date" class="form-control round-border" id="JoiningDate" name="JoiningDate" required />
+                                                <span id="join-Error" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-lg-1" for="Name">Name: <span class="red-mark">*</span></label>
+                                            <div class="col-md-6">
+                                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none">
+                                            <label class="control-label col-md-1 col-lg-1" for="Name">UserName: <span class="red-mark">*</span></label>
+                                            <div class="col-md-6">
+                                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger", @id = "UserName-Error" })
+                                            </div>
+                                        </div>
+
+                                        <br />
+                                    </div>
+                                </div>
+
+                                <div class="box box-primary">
+                                        <div class="box-header with-border"><h3 class="orange">Personal Information<span class="red-mark">*</span></h3></div>
+
+                                    <div class="box-body">
+
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="text-center">
+                                                    <label class="control-label">Birth Date (M/D/Y): <span class="red-mark">*</span></label>
+                                                    <input type="date" name="birthDate" id="birthDate" class="form-control round-border" required>
+                                                    <span id="DOB-Error" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="text-center">
+                                                    <label class="control-label">Nationality: <span class="red-mark">*</span></label>
+                                                    <select name="nationality" class="form-control round-border" required>
+                                                        <option value="">-- select one --</option>
+                                                        <option value="afghan">Afghan</option>
+                                                        <option value="albanian">Albanian</option>
+                                                        <option value="algerian">Algerian</option>
+                                                        <option value="american">American</option>
+                                                        <option value="andorran">Andorran</option>
+                                                        <option value="angolan">Angolan</option>
+                                                        <option value="antiguans">Antiguans</option>
+                                                        <option value="argentinean">Argentinean</option>
+                                                        <option value="armenian">Armenian</option>
+                                                        <option value="australian">Australian</option>
+                                                        <option value="austrian">Austrian</option>
+                                                        <option value="azerbaijani">Azerbaijani</option>
+                                                        <option value="bahamian">Bahamian</option>
+                                                        <option value="bahraini">Bahraini</option>
+                                                        <option value="bangladeshi">Bangladeshi</option>
+                                                        <option value="barbadian">Barbadian</option>
+                                                        <option value="barbudans">Barbudans</option>
+                                                        <option value="batswana">Batswana</option>
+                                                        <option value="belarusian">Belarusian</option>
+                                                        <option value="belgian">Belgian</option>
+                                                        <option value="belizean">Belizean</option>
+                                                        <option value="beninese">Beninese</option>
+                                                        <option value="bhutanese">Bhutanese</option>
+                                                        <option value="bolivian">Bolivian</option>
+                                                        <option value="bosnian">Bosnian</option>
+                                                        <option value="brazilian">Brazilian</option>
+                                                        <option value="british">British</option>
+                                                        <option value="bruneian">Bruneian</option>
+                                                        <option value="bulgarian">Bulgarian</option>
+                                                        <option value="burkinabe">Burkinabe</option>
+                                                        <option value="burmese">Burmese</option>
+                                                        <option value="burundian">Burundian</option>
+                                                        <option value="cambodian">Cambodian</option>
+                                                        <option value="cameroonian">Cameroonian</option>
+                                                        <option value="canadian">Canadian</option>
+                                                        <option value="cape verdean">Cape Verdean</option>
+                                                        <option value="central african">Central African</option>
+                                                        <option value="chadian">Chadian</option>
+                                                        <option value="chilean">Chilean</option>
+                                                        <option value="chinese">Chinese</option>
+                                                        <option value="colombian">Colombian</option>
+                                                        <option value="comoran">Comoran</option>
+                                                        <option value="congolese">Congolese</option>
+                                                        <option value="costa rican">Costa Rican</option>
+                                                        <option value="croatian">Croatian</option>
+                                                        <option value="cuban">Cuban</option>
+                                                        <option value="cypriot">Cypriot</option>
+                                                        <option value="czech">Czech</option>
+                                                        <option value="danish">Danish</option>
+                                                        <option value="djibouti">Djibouti</option>
+                                                        <option value="dominican">Dominican</option>
+                                                        <option value="dutch">Dutch</option>
+                                                        <option value="east timorese">East Timorese</option>
+                                                        <option value="ecuadorean">Ecuadorean</option>
+                                                        <option value="egyptian">Egyptian</option>
+                                                        <option value="emirian">Emirian</option>
+                                                        <option value="equatorial guinean">Equatorial Guinean</option>
+                                                        <option value="eritrean">Eritrean</option>
+                                                        <option value="estonian">Estonian</option>
+                                                        <option value="ethiopian">Ethiopian</option>
+                                                        <option value="fijian">Fijian</option>
+                                                        <option value="filipino">Filipino</option>
+                                                        <option value="finnish">Finnish</option>
+                                                        <option value="french">French</option>
+                                                        <option value="gabonese">Gabonese</option>
+                                                        <option value="gambian">Gambian</option>
+                                                        <option value="georgian">Georgian</option>
+                                                        <option value="german">German</option>
+                                                        <option value="ghanaian">Ghanaian</option>
+                                                        <option value="greek">Greek</option>
+                                                        <option value="grenadian">Grenadian</option>
+                                                        <option value="guatemalan">Guatemalan</option>
+                                                        <option value="guinea-bissauan">Guinea-Bissauan</option>
+                                                        <option value="guinean">Guinean</option>
+                                                        <option value="guyanese">Guyanese</option>
+                                                        <option value="haitian">Haitian</option>
+                                                        <option value="herzegovinian">Herzegovinian</option>
+                                                        <option value="honduran">Honduran</option>
+                                                        <option value="hungarian">Hungarian</option>
+                                                        <option value="icelander">Icelander</option>
+                                                        <option value="indian">Indian</option>
+                                                        <option value="indonesian">Indonesian</option>
+                                                        <option value="iranian">Iranian</option>
+                                                        <option value="iraqi">Iraqi</option>
+                                                        <option value="irish">Irish</option>
+                                                        <option value="israeli">Israeli</option>
+                                                        <option value="italian">Italian</option>
+                                                        <option value="ivorian">Ivorian</option>
+                                                        <option value="jamaican">Jamaican</option>
+                                                        <option value="japanese">Japanese</option>
+                                                        <option value="jordanian">Jordanian</option>
+                                                        <option value="kazakhstani">Kazakhstani</option>
+                                                        <option value="kenyan">Kenyan</option>
+                                                        <option value="kittian and nevisian">Kittian and Nevisian</option>
+                                                        <option value="kuwaiti">Kuwaiti</option>
+                                                        <option value="kyrgyz">Kyrgyz</option>
+                                                        <option value="laotian">Laotian</option>
+                                                        <option value="latvian">Latvian</option>
+                                                        <option value="lebanese">Lebanese</option>
+                                                        <option value="liberian">Liberian</option>
+                                                        <option value="libyan">Libyan</option>
+                                                        <option value="liechtensteiner">Liechtensteiner</option>
+                                                        <option value="lithuanian">Lithuanian</option>
+                                                        <option value="luxembourger">Luxembourger</option>
+                                                        <option value="macedonian">Macedonian</option>
+                                                        <option value="malagasy">Malagasy</option>
+                                                        <option value="malawian">Malawian</option>
+                                                        <option value="malaysian">Malaysian</option>
+                                                        <option value="maldivan">Maldivan</option>
+                                                        <option value="malian">Malian</option>
+                                                        <option value="maltese">Maltese</option>
+                                                        <option value="marshallese">Marshallese</option>
+                                                        <option value="mauritanian">Mauritanian</option>
+                                                        <option value="mauritian">Mauritian</option>
+                                                        <option value="mexican">Mexican</option>
+                                                        <option value="micronesian">Micronesian</option>
+                                                        <option value="moldovan">Moldovan</option>
+                                                        <option value="monacan">Monacan</option>
+                                                        <option value="mongolian">Mongolian</option>
+                                                        <option value="moroccan">Moroccan</option>
+                                                        <option value="mosotho">Mosotho</option>
+                                                        <option value="motswana">Motswana</option>
+                                                        <option value="mozambican">Mozambican</option>
+                                                        <option value="namibian">Namibian</option>
+                                                        <option value="nauruan">Nauruan</option>
+                                                        <option value="nepalese">Nepalese</option>
+                                                        <option value="new zealander">New Zealander</option>
+                                                        <option value="ni-vanuatu">Ni-Vanuatu</option>
+                                                        <option value="nicaraguan">Nicaraguan</option>
+                                                        <option value="nigerien">Nigerien</option>
+                                                        <option value="north korean">North Korean</option>
+                                                        <option value="northern irish">Northern Irish</option>
+                                                        <option value="norwegian">Norwegian</option>
+                                                        <option value="omani">Omani</option>
+                                                        <option value="pakistani">Pakistani</option>
+                                                        <option value="palauan">Palauan</option>
+                                                        <option value="panamanian">Panamanian</option>
+                                                        <option value="papua new guinean">Papua New Guinean</option>
+                                                        <option value="paraguayan">Paraguayan</option>
+                                                        <option value="peruvian">Peruvian</option>
+                                                        <option value="polish">Polish</option>
+                                                        <option value="portuguese">Portuguese</option>
+                                                        <option value="qatari">Qatari</option>
+                                                        <option value="romanian">Romanian</option>
+                                                        <option value="russian">Russian</option>
+                                                        <option value="rwandan">Rwandan</option>
+                                                        <option value="saint lucian">Saint Lucian</option>
+                                                        <option value="salvadoran">Salvadoran</option>
+                                                        <option value="samoan">Samoan</option>
+                                                        <option value="san marinese">San Marinese</option>
+                                                        <option value="sao tomean">Sao Tomean</option>
+                                                        <option value="saudi">Saudi</option>
+                                                        <option value="scottish">Scottish</option>
+                                                        <option value="senegalese">Senegalese</option>
+                                                        <option value="serbian">Serbian</option>
+                                                        <option value="seychellois">Seychellois</option>
+                                                        <option value="sierra leonean">Sierra Leonean</option>
+                                                        <option value="singaporean">Singaporean</option>
+                                                        <option value="slovakian">Slovakian</option>
+                                                        <option value="slovenian">Slovenian</option>
+                                                        <option value="solomon islander">Solomon Islander</option>
+                                                        <option value="somali">Somali</option>
+                                                        <option value="south african">South African</option>
+                                                        <option value="south korean">South Korean</option>
+                                                        <option value="spanish">Spanish</option>
+                                                        <option value="sri lankan">Sri Lankan</option>
+                                                        <option value="sudanese">Sudanese</option>
+                                                        <option value="surinamer">Surinamer</option>
+                                                        <option value="swazi">Swazi</option>
+                                                        <option value="swedish">Swedish</option>
+                                                        <option value="swiss">Swiss</option>
+                                                        <option value="syrian">Syrian</option>
+                                                        <option value="taiwanese">Taiwanese</option>
+                                                        <option value="tajik">Tajik</option>
+                                                        <option value="tanzanian">Tanzanian</option>
+                                                        <option value="thai">Thai</option>
+                                                        <option value="togolese">Togolese</option>
+                                                        <option value="tongan">Tongan</option>
+                                                        <option value="trinidadian or tobagonian">Trinidadian or Tobagonian</option>
+                                                        <option value="tunisian">Tunisian</option>
+                                                        <option value="turkish">Turkish</option>
+                                                        <option value="tuvaluan">Tuvaluan</option>
+                                                        <option value="ugandan">Ugandan</option>
+                                                        <option value="ukrainian">Ukrainian</option>
+                                                        <option value="uruguayan">Uruguayan</option>
+                                                        <option value="uzbekistani">Uzbekistani</option>
+                                                        <option value="venezuelan">Venezuelan</option>
+                                                        <option value="vietnamese">Vietnamese</option>
+                                                        <option value="welsh">Welsh</option>
+                                                        <option value="yemenite">Yemenite</option>
+                                                        <option value="zambian">Zambian</option>
+                                                        <option value="zimbabwean">Zimbabwean</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="text-center">
+                                                    <label>Religion: <span class="red-mark">*</span></label>
+                                                    <select name="religion" class="form-control round-border" required>
+                                                        <option value="">-- select one --</option>
+                                                        <option value="christian">Christian</option>
+                                                        <option value="muslim">Muslim</option>
+                                                        <option value="hindu">Hindu</option>
+                                                        <option value="other">Other</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="text-center">
+                                                    <label>Gender: <span class="red-mark">*</span></label>
+                                                    <select name="gender" class="form-control round-border" required>
+                                                        <option value="">-- select one --</option>
+                                                        <option value="male">Male</option>
+                                                        <option value="female">Female</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="box box-primary">
+                                        <div class="box-header with-border"><h3 class="orange">Contact Data<span class="red-mark">*</span></h3></div>
+
+                                        <div class="box-body">
+                                        <div class="form-group">
+                                            <label class="col-md-1 col-lg-1 control-label">Mailing Address: </label>
+                                            <div class="col-md-6">
+                                                @Html.EditorFor(model => model.MailingAddress, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.MailingAddress, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-lg-1" for="Email">Email: <span class="red-mark">*</span></label>
+                                            <div class="col-md-6">
+                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", @id = "Email-Error" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-lg-1" for="CellNo" >CellNo: <span class="red-mark">*</span></label>
+                                            <div class="col-md-6">
+                                                @Html.EditorFor(model => model.CellNo, new { htmlAttributes = new { @class = "form-control" , @placeholder = "03*********" , @onblur= "checkPhone(this)" } })
+                                                @Html.ValidationMessageFor(model => model.CellNo, "", new { @class = "text-danger",@id="Phone-Error" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-1 col-lg-1 control-label">Landline: </label>
+                                            <div class="col-md-6">
+                                                @Html.EditorFor(model => model.Landline, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Landline, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="box box-primary">
+                                        <div class="box-header with-border"><h3 class="orange">Spouse Data (if applicable)</h3></div>
+
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label class="col-md-1 col-lg-1 control-label">Spouse Name: </label>
+                                            <div class="col-md-6">
+                                                @Html.EditorFor(model => model.SpouseName, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.SpouseName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-1 col-lg-1 control-label">Spouse Highest Degree:</label>
+                                            <div class="col-md-6">
+                                                @Html.EditorFor(model => model.SpouseHighestDegree, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.SpouseHighestDegree, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-1 col-lg-1 control-label">Spouse Occupation:</label>
+                                            <div class="col-md-6">
+                                                @Html.EditorFor(model => model.SpouseOccupation, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.SpouseOccupation, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-1 col-lg-1 control-label">Spouse Business Address:</label>
+                                            <div class="col-md-6">
+                                                @Html.EditorFor(model => model.SpouseBusinessAddress, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.SpouseBusinessAddress, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="box box-primary">
+                                    <div class="box-header with-border"><h3 class="orange">Salary Information<span class="red-mark">*</span></h3></div>
+
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label class="col-md-1 col-lg-1 control-label">Monthly Gross Salary: <span class="red-mark">*</span></label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input type="number" name="GrossSalary" id="GrossSalary" style="text-align:right" class="form-control" required>
+                                                    <span class="input-group-addon"><b>Rs.</b></span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-1 col-lg-1 control-label">Monthly Basic Salary:</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input type="number" name="BasicSalary" id="BasicSalary" style="text-align:right" class="form-control" readonly>
+                                                    <span class="input-group-addon"><b>Rs.</b></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-1 col-lg-1 control-label">Monthly Medical Allowance:</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input type="number" name="MedicalAllowance" id="MedicalAllowance" style="text-align:right" class="form-control" readonly>
+                                                    <span class="input-group-addon"><b>Rs.</b></span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-1 col-lg-1 control-label">Monthly Accomodation: <span class="red-mark">*</span></label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input type="number" name="Accomodation" id="Accomodation" style="text-align:right" class="form-control" readonly>
+                                                    <span class="input-group-addon"><b>Rs.</b></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-1 col-lg-1 control-label">Monthly Provided Fund: <span class="red-mark">*</span></label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input type="number" name="ProvidedFund" style="text-align:right" class="form-control" required>
+                                                    <span class="input-group-addon"><b>Rs.</b></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-1 col-lg-1 control-label">Monthly Tax: <span class="red-mark">*</span></label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input type="number" name="Tax" style="text-align:right" class="form-control" required>
+                                                    <span class="input-group-addon"><b>Rs.</b></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-1 col-lg-1 control-label">Monthly EOP: <span class="red-mark">*</span></label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input type="number" name="EOP" style="text-align:right" class="form-control" required>
+                                                    <span class="input-group-addon"><b>Rs.</b></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="form-group">
+                                            <div class="col-md-offset-1 col-lg-offset-1 col-md-2">
+                                                <button type="submit" class="btn btn-primary" value="Register" id="FormSubmit">Register</button>
+                                                <button type="button" id="cancel" class="btn btn-default" onclick="redirect()">Cancel</button>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        
+
+                    </div>@*@tab 1*@
+                </div>
+
+                <div class="tab-pane" id="tab_2">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border">
+                            <h3 class="orange">Upload Excel File &nbsp; <i class="fa fa-file-excel-o" aria-hidden="true"></i></h3>
+                        </div>
+
+                        <div class="form-three widget-shadow">
+                            <div class="row">
+                                <button type="button" class="btn btn-primary col-md-offset-5" data-toggle="modal" data-target="#myModal">Upload from excel file</button>
+                                <span class="text-danger">@Html.Raw(TempData["Error"])</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Chose Excel file</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @using (Html.BeginForm("Excel_Data", "AspNetEmployees", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal-body">
+                    <span>Excel file</span><input type="file" name="excelfile" />
+                </div>
+
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-primary" data-dismiss="modal" value="Close" />
+                    <input type="submit" class="btn btn-primary" value="Import" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

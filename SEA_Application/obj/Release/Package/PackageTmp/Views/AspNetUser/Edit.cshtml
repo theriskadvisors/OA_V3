@@ -1,0 +1,381 @@
+﻿@model SEA_Application.Models.AspNetUser
+@{
+    ViewBag.Title = "Edit";
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+
+    function redirect() {
+        var url = '@Url.Action("ParentIndex", "AspNetUser")';
+        window.location.href = url;
+    }
+
+    $(document).ready(function () {
+
+        $("#UserName").bind('blur', function () {
+            var userName = $("#UserName").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/AspNetUser/GetUserName",
+                data: { "userName": userName },
+                success: function (data) {
+                    if (data == 0) {
+                        $('#FormSubmit').removeAttr('disabled');
+                    }
+                    else {
+                        $('#UserName-Error').html("UserName Already taken");
+                        $('#FormSubmit').prop('disabled', true);
+                    }
+
+                }
+            });
+
+        });
+
+        $("#Email").bind('blur', function () {
+            var email = $("#Email").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/AspNetUser/Email",
+                data: { "Email": email },
+                success: function (data) {
+                    console.log(data);
+                    if (data == 0) {
+                        $('#FormSubmit').prop('disabled', false);
+                    }
+                    else {
+                        $('#Email-Error').html("Email Already taken");
+                        $('#FormSubmit').prop('disabled', true);
+                    }
+
+                }
+            });
+
+        });
+
+        $("#FEmail").bind('blur', function () {
+            var email = $("#FEmail").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/AspNetUser/Email",
+                data: { "Email": email },
+                success: function (data) {
+                    console.log(data);
+                    if (data == 0) {
+                        $('#FormSubmit').prop('disabled', false);
+                        $('#FEmail-Error').html(" ");
+                    }
+                    else {
+                        $('#FEmail-Error').html("Email Already taken");
+                        $('#FormSubmit').prop('disabled', true);
+                    }
+
+                }
+            });
+
+        });
+
+
+        $("#MEmail").bind('blur', function () {
+            var email = $("#MEmail").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/AspNetUser/Email",
+                data: { "Email": email },
+                success: function (data) {
+                    console.log(data);
+                    if (data == 0) {
+                        $('#FormSubmit').prop('disabled', false);
+                        $('#MEmail-Error').html(" ");
+                    }
+                    else {
+                        $('#MEmail-Error').html("Email Already taken");
+                        $('#FormSubmit').prop('disabled', true);
+                    }
+
+                }
+            });
+
+        });
+
+        $("#ClassID").click(function () {
+            var selectedClass = $("#ClassID").val();
+            $.ajax({
+                url: '@Url.Action("StudentsByClass")',
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                traditional: true,
+                data: { bdoIds: selectedClass },
+
+            }).done(function (response) {
+                $('#StudentID').html('');
+
+                $.each(response, function (i, item) {
+                    var classname = $("#ClassID option[value='" + item.ClassID + "']").text();
+                    $('#StudentID').append('<option value=' + item.Id + '>' + item.Name + ' (' + classname + ')</option>');
+                });
+            })
+
+
+        });
+
+    });
+
+</script>
+
+<h2>Edit &nbsp; <i class="fa fa-pencil-square-o" aria-hidden="true"></i></h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="box box-primary">
+        <div class="box-title"></div>
+        <hr />
+        <div class="box-body">
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.EmailConfirmed, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.EmailConfirmed)
+                                @Html.ValidationMessageFor(model => model.EmailConfirmed, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PasswordHash, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.PasswordHash, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PasswordHash, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SecurityStamp, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.SecurityStamp, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SecurityStamp, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.PhoneNumberConfirmed, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.PhoneNumberConfirmed)
+                                @Html.ValidationMessageFor(model => model.PhoneNumberConfirmed, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TwoFactorEnabled, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.TwoFactorEnabled)
+                                @Html.ValidationMessageFor(model => model.TwoFactorEnabled, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LockoutEndDateUtc, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.LockoutEndDateUtc, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LockoutEndDateUtc, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LockoutEnabled, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.LockoutEnabled)
+                                @Html.ValidationMessageFor(model => model.LockoutEnabled, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AccessFailedCount, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.AccessFailedCount, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AccessFailedCount, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-6" style="padding-left:0px; padding-right:15px;">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="orange">Father's Data &nbsp; <i class="fa fa-male" aria-hidden="true"></i></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">Name<span class="red-mark">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="fatherName" required value="@ViewBag.Parent.FatherName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Cell No.</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="fatherCell" value="@ViewBag.Parent.FatherCellNo">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Email<span class="red-mark">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" name="fatherEmail" id="FEmail" required value="@ViewBag.Parent.FatherEmail">
+                                    <span class="red-mark" id="FEmail-Error"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Occupation</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="fatherOccupation" value="@ViewBag.Parent.FatherOccupation">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Employer</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="fatherEmployer" value="@ViewBag.Parent.FatherEmployer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" style="padding-right:0px;">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="orange">Mother's Data &nbsp; <i class="fa fa-female" aria-hidden="true"></i></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">Name<span class="red-mark">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="motherName" required value="@ViewBag.Parent.MotherName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Cell No.</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="motherCell" value="@ViewBag.Parent.MotherCellNo">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Email<span class="red-mark">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" name="motherEmail" id="MEmail" required value="@ViewBag.Parent.MotherEmail">
+                                    <span class="red-mark" id="MEmail-Error"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Occupation</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="motherOccupation" value="@ViewBag.Parent.MotherOccupation">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Employer</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="motherEmployer" value="@ViewBag.Parent.MotherEmployer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <br />
+                <br />
+
+                <div class="form-three widget-shadow">
+                    <h2 class="orange">Children &nbsp; <i class="fa fa-child" aria-hidden="true"></i></h2>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="box box-primary">
+                                        <div class="box-title with-border"><h3 class="control-label col-md-2 orange">Class<span class="red-mark">*</span></h3></div>
+                                        <div class="box-body">
+                                            @Html.ListBox("ClassID", null, htmlAttributes: new { @class = "form-control", @style = "height:500px;" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="box box-primary">
+                                        <div class="box-title with-border"><h3 class="control-label col-md-2 orange">Student<span class="red-mark">*</span></h3></div>
+                                        <div class="box-body">
+                                            <select multiple style="height:500px;" class="form-control" id="StudentID" name="StudentID" required></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box box-primary">
+                        <div class="box-title"></div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-2">
+                                    <input type="submit" class="btn btn-primary" value="Register" id="FormSubmit" />
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" id="cancel" class="btn btn-danger" onclick="redirect()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+                <br />
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "TeachersIndex")
+</div>

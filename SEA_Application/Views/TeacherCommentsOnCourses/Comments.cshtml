@@ -1,0 +1,190 @@
+﻿
+@{
+    ViewBag.Title = "Comments";
+    Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
+}
+
+<style>
+    #ReplyDiv {
+        border: 1px solid #26344B;
+        cursor: pointer;
+        margin: auto;
+        width: 80%;
+    }
+
+    #CommentsSection {
+    }
+
+    /*#TitleParagraph {
+        background: #26344B;
+        color: white;
+    }*/
+    .HeaderStyleOfComments {
+        background: rgb(51, 70, 102);
+        color: white;
+    }
+
+    #QADiv {
+        border: 1px solid gray;
+        width: 80%;
+        cursor: pointer;
+        margin: auto;
+        cursor: pointer;
+    }
+
+    .CommentDivs {
+        border: 1px solid gray;
+        width: 100%;
+        cursor: pointer;
+        margin: auto;
+        cursor: pointer;
+    }
+
+    a {
+        text-decoration: none !important;
+    }
+</style>
+
+<input type="hidden" id="CommentHeadId" name="name" value="@ViewBag.CommentHeadId" />
+
+
+<div class="col-md-12">
+    <h3>Comments</h3>
+
+
+    <div id="CommentHead">
+        <center>
+
+            <a href="/TeacherCommentsOnCourses/StudentLessons/@ViewBag.LessonId"> <input id="BackButton" type="button" class="btn btn-danger " name="name" value="Back To Lesson" /></a>
+        </center>
+
+        <br />
+        <br />
+
+
+    </div>
+
+    <br>
+    <br>
+
+</div>
+
+
+<div class="col-md-12">
+
+    <div id="CommentsSection" style="margin:auto;width:80%;">
+        <h3 style="color:black">All Comments</h3>
+
+        <br />
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+
+        var id = $("#CommentHeadId").val();
+        //Comments page of lesson
+        $.ajax({
+
+            type: "POST",
+            url: "/TeacherCommentsOnCourses/GetCommentHead",
+            data: { "CommentHeadId": id },
+            success: function (data) {
+                debugger
+                var value = new Date(parseInt(data.Date.replace(/(^.*\()|([+-].*$)/g, '')));
+                var dat = value.getMonth() +
+                    1 +
+                    "/" +
+                    value.getDate() +
+                    "/" +
+                    value.getFullYear();
+
+
+
+                $("#CommentHead").append('<div id="QADiv"  name ="' + data.CommentHeadId + '"   class ="CommentDivs" ><p class="HeaderStyleOfComments" id="TitleParagraph" style="padding:10px;"><b>' + data.Title + '</b></p><div style="padding:10px"> <p>' + data.Body + '</p> <p><b>' + dat + ' &nbsp; &nbsp; &nbsp;  ' + data.UserName + '</b></p><p><b></p> </b> </div></div>');
+
+                $("#CommentHead").append('<div id="ReplyDiv" > <div class="form-group" id="ReplySection"> <p class="HeaderStyleOfComments" style="padding:10px;"  for="comment">Reply:</p><div style="padding:10px;"> <textarea id="ReplyTextArea" class="form-control" rows="5" id="ReplyBox"></textarea> <br> <input  class="btn btn-primary " id="ReplyButton" name="ReplyButton" value="Reply"> </div>  </div> </div>');
+
+                AllComments();
+
+            }
+
+
+        })
+
+
+        $("#CommentHead").on('click', "#ReplyButton", function () {
+
+            var ReplyTextAreaValue = $("#ReplyTextArea").val();
+
+
+            $.ajax({
+
+                type: "POST",
+                url: "/TeacherCommentsOnCourses/CommentReply",
+                data: { "CommentHeadId": id, "UserComment": ReplyTextAreaValue },
+                success: function (data) {
+
+                    $("#ReplyTextArea").val("");
+
+                    location.reload();
+
+                }
+
+
+
+            })
+
+
+
+
+
+
+
+        })
+
+
+        function AllComments() {
+
+            $.ajax({
+
+                type: "POST",
+                url: "/TeacherCommentsOnCourses/AllComments",
+                data: { "CommentHeadId": id },
+                success: function (data) {
+
+                    debugger
+
+                    $.each(data, function (index) {
+
+                        var value = new Date(parseInt(data[index].Date.replace(/(^.*\()|([+-].*$)/g, '')));
+                        var dat = value.getMonth() +
+                            1 +
+                            "/" +
+                            value.getDate() +
+                            "/" +
+                            value.getFullYear();
+
+
+                        $("#CommentsSection").append('<div id=""  class ="CommentDivs" ><p id="TitleParagraph"  class="HeaderStyleOfComments" style="padding:10px;"><b>' + data[index].UserName + '</b></p> <div style="padding:10px"> <p>' + data[index].CommentName + '</p> <p><b>' + dat + '</b></p></div></div>');
+
+
+                    })
+
+                }
+
+            })
+
+
+        }
+
+    })
+
+
+
+
+
+    </script>

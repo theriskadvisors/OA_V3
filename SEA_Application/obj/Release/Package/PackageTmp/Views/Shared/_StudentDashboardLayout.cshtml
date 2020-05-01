@@ -1,0 +1,95 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<aside class="main-sidebar">
+    <section class="sidebar">
+        @*<div class="user-panel">
+            <div class="pull-left image">
+                <img src="~/AdminLTE/dist/img/user.svg" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+        </div>*@
+
+        <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+            @*<li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("View_Assessment", "Student_Dashboard"))">
+                    <i class="fa fa-book"></i>
+                    <span>Assessments</span>
+                </a>
+            </li>*@
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("View_Project", "Student_Dashboard"))">
+                    <i class="fa fa-calendar"></i>
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("PerformanceReports", "Student_Dashboard"))">
+                    <i class="fa fa-bar-chart"></i>
+                    <span>View Performance Report</span>
+                </a>
+            </li>
+            @*<li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Student_Marks", "Student_Dashboard"))">
+                    <i class="fa fa-list-ol"></i>
+                    <span>Marks</span>
+                </a>
+            </li>*@
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Student_Announcement", "Student_Dashboard"))">
+                    <i class="fa fa-bullhorn"></i>
+                    <span>Announcment</span>
+                </a>
+            </li>
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Student_Attendance", "Student_Dashboard"))">
+                    <i class="fa fa-list-ol"></i>
+                    <span>Attendance</span>
+                </a>
+            </li>
+
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Student_Dairy", "Student_Dashboard"))">
+                    <i class="fa fa-database"></i>
+                    <span>Dairy</span>
+                </a>
+            </li>
+
+            @*<li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("GenerateInvoicePDF", "Student_Dashboard"))">
+                    <i class="fa fa-print"></i>
+                    <span>Print Challan Form</span>
+                </a>
+            </li>*@
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("StudentAssessment", "Student_Dashboard"))">
+                    <i class="fa fa-calendar"></i>
+                    <span>TermAssessment</span>
+                </a>
+            </li>
+            <li id="left-sidebar-menu-calendar">
+                <a href="@(Url.Action("Inbox", "AspNetMessages"))">
+                    <i class="fa fa-envelope"></i>
+                    <span>MailBox</span>
+                </a>
+            </li>
+
+            <li id="left-sidebar-menu-widgets">
+                <a href="https://smartereduanalytics.on.spiceworks.com/portal/tickets">
+                    <i class="fa fa-support"></i> <span style="color:#8aa4af !important">Support</span>
+                </a>
+            </li>
+            
+        </ul>
+    </section>
+</aside>
+<div class="content-wrapper">
+
+    <section class="content">
+        @RenderBody()
+    </section>
+</div>

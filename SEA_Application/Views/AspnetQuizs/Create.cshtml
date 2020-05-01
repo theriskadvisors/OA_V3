@@ -1,0 +1,390 @@
+﻿@model SEA_Application.Models.AspnetQuiz
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
+}
+
+
+<script>
+    $(document).ready(function () {
+
+        $("#btnCancel").click(function () {
+
+            window.location.href = "/AspnetQuestions/ViewQuestionAndQuiz";
+        })
+
+
+        $.ajax({
+            type: "POST",
+            cache: false,
+            url: "/AspnetLessons/LoadSectionIdDDL",
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                var sch = JSON.parse(data);
+
+                var $el = $(".SecIdDDL");
+                $el.empty();
+                if (sch.length > 0) {
+                    $el.append($("<option></option>")
+                        .attr("value", "").text('Select Section'));
+                    for (i = 0; i < sch.length; i++) {
+                        $el.append($("<option></option>")
+                            .attr("value", sch[i].Id).text(sch[i].ClassName));
+                    }
+                }
+                else {
+                    $el.append($("<option></option>")
+                        .attr("value", '').text('Select'));
+                }
+            }
+        });
+
+
+        var course = 'CSS';
+        var Class;
+        $('#CTId').change(function () {
+
+            $('#TopicId').html('');
+
+            var crse = $(this).val();
+
+            if (crse != "") {
+
+                console.log(crse);
+                course = crse;
+                $.ajax({
+                    type: "POST",
+                    cache: false,
+                    url: "/AspNetProject/GetSubjectsByClass?CT=" + course,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        var sch = JSON.parse(data);
+                        console.log(sch);
+                        var $el = $(".SubIdDDL");
+                        var $e2 = $(".TopIdDDL");
+                        $e2.empty();
+                        $el.empty();
+                        if (sch.length > 0) {
+                            $el.append($("<option></option>")
+                                .attr("value", "").text('Select Subject'));
+                            for (i = 0; i < sch.length; i++) {
+
+                                $el.append($("<option></option>")
+                                    .attr("value", sch[i].Id).text(sch[i].SubjectName));
+                            }
+                        }
+                        else {
+                            $el.append($("<option></option>")
+                                .attr("value", '').text('Select'));
+                        }
+                    }
+                });
+            }
+            else {
+
+                   var $el = $(".SubIdDDL");
+                    $el.empty();
+                    var $e2 = $(".TopIdDDL");
+                    $e2.empty();
+                   var $e3 = $("#QuestionID");
+                    $e3.empty();
+            }
+
+
+        });
+
+
+        $('#SecId').change(function () {
+            $('#TopicId').html('');
+
+
+            var UserName = $(this).val();
+            console.log(UserName);
+            Class = UserName;
+            $.ajax({
+                type: "POST",
+                cache: false,
+                url: "/AspNetProject/GetSubjectsByClass?ClassID=" + UserName + "&&CT=" + course,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    var sch = JSON.parse(data);
+                    console.log(sch);
+                    var $el = $(".SubIdDDL");
+                    $el.empty();
+                    var $e2 = $(".TopIdDDL");
+                    $e2.empty();
+                    if (sch.length > 0) {
+                        $el.append($("<option></option>")
+                            .attr("value", "").text('Select Subject'));
+                        for (i = 0; i < sch.length; i++) {
+
+                            $el.append($("<option></option>")
+                                .attr("value", sch[i].Id).text(sch[i].SubjectName));
+                        }
+                    }
+                    else {
+                        $el.append($("<option></option>")
+                            .attr("value", '').text('Select'));
+                    }
+                }
+            });
+
+        });
+
+        $('#SubId').change(function () {
+
+            var subid = $(this).val();
+            console.log(subid);
+
+            $.ajax({
+                type: "POST",
+                cache: false,
+                url: "/AspNetProject/GetTopic?SubID=" + subid,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    var sch = JSON.parse(data);
+                    console.log(sch);
+                    var $el = $(".TopIdDDL");
+                    $el.empty();
+                    if (sch.length > 0) {
+                        $el.append($("<option></option>")
+                            .attr("value", "").text('Select Topic'));
+                        for (i = 0; i < sch.length; i++) {
+
+                            $el.append($("<option></option>")
+                                .attr("value", sch[i].Id).text(sch[i].Name));
+                        }
+                    }
+                    else {
+                        $el.append($("<option></option>")
+                            .attr("value", '').text('Select'));
+                    }
+                }
+            });
+
+        });
+
+    })
+</script>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="box box-primary">
+        <div class="box-title"></div>
+
+        <div class="box-body">
+            <div class="form-horizontal">
+                <h4>Create Quiz</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-2">
+                        Start Date
+                    </div>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { type = "date", @class = "form-control", @required = true } })
+                        @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-md-2">
+                        Due Date
+                    </div>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Due_Date, new { htmlAttributes = new { type = "date", @class = "form-control", @required = true } })
+                        @Html.ValidationMessageFor(model => model.Due_Date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                    <div class="col-md-2">
+                        <label>Section <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-control SecIdDDL" id="SecId" name="SecId"></select>
+                    </div>
+                </div>*@
+
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label>Course Type <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-control CTIdDDL" id="CTId" name="CTId">
+
+                            <option value="">Select One</option>
+
+                            <option value="CSS">CSS</option>
+                            <option value="PMS">PMS</option>
+
+                        </select>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label>Subject <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-control SubIdDDL" id="SubId" name="SubId"></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-md-12">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="box box-primary">
+                                    <div class="box-header with-border"><h3 class="orange">Topics:<span class="red-mark">*</span></h3></div>
+
+                                    <div class="box-body">
+
+                                        @*@Html.ListBox("TopicId", null, htmlAttributes: new { @class = "form-control", @style = "height:400px;" })*@
+                                        <select multiple style="height:400px;overflow-x:scroll" class="form-control" id="TopicId" name="TopicId" required></select>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="box box-primary">
+                                    <div class="box-header with-border"><h3 class="orange">Questions:<span class="red-mark">*</span></h3></div>
+
+                                    <div class="box-body">
+                                        <select multiple style="height:400px;overflow-x:scroll" class="form-control" id="QuestionID" name="QuestionID" required></select>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+
+                        <button type="button" class="btn btn-danger" id="btnCancel">Cancel</button>
+                    </div>
+                </div>
+
+                <br />
+            </div>
+        </div>
+    </div>
+}
+<script>
+
+
+    $(document).ready(function () {
+
+        $("#TopicId").click(function () {
+            var selectedTopic = $("#TopicId").val();
+            debugger
+            $.ajax({
+                url: '@Url.Action("QuestionsByTopics")',
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                traditional: true,
+                data: { bdoIds: selectedTopic },
+
+            }).done(function (response) {
+                $('#QuestionID').html('');
+
+                $.each(response, function (i, item) {
+
+                    debugger
+                    // var classname = $("#ClassID option[value='" + item.ClassID + "']").text();
+                    $('#QuestionID').append('<option value=' + item.Id + '>' + item.Name + ' </option>');
+                });
+            })
+
+
+        });
+
+
+        $("#SubId").change(function () {
+
+            var SubjectId = $("#SubId").val();
+
+            $.ajax({
+
+                type: "POST",
+                url: "/AspnetQuizs/GetSubjectTopics",
+                data: { "SubjectId": SubjectId },
+                success: function (data) {
+
+                    $('#TopicId').html('');
+
+                    $.each(data, function (i, item) {
+
+                        debugger
+                        // var classname = $("#ClassID option[value='" + item.ClassID + "']").text();
+                        $('#TopicId').append('<option value=' + item.Id + '>' + item.Name + ' </option>');
+
+
+
+
+                    });
+
+
+
+
+
+
+                }
+
+
+            })
+
+
+
+
+
+
+        })
+
+
+
+    })
+
+
+
+</script>
+
+
+

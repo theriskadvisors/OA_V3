@@ -1,0 +1,276 @@
+﻿@model SEA_Application.Models.AspNetLessonPlan
+<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        bkLib.onDomLoaded(function () { });
+        $('#cancel').click(function () {
+            window.location.href = '@Url.Action("Dashboard", "Account")';
+        });
+
+
+        $("#ClassID").click(function () {
+            var selectedClass = $("#ClassID").val();
+            $.get('@Url.Action("SubjectsByClass","AspNetTopic")',
+                { id: selectedClass }, function (data) {
+                    $('#SubjectID').html('');
+                    $('#SubjectID').prop('disabled', false);
+                    $.each(data, function (i, item) {
+                        $('#SubjectID').append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
+                    });
+
+                });
+        });
+
+        $("#SubjectID").click(function () {
+            var selectedSubject = $("#SubjectID").val();
+
+            $.get('@Url.Action("ChapterBySubject","AspNetTopic")',
+                { id: selectedSubject }, function (data) {
+                    $('#ChapterID').html('');
+                    $('#ChapterID').prop('disabled', false);
+                    $.each(data, function (i, item) {
+                        $('#ChapterID').append('<option value=' + item.Id + '>' + item.ChapterName + '</option>');
+                    });
+
+                });
+        });
+
+        $(document).ready(function () {
+            $('#input').prop('disabled', true)
+        });
+
+        $("#ChapterID").click(function () {
+            var selectedChapter = $("#ChapterID").val();
+
+            $.get('@Url.Action("TopicByChapter", "AspNetTopic")',
+                { id: selectedChapter }, function (data) {
+                    $('#TopicID').html('');
+                    $('#TopicID').prop('disabled', false);
+                    $.each(data, function (i, item) {
+                        $('#TopicID').append('<option value=' + item.Id + '>' + item.TopicName + '</option>');
+                    });
+
+                });
+        });
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        $("#View_Lesson").click(function () {
+            var LessID = $('#LessonPlanIDEdit').val();
+        $.get('@Url.Action("GetLessonPlanInfo")',
+            { id: 26 }, function (data) {
+                console.log("LessID",LessID);
+                console.log(JSON.stringify(data));
+                $('#ClassID').val(data.classID);
+                $('#SubjectID').val(data.subjectID);
+                $('#Duration').val(data.Duration);
+                $('#Date').val(data.Date);
+
+                $.each(data.GetTopics, function (i, topic) {
+                    $('#TopicID').append(topic + ',');
+                });
+
+                $.each(data.BreakDown, function (i, breakdown) {
+                   // $('#breakdown_view').append('<tr><td><b>' + breakdown.HeadingName + ':</b></td><td></td></tr><tr><td>' + breakdown.Description + '</td><td>' + breakdown.Minutes + ' Miniutes <br/>' + breakdown.Resources + '</td></tr>');
+                    $("#breakdowntable").append(GetDynamicTextBox('<tr><td> <form class="form-horizontal"> <div class="form-group" ><lable class="control-label col-md-2"><b>Heading</b></lable><div class="col-md-10" id="first"></div></div><div class="form-group"><lable class="control-label col-md-2"><b>Description</b></lable><div class="col-md-10"><textarea id="Description' + i + '" style="width: 100%; height:250px;" ></textarea></div></div><div class="form-group"><lable class="control-label col-md-2"><b>Minutes</b></lable><div class="col-md-10"><input type="text" id="Minutes" placeholder="Minutes" class="form-control"></div></div><div class="form-group"><lable class="control-label col-md-2"><b>Resources</b></lable><div class="col-md-10"><input type="text" id="Resources" placeholder="Resources" class="form-control"></div></div><div class="form-group"><div class="col-md-12"> <button  type="button" class="btn btn-danger pull-right col-md-2" onclick="SomeDeleteRowFunction(this);">Delete Breakdown</button></div></div></form></td></tr>'));
+                    area2 = new nicEditor({ fullPanel: true }).panelInstance('Description' + (i - 1) + '');
+                    $('#breakdowntable tr:last #first').append($("#HeadingID").clone());
+                    $('#btnRemove').click(function () {
+                        $(this).closest('tr').remove();
+                    })
+
+
+
+                });
+
+            });
+
+
+
+        });
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        $("#btnAdd").bind("click", function () {
+
+            $("#breakdowntable").append(GetDynamicTextBox(""));
+
+            area2 = new nicEditor({ fullPanel: true }).panelInstance('Description' + (i - 1) + '');
+
+            // CKEDITOR.replace($('#TextBoxContainerTable tr:last td:nth-child(2) textarea').attr('name'));
+
+            $('#breakdowntable tr:last #first').append($("#HeadingID").clone());
+            $('#btnRemove').click(function () {
+                $(this).closest('tr').remove();
+            })
+
+
+        });
+
+        $('#save_button').click(function () {
+            lessonPlan = Object.create(lessonPlan);
+            lessonPlan.lessonPlanNo = $('#lessonPlanNo').val();
+            lessonPlan.classID = $('#ClassID').val();
+            lessonPlan.subjectID = $('#SubjectID').val();
+            lessonPlan.Date = $('#Date').val();
+            lessonPlan.ChapterID = $('#ChapterID').val();
+            lessonPlan.Topics = [];
+            $('#TopicID > option:selected').each(function () {
+                lessonPlan.Topics.push($(this).val());
+            });
+            lessonPlan.Durartion = $('#Duration').val();
+            lessonPlan.BreakDown = [];
+            $('table tbody tr').each(function () {
+                BreakDown = Object.create(BreakDown);
+                BreakDown.HeadingID = $('#HeadingID', this).val();
+
+
+                var nicInstance = nicEditors.findEditor($('textarea', this).attr('id'));
+                BreakDown.Description = nicInstance.getContent();
+
+                BreakDown.Minutes = $('#Minutes', this).val();
+                BreakDown.Resources = $('#Resource', this).val();
+                lessonPlan.BreakDown.push(BreakDown);
+            });
+
+
+            console.log(JSON.stringify(lessonPlan));
+            LessonPlan = JSON.stringify({ 'LessonPlan': lessonPlan });
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: '/AspNetLessonPlan/EditLessonPlanobj',
+                data: LessonPlan,
+                success: function () {
+                    $('#partial').html('Attendance Successfully Save');
+                },
+                failure: function (response) {
+                    $('#partial').html('Something went wrong');
+                }
+            });
+        });
+
+    });
+
+
+    function SomeDeleteRowFunction(btndel) {
+        if (typeof (btndel) == "object") {
+            $(btndel).closest("tr").remove();
+        } else {
+            return false;
+        }
+    }
+
+    var i = 0;
+    function GetDynamicTextBox(value) {
+        var html = '<tr><td> <form class="form-horizontal"> <div class="form-group" ><lable class="control-label col-md-2"><b>Heading</b></lable><div class="col-md-10" id="first"></div></div><div class="form-group"><lable class="control-label col-md-2"><b>Description</b></lable><div class="col-md-10"><textarea id="Description' + i + '" style="width: 100%; height:250px;" ></textarea></div></div><div class="form-group"><lable class="control-label col-md-2"><b>Minutes</b></lable><div class="col-md-10"><input type="text" id="Minutes" placeholder="Minutes" class="form-control"></div></div><div class="form-group"><lable class="control-label col-md-2"><b>Resources</b></lable><div class="col-md-10"><input type="text" id="Resources" placeholder="Resources" class="form-control"></div></div><div class="form-group"><div class="col-md-12"> <button  type="button" class="btn btn-danger pull-right col-md-2" onclick="SomeDeleteRowFunction(this);">Delete Breakdown</button></div></div></form></td></tr>';
+        i++;
+        return html;
+    }
+
+    var BreakDown =
+        {
+            HeadingID: '',
+            Description: '',
+            Minutes: '',
+            Resources: '',
+        };
+    var lessonPlan = {
+        lessonPlanNo:'',
+        classID: '',
+        subjectID: '',
+        Date: '',
+        ChapterID: '',
+        Topics: [],
+        Duration: '',
+        BreakDown: []
+    };
+
+
+</script>
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Add Lesson Plan</h3>
+    </div>
+    <form class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="box-body">
+            <div class="form-group" hidden>
+                <lable class="control-label col-md-2"><b>Heading</b></lable>
+                <div class="col-md-10">
+                    @Html.DropDownList("HeadingID", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.LessonPlanNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LessonPlanNo, new { htmlAttributes = new { @class = "form-control", @id = "lessonPlanNo" } })
+                    @Html.ValidationMessageFor(model => model.LessonPlanNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <lable class="control-label col-md-2"><b>Class</b></lable>
+                <div class="col-md-10">
+                    @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.SubjectID, "SubjectID", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("SubjectID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SubjectID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @id = "Date" } })
+                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2"><b>Select Chapter</b></label>
+                <div class="col-md-10">
+                    <select class="form-control" id="ChapterID" disabled></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2"><b>Select Topic</b></label>
+                <div class="col-md-10">
+                    <select multiple class="form-control" id="TopicID" disabled></select>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control", @id = "Duration" } })
+                    @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+            <button id="View_Lesson" type="button" class="btn btn-primary">View_Lesson</button>
+            <button id="btnAdd" type="button" class="btn btn-primary">Add Breakdown</button>
+        </div>
+    </form>
+</div>
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Lesson Plan Breakdown</h3>
+    </div>
+    <div class="box-body">
+        <table class="table table-striped table-bordered">
+            <tbody id="breakdowntable" class="forms form-horizontal"></tbody>
+        </table>
+    </div>
+    <div class="box-footer">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button id="save_button" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

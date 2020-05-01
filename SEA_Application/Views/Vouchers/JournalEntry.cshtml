@@ -1,0 +1,502 @@
+﻿
+@{
+    ViewBag.Title = "JournalEntry";
+}
+<style>
+  
+    .select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border-radius: 4px;
+    height: 33px;
+}
+</style>
+<script>
+    count = 2;
+    row = [];
+    row[0] = 0;
+    row[1] = 1;
+    $(document).ready(function () {
+      //  $("#branch0").perpend("<option value=''>All</option>").val('');
+        $("#branch0").prepend("<option value=''>---Select One---</option>").val('');
+        $("#branch1").prepend("<option value=''>---Select One---</option>").val('');
+
+        var now = new Date();
+        addLedger(0);
+        addLedger(1);
+        AddBranch(0);
+        AddBranch(1);
+        CheckVoucherNo();
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+        $('#ddate').val(today);
+
+
+
+        $('.drop option[value=""]').removeAttr("selected");
+        var data1 = $('.drop').select2()
+                .on("select2:select", function (e) {
+                    var selected_element = $(e.currentTarget);
+                    var select_val = selected_element.val();
+                    var id = $(this).children(".select2-hidden-accessible").context.id;
+                });
+    });
+    var VoucherDetail =
+      {
+          Code: '',
+          Transaction: '',
+          Credit: '',
+          Debit: '',
+          BranchId:'',
+      };
+
+    var Voucher = {
+        VoucherName: '',
+        Narration: '',
+        VoucherNo: '',
+        Time: '',
+        VoucherDetail: []
+    }
+
+    Vouchers = [];
+
+    function SaveVoucher() {
+        debugger;
+        var t = true;
+        var name = $("#voucher").val();
+
+        $("#zero_Error").html("");
+        $("#Error_Vocuher").html("");
+
+        var total = $("#zero").html();
+        if (name == "") {
+            $("#Error_Vocuher").html("This field is required");
+        }
+        else if (total != 0)
+        {
+            
+                $("#zero_Error").html("Total must be Zero");
+                $("#submit").prop("disabled", true);
+        }
+        
+        else
+        {
+            Voucher = Object.create(Voucher);
+            Voucher.VoucherNo = $('#VoucherNo').val();
+            Voucher.VoucherName = $('#voucher').val();
+            Voucher.Narration = $('#Naration').val();
+            Voucher.Time = $('#ddate').val();
+            Voucher.VoucherDetail = [];
+
+            for (var i in row)
+            {
+                if (row[i] == null)
+                    continue;
+                VoucherDetail = Object.create(VoucherDetail);
+                var code = "code" + row[i];
+                VoucherDetail.Code = document.getElementById(code).value;
+                var transaction = "description" + row[i];
+                VoucherDetail.Transaction = document.getElementById(transaction).value;
+                var credit = "credit" + row[i];
+                VoucherDetail.Credit = document.getElementById(credit).value;
+                var debit = "debit" + row[i];
+                VoucherDetail.Debit = document.getElementById(debit).value;
+                var branch = "branch" + row[i];
+                VoucherDetail.BranchId = document.getElementById(branch).value;
+                if (VoucherDetail.Credit != "" && VoucherDetail.Debit != "") {
+                    $("#zero_Error").html("Invalid Input statement");
+
+                    t = false;
+                    break;
+                }
+                if (VoucherDetail.Credit == "" && VoucherDetail.Debit == "")
+                {
+                    $("#zero_Error").html("Debit and Credit Values are Empty");
+
+                    t = false;
+                    break;
+                }
+                if(VoucherDetail.Credit == VoucherDetail.Debit)
+                {
+                    $("#zero_Error").html("Debit and Credit Values are Same");
+
+                    t = false;
+                    break;
+                }
+                if(isNaN( VoucherDetail.Credit) || isNaN(VoucherDetail.Debit))
+                {
+                    $("#zero_Error").html("Enter only numbers");
+                    
+                    t = false;
+                    break;
+                }
+               
+                Voucher.VoucherDetail.push(VoucherDetail);
+            }
+           
+            if (t == true)
+            {
+                Vouchers = JSON.stringify({ 'Vouchers': Voucher });
+                $('.eeniart0017').css("display", "block");
+
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: '/Vouchers/AddVoucher',
+                    data: Vouchers,
+                    success: function (data) {
+                        $('.eeniart0017').css("display", "none");
+
+                        if (data == 'yes') {
+                            window.location.href = "Voucher";
+                        } else {
+                            @ViewBag.Error
+                        }
+                    }
+                });
+            }
+            
+            }
+            
+    }
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    function CheckVoucherNo() {       
+        $.ajax({
+            type: "POST",
+            url: "/FinanceSummary/FindVoucherNo",
+            success: function (data) {
+                $("#VoucherNo").val(data);
+            }
+        });
+    }
+    function NAN(ex)
+    {
+
+        var num = ex.value;
+        if(isNaN(num))
+        {
+            $("#zero_Error").html("Enter only numbers");
+            $("#submit").prop("disabled", true);
+        }
+        else {
+            $("#zero_Error").html("");
+            $("#submit").prop("disabled", false);
+        }
+    }
+    function journalentries()
+    {
+        //var newDiv = document.createElement("div")      
+
+        $("#journaldiv").append('<div class="col-md-10" style="margin-top:3px" id="'+count+'">' +
+                    '<div class="col-md-2">' +
+                       '<select id="code' + count + '" class="form-control drop" onchange="Codedescription(this)"></select>' +
+                    '</div>'+
+                    '<div class="col-md-4" style="padding-left:0px">'+
+                        '<input type="text" name="Name" id="description'+count+'" class="form-control" />'+
+                    '</div>' +
+                    '<div class="col-md-2" style="padding-left:0px">' +
+                       '<select id="branch' + count + '" class="form-control drop" disabled></select>' +
+                    '</div>' +
+                    '<div class="col-md-1" style="padding:0px">'+
+                        '<input type="text" name="dr" onkeyup="debitvalue()" onblur="NAN(this)" id="debit'+count+'" class="form-control dr" />'+
+                    '</div>'+
+                    '<div class="col-md-1" style="padding:0px">'+
+                        '<input type="text" name="cr" onkeyup="creditvalue()" onblur="NAN(this)" id="credit' + count + '" class="form-control cr" />' +
+                    '</div>'+
+                    '<div class="col-md-1">' +
+                        '<button class="btn btn-danger" onclick="Remove('+count+')"><i class="fa fa-remove"></i></button>'+
+                    '</div>'+
+                '</div>')
+
+        row[count] = count;
+        addLedger(count);
+        AddBranch(count);
+        var id = "#branch" + count;
+        var node = $(id);
+        node.prepend("<option value=''>---Select One---</option>").val('');
+
+       // node.prop("disabled", true);
+        count = count + 1;
+   
+
+        $(".drop").select2();
+    }
+    function Remove(e)
+    {
+        debugger;
+        var credit = 0;
+        var debit = 0;
+        if ($("#TotalCredit").val() == "")
+        {
+            credit = "";
+        }
+        else {
+            var creditvalue=parseInt(document.getElementById("credit" + e).value);
+            if (isNaN(creditvalue))
+            {
+                creditvalue = 0;
+            }
+            credit = parseInt($("#TotalCredit").val()) -creditvalue ;
+        }
+        if ($("#TotalDebit").val() == "") {
+            debit = "";
+        }
+        else {
+            var debitvalue = parseInt(document.getElementById("debit" + e).value)
+            if (isNaN(debitvalue))
+            {
+                debitvalue = 0;
+            }
+            debit = parseInt($("#TotalDebit").val()) - debitvalue;
+        }
+
+
+        $("#TotalCredit").val(credit);
+        $("#TotalDebit").val(debit);
+        $("#zero").html((debit-credit));
+        document.getElementById(e).remove();
+        row.splice(e, 1);
+
+      //  row[count] = count;
+       
+
+    }
+
+    //function Codedescription(code, codeId) {
+    //    debugger;
+    //    var TypeId = "type" + codeId[codeId.length - 1];
+    //    $.post("/AspNetFinanceVouchers/codeDescription", { "code": code })
+    //            .done(function (data) {
+    //                document.getElementById(TypeId).value = data.type;
+    //            });
+    //}
+
+
+    function Codedescription(e)
+    {
+        debugger;
+        var id = e.value;
+        var ledgerid = e.id;
+        var number = ledgerid[4];
+        var nmnm = "#branch" + number;
+        var node = $(nmnm);
+
+
+        $.ajax({
+            type: "POST",
+            url: "/Vouchers/CheckaccountHead",
+            data:{id:id},
+            success: function (data) {
+                var flag = data;
+                if(flag==true)
+                {
+
+                    node.prop("disabled", false);
+                }
+                else {
+                    node.prop("disabled", true);
+
+                }
+            }
+        })
+    }
+    function debitvalue()
+    {
+        var sum = 0;
+        var total=0;
+        var subcredit = $("#TotalCredit").val();
+        var subdebit = $("#TotalDebit").val();
+        if (subdebit == "")
+        {
+            subdebit = 0;
+        }
+        if (subcredit == "")
+        {
+            subcredit = 0;
+        }
+        $(".dr").each(function () {
+            if (!isNaN(this.value)) {
+                sum += +$(this).val();
+                if (subdebit == 0)
+                {
+                    $("#TotalDebit").val(sum);
+                     total =parseInt($("#TotalDebit").val());
+
+                }
+                else {
+                    $("#TotalDebit").val(sum);
+                    total = parseInt($("#TotalDebit").val()) - subcredit;
+                }
+
+                $("#zero").html(total);
+            }
+        })
+    }
+    function addLedger(rowNumber) {
+            var id = "#code" + rowNumber;
+           var node = $(id);
+        $.ajax({
+            type: "POST",
+            url: "/Vouchers/SelectListLedgers",
+            success: function (data) {
+                console.log(data);
+                $.each(data, function (i, item) {
+                    debugger;
+                    var head = data[i];
+                    node.append("<optgroup label=" + head.HeadName + " ></optgroup>")
+                    var Accountlist = head.accountlist;
+                    for (var j = 0; j < Accountlist.length; j++) {
+                    node.append("<option value=" + Accountlist[j].Id + " >" + Accountlist[j].Name + "</option>")
+                    }
+                });
+            }
+        });
+    }
+    function AddBranch(rowNumber) {
+        var id = "#branch" + rowNumber;
+        var node = $(id);
+        $.ajax({
+            type: "POST",
+            url: "/Vouchers/SelectListBranch",
+            success: function (data) {
+                console.log(data);
+                $.each(data, function (i, item) {
+                    console.log(data.Name);
+                    node.append("<option value=" + item.Id + " >" + item.Name + "</option>")
+
+                });
+
+            }
+        });
+    }
+    function creditvalue() {
+        var sum = 0;
+        var subtotal=$("#zero").text();
+        var subdebit = $("#TotalDebit").val();
+        if (subdebit == "")
+        {
+            subdebit = 0;
+        }
+        $(".cr").each(function () {
+            if (!isNaN(this.value)) {
+                sum += +$(this).val();
+                $("#TotalCredit").val(sum);
+                var total = parseInt(subdebit) - sum;
+                $("#zero").html(total);
+            }
+        })
+
+    }
+</script>
+<div class="col-md-10" style="background-color:#f1f2e5;margin:50px;border-radius:10px;padding:10px;box-shadow: rgba(0, 0, 0, 0.16) 5px 10px 5px, rgba(0, 0, 0, 0.23) 0px 3px 5px">
+
+    <h4>New Journal Entry</h4>
+    <hr />
+    <div class="col-md-10">
+        <div class="col-md-3">
+            <span style="font-weight:600">Date</span><br />
+            <input type="date" class="form-control round-border" id="ddate" />
+            <br />
+        </div>    
+    </div>
+
+    <div class="col-md-10">
+        <div class="col-md-2">
+            <span style="font-weight:600">Voucher No</span>
+            <div class="input-group">
+                <span style="font-weight:600" class="input-group-addon">#</span>
+                <input id="VoucherNo" type="text" class="form-control" readonly />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <span style="font-weight:600">Voucher</span><br />
+            <input type="text" class="form-control round-border" id="voucher" required/>
+            <span id="Error_Vocuher" style="color:red"></span>
+
+            <br />
+
+        </div>
+    </div>
+    <div class="col-md-10">
+        <div class="col-md-4">
+            <span style="font-weight:600">Narration</span>
+            <input type="text" name="Name" id="Naration" class="form-control" />
+            <br />
+        </div>
+    </div>
+
+
+    <div class="col-md-10" id="top">
+        <div class="col-md-2">
+            <span style="font-weight:600">Account</span>
+            <select id='code0' class='form-control drop' onchange='Codedescription(this)'></select>
+        </div>
+        <div class="col-md-4" style="padding-left:0px">
+            <span style="font-weight:600">Description</span>
+            <input type="text" name="Name" id="description0" class="form-control" />
+        </div>
+        <div class="col-md-2" style="padding-left:0px">
+            <span style="font-weight:600">Branch</span>
+             <select id='branch0' class='form-control drop' disabled></select>
+        </div>
+        <div class="col-md-1" style="padding:0px">
+            <span style="font-weight:600;text-align:right !important">Debit</span>
+            <input type="text" name="dr" onkeyup="debitvalue()" onblur="NAN(this)" id="debit0" class="form-control dr" />
+        </div>
+        <div class="col-md-1" style="padding:0px">
+            <span style="font-weight:600">Credit</span>
+            <input type="text" name="cr" onkeyup="creditvalue()" onblur="NAN(this)" id="credit0" class="form-control cr" />
+        </div>
+        <div class="col-md-1">
+            <br />
+            <button class="btn btn-default" onclick="journalentries()"><i class="fa fa-plus" style="color:gray"></i></button>
+        </div>
+    </div>
+    <div class="col-md-10" style="margin-top:3px" id="second">
+        <div class="col-md-2">
+            <select id='code1' class='form-control drop' onchange='Codedescription(this)'></select>
+        </div>
+        <div class="col-md-4" style="padding-left:0px">
+            <input type="text" name="Name" id="description1" class="form-control" />
+        </div>
+        <div class="col-md-2" style="padding-left:0px">
+            <select id='branch1' class='form-control drop' disabled></select>
+        </div>
+        <div class="col-md-1" style="padding:0px">
+            <input type="text" name="dr" onkeyup="debitvalue()" onblur="NAN(this)" id="debit1" class="form-control dr" />
+        </div>
+        <div class="col-md-1" style="padding:0px">
+            <input type="text" name="cr" onkeyup="creditvalue()" onblur="NAN(this)" id="credit1" class="form-control cr" />
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-default" onclick="journalentries()"><i class="fa fa-plus" style="color:gray"></i></button>
+        </div>
+    </div>
+    <div id="journaldiv">
+
+    </div>
+    <div class="col-md-10" style="margin-top:3px">
+        <div class="col-md-8">
+
+        </div>
+        <div class="col-md-1" style="padding:0px">
+            <input type="text" value="0" name="Tdebit" id="TotalDebit" style="background-color:white;text-align:right !important" class="form-control" readonly />
+        </div>
+        <div class="col-md-1" style="padding:0px">
+            <input type="text" name="tcredit" value="0"  id="TotalCredit" style="background-color:white;text-align:right !important" class="form-control" readonly />
+        </div>
+        <div class="col-md-2" style="margin-top:5px">
+            <span style="color:red" id="zero"><b>0</b></span><br />
+            <span style="color:red" id="zero_Error"></span>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <hr />
+        <button class="col-md-2 form-control" onclick="window.location.href = '/Vouchers/Voucher'" style="border-radius:35px;border:hidden;margin-right:10px;background-color:red;color:white;font-size:11px;width:98px;height:38px;font-family:Montserrat" id="return"><i class="fa fa-arrow-left"></i> &nbsp;&nbsp; Return</button>
+
+        <input class="col-md-2 form-control" id="submit" onclick="SaveVoucher()" type="submit" value="Save" style="border-radius:35px;color:white;border:hidden;background-color:#128edb;font-size:11px;width:98px;height:38px;font-family:Montserrat" />
+    </div>
+</div>

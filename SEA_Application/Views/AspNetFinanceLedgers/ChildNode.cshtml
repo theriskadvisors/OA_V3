@@ -1,0 +1,54 @@
+﻿@model IEnumerable<SEA_Application.Models.TreeViewNodeVM>
+<script>
+
+    $(document).ready(function () {
+        var balance = $(".money");
+
+        $.each(balance, function (i, item) {
+            item.innerHTML = numberWithCommas(item.innerHTML);
+        });
+    });
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function Create(Code) {
+        var type = Code.id;
+        console.log(type);
+        var code = Code.innerHTML;;
+        var ledger = code.split(' ');
+        window.location.href = "/AspNetFinanceLedgers/Create?Ledger=" + ledger[0] + "&Type=" + type;
+    }
+
+    function Edit(item) {
+        var code = item.id.split(' ');
+        window.location.href = "/AspNetFinanceLedgers/Edit?Ledger=" + code[0];
+    }
+</script>
+
+@foreach (var treeNode in Model)
+{
+    <ul>
+        @if (treeNode != null)
+        {
+
+            if (treeNode.Balance == "0") { treeNode.Balance = "-"; }
+
+            <li>
+                <div >
+                    <a href="#"><span onclick="Create(this)" id="@treeNode.Type">@treeNode.NodeName @*<span class="fa fa-plus"></span>*@</span></a><span style="margin-right:10px" class="pull-right"><a class="money" href="/AspNetFinanceLedgers/LedgerDetail?Code=@treeNode.NodeName">@treeNode.Balance</a></span>&nbsp;&nbsp;&nbsp;<span id="@treeNode.NodeName" onclick="Edit(this)"><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></span>
+                </div>
+                
+               
+                
+                @if (treeNode.ChildNode.Count > 0)
+                {
+                    @Html.Partial("ChildNode", treeNode.ChildNode)
+                }
+            </li>
+        }
+    </ul>
+
+    @*<hr class="LedgerLine" />*@
+} 

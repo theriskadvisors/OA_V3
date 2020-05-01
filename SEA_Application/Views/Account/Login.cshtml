@@ -1,0 +1,208 @@
+﻿@{ 
+    Layout = "~/Views/Shared/_LayoutPage_Login.cshtml";
+}
+@*@using SEA_Application.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+<script>
+
+    var allcookies = document.cookie;
+
+    cookiearray = allcookies.split(';');
+
+    for (var i = 0; i < cookiearray.length; i++)
+    {
+        var name = cookiearray[i].split('=')[0];
+        var value = cookiearray[i].split('=')[1];
+        var date = new Date();
+        date.setTime(date.getTime()+(-1*50000000));
+        var expires = "; expires="+date.toGMTString();
+        document.cookie = name+"="+value+expires+"; path=/";
+    }
+</script>
+
+<link href="~/AdminLTE/plugins/icheck/css/sqare/blue.css" rel="stylesheet" />
+<style>
+    .sea-background {
+    background: -webkit-radial-gradient(#5fb0da, #154158) !important;
+    width: 100% !important;
+    /* height: 100% !important; */
+}
+</style>
+
+<html>
+
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="@Url.Action("DashboardV1", "Home")">Sign In to <strong>SEA</strong></a>
+        </div>
+        <div class="login-box-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group has-feedback">
+                    <label style="font-weight:normal; font-size:15px;">Username:</label>
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Username" , Style= "border-radius:3px;" })
+                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <label style="font-weight:normal; font-size:15px;">Password:</label>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", type = "password", placeholder = "Password", Style = "border-radius:3px;" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">                  
+                    <div class="col-xs-12">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat" style="border-radius:3px;">SIGN IN</button>
+                    </div>
+                </div>
+            }
+            
+
+            
+        </div>
+    </div>
+
+
+</body>
+</html>*@
+
+@using SEA_Application.Models
+@model LoginViewModel
+@{
+     ViewBag.Title = "Log in";
+}
+
+<script>
+
+    var allcookies = document.cookie;
+
+    cookiearray = allcookies.split(';');
+
+    for (var i = 0; i < cookiearray.length; i++) {
+        var name = cookiearray[i].split('=')[0];
+        var value = cookiearray[i].split('=')[1];
+        var date = new Date();
+        date.setTime(date.getTime() + (-1 * 50000000));
+        var expires = "; expires=" + date.toGMTString();
+        document.cookie = name + "=" + value + expires + "; path=/";
+
+    }
+
+
+</script>
+<style>
+
+        .split-layout-lefts {
+            height: 100%;
+            width: 390px;
+        }
+    
+
+        .color:hover{
+            background-color:#0e72af !important;
+        }
+    .split-layout-right {
+        position: fixed;
+        height: 100%;
+        width: calc(100% - 500px);
+        right: 0;
+        background-color: #ffffff;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        font-family: serif;
+    }
+
+    .sea-background {
+        background: -webkit-radial-gradient(#fff, #fff) !important;
+    }
+</style>
+
+
+<html>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                @*<img src="~/Content/Images/art-artistic-blue-159825.jpg" />*@
+                <div class="col-md-4 split-layout-lefts" style="margin-top:4%;">
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="sea-img">
+                                <a href="@Url.Action("Login", "Account")">
+                                    <img height="80" src="~/Content/Images/logo SEA.PNG" />
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-12">
+                            <div style="font-family:Montserrat;font-size:16px"><b>Log in</b></div><br />
+                            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger", Style = "color:red" })
+
+                                <div class="form-group">
+                                    <div class="col-md-10">
+                                        @*<label style="font-weight:normal; font-size:15px;">Username:</label>*@
+                                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Username", Style = "border-radius:3px; width:130%" })
+
+                                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                                        @*<span class="glyphicon glyphicon-envelope form-control-feedback split-layout-left"></span>*@
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-10">
+                                        @*<label style="font-weight:normal; font-size:15px;">Password:</label>*@
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", type = "password", placeholder = "Password", Style = "border-radius:3px; width:130%" })
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                        @*<span class="glyphicon glyphicon-lock form-control-feedback"></span>*@
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        @Html.DropDownList("SessionID", null, htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-2">
+                                        <button type="submit" class="form-control color" style="border-radius:35px;border:none;color:#ffffff;background-color:#128edb;font-size:11px;width:98px;height:38px;font-weight:400;font-family:Montserrat">LOG IN</button>
+                                    </div>
+                                </div>
+                                <br /><br /><br /><br /><br /><br />
+                                <div class="col-md-12 col-lg-12 ">
+                                    <h4 style="font-family:Montserrat;font-weight:initial;font-size:14px;color:#222;"> Download Smarter Education Analytics for Android.</h4>
+                                    <a><img width="155" height="43" src="~/Content/Images/google image.png" /></a>
+                                </div>
+                            }
+
+                            @*<a href="#">I forgot my password</a><br>*@
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-8 col-lg-8 col-sm-8 split-layout-right">
+                    <img style="width:120%;height:100%" src="~/Content/Images/co.jpg" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+

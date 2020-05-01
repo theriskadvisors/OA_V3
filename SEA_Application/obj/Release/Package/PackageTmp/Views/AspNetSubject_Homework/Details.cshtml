@@ -1,0 +1,42 @@
+﻿@model SEA_Application.Models.AspNetSubject_Homework
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AspNetSubject_Homework</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HomeworkDetail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HomeworkDetail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetHomework.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetHomework.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetSubject.SubjectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetSubject.SubjectName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

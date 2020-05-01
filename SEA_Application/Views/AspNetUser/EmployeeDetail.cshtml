@@ -1,0 +1,274 @@
+﻿@model SEA_Application.Models.AspNetEmployee
+
+@{
+    ViewBag.Title = "EmployeeDetail";
+}
+
+<h2>Employee Detail</h2>
+
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PositionAppliedFor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PositionAppliedFor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateAvailable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateAvailable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nationality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nationality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Religion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Religion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MailingAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MailingAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CellNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CellNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Landline)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Landline)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpouseName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpouseName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpouseHighestDegree)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpouseHighestDegree)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpouseOccupation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpouseOccupation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpouseBusinessAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpouseBusinessAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GrossSalary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GrossSalary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BasicSalary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BasicSalary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicalAllowance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicalAllowance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Accomodation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Accomodation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProvidedFund)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProvidedFund)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EOP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EOP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Salary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Salary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JoiningDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JoiningDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Illness)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Illness)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+        <dt>
+            Virtual Role
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetVirtualRole.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*<span><a onclick="Disable()" href="#">Disable</a> |</span>*@
+    @if (Model.AspNetVirtualRole.Name == "Non Directive Staff")
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+    }
+      |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+<script>
+    function Disable() {
+        $("#myModal").modal('show');
+    }
+</script>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Complete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you really wanna disable this Teacher, After successfuly disabling you'll be redirect to Index page..
+            </div>
+            <div class="modal-footer">
+                <span class="btn btn-danger">@Html.ActionLink("Disable", "Delete", new { id = Model.Id })</span>
+            </div>
+        </div>
+    </div>
+</div>

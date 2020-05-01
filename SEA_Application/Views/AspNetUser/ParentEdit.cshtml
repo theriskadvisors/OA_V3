@@ -1,0 +1,498 @@
+﻿@model SEA_Application.Models.AspNetUser
+
+@{
+    ViewBag.Title = "Register";
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+
+    var Children = [];
+
+    function redirect() {
+        var url = '@Url.Action("ParentIndex", "AspNetUser")';
+        window.location.href = url;
+    }
+
+    $(document).ready(function () {
+
+        $("#UserName").bind('blur', function () {
+            var userName = $("#UserName").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/AspNetUser/GetUserName",
+                data: { "userName": userName },
+                success: function (data) {
+                    if (data == 0) {
+                        $('#FormSubmit').removeAttr('disabled');
+                    }
+                    else {
+                        $('#UserName-Error').html("UserName Already taken");
+                        $('#FormSubmit').prop('disabled', true);
+                    }
+
+                }
+            });
+
+        });
+
+        $("#Email").bind('blur', function () {
+            var email = $("#Email").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/AspNetUser/Email",
+                data: { "Email": email },
+                success: function (data) {
+                    console.log(data);
+                    if (data == 0) {
+                        $('#FormSubmit').prop('disabled', false);
+                    }
+                    else {
+                        $('#Email-Error').html("Email Already taken");
+                        $('#FormSubmit').prop('disabled', true);
+                    }
+
+                }
+            });
+
+        });
+
+        $("#FEmail").bind('blur', function () {
+            var email = $("#FEmail").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/AspNetUser/Email",
+                data: { "Email": email },
+                success: function (data) {
+                    console.log(data);
+                    if (data == 0) {
+                        $('#FormSubmit').prop('disabled', false);
+                        $('#FEmail-Error').html(" ");
+                    }
+                    else {
+                        $('#FEmail-Error').html("Email Already taken");
+                        $('#FormSubmit').prop('disabled', true);
+                    }
+
+                }
+            });
+
+        });
+
+
+        $("#MEmail").bind('blur', function () {
+            var email = $("#MEmail").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/AspNetUser/Email",
+                data: { "Email": email },
+                success: function (data) {
+                    console.log(data);
+                    if (data == 0) {
+                        $('#FormSubmit').prop('disabled', false);
+                        $('#MEmail-Error').html(" ");
+                    }
+                    else {
+                        $('#MEmail-Error').html("Email Already taken");
+                        $('#FormSubmit').prop('disabled', true);
+                    }
+
+                }
+            });
+
+        });
+
+        $("#ClassID").click(function () {
+            ClassClick();
+        });
+
+
+        ShowChilds();
+    });
+
+    function checkMPhone(phone) {
+        //var phone = $("#inputEmail3").val();
+        var length = phone.value.length;
+
+        if (length == 11) {
+            var patt = new RegExp("^[0]+[0-9]{10,}$");
+            var test = patt.test(phone.value);
+            console.log(test);
+            if (test == false) {
+                $('#MPhone-Error').html("Phone number is not in correct formate");
+                $('#FormSubmit').prop('disabled', true);
+            } else {
+                $('#FormSubmit').prop('disabled', false);
+                $('#MPhone-Error').html(" ");
+            }
+        } else {
+            $('#MPhone-Error').html("Phone number is not in correct formate");
+            $('#FormSubmit').prop('disabled', true);
+        }
+    }
+
+    function checkFPhone(phone) {
+        //var phone = $("#inputEmail3").val();
+        var length = phone.value.length;
+
+        if (length == 11) {
+            var patt = new RegExp("^[0]+[0-9]{10,}$");
+            var test = patt.test(phone.value);
+            console.log(test);
+            if (test == false) {
+                $('#FPhone-Error').html("Phone number is not in correct formate");
+                $('#FormSubmit').prop('disabled', true);
+            } else {
+                $('#FormSubmit').prop('disabled', false);
+                $('#FPhone-Error').html(" ");
+            }
+        } else {
+            $('#FPhone-Error').html("Phone number is not in correct formate");
+            $('#FormSubmit').prop('disabled', true);
+        }
+    }
+
+    function ClassClick() {
+        var selectedClass = $("#ClassID").val();
+        $.ajax({
+            url: '@Url.Action("StudentsByClass" , "Admin_Dashboard")',
+            type: 'GET',
+            dataType: 'json',
+            cache: false,
+            traditional: true,
+            data: { bdoIds: selectedClass },
+
+        }).done(function (response) {
+            $('#StudentID').html('');
+
+            $.each(response, function (i, item) {
+                debugger;
+                var classname = $("#ClassID option[value='" + item.ClassID + "']").text();
+                $('#StudentID').append('<option value=' + item.Id + '>' + item.Name + ' (' + classname + ')</option>');
+            });
+
+            $('.Children input').each(function () {
+                debugger;
+                Children.push($(this).val());
+            });
+
+            $.each(Children, function (i, item) {
+                debugger;
+                $("#StudentID option[value='" + item + "']").prop('selected', true);
+            })
+        })
+
+        
+    }
+
+    function ShowChilds() {
+
+        var Classes = [];
+        $('.ChildClasses input').each(function () {
+            Classes.push($(this).val());
+        });
+
+        $.each(Classes, function (i, item) {
+            $("#ClassID option[value='" + item + "']").prop('selected', true);
+        })
+        $("#ClassID option[value='']").remove();
+        ClassClick();
+
+        Children = [];
+        $('.Children input').each(function () {
+            Children.push($(this).val());
+        });
+
+        $.each(Children, function (i, item) {
+          //  alert(item);
+            $("#StudentID option[value='" + item + "']").prop('selected', true);
+        })
+    }
+
+    //function CheckPassword() {
+    //    var CurrentPassword = $("#CurrentPassword").val();
+    //    var Id = $("#Id").val();
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/AspNetUser/CheckPassword",
+    //        data: { "Password": CurrentPassword, "id":Id },
+    //        success: function (data) {
+    //            console.log(data);
+    //            //if (data == 0) {
+    //            //    $('#FormSubmit').prop('disabled', false);
+    //            //    $('#CurrentPasswordError').html(" ");
+    //            //}
+    //            //else {MCurrentPasswordError').html("Incorrect Passowrd");
+    //            //    $('#FormSubmit
+    //            //    $('#').prop('disabled', true);
+    //            //}
+
+    //        }
+    //    });
+    //}
+
+    function onCancel() {
+        $('#cancel').click();
+    }
+    function onSave() {
+        $('#FormSubmit').click();
+    }
+
+</script>
+<label>@Html.ActionLink("Home", "Dashboard", "Account") >  @Html.ActionLink("Parent", "ParentIndex", "AspNetUser") > <a href="#">Edit</a></label>
+
+<h4 class="orange">Edit Parent</h4>
+<div class="row" style="padding-bottom: 10px; padding-top: 10px; padding-left: 20px; padding-right: 20px;">
+    <button class="btn btn-default pull-left btn-sm" onclick="onCancel()">
+        Cancel
+    </button>
+    <button class="pull-right" style="background-color: transparent; border: none; outline: none; font-size: 20px; color: rgb(89, 89, 89) !important" onclick="onSave()">
+        <i class="fa fa-floppy-o"></i>
+    </button>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="nav-tabs-custom">
+         
+            <div class="tab-content" style="background-color:#ECF0F5; padding:10px 0px 0px 0px;">
+                <div class="tab-pane active" id="tab_1">
+                    @using (Html.BeginForm("ParentEdit", "Admin_Dashboard", FormMethod.Post, new { @class = " forms form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" value="@ViewBag.Id" name="Id" id="Id" />
+                        <div class="form-three widget-shadow">
+                            <div class="box box-primary">
+                                
+                                    <div class="box-header with-border"><h3 class="orange">User Information<span class="red-mark">*</span></h3></div>
+                                <div class="box-body">
+                                    <!--Html.ValidationSummary("", new { class = "text-danger" })-->
+                                    <div class="form-group">
+                                        <label class="col-md-1 col-lg-1 control-label" for="Email">Email <span class="red-mark">*</span></label>
+                                        <div class="col-md-6">
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", @id = "Email-Error" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-1 col-lg-1 control-label" for="Name">Name <span class="red-mark">*</span></label>
+                                        <div class="col-md-6">
+                                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-1 col-lg-1 control-label" for="UserName">User Name <span class="red-mark">*</span></label>
+                                        <div class="col-md-6">
+                                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger", @id = "UserName-Error" })
+                                        </div>
+                                    </div>
+                                    @*<div class="form-group">
+                <label class="col-md-2 control-label" for="UserName">Current Password <span class="red-mark">*</span></label>
+                <div class="col-md-6">
+                    <input type="password" class="form-control" id="CurrentPassword" onblur="CheckPassword()">
+                    <span class="text-danger" id="CurrentPasswordError"></span>
+                </div>
+            </div>*@
+                                    @*<div class="form-group">
+                <label class="col-md-2 control-label" for="ConfirmPassword">Confirm Password <span class="red-mark">*</span></label>
+                <div class="col-md-6">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+                                    <br />
+                                    <br />
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6" style="padding-left:0px; padding-right:15px;">
+                                <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                        <h3 class="orange">Father's Data &nbsp; <i class="fa fa-male" aria-hidden="true"></i></h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">Name<span class="red-mark">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="fatherName" required value="@ViewBag.Parent.FatherName">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12" style="font-size: 10px;color: #ff0039 !important;margin-bottom: -10px;">Used for Mobile message</label>
+                                            <label for="inputPassword3" class="col-sm-2 control-label">Cell No.</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="fatherCell" value="@Model.PhoneNumber">
+                                                <span id="FPhone-Error" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-2 control-label">Email<span class="red-mark">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" name="fatherEmail" id="FEmail" onblur="checkFPhone(this)" required value="@ViewBag.Parent.FatherEmail">
+                                                <span class="red-mark" id="FEmail-Error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-2 control-label">Occupation</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="fatherOccupation" value="@ViewBag.Parent.FatherOccupation">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-2 control-label">Employer</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="fatherEmployer" value="@ViewBag.Parent.FatherEmployer">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="padding-right:0px;">
+                                <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                        <h3 class="orange">Mother's Data &nbsp; <i class="fa fa-female" aria-hidden="true"></i></h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">Name<span class="red-mark">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="motherName" required value="@ViewBag.Parent.MotherName">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-2 control-label">Cell No.</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="motherCell" onblur="checkMPhone(this)" value="@ViewBag.Parent.MotherCellNo">
+                                                <span id="MPhone-Error" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-2 control-label">Email<span class="red-mark">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" name="motherEmail" id="MEmail" required value="@ViewBag.Parent.MotherEmail">
+                                                <span class="red-mark" id="MEmail-Error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-2 control-label">Occupation</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="motherOccupation" value="@ViewBag.Parent.MotherOccupation">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-2 control-label">Employer</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="motherEmployer" value="@ViewBag.Parent.MotherEmployer">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <br />
+                            <br />
+
+                        </div>
+
+                        <div class="form-three widget-shadow">
+                            <h2 class="orange">Children &nbsp; <i class="fa fa-child" aria-hidden="true"></i></h2>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="box box-primary">
+                                                <div class="box-header with-border"><h3 class="orange">Class:<span class="red-mark">*</span></h3></div>
+
+                                                <div class="box-body">
+                                                    @Html.ListBox("ClassID", null, htmlAttributes: new { @class = "form-control", @style = "height:500px;" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="box box-primary">
+                                                <div class="box-header with-border"><h3 class="orange">Student:<span class="red-mark">*</span></h3></div>
+
+                                                <div class="box-body">
+                                                    <select multiple style="height:500px;" class="form-control" id="StudentID" name="StudentID" required></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box box-primary">
+                                <div class="box-title"></div>
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <div class="col-md-2">
+                                            <input type="submit" class="btn btn-primary" value="Update" id="FormSubmit" />
+                                            <button type="button" id="cancel" class="btn btn-default" onclick="redirect()">Cancel</button>
+
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                </div>
+                    
+                <div class="tab-pane" id="tab_2">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="orange">Upload Excel File &nbsp; <i class="fa fa-excel" aria-hidden="true"></i></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-three widget-shadow">
+                                @using (Html.BeginForm("ParentRegisterFromFile", "Admin_Dashboard", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                    <div class="form-group">
+                                        <div class="control-label col-md-3"><b>Excel File</b></div>
+                                        <div class="col-md-4">
+                                            <input id="parents" name="parents" type="file" />
+                                        </div>
+                                    </div>
+                                                <br />
+                                                <br />
+                                                <div class="box-footer">
+                                                    <div class="form-group">
+                                                        <div class="col-md-10">
+                                                            <input type="submit" value="Submit" class="btn btn-primary" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ChildClasses">
+    @foreach (var item in ViewBag.Classes)
+    {
+        <input type="hidden" value="@item" />
+    }
+</div>
+
+<div class="Children">
+    @foreach (var item in ViewBag.Children)
+    {
+        <input type="hidden" value="@item" />
+    }
+</div>

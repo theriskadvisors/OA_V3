@@ -1,0 +1,157 @@
+﻿<script src="~/AdminLTE/selectone.js"></script>
+<script>
+    var Mark =
+               {
+                   Id: '',
+                   GotMark: '',
+               };
+    $(document).ready(function () {
+        $("#ClassID").click(function () {
+            var selectedClass = $("#ClassID").val();
+            $.get('@Url.Action("SubjectsByClass", "Teacher_Dashboard")',
+                { id: selectedClass }, function (data) {
+
+                    $('#SubjectID').html('');
+
+                    $.each(data, function (i, item) {
+                        $('#SubjectID').append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
+                    });
+
+                });
+        });
+        $("#SubjectID").click(function () {
+            var selectedSubject = $("#SubjectID").val();
+            $.get('@Url.Action("CatalogBySubject", "AspNetAssessment")',
+                { SubjectID: selectedSubject }, function (data) {
+
+                    $('#Subject_CatalogID').html('');
+
+                    $.each(data, function (i, item) {
+                        $('#Subject_CatalogID').append('<option value=' + item.Id + '>' + item.CatalogName + '</option>');
+                    });
+
+                });
+        });
+
+        $("#Subject_CatalogID").click(function () {
+            var selectedCatalog = $("#Subject_CatalogID").val();
+            $.get('@Url.Action("AssessmentBySubject", "AspNetAssessment")',
+                { CatalogID: selectedCatalog }, function (data) {
+
+                    $('#AssessmentID').html(' ');
+
+                    $.each(data, function (i, item) {
+                        $('#AssessmentID').append('<option value=' + item.Id + '>' + item.Title + '</option>');
+                    });
+
+                });
+        });
+
+        $("#AssessmentID").click(function () {
+            var selectedAssessment = $("#AssessmentID").val();
+            $.get('@Url.Action("SubmissionByAssessment", "AspNetAssessment")',
+                { AssessmentID: selectedAssessment }, function (data) {
+
+                    $('#marks_table').html('');
+
+                    $.each(data, function (i, item) {
+                       
+
+
+                        $('#marks_table').append('<tr id=' + item.assessmentsubmission.Id + '><td>' + item.Name + '</td><td><input type="text" class="form-control" id="GotMarks" value=' + item.assessmentsubmission.MarksGot + '></td></tr>');
+
+                    });
+
+                });
+        });
+
+        $('#save_marks').click(function () {
+            Marks = [];
+            $('table tbody tr').each(function () {
+                Mark = Object.create(Mark);
+                Mark.Id = $(this).attr('id');
+                Mark.GotMark = $('#GotMarks', this).val();
+                Marks.push(Mark);
+
+            });
+            marks = JSON.stringify({ 'marks': Marks });
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: '/AspNetAssessment/SaveAssessmentMarks',
+                data: marks,
+                success: function () {
+                    alert('Marks Successfully Save');
+                },
+                failure: function (response) {
+                    alert('Something went wrong');
+                }
+            });
+        });
+
+
+    });
+</script>
+<label>Home > User > <span class="text-primary">Assessment</span></label>
+<h4>Assessment</h4>
+
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Assessment</h3>
+    </div>
+    <div class="box-body">
+        <form class="form-horizontal">
+            <div class="box-body">
+                <div class="form-group">
+                    <lable class="col-md-2 control-label"><b>Select Class</b></lable>
+                    <div class="col-md-10">
+                        @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <lable class="col-md-2 control-label"><b>Select Subject</b></lable>
+                    <div class="col-md-10">
+                        @Html.DropDownList("SubjectID", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <lable class="col-md-2 control-label"><b>Assessment Type</b></lable>
+                    <div class="col-md-10">
+                        @Html.DropDownList("Subject_CatalogID", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <lable class="col-md-2 control-label"><b>Assessment Title</b></lable>
+                    <div class="col-md-10">
+                        <select id="AssessmentID" class="form-control"></select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="box box-info" id="assessment-box">
+    <form class="form-horizontal">
+        <div class="box-body" id="assessment">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Student Name
+                        </th>
+                        
+                        <th>
+                            Marks Obtained
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="marks_table"></tbody>
+            </table>
+        </div>
+    </form>
+    <div class="box-footer">
+        <button type="button" id="save_marks" class="btn btn-primary">Save</button>
+    </div>
+</div>

@@ -1,0 +1,599 @@
+﻿@model SEA_Application.Models.LessonViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
+}
+<style>
+    .page-sidebar .page-sidebar-menu, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: 2200px !important;
+    }
+
+    textarea {
+        width: 564px;
+        height: 178px;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "POST",
+            cache: false,
+            url: "/AspnetLessons/LoadSectionIdDDL",
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                var sch = JSON.parse(data);
+
+                //var $el = $("#TopicId");
+                //$el.empty();
+
+                if (sch.length > 0) {
+                    $el.append($("<option></option>")
+                        .attr("value", "").text('Select Section'));
+                    for (i = 0; i < sch.length; i++) {
+                        $el.append($("<option></option>")
+                            .attr("value", sch[i].Id).text(sch[i].ClassName));
+                    }
+                }
+                else {
+                    $el.append($("<option></option>")
+                        .attr("value", '').text('Select'));
+                }
+            }
+        });
+
+
+        var course = 'CSS';
+        var Class;
+        $('#CTId').change(function () {
+
+            var crse = $(this).val();
+            console.log(crse);
+            course = crse;
+            $.ajax({
+                type: "POST",
+                cache: false,
+                url: "/AspNetProject/GetSubjectsByClass?CT=" + course,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    var sch = JSON.parse(data);
+                    console.log(sch);
+                    var $el = $("#SubId");
+                    $el.empty();
+                    var $e2 = $("#TopicId");
+                    $e2.empty();
+                    if (sch.length > 0) {
+                        $el.append($("<option></option>")
+                            .attr("value", "").text('Select Subject'));
+                        for (i = 0; i < sch.length; i++) {
+
+                            $el.append($("<option></option>")
+                                .attr("value", sch[i].Id).text(sch[i].SubjectName));
+                        }
+                    }
+                    else {
+                        $el.append($("<option></option>")
+                            .attr("value", '').text('Select'));
+                    }
+                }
+            });
+        });
+
+
+        $('#SecId').change(function () {
+
+            var UserName = $(this).val();
+            console.log(UserName);
+            Class = UserName;
+            $.ajax({
+                type: "POST",
+                cache: false,
+                url: "/AspNetProject/GetSubjectsByClass?ClassID=" + UserName + "&&CT=" + course,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    var sch = JSON.parse(data);
+                    console.log(sch);
+                    var $el = $("#SubId");
+                    $el.empty();
+                    var $e2 = $("#TopicId");
+                    $e2.empty();
+                    if (sch.length > 0) {
+                        $el.append($("<option></option>")
+                            .attr("value", "").text('Select Subject'));
+                        for (i = 0; i < sch.length; i++) {
+
+                            $el.append($("<option></option>")
+                                .attr("value", sch[i].Id).text(sch[i].SubjectName));
+                        }
+                    }
+                    else {
+                        $el.append($("<option></option>")
+                            .attr("value", '').text('Select'));
+                    }
+                }
+            });
+
+        });
+
+
+        $('#SubId').change(function () {
+
+            var subid = $(this).val();
+            console.log(subid);
+
+            $.ajax({
+                type: "POST",
+                cache: false,
+                url: "/AspNetProject/GetTopic?SubID=" + subid,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    var sch = JSON.parse(data);
+                    console.log(sch);
+                    var $el = $("#TopicId");
+                    $el.empty();
+                    if (sch.length > 0) {
+                        $el.append($("<option></option>")
+                            .attr("value", "").text('Select Topic'));
+                        for (i = 0; i < sch.length; i++) {
+
+                            $el.append($("<option></option>")
+                                .attr("value", sch[i].Id).text(sch[i].Name));
+                        }
+                    }
+                    else {
+                        $el.append($("<option></option>")
+                            .attr("value", '').text('Select'));
+                    }
+                }
+            });
+
+        });
+        $("form").submit(function () {
+
+            debugger
+
+            if (document.getElementById("Assignment").files.length == 0) {
+                console.log("no files selected");
+
+
+
+
+            }
+            else {
+                var AssignmentName = $("#AssignmentName");
+                var AssignmentDueDate = $("#AssignmentDueDate");
+
+                if (AssignmentName.val() != "" && AssignmentDueDate.val() != "") {
+
+
+                }
+                else {
+
+
+
+                    $("#AssignmentName").prop('required', true);
+                    $("#AssignmentDescription").prop('required', true);
+                    $("#AssignmentDueDate").prop('required', true);
+
+                    return false;
+                }
+
+
+            }
+
+
+
+            if (document.getElementById("Attachment1").files.length == 0) {
+                console.log("no files selected");
+
+
+
+
+            }
+            else {
+                var AttachmentName1 = $("#AttachmentName1");
+
+
+                if (AttachmentName1.val() != "") {
+
+
+
+                }
+                else {
+
+
+
+                    $("#AttachmentName1").prop('required', true);
+
+                    return false;
+                }
+
+
+            }
+
+
+
+            if (document.getElementById("Attachment2").files.length == 0) {
+                console.log("no files selected");
+
+
+
+
+            }
+            else {
+                var AttachmentName2 = $("#AttachmentName2");
+
+
+                if (AttachmentName2.val() != "") {
+
+
+                }
+                else {
+
+
+
+                    $("#AttachmentName2").prop('required', true);
+
+                    return false;
+                }
+
+
+            }
+
+
+
+
+            if (document.getElementById("Attachment3").files.length == 0) {
+                console.log("no files selected");
+
+
+
+            }
+            else {
+                var AttachmentName3 = $("#AttachmentName3");
+
+
+                if (AttachmentName3.val() != "") {
+
+                }
+                else {
+
+
+
+                    $("#AttachmentName3").prop('required', true);
+
+                    return false;
+                }
+
+
+            }
+
+
+
+        });
+
+
+        $("#Assignment").click(function () {
+
+            $("#AssignmentText").css('display', 'none');
+
+
+        })
+
+
+        $("#Attachment1").click(function () {
+
+            $("#AttachmentText1").css('display', 'none');
+
+
+        })
+
+        $("#Attachment2").click(function () {
+
+            $("#AttachmentText2").css('display', 'none');
+
+
+        })
+
+        $("#Attachment3").click(function () {
+
+            $("#AttachmentText3").css('display', 'none');
+
+
+        })
+    })
+</script>
+
+
+
+<h3>&nbsp;&nbsp;Edit Lessons</h3>
+<div class="box box-primary">
+
+    @*<div class=""><h3 class="orange">Lesson Basic Info<span class="red-mark">*</span></h3></div>*@
+    <div class="box-body">
+
+        @using (Html.BeginForm("Edit", "AspnetLessons", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h3> Lesson Basic Info</h3>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LessonName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.LessonName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LessonName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LessonVideoURL, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.LessonVideoURL, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LessonVideoURL, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LessonDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.TextAreaFor(model => model.LessonDescription, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LessonDescription, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                        <label class="cocntrol-label col-md-2">Select Section</label>
+                        <div class="col-md-6">
+                            @Html.DropDownList("SecId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.TopicId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+                <div class="form-group">
+
+                    <label class="cocntrol-label col-md-2">Select Course Type</label>
+                    <div class="col-md-6">
+                        @Html.DropDownList("CTId", new List<SelectListItem>
+                            {
+                            new SelectListItem{ Text="CSS", Value = "CSS" },
+                            new SelectListItem{ Text="PMS", Value = "PMS" },
+                             }, htmlAttributes: new { @class = "form-control" })
+                    </div>
+
+                </div>
+                <div class="form-group">
+
+                    <label class="control-label col-md-2">Select Subject</label>
+                    <div class="col-md-6">
+                        @Html.DropDownList("SubId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TopicId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Select Topics</label>
+                    <div class="col-md-6">
+                        @Html.DropDownList("TopicId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TopicId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LessonDuration, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        <input type="number" min="30" max="60" value="@ViewBag.LessonDuration" onkeydown="return false" class="form-control" name="LessonDuration" id="LessonDuration" required />
+
+                        @Html.ValidationMessageFor(model => model.LessonDuration, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <div class="box box-primary">
+                    <div class="box-header with-border"><h3 class="orange">Student Assignment</h3></div>
+                    <div class="box-body row">
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AssignmentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.AssignmentName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.AssignmentName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AssignmentDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                @Html.TextAreaFor(model => model.AssignmentDescription, new { htmlAttributes = new { id = "TextAreaBox", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.AssignmentDescription, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label class="control-label col-md-2"> Student Assigment</label>
+
+                            <div class="col-md-6">
+
+                                <input type="file" id="Assignment" name="Assignment">
+                                <br />
+                                <span style="color:steelblue" id="AssignmentText"> @ViewBag.AssignmentFileName </span>
+
+                                <div class="">
+                                    <p class="help-block">Max. 32MB. (File Name Should be unique)  </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AssignmentDueDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+
+                                @*@Html.EditorFor(model => model.LessonDuration, new { htmlAttributes = new { type = "date", @class = "form-control" } })*@
+
+                                <input type="date" name="AssignmentDueDate" id="AssignmentDueDate" value="@ViewBag.Date" class="form-control" />
+
+                                @Html.ValidationMessageFor(model => model.AssignmentDueDate, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box box-primary">
+                    <div class="box-header with-border"><h3 class="orange">Reading Material</h3></div>
+                    <div class="box-body row">
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AttachmentName1, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.AttachmentName1, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.AttachmentName1, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label class="control-label col-md-2"> Attach File-1</label>
+
+                            <div class="col-md-6">
+
+
+
+                                <input type="file" id="Attachment1" name="Attachment1">
+                                <br />
+                                <span style="color:steelblue" id="AttachmentText1"> @ViewBag.Attachment1FileName </span>
+
+
+
+                                <div>
+                                    <p class="help-block">Max. 32MB. (File Name Should be unique) </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AttachmentName2, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.AttachmentName2, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.AttachmentName2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label class="control-label col-md-2"> Attach File-2</label>
+                            <div class="col-md-6">
+
+
+                                <input type="file" id="Attachment2" name="Attachment2">
+                                <br />
+                                <span style="color:steelblue" id="AttachmentText2"> @ViewBag.Attachment2FileName </span>
+
+
+
+                                <div>
+                                    <p class="help-block">Max. 32MB. (File Name Should be unique) </p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AttachmentName3, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.AttachmentName3, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.AttachmentName3, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label class="control-label col-md-2"> Attach File-3</label>
+                            <div class="col-md-6">
+
+                                <input type="file" id="Attachment3" name="Attachment3">
+                                <br />
+                                <span style="color:steelblue" id="AttachmentText3"> @ViewBag.Attachment3FileName </span>
+
+
+                                <div class="    ">
+                                    <p class="help-block">Max. 32MB. (File Name Should be unique) </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header with-border"><h3 class="orange">Material Links (URL) </h3></div>
+                    <div class="box-body row">
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LinkUrl1, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.LinkUrl1, new { htmlAttributes = new { @placeholder = "Enter Data Must be a URL", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LinkUrl1, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LinkUrl2, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.LinkUrl2, new { htmlAttributes = new { @placeholder = "Enter Data Must be a URL", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LinkUrl2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LinkUrl3, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.LinkUrl3, new { htmlAttributes = new { @placeholder = "Enter Data Must be a URL", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LinkUrl3, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-6">
+                                <input type="submit" value="Save" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+        }
+    </div>
+</div>

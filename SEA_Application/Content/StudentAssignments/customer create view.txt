@@ -1,0 +1,809 @@
+@model DotnetERP2.Models.CustomerViewModel
+@{
+    ViewBag.Title = "Create";
+}
+<script src="~/lib/jquery/countries.js"></script>
+
+@using (Html.BeginForm("Create", "Customer", FormMethod.Post))
+{
+
+    <div class="az-content-body">
+        <div class="card">
+            <div class="card-body">
+                <style type="text/css">
+                    .onoffswitch {
+                        position: relative;
+                        width: 90px;
+                        -webkit-user-select: none;
+                        -moz-user-select: none;
+                        -ms-user-select: none;
+                    }
+
+                    .onoffswitch-checkbox {
+                        display: none;
+                    }
+
+                    .onoffswitch-label {
+                        display: block;
+                        overflow: hidden;
+                        cursor: pointer;
+                        border: 2px solid white;
+                        border-radius: 20px;
+                    }
+
+                    .onoffswitch-inner {
+                        display: block;
+                        width: 200%;
+                        margin-left: -100%;
+                        transition: margin 0.3s ease-in 0s;
+                    }
+
+                        .onoffswitch-inner:before, .onoffswitch-inner:after {
+                            display: block;
+                            float: left;
+                            width: 50%;
+                            height: 30px;
+                            padding: 0;
+                            line-height: 30px;
+                            font-size: 12px;
+                            color: white;
+                            font-family: Trebuchet, Arial, sans-serif;
+                            font-weight: bold;
+                            box-sizing: border-box;
+                        }
+
+                        .onoffswitch-inner:before {
+                            content: "Active";
+                            padding-left: 10px;
+                            background-color: dodgerblue;
+                            color: #FFFFFF;
+                        }
+
+                        .onoffswitch-inner:after {
+                            content: "Inactive";
+                            padding-right: 10px;
+                            background-color: darkgray;
+                            color: white;
+                            text-align: right;
+                        }
+
+                    .onoffswitch-switch {
+                        display: block;
+                        width: 18px;
+                        margin: 6px;
+                        background: white;
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        right: 56px;
+                        border: 2px solid white;
+                        border-radius: 25px;
+                        transition: all 0.3s ease-in 0s;
+                    }
+
+                    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+                        margin-left: 0;
+                    }
+
+                    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+                        right: 0px;
+                    }
+                </style>
+                <!-- Tabs -->
+
+             
+
+                <section id="tabs">
+                    <div class="col-md-12 ">
+                        <nav class="nav az-nav-line az-nav-line-chat">
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-home" aria-selected="true">Contact Information</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-shipping" role="tab" aria-controls="nav-profile" aria-selected="false">SHIPPING ADDRESS</a>
+                                @*<a class="nav-item nav-link" id="nav-financial-tab" data-toggle="tab" href="#nav-financial" role="tab" aria-controls="nav-profile" aria-selected="false">Financial Details </a>*@
+                            </div>
+                            <hr>
+                        </nav>
+                        <form>
+                            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-contact" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    <div class="row row-sm">
+                                        <div class="col-lg-6">
+                                            <div class="row row-sm">
+                                                <div class="col-lg-4">
+                                                    <p class="mg-b-10">Contact Name</p>
+                                                </div><!-- col -->
+                                                <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                                    <span style="color:green">   @ViewBag.Msg</span>
+
+                                                    @Html.HiddenFor(model => model.Customer.Id, new { @class = "form-control" })
+                                                    @Html.HiddenFor(model => model.CustomerShippingAddress.Id)
+                                                    @Html.HiddenFor(model => model.CustomerShippingAddress.CustomerId)
+
+
+                                                    @*<input class="form-control" id="Company" type="text" placeholder="Company Name">*@
+                                                    @Html.TextBoxFor(x => x.Customer.CompanyName, new { @class = "form-control", placeholder = "Company Name" })
+
+
+                                                    <a href="">Add account number</a>
+                                                    <script type="text/javascript">
+                                                        $(document).ready(function () {
+                                                            var max_fields = 10; //maximum input boxes allowed
+                                                            var wrapper = $(".input_fields_wrap"); //Fields wrapper
+                                                            var add_button = $(".add_field_button"); //Add button ID
+
+                                                            var x = 1; //initlal text box count
+                                                            $(add_button).click(function (e) { //on add input button click
+                                                                e.preventDefault();
+                                                                if (x < max_fields) { //max input box allowed
+                                                                    x++; //text box increment
+                                                                    $(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+                                                                }
+                                                            });
+
+                                                            $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
+                                                                e.preventDefault(); $(this).parent('div').remove(); x--;
+                                                            })
+                                                        });
+                                                    </script>
+                                                </div><!-- col -->
+                                            </div><!-- row -->
+
+                                            <div class="row row-sm  mg-t-40">
+                                                <div class="col-lg-4">
+                                                    <p class="mg-b-10">Primary Person</p>
+                                                </div><!-- col -->
+                                                <div class="col-lg-4 mg-t-10 mg-lg-t-0">
+                                                    @*<input class="form-control" id="City" type="text" placeholder="First Name">*@
+                                                    @Html.TextBoxFor(x => x.Customer.FirstName, new { @class = "form-control", placeholder = "First Name",  })
+                                                </div><!-- col -->
+                                                <div class="col-lg-4 mg-t-10 mg-lg-t-0">
+                                                    @*<input class="form-control" id="Phone" type="text" placeholder="Last Name">*@
+                                                    @Html.TextBoxFor(x => x.Customer.LastName, new { @class = "form-control", placeholder = "Last Name",  })
+                                                </div><!-- col -->
+                                            </div><!-- row -->
+
+                                            <div class="row row-sm mg-t-15">
+                                                <div class="col-lg-4">
+                                                    <p class="mg-b-10">Email</p>
+                                                </div><!-- col -->
+                                                <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                                    @*<input class="form-control" id="State" type="email">*@
+
+
+                                                    @Html.TextBoxFor(x => x.Customer.Email, new { @class = "form-control" })
+                                                    <a href="#">Add another person</a>
+                                                </div><!-- col -->
+                                            </div><!-- row -->
+
+                                            <div class="row row-sm mg-t-40">
+                                                <div class="col-lg-4">
+                                                    <p class="mg-b-10">Phone</p>
+                                                </div><!-- col -->
+
+                                                <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                                    @Html.TextBoxFor(x => x.Customer.PhoneNumber, new { @class = "form-control", placeholder = "Number" })
+                                                    @*<input type="text" name="name" placeholder="Number" class="form-control" />*@
+                                                </div><!-- col -->
+                                            </div><!-- row -->
+
+                                            <div class="row row-sm mg-t-20">
+                                                <div class="col-lg-4">
+                                                    <p class="mg-b-10">Fax</p>
+                                                </div><!-- col -->
+
+                                                <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                                    @*<input type="text" name="name" placeholder="Number" class="form-control" />*@
+                                                    @Html.TextBoxFor(x => x.Customer.FaxNumber, new { @class = "form-control", placeholder = "Number" })
+                                                </div><!-- col -->
+                                            </div><!-- row -->
+
+                                            <div class="row row-sm mg-t-20">
+                                                <div class="col-lg-4">
+                                                    <p class="mg-b-10">Mobile</p>
+                                                </div><!-- col -->
+
+                                                <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                                    @*<input type="text" name="name" placeholder="Number" class="form-control" />*@
+                                                    @Html.TextBoxFor(x => x.Customer.MobileNumber, new { @class = "form-control", placeholder = "Number" })
+                                                </div><!-- col -->
+                                            </div><!-- row -->
+                                            <div class="row row-sm mg-t-20">
+                                                <div class="col-lg-4">
+                                                    <p class="mg-b-10">Direct dial</p>
+                                                </div><!-- col -->
+
+                                                <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                                    @*<input type="text" name="name" placeholder="Number" class="form-control" />*@
+                                                    @Html.TextBoxFor(x => x.Customer.DirectDialNumber, new { @class = "form-control", placeholder = "Number" })
+                                                </div><!-- col -->
+                                            </div><!-- row -->
+
+                                            <div class="row row-sm mg-t-20">
+                                                <div class="col-lg-4">
+                                                    <p class="mg-b-10">Skype Name/Number</p>
+                                                </div><!-- col -->
+                                                <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                                    @*<input type="text" name="name" placeholder="Skype Name/Number" class="form-control" />*@
+                                                    @Html.TextBoxFor(x => x.Customer.SkypeNumber, new { @class = "form-control", placeholder = "Skype Name/Number" })
+                                                </div><!-- col -->
+                                            </div><!-- row -->
+
+                                            <div class="row row-sm mg-t-20">
+                                                <div class="col-lg-4">
+                                                    <p class="mg-b-10">Website</p>
+                                                </div><!-- col -->
+                                                <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                                    @*<input type="text" name="name" value="http://" class="form-control" />*@
+                                                    @Html.TextBoxFor(x => x.Customer.Website, new { @class = "form-control", placeholder = "Website" })
+                                                </div><!-- col -->
+                                            </div><!-- row -->
+                                            <div class="row row-sm mg-t-20">
+                                                <div class="col-lg-4 mg-t-5">
+                                                    <p class="mg-b-10">Isactive</p>
+                                                </div><!-- col -->
+                                                <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                                    <div class="onoffswitch">
+                                                        @*<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>*@
+
+                                                        @Html.CheckBoxFor(x => x.Customer.Status, new { @class = "onoffswitch-checkbox", name = "onoffswitch", id = "myonoffswitch", @checked = true })
+
+
+                                                        <label class="onoffswitch-label" for="myonoffswitch">
+                                                            <span class="onoffswitch-inner"></span>
+                                                            <span class="onoffswitch-switch"></span>
+                                                        </label>
+
+
+
+
+                                                    </div>
+                                                </div><!-- col -->
+                                            </div><!-- row -->
+
+                                        </div><!-- col -->
+                                        <div class="col-lg-6">
+                                            <div class="row row-sm">
+                                                <div class="col-lg-4 mg-t-10 mg-lg-t-0">
+                                                    <p class="mg-b-10">
+                                                        Postal address
+                                                    </p>
+                                                </div><!-- col -->
+                                                <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                                    @*<input class="form-control" type="text" placeholder="Attension">*@
+                                                    @Html.TextBoxFor(x => x.Customer.PostalAddressAttension, new { @class = "form-control", placeholder = "Attension" })
+                                                </div><!-- col -->
+                                            </div><!-- row -->
+
+                                            <div class="row row-sm mg-t-15">
+                                                <div class="col-lg-4 mg-t-10 mg-lg-t-0">
+                                                    <b class="mg-b-10">
+
+                                                    </b>
+                                                </div><!-- col -->
+                                                <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                                    @*<textarea class="form-control" rows="3" placeholder=""></textarea>*@
+                                                    @Html.TextAreaFor(x => x.Customer.PostalAddressDetail, new { @class = "form-control" })
+                                                </div><!-- col -->
+                                            </div><!-- row -->
+
+                                            <div class="row row-sm mg-t-10">
+                                                <div class="col-lg-4 mg-t-10 mg-lg-t-0">
+                                                    <b class="mg-b-10">
+                                                    </b>
+                                                </div><!-- col -->
+                                                <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                                    @*<input type="text" class="form-control" placeholder="Town / City" />*@
+                                                    @Html.DropDownListFor(x => x.Customer.PostalAddressCountry, new List<SelectListItem> {}, new { id = "PostalAddressCountryId", @class = "form-control" })
+                                                
+                                                   
+                                                    
+                                                    </div><!-- col -->
+                                            </div><!-- row -->
+
+                                            <div class="row row-sm mg-t-10">
+                                                <div class="col-lg-4 mg-t-10 mg-lg-t-0">
+                                                    <b class="mg-b-10">
+
+                                                    </b>
+                                                </div><!-- col -->
+                                                <div class="col-lg-6 mg-t-10 mg-lg-t-0">
+                                                    @*<input class="form-control" type="text" placeholder="State / Region">*@
+                                                    @Html.DropDownListFor(x => x.Customer.PostalAddressState, new List<SelectListItem> {}, new { id = "PostalAddressStateId", @class = "form-control" })
+
+                                                </div><!-- col -->
+                                                <div class="col-lg-2 mg-t-10 mg-lg-t-0">
+                                                    @*<input class="form-control" type="text" placeholder="Postal / Zip Code">*@
+                                                    @Html.TextBoxFor(x => x.Customer.PostalAddressZipcode, new { @class = "form-control", placeholder = "Postal Code" })
+
+
+                                                    @*@Html.TextBoxFor(x => x.Customer.CompanyName, new { @class = "form-control", placeholder = "Company Name" })*@
+                                                </div><!-- col -->
+                                            </div><!-- row -->
+                                            <div class="row row-sm mg-t-10">
+                                                <div class="col-lg-4 mg-t-10 mg-lg-t-0">
+                                                    <b class="mg-b-10">
+
+                                                    </b>
+                                                </div><!-- col -->
+                                                <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                                    @*<input class="form-control" type="text" placeholder="Country">*@
+                                                    @Html.TextBoxFor(x => x.Customer.PostalAddressCity, new { @class = "form-control", placeholder = "Town City" })
+
+
+                                                </div><!-- col -->
+
+
+                                            </div><!-- row -->
+
+                                            <div class="row row-sm mg-t-40">
+                                                <div class="col-lg-4 mg-t-10 mg-lg-t-0">
+                                                    <p class="mg-b-10">
+                                                        Street Address
+                                                    </p>
+                                                    <a href="#">Same as postal address</a>
+                                                </div><!-- col -->
+                                                <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                                    @*<input class="form-control" type="text" placeholder="Attension">*@
+                                                    @Html.TextBoxFor(x => x.Customer.StreetAddressAttension, new { @class = "form-control", placeholder = "Attension" })
+                                                </div><!-- col -->
+                                            </div><!-- row -->
+
+                                            <div class="row row-sm mg-t-15">
+                                                <div class="col-lg-4 mg-t-10 mg-lg-t-0">
+                                                    <b class="mg-b-10">
+
+                                                    </b>
+                                                </div><!-- col -->
+                                                <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                                    @*<textarea class="form-control" rows="3" placeholder=""></textarea>*@
+                                                    @Html.TextAreaFor(x => x.Customer.StreetAddressDetail, new { @class = "form-control" })
+                                                </div><!-- col -->
+                                            </div><!-- row -->
+
+                                            <div class="row row-sm mg-t-10">
+                                                <div class="col-lg-4 mg-t-10 mg-lg-t-0">
+                                                    <b class="mg-b-10">
+                                                    </b>
+                                                </div><!-- col -->
+                                                <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                                    @*<input type="text" class="form-control" placeholder="Town / City" />*@
+                                                    @Html.DropDownListFor(x => x.Customer.StreetAddressCountry, new List<SelectListItem> { }, new { id = "StreetAddressCountryId", @class = "form-control" })
+
+                                                </div><!-- col -->
+                                            </div><!-- row -->
+
+                                            <div class="row row-sm mg-t-10">
+                                                <div class="col-lg-4 mg-t-10 mg-lg-t-0">
+                                                    <b class="mg-b-10">
+
+                                                    </b>
+                                                </div><!-- col -->
+                                                <div class="col-lg-6 mg-t-10 mg-lg-t-0">
+                                                    @*<input class="form-control" type="text" placeholder="State / Region">*@
+                                                    @Html.DropDownListFor(x => x.Customer.StreetAddressState, new List<SelectListItem> { }, new { id = "StreetAddressStateId", @class = "form-control" })
+
+                                                </div><!-- col -->
+                                                <div class="col-lg-2 mg-t-10 mg-lg-t-0">
+                                                    @*<input class="form-control" type="text" placeholder="Postal / Zip Code">*@
+                                                    @Html.TextBoxFor(x => x.Customer.StreetAddressZipCode, new { @class = "form-control", placeholder = "Postal Code" })
+
+                                                </div><!-- col -->
+                                            </div><!-- row -->
+                                            <div class="row row-sm mg-t-10">
+                                                <div class="col-lg-4 mg-t-10 mg-lg-t-0">
+                                                    <b class="mg-b-10">
+
+                                                    </b>
+                                                </div><!-- col -->
+                                                <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                                    @*<input class="form-control" type="text" placeholder="Country">*@
+                                                    @Html.TextBoxFor(x => x.Customer.StreetAddressCity, new { @class = "form-control", placeholder = "Town / City" })
+                                                </div><!-- col -->
+
+
+
+                                            </div><!-- row -->
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+                                </div>
+
+                                <div class="tab-pane fade" id="nav-shipping" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <div class="row row-sm">
+                                        <div class="col-lg-12">
+                                            <p class="mg-b-10">Street</p>
+                                            @*<textarea rows="3" class="form-control" id="Street" placeholder="Detail"></textarea>*@
+                                            @Html.TextAreaFor(x => x.CustomerShippingAddress.StreetDetail, new { @class = "form-control", placeholder = "Detail" })
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+
+                                    <div class="row row-sm  mg-t-20">
+                                        <div class="col-lg-6 mg-t-10 mg-lg-t-0">
+                                            <p class="mg-b-10">Country</p>
+                                            @*<input class="form-control" id="City_name" type="text">*@
+                                            @Html.DropDownListFor(x => x.CustomerShippingAddress.Country, new List<SelectListItem> { }, new { id = "SupplierShippingAddressCountryId", @class = "form-control" })
+
+                                        </div><!-- col -->
+                                        <div class="col-lg-6">
+                                            <p class="mg-b-10">State</p>
+                                            @*<input class="form-control" id="State_name" type="text">*@
+                                            @Html.DropDownListFor(x => x.CustomerShippingAddress.State, new List<SelectListItem> { }, new { id = "SupplierShippingAddressStateId", @class = "form-control" })
+
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+
+                                    <div class="row row-sm mg-t-20">
+                                        <div class="col-lg-6">
+                                            <p class="mg-b-10">City</p>
+                                            @*<input class="form-control" id="Zipcode_no" type="text">*@
+                                            @Html.TextBoxFor(x => x.CustomerShippingAddress.City, new { @class = "form-control", placeholder = "City" })
+                                        </div><!-- col -->
+                                        <div class="col-lg-6 mg-t-10 mg-lg-t-0">
+                                            <p class="mg-b-10">ZipCode</p>
+                                            @*<input class="form-control" id="Country_name" type="text">*@
+                                            @Html.TextBoxFor(x => x.CustomerShippingAddress.ZipCode, new { @class = "form-control", placeholder = "ZipCode" })
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+                                </div>
+
+                                @* <div class="tab-pane fade" id="nav-financial" role="tabpanel" aria-labelledby="nav-financial-tab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row row-sm">
+                                        <div class="col-lg-4">
+                                            <p class="mg-b-10 text-right">Sales Settings</p>
+                                        </div><!-- col -->
+                                        <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                            <select class="form-control ">
+                                                <option label="Choose one"></option>
+                                                <option value="Firefox">Firefox</option>
+                                                <option value="Chrome">Chrome</option>
+                                                <option value="Safari">Safari</option>
+                                                <option value="Opera">Opera</option>
+                                            </select>
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+                                    <div class="row row-sm mg-t-10">
+                                        <div class="col-lg-4">
+                                        </div><!-- col -->
+                                        <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                            <select class="form-control ">
+                                                <option label="Default account"></option>
+                                                <option value="Firefox">Firefox</option>
+                                                <option value="Chrome">Chrome</option>
+                                                <option value="Safari">Safari</option>
+                                                <option value="Opera">Opera</option>
+                                            </select>
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+                                    <div class="row row-sm mg-t-10">
+                                        <div class="col-lg-4">
+                                        </div><!-- col -->
+                                        <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                            <select class="form-control ">
+                                                <option label="Default Region"></option>
+                                                <option value="Firefox">Firefox</option>
+                                                <option value="Chrome">Chrome</option>
+                                                <option value="Safari">Safari</option>
+                                                <option value="Opera">Opera</option>
+                                            </select>
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+
+                                    <div class="row row-sm mg-t-40">
+                                        <div class="col-lg-4">
+                                            <p class="mg-b-10 text-right">Purchase Settings</p>
+                                        </div><!-- col -->
+                                        <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                            <select class="form-control ">
+                                                <option label="Choose one"></option>
+                                                <option value="Firefox">Firefox</option>
+                                                <option value="Chrome">Chrome</option>
+                                                <option value="Safari">Safari</option>
+                                                <option value="Opera">Opera</option>
+                                            </select>
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+                                    <div class="row row-sm mg-t-10">
+                                        <div class="col-lg-4">
+                                        </div><!-- col -->
+                                        <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                            <select class="form-control ">
+                                                <option label="Default account"></option>
+                                                <option value="Firefox">Firefox</option>
+                                                <option value="Chrome">Chrome</option>
+                                                <option value="Safari">Safari</option>
+                                                <option value="Opera">Opera</option>
+                                            </select>
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+                                    <div class="row row-sm mg-t-10">
+                                        <div class="col-lg-4">
+                                        </div><!-- col -->
+                                        <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                            <select class="form-control ">
+                                                <option label="Default Region"></option>
+                                                <option value="Firefox">Firefox</option>
+                                                <option value="Chrome">Chrome</option>
+                                                <option value="Safari">Safari</option>
+                                                <option value="Opera">Opera</option>
+                                            </select>
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+
+                                    <div class="row row-sm mg-t-40">
+                                        <div class="col-lg-4">
+                                            <p class="mg-b-10 text-right">Tax</p>
+                                        </div><!-- col -->
+                                        <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                            <select class="form-control ">
+                                                <option label="Choose one"></option>
+                                                <option value="Firefox">Firefox</option>
+                                                <option value="Chrome">Chrome</option>
+                                                <option value="Safari">Safari</option>
+                                                <option value="Opera">Opera</option>
+                                            </select>
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+                                    <div class="row row-sm mg-t-10">
+                                        <div class="col-lg-4">
+                                        </div><!-- col -->
+                                        <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                            <select class="form-control ">
+                                                <option label="Default account"></option>
+                                                <option value="Firefox">Firefox</option>
+                                                <option value="Chrome">Chrome</option>
+                                                <option value="Safari">Safari</option>
+                                                <option value="Opera">Opera</option>
+                                            </select>
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+                                    <div class="row row-sm mg-t-10">
+                                        <div class="col-lg-4">
+                                        </div><!-- col -->
+                                        <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                            <select class="form-control ">
+                                                <option label="Default Region"></option>
+                                                <option value="Firefox">Firefox</option>
+                                                <option value="Chrome">Chrome</option>
+                                                <option value="Safari">Safari</option>
+                                                <option value="Opera">Opera</option>
+                                            </select>
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+
+                                    <div class="row row-sm  mg-t-40">
+                                        <div class="col-lg-4">
+                                            <p class="mg-b-10 text-right">Business Registration Number</p>
+                                        </div><!-- col -->
+                                        <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                            <input class="form-control" id="City" type="text" placeholder="Official number to appear on documents">
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row row-sm">
+                                        <div class="col-lg-4">
+                                            <p class="mg-b-10 text-right">Sales Discount %</p>
+                                        </div><!-- col -->
+                                        <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                            <input class="form-control" id="State" type="number" placeholder="0%">
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+
+                                    <div class="row row-sm mg-t-15">
+                                        <div class="col-lg-4">
+                                            <p class="mg-b-10 text-right">Currency</p>
+                                        </div><!-- col -->
+                                        <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text modal-effect btn btn-dark btn-block" id="basic-addon1" href="#modaldemo7" data-toggle="modal" data-effect="effect-scale"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                                </div>
+                                                <select class="form-control select">
+                                                    <option label="Default Currency"></option>
+                                                    <option value="Firefox">Us Dollar</option>
+                                                </select>
+                                            </div><!-- input-group -->
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+                                    <div class="row row-sm mg-t-40">
+                                        <div class="col-lg-4">
+                                            <p class="mg-b-10 text-right">Batch Payments</p>
+                                        </div><!-- col -->
+                                        <div class="col-lg-4 mg-t-10 mg-lg-t-0">
+                                            <input type="text" name="name" placeholder="Bank Account Number" class="form-control" />
+                                        </div><!-- col -->
+                                        <div class="col-lg-4 mg-t-10 mg-lg-t-0">
+                                            <input type="text" name="name" placeholder=" Bank Account Name" class="form-control" />
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+                                    <div class="row row-sm mg-t-10">
+                                        <div class="col-lg-4">
+                                        </div><!-- col -->
+                                        <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                            <input type="text" name="name" placeholder=" Detail" class="form-control" />
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+
+                                    <div class="row row-sm  mg-t-30">
+                                        <div class="col-lg-4">
+                                            <p class="mg-b-10 text-right">Invoice Theme</p>
+                                        </div><!-- col -->
+                                        <div class="col-lg-8 mg-t-10 mg-lg-t-0">
+                                            <select class="form-control select">
+                                                <option label="Choose"></option>
+                                                <option value="Firefox">Us Dollar</option>
+                                            </select>
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+
+                                    <div class="row row-sm mg-t-15">
+                                        <div class="col-lg-4">
+                                            <p class="mg-b-10 text-right">Bills Due Date</p>
+                                        </div><!-- col -->
+                                        <div class="col-lg-2 mg-t-10 mg-lg-t-0">
+                                            <input class="form-control" id="State" type="number" placeholder="Due">
+                                        </div><!-- col -->
+                                        <div class="col-lg-6 mg-t-10 mg-lg-t-0">
+                                            <select class="form-control select">
+                                                <option label="Choose"></option>
+                                                <option value="Firefox">Us Dollar</option>
+                                            </select>
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+
+                                    <div class="row row-sm mg-t-15">
+                                        <div class="col-lg-4">
+                                            <p class="mg-b-10 text-right">Invoices Due Date</p>
+                                        </div><!-- col -->
+                                        <div class="col-lg-2 mg-t-10 mg-lg-t-0">
+                                            <input class="form-control" id="State" type="number" placeholder="Due">
+                                        </div><!-- col -->
+                                        <div class="col-lg-6 mg-t-10 mg-lg-t-0">
+                                            <select class="form-control select">
+                                                <option label="Choose"></option>
+                                                <option value="Firefox">Us Dollar</option>
+                                            </select>
+                                        </div><!-- col -->
+                                    </div><!-- row -->
+                                </div>
+                            </div>
+                        </div>*@
+
+                                <div class="row row-sm mg-t-20 ">
+                                    <div class="col-sm-6 col-md-3"><button class="btn btn-primary btn-block" id="btnSave" type="submit">Submit</button></div>
+                                    <div class="col-sm-6 col-md-3 mg-t-10 mg-sm-t-0"><button class="btn btn-danger btn-block" name="cancel">Cancel</button></div>
+                                </div><!-- row -->
+                            </div>
+                        </form>
+                    </div>
+                </section>
+                <!-- ./Tabs -->
+                <hr class="mg-y-30 mg-lg-y-50">
+            </div>
+        </div>
+    </div><!-- az-content-body -->
+
+    <div id="modaldemo7" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title">Add Currency</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row row-sm mg-t-20">
+                        <div class="col-lg-12">
+                            <input class="form-control" placeholder="Currency" name="" type="text">
+                        </div><!-- col -->
+                    </div><!-- row -->
+                </div>
+                <div class="modal-footer">
+                    <button id="" type="button" class="btn btn-indigo">Save </button>
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
+    <!-- //modal -->
+    <!-- modal -->
+    <div id="modaldemo8" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title">Add Group</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row row-sm mg-t-20">
+                        <div class="col-lg-12">
+                            <input class="form-control" placeholder="Name" name="" type="text">
+                        </div><!-- col -->
+                    </div><!-- row -->
+                </div>
+                <div class="modal-footer">
+                    <button id="" type="button" class="btn btn-indigo">Save </button>
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
+    <div id="modaldemo7" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title">Add Currency</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row row-sm mg-t-20">
+                        <div class="col-lg-12">
+                            <input class="form-control" placeholder="Currency" name="" type="text">
+                        </div><!-- col -->
+                    </div><!-- row -->
+                </div>
+                <div class="modal-footer">
+                    <button id="" type="button" class="btn btn-indigo">Save </button>
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
+    <!-- //modal -->
+
+    <script language="javascript">
+        populateCountries("PostalAddressCountryId", "PostalAddressStateId"); // first parameter is id of country drop-down and second parameter is id of state drop-down
+        //populateCountries("Pak");
+
+    </script>
+    <script language="javascript">
+        populateCountries("StreetAddressCountryId", "StreetAddressStateId"); // first parameter is id of country drop-down and second parameter is id of state drop-down
+        //populateCountries("as");
+
+    </script>
+    <script language="javascript">
+        populateCountries("SupplierShippingAddressCountryId", "SupplierShippingAddressStateId"); // first parameter is id of country drop-down and second parameter is id of state drop-down
+        //populateCountries("c");
+
+    </script>
+
+
+
+    <script>
+        $(document).ready(function () {
+            $("#btnSave").click(function () {
+                $.ajax(
+                    {
+                        type: "POST", //HTTP POST Method
+                        url: "Customer/Create", // Controller/View
+                        data: { //Passing data
+                            company: $("#Company").val(), //Reading text box values using Jquery
+                            address: $("#Address").val(),
+                            phone: $("#Phone").val(),
+                            city: $("#City").val(),
+                            website: $("#Website").val(),
+                            state: $("#State").val(),
+                            zipcode: $("#Zipcode").val(),
+                            group1: $("#Group1").val(),
+                            country: $("#Country").val(),
+                            currency: $("#Currency").val(),
+                            street: $("#Street").val(),
+                            city_name: $("#City_name").val(),
+                            state_name: $("#State_name").val(),
+                            zipcode_no: $("#Zipcode_no").val(),
+                            country_name: $("#Country_name").val()
+                        }
+
+                    });
+
+            });
+        });
+
+    </script>
+}

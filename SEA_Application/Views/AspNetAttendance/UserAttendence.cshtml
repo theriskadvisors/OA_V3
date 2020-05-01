@@ -1,0 +1,271 @@
+﻿
+@{
+    ViewBag.Title = "UserAttendence";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<h4 class="orange">User Attendence </h4>
+
+<div class="box box-primary">
+    <div class="box-title"></div>
+    <div class="box-body">
+
+        <div class="form-group">
+            <div class="col-md-12">
+
+                <label class="col-md-2 col-lg-2 control-label" for="Email"><b>Attendence :</b> </label>
+                <div class="col-md-6">
+                    <select name="AttendenceType" class="form-control" id="AttendenceType" required>
+                        <option value="">Select One</option>
+                        <option value="Student">Student</option>
+                        <option value="Staff">Staff</option>
+                    </select>
+                    <br />
+
+                </div>
+            </div>
+
+        </div>
+
+        @*<div class="form-group">
+            <div class="col-md-12">
+
+                <label class="col-md-2 col-lg-2 control-label" for="Email"><b>Date:</b> </label>
+                <div class="col-md-6">
+
+
+                    <input class="form-control" type="date" id="date" style="border-radius:initial" />
+                </div>
+            </div>
+        </div>*@
+
+
+        <br />
+        <br />
+        <br />
+
+        <table class="table" id="datatable">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+
+                    <th>
+                        RollNo
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+
+                        Section
+                    </th>
+
+                    <th>
+                        Course Type
+                    </th>
+
+                    <th>
+                        Fee Status
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="RecentOrderTableBody">
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+
+<script>
+
+
+    $(document).ready(function () {
+
+
+           var table = $('#datatable').dataTable({
+                });
+
+
+        $("#AttendenceType").change(function () {
+
+
+            var AttendenceType = $(this).val();
+            if (AttendenceType != "") {
+
+    
+                $.ajax({
+
+
+                    type: "POST",
+                    url: "/AspNetAttendance/AttendenceReport",
+                  
+                    data: {"AttendenceType": AttendenceType },
+                    success: function (data) {
+                        
+                        table.fnClearTable();
+
+                        $.each(data, function (index) {
+
+
+                              var value = new Date(parseInt(data[index].Date.replace(/(^.*\()|([+-].*$)/g, '')));
+                                var dat = value.getMonth() +
+                                    1 +
+                                    "/" +
+                                    value.getDate() +
+                                    "/" +
+                                    value.getFullYear();
+
+                            if (AttendenceType == "Student") {
+
+                                if (data[index].FeeStatus == "Paid") {
+
+
+                                    table.fnAddData([data[index].Name, data[index].RollNo, dat, data[index].Section, data[index].CourseType, data[index].FeeStatus]);
+
+                                }
+                                else {
+                                table.fnAddData([data[index].Name, data[index].RollNo,dat, data[index].Section, data[index].CourseType,"Pending"]);
+
+                                }
+
+
+                                }
+                            else {
+
+                                
+                                table.fnAddData([data[index].Name, data[index].RollNo, dat, "", "",""]);
+
+                            }
+
+                        })
+
+
+                       table.fnDraw();
+
+                    }
+
+
+                })
+
+
+            }
+        })
+
+        //$("#date").change(function () {
+
+        //    var AttendenceType = $("#AttendenceType").val();
+        //   // var Date = $(this).val();
+
+        //    //  alert(AttendenceType);
+        //    if (AttendenceType != "") {
+
+
+        //        $.ajax({
+
+
+        //            type: "POST",
+        //            url: "/AspNetAttendance/AttendenceReport",
+        //            data: { "Date": Date, "AttendenceType": AttendenceType },
+        //            success: function (data) {
+
+        //                table.fnClearTable();
+
+        //                $.each(data, function (index) {
+
+        //                    if (AttendenceType == "Student") {
+
+
+        //                        table.fnAddData([data[index].Name,  data[index].RollNo,data[index].Section, data[index].CourseType]);
+        //                    }
+        //                    else {
+        //                        table.fnAddData([data[index].Name,  data[index].RollNo ,"", ""]);
+
+        //                    }
+
+        //                })
+
+
+        //               table.fnDraw();
+
+        //            }
+
+
+        //        })
+
+
+
+
+
+        //    }
+
+
+
+
+
+        //})
+
+
+        function drawTable() {
+            $('#example_filter').addClass("form-group");
+            $('#example_filter').addClass("has-feedback");
+            $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+            //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+
+            $('#example_wrapper').css("text-align", "left");
+            $('#example_length').css("text-align", "left");
+            $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+            $("#example_length label").css("text-align", "left");
+            $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+            // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+            $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+            //$('#example_length').css({ "overflow": "auto" });
+            $('#example_filter input').addClass("add");
+            $('#example_filter').append('<span class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+            var list = $("#ClassID").html();
+            $('#example_length').append(
+
+                '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+                '<div class="d-bar"></div>' +
+                '</div>'
+                +
+
+                '<div class="col-md-3 col-lg-3">' +
+                '<div class="col-md-6" style="padding:0px; margin-top:0px">' +
+                '<lable class="control-label">Select Class</lable>' +
+                '</div>' +
+                '<div class="col-md-6">' +
+                '<select class="form-control  input-sm" id="Class" style="margin-top:-4px" name="ClassID" onclick="class_click(this)">' + list +
+                '</select>' +
+                '</div>' +
+
+                '</div>' +
+
+
+                '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+                '<div class="d-bar"></div>' +
+                '</div>' +
+
+                '<div class="col-md-3 col-lg-3">' +
+                '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
+                '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/Admin_Dashboard/StudentRegister"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></a></div>' +
+                '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/AspNetUser/DisableStudentIndex"><i class="fa fa-ban" data-placement="bottom"></i>' + '</a></div>' +
+                '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><i class="glyphicon glyphicon-download-alt" onclick="download()" data-placement="bottom"></i></a></div>' +
+                '<div class="col-md-1" padding-left:0px;">' +
+                '<div class="d-bar"></div>' +
+                '</div>' +
+                '</div>');
+            //$("#Class").prepend("<option value='0'>Select One</option>");
+        }
+
+
+
+
+
+    })
+
+
+</script>

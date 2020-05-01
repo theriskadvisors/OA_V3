@@ -1,0 +1,367 @@
+﻿
+@{
+    ViewBag.Title = "StudentsIndex";
+}
+
+
+@*<script src="~/AdminLTE/selectone.js"></script>*@
+
+<script src="~/AdminLTE/plugins/jquery/js/jQuery-2.1.4.min.js"></script>
+<script type="text/javascript">
+
+    var table;
+    function subFun(selectedClass) {
+        if (selectedClass != null) {
+            $('.eeniart0017').css("display", "block");
+        }
+            $.get('@Url.Action("SubjectsStudentsByClass", "AspNetUser")',
+                { id: selectedClass }, function (data) {
+                   
+                    console.log(data);
+                    //alert(JSON.stringify(data));
+                    $('.eeniart0017').css("display", "none");
+                    $('#subjects').html('');
+                    $('#subjects').prop('disabled', false);
+                    $.each(data.Subjects, function (i, item) {
+                        $('#subjects').append('<option value=' + item.id + '>' + item.Subjectname + '</option>');
+                    });
+
+                    table.fnClearTable();
+                    $.each(data.Students, function (i, item) {
+                        table.fnAddData([item.Name, item.RollNo, item.Email, item.PhoneNo, item.ClassName]);
+                      
+                    });
+
+                    if (selectedClass == 0) {
+                        $('#View').html("View Default");
+                    } else {
+                        $('#View').html("View Filtered");
+                    }
+
+                });
+    }
+    function download() {
+        var classId = $("#Class").val();
+        var url = "http://localhost:1331/AspNetUser/StudentExcelRecord?ClassId=" + classId;
+        var WINDOW = window.open(url, '_blank');
+
+
+    }
+    function Student_SubjFunc(selectedSubject) {
+        $.get('@Url.Action("StudentsBySubject", "AspNetUser")',
+           { id: selectedSubject }, function (data) {
+               table.fnClearTable();
+               $.each(data, function (i, item) {
+                   table.fnAddData([item.Name, item.UserName, item.Email, item.PhoneNumber, item.ClassName]);
+               });
+               $('#View').html("View Filtered");
+           });
+    }
+
+    $(document).ready(function () {
+        $('.eeniart0017').css("display", "block");
+        $(".sidebar-toggle").click(function () {
+            $("body").toggleClass("sidebar-collapse open-menu");
+        });
+
+        table = $('#example').dataTable();
+        $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "outline": "none", "padding-left": "10px", "color": "#ddd !important" });
+        //$('#example_filter').append('<span class="glyphicon glyphicon-search form-control-feedback hidden-xs hidden-sm" style="margin-top: -28px; color: #666;"></span>');
+        $("#ClassID option[value='']").remove();
+        $("#ClassID").prepend("<option value='0' selected>All</option>")
+
+
+        $.noConflict();
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        var bgcolor;
+    });
+
+   
+
+    function class_click(item) {
+
+            var select = item.value;
+            subFun(item.value);
+        }
+
+    function sub_click(item) {
+
+        Student_SubjFunc(item.value);
+    }
+
+    function students(number) {
+        if (number == '1') {
+            drawTable();
+        } else {
+            drawTable1();
+        }
+
+        $.get('@Url.Action("AllStudents", "AspNetUser")',
+                function (data) {
+
+                    table.fnClearTable();
+                    $.each(data, function (i, item) {
+                        table.fnAddData([item.Name + "<input type=hidden value="+ item.Id +">", item.UserName, item.Email, item.PhoneNumber, item.ClassName]);
+                    });
+                    table.fnDraw();
+                    $('.eeniart0017').css("display", "none");
+
+                });
+
+    }
+
+    
+</script>
+@if (this.User.IsInRole("Admin"))
+{
+    <script>
+     $(document).ready(function() {
+        $('.table').on('click', 'tbody tr', function() {
+            var td = $(this).children("td");
+
+            if ($(td).html() != "No data available in table");
+            window.location.href = "StudentDetail?userName=" + $(td[1]).html();
+        });
+
+     });
+    </script>
+}
+else
+{
+    <script>
+     $(document).ready(function() {
+        $('.table').on('click', 'tbody tr', function() {
+            var td = $(this).children("td");
+
+            if ($(td).html() != "No data available in table");
+            //window.location.href = "StudentDetail?userName=" + $(td[1]).html();
+        });
+
+     });
+    </script>
+}
+
+    @if (this.User.IsInRole("Admin"))
+    {
+        <script>
+            $(document).ready(function () {
+                students('1');
+            })
+            function drawTable() {
+                $('#example_filter').addClass("form-group");
+                $('#example_filter').addClass("has-feedback");
+                $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+                //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+
+                $('#example_wrapper').css("text-align", "left");
+                $('#example_length').css("text-align", "left");
+                $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+                $("#example_length label").css("text-align", "left");
+                $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+                // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+                $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+                //$('#example_length').css({ "overflow": "auto" });
+                $('#example_filter input').addClass("add");
+                $('#example_filter').append('<span class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+                var list = $("#ClassID").html();
+                $('#example_length').append(
+
+                    '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+                    '<div class="d-bar"></div>' +
+                    '</div>'
+                      +
+                   '<div class="col-md-3 col-lg-3">' +
+                   '<div class="col-md-6" style="padding:0px; margin-top:0px">' +
+                   '<lable class="control-label">Select Class</lable>' +
+                   '</div>' +
+                   '<div class="col-md-6">' +
+                   '<select class="form-control  input-sm" id="Class" style="margin-top:-4px" name="ClassID" onclick="class_click(this)">' + list +
+                   '</select>' +
+                   '</div>' +
+                   '</div>' +
+                    '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+                    '<div class="d-bar"></div>' +
+                    '</div>' +
+
+                   '<div class="col-md-3 col-lg-3">' +
+                   '<div class="col-md-6" style="padding:0px;  margin-top:0px">' +
+                   '<lable class="control-label">Select Subject</lable>' +
+                   '</div>' +
+                   '<div class="col-md-6">' +
+                   '<select class="form-control  input-sm" id="subjects" style="margin-top:-4px" onclick="sub_click(this)" style="padding-top:-4px !important;" name="subjects" disabled><option>Select one</option></select>' +
+                   '</div>' +
+                   '</div>' +
+
+                    '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+                    '<div class="d-bar"></div>' +
+                    '</div>' +
+
+                   '<div class="col-md-3 col-lg-3">' +
+                   '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
+                   '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/Admin_Dashboard/StudentRegister"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></a></div>' +
+                   '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/AspNetUser/DisableStudentIndex"><i class="fa fa-ban" data-placement="bottom"></i>' + '</a></div>' +
+                   '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><i onclick="download()"class="glyphicon glyphicon-download-alt" onclick="download()" data-placement="bottom"></i></a></div>' +
+                   '<div class="col-md-1" padding-left:0px;">' +
+                   '<div class="d-bar"></div>' +
+                   '</div>' +
+                   '</div>');
+                //$("#Class").prepend("<option value='0'>Select One</option>");
+            }
+           
+        </script>
+    }
+    else
+    {
+        <script>
+            $(document).ready(function () {
+                students('2');
+            })
+
+            function drawTable1() {
+                $('#example_filter').addClass("form-group");
+                $('#example_filter').addClass("has-feedback");
+                $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+                //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+
+                $('#example_wrapper').css("text-align", "left");
+                $('#example_length').css("text-align", "left");
+                $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+                $("#example_length label").css("text-align", "left");
+                $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+                // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+                $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+                //$('#example_length').css({ "overflow": "auto" });
+                $('#example_filter input').addClass("add");
+                $('#example_filter').append('<span class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+                var list = $("#ClassID").html();
+                $('#example_length').append(
+
+                    '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+                    '<div class="d-bar"></div>' +
+                    '</div>'
+                      +
+                   '<div class="col-md-3 col-lg-3">' +
+                   '<div class="col-md-6" style="padding:0px; margin-top:5px">' +
+                   '<lable class="control-label">Select Class</lable>' +
+                   '</div>' +
+                   '<div class="col-md-6">' +
+                   '<select class="form-control  input-sm" id="Class" name="ClassID" onclick="class_click(this)">' + list +
+                   '</select>' +
+                   '</div>' +
+                   '</div>' +
+                    '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+                    '<div class="d-bar"></div>' +
+                    '</div>' +
+
+                   '<div class="col-md-3 col-lg-3">' +
+                   '<div class="col-md-6" style="padding:0px;  margin-top:5px">' +
+                   '<lable class="control-label">Select Subject</lable>' +
+                   '</div>' +
+                   '<div class="col-md-6">' +
+                   '<select class="form-control  input-sm" id="subjects"  onclick="sub_click(this)" style="padding-top:-4px !important;" name="subjects" disabled><option>Select one</option></select>' +
+                   '</div>' +
+                   '</div>' +
+
+                    '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+                    '<div class="d-bar"></div>' +
+                    '</div>' +
+
+                   '<div class="col-md-3 col-lg-3">' +
+                   '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
+                   '<div class="col-md-1 col-sm-3 col-xs-3"><apan style="color:grey"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></span></a></div>' +
+                   '<div class="col-md-1 col-sm-3 col-xs-3"><apan style="color:grey"><i class="fa fa-ban" data-placement="bottom"></i></span>' + '</a></div>' +
+                   '<div class="col-md-1 col-sm-3 col-xs-3"><apan style="color:grey"><i class="glyphicon glyphicon-download-alt"  data-placement="bottom"></i></span></a></div>' +
+                   '<div class="col-md-1" padding-left:0px;">' +
+                   '<div class="d-bar"></div>' +
+                   '</div>' +
+                   '</div>');
+                //$("#Class").prepend("<option value='0'>Select One</option>");
+            }
+
+          
+        </script>
+    }
+
+
+
+@if (ViewBag.Error != null)
+{
+    <div class="box-alert" id="work" >
+        Student Successfully created and updated
+    </div>
+}
+<div >
+    <label> @Html.ActionLink("Home", "Dashboard", "Account")  > <b><a href="#">Students</a></b></label>
+</div>
+<h4>Students</h4>
+<label id="View">View Default</label>
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+    <div class="box-body">
+        <div style="display: none">
+            @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+        </div>
+        <style>
+            #example tr td:nth-child(2), tr td:nth-child(4){
+                text-align:right
+            }
+        </style>
+        <div class="table-responsive">
+            <table id="example" class="table table-striped table-bordered" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Roll Number
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Phone Number
+                        </th>
+                        <th>
+                            Class
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="submission_table"></tbody>
+            </table>
+        </div>
+        <div id="Error"></div>
+    </div>
+        </div>
+    </div>
+
+                    <!----------------------------------------------------------------------------------->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                After submitting you won't be able to change data
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="disable_student()" data-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>

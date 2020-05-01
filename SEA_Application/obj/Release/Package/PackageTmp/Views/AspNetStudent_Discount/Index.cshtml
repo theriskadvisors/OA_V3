@@ -1,0 +1,217 @@
+﻿    <script src="~/AdminLTE/selectone.js"></script>
+<script>
+    var table;
+    $(document).ready(function () {
+
+        table = $("#example").dataTable();
+        DrawTable();
+
+        $('.table').on('click', 'tbody tr', function () {
+            var td = $(this).children("td");
+            var studentdiscountUserID  = $(td[0]).children("input").val();
+            
+            studentdiscountUserID = studentdiscountUserID.trim();
+           
+            setCookie("studentdiscountUserID", studentdiscountUserID);
+
+            window.location.href = "/AspNetStudent_Discount/Create";
+            //MyFunction(userName)
+        });
+        //DrawTable();
+            AllDiscount();
+    });
+
+    function setCookie(cname, cvalue) {
+        var d = new Date();
+        d.setTime(d.getTime() + (1 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function GetDiscount() {
+        $("#Class option[value='']").remove();
+        var selectedClass = $("#Class").val();
+
+        if (selectedClass == 0) {
+            AllDiscount();
+            return;
+        }
+
+        $.get('@Url.Action("StudentsDiscountByClass")',
+            { id: selectedClass }, function (data) {
+                table.fnClearTable();
+                $.each(data, function (i, item) {
+                    table.fnAddData([item.ClassName + "<input type='hidden' value=" + item.Id + " />", item.UserName + "<input type='hidden' value=" + item.classId + "/>", item.Name, "<a id='myLink' href='#' onclick='MyFunction(\"" + item.Id + "\");return false;'>View Discounts</a>"]);
+                });
+                table.fnDraw();
+            }); 
+    }
+
+    function AllDiscount() {
+        $.get('@Url.Action("StudentsDiscount")',
+            function (data) {
+                table.fnClearTable();
+                $.each(data, function (i, item) {
+                    table.fnAddData([item.ClassName + "<input type='hidden' value=" + item.Id + " />", item.UserName + "<input type='hidden' value=" + item.classId + "/>", item.Name, "<a id='myLink' href='#' onclick='MyFunction(\"" + item.Id + "\");return false;'>View Discounts</a>"]);
+                });
+                table.fnDraw();
+            });
+    }
+
+    function DrawTable() {
+        $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+        //$('#example_filter').addClass("col-lg-4 col-md-4 col-sm-12 col-xs-12");
+        $('#example_wrapper').css("text-align", "left");
+        $('#example_length').css("text-align", "left");
+        $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+        $("#example_length label").css("text-align", "left");
+        $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+        // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#2b2b2b !important" });
+        //$('#example_length').css({ "overflow": "auto" });
+        $('#example_filter input').addClass("add");
+        $('#example_filter').append('<span class="glyphicon glyphicon-search form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+        var list = $("#ClassID").html();
+        $('#example_length').append(
+
+            '<div class="col-md-1" style="width:0%; padding-left:1px;">' +
+             '<div class="d-bar"></div>' +
+            '</div>'
+              +
+
+           '<lable class="col-md-2 col-lg-2 col-sm-12 col-xs-12 control-label" style="text-align:left;margin-top:5px ;width:100px; padding-left:0px; padding-right:0px;">Select Class</lable>' +
+           '<div class="col-md-2 col-lg-2">' +
+           '<select class="form-control input-sm" id="Class" name="ClassID" onclick="GetDiscount()">' + list +
+           '</select>' +
+           '</div>' +
+
+           '<div class="col-md-1" style="width:0%; padding-left:-10px;">' +
+           '<div class="d-bar"></div>' +
+            '</div>' +
+
+           '<div class="col-md-4 col-lg-4" style="padding-left=0px">' +
+           '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/AspNetStudent_Discount/Create"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="glyphicon glyphicon-download-alt" data-placement="bottom"></i></span></a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="fa fa-ban"  data-placement="bottom"></i></span>' + '</a></div>' + ' <div class="col-md-1" style="width:0%; padding-left:10px;">' +
+           '<div class="d-bar"></div>' +
+           '</div>' +
+          '</div>');
+        $("#Class").prepend("<option value='0'>All</option>");
+    }
+
+
+
+  
+
+
+    function MyFunction(studentID) {
+        $.get('@Url.Action("DiscountByStudent")',
+          { studentID: studentID }, function (data) {
+              $('#StudentDiscountTable').html(' ');
+              $('#detail').prop('hidden', false);
+              $.each(data, function (i, item) {
+                  $('#StudentDiscountTable').append('<tr><td>' + item.TypeName + '</td><td>' + item.Percentage + '</td><td><a href="/AspNetStudent_Discount/Edit?id=' + item.Id + '">Edit</a>|<a href="/AspNetStudent_Discount/Details?id=' + item.Id + '">Detail</a>|<a href="/AspNetStudent_Discount/Delete?id=' + item.Id + '">Delete</a></td></tr>');
+              });
+          });
+
+        $.get('@Url.Action("DiscountApplicableByStudent")',
+          { studentID: studentID }, function (data) {
+              $('#StudentDiscountApplicable').html(' ');
+              $('#Applicable').prop('hidden', false);
+              $.each(data, function (i, item) {
+                  $('#StudentDiscountApplicable').append('<tr><td>' + item.Name + '</td><td><a href="/AspNetStudent_Discount_Applicable/Edit?id=' + item.Id + '">Edit</a>|<a href="/AspNetStudent_Discount_Applicable/Details?id=' + item.Id + '">Detail</a>|<a href="/AspNetStudent_Discount_Applicable/Delete?id=' + item.Id + '">Delete</a></td></tr>');
+              });
+          });
+
+
+    }
+
+</script>
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">Fee Management</a> > <a href="#"><b>Student Discount</b></a></label>
+<h4>Students Discount</h4>
+<label id="View">View Default</label>
+
+
+<div class="box box-primary" style="display:none">
+    <div class="box-title"></div>
+    <div class="box-body">
+        <div class="container">
+            <div class="row">
+                <div class="form-horizontal">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <lable class="col-md-3 control-label"><b>Select Class</b></lable>
+                            <div class="col-md-8">
+                                @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<style>
+    .table tr td:nth-child(2){
+        text-align:right
+    }
+</style>*@
+<div class="box box-primary">
+    <div class="box-title"></div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped table-bordered" id="example">
+                    <thead>
+                        <tr>
+                            <th>Class Name</th>
+                            <th>Roll No.</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody id="StudentTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="box box-primary" id="detail" hidden>
+    <div class="box-title"></div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Discount Type</th>
+                            <th>Percent</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="StudentDiscountTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="box box-primary" id="Applicable" hidden>
+    <div class="box-title"></div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Fee Type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="StudentDiscountApplicable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

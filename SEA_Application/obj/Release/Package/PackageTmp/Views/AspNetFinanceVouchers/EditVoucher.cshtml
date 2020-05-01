@@ -1,0 +1,437 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+
+<script>
+
+    count = 0;
+    row = [];
+    credit = 0;
+    debit = 0;
+
+    $(document).ready(function () {
+
+        function gettype() {
+            type = $("#hidden").val();
+            $('#VoucherType option[value=' + type + ']').attr('selected', true);
+
+            var period = $("#Period").val(); 
+            console.log(period)
+            $('#PeriodId option[value=""]').remove()
+            $('#PeriodId option[value=' + period + ']').attr('selected', true);
+
+        }
+
+        function getDate() {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1;
+            var yyyy = today.getFullYear();
+
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+
+            today = mm + '/' + dd + '/' + yyyy;
+            $("#Time").val(today);
+        }
+
+        function rowdata() {
+
+            var id = $("#id").val();
+            console.log(id);
+            $.ajax({
+                type: "POST",
+                url: "/AspNetFinanceVouchers/VoucherDetails",
+                data: { 'id': id, },
+                success: function (data) {
+                    $.each(data, function (i,item) {
+                        console.log(item);
+                        $("#Voucher-table").append("<tr id=" + count + "><td><div class='form-group'><div class=''><input type='text' id='type_" + count + "' value="+ item.Type +" class='form-control' disabled /></div></div</td>"
+                                      + "<td><div class='form-group'><div class=''><select id='code" + count + "' class='form-control' onclick='Codedescription(this)' ></select></div></div</td>"
+                                      + "<td><div class='form-group'><div class=''><input type='text' value=" + item.Transaction + " id='transaction_" + count + "' class='form-control' /></div></div</td>"
+                                      + "<td><div class='form-group'><div class=''><input type='number' value="+item.Credit+" id='credit_" + count + "' class='form-control' onblur='isEqual1()'/></div></div</td>"
+                                      + "<td><div class='form-group'><div class=''><input type='number' value="+item.Debit+ " id='debit_" + count + "' class='form-control' onblur='isEqual1()' /></div></div</td>"
+                                      + '<td><div class="form-group"><div class=""><input type="button" id="" value="+" class="form-control btn btn-primary" onclick="addrow()" /></div></div></td>'
+                                      + "<td><div class='form-group'><div class=''><input type='button' id=" + count + " value='&times;' class='form-control btn btn-danger' onclick='deleteRow(this)' /></div></div</td>"
+                                      + "</tr>");
+
+                        row[count] = count;
+                        console.log(item.Code);
+                        addLedger(count , item.Code);
+                        count = count + 1;
+                    });
+                 }
+            });
+        }
+
+        getDate();
+        rowdata();
+        gettype();
+
+        
+    });
+
+    function addLedger(rowNumber , item) {
+        var id = "#code" + rowNumber;
+        var node = $(id);
+        $.ajax({
+            type: "POST",
+            url: "/AspNetFinanceLedgers/SelectListLedgers",
+            success: function (data) {
+                $.each(data, function (i, item) {
+                    console.log(data.Name);
+                    node.append("<option value=" + item.Value + " >" + item.Name + "</option>")
+                    
+                    //var option = document.createElement("option");
+                    //option.text = data.Name;
+                    //option.value = data.Value;
+                    //console.log("working");
+                    //console.log(id);
+                    //node.appendChild(option);
+                });
+                console.log(item)
+                $(id + " option[value=" + item + "]").attr('selected', true);
+                console.log($(id + " option[value=" + item + "]"));
+            }
+        });
+    }
+
+    function Addrow() {
+
+        $("#Voucher-table").append("<tr id="+ count +"><td><div class='form-group'><div class=''><input type='text' id='type_" + count + "' class='form-control' disabled /></div></div</td>"
+                                      + "<td><div class='form-group'><div class=''><select id='code" + count + "' class='form-control' onclick='Codedescription(this)' ></select></div></div</td>"
+                                      + "<td><div class='form-group'><div class=''><input type='text' id='transaction_" + count + "' class='form-control' /></div></div</td>"
+                                      + "<td><div class='form-group'><div class=''><input type='number' id='credit_" + count + "' class='form-control' onblur='isEqual1()'/></div></div</td>"
+                                      + "<td><div class='form-group'><div class=''><input type='number' id='debit_" + count + "' class='form-control' onblur='isEqual1()' /></div></div</td>"
+                                      + '<td><div class="form-group"><div class=""><input type="button" id="" value="+" class="form-control btn btn-primary" onclick="addrow()" /></div></div></td>'
+                                      + "<td><div class='form-group'><div class=''><input type='button' id=" + count + " value='&times;' class='form-control btn btn-danger' onclick='deleteRow(this)' /></div></div</td>"
+                                      + "</tr>");
+        row[count] = count;
+        addLedger(count)
+        count = count + 1;
+    }
+
+    function isEqual1(){
+        var credit = 0;
+        var debit = 0;
+
+        for (var i in row) {
+            var creditId = "credit_" + row[i];
+            var debitId = "debit_" + row[i];
+            var creditTemp = parseInt(document.getElementById(creditId).value);
+            if (!isNaN(creditTemp)) {
+                credit = credit + creditTemp;
+                $("#TotalCredit").val(credit);
+            }
+
+
+            var debitTemp = parseInt(document.getElementById(debitId).value);
+            if (!isNaN(debitTemp)) {
+                debit = debit + debitTemp;
+                $("#TotalDebit").val(debit);
+            }
+
+        }
+        var C = $("#TotalCredit").val();
+        var D = $("#TotalDebit").val();
+
+        $("#remaining").html(D - C);
+
+        if (credit == debit) {
+            $("#Submit").attr("disabled", false);
+        } else {
+            $("#Submit").attr("disabled", true);
+        }
+    }
+
+
+    function Codedescription(Code) {
+        console.log(Code.id);
+        var code = Code.value;
+        var codeId = Code.id;
+        var DescriptionId = "description_" + codeId[codeId.length - 1];
+        var TypeId = "type_" + codeId[codeId.length - 1];
+        $.post("/AspNetFinanceVouchers/codeDescription", { "code": code })
+                .done(function (data) {
+                    console.log(data);
+                    console.log(DescriptionId);
+                    console.log(TypeId);
+                    console.log(data.description)
+                    document.getElementById(DescriptionId).value = data.description;
+                    document.getElementById(TypeId).value = data.type;
+                });
+    }
+
+    function CheckVoucherNo() {
+        var VoucherType = $("#VoucherType").val();
+        //alert(VoucherType);
+        $.ajax({
+            type: "POST",
+            url: "/AspNetFinanceVouchers/FindVoucherNo",
+            data: { 'type': VoucherType, },
+            success: function (data) {
+                $("#VoucherNo").val(data);
+            }
+        });
+    }
+
+    var VoucherDetail =
+        {
+            Type: '',
+            Code: '',
+            Transaction: '',
+            Credit: '',
+            Debit: ''
+        };
+
+    var Voucher = {
+        Id:'',
+        Status: '',
+        VoucherNo: '',
+        VoucherType: '',
+        Time: '',
+        VoucherDescription: '',
+        PeriodId: '',
+        VoucherDetail: []
+    }
+
+    Vouchers = [];
+
+    function SaveVoucher() {
+
+        Voucher = Object.create(Voucher);
+        Voucher.Status = "Not Posted";
+        Voucher.VoucherNo = $('#VoucherNo').val();
+        Voucher.VoucherType = $('#VoucherType').val();
+        Voucher.Time = $('#Time').val();
+        Voucher.Id = $('#id').val();
+        Voucher.VoucherDescription = $('#VoucherDescription').val();
+        Voucher.PeriodId = $('#PeriodId').val();
+
+        Voucher.VoucherDetail = [];
+        if (Voucher.PeriodId != "" && Voucher.PeriodId != null && Voucher.VoucherType != "" && Voucher.VoucherType != null && Voucher.PeriodId != "" && Voucher.PeriodId != null) {
+            for (var i in row) {
+                VoucherDetail = Object.create(VoucherDetail);
+
+                var type = "type_" + row[i];
+                VoucherDetail.Type = document.getElementById(type).value;
+                var code = "code_" + row[i];
+                VoucherDetail.Code = document.getElementById(code).value;
+                var transaction = "transaction_" + row[i];
+                VoucherDetail.Transaction = document.getElementById(transaction).value;
+                var credit = "credit_" + row[i];
+                VoucherDetail.Credit = document.getElementById(credit).value;
+                var debit = "debit_" + row[i];
+                VoucherDetail.Debit = document.getElementById(debit).value;
+                Voucher.VoucherDetail.push(VoucherDetail);
+            }
+            Vouchers = JSON.stringify({ 'Vouchers': Voucher });
+            console.log(Vouchers);
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: '/AspNetFinanceVouchers/SaveEdit',
+                data: Vouchers,
+                success: function (data) {
+                    console.log(data);
+                    $("#myModal").modal('show');
+                }
+            });
+        } else {
+            $("#myErrorModal").modal('show');
+        }
+        
+
+    }
+
+    function redirect() {
+        window.location.href = '../Index';
+    }
+
+    function deleteRow(Row) {
+        console.log(Row.id);
+        id = "#" + Row.id;
+        $(id).remove();
+
+        var rowid = parseInt(Row.id);
+
+        console.log(row);
+        row.splice(rowid, 1);
+        console.log(row);
+    }
+    function addrow() {
+        $("#addR").click();
+    }
+
+</script>
+
+
+<label>Home > User > <span class="text-primary">Voucher</span></label>
+<h4>Finance Voucher</h4>
+
+
+@using (Html.BeginForm())
+{
+    <div class="box box-primary">
+        
+        <div class="box-body">
+
+            @Html.AntiForgeryToken()
+
+                
+            <div class="well">
+                <div class="">
+                    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+                    <div class="row padding-bottom">
+                        <div class="col-md-3">
+                            <label class="">VoucherType<span class="red-mark">*</span></label>
+                            <input id="hidden" type="hidden" value=@ViewBag.Detail.VoucherType class="form-control" />
+                            <select id="VoucherType" onclick="CheckVoucherNo()" class="form-control">
+                                <option value="JV">JV</option>
+                                <option value="BPV">BPV</option>
+                                <option value="CPV">CPV</option>
+                                <option value="BRV">BRV</option>
+                                <option value="CRV">CRV</option>
+                                <option value="BPV PF">BPV PF</option>
+                                <option value="BRV PF">CRV</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 pull-right">
+                            <label class="">Voucher No</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">#</span>
+                                <input id="VoucherNo" type="text" value=@ViewBag.Detail.VoucherNo class="form-control" disabled />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row padding-bottom">
+                        <input type="hidden" id="Period" value="@ViewBag.period" />
+                        <div class="col-md-3">
+                            <label class="">Period<span class="red-mark">*</span></label>
+                                @Html.DropDownList("PeriodId", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2 pull-right">
+                            <label class="">Time<span class="red-mark">*</span></label>
+                            <input id="Time" type="datetime" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="row padding-bottom">
+                        <div class="col-md-6">
+                            <label class="">VoucherDescription</label>
+                            <input id="VoucherDescription" value="@ViewBag.Detail.VoucherDescription" type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <input type="hidden" id="id" value=@ViewBag.Detail.Id />
+                    <div class="table-responsive">
+                        <table id="Voucher-table" class="table table-striped table-bordered">
+                            <tr>
+                                <th>
+                                    Type
+                                </th>
+                                <th>
+                                    Code
+                                </th>
+
+                                <th>
+                                    Narration
+                                </th>
+                                <th>
+                                    Credit
+                                </th>
+                                <th>
+                                    Debit
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <table class="table">
+                        <tr>
+                            <td align="right">
+                                <div class="form-group col-md-2 col-sm-2 col-lg-2 pull-right col-md-pull-1">
+                                    <input type="text" value="0" id="TotalDebit" class="form-control" disabled />
+                                </div>
+
+                                <div class="form-group col-md-2 col-sm-2 col-lg-2 pull-right col-md-pull-1">
+                                    <input type="text" value="0" id="TotalCredit" class="form-control" disabled />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <span type="text" id="remaining" style="text-align: right; margin-top:3px; margin-left: -54px; width: 142px !important;" class="text-danger" disabled></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            <div class="col-md-2" style="display: none !important">
+                <input type="button" onclick="Addrow()" id="addR" value="Add Row" class="form-control" />
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+                <div class="col-lg-6">
+                    <div class="col-md-3 pull-right">
+                        <input type="button" id="Submit" disabled onclick="SaveVoucher()" value="save" class="form-control btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+}
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Complete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="redirect()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Thanks. Voucher has been Saved
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="redirect()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="exampleModalLabel">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-danger">
+                The * fields are required
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

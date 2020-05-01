@@ -1,0 +1,208 @@
+﻿@using Microsoft.AspNet.Identity
+
+<script>
+        
+        $(document).ready(function () {
+            Selectanswers = document.getElementsByName("answers");
+            length_answer = Selectanswers.length;
+
+            $("#Evaluation_Question_Table").find("select").attr("disabled", true);
+
+            text_area = document.getElementsByName("Commentarea");
+            length_area = text_area.length;
+
+            ID = [];
+            area = [];
+
+            for (i = 0; i < length_answer ; i++) {
+                ID[i] = Selectanswers[i].id;  
+            }
+
+            for (i = 0; i < length_area ; i++) {
+                area[i] = text_area[i].id;
+            }
+
+            $.post("/TermAssessment/EvaluationChecking_Class", { Id: ID, STA_ID: area})
+                .done(function (Evaluation_checking) {
+                  
+                    var type = $("#type").val();
+
+                        $.each(Evaluation_checking.answer, function (x, item) {
+                            $('#' + item.id + ' option[value=' + item.answer + ']').attr('selected', 'selected');
+                        });
+                        
+                        $.each(Evaluation_checking.Comment, function (x, item) {
+                            var ID = 'C_' + item.id;
+                            document.getElementById(ID).value =item.comment;
+                            
+                        });
+                        console.log(Evaluation_checking);
+
+                    if (Evaluation_checking.savebtn == "true") {
+                        $('#Comment_Save').prop('disabled', false);
+                        $('#Principle_Comment').prop('disabled', true);
+                        $('#Principle_Comment').html("submition from head teacher required");
+                        if (type == "Principle") {
+                            $("#Evaluation_Question_Table").find("select,input,textarea,button").attr("disabled", true);
+                            $('#Comment_Save').prop('disabled', true);
+                        }
+                    } else if (Evaluation_checking.savebtn == "false") {
+                        $('#Comment_Save').prop('disabled', true);
+
+                    } else if (Evaluation_checking.savebtn == "submit" && type == "teacher") {
+                        $("#Evaluation_Question_Table").find("select,input,textarea,button").attr("disabled", true);
+                        $('#Comment_Save').prop('disabled', true);
+                        $(".Teacher_Comments").each(function (i, item) {
+                            $(item).prop('disabled', false);
+                        }); 
+                        $(".save_comment").each(function (i, item) {
+                            $(item).prop('disabled', false);
+                        });
+                    } else if (Evaluation_checking.savebtn == "submit" && type == "Principle") {
+                        $("#Evaluation_Question_Table").find("select").attr("disabled", true);
+                        $('#Comment_Save').prop('disabled', false);
+                        $('#Principle_Comment').prop('disabled', false);
+                    } else if (Evaluation_checking.savebtn == "Teacher_submit" && type == "teacher") {
+                        $("#Evaluation_Question_Table").find("select,input,textarea,button").attr("disabled", true);
+                        $('#Principle_Comment').prop('disabled', true);
+                    } else if (Evaluation_checking.savebtn == "Teacher_submit" && type == "Principle") {
+                        $("#Evaluation_Question_Table").find("select,input,textarea,button").attr("disabled", true);
+                        $('#Principle_Comment').prop('disabled', true);
+                        $(".Notify").each(function (i, item) {
+                            $(item).remove();
+                        })
+                    } 
+
+                    if (Evaluation_checking.PrincipleComment != null)
+                        $("#Principle_Comment").val(Evaluation_checking.PrincipleComment);
+
+
+            });//POST
+
+            $("#Evaluation_Question_Table").find("select").attr("disabled", true);
+        }); //Ready
+
+        function save_comment(item) {
+            $(item).prop("class", "btn btn-success");
+            $(item).html("Saved");
+            var ID = 'C_' + item.id;
+            var teacher_Comment = document.getElementById(ID).value;
+            
+            $("#" + ID).css('color', '#555');
+            $.post("/TermAssessment/save_comment", { Id: item.id, comment: teacher_Comment})
+        }
+
+        function Notify(item) {
+            var Id = '#C_' + item.id;
+            $(Id).css('color', 'red');
+            $(item).prop('class', 'fa fa-bell text-success');
+            $.post("/TermAssessment/Notify", { Id: item.id})
+        }
+
+
+</script>
+
+
+
+
+<table class="table" id="Evaluation_Question_Table">
+    <tr>
+        <th>
+            Questions
+        </th>
+
+        <th>
+            Assessment
+        </th>
+
+    </tr>
+    
+    @foreach (var data in ViewBag.questionData)
+    {
+        
+        <tr id="@data.Id">
+            <td class="text-bold">
+                <h3>@data.SubjectName </h3>
+            </td>
+            <td style="float:right">
+                
+                    <button class="btn btn-primary save_comment" onclick="Reportit(this)" name="Commentarea">Report</button>
+                
+            </td>
+        </tr>
+
+
+        
+            <tr>
+                <td>
+                    Matches figure with value
+                </td>
+
+                <td class="form-group" colspan="3">
+
+                    <div class="col-md-12">
+                        <select class="form-control" name="answers" onchange="goodert()">
+                            <option value="a">a</option>
+                            <option value="b">b</option>
+                            <option value="c">c</option>
+                            <option value="d">d</option>
+                        </select>
+                    </div>
+
+                </td>
+                <td class="form-group">
+                    <div class="col-md-12">
+                        <select class="form-control" name="answers">
+                            <option value="a">a</option>
+                            <option value="b">b</option>
+                            <option value="c">c</option>
+                            <option value="d">d</option>
+                        </select>
+                    </div>
+                </td>
+                <td class="form-group">
+                    <div class="col-md-12">
+                        <select class="form-control" name="answers">
+                            <option value="a">a</option>
+                            <option value="b">b</option>
+                            <option value="c">c</option>
+                            <option value="d">d</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+        
+        <tr style="border-bottom:2px solid black">
+            <td>
+                Teacher Comments
+            </td>
+
+            <td class="form-group">
+                <div class="col-md-8">
+                    @if (1 == 1)
+                    {
+                        <input id='2' class="form-control Teacher_Comments" style="color:red" name="input" />
+                    }
+                    else
+                    {
+                        <input id='C_@data.Key.id' class="form-control Teacher_Comments" name="input" />
+                    }
+                    
+                </div>
+                    <button class="col-md-offset-1 btn btn-primary save_comment" id="3" onclick="save_comment(this)" name="Commentarea">Save</button>
+            </td>
+            @if (!User.IsInRole("Teacher"))
+            {
+                <td class="form-group Notify" id="Notify">
+                    <span class="col-md-8" style="cursor:pointer"><i id="hello" onclick="Notify(this)" class="fa fa-bell text-warning"></i></span>
+                </td>
+            }
+        </tr>
+        
+        
+    }
+    
+
+</table>
+
+<input type="hidden" value="@ViewBag.type" id="type" />

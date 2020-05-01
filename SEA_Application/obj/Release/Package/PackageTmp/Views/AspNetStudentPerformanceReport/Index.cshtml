@@ -1,0 +1,246 @@
+﻿@model IEnumerable<SEA_Application.Models.AspNetStudentPerformanceReport>
+@{
+    ViewBag.Title = "Index";
+}
+<script>
+    var table;
+    $(document).ready(function () {
+        table = $("#example").dataTable();
+
+        $('.table').on('click', 'tbody tr', function () {
+            var td = $(this).children("td");
+            var userName = $(td[0]).children("input").val();
+            userName = userName.trim();
+
+            window.location.href = "/AspNetStudentPerformanceReport/Details?id=" + userName;
+        });
+
+    });
+   
+    function class_click(item) {
+        $.get('@Url.Action("SubjectsProgerssByClass", "AspNetStudentPerformanceReport")',
+                { ClassID: item.value }, function (data) {
+                    $('#Subject').html('');
+                    $('#Subject').prop('disabled', false);
+                    $.each(data.Subjects, function (i, item) {
+                        $('#Subject').append('<option value=' + item.Id + '>' + item.Subjectname + '</option>');
+                    });
+
+                    table.fnClearTable();
+                    $.each(data.Progress, function (i, item) {
+                        table.fnAddData([item.StudentName + "<input type='hidden' value=" + item.Id + " />", item.ClassName, item.SubjectName, item.TeacherName, item.Date]);
+                    });
+
+                    if (item.value == 0) {
+                        $('#View').html("View Default");
+                    } else {
+                        $('#View').html("View Filtered");
+                    }
+                });
+    }
+
+    function sub_click(item) {
+        $.get('@Url.Action("PerformanceBySubject", "AspNetStudentPerformanceReport")',
+                { subjectID: item.value }, function (data) {
+                   
+                    table.fnClearTable();
+                    $.each(data, function (i, item) {
+                        table.fnAddData([item.StudentName + "<input type='hidden' value=" + item.Id + " />", item.ClassName, item.SubjectName ,item.TeacherName, item.Date]);
+                    });
+
+                    if (item.value == 0) {
+                        $('#View').html("View Default");
+                    } else {
+                        $('#View').html("View Filtered");
+                    }
+                });
+    }
+
+
+    function DrawTable() {
+        $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+        //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+
+        $('#example_wrapper').css("text-align", "left");
+        $('#example_length').css("text-align", "left");
+        $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+        $("#example_length label").css("text-align", "left");
+        $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+        // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+        //$('#example_length').css({ "overflow": "auto" });
+        $('#example_filter input').addClass("add");
+        $('#example_filter').append('<span class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+        var list = $("#ClassID").html();
+        $('#example_length').append(
+
+            '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+            '<div class="d-bar"></div>' +
+            '</div>'
+              +
+
+           '<div class="col-md-3 col-lg-2">' +
+           '<lable class="col-md-1 col-lg-2 col-sm-12 col-xs-12 control-label" style="text-align:left; width:80px; padding-left:0px; padding-right:0px;">Select Class</lable>' +
+           '<select class="form-control reg_name input-sm" id="Class" name="ClassID" onclick="class_click(this)">' + list + '</select>' +
+           '</div>' +
+
+            '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+            '<div class="d-bar"></div>' +
+            '</div>' +
+
+           '<div class="col-md-3 col-lg-2">' +
+           '<lable class="col-md-1 col-lg-2 col-sm-12 col-xs-12 control-label" style="text-align:left; padding-left:0px; width:80px; padding-right:0px;">Select Subject</lable>' +
+           '<select class="form-control reg_name input-sm" id="Subject" name="Subject" onclick="sub_click(this)" disabled><option>Select One</option></select>' +
+           '</div>' +
+
+            '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+            '<div class="d-bar"></div>' +
+            '</div>' +
+
+           '<div class="col-md-3 col-lg-3">' +
+           '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/AspNetStudentPerformanceReport/Create"><span ><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></span></a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="fa fa-ban"  data-placement="bottom"></i></span></a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="glyphicon glyphicon-download-alt" data-placement="bottom"></i></span>' + '</a></div>' + '<div class="col-md-1" padding-left:0px;">' +
+           '<div class="d-bar"></div>' +
+           '</div>' +
+           '</div>');
+        //$("#Class").prepend("<option value='0'>All</option>");
+    }
+
+
+    function DrawTable1() {
+        $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+        //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+
+        $('#example_wrapper').css("text-align", "left");
+        $('#example_length').css("text-align", "left");
+        $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+        $("#example_length label").css("text-align", "left");
+        $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+        // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+        //$('#example_length').css({ "overflow": "auto" });
+        $('#example_filter input').addClass("add");
+        $('#example_filter').append('<span class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+        var list = $("#ClassID").html();
+        $('#example_length').append(
+
+            '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+            '<div class="d-bar"></div>' +
+            '</div>'
+              +
+
+           '<div class="col-md-3 col-lg-3">' +
+           '<lable class="col-md-1 col-lg-2 col-sm-12 col-xs-12 control-label" style="text-align:left; width:80px; padding-left:0px; padding-right:0px;">Select Class</lable>' +
+           '<select class="form-control reg_name input-sm" id="Class" name="ClassID" onclick="class_click(this)">' + list + '</select>' +
+           '</div>' +
+            '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+            '<div class="d-bar"></div>' +
+            '</div>' +
+           '<div class="col-md-3 col-lg-3">' +
+           '<lable class="col-md-3 col-lg-3 col-sm-12 col-xs-12 control-label" style="text-align:left; padding-left:0px; width:80px; padding-right:0px;">Select Subject</lable>' +
+           '<select class="form-control reg_name input-sm" id="Subject" name="Subject" onclick="sub_click()" disabled><option>Select One</option></select>' +
+           '</div>' +
+            '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+            '<div class="d-bar"></div>' +
+            '</div>' +
+
+           '<div class="col-md-3 col-lg-3">' +
+           '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></span></a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="fa fa-ban"  data-placement="bottom"></i></span></a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="glyphicon glyphicon-download-alt" data-placement="bottom"></i></span>' + '</a></div>' + '<div class="col-md-1" padding-left:0px;">' +
+           '<div class="d-bar"></div>' +
+           '</div>' +
+           '</div>');
+        //$("#Class").prepend("<option value='0'>All</option>");
+    }
+</script>
+
+@if (User.IsInRole("Teacher"))
+{
+    <label>@Html.ActionLink("Home", "Dashboard", "Account") >  <b><a href="#">Progress Report</a></b> </label>
+
+    <script>
+        $(document).ready(function () {
+            DrawTable();
+        })
+    </script>
+}
+else
+{
+    <label>@Html.ActionLink("Home", "Dashboard", "Account") >  <b><a href="#">Progress Report</a></b> </label>
+
+    <script>
+        $(document).ready(function () {
+            DrawTable1();
+        })
+    </script>
+}
+
+<h4>View Progress Report</h4>
+<label id="View">View Default</label>
+
+<div class="col-md-10" style="display:none">
+    @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+</div>
+
+<div class="col-md-">
+    <div class="box box-primary">
+        <div class="box-body">
+            <div class="table-responsive">
+                <br />
+                <table class="table table-bordered table-striped" id="example">
+                    <thead>
+                        <tr>
+                            <th>
+                                Student Name
+                            </th>
+                            <th>
+                                Class Name
+                            </th>
+                            <th>
+                                Subject Name
+                            </th>
+                            <th>
+                                Teacher Name
+                            </th>
+                            <th>
+                                Date
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AspNetUser.Name)
+                                    <input type="hidden" value="@item.Id" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AspNetSubject.AspNetClass.ClassName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AspNetSubject.SubjectName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AspNetSubject.AspNetClass.AspNetUser.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

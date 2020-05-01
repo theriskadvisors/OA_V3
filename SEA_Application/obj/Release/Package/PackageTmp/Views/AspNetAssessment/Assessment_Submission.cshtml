@@ -1,0 +1,150 @@
+﻿<script src="~/AdminLTE/selectone.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#ClassID").click(function () {
+            var selectedClass = $("#ClassID").val();
+            $.get('@Url.Action("SubjectsByClass", "Teacher_Dashboard")',
+                { id: selectedClass }, function (data) {
+
+                    $('#SubjectID').html('');
+
+                    $.each(data, function (i, item) {
+                        $('#SubjectID').append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
+                    });
+
+                });
+        });
+        $("#SubjectID").click(function () {
+            var selectedSubject = $("#SubjectID").val();
+            $.get('@Url.Action("CatalogBySubject", "AspNetAssessment")',
+                { SubjectID: selectedSubject }, function (data) {
+
+                    $('#Subject_CatalogID').html('');
+
+                    $.each(data, function (i, item) {
+                        $('#Subject_CatalogID').append('<option value=' + item.Id + '>' + item.CatalogName + '</option>');
+                    });
+
+                });
+        });
+
+        $("#Subject_CatalogID").click(function () {
+            var selectedCatalog = $("#Subject_CatalogID").val();
+            $.get('@Url.Action("AssessmentByType", "AspNetAssessment")',
+                { CatalogID: selectedCatalog }, function (data) {
+
+                    $('#AssessmentID').html(' ');
+                   
+                    $.each(data, function (i, item) {
+                        $('#AssessmentID').append('<option value=' + item.Id + '>' + item.Title + '</option>');
+                    });
+
+                });
+        });
+
+        $("#AssessmentID").click(function () {
+            var selectedAssessment = $("#AssessmentID").val();
+            $.get('@Url.Action("SubmissionByAssessment", "AspNetAssessment")',
+                { AssessmentID: selectedAssessment }, function (data) {
+
+                    $('#submission_table').html('');
+
+                    $.each(data, function (i, item) {
+                        var downloadfile = "";
+                        var submittedStatus = "";
+                        if (item.assessmentsubmission.SubmissionStatus == true) {
+                            downloadfile = '<a href="/AspNetAssessment/downloadStudentSubmittedFile?id=' + item.assessmentsubmission.Id + '">Download File</a>';
+                            submittedStatus = "Submitted";
+                        }
+                        else {
+                            downloadfile = '-/-';
+                            submittedStatus = "Not Submitted";
+                        }
+                        var date;
+
+                        if (item.assessmentsubmission.SubmissionDate == null) {
+                            date = '-/-';
+                        }
+                        else {
+                            date = new Date(parseInt(item.assessmentsubmission.SubmissionDate.replace(/(^.*\()|([+-].*$)/g, '')));
+                            date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+                        }
+
+
+                        $('#submission_table').append('<tr id=' + item.assessmentsubmission.Id + '><td>' + item.Name + '</td><td>' + submittedStatus + '</td><td>' + item.assessmentsubmission.SubmittedFileName + '</td><td>' + downloadfile + '</td><td>' + date + '</td></tr>');
+
+                    });
+
+                });
+        });
+
+
+    });
+</script>
+
+<label>Home > User > <span class="text-primary">Assessment Submission</span></label>
+<h4>Assessment Subission</h4>
+
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Assessment</h3>
+    </div>
+    <div class="box-body">
+        <form class="form-horizontal">
+            <div class="box-body">
+                <div class="form-group">
+                    <lable class="col-md-2 control-label"><b>Select Class</b></lable>
+                    <div class="col-md-10">
+                        @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <lable class="col-md-2 control-label"><b>Select Subject</b></lable>
+                    <div class="col-md-10">
+                        @Html.DropDownList("SubjectID", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <lable class="col-md-2 control-label"><b>Assessment Type</b></lable>
+                    <div class="col-md-10">
+                        @Html.DropDownList("Subject_CatalogID", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <lable class="col-md-2 control-label"><b>Assessment Title</b></lable>
+                    <div class="col-md-10">
+                       <select id="AssessmentID" class = "form-control"></select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="box box-info" id="assessment-box" >
+    <form class="form-horizontal">
+        <div class="box-body" id="assessment">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Student Name
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Submitted File Name
+                        </th>
+                        <th>
+                            Download File
+                        </th>
+                        <th>
+                            Submitted Date
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="submission_table"></tbody>
+            </table>
+        </div>
+    </form>
+</div>

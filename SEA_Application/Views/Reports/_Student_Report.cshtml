@@ -1,0 +1,380 @@
+﻿<script>
+    $(document).ready(function () {
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        var SubjectCookieVal = null;
+        var ClassCookieVal = null;
+        var ReportCookieVal = null;
+        var allcookies = document.cookie;
+
+        cookiearray = allcookies.split(';');
+
+        for (var i = 0; i < cookiearray.length; i++) {
+            name = cookiearray[i].split('=')[0];
+            value = cookiearray[i].split('=')[1];
+            
+            console.log("cookies here",cookiearray[i]);
+
+            if (cookiearray[i].split('=')[0] == " ClassCookie_StudReport" || cookiearray[i].split('=')[0] == "ClassCookie_StudReport") {
+                ClassCookieVal = cookiearray[i].split('=')[1];
+
+            }
+
+            if (cookiearray[i].split('=')[0] == " SubjectCookie_StudReport" || cookiearray[i].split('=')[0] == "SubjectCookie_StudReport") {
+                SubjectCookieVal = cookiearray[i].split('=')[1];
+
+            }
+
+            if (cookiearray[i].split('=')[0] == " ReportCookie_StudReport" || cookiearray[i].split('=')[0] == "ReportCookie_StudReport") {
+                ReportCookieVal = cookiearray[i].split('=')[1];
+
+            }
+        }
+        console.log("classval", ClassCookieVal);
+        console.log("subval", SubjectCookieVal);
+        if (ClassCookieVal != null)
+        {
+
+            var selectClass = document.getElementById('ClassID');
+            selectClass.value = ClassCookieVal;
+            SubjectsByClassFunc(ClassCookieVal);
+
+            if (SubjectCookieVal != null)
+            {
+                
+                var subjval = document.getElementById('SubjectID');
+                subjval.value = SubjectCookieVal;
+                StudentBySubjectFunc(SubjectCookieVal);
+
+                if(ReportCookieVal != null)
+                {
+                    var reportval = document.getElementById('Report');
+                    reportval.value = ReportCookieVal;
+                }
+            }
+        }
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+        $("#ClassID").click(function () {
+            var selectedClass = $("#ClassID").val();
+            document.cookie = "ClassCookie_StudReport=" + selectedClass + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+            SubjectsByClassFunc(selectedClass);
+        });
+
+        function SubjectsByClassFunc(selectedClass)
+        {
+            $.get('@Url.Action("SubjectsByClass","Teacher_Dashboard")',
+                { id: selectedClass }, function (data) {
+                    $('#SubjectID').html('');
+                    $('#SubjectID').prop('disabled', false);
+                    $.each(data, function (i, item) {
+                        $('#SubjectID').append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
+                    });
+
+                });
+        }
+
+        function StudentBySubjectFunc(selectedSubject)
+        {
+            $.get('@Url.Action("StudentsBySubject", "Teacher_Dashboard")',
+                { id: selectedSubject }, function (data) {
+
+                    console.log(JSON.stringify(data));
+                    $('#StudentTable').html(' ');
+                    $.each(data, function (i, item) {
+                        $('#StudentTable').append("<tr><td>" + item.UserName + "</td><td>" + item.Name + "</td><td><a id='myLink' href='#' onclick='MyFunction(\"" + item.Id + "\");return false;'>View Report</a></td></tr>");
+                    });
+                });
+        }
+
+        $("#SubjectID").click(function () {
+            var selectedSubject = $("#SubjectID").val();
+            document.cookie = "SubjectCookie_StudReport=" + selectedSubject + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+            StudentBySubjectFunc(selectedSubject);
+        });
+
+
+    });
+    function generateGraph(data) {
+        var chartConfig = {
+
+            "type": "stock",
+            "export": {
+                "enabled": true
+            },
+            "dataSets": [{
+                "title": "data set",
+
+                "fieldMappings": [{
+                    "fromField": "value",
+                    "toField": "value"
+                },
+                {
+                    "fromField": "ballontext",
+                    "toField": "ballontext"
+                }
+
+                ],
+                "dataProvider": data,
+                "categoryField": "date"
+            }],
+
+            "panels": [{
+
+                "showCategoryAxis": false,
+                "title": "Value",
+                "percentHeight": 70,
+
+                "stockGraphs": [{
+
+                    "id": "g1",
+
+                    "valueField": "value",
+                    "bullet": "round",
+                    "comparable": true,
+                    "compareField": "value",
+                    "type": "smoothedLine",
+                    "balloonText": "[[ballontext]]:<b>[[value]]</b>",
+
+                    "compareGraphBalloonText": "[[ballontext]]:<b>[[value]]</b>"
+                }],
+
+                "stockLegend": {
+                    "periodValueTextComparing": "[[percents.value.close]]%",
+                    "periodValueTextRegular": "[[value.close]]"
+                },
+                "valueAxes": [{
+                    "guides": [{
+                        "value": 1100,
+                        "label": "AVERAGE",
+                        "position": "right",
+                        "dashLength": 10,
+                        "fillColor": "red",
+                        "axisColor": "red",
+                        "axisThickness": 5
+                    }]
+                }]
+            },
+
+              {
+                  "title": "Volume",
+                  "percentHeight": 5,
+
+
+                  "stockLegend": {
+                      "periodValueTextRegular": "[[value.close]]"
+                  }
+              }
+            ],
+
+            "chartScrollbarSettings": {
+                "graph": "g1"
+            },
+
+            "chartCursorSettings": {
+                "valueBalloonsEnabled": true,
+                "fullWidth": true,
+                "cursorAlpha": 0.1
+            },
+
+            "periodSelector": {
+                "periods": [{
+                    "period": "MM",
+                    "selected": true,
+                    "count": 1,
+                    "label": "1 month"
+                }, {
+                    "period": "YYYY",
+                    "count": 1,
+                    "label": "1 year"
+                }, {
+                    "period": "YTD",
+                    "label": "YTD"
+                }, {
+                    "period": "MAX",
+                    "label": "MAX"
+                }]
+            }
+        }
+        var chart = AmCharts.makeChart("chartdiv1", chartConfig);
+        chart.ignoreZoom = true;
+        chart.addListener("zoomed", function (event) {
+            var selectedCompare = $("#Compare").val();
+            // ignore zoom if the flag is set
+            if (chart.ignoreZoom) {
+                chart.ignoreZoom = false;
+                return;
+            }
+
+            // let's use the first graph from the first panel as a base
+            var graph = chart.panels[0].stockGraphs[0];
+            var field = graph.valueField;
+
+            // let's get currently selected data set
+            var dataset = chart.mainDataSet;
+            var category = dataset.categoryField;
+
+            // iterate via data set to calculate average value
+            var total = 0;
+            var count = 0;
+            var average = 0;
+            if (selectedCompare === "Individual") {
+
+                for (var x in dataset.dataProvider) {
+                    var date = dataset.dataProvider[x][category];
+                    if (date >= event.startDate && date <= event.endDate) {
+                        total += dataset.dataProvider[x][field];
+                        count++;
+                    }
+                }
+                average = total / count;
+            }
+            else {
+
+                var startDate = event.startDate;
+                var endDate = event.endDate;
+                alert(startDate);
+                average = 60;
+            }
+
+            // update guide's position
+            chart.panels[0].valueAxes[0].guides[0].value = average;
+
+            // update the chart
+            chart.ignoreZoom = true;
+            chart.validateData();
+
+            // restore same zoom
+            chart.ignoreZoom = true;
+            chart.zoom(event.startDate, event.endDate);
+        });
+    }
+    function comp(a, b) {
+        return a.date.getTime() - b.date.getTime();
+    }
+    function MyFunction(studentID) {
+        var report = $("#Report").val();
+        document.cookie = "ReportCookie_StudReport=" + report + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+
+        var funcUrl = " ";
+        if (report === "Assignment") {
+            $.get('@Url.Action("StudentAssignment_Report", "Reports")',
+           { studentID: studentID, subjectID: $("#SubjectID").val() }, function (data) {
+               $.each(data, function (i, item) {
+
+                   item.date = new Date(JSON.stringify(item.date));
+                   item.date.setDate(item.date.getDate());
+               });
+
+               generateGraph(data);
+           });
+
+
+        }
+        else if (report === "Test") {
+            $.get('@Url.Action("StudentTest_Report", "Reports")',
+          { studentID: studentID, subjectID: $("#SubjectID").val() }, function (data) {
+              $.each(data, function (i, item) {
+
+                  item.date = new Date(JSON.stringify(item.date));
+                  item.date.setDate(item.date.getDate());
+              });
+              generateGraph(data);
+          });
+        }
+        else if (report === "Exam") {
+            $.get('@Url.Action("StudentExam_Report", "Reports")',
+          { studentID: studentID, subjectID: $("#SubjectID").val() }, function (data) {
+              $.each(data, function (i, item) {
+
+                  item.date = new Date(JSON.stringify(item.date));
+                  item.date.setDate(item.date.getDate());
+              });
+              generateGraph(data);
+          });
+
+        }
+        else if (report === "All") {
+            $.get('@Url.Action("StudentAll_Report", "Reports")',
+          { studentID: studentID, subjectID: $("#SubjectID").val() }, function (data) {
+              $.each(data, function (i, item) {
+
+                  item.date = new Date(JSON.stringify(item.date));
+                  item.date.setDate(item.date.getDate());
+              });
+              data.sort(comp);
+              generateGraph(data);
+          });
+
+        }
+    }
+</script>
+<div class="container">
+    <div class="box box-info">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <br />
+                        <lable class="col-md-3 control-label"><b>Select Class</b></lable>
+                        <div class="col-md-8">
+                            @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <lable class="col-md-3 control-label"><b>Select Subject</b></lable>
+                        <div class="col-md-8">
+                            <select class="form-control" id="SubjectID" name="SubjectID" disabled></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <lable class="col-md-3 control-label"><b>Select Report</b></lable>
+                        <div class="col-md-8">
+                            <select class="form-control" id="Report" name="Report">
+                                <option value="All">All</option>
+                                <option value="Assignment">Assignment</option>
+                                <option value="Test">Test</option>
+                                <option value="Exam">Exam</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <lable class="col-md-3 control-label"><b>Compare</b></lable>
+                        <div class="col-md-8">
+                            <select class="form-control" id="Compare" name="Compare">
+                                <option value="Individual">Individual</option>
+                                <option value="Relevance">Relevance</option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box box-info">
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>UserName</th>
+                        <th>Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="StudentTable"></tbody>
+            </table>
+        </div>
+        </div>
+        <div class="row">
+            <div id="chartdiv1"></div>
+        </div>
+    </div>

@@ -1,0 +1,562 @@
+﻿@model IEnumerable<SEA_Application.Models.StudentFeeMonth>
+
+
+@{
+    ViewBag.Title = "MonthlyFeeStudent";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+
+
+}
+
+<style>
+    #updatestatus:hover {
+        background-color: #21cd54 !important;
+        color: #ffffff !important;
+    }
+
+    #refresh:hover {
+        background-color: #21cd54 !important;
+        color: #ffffff !important;
+    }
+
+    #example tr > :nth-child(1) {
+        display: none;
+    }
+
+    input[type='checkbox'] {
+        -webkit-appearance: none;
+        width: 30px;
+        height: 30px;
+        background: white;
+        border-radius: 5px;
+        border: 2px solid #555;
+    }
+    /* Base for label styling */
+    [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: absolute;
+        left: -9999px;
+    }
+
+        [type="checkbox"]:not(:checked) + label,
+        [type="checkbox"]:checked + label {
+            position: relative;
+            padding-left: 1.95em;
+            cursor: pointer;
+        }
+
+            /* checkbox aspect */
+            [type="checkbox"]:not(:checked) + label:before,
+            [type="checkbox"]:checked + label:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 1.25em;
+                height: 1.25em;
+                border: 2px solid #ccc;
+                background: #fff;
+                border-radius: 4px;
+                box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
+            }
+            /* checked mark aspect */
+            [type="checkbox"]:not(:checked) + label:after,
+            [type="checkbox"]:checked + label:after {
+                content: '\2713\0020';
+                position: absolute;
+                top: .15em;
+                left: .22em;
+                font-size: 1.3em;
+                line-height: 0.8;
+                color: #09ad7e;
+                transition: all .2s;
+                font-family: 'Lucida Sans Unicode', 'Arial Unicode MS', Arial;
+            }
+            /* checked mark aspect changes */
+            [type="checkbox"]:not(:checked) + label:after {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            [type="checkbox"]:checked + label:after {
+                opacity: 1;
+                transform: scale(1);
+            }
+    /* disabled checkbox */
+    [type="checkbox"]:disabled:not(:checked) + label:before,
+    [type="checkbox"]:disabled:checked + label:before {
+        box-shadow: none;
+        border-color: #bbb;
+        background-color: #ddd;
+    }
+
+    [type="checkbox"]:disabled:checked + label:after {
+        color: #999;
+    }
+
+    [type="checkbox"]:disabled + label {
+        color: #aaa;
+    }
+    /* accessibility */
+    [type="checkbox"]:checked:focus + label:before,
+    [type="checkbox"]:not(:checked):focus + label:before {
+        border: 2px dotted blue;
+    }
+
+    /* hover style just for information *   /
+    label:hover:before {
+        border: 2px solid #4778d9 !important;
+    }
+
+
+    /* Useless styles, just for demo design */
+
+    body {
+        font-family: "Open sans", "Segoe UI", "Segoe WP", Helvetica, Arial, sans-serif;
+        color: #777;
+    }
+
+
+
+    .txtcenter {
+        margin-top: 4em;
+        font-size: .9em;
+        text-align: center;
+        color: #aaa;
+    }
+
+    .copy {
+        margin-top: 2em;
+    }
+
+        .copy a {
+            text-decoration: none;
+            color: #4778d9;
+        }
+</style>
+<script>
+     //   var d = new Date();
+
+
+
+        function updatestatus() {
+            debugger;
+            $('.eeniart0017').css("display", "none");
+            var _Mnh = $("#counter").val();
+            if (_Mnh == "" || _Mnh == undefined)
+                return false;
+            $.ajax({
+                type: "POST",
+                url: "/Admin_Dashboard/GetStatusRecord?StatusRecord=" + _Mnh,
+                success: function (data) {
+                    $('.eeniart0017').css("display", "none");
+                    if (data != "error") {
+                        debugger;
+                        window.location.href = "/StudentFeeMonths/Index";
+                    }
+                    else {
+                        toastr.warning('Warning ! Pending Status cannot be changed.')
+                        return false;
+                    }
+                }
+            })
+        }
+
+
+
+ function StudentFeeByClass(selectedClass) {
+ //    alert("test");
+     debugger
+        $('.eeniart0017').css("display", "block");
+        $.get('@Url.Action("StudentFeeByClass", "Admin_Dashboard")',
+           { id: selectedClass }, function (data) {
+               console.log(data);
+               table.fnClearTable();
+               debugger
+               $.each(data, function (i, item) {
+
+                        if (item.IssueDate == null) {
+
+                            if (item.FeeReceived == null) {
+
+                                table.fnAddData([item.Id, item.Name,item.UserName, item.FeePayable, "-", item.FeeType, item.Discount, item.IssueDate, item.Months]);
+                            }
+                            else {
+                                table.fnAddData([item.Id, item.Name,item.UserName, item.FeePayable, item.FeeReceived, item.FeeType, item.Discount, item.IssueDate, item.Months]);
+
+                            }
+                        }
+                        else {
+
+                            var value = new Date(parseInt(item.IssueDate.replace(/(^.*\()|([+-].*$)/g, '')));
+                                var dat = value.getMonth() +
+                                    1 +
+                                    "/" +
+                                    value.getDate() +
+                                    "/" +
+                                    value.getFullYear();
+
+
+                            if (item.FeeReceived == null) {
+
+
+
+
+                                table.fnAddData([item.Id, item.Name,item.UserName, item.FeePayable, "-", item.FeeType, item.Discount, dat, item.Months]);
+                            }
+
+                            else {
+
+                                table.fnAddData([item.Id, item.Name,item.UserName, item.FeePayable, item.FeeReceived, item.FeeType, item.Discount, dat, item.Months]);
+
+
+                            }
+
+                        }
+
+
+               });
+               table.fnDraw();
+               $('.eeniart0017').css("display", "none");
+               $('#View').html("View Filtered");
+           });
+        }
+
+
+        function class_click(item) {
+            //    alert(item.value);
+            debugger
+        if (item.value != "0")
+            StudentFeeByClass(item.value);
+        else {
+            LoadRecord();
+        }
+
+    }
+
+
+        var LoadRecord = function () {
+            debugger
+            $.ajax({
+                type: "POST",
+                url: "/Admin_Dashboard/GetStudentFeeMonth",
+                success: function (data) {
+                    debugger;
+
+                  //  var thedate = new Date(1224043200000);
+                 //   alert(thedate);
+
+
+                    $('.eeniart0017').css("display", "none");
+                    table.fnClearTable();
+
+                    $.each(data, function (i, item) {
+                        //  var checkbox = '<input type="checkbox" class="check_class"  value="' + item.Id + '" name="printcheck">';
+                        debugger
+                        //modify2
+                        //var checkbox = '<input type="checkbox"   value="' + item.Id + '"class="check_class"  name="printcheck" id="test' + item.Id + '" /><label for="test' + item.Id + '"></label>';
+                         // table.fnAddData([item.Id, item.Name, item.Date, item.Month, item.Status, item.PayableFee, item.MonthlyFee, item.Multiplier, checkbox]);
+
+
+
+                        if (item.IssueDate == null) {
+
+                            if (item.FeeReceived == null) {
+
+                                table.fnAddData([item.Id, item.Name,item.UserName, item.FeePayable, "-", item.FeeType, item.Discount, item.IssueDate, item.Months]);
+                            }
+                            else {
+                                table.fnAddData([item.Id, item.Name,item.UserName, item.FeePayable, item.FeeReceived, item.FeeType, item.Discount, item.IssueDate, item.Months]);
+
+                            }
+                        }
+                        else {
+
+
+                               var value = new Date(parseInt(item.IssueDate.replace(/(^.*\()|([+-].*$)/g, '')));
+                                var dat = value.getMonth() +
+                                    1 +
+                                    "/" +
+                                    value.getDate() +
+                                    "/" +
+                                    value.getFullYear();
+
+
+                            if (item.FeeReceived == null) {
+
+
+                                table.fnAddData([item.Id, item.Name,item.UserName, item.FeePayable, "-", item.FeeType, item.Discount, dat, item.Months]);
+                            }
+
+                            else {
+
+
+
+                                table.fnAddData([item.Id, item.Name,item.UserName, item.FeePayable, item.FeeReceived, item.FeeType, item.Discount, dat, item.Months]);
+
+
+                            }
+
+                        }
+
+
+                        //else {
+                        //    table.fnAddData([item.Id, item.Name, item.FeePayable, item.FeeReceived, item.Discount, item.IssueDate, item.Months]);
+
+                        //}
+
+
+
+
+                    })
+                }
+            })
+        }
+
+
+       var table;
+
+        $(document).ready(function () {
+           // table = $('#example').dataTable();
+            $('.eeniart0017').css("display", "block");
+
+
+               table = $('#datatable').dataTable({
+                buttons: [
+                    {
+                        text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
+                    },
+                    {
+                        text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
+                        action: function (e, dt, button, config) {
+                            window.location.href = '';
+                        }
+                    },
+                    {
+                        text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
+                    }
+                ],
+                "language": {
+                    "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
+                        "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
+                        "  </div>\n" +
+                        "  </div>",
+                    "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
+                    "paginate": {
+                        "first": "Firstt",
+                        "last": "Lastt",
+                        "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
+                        "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
+                    }
+                },
+                "searching": true,
+                // dom: '<"class">Blfrtip',
+                dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
+                    "<'row'<'col-sm-12 datatablesData'tr>>" +
+                    "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
+              });
+
+
+            LoadRecord();
+               $("#PageHeader").html("Student Fee Months");
+
+            $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
+            $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Student Fee Months </a></li>');
+
+          //  drawTable();
+
+            //$('.table').on('click', 'tbody tr', function () {
+            //    debugger;
+            //    var td = $(this).children("td");
+
+            //    if ($(td).html() != "No data available in table");
+            //    window.location.href = "/StudentFeeMonths/Edit?id=" + $(td[0]).html();
+            //});
+
+            var Counter = 0;
+
+            var SelectedMonths = [];
+
+
+            $(document).on("click", ".check_class", function () {
+                debugger;
+                var ischecked = $(this).is(':checked');
+                if (!ischecked) {
+                    var selectedvalue = $(this).val();
+                    var index = SelectedMonths.indexOf(selectedvalue);
+                    SelectedMonths.splice(index, 1);
+                }
+                else {
+                    var selectedvalue = $(this).val();
+                    SelectedMonths.push(selectedvalue);
+                    Counter++;
+                    $("#counter").val(SelectedMonths);
+                }
+
+            });
+            $("#MonthID").change(function () {
+                $('.eeniart0017').css("display", "block");
+
+                var Month = $(this).val();
+                if (Month == "All") {
+                    LoadRecord();
+                }
+                else {
+                    var html = '';
+                    $('#StatusID').prop('selectedIndex', 0);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin_Dashboard/GetStudentDetailDDL?Month=" + Month,
+                        success: function (data) {
+                            $('.eeniart0017').css("display", "none");
+
+                            table.fnClearTable();
+                            $.each(data, function (i, item) {
+                             //   var checkbox = '<input type="checkbox" class="check_class"  value="' + item.Id + '" name="printcheck">';
+                                var checkbox = '<input type="checkbox"   value="' + item.Id + '"class="check_class"  name="printcheck" id="test' + item.Id + '" /><label for="test' + item.Id + '"></label>';
+
+                                table.fnAddData([item.Id, item.Name, item.Date, item.Month, item.Status, item.PayableFee, item.MonthlyFee, item.Multiplier, checkbox]);
+                            })
+                        }
+                    })
+                }
+
+            });
+            $("#StatusID").change(function () {
+                debugger;
+                var Month = $("#MonthID").val()
+                $('.eeniart0017').css("display", "block");
+                var Status = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin_Dashboard/GetStudentDetailDDL?Status=" + Status + "&&Month=" + Month,
+                    success: function (data) {
+                        $('.eeniart0017').css("display", "none");
+                        table.fnClearTable();
+                        $.each(data, function (i, item) {
+                        //    var checkbox = '<input type="checkbox" class="check_class"  value="' + item.Id + '" name="printcheck">';
+                            var checkbox = '<input type="checkbox"   value="' + item.Id + '"class="check_class"  name="printcheck" id="test' + item.Id + '" /><label for="test' + item.Id + '"></label>';
+                            table.fnAddData([item.Id, item.Name, item.Date, item.Month, item.Status, item.PayableFee, item.MonthlyFee, item.Multiplier, checkbox]);
+
+
+
+
+                        })
+                    }
+                })
+            });
+
+        });
+        //function drawTable() {
+        //    $('#example_filter').addClass("form-group");
+        //    $('#example_filter').addClass("has-feedback");
+        //    $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+        //    //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+
+        //    $('#example_wrapper').css("text-align", "left");
+        //    $('#example_length').css("text-align", "left");
+        //    $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+        //    $("#example_length label").css("text-align", "left");
+        //    $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+        //    // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+        //    $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "0px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+        //    //$('#example_length').css({ "overflow": "auto" });
+        //    $('#example_filter input').addClass("add");
+        //    $('#example_filter').append('<span class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -25px; color: #666;"></span>');
+        //    var list = $("#Position").html();
+        //        var ClassList = $("#ClassID").html();
+        //    $('#example_length').append(
+
+        //          '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+        //             '<div class="d-bar" style="margin-top:0px;"></div>' +
+        //             '</div>'
+        //        +
+        //           '<div class="col-md-3 col-lg-3">' +
+        //           '<div class="col-md-6" style="padding:0px; margin-top:0px">' +
+        //           '<lable class="control-label">Select Section</lable>' +
+        //           '</div>' +
+        //           '<div class="col-md-6">' +
+        //           '<select class="form-control  input-sm" id="Class" style="margin-top:-4px" name="ClassID" onchange="class_click(this)">' + ClassList +
+        //           '</select>' +
+        //            '</div>' +
+
+        //        '</div>' +
+
+
+
+        //              '<div class="col-md-2 pull-right">' +
+
+        //      '</div>'
+        //      //+
+        //      //  '<div class="col-md-2 pull-right !important">' +
+        //      //'<input type="button" value="Refresh"  class="form-control" id="refresh" onclick="Refresh()" style="border-radius:45px;border-color:#21cd54;color:#21cd54;background-color:#ffffff" />' +
+        //      //'</div>'
+        //      );
+        //    $("#Class").prepend("<option value='0' selected>All</option>");
+        //}
+
+        function Create() {
+          //  window.location.href = "/StudentFeeMonths/Create";
+        }
+        function Refresh() {
+          //  window.location.href = "";
+        }
+</script>
+<input type="hidden" name="counter" id="counter" />
+<div class="card">
+    <div class="card-body p-4">
+
+        <div class="box box-primary">
+            <div class="box-body">
+                <div style="display: none">
+                    @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+                <table class="table hover table-bordered" id="datatable">
+                    <thead>
+                        <tr>
+
+                            <th>Id</th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Roll No
+                            </th>
+                            <th>
+                                Fee Payable
+                            </th>
+
+                            <th>
+                                Fee Received
+                            </th>
+                            <th>
+                                Fee Type
+                            </th>
+
+                            <th>
+                                Discount
+                            </th>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Month
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+

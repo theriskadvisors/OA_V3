@@ -1,0 +1,368 @@
+﻿
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+        var i = 0;
+        var trrmid = @ViewBag.TermId;
+        debugger;
+       // var studentId= @ViewBag.StudentId;
+        //var trrmid = $("#TermID").val();
+        var studentId = $("#STDID").val();
+      
+
+        $.ajax({
+            type: "POST",
+            url: "/Admin_Dashboard/Student_Data",
+            data: { StudentId: studentId},
+            success: function (data) {
+                $("#StudentName").append(data.name);
+                $("#stdname").append(data.username);
+                $("#teachername").append(data.tname)
+            }
+        });
+               debugger;
+        $.ajax({
+            type: "POST",
+            url: "/Admin_Dashboard/PrintPreviewData",
+            data: { StudentId: studentId, "type": "teacher", TermId: trrmid },
+            success: function (data) {
+              
+                debugger;
+                var s = 0;
+                $.each(data.subValue, function (i, item) {
+                    var subjectid = data.subValue[i];
+                    var SId = subjectid.Id;
+                    $('.eeniart0017').css("display", "block");
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin_Dashboard/Assessment_PrintPreview",
+                        data: { StudentId: studentId, SID: SId ,TermId:trrmid},
+                        success: function (data1) {
+                            debugger;
+                            $('.eeniart0017').css("display", "none");
+                            if (data.ClassId == 88 || data.ClassId == 89 || data.ClassId == 91 || data.ClassId == 95 || data.ClassId == 96) {
+                                var Subject = data.subValue[i];
+                                $("#load").append('<div id="main' + s + '" class="section" style="margin-bottom:5px;padding:8px;width:100%">' +
+                                                 '<link href="~/Content/EeNiArTWork.css" rel="stylesheet" />' +
+                                                 '<link href="~/AdminLTE/bootstrap/css/bootstrap.css" rel="stylesheet" />' +
+                                                 '<link type="text/css" rel="stylesheet" media="print" href="/css/print.css" />' +
+                                                 '<span class="col-xs-12" style="text-align:center;display:block;font-size: 120%;margin-bottom:5px;margin-top:5px;border:1px solid black"><b>' + Subject.SubjectName + '</b></span></div>'+
+                                                 '<br />')
+                                if (Subject.SubjectName == "English Language Development" || Subject.SubjectName == "Urdu Language Development") {
+                                    for (var j = 0; j < data.categoryname.length; j++) {
+                                        var Category = data.categoryname[j];
+
+                                        for (var k = 0; k < data1.Value.length; k++) {
+                                            var quesGrade = data1.Value[k];
+                                            if (Category.CategoryName == quesGrade.Catageory) {
+                                                if (data.ClassId == 88 || data.ClassId == 89 || data.ClassId == 91 || data.ClassId == 95 || data.ClassId == 96) {
+
+                                                    //if (data.TId == 1) {
+                                                    if (quesGrade.FirstTermGrade == "y") {
+                                                        var dffdf1 = 'Y';
+                                                    }
+                                                    else if (quesGrade.FirstTermGrade == "w") {
+                                                        var dffdf1 = 'W';
+                                                    }
+                                                    else if (quesGrade.FirstTermGrade == "n") {
+                                                        var dffdf1 = 'N';
+                                                    }
+                                                    else if (quesGrade.FirstTermGrade == "x" || quesGrade.FirstTermGrade == "" || quesGrade.FirstTermGrade == null) {
+                                                        var dffdf1 = 'X';
+                                                    }
+                                                    //}
+                                                    //else if (data.TId == 2) {
+                                                    if (quesGrade.SecondTermGrade == "y") {
+                                                        var dffdf2 = 'Y'
+                                                    }
+                                                    else if (quesGrade.SecondTermGrade == "w") {
+                                                        var dffdf2 = 'W';
+                                                    }
+                                                    else if (quesGrade.SecondTermGrade == "n") {
+                                                        var dffdf2 = 'N';
+                                                    }
+                                                    else if (quesGrade.SecondTermGrade == "x" || quesGrade.SecondTermGrade == "" || quesGrade.SecondTermGrade == null) {
+                                                        var dffdf2 = 'X';
+                                                    }
+                                                    //}
+                                                    //else {
+                                                    if (quesGrade.ThirdTermGrade == "y") {
+                                                        var dffdf3 = 'Y';
+                                                    }
+                                                    else if (quesGrade.ThirdTermGrade == "w") {
+                                                        var dffdf3 = 'W';
+                                                    }
+                                                    else if (quesGrade.ThirdTermGrade == "n") {
+                                                        var dffdf3 = 'N';
+                                                    }
+                                                    else if (quesGrade.ThirdTermGrade == "x" || quesGrade.ThirdTermGrade == "" || quesGrade.ThirdTermGrade == null) {
+                                                        var dffdf3 = 'X';
+                                                    }
+                                                }
+
+
+                                                $("#main" + s).append(
+                                                   '<div class="col-xs-6">' +
+                                                     '<span style="text-align:left" id="category"><b>' + Category.CategoryName + '</b></span>' +
+
+                                                        '<div class="col-xs-12" id="questions">' +
+
+                                                           '<div class="col-xs-6">' +
+                                                               '<span style="text-align:left;style="margin-bottom:2px" id="question">' + quesGrade.Question + '</span>' +
+                                                           '</div>' +
+                                                           '<div class="col-xs-6">' +
+                                                               '<div class="col-xs-2" style="border:1px solid black">' + dffdf1 + '</div>' +
+                                                               '<div class="col-xs-2 col-xs-offset-2" style="border:1px solid black">' + dffdf2 + '</div>' +
+                                                               '<div class="col-xs-2 col-xs-offset-2" style="border:1px solid black">' + dffdf3 + '</div>' +
+                                                           '</div>' +
+                                                           '</div>' +
+                                                   '</div>')
+                                            }
+
+
+                                        }
+                                    }
+                                }
+                                else {
+                                    for (var k = 0; k < data1.Value.length; k++) {
+                                        var quesGrade = data1.Value[k];
+                                        if (data.ClassId == 88 || data.ClassId == 89 || data.ClassId == 91 || data.ClassId == 95 || data.ClassId == 96) {
+
+                                            //if (data.TId == 1) {
+                                            if (quesGrade.FirstTermGrade == "y") {
+                                                var dffdf1 = 'Y';
+                                            }
+                                            else if (quesGrade.FirstTermGrade == "w") {
+                                                var dffdf1 = 'W';
+                                            }
+                                            else if (quesGrade.FirstTermGrade == "n") {
+                                                var dffdf1 = 'N';
+                                            }
+                                            else if (quesGrade.FirstTermGrade == "x" || quesGrade.FirstTermGrade == "" || quesGrade.FirstTermGrade == null) {
+                                                var dffdf1 = 'X';
+                                            }
+                                            //}
+                                            //else if (data.TId == 2) {
+                                            if (quesGrade.SecondTermGrade == "y") {
+                                                var dffdf2 = 'Y'
+                                            }
+                                            else if (quesGrade.SecondTermGrade == "w") {
+                                                var dffdf2 = 'W';
+                                            }
+                                            else if (quesGrade.SecondTermGrade == "n") {
+                                                var dffdf2 = 'N';
+                                            }
+                                            else if (quesGrade.SecondTermGrade == "x" || quesGrade.SecondTermGrade == "" || quesGrade.SecondTermGrade == null) {
+                                                var dffdf2 = 'X';
+                                            }
+                                            //}
+                                            //else {
+                                            if (quesGrade.ThirdTermGrade == "y") {
+                                                var dffdf3 = 'Y';
+                                            }
+                                            else if (quesGrade.ThirdTermGrade == "w") {
+                                                var dffdf3 = 'W';
+                                            }
+                                            else if (quesGrade.ThirdTermGrade == "n") {
+                                                var dffdf3 = 'N';
+                                            }
+                                            else if (quesGrade.ThirdTermGrade == "x" || quesGrade.ThirdTermGrade == "" || quesGrade.ThirdTermGrade == null) {
+                                                var dffdf3 = 'X';
+                                            }
+                                        }
+                                        $("#main" + s).append(
+                                           '<div class="col-xs-6">' +
+                                             '<span style="text-align:left" id="category">' + "" + '</span>' +
+
+                                                '<div class="col-xs-12" style="margin-bottom:2px" id="questions">' +
+
+                                                   '<div class="col-xs-6">' +
+                                                       '<span style="text-align:left" id="question">' + quesGrade.Question + '</span>' +
+                                                   '</div>' +
+                                                   '<div class="col-xs-6">' +
+                                                       '<div class="col-xs-2" style="border:1px solid black">' + dffdf1 + '</div>' +
+                                                       '<div class="col-xs-2 col-xs-offset-2" style="border:1px solid black">' + dffdf2 + '</div>' +
+                                                       '<div class="col-xs-2 col-xs-offset-2" style="border:1px solid black">' + dffdf3 + '</div>' +
+                                                   '</div>' +
+                                                   '</div><br />' +
+                                           '</div>')
+                                    }
+                                }
+                                s++;
+                            }
+                            else {
+                                var Subject = data.subValue[i];
+                                //  $("#Grade").append('<tr style="border-bottom:1px solid #f4f4f4;"><th class="eeniart003" style="width:40%">Topics</th><th class="eeniart003" style="width:20%">1st Term</th><th class="eeniart003" style="width:20%">2nd Term</th><th class="eeniart003" style="width:20%">3rd Term</th></tr>');
+
+
+
+                                $("#load").append('<div id="mainN' + s + '" class="section" style="margin-bottom:5px;padding:8px;width:100%">' +
+                                                '<link href="~/Content/EeNiArTWork.css" rel="stylesheet" />' +
+                                                '<link href="~/AdminLTE/bootstrap/css/bootstrap.css" rel="stylesheet" />' +
+                                                '<link type="text/css" rel="stylesheet" media="print" href="/css/print.css" />' +
+                                                '<table style="width:100%;margin-bottom:-0.5%"><tr><th style="width:50%"><span class="col-xs-12" style="text-align:left;display:block;font-size: 120%;margin-bottom:5px;margin-top:5px;border:1px solid black"><b>' + Subject.SubjectName + '</b></span></th><th><span class="col-xs-12" style="text-align:left;display:block;font-size: 120%;margin-bottom:5px;margin-top:5px;border:1px solid black"><b>TERM EVALUATION</b></span></th></tr></div><br />');
+
+                                for (var k = 0; k < data1.Value.length; k++) {
+
+                                    var quesGrade = data1.Value[k];
+                                    debugger;
+
+                                    if (trrmid == 22) {
+                                        if (quesGrade.FirstTermGrade == "a") {
+                                            var dffdf1 = 'EXCELLENT';
+                                        }
+                                        else if (quesGrade.FirstTermGrade == "b") {
+                                            var dffdf1 = 'GOOD';
+                                        }
+                                        else if (quesGrade.FirstTermGrade == "c") {
+                                            var dffdf1 = 'SATISFACTORY';
+                                        }
+                                        else if (quesGrade.FirstTermGrade == "n.a" || quesGrade.FirstTermGrade == "" || quesGrade.FirstTermGrade == null) {
+                                            var dffdf1 = 'NOT APPLICABLE';
+                                        }
+                                        else if (quesGrade.FirstTermGrade == "d") {
+                                            var dffdf1 = 'CAUSE FOR CONCERN';
+                                        }
+
+                                        var que1tr = $('<table style="width:100%;"><tr style=" border-bottom: 1px solid #f4f4f4;width=100%;"><td style="width:50%;border-left:0.5px solid black;border-right:0.5px solid black;border-bottom:0.5px solid black">' + quesGrade.Question + '</td><td class="form-group" style="border-bottom:0.5px solid black;border-right:0.5px solid black"><div class="col-md-6 eeniart001">' + dffdf1 + '</div></td></tr></table>');
+                                        debugger;
+                                    }
+
+                                    else if (trrmid == 23) {
+                                        if (quesGrade.SecondTermGrade == "b") {
+                                            var dffdf1 = 'GOOD';
+                                        }
+                                        else if (quesGrade.SecondTermGrade == "a") {
+                                            var dffdf1 = 'EXCELLENT';
+                                        }
+                                        else if (quesGrade.SecondTermGrade == "c") {
+                                            var dffdf1 = 'SATISFACTORY';
+                                        }
+                                        else if (quesGrade.SecondTermGrade == "n.a" || quesGrade.SecondTermGrade == "" || quesGrade.SecondTermGrade == null) {
+                                            var dffdf1 = 'NOT APPLICABLE';
+                                        }
+                                        else if (quesGrade.SecondTermGrade == "d") {
+                                            var dffdf1 = 'CAUSE FOR CONCERN';
+                                        }
+
+                                        var que1tr = $('<table style="width:100%"><tr style=" border-bottom: 1px solid #f4f4f4;width=100%;"><td style="width:50%;border:0.5px solid black">' + quesGrade.Question + '</td><td class="form-group" style="border:0.5px solid black"><div class="col-md-6 eeniart001">' + dffdf1 + '</div></td></tr></table>');
+                                    }
+                                    else {
+                                        if (quesGrade.ThirdTermGrade == "b") {
+                                            var dffdf1 = 'GOOD';
+                                        }
+                                        else if (quesGrade.ThirdTermGrade == "a") {
+                                            var dffdf1 = 'EXCELLENT';
+                                        }
+                                        else if (quesGrade.ThirdTermGrade == "c") {
+                                            var dffdf1 = 'SATISFACTORY';
+                                        }
+                                        else if (quesGrade.ThirdTermGrade == "n.a" || quesGrade.ThirdTermGrade == "" || quesGrade.ThirdTermGrade == null) {
+                                            var dffdf1 = 'NOT APPLICABLE';
+                                        }
+                                        else if (quesGrade.ThirdTermGrade == "d") {
+                                            var dffdf1 = 'CAUSE FOR CONCERN';
+                                        }
+
+                                        var que1tr = $('<table style="width:100%"><tr style=" border-bottom: 1px solid #f4f4f4;width=100%;"><td style="width:50%;border:0.5px solid black">' + quesGrade.Question + '</td><td class="form-group" style="border:0.5px solid black"><div class="col-md-6 eeniart001">' + dffdf1 + '</div></td></tr></table>');
+                                    }
+
+                                    $("#mainN" + s).append(que1tr);
+
+                                    debugger;
+
+
+                                }
+                                s++;
+                            }
+
+
+
+
+                        }
+
+                    });
+
+                });
+
+
+            }
+        });
+
+    });
+
+</script>
+
+
+<input class="hidden" id="STDID" value="@ViewBag.StudentId" />
+<div class="box box-primary">
+    <div class="box-body">
+        <div id="load">
+            <div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-3 col-sm-3 col-xs-3" style="text-align:  center;">
+                        <img class="eeniart005" src="~/Content/Images/NGS-Pre-School-Logo.png" />
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <br /><br /><br />
+                        <div><h3 style="text-align:center">IPC NGS Preschool</h3></div>
+                        <div><h3 style="text-align:center">Aziz Avenue</h3></div>
+                        <div><h1 style="text-align:center">Assessment Report 2018</h1></div>
+                    </div>
+                    <div class="col-md-3" style="text-align:  center;">
+
+                        <img class="eeniart006" src="~/Content/Images/International-pree.png" />
+                        @*<i class="fa fa-print eeniart004" aria-hidden="true" onclick="printoo()"></i>*@
+                    </div>
+                </div>
+                
+                    @*<h1 id="className" style="text-align:center;margin-bottom:30px; font-family:Times New Roman, Times, serif; "></h1>*@
+                    <div class="col-md-12" style="margin-bottom:30px;margin-top:100px">
+                        <div class="col-md-6">
+                            <span class="col-md-1"><b>Name:</b></span><label class="col-md-11 pull-left" id="StudentName" style="text-align:left; border-bottom:1px solid black"></label>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="col-md-4"><b>Student No.</b></span><label id="stdname" style="border-bottom:1px solid black" class="col-md-8 pull-left"></label>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="col-md-3"><b>Teacher</b></span><label style="border-bottom:1px solid black" id="teachername" class="col-md-9 pull-left"></label>
+                        </div>
+
+                    
+                    </div>
+                <br />
+                <div style="border:1px solid black; margin-bottom:30px" class="col-xs-12">
+                    <div class="col-xs-5" style="border-right:1px solid black;height:100%">
+                        <div class="col-xs-6" style="border-right:1px solid black;height:100%;">
+                            <span style="text-align:center">Age:</span><br /> <input type="text" style="border:none" />
+                        </div>
+                        <div class="col-xs-6">
+                            <span>Height: </span><br /><input type="text" style="border:none" />
+
+                        </div>
+                    </div>
+                    <div style="border-right:1px solid black" class="col-xs-2">
+                        <span>Weight: </span><input type="text" style="border:none" />
+                    </div>
+                    <div class="col-xs-5">
+                        <div class="col-xs-6" style="border-right:1px solid black;height:100%">
+                            <span>Days attended:</span><br /> <input type="text" style="border:none" />
+                        </div>
+                        <div class="col-xs-6">
+                            <span>Days Absent:</span> <br /><input type="text" style="border:none" />
+                        </div>
+                    </div>
+                    <br /><br />
+                </div>
+
+                <div class="col-xs-12" style="border:1px solid black; margin-bottom:30px;margin-top:30px">
+                    <div class="col-xs-3"><span style="font-size: 15px"><b>Y</b> - Yes</span></div>
+                    <div class="col-xs-3"><span style="font-size: 15px"><b>W</b> - With Help</span></div>
+                    <div class="col-xs-3"><span style="font-size: 15px"><b>N</b> - Not Yet</span></div>
+                    <div class="col-xs-3"><span style="font-size: 15px"><b>X</b> - Not Assessed</span></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

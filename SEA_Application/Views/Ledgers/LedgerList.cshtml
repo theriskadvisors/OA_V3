@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "LedgerList";
+}
+
+
+<script>
+    $(document).ready(function () {
+     //   table = $('#example').dataTable();
+
+        //$('.table').on('click', 'tbody tr', function () {
+        //    var td = $(this).children("td");
+        //    debugger;
+        //    if ($(td).html() != "No data available in table");
+        //    window.location.href = "Edit?id=" + $(td[0]).html();
+        //})
+    //   drawTable();
+
+
+         var  table = $('#datatable').dataTable({
+                    buttons: [
+                        {
+                            text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
+                        },
+                        {
+                            text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
+                            //action: function (e, dt, button, config) {
+                            //    window.location.href = '';
+                            //}
+                        },
+                        {
+                            text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
+                        }
+                    ],
+                    "language": {
+                        "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
+                            "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
+                            "  </div>\n" +
+                            "  </div>",
+                        "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
+                        "paginate": {
+                            "first": "Firstt",
+                            "last": "Lastt",
+                            "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
+                            "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
+                        }
+                    },
+                    "searching": true,
+                    // dom: '<"class">Blfrtip',
+                    dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
+                        "<'row'<'col-sm-12 datatablesData'tr>>" +
+                        "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
+       });
+
+        
+    
+             $("#PageHeader").html("Accounts");
+
+                $("#BreadCrumbs").append(' <li> <a href="/FinanceSummary/index"> Home </a> <span>&gt;</span></li>');
+                $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Accounts</a></li>');
+
+
+        $.get('@Url.Action("GetLedgerList", "Ledgers")',
+     function (data) {
+         debugger;
+         table.fnClearTable();
+         $.each(data, function (i, item) {
+             debugger;
+             table.fnAddData([item.Id, item.Name, item.CreatedBy, numberWithCommas(item.StartingBalance), numberWithCommas(item.CurrentBalance), item.LedgerGroupId, item.LedgerHeadId]);
+         });
+     });
+    })
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    function drawTable() {
+        $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+        //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+
+        $('#example_wrapper').css("text-align", "left");
+        $('#example_length').css("text-align", "left");
+        $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+        $("#example_length label").css("text-align", "left");
+        $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+        // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+        //$('#example_length').css({ "overflow": "auto" });
+        $('#example_filter input').addClass("add");
+        $('#example_filter').append('<span class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+        var list = $("#ClassID").html();
+        $('#example_length').append(
+
+
+
+           '</div>' +
+           '</div>');
+        $("#Class").prepend("<option value='0' selected>All</option>");
+    }
+
+</script>
+<style>
+    #example tr > :nth-child(1) {
+        display: none;
+    }
+</style>
+
+<div class="card">
+    <div class="card-body p-4">
+        <div class="box box-primary">
+            <div class="box-body">
+
+                <table class="table hover table-striped table-bordered"  id="datatable">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Created By</th>
+                            <th>Starting Balance</th>
+                            <th>Current Balance</th>
+                            <th>Groups</th>
+                            <th>Accounting Head</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

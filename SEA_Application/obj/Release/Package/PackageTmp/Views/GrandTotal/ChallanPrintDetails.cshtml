@@ -1,0 +1,119 @@
+﻿@model IEnumerable<SEA_Application.Models.StudentFeeMonth>
+
+@{
+    ViewBag.Title = "ChallanPrintDetails";
+    Layout = "~/Views/Shared/_AccountantDashboardLayout.cshtml";
+}
+<script>
+
+    $(document).ready(function () {
+  
+
+        $(document).on('click', '.month', function () {
+        debugger;
+       
+        var sid = $('.studentid').attr("id");
+        var month = $(this).attr("id");
+        if (sid != "" && sid != undefined) {
+            window.location.href = "/GrandTotal/StudentFeeDetails?sid=" + sid+"&&month="+ month;
+        }
+        else {
+            return false;
+        }
+
+    });
+
+    });
+    </script>
+<h2>Challan Details</h2>
+<div class="box box-primary">
+    <div class="box-body">
+        <table class="table table-bordered table-responsive" id="example">
+            <thead>
+                <tr>
+                    @*<th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.AspNetStudent.AspNetUser.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IssueDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Months)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        Monthly Fee
+                    </th>
+                    <th>
+                        Payable Fee
+                    </th>
+                    <th>
+                        Session
+                    </th>
+                    <th>
+                       Is Challan Printed
+                    </th>
+
+
+                </tr>
+            </thead>
+
+
+            @foreach (var item in Model)
+            {
+                <tbody>
+                   
+                    <tr id='@item.Months' class="month">
+
+
+                        @*<td>
+                @Html.DisplayFor(modelItem => item.Id)
+
+            </td>*@
+                        <td id='@item.AspNetStudent.Id' class="studentid">
+                            @Html.DisplayFor(modelItem => item.AspNetStudent.AspNetUser.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IssueDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Months)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InstalmentAmount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FeePayable)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AspNetSession.SessionName)
+                        </td>
+                        <td>
+                            @if (item.IsPrinted == true)
+                            {
+                                <span> Yes</span>
+                            }
+                            else
+                            {
+                                    <span> No</span>
+                            }
+                        </td>
+
+                    </tr>
+                </tbody>
+
+            }
+
+        </table>
+
+    </div>
+</div>

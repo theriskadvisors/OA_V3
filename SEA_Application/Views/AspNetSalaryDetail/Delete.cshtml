@@ -1,0 +1,192 @@
+﻿@model SEA_Application.Models.AspNetSalaryDetail
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>AspNetSalaryDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GrossSalary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GrossSalary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicalAllowance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicalAllowance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccomodationAllowance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccomodationAllowance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BasicSalary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BasicSalary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FineCut)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FineCut)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AfterCutSalary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AfterCutSalary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdvancePf)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdvancePf)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeePF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeePF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdvanceSalary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdvanceSalary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeEOP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeEOP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchoolEOP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchoolEOP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BTaxSalary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BTaxSalary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ATaxSalary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ATaxSalary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bonus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bonus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SalaryHold)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalaryHold)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSalary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalSalary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetEmployee.PositionAppliedFor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetEmployee.PositionAppliedFor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetSalary.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetSalary.Title)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

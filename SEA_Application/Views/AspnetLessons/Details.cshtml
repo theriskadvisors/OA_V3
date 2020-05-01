@@ -1,0 +1,67 @@
+﻿@model SEA_Application.Models.AspnetLesson
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AspnetLesson</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Video_Url)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Video_Url)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspnetSubjectTopic.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspnetSubjectTopic.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

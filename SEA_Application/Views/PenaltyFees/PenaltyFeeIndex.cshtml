@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "PenaltyFeeIndex";
+}
+<style>
+
+        #cre:hover {
+        background-color: #128edb !important;
+        color: #ffffff !important;
+    }
+
+    #refresh:hover {
+        background-color: #21cd54 !important;
+        color: #ffffff !important;
+    }
+</style>
+<h2>Penalty Fee</h2>
+
+<script>
+    $(document).ready(function () {
+        table = $('#example').dataTable();
+
+        drawTable();
+        $.ajax({
+            type: "POST",
+            url: "/PenaltyFees/GetPenalty",
+            success: function (data) {
+                table.fnClearTable();
+                $.each(data, function (i, item) {
+                    table.fnAddData([item.Name, item.Amount]);
+                })
+            }
+        })
+    })
+    function drawTable() {
+        $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+        //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+
+        $('#example_wrapper').css("text-align", "left");
+        $('#example_length').css("text-align", "left");
+        $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+        $("#example_length label").css("text-align", "left");
+        $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+        // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "0px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+        //$('#example_length').css({ "overflow": "auto" });
+        $('#example_filter input').addClass("add");
+        $('#example_filter').append('<span class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -25px; color: #666;"></span>');
+        var list = $("#ClassID").html();
+        $('#example_length').append(
+                '<div class="col-md-2 pull-right !important">' +
+          '<input type="button" class="form-control" id="cre" onclick="Create()" value="Create" style="border-radius:45px;border-color:#128edb;color:#128edb;background-color:#ffffff" />' +
+          '</div>' +
+            '<div class="col-md-2 pull-right !important">' +
+          '<input type="button" value="Refresh"  class="form-control" id="refresh" onclick="Refresh()" style="border-radius:45px;border-color:#21cd54;color:#21cd54;background-color:#ffffff" />' +
+          '</div>');
+        $("#Class").prepend("<option value='0' selected>All</option>");
+    }
+    function Create() {
+        window.location.href = "/PenaltyFees/Create";
+    }
+
+    function Refresh() {
+        window.location.href = "";
+    }
+</script>
+<div class="box box-primary">
+    <div class="box-body">
+
+        <table class="table" id="example">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Penalty
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+

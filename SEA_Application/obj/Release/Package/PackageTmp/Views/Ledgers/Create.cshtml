@@ -1,0 +1,199 @@
+﻿@model SEA_Application.Models.Ledger
+
+@{
+    ViewBag.Title = "Create";
+}
+<script>
+    $(document).ready(function () {
+        $("#LedgerGroupId").prepend("<option value='0' selected>---Select One---</option>");
+        $("#LedgerHeadId").prop('disabled', true);
+        $("#LedgerGroupId").prop('disabled', true);
+        $("#submit").prop('disabled', true);
+
+        $("input[type='radio']").click(function () {
+            debugger;
+            var radioValue = $("input[name='radio']:checked").val();
+            if (radioValue=="Group") {
+                $("#LedgerHeadId").prop('disabled', false);
+                $("#LedgerGroupId").prop('disabled', true);
+                $("#submit").prop('disabled', false);
+
+            }
+            else {
+                $("#LedgerHeadId").prop('disabled', true);
+                $("#LedgerGroupId").prop('disabled', false);
+                $("#submit").prop('disabled', false);
+
+            }
+        });
+    })
+</script>
+<div class="col-md-4 col-sm-4 col-lg-4 tab-pane pull-right" style="margin-left:30px;margin-top:30px" id="changediv">
+
+    <div class="form-three widget-shadow">
+        @using (Html.BeginForm("LedgerFromFile", "Ledgers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="control-label col-md-3"><b>Excel File</b></div>
+                <div class="col-md-4">
+                    <input id="teachers" required="required" name="Ledger" type="file" />
+                </div>
+            </div>
+       
+               <input class="col-md-4 pull-right" type="submit" value="Submit" style="border-radius:35px;color:white;border:hidden;background-color:#128edb;font-size:11px;width:98px;height:38px;font-family:Montserrat" />
+        }
+    </div>
+</div>
+
+<div class="col-md-8 col-md-offset-1" style="background-color:#f1f2e5;border-radius:10px;margin-top:50px;box-shadow: rgba(0, 0, 0, 0.16) 5px 10px 5px, rgba(0, 0, 0, 0.23) 0px 3px 5px">
+    
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "Registerform" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Add New Account</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-3">
+                    <span>Ledger Name</span>
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control",@required="required" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*<div class="form-group">
+                <div class="col-md-3">
+                    <span>Created By</span>
+                    @Html.EditorFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CreatedBy, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            <div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <span>Starting Balance</span>
+                        @Html.EditorFor(model => model.StartingBalance, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.StartingBalance, "", new { @class = "text-danger" })
+                    </div>
+      
+                    @*<div class="col-md-3">
+                        <span>Current Balance</span>
+                        @Html.EditorFor(model => model.CurrentBalance, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CurrentBalance, "", new { @class = "text-danger" })
+                    </div>*@
+                </div>
+            </div>
+           
+
+           
+            <div>
+                <div class="form-group">                  
+                     <div class="col-md-3"> 
+                        <label class="container" style="float:left">
+                            <input type="radio" value="Head" name="radio"><span>Group</span>
+                            <span class="checkmark"></span>
+                        </label>
+                         
+                        @Html.DropDownList("LedgerGroupId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.LedgerGroupId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3">                        
+                        <label class="container" style="float:left">
+                            <input type="radio" value="Group" name="radio"><span>Accounting Head</span>
+                            <span class="checkmark"></span>
+                        </label>                        
+                        @Html.DropDownList("LedgerHeadId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.LedgerGroupId, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <span>Session</span>
+                        @Html.DropDownList("SessionId", null, htmlAttributes: new { @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.SessionId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+          
+
+          
+        </div>
+    }
+
+        <div class="col-md-5">
+            <br />
+            <button class="col-md-2 form-control" onclick="window.location.href = '/ChartOfAccounts/ChartsOf_Accounts'" style="border-radius:35px;border:hidden;margin-right:10px;background-color:red;color:white;font-size:11px;width:98px;height:38px;font-family:Montserrat" id="return"><i class="fa fa-arrow-left"></i> &nbsp;&nbsp; Return</button>
+            <input class="col-md-2 form-control" id="submit" form="Registerform" type="submit" value="Save" style="border-radius:35px;color:white;border:hidden;background-color:#128edb;font-size:11px;width:98px;height:38px;font-family:Montserrat" />
+            <br />
+            <br /><br />
+        </div>
+    </div>
+<style>
+    /* The container */
+    .container {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 15px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+        /* Hide the browser's default radio button */
+        .container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+    /* Create a custom radio button */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #808080;
+        border-radius: 50%;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the radio button is checked, add a blue background */
+    .container input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    /* Create the indicator (the dot/circle - hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the indicator (dot/circle) when checked */
+    .container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the indicator (dot/circle) */
+    .container .checkmark:after {
+        top: 9px;
+        left: 9px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+    }
+</style>

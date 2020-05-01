@@ -1,0 +1,552 @@
+﻿@model SEA_Application.Models.AspNetAttendance
+
+<script src="~/AdminLTE/selectone.js"></script>
+<script type="text/javascript">
+
+
+
+    $(document).ready(function () {
+
+        var classcookieval = null;
+        var allcookies = document.cookie;
+
+
+        $('#Comment_Save').prop('disabled', true);
+
+        // Get all the cookies pairs in an array
+        cookiearray = allcookies.split(';');
+
+        // Now take key value pair out of this array
+        for (var i = 0; i < cookiearray.length; i++) {
+            name = cookiearray[i].split('=')[0];
+            value = cookiearray[i].split('=')[1];
+
+            console.log(cookiearray[i]);
+
+            if (cookiearray[i].split('=')[0] == " ClassCookieassessment" || cookiearray[i].split('=')[0] == "ClassCookieattendance") {
+                classcookieval = cookiearray[i].split('=')[1];
+            }
+        }
+
+
+        $("#ClassID").change(function () {
+
+            var selectedClass = $("#ClassID").val();
+            if (selectedClass != null) {
+                $('.eeniart0017').css("display", "block");
+            }
+            $.get('@Url.Action("StudentsByClass_Principal", "TermAssessment")',
+               { id: selectedClass }, function (data) {
+                   $('.eeniart0017').css("display", "none");
+                   //console.log(data);
+                   studentseeni();
+                   $('#StudentTable').html(' ');
+                   if (data == "") {
+                       $('#StudentTable').append("<tr><td>No Term Found</td><td></td><td></td></tr>");
+                   }
+                   $.each(data, function (i, item) {
+                       debugger;
+                       var Status;
+                       if (item.Status == "pending") {
+                           Status = "<span class='glyphicon glyphicon-question-sign text-danger'></span>";
+                       } else if (item.Status == "ok") {
+                           Status = "<span class='glyphicon glyphicon-ok-circle text-success'></span>";
+                       } else if (item.Status == "not submitted") {
+                           Status = "<span style='color:moccasin' class='glyphicon glyphicon-exclamation-sign'></span>";
+                       }
+                       if (Status == null) { Status = "-" }
+                       $('#StudentTable').append("<tr id=" + item.Id + "><td><div>" + item.Name + "</div> </td><td><a id='" + item.Id + "' href='#' + onclick ='Student_Evaluation(this)' >Evaluate Student</a></td><td>" + Status + "</td></tr>");
+                   });
+
+               });
+        });
+
+
+
+    });
+
+    function Student_Evaluation(item) {
+        debugger;
+        $('#hidden').val(item.id);
+
+        var name = item.closest("tr");
+        name = $(name).find("td div");
+        name = $(name).html();
+        $("#StudentName").html(name);
+        var topppp = name;
+        name = item.closest("tr");
+        $("#trId").val(name.id);
+        TermId = $("#TermID").val();
+        $('.eeniart0017').css("display", "block");
+        $.ajax({
+            type: "POST",
+            url: "/TermAssessment/ClassEvaluations",
+            data: { 'StudentId': item.id, TermId: TermId, "type": "Principle" },
+            success: function (data) {
+                var teachercomment = data.teacherComent;
+                var parentComment = data.parentComent;
+                var principalcomment = data.prinpipalComent;
+                debugger;
+                assessmentseeni();
+                $('.eeniart0017').css("display", "none");
+                var tu = data.dinterm.Days - (data.dinterm.Days / 7 * 2);
+                var dyesttotel = tu.toString().split('.')[0];
+                var studata = data.studentdata[0];
+                var hedderappend = $('#eeniartstuddentassessment').find('.box-header');
+                var areaappend = $('#eeniartstuddentassessment').find('table');
+
+                $(hedderappend)[0].children[1].children[4].innerHTML = topppp;
+                $(hedderappend)[0].children[2].children[0].children[1].innerHTML = studata.BirthDate;
+                $(hedderappend)[0].children[2].children[1].children[1].innerHTML = studata.Class;
+                $(hedderappend)[0].children[2].children[2].children[1].innerHTML = studata.Section;
+                $(hedderappend)[0].children[3].children[0].children[1].innerHTML = dyesttotel + " Days";
+                $(hedderappend)[0].children[3].children[1].children[1].innerHTML = dyesttotel + " Days";
+
+                $(areaappend)[0].innerHTML = "";
+                var brrrrr = $('<br />');
+                var subjects = data.Value;
+                for (var i = 0; i < subjects.length; i++) {
+                    var Data = subjects[i];
+                    var trbefordatas = $('<tr><td style="visibility: hidden;">g</td></tr><tr style="border-bottom:1px solid #f4f4f4"><th class="eeniart003">' + Data.SubjectName + '</th><th class="form-group eeniart003"><div class="col-md-8 eeniart001">EVALUATION</div></th></tr>');
+                    var trbefordatam = $('<tr><td colspan="4"><br /><br /><h3>' + Data.SubjectName + '</h3></td></tr>');
+                    var trbefordatam1 = $('<tr style="border-bottom:1px solid #f4f4f4;"><th class="eeniart003" style="width:40%">Topics</th><th class="eeniart003" style="width:20%">1st Term</th><th class="eeniart003" style="width:20%">2nd Term</th><th class="eeniart003" style="width:20%">3rd Term</th></tr>');
+
+                    
+                    if (data.ClassId == 88 || data.ClassId == 89 || data.ClassId == 91 || data.ClassId == 95) {
+                        
+                        $(areaappend).append(trbefordatas);
+                    }
+                    else if (data.ClassId == 86 || data.ClassId == 87 || data.ClassId == 92 || data.ClassId == 93 || data.ClassId == 94) {
+                        $(areaappend).append(trbefordatam)
+                        $(areaappend).append(trbefordatam1)
+                    }
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/TermAssessment/subqueEvaluations",
+                        async: false,
+                        data: { StudentId: Data.StudentID, SubId: Data.Id, TermId: TermId },
+                        success: function (dataaa) {
+                            debugger;
+                            var questions = dataaa.Value
+                            
+
+
+                            for (var i = 0; i < questions.length; i++) {
+                                var Dato = questions[i];
+
+                                if (dataaa.TId == 1) {
+                                    var quis = $('<tr style=" border-bottom 1px solid #f4f4f4;"><td class="eeniart003">' + Dato.Question + '</td><td class="eeniart003 form-group"><div class="col-md-8 eeniart001"><label>' + options(Dato.FirstTermGrade) + '</label></div></td></tr>');
+                                }
+                                else if (dataaa.TId == 2) {
+                                    var quis = $('<tr style=" border-bottom 1px solid #f4f4f4;"><td class="eeniart003">' + Dato.Question + '</td><td class="eeniart003 form-group"><div class="col-md-8 eeniart001"><label>' + options(Dato.SecondTermGrade) + '</label></div></td></tr>');
+                                }
+                                else {
+                                    var quis = $('<tr style=" border-bottom 1px solid #f4f4f4;"><td class="eeniart003">' + Dato.Question + '</td><td class="eeniart003 form-group"><div class="col-md-8 eeniart001"><label>' + options(Dato.ThirdTermGrade) + '</label></div></td></tr>');
+                                }
+
+                                var quim = $('<tr style="border-bottom: 1px solid #f4f4f4;"><td class="eeniart003">' + Dato.Question + '</td><td class="eeniart003">' + options(Dato.FirstTermGrade) + '</td><td class="eeniart003">' + options(Dato.SecondTermGrade) + '</td><td class="eeniart003">' + options(Dato.ThirdTermGrade) + '</td></tr>');
+                                
+
+                                if (dataaa.ClassId == 88 || dataaa.ClassId == 89 || dataaa.ClassId == 91 || dataaa.ClassId == 95) {
+                                    $(areaappend).append(quis)
+                                    //$(areaappend).append(brrrrr)
+                                }
+                                else if (dataaa.ClassId == 86 || dataaa.ClassId == 87 || dataaa.ClassId == 92 || dataaa.ClassId == 93 || dataaa.ClassId == 94) {
+                                    $(areaappend).append(quim)
+                                    //$(areaappend).append(brrrrr)
+                                }
+
+                            }
+                                
+                        },
+                        error: function (xhr) {
+                            $('.eeniart0017').css("display", "none");
+                            debugger;
+                            alert(xhr.responseText);
+                        }
+
+                    })
+                   
+                }
+                $('#TC').append(teachercomment);
+                $('#PC').append(parentComment);
+                $('#PrC').append(principalcomment);
+               
+            }
+        });
+    }
+
+    function PRINCIPAL() {
+        var stdid = $('#hidden').val();
+        var tc = $("#PrC").val();
+        var termid = $("#TermID").val();
+        $.ajax({
+            type: "POST",
+            url: "/TermAssessment/SaveComments",
+            data: { 'tc': tc, 'type': 'Principle', 'stdid': stdid, 'termid': termid },
+            success: function () {
+            }
+        });
+    }
+    function TEACHER() {
+        var stdid = $('#hidden').val();
+        var tc = $("#TC").val();
+        var termid = $("#TermID").val();
+        $.ajax({
+            type: "POST",
+            url: "/TermAssessment/SaveComments",
+            data: { 'tc': tc, 'type': 'teacher', 'stdid': stdid, 'termid': termid },
+            success: function () {
+            }
+        });
+    }
+    function options(e) {
+        if (e == "n") { return "Not Yet" }
+        if (e == "y") { return "Yes" }
+        if (e == "w") { return "With Help" }
+        if (e == "x" || e == null || e == "") { return "Not Assessed" }
+        if (e == "a") { return "Excellent" }
+        if (e == "b") { return "Good" }
+        if (e == "c") { return "Satisfactory" }
+        if (e == "d") { return "Cause for concern" }
+        if (e == "n.a") { return "Not Applicable" }
+    }
+
+    function printoo() {
+        var divToPrint = document.getElementById('eeniartstuddentassessment');
+        $(divToPrint).find('.box-footer').css("display", "none");
+        var newWin = window.open('', 'Print-Window');
+        newWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');//onclick="window.print()"
+        $(newWin).find('body').trigger('click');
+        newWin.document.close();
+        setTimeout(function () { newWin.close(); }, 10);
+        var divToPrint = document.getElementById('eeniartstuddentassessment');
+        $(divToPrint).find('.box-footer').css("display", "block");
+    }
+
+    function assessmentseeni() {
+        $("#TermID").prop('disabled', true);
+        $("#ClassID").prop('disabled', true);
+        //$("#saceassess").prop('disabled', false);
+        $("#eeniartstuddentassessment").css("display", "block");
+        $("#eeniartstuddentsss").css("display", "none");
+    }
+    function studentseeni() {
+        $("#TermID").prop('disabled', false);
+        $("#ClassID").prop('disabled', false);
+        $("#eeniartstuddentassessment").css("display", "none");
+        $("#eeniartstuddentsss").css("display", "block");
+    }
+    function PrincipalSubmited()
+    {
+
+        var studentid = $("#hidden").val();
+        var termid = $("#TermID").val();
+        $.ajax({
+            type: "POST",
+            url: "/TermAssessment/PrincipalSubmited",
+            data: { studentid:studentid,termid:termid},
+            success: function () {
+                studentseeni();
+            }
+        });
+    }
+
+    function submit_Evaluation() {
+        var classID = $("#ClassID").val();
+        var studentId = $("#hidden").val();
+        var comment = $("#Principle_Comment").val();
+
+        $.get('@Url.Action("submit_Evaluation_Teacher","TermAssessment")',
+           { StudentId: studentId, ClassID: classID, Comment: comment }, function () {
+               $("#Evaluation_Question_Table").find("select,input,textarea").attr("disabled", true);
+               $('#Comment_Save').prop('disabled', true);
+               $('#Principle_Comment').prop('disabled', true);
+
+
+           });
+
+        var id = $("#trId").val();
+        id = "#" + id;
+        $(id).find("td span").removeClass();
+        $(id).find("td span").addClass("glyphicon glyphicon-ok-circle text-success");
+        $(id).find("td span").css({ "color": "#3c763d" })
+    }
+
+    //var divToPrihnt = document.getElementById('eeniartstuddentassessment');
+    //var newWin = window.open('', 'Print-Window');
+    ////newWin.document.open();
+    //newWin.document.write('<html><link href="~/Content/EeNiArTWork.css" rel="stylesheet" /><body onload="window.proint()">' + divToPr0int.innerHTML + '</body></html>');//onclick="window.print()"
+    //$(newWin).find('body').trigger('click');
+    //newWin.document.close();
+    //setTimeout(function () { newWin.close(); }, 10);
+
+
+
+</script>
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#"><b>Student Term assessment</b></a></label>
+<h4>Students</h4>
+<label id="View">Class Assessment</label>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <lable class="col-md-2 col-lg-2 control-label"><b>Select Term</b></lable>
+                        <div class="col-md-6">
+                            @*@{
+                                    List<SelectListItem> listItems = new List<SelectListItem>();
+                                    listItems.Add(new SelectListItem
+                                    {
+                                        Text = "First Term",
+                                        Value = "12",
+                                        Selected = true
+                                    });
+                                    listItems.Add(new SelectListItem
+                                    {
+                                        Text = "Second Term",
+                                        Value = "13",
+                                    });
+                                    listItems.Add(new SelectListItem
+                                    {
+                                        Text = "Third Term",
+                                        Value = "14",
+                                    });
+                                    listItems.Add(new SelectListItem
+                                    {
+                                        Text = "Final Term",
+                                        Value = "16",
+                                    });
+                                }*@
+                            @Html.DropDownList("TermID", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <lable class="col-md-2 control-label"><b>Select Class</b></lable>
+                        <div class="col-md-6 ">
+                            @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" id="eeniartstuddentsss" style="display:none">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-title"></div>
+            <hr />
+            <div class="box-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Evaluation</th>
+                            <th>Status<input id="hidden" value="empty" type="hidden" /></th>
+                        </tr>
+                    </thead>
+                    <tbody id="StudentTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="display:none;">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <span id="StudentName" class="text-success evaluate"></span>
+            <input type="hidden" id="trId" />
+            <div id="Evaluation_data">
+            </div>
+            @if (!User.IsInRole("Admin"))
+            {
+                <div style="margin-top: 20px;">
+                    <label class="col-md-2 control-label">Principle Comment</label>
+                    <textarea class="col-md-6 margin-bottom" id="Principle_Comment"></textarea>
+                </div>
+            }
+            <div class="box-footer">
+                @if (!User.IsInRole("Admin"))
+                {
+                    <button type="button" id="Comment_Save" class="col-md-offset-5 btn btn-primary" data-toggle="modal" data-target="#myModal">Submit</button>
+                }
+            </div>
+            <div id="partial">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="box box-primary" id="eeniartstuddentassessment" style="display:none">
+    <link href="~/Content/EeNiArTWork.css" rel="stylesheet" />
+    <link href="~/AdminLTE/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    
+    <div class="box-header">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-3 col-sm-3 col-xs-3" style="text-align:  center;">
+                <img class="eeniart005" src="~/Content/Images/NGS-Pre-School-Logo.png" />
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <br /><br /><br />
+                <div><h3 style="text-align:center">IPC NGS Preschool</h3></div>
+                <div><h3 style="text-align:center">Aziz Avenue</h3></div>
+                <div><h1 style="text-align:center">March Report 2017</h1></div>
+            </div>
+            <div class="col-md-3"style="text-align:  center;">
+                
+                <img class="eeniart006" src="~/Content/Images/International-pree.png" />
+                <i class="fa fa-print eeniart004" aria-hidden="true" onclick="printoo()"></i>
+            </div>
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <br /><br /><br />
+            <span class="col-md-1"><b>Name</b></span><label class="col-md-11" style="border-bottom:1px solid black">Hamza Naeem</label>
+        </div>
+        <div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <span class="col-md-4"><b>Date of birth</b></span><label class="col-md-8" style="border-bottom:1px solid black">5-December-2017</label>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <span class="col-md-2"><b>Class</b></span><label class="col-md-10" style="border-bottom:1px solid black">Reception</label>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <span class="col-md-2"><b>Section</b></span><label class="col-md-10" style="border-bottom:1px solid black">A</label>
+            </div>
+        </div>
+        <div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <span class="col-md-4"><b>Days in the Term</b></span><label class="col-md-8" style="border-bottom:1px solid black">90 Days</label>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <span class="col-md-2"><b>Days Attended</b></span><label class="col-md-10" style="border-bottom:1px solid black">50</label>
+            </div>
+        </div>
+    </div>
+    <div class="box-body">
+
+
+        <div class="col-md-12">
+            <table style="width: 100%;">
+                <tbody>
+                    <tr style="border-bottom:1px solid #f4f4f4;">
+                        <th>ENGLISH LANGUAGE</th>
+                        <th class="form-group">
+                            <div class="col-md-8 eeniart001">EVALUATION</div>
+                        </th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #f4f4f4;">
+                        <td>Abc History</td>
+                        <td class="form-group">
+                            <div class="col-md-8 eeniart001">
+                                <label>
+                                    Yes
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <div class="box-body">
+        <div class="col-md-8">
+            <br />
+            <label class="control-label col-md-2">Parent Comment</label>
+            <div class="col-md-10">
+                <textarea class="form-control" type="text" id="PC" style="background-color:white" readonly></textarea>
+            </div>
+          
+        </div>
+       @if (this.User.IsInRole("Admin"))
+       {
+            <div class="col-md-8">
+                <label class="control-label col-md-2">Teacher Comment</label>
+                <div class="col-md-10">
+                    <textarea class="form-control" style="background-color:white" onblur="TEACHER()" type="text" id="TC" readonly></textarea>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <label class="control-label col-md-2">Principal Comment</label>
+                <div class="col-md-10">
+                    <textarea class="form-control" style="background-color:white" id="PrC" onblur="PRINCIPAL()" readonly></textarea>
+                </div>
+            </div>
+        }
+        @if (this.User.IsInRole("Principal"))
+        {
+            <div class="col-md-8">
+                <br />
+                <label class="control-label col-md-2">Teacher Comment</label>
+                <div class="col-md-10">
+                    <textarea class="form-control" onblur="TEACHER()" type="text" id="TC"></textarea>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <br />
+                <label class="control-label col-md-2">Principal Comment</label>
+                <div class="col-md-10">
+                    <textarea class="form-control" id="PrC" onblur="PRINCIPAL()"></textarea>
+                </div>
+            </div>
+        }
+    
+    </div>
+    <div class="box-footer">
+        <button type="button" onclick="PrincipalSubmited()" id="saceassess" class="col-md-3 col-md-offset-4 btn btn-primary">Done With Assessment</button>
+        <button class="btn btn-primary pull-right" onclick="printoo()" >Print</button>
+      </div>
+</div>
+<!---------------------------------------------------------------------------------------------------------------------------------->
+@*<div class="box box-primary">
+    <div class="box-body">
+        <div class="col-md-8">
+            <br />
+            <label class="control-label col-md-2">Teacher Comment</label>
+            <div class="col-md-10">
+                <input onblur="Tcomment()" class="form-control" type="text" id="TC" readonly />
+            </div>
+            <br /><br /><br />
+        </div>
+        <div class="col-md-8">
+            <label class="control-label col-md-2">Parent Comment</label>
+            <div class="col-md-10">
+                <input class="form-control" type="text" id="PC" readonly />
+            </div>
+            <br /><br /><br />
+        </div>
+        <div class="col-md-8">
+            <label class="control-label col-md-2">Principal Comment</label>
+            <div class="col-md-10">
+                <input class="form-control" type="text" id="PrC" />
+            </div>
+            <br /><br /><br />
+        </div>
+    </div>
+</div>*@
+<!----------------------------------------------------------------------------------->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                After submitting you won't be able to change data
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="submit_Evaluation()" data-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

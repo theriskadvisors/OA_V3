@@ -1,0 +1,112 @@
+﻿@using Microsoft.AspNet.Identity
+
+
+    <script>
+
+        $(document).ready(function () {
+            Selectanswers = document.getElementsByName("answers");
+            length = Selectanswers.length;
+            
+             ID = [];
+           
+            for ( i = 0; i < length ; i++) {
+                ID[i] = Selectanswers[i].id;
+            
+            }
+
+            $.post("/TermAssessment/EvaluationChecking_Subject", { Id: ID })
+                .done(function (Evaluation_checking) {
+                    console.log(Evaluation_checking);
+                    if (Evaluation_checking.status != "Not Submitted") {
+
+                        $('#Comments').html(Evaluation_checking.comment);
+                        $('#submit_Evaluation').prop('disabled', true);
+                        
+                        $.each(Evaluation_checking.answer, function (x, item) {
+                            $('#' + item.id + ' option[value=' + item.answer + ']').attr('selected', 'selected');
+                        });
+                    }
+                   
+
+                    if (Evaluation_checking.status == "submit" || Evaluation_checking.status == "Principle_submit" || Evaluation_checking.status == "Teacher_submit") {
+                        $("#Evaluation_Question_Table").find("textarea,select").attr("disabled", true);
+                        $('#submit_Evaluation').prop('disabled', true);
+                        $('#save_Evaluation').prop('disabled', true);
+                        
+                    }else if (Evaluation_checking.status == "save") {
+                        $("#Evaluation_Question_Table").find("textarea,select").attr("disabled", false);
+                        $('#submit_Evaluation').prop('disabled', false);
+                        $('#save_Evaluation').prop('disabled', false);
+                        
+                    } else {
+                        $("#Evaluation_Question_Table").find("textarea,select").attr("disabled", false);
+                        $('#submit_Evaluation').prop('disabled', true);
+                        $('#save_Evaluation').prop('disabled', false);
+
+                    }
+
+            });//POST
+
+            
+        }); //Ready
+
+    </script>
+
+<table class="table" id="Evaluation_Question_Table">
+    <tr>
+        <th>
+            Questions
+        </th>
+
+        <th>
+            Assessment
+        </th>
+
+    </tr>
+
+@foreach (var data in ViewBag.questionData)
+{
+    <tr>
+        <td class="text-center text-bold">
+            @data.Key
+        </td>
+
+        <td></td>
+    </tr>
+
+
+    foreach (var item in data.Value)
+    {
+        <tr>
+            <td>
+                @item.Value
+            </td>
+
+            <td class="form-group">
+
+                <div class="col-md-8">
+                    <select class="form-control" id='@item.Key' name="answers">
+                        <option value="a">a</option>
+                        <option value="b">b</option>
+                        <option value="c">c</option>
+                        <option value="d">d</option>
+                    </select>
+                </div>
+
+            </td>
+        </tr>
+    }
+
+}
+    <tr>
+        <td>
+            Teacher Comments
+        </td>
+        <td class="form-group">
+            <div class="col-md-8">
+                <textarea id="Comments" class="form-control"></textarea>
+            </div>
+        </td>
+    </tr>
+
+</table>

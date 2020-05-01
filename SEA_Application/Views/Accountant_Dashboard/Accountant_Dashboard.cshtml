@@ -1,0 +1,31 @@
+﻿
+<!-- header -->
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+<!-- /Header -->
+<!-- Main -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3">
+            <!-- Left column -->
+            <a href="#"><strong><i class="glyphicon glyphicon-wrench"></i> Tools</strong></a>
+
+            <hr>
+
+            <ul class="nav nav-stacked">
+                <li class="nav-header">
+                    <a href="#" data-toggle="collapse" data-target="#userMenu">Settings <i class="glyphicon glyphicon-chevron-down"></i></a>
+                    <ul class="nav nav-stacked collapse in" id="userMenu">
+
+                        <li><a href="@Url.Action("Index", "FeeManagement")"><i class="glyphicon glyphicon-user"></i> Fee Management</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-flag"></i> Transactions</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-exclamation-sign"></i> Rules</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
+                    </ul>
+                </li>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dalog -->
+</div>
+<!-- /.modal -->

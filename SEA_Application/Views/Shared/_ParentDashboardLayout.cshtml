@@ -1,0 +1,136 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+
+
+
+        $(function () {
+            $.get('@Url.Action("GetChildren","Parent_Dashboard")', function (data) {
+                debugger;
+                $('#ChildrenID').html('');
+                $('#ChildrenID').prop('disabled', false);
+                $.each(data, function (i, item) {
+                $('#ChildrenID').append('<option value=' + item.Id + '>' + item.Name + '</option>');
+                });
+
+                var studentid = $('#ChildrenID').val();
+
+
+                $.get('@Url.Action("GetChildID", "Parent_Dashboard")',{ studentID: studentid },
+               function (data) {
+                   debugger;
+                   $("#ChildrenID").val(data);
+               });
+            });
+        });
+
+
+        $("#ChildrenID").change(function () {
+            debugger;
+            var studentid = $('#ChildrenID').val();
+            $.get('@Url.Action("SetChildID", "Parent_Dashboard")',
+                { studentID: studentid }, function (data) {
+                    location.reload();
+
+                });
+        });
+
+
+
+
+    });
+
+</script>
+
+
+<div class="page-sidebar navbar-collapse collapse">
+    <!-- BEGIN SIDEBAR MENU -->
+    <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+    <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+    <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+    <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+    <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+    <ul id="layout_navbar_toogle" class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="1">
+        <li class="nav-item start active open hide">
+            <a href="@Url.Action("Dashboard", "Admin_Dashboard")" class="nav-link nav-toggle">
+                <i class="icon-home"></i>
+                <span class="title">Home</span>
+            </a>
+        </li>
+
+        <li class="nav-item  ">
+            <a href="@(Url.Action("Student_Announcement", "Parent_Dashboard"))">
+                <i class="fa fa-bullhorn"></i>
+                <span class="title">Announcment</span>
+            </a>
+        </li>
+
+        <li class="nav-item  ">
+            <a href="@(Url.Action("Student_Projects", "Parent_Dashboard"))">
+                <i class="glyphicon glyphicon-volume-up"></i>
+                <span class="title">Project</span>
+            </a>itle
+        </li>
+
+        <li class="nav-item  ">
+            <a href="@(Url.Action("Student_Attendance", "Parent_Dashboard"))">
+                <i class="fa fa-calendar"></i>
+                <span class="title">Attendance</span>
+            </a>
+        </li>
+
+        <li class="nav-item  ">
+            <a href="@(Url.Action("Student_HomeWork", "Parent_Dashboard"))">
+                <i class="fa fa-database"></i>
+                <span class="title">Diary</span>
+            </a>
+        </li>
+
+        <li class="nav-item  ">
+            <a href="@Url.Action("ParentTeacherMeeting", "Parent_Dashboard")">
+                <i class="fa fa-check"></i>
+                <span class="title">Parent Teacher Meeting</span>
+            </a>
+        </li>
+
+        <li class="nav-item  ">
+            <a href="@Url.Action("StudentAssessment", "Parent_Dashboard")">
+                <i class="fa fa-list-ul"></i>
+                <span class="title">Student Assessment</span>
+            </a>
+        </li>
+
+        <li class="nav-item  ">
+            <a href="@(Url.Action("Inbox", "AspNetMessages"))">
+                <i class="fa fa-envelope"></i>
+                <span class="title">MailBox</span>
+            </a>
+        </li>
+
+        <li class="nav-item  ">
+            <a href="https://smartereduanalytics.on.spiceworks.com/portal/tickets">
+                <i class="fa fa-support"></i>
+                <span class="title" style="color:#8aa4af !important">Support</span>
+            </a>
+        </li>
+
+
+    </ul>
+
+    <!-- END SIDEBAR MENU -->
+</div>
+
+<!-- END SIDEBAR -->
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div id="page-content" class="page-content">
+
+        @RenderBody()
+    </div>
+    <!-- END CONTENT BODY -->
+</div>

@@ -1,0 +1,141 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
+}
+<link href="~/Content/tilescss.css" rel="stylesheet" />
+<style>
+
+    .SubjectBoxes {
+        min-height: 200px;
+        min-width: 200px;
+        height: 200px;
+        width: 200px;
+        border: 1px solid silver;
+        display: inline-block;
+        text-align: center;
+        line-height: 200px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+        .SubjectBoxes a {
+            display: block;
+            text-decoration: none;
+        }
+
+            .SubjectBoxes a:hover {
+                background: #2b3b55;
+                color: white;
+                display: block;
+                text-decoration: none;
+            }
+
+    #SubjectBoxesDiv {
+    }
+
+    .SubjectNames {
+        font-size: 15px;
+    }
+</style>
+
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="col-md-12">
+            <br />
+            <div class="well" style="text-align: center; align-content: normal"> <h3 style="margin:0"><b style="font-family:'Times New Roman', Times, serif"> Subjects List</b> </h3> </div>
+
+        </div>
+        @*<div>
+
+                <div class="col-md-12" id="SubjectBoxesDiv">
+
+
+                </div>
+            </div>*@
+
+        <div class="container">
+            @*<div class="row">
+                    <div class="col-md-12">
+                        <h1>
+                            <strong>Bootstrap - Tile Demo</strong>
+                        </h1>
+                    </div>
+                </div>*@
+            <div class="row" id="TilesDivContainer">
+                @*<div class="col-sm-4">
+                        <a href="http://www.ubh.com" class="tile purple">
+                            <h3 class="title">Purple Tile</h3>
+                            <p>Short, sweet data point goes here.</p>
+                        </a>
+                    </div>*@
+                @*<div class="col-sm-4">
+                            <a href="http://www.ubh.com" class="tile orange">
+                                <h3 class="title">Orange Tile</h3>
+                                <p>Short, sweet data point goes here.</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <a href="http://www.ubh.com" class="tile green">
+                                <h3 class="title">Green Tile</h3>
+                                <p>Short, sweet data point goes here.</p>
+                            </a>
+                        </div>
+                        <div class="col-sm-4">
+                            <a href="http://www.ubh.com" class="tile green">
+                                <h3 class="title">Blue Tile</h3>
+                                <p>Short, sweet data point goes here.</p>
+                            </a>
+                        </div>*@
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+        <script>
+
+            $(document).ready(function () {
+
+                // $("#SubjectBoxesDiv").append('<div class="SubjectBoxes"><h3> usama </h3> </div>')
+
+
+                $.ajax({
+
+
+                    type: "POST",
+                    url: "/StudentCourses/AllSubjectsOfStudent",
+                    data: {},
+                    success: function (data) {
+
+                        $.each(data, function (key, value1) {
+
+                            //   $("#SubjectBoxesDiv").append('<div class="SubjectBoxes"><a href="/StudentCourses/SubjectTopics/' + value1.Id + '" class="SubjectNames"> ' + value1.SubjectName + ' </a>  </div>')
+
+                            $("#TilesDivContainer").append(' <div  class="col-sm-4"><a  class="tile purple" href="/StudentCourses/SubjectTopics/' + value1.Id + '"> <h3 class="title"> ' + value1.SubjectName + '</h3> <p></p></a></div> ');
+
+                        })
+
+
+                    }
+
+
+
+
+
+                })
+
+
+
+            })
+
+
+
+        </script>
+
+

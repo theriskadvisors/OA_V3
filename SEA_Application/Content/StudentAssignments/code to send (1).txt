@@ -1,0 +1,59 @@
+   <div class="col-md-3">
+                                                        <div class="">
+                                                            <label class="control-label">Birth Date (M/D/Y): <span class="red-mark">*</span></label>
+                                                            <input type="date" id="birthDate" name="BirthDate" class="form-control" required>
+                                                            <span id="DOB-Error" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+
+
+
+
+  $("#birthDate").bind('blur', function () {
+            var dob = $("#birthDate").val();
+
+            //alert(dob);
+            var dob = dob.split("-");
+
+            var date = new Date();
+            
+            var day = date.getDate();
+
+            alert(day);
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+
+            if (dob[0] <= year) {
+                $('#FormSubmit').prop('disabled', false);
+                $('#DOB-Error').html(" ");
+                if (dob[0] == year) {
+                    if (dob[1] <= month) {
+                        $('#FormSubmit').prop('disabled', false);
+                        $('#DOB-Error').html(" ");
+                        if (dob[1] == month) {
+                            if (dob[2] < day) {
+                                $('#FormSubmit').prop('disabled', false);
+                                $('#DOB-Error').html(" ");
+                            } else {
+                                $('#FormSubmit').prop('disabled', true);
+                                $('#DOB-Error').html("Enter a date less than today");
+                            }
+                        } else if (dob[1] > month) {
+                            $('#FormSubmit').prop('disabled', true);
+                            $('#DOB-Error').html("Enter a date less than today");
+                        }
+                    } else {
+                        $('#FormSubmit').prop('disabled', true);
+                        $('#DOB-Error').html("Enter a date less than today");
+                    }
+                }
+            } else {
+                $('#FormSubmit').prop('disabled', true);
+                $('#DOB-Error').html("Enter a date less than today")
+            }
+
+        });
+
+
+        student.BirthDate = Request.Form["BirthDate"];
+                

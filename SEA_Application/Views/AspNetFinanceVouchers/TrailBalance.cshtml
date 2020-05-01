@@ -1,0 +1,145 @@
+﻿@model SEA_Application.Models.AspNetFinancePeriod
+<script src="~/AdminLTE/selectone.js"></script>
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">User </a> > <a href="#"><b>Trial Balance</b></a> </label>
+
+<script>
+
+    VoucherTypes = [];
+
+    function add(box) {
+
+        if (box.checked) {
+            VoucherTypes.push(box.value)
+        } else {
+            var index = VoucherTypes.indexOf(box.value);
+            if (index > -1) {
+                VoucherTypes.splice(index, 1);
+            }
+        }
+
+    }
+
+    function post() {
+        var D1 = $("#from").val();
+        var D2 = $("#to").val();
+        
+        if (D1 != null && D1 != "" && D2 != null && D2 != "") {
+            //console.log(D1 + D2 + period);
+            $.ajax({
+                type: "POST",
+                url: "/AspNetFinanceVouchers/TrailReport",
+                data: { 'D1': D1, "D2": D2, "Types":VoucherTypes },
+                success: function (data) {
+                    console.log(data);
+                    console.log(data.VoucherDetailList);
+                    $.each(data.VoucherDetailList, function (i, item) {
+                        console.log(item);
+                        $("#Post_Table").append("<tr><td>" + item.Code + "</td><td>" + item.Transaction + "</td><td>" + item.Credit + "</td><td>" + item.Debit + "</td></tr>")
+                    });
+                    $("#total").append("<table class='table'><tr><td></td><td>Total</td><td>" + data.Credit + "</td><td>" + data.Debit + "</td></tr></table>")
+                    $("#show").html("");
+                }
+            });
+        }
+    }
+
+</script>
+
+@{
+    ViewBag.Title = "TrailBalance";
+}
+
+
+<h4>Trial Balance</h4>
+<label id="View">View Default</label>
+
+
+
+<div class="box box-primary">
+    <div class="box-body">
+
+        @using (Html.BeginForm())
+        {
+            <div class="row" style="display:none">
+                <div class="col-md-6">
+                    <div class="col-md-2">
+                        From
+                    </div>
+                    <div class="col-md-4">
+                        @*@Html.DropDownList("Period1", null, htmlAttributes: new { @class = "form-control" })*@
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-2">
+                        To
+                    </div>
+                    <div class="col-md-4">
+                        @*@Html.DropDownList("Period2", null, htmlAttributes: new { @class = "form-control" })*@
+                    </div>
+                </div>
+            </div>
+            <hr />
+            @*<div class="col-md-12">
+                <div class="col-md-6">
+                    <label>With Zero Balance</label>
+                    <input type="checkbox" class="checkbox" id="balance" />
+                </div>
+            </div>*@
+
+            <div class="row">
+                <div class="col-md-5">
+                    <br />
+                    <div class="col-md-3">
+                        <input type="checkbox" value="JV" id="JV" name="type" onclick="add(this)"/> <label>JV</label><br />
+                        <input type="checkbox" value="BPV" id="BPV" name="type" onclick="add(this)"/> <label>BPV</label><br />
+                        <input type="checkbox" value="CPV" id="CPV" name="type" onclick="add(this)"/> <label>CPV</label><br />
+                        <input type="checkbox" value="BRV PF" id="BRVPF" name="type" onclick="add(this)"/> <label>BRV PF</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="checkbox" value="CRV" id="CRV" name="type" onclick="add(this)"/> <label>CRV</label><br />
+                        <input type="checkbox" value="BRV" id="BRV" name="type" onclick="add(this)"/> <label>BRV</label><br />
+                        <input type="checkbox" value="BPV PF" id="BPVPF" name="type" onclick="add(this)"/> <label>BPV PF</label><br />
+                    </div>
+                </div>
+                <div class="col-md-offset-1 col-md-6">
+                    <label>Duration</label><br />
+                    <div class="col-md-offset-1">
+                        <label>From</label>
+                        <input type="date" class="form-control" placeholder="from" id="from" />
+                        <label>To</label>
+                        <input type="date" class="form-control" placeholder="to" id="to" />
+                    </div>
+                </div>
+                <br />
+            </div>
+            <br />
+            <div>
+                <input type="button" value="TrialBalance" class="btn btn-primary form-control" id="submit" onclick="post()" />
+            </div>
+        }
+
+        <table id="Post_Table" class="table">
+
+            <tr>
+                <th>
+                    Code
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Credit
+                </th>
+                <th>
+                    Debit
+                </th>
+            </tr>
+
+        </table>
+        <div class="row">
+            <div class="col-md-5"></div>
+            <div class="col-md-7" id="total"></div>
+        </div>
+
+    </div>
+</div>

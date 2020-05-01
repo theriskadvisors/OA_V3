@@ -1,0 +1,145 @@
+﻿@model IEnumerable<SEA_Application.Models.AspNetHomework>
+
+@{
+    ViewBag.Title = "Index";
+}
+@if(ViewBag.Error!=null)
+{
+    <div class="box-alert">
+        <span>Diary successfully assigned</span>
+    </div>
+}
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#"><b>Diary</b></a></label>
+<h4>View Diary</h4>
+<script>
+    $(document).ready(function () {
+            $("#example").dataTable();
+            DrawTable();
+            $('.table').on('click', 'tbody tr', function () {
+                var td = $(this).children("td");
+                var userName = $(td[0]).children("input").val();
+                userName = userName.trim();
+
+                window.location.href = "/AspNetSession/Details?id=" + userName;
+            });
+
+
+        $('#ClassID').change(function () {
+            var ClassId = $('#ClassID').val();
+            $.get('@Url.Action("DiaryByClass")',
+                { classId: ClassId }, function (data) {
+                    $("#DiaryTbody").html('');
+                    $.each(data, function (i, item) {
+                        debugger;
+                        var date = new Date(parseInt(item.Date.replace(/(^.*\()|([+-].*$)/g, '')));
+                        date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+                        $("#DiaryTbody").append('<tr><td>' + item.ClassName + '</td><td>' + date + '</td><td>' + item.PrincipalApproved_status + '</td><td><a href="/AspNetSubject_HomeWork/Index?HomeWorkId=' + item.Id + '">Edit Diary</a></td></tr>');
+                    });
+                });
+
+            //<a href="/AspNetStudent_HomeWork/Index?HomeWorkId=' + item.Id + '">Edit Diary Comments</a> |
+
+        });
+        $('#ClassIDs').click(function () {
+
+            var ClassId = $('#ClassIDs').val();
+            $.get('@Url.Action("DiaryByClass")',
+                { classId: ClassId }, function (data) {
+                    $("#DiaryTbody").html('');
+                    $.each(data, function (i, item) {
+                        var date = new Date(parseInt(item.Date.replace(/(^.*\()|([+-].*$)/g, '')));
+                        date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+                        $("#DiaryTbody").append('<tr><td>' + item.ClassName + '</td><td>' + date + '</td><td>' + item.PrincipalApproved_status + '</td><td><a href="/AspNetSubject_HomeWork/Index?HomeWorkId=' + item.Id + '">View Diary</a></td></tr>');
+                    });
+                });
+        });
+    });
+
+    function DrawTable() {
+        $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+        //$('#example_filter').addClass("col-lg-4 col-md-4 col-sm-12 col-xs-12");
+        $('#example_wrapper').css("text-align", "left");
+        $('#example_length').css("text-align", "left");
+        $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+        $("#example_length label").css("text-align", "left");
+        $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+        // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+        //$('#example_length').css({ "overflow": "auto" });
+        $('#example_filter input').addClass("add");
+        $('#example_filter').append('<span class="glyphicon glyphicon-search form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+        var list = $("#ClassID").html();
+        $('#example_length').append(
+
+            '<div class="col-md-1" style="width:0%; padding-left:1px;">' +
+             '<div class="d-bar"></div>' +
+            '</div>'
+              +
+
+           '<div class="col-md-4 col-lg-4" style="padding-left=0px">' +
+           '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/AspNetHomeworks/Create"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><span class="default"><a href=""><span style="color:grey"><i class="fa fa-ban"  data-placement="bottom"></i></span></span>' + '</a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:grey"><i class="glyphicon glyphicon-download-alt" data-placement="bottom"></i></span></span></a></div>' +
+           ' <div class="col-md-1" style="width:0%; padding-left:10px;">' +
+           '<div class="d-bar"></div>' +
+           '</div>' +
+          '</div>');
+        $("#Class").prepend("<option value='0'>All</option>");
+    }
+
+</script>
+<div class="box box-primary">
+    <div class="box-header with-border">
+
+    </div>
+    <div class="box-body">
+        <div class="form-group">
+            <label class="control-label col-md-2">Select Class</label>
+            @if (User.IsInRole("Principal"))
+            {
+            <div class="col-md-6">
+                @Html.DropDownList("ClassIDs", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+            }
+            else
+            {
+                <div class="col-md-6">
+                    @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="box box-primary">
+    <div class="box-header with-border">
+       
+    </div>
+    <div class="box-body">
+        <table class="table table-bordered table-striped" id="example">
+
+            <thead>
+                <tr>
+                    <th style="width:25%">
+                        @Html.DisplayNameFor(model => model.AspNetClass.ClassName)
+                    </th>
+                    <th  style="width:25%">
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
+                  
+                    <th  style="width:25%">
+                       Status
+                    </th>
+                    
+                    <th></th>
+                </tr>
+
+            </thead>
+            <tbody id="DiaryTbody"></tbody>
+            
+        </table>
+    </div>
+</div>
+

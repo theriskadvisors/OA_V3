@@ -1,0 +1,470 @@
+﻿@model SEA_Application.Models.AspNetAttendance
+
+<script type="text/javascript">
+
+    var studentAttendance =
+        {
+            Id: '',
+            Username: '',
+            Name: '',
+            Status: '',
+            Reson: ''
+
+
+        };
+    var attendance =
+                   {
+                       Id: '',
+                       SubjectID: '',
+                       Status: '',
+                       studentAttendance: []
+
+                   };
+    attendances = [];
+
+    $(document).ready(function () {
+
+        var subjectcookieval = null;
+        var classcookieval = null;
+        var allcookies = document.cookie;
+
+        // Get all the cookies pairs in an array
+        cookiearray = allcookies.split(';');
+
+        // Now take key value pair out of this array
+        for (var i = 0; i < cookiearray.length; i++) {
+            name = cookiearray[i].split('=')[0];
+            value = cookiearray[i].split('=')[1];
+
+            console.log(cookiearray[i]);
+
+            if (cookiearray[i].split('=')[0] == " ClassCookieattendance" || cookiearray[i].split('=')[0] == "ClassCookieattendance") {
+                classcookieval = cookiearray[i].split('=')[1];
+
+            }
+
+            if (cookiearray[i].split('=')[0] == " SubjectsCookieattendance" || cookiearray[i].split('=')[0] == "SubjectsCookieattendance") {
+                subjectcookieval = cookiearray[i].split('=')[1];
+
+            }
+        }
+        console.log("classval", classcookieval);
+
+        console.log("subval", subjectcookieval);
+        if (classcookieval != null && subjectcookieval != null) {
+
+            var selectClass = document.getElementById('ClassID');
+            selectClass.value = classcookieval;
+
+
+            SubjectsByClassID(classcookieval);
+
+            StudentBySubjectID(subjectcookieval);
+        }
+
+        
+
+        $('#save_attendance').click(function () {
+            var mandatory = true;
+            attendance = Object.create(attendance);
+            attendance.SubjectID = $('#SubjectID').val();
+            attendance.studentAttendance = [];
+            $('table tbody tr').each(function () {
+                studentAttendance = Object.create(studentAttendance);
+                studentAttendance.Id = $(this).attr('id');
+                studentAttendance.Status = $('input[name=' + studentAttendance.Id + ']:checked').val();
+                studentAttendance.Reason = $('#reason', this).val();
+                if (studentAttendance.Status == "Absent" && studentAttendance.Reason == "") {
+                    mandatory = false;
+                }
+
+                attendance.studentAttendance.push(studentAttendance);
+
+            });
+
+            if (mandatory) {
+                attendances = JSON.stringify({ 'attendances': attendance });
+
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: '/AspNetAttendance/Attendance',
+                    data: attendances,
+                    success: function () {
+                        $('#partial').html('Attendance Successfully Save');
+                        window.location.href = "Attendance";
+                    },
+                    failure: function (response) {
+                        $('#partial').html('Something went wrong');
+                    }
+                });
+            } else {
+                $("#myErrorModal").modal('show');
+            }
+            
+        });
+
+
+        $("#ClassID").click(function () {
+            var selectedClass = $("#ClassID").val();
+            if (selectedClass != "") {
+                document.cookie = "ClassCookieattendance=" + selectedClass + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+                SubjectsByClassID(selectedClass);
+
+                $('#save_attendance').prop('disabled', false);
+                var selectedSubject = '0' + selectedClass;
+                document.cookie = "SubjectsCookieattendance=" + selectedClass + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+                StudentBySubjectID(selectedSubject);
+            }
+            
+        });
+
+        $("#SubjectID").click(function () {
+            $('#save_attendance').prop('disabled', false);
+            var selectedClass = $("#SubjectID").val();
+            document.cookie = "SubjectsCookieattendance=" + selectedClass + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+            StudentBySubjectID(selectedClass);
+        });
+
+        $('#Edit_Attendance').click(function () {
+            
+            $('#attendance_table tr').each(function () {
+                $('input', this).prop('disabled', false);
+                $('#reason', this).prop('disabled', true);
+                $('#save_attendance').attr('disabled', false);
+            });
+        });
+
+        //function IsheadTeacher(classIDVal) {
+
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/AspNetUser/IsHeadTeacher",
+        //        data: { "ClassID": classIDVal },
+        //        success: function (data) {
+        //            if (data == "yes") {
+        //                $('#SubjectID').prepend('<option value="0' + classIDVal + '">All</option>');
+        //                $("#SubjectID option[value='0" + classIDVal + "']").prop('selected', true);
+        //            }
+        //        }
+        //    });
+        //}
+        var type = 0;
+        function SubjectsByClassID(classIDVal) {
+            @*$.get('@Url.Action("SubjectsByClass")',
+                { id: classIDVal }, function (data) {
+
+                    $('#SubjectID').html('');
+                    console.log(data);
+                    if (data.length != 0) {
+                        $.each(data, function (i, item) {
+                            $('#SubjectID').append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
+                        });
+                        
+                    }
+                    
+                });*@
+
+            //console.log(classIDVal);
+
+            if (type == 0 && classIDVal!="") {
+                $('#SubjectID').prepend('<option value="0' + classIDVal + '">All</option>');
+                $("#SubjectID option[value='0" + classIDVal + "']").prop('selected', true);
+                type++;
+            }
+            
+        }
+
+        $("#Class").click(function () {
+            var selectedClass = $("#Class").val();
+            $.get('@Url.Action("SubjectsByClass")',
+                { id: selectedClass }, function (data) {
+                    $("select[name*='Subject'").html('');
+                    $("select[name*='Subject'").prop('disabled', false);
+                    $.each(data, function (i, item) {
+                        $("select[name*='Subject'").append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
+                    });
+
+                });
+        });
+
+
+        function StudentBySubjectID(SubjectIDVal) {
+            $.get('@Url.Action("AttendanceBySubject", "AspNetAttendance")',
+                { SubjectID: SubjectIDVal }, function (data) {
+                    $('#attendance_table').html('');
+                if (data.Status == false)
+                {
+                    $('#Attendance_Status').prop('hidden', true);
+                        $.each(data.studentAttendance, function (i, item) {
+                            $('#attendance_table').append('<tr id=' + item.Id + '><td>' + item.Name + '</td><td id="Status" >Present <input type="radio"name=' + item.Id + ' checked="checked" onclick="Reason(this)" class="present" id="present" value="Present" />&nbsp&nbsp&nbsp&nbsp Absent <input type="radio" id="absent" class="absent" onclick="Reason(this)" name=' + item.Id + ' value="Absent"  />&nbsp&nbsp&nbsp&nbsp Late <input type="radio" class="late" id="late" onclick="Reason(this)" name=' + item.Id + ' value="Late" /></td><td><input type="text" class="form-control" id="reason" disabled ></td></tr>');
+                        });
+                }
+                else
+                {
+                    $('#Attendance_Status').prop('hidden', false);
+                    
+                    $.each(data.studentAttendance, function (i, item) {
+                        if (item.Reason == null) {
+                            item.Reason = "";
+                        }
+                        $('#attendance_table').append('<tr id=' + item.Id + '><td>' + item.Name + '</td><td id="Status" >Present <input type="radio"name=' + item.Id + ' onclick="Reason(this)" id="present" class="present" value="Present" />&nbsp&nbsp&nbsp&nbsp Absent <input type="radio" id="absent" class="absent"  onclick="Reason(this)" name=' + item.Id + ' value="Absent"  />&nbsp&nbsp&nbsp&nbsp Late <input type="radio" id="late" class="late" onclick="Reason(this)" name=' + item.Id + ' value="Late" /></td><td><input class="form-control" type="text"  id="reason" disabled value="' + item.Reason + '"/></td></tr>');
+                        $("input[name=" + item.Id + "][value=" + item.Status + "]").prop("checked", true);
+                        $('#save_attendance').prop('disabled', true);
+                        });
+                }
+
+
+            });
+        }
+
+    });
+    function Present_All() {
+
+        if ($("#present_all").is(':checked')) {
+            $("#absent_all").attr("checked", false)
+            $("#late_all").attr("checked", false)
+            $("tr #reason").each(function (i, item) {
+                $(item).prop('disabled', true);
+                $(item).prop('placeholder', " ");
+
+            });
+            $(".present").each(function (i, item) {
+                $(item).prop("checked", true);
+            })
+        }
+        else {
+            $("tr #reason").each(function (i, item) {
+                $(item).prop('disabled', true);
+            });
+            $(".present").each(function (i, item) {
+                $(item).prop("checked", false);
+            })
+
+        }
+    }
+    function Absent_All() {
+
+        if ($("#absent_all").is(':checked')) {
+            $("#present_all").attr("checked", false)
+            $("#late_all").attr("checked", false)
+
+            $("tr #reason").each(function (i, item) {
+                $(item).prop('disabled', false);
+                $(item).prop('placeholder', "please provide the reason");
+
+            })
+            $(".absent").each(function (i, item) {
+                $(item).prop("checked", true);
+            })
+        }
+        else {
+            $("tr #reason").each(function (i, item) {
+                $(item).prop('disabled', true);
+                $(item).prop('placeholder', " ");
+
+            })
+
+            $(".absent").each(function (i, item) {
+                $(item).prop("checked", false);
+            })
+
+        }
+    }
+
+    function Late_All() {
+
+        if ($("#late_all").is(':checked')) {
+            $("#absent_all").attr("checked", false)
+            $("#present_all").attr("checked", false)
+            $("tr #reason").each(function (i, item) {
+                $(item).prop('disabled', false);
+                $(item).prop('placeholder', "please provide the reason");
+
+            });
+            $(".late").each(function (i, item) {
+                $(item).prop("checked", true);
+            })
+        }
+        else {
+            $("tr #reason").each(function (i, item) {
+                $(item).prop('disabled', true);
+                $(item).prop('placeholder', " ");
+
+            });
+            $(".late").each(function (i, item) {
+                $(item).prop("checked", false);
+            })
+
+        }
+    }
+
+    function Reason(item) {
+
+        var tr = $(item).closest("tr");
+        var td = $(tr).children("td");
+
+        if (item.value == "Present") {
+            var search = $(td[2]).children("input").prop('disabled', true);
+            var search = $(td[2]).children("input").prop('placeholder', " ");
+        } else {
+            var search = $(td[2]).children("input").prop('disabled', false);
+            var search = $(td[2]).children("input").prop('placeholder', "please provide the reason");
+        }
+    }
+</script>
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <b><a href="#">Attendance</a></b> </label>
+<h4>Attendance</h4>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1" data-toggle="tab">Take Attendance</a></li>
+                <li><a href="#tab_2" data-toggle="tab">Upload Excel File</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="orange">Class Attendance  &nbsp; <i class="fa fa-list" aria-hidden="true"></i></h3>
+                        </div>
+                        <div class="box-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <lable class="control-label col-md-1 "><b>Select Class</b></lable>
+                                    <div class="col-md-offset-1 col-md-6">
+                                        @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group hidden">
+                                    <br />
+                                    <label class="col-md-3 control-label"><b>Select Subject</b></label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" id="SubjectID" name="subjects"></select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab_2">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="orange">Add Attendence from File  &nbsp; <i class="fa fa-file-excel-o" aria-hidden="true"></i></h3>
+                        </div>
+                        @using (Html.BeginForm("AttendancefromFile", "AspNetAttendance", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                          {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Class</label>
+                                    <div class="col-md-6">
+                                        @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control", id = "Class" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Subject Name</label>
+                                    <div class="col-md-6">
+                                        @Html.DropDownList("SubjectID", null, htmlAttributes: new { @class = "form-control", name = "Subject" })
+                                        @Html.ValidationMessageFor(model => model.SubjectID, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-6">
+                                        @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", type = "Date", @id = "Date" } })
+                                        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-left:5px">
+                                    <div class="btn btn-default btn-file col-md-offset-2">
+                                        <i class="fa fa-paperclip"></i> Attachment
+                                        <input type="file" id="Attendance" name="Attendance">
+                                    </div>
+                                    <div class="col-md-offset-2">
+                                        <p class="help-block">Max. 32MB</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="alert alert-success alert-dismissible" id="Attendance_Status" hidden>
+    
+    <h4>Attendance Already Saved!</h4>
+    
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <button type="button" id="Edit_Attendance" class="btn btn-primary pull-right">Edit</button>
+                Present All&nbsp;<input type="checkbox" onclick="Present_All()" id="present_all">&nbsp;&nbsp;|
+                Absent All&nbsp;<input type="checkbox" onclick="Absent_All()" id="absent_all">&nbsp;&nbsp;|
+                Late All&nbsp;<input type="checkbox" onclick="Late_All()" id="late_all">
+            </div>
+            <div class="box box-body">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                Student Name
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Reason
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendance_table"></tbody>
+                </table>
+            </div>
+            <div class="box-footer">
+                <button type="button" id="save_attendance" class="btn btn-primary" disabled>Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="myErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="exampleModalLabel">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-danger">
+                The reason for absents students is required
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

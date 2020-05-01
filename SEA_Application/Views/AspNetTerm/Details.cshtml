@@ -1,0 +1,124 @@
+﻿@model SEA_Application.Models.AspNetTerm
+@{
+            ViewBag.Title = "Edit";
+}
+
+<script>
+            $(document).ready(function () {
+                $('select').prop('disabled', true);
+                $('input').prop('disabled', true);
+            });
+</script>
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#"><b>Detail</b></a> </label>
+<h4>Details</h4>
+<div class="box box-primary">
+    <div class="box-body">
+        
+        <h4>Term</h4>
+        <input type="hidden" value="@Model.Id" id="ID" />
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                <div class="form-group">
+                    <label class="col-md-1 col-lg-1 control-label">Term Name:<span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.TermName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TermName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 col-lg-1 control-label">Session Name:<span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+                        @Html.DropDownList("SessionID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.SessionID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 col-lg-1 control-label">Term Start Date:<span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.TermStartDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TermStartDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 col-lg-1 control-label">Term End Date:<span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.TermEndDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TermEndDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 col-lg-1 control-label">Status:<span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group">
+                    <div class="col-lg-offset-1 col-md-offset-1 col-md-6">
+                        <button type="button" id="back" class="btn btn-default" onclick="redirect()">Back</button>
+                        @if (this.User.IsInRole("Admin"))
+                        {
+                        <button type="button" id="edit" class="btn btn-primary" onclick="redirectToEdit()">Edit</button>
+                        <button type="button" id="delete" class="btn btn-default pull-right" onclick="Delete()">Delete</button>
+                        }
+                    </div>
+                   </div>
+                <div class="col-md-offset-2 col-md-4">
+                    @if (ViewBag.Error != null)
+                   {
+                        <span class="text-danger">@ViewBag.Error</span>
+                    }
+                </div>
+            </div>
+           
+        }
+      
+    </div>
+</div>
+<script>
+    function redirect()
+    {
+        window.location.href="Index";
+    }
+    function redirectToEdit()
+    {
+        var id = $("#Id").val();
+        window.location.href = 'Edit?id=' + id;
+    }
+   
+    function Delete() {
+        $("#myModal1").modal('show');
+    }
+    function cnfmDisable() {
+        var id = $("#ID").val();
+        window.location.href = "/AspNetTerm/DeleteTerm?id=" + id;
+    }
+</script>
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Complete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you really want to delete this Term?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="cnfmDisable()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>

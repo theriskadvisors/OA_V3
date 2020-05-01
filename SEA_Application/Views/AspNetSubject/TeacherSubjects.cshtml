@@ -1,0 +1,220 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<br />
+<br />
+@using (Html.BeginForm("NewSubjectsForTeacher", "AspNetSubject", FormMethod.Post, new { enctype = "multipart/form-data", @class = "forms form-horizontal", role = "form" }))
+{
+
+    <center>
+        @*<button id="Edit">Edit</button>*@
+
+        <button id="submit" type="submit">Save Changes</button>
+    </center>
+
+    <br />
+    <h1>heading 1</h1>
+
+    <div class="form-group">
+        <label class="col-md-1 col-lg-1 control-label"> Section: <span class="red-mark">*</span></label>
+        <div class="col-md-11">
+            @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control text_box_style", name = "ClassID", @required = true })
+            <br />
+        </div>
+    </div>
+    <input type="hidden" name="TeacherId" />
+
+    <div class="form-group">
+        <label class="col-md-1 col-lg-1 control-label"> Teachers: <span class="red-mark">*</span></label>
+        <div class="col-md-10">
+
+            <select class="form-control" id="teachers" name="teachers">
+            </select>
+
+            <br />
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group SubjectsBoxesCSS" id="MandatorySubjectCss">
+        <div class="col-md-12" id="MandatorySubjectsCSS">
+
+
+        </div>
+
+    </div>
+
+    <div class="form-group SubjectsBoxesCSS" id="Group1CSS">
+
+        <div class="col-md-12" id="SubjectCSSGroup1">
+
+        </div>
+
+    </div>
+
+
+
+    <br />
+    <br />
+    <br />
+}
+
+
+<script>
+
+    var TeacherId;
+    var SessionId;
+    $(document).ready(function () {
+
+        $("#ClassID").change(function () {
+
+        var SelectedClass = $(this).val();
+
+        $.ajax({
+            type: "POST",
+            url: "/AspNetSubject/TeachersByClass",
+            data: { "ClassId": SelectedClass },
+
+            success: function (data) {
+
+                $("#teachers").html("");
+                $.each(data, function (i, item) {
+
+
+                    $("#teachers").append("<option  value='" + item.EmployeeId + "'>" + item.Name + "</option>");
+
+                  
+                });
+                  AllSubjects();
+
+            }
+
+        })
+
+
+           //  alert($("#ClassID").val());
+
+
+
+    })//Class click change
+
+        $("#teachers").click(function () {
+
+
+            var SelectedTeacher = $(this).val();
+            var SelectedClass = $("#ClassID").val();
+
+       //     alert($(this).val());
+         //   alert($("#ClassID").val());
+
+
+              $.ajax({
+            type: "GET",
+            url: "/AspNetSubject/TeacherSubjects1",
+
+            data: { "TeacherId":SelectedTeacher ,"ClassId": SelectedClass },
+
+                  success: function (data) {
+
+                       $('input[type="checkbox"]').attr('checked', false);
+
+                      $.each(JSON.parse(data), function (key, value1) {
+                          debugger
+                                        //  $("#SubjectsList input[value='" + item.Id + "']").prop("checked", true);
+                      $("#MandatorySubjectsCSSTableBody input[value='" + value1.SubjectID + "']").prop("checked", true);
+
+                          })
+
+                      $.each(JSON.parse(data), function (key, value1) {
+                          //  $("#SubjectsList input[value='" + item.Id + "']").prop("checked", true);
+                          debugger
+
+                              $("#SubjectCSSGroup1TableBody input[  value='" + value1.SubjectID + "']").prop("checked", true);
+
+
+                      })
+                  }
+
+        })
+        })
+
+
+        function AllSubjects() {
+
+
+
+            // var CourseType = $("input[name='CourseType']:checked").val();
+            var selectedClass = $("#ClassID").val();
+  
+            if (selectedClass == "") {
+                //    alert("Please select a Class");
+            }
+            else {
+
+                $.get('@Url.Action("SubjectsByClass")',
+                    { ClassId: selectedClass}, function (data) {
+
+                        // $('#SubjectsList').html('');
+                        debugger
+
+                        var MandatorySubjectsList = data.MandatorySubjectsList;
+                        var OptionalSubjecsList = data.OptionalSubjectsList;
+
+                            $("#MandatorySubjectsCSS").html('');
+                            $("#SubjectCSSGroup1").html('');
+
+                            //$(".SubjectsBoxesCSS").css('display', 'block');
+                            //$(".SubjectsBoxesPMS").css('display', 'none');
+
+                            $("#MandatorySubjectsCSS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects </b></span></h3>');
+                            $("#MandatorySubjectsCSS").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Course Type</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsCSSTableBody"></tbody></table>');
+
+
+                            $.each(MandatorySubjectsList, function (key, value1) {
+
+                                $("#MandatorySubjectsCSSTableBody").append('<tr> <td>' + value1.SubjectName + '</td >  <td> ' + value1.CourseType + '</td>   <td align="center">' + value1.Points + '</td><td align="center"><input    type="checkbox" id=' + value1.Id + ' value=' + value1.Id + ' name="MandatorySubjects"></td></tr>');
+
+                            })
+
+
+                            $("#SubjectCSSGroup1").append('<h3><span style="color:#3C8DBC !important"><b>Optional Subjects</b></span></h3>');
+                            $("#SubjectCSSGroup1").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Course Type</th> <th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup1TableBody"></tbody></table>');
+
+                            $.each(OptionalSubjecsList, function (key, value1) {
+
+                           $("#SubjectCSSGroup1TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td> ' + value1.CourseType + '</td> <td align="center">'+value1.Points+'</td><td align="center"><input     type="checkbox" id=' + value1.Id + ' value=' + value1.Id + ' name="OptionalSubjects"></td></tr>');
+
+                            })
+
+                    })
+
+
+            }
+
+        }
+
+
+        
+   //$('input[name="CourseType"]').click(function () {
+   //         debugger;
+   //        //  $('#SubjectsList').html('');
+   //            $("#ClassID").click();
+
+   //})
+
+
+
+
+        $("#Edit").click(function () {
+
+            $("input[type='checkbox']").removeAttr('disabled');
+
+        })
+
+    })//end of document ready
+
+
+</script>

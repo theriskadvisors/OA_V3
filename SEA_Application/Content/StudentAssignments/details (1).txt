@@ -1,0 +1,27 @@
+        public ActionResult Details(int id)
+        {
+
+            AspNetSubject aspNetSubject = db.AspNetSubjects.Where(x => x.Id == id).Select(x => x).FirstOrDefault();
+            if (aspNetSubject == null)
+            {
+                return HttpNotFound();
+            }
+
+            var teachers = (from teacher in db.AspNetUsers.Where(x => x.Status != "False")
+                            join t2 in db.AspNetUsers_Session.Where(s => s.SessionID == SessionID)
+                            on teacher.Id equals t2.UserID
+                            where teacher.AspNetRoles.Select(y => y.Name).Contains("Teacher")
+                            select new
+                            {
+                                teacher.Id,
+                                teacher.Name,
+                            }).ToList();
+
+            ViewBag.IsMand = aspNetSubject.IsManadatory;
+            ViewBag.Points = aspNetSubject.Points;
+
+            ViewBag.ClassID = new SelectList(db.AspNetClasses.Where(x => x.SessionID == SessionID), "Id", "ClassName", aspNetSubject.ClassID);
+            ViewBag.TeacherID = new SelectList(teachers, aspNetSubject.TeacherID);
+
+            return View(aspNetSubject);
+        }

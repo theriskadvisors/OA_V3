@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewBag.Title = "InterTransaction";
+}
+<script>
+    $(document).ready(function () {
+        addLedger();
+        CheckVoucherNo();
+
+        var now = new Date();
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+        $('#ddate').val(today);
+    })
+    function CheckVoucherNo() {
+        $.ajax({
+            type: "POST",
+            url: "/FinanceSummary/FindVoucherNo",
+            success: function (data) {
+                $("#VoucherNo").val(data);
+            }
+        });
+    }
+
+    function addLedger() {
+               $.ajax({
+            type: "POST",
+            url: "/FinanceSummary/BankCashLedgers",
+            success: function (data) {
+                console.log(data);
+                $.each(data, function (i, item) {
+                    debugger;
+                    debugger;
+                    var head = data[i];
+                    $("#payment").append("<optgroup label=" + head.HeadName + " ></optgroup>")
+                    $("#received").append("<optgroup label=" + head.HeadName + " ></optgroup>")
+
+                    var Accountlist = head.accountlist;
+                    for (var j = 0; j < Accountlist.length; j++) {
+                        debugger;
+                        $("#payment").append("<option value=" + Accountlist[j].Id + " >" + Accountlist[j].Name + "</option>")
+                        $("#received").append("<option value=" + Accountlist[j].Id + " >" + Accountlist[j].Name + "</option>")
+
+                    }
+                });
+            }
+        });
+    }
+
+
+    var Voucher = {
+        Date: '',
+        Amount: '',
+        VoucherNo: '',
+        Description:'',
+        PaymentFrom: '',
+        ReceivedIn:'',
+    }
+
+    function SaveVoucher() {
+
+        debugger;
+        var t = true;
+        //$("#zero_Error").html("");
+        //var total = $("#zero").val();
+        //var name = $("#voucher").val();
+        //$("#Error_Vocuher").html("");
+
+        //if (name == "") {
+        //    $("#Error_Vocuher").html("This field is required");
+        //}
+        //else if (total == 0) {
+
+        //    $("#zero_Error").html("Enter some values");
+        //    $("#submit").prop("disabled", true);
+        //}
+        //else {
+            Voucher = Object.create(Voucher);
+            Voucher.Date = $('#ddate').val();
+            Voucher.Amount = $('#amount').val();
+            Voucher.VoucherNo = $('#VoucherNo').val();
+            Voucher.Description = $('#Desc').val();
+            Voucher.PaymentFrom = $('#payment').val() +"-Cr";
+            Voucher.ReceivedIn = $('#received').val() + "-Dr";
+  
+            if (t == true) {
+                CBVoucher = JSON.stringify({ 'CBVoucher': Voucher });
+                $('.eeniart0017').css("display", "block");
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: '/FinanceSummary/AddCashBankVoucher',
+                    data: CBVoucher,
+                    success: function (data) {
+                        $('.eeniart0017').css("display", "none");
+
+                        if (data == 'yes') {
+                            window.location.href = "Bank";
+                        } else {
+                            window.location.href = "";
+                        }
+                    }
+                });
+            }
+        }
+    
+
+
+</script>
+<div class="col-md-10" style="border:1px solid #f7f7f7;height:60px;border-radius:10px;background-color:#f7f7f7;margin-left:50px;">
+    <br />
+    <span style="margin:15px"><b>Inter Account Transaction</b></span>
+</div>
+<div class="col-md-10" style="background-color:#f7f7f7;margin:50px;border-radius:10px;padding:10px;box-shadow: rgba(0, 0, 0, 0.16) 5px 10px 5px, rgba(0, 0, 0, 0.23) 0px 3px 5px">
+    <h4>New Transaction</h4>
+    <hr />
+
+    <div class="col-md-12">
+        <div class="col-md-2" style="padding-left:0px">
+            <span style="font-weight:600">Date</span><br />
+            <input type="date" class="form-control round-border" id="ddate" />
+            <br />
+        </div>
+        <div class="col-md-2">
+            <span style="font-weight:600">Voucher No</span>
+            <div class="input-group">
+                <span style="font-weight:600" class="input-group-addon">#</span>
+                <input id="VoucherNo" type="text" class="form-control" readonly />
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-12">
+        <div class="col-md-4" style="padding-left:0px">
+            <div>
+                <span>
+                    <b> Description</b>
+                </span>
+            </div>
+            <input type="text" name="Name" id="Desc" class="form-control" />
+            <br />
+        </div>
+    </div>
+
+
+
+    <div class="col-md-12">
+        <div class="col-md-4" style="padding-left:0px">
+            <span>
+                <b> Paid From</b>
+            </span>
+            <select id='payment' class='form-control drop' onchange='Codedescription(this)'></select>
+        </div>
+        <div>
+            <span>
+                <b> Amount</b>
+            </span>
+        </div>
+        <div class="col-md-1" style="padding:0px">
+            <input type="number" name="dr" onkeyup="Credit()" id="amount" class="form-control dr" />
+            <br />
+        </div>
+    </div>
+
+
+    <div class="col-md-12">
+        <div class="col-md-4" style="padding-left:0px">
+            <span>
+                <b>Received In</b>
+            </span>
+            <select id='received' class='form-control drop'></select>
+        </div>
+      
+    </div>
+    <div class="col-md-12">
+        <hr />
+        <button class="col-md-2 form-control" onclick="window.location.href = '/FinanceSummary/BankIndex'" style="border-radius:35px;border:hidden;margin-right:10px;background-color:red;color:white;font-size:11px;width:98px;height:38px;font-family:Montserrat" id="return"><i class="fa fa-arrow-left"></i> &nbsp;&nbsp; Return</button>
+        <input class="col-md-2 form-control" id="submit" onclick="SaveVoucher()" type="submit" value="Save" style="border-radius:35px;color:white;border:hidden;background-color:#128edb;font-size:11px;width:98px;height:38px;font-family:Montserrat" />
+    </div>
+</div>

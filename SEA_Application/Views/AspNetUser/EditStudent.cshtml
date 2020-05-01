@@ -1,0 +1,2157 @@
+﻿@model SEA_Application.Models.AspNetUser
+@{
+    ViewBag.Title = "Edit";
+}
+
+<style>
+    .page-sidebar .page-sidebar-menu, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: 4200px !important;
+    }
+
+    /*#SubjectsList {
+        border: 1px solid silver;
+        height: 90px;
+        padding: 10px;
+        overflow: auto;
+        margin: auto;
+    }*/
+
+    .SubjectsBoxesCSS {
+    }
+
+    .SubjectsBoxesPMS {
+    }
+
+    table th, td {
+        width: 200px;
+    }
+
+    .table {
+        width: 70%;
+        max-width: 70%;
+        margin-bottom: 20px;
+    }
+
+    table {
+        border: 1px solid rgb(221, 221, 221);
+    }
+
+    .table .SubjectHeader {
+        text-align: left;
+    }
+
+    input[type=checkbox] {
+        width: 25px;
+        height: 25px;
+    }
+
+    table input[type=radio] {
+        width: 20px;
+        height: 20px;
+    }
+</style>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    var selectedClass;
+    //  var SelectedClassValueFirst;
+      var SelectedClassValueFirst;
+    $(document).ready(function () {
+
+
+       debugger
+        var VoucherExist = $("#VoucherExist").val();
+
+        if (VoucherExist == "1") {
+
+            $("#FeeDetailDiv").css("display", 'block');
+
+
+        }
+
+        else {
+
+
+            $("#FeeDetailDiv").css("display", 'none');
+
+        }
+
+
+        var FeeTypeOfStudent = $("#FeeTypeOfStudent").val();
+        if (FeeTypeOfStudent != "") {
+
+         $("#FeeType option[value='" + FeeTypeOfStudent + "']").prop('selected', true);
+
+
+        }
+
+
+        var NotesFeeOfStudent = $("#NotesAmount").val();
+
+        if (NotesFeeOfStudent == "") {
+
+                 $("#NotesCategoryDiv input[value='WithOutNotes']").prop('checked', true);
+
+        }
+        else {
+
+
+                   $("#NotesCategoryDiv input[value='WithNotes']").prop('checked', true);
+                   // $('#WithNotes').click();
+
+                    var NotesAmountHidden  =   $("#NotesAmountHidden").val();
+
+                    $("#NotesAmount").val(NotesAmountHidden);
+
+            
+                    $("#FeeType  option[value='PerMonth']").remove();
+                   $("#NotesAmount").prop('required', true);
+
+                    $('#NotesID').show();
+                 
+
+
+        }
+
+
+            
+           $("#FeeType").change(function () {
+            debugger    
+
+            $("#Fee").val(0);
+         //   $("#FeeType").val(0);
+            $("#DiscountPercentage").val(0);
+            $("#Discount").val(0);
+            $("#RemainingAmount").val(0);
+
+            $(".totalfeeclass").val("");
+
+
+           })
+
+         $("#DiscountPercentage").bind('keyup mouseup', function () {    
+
+             $('#FormSubmit').prop('disabled', false);
+
+          //  Calculations();
+             $("#RemainingAmount").val("");
+             $("#Discount").val(0);
+             $("#TotalFee").val("");
+              var FeeType = $("#FeeType").val();
+             var SessionFee = $("#SessionFee").val();
+             var FeeAfterFeeType = $("#Fee").val();
+
+             var DiscountPercentage = $("#DiscountPercentage").val();
+                var NotesAmount = $("#NotesAmount").val();
+             var DiscountedAmount;
+             var TotalFee;
+
+             debugger
+             if (NotesAmount == "")
+                 NotesAmount = 0;
+
+             if ( FeeType !="" &&  FeeAfterFeeType != 0 && DiscountPercentage != 0 && DiscountPercentage>0 ) {
+
+                 DiscountedAmount = parseFloat(FeeAfterFeeType) * (parseFloat(DiscountPercentage) / 100);
+
+                 var RemainingFeeAfterFeeType = parseFloat(FeeAfterFeeType) - parseFloat(DiscountedAmount);
+
+
+                 var RoundRemainingFeeAfterFeeType = Math.round(RemainingFeeAfterFeeType);
+                 $("#Discount").val(Math.round( DiscountedAmount));
+
+                 
+                 $("#RemainingAmount").val(RoundRemainingFeeAfterFeeType);
+                 
+                 TotalFee = parseFloat(RoundRemainingFeeAfterFeeType) + parseFloat(NotesAmount);
+
+                 $("#TotalFee").val(TotalFee);
+
+                 if (RoundRemainingFeeAfterFeeType < 0) {
+
+                    $('#FormSubmit').prop('disabled', true);
+                 }
+
+
+             }
+
+         });
+
+        $("#ClassID").change(function () {
+
+           // $('#CalculateFee').click();
+            $("#TotalFee").val("");
+            $("#MandatorySubjects").removeAttr('checked');
+
+             
+            $("#Discount").val(0);
+            $("#DiscountPercentage").val(0);
+          //  $("#RemainingAmount").val("");
+
+          
+            $("#Discount").val(0);
+            $("#RemainingAmount").val(0);
+            $("#Fee").val(0);
+
+            var ClassId = $(this).val();
+
+            if (ClassId != "") {
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin_Dashboard/GetSessionFee",
+                data: { "SelectedClassId": ClassId },
+                success: function (data) {
+
+
+                        $("#SessionFee").val(data);
+
+                    }
+
+            })
+            }
+
+        })
+
+
+        $("#UserName").bind('blur', function () {
+            var userName = $("#UserName").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/AspNetUser/GetUserName",
+                data: { "userName": userName },
+                success: function (data) {
+                    if (data.count == 0) {
+                        $('#FormSubmit').removeAttr('disabled');
+                    }
+                    else {
+                        $('#UserName-Error').html("UserName Already taken by " + data.by);
+                        $('#FormSubmit').prop('disabled', true);
+                    }
+
+                }
+            });
+
+        });
+
+                //old
+        //$('#WithOutNotes').click(function () {
+        //    $('#NotesID').hide();
+        //    $('#NotesAmount').val("");
+        //    $("#TotalFee").val("");
+        //    //alert("Without note");
+        //    //$('#FeeType').append('<option value="PerMonth">PerMonth</option>');
+        //   $("#NotesAmount").prop('required', false);
+        //});
+        //$('#WithNotes').click(function () {
+
+        //    //$("#FeeType  option[value='PerMonth']").remove();
+        //   $("#NotesAmount").prop('required', true);
+        //    $('#NotesAmount').val(16000);
+        //    $('#NotesID').show();
+        //    $("#TotalFee").val("");
+
+
+        //});
+
+
+            $('#WithOutNotes').click(function () {
+            $('#NotesID').hide();
+            $('#NotesAmount').val("");
+            $("#TotalFee").val("");
+            //alert("Without note");
+            //$('#FeeType').append('<option value="PerMonth">PerMonth</option>');
+            $("#NotesAmount").prop('required', false);
+
+               $("#DiscountPercentage").val(0);
+            $("#Discount").val(0);
+            $("#RemainingAmount").val(0);
+            $("#Fee").val(0);
+        });
+        $('#WithNotes').click(function () {
+
+            //$("#FeeType  option[value='PerMonth']").remove();
+            $("#NotesAmount").prop('required', true);
+            $('#NotesID').show();
+            $("#TotalFee").val("");
+            $('#NotesAmount').val(16000);
+            $("#DiscountPercentage").val(0);
+            $("#Discount").val(0);
+            $("#RemainingAmount").val(0);
+            $("#Fee").val(0);
+
+        });
+
+
+
+
+
+
+
+    
+
+    //    $("#ClassID").change(function () {
+
+    //        $("#MandatorySubjects").removeAttr('checked');
+
+    //    })
+    //     var MandatorySub;
+    //    var AllSub;
+    //     $('#MandatorySubjects').change(function() {
+    //      if (this.checked) {
+
+    //          var ClassId = $("#ClassID").val();
+
+    //          if (ClassId != "") {
+
+    //              $.ajax({
+
+    //                 type: "POST",
+    //                 url: "/Admin_Dashboard/GetMandatorySubjects",
+    //                 data: { "ClassId":ClassId},
+    //                  success: function (data) {
+
+    //                      var MandatorySubjects = data.MandatorySubjects;
+    //                      var AllSubjects = data.AllSubjects;
+
+    //                       MandatorySub = data.MandatorySubjects;
+    //                        AllSub=data.AllSubjects;
+    //                      $.each( MandatorySubjects, function( key, value1 ) {
+
+    //                          $.each( AllSubjects, function( key, value2 ) {
+
+
+    //                              if (value1 == value2) {
+
+
+    //                                     $("#" + value1).prop("checked", true);
+    //                              }
+
+
+
+    //                          });
+
+
+    //                      });
+
+
+    //                  }
+    //              })
+
+
+    //          }
+
+
+
+
+
+    //      }
+    //      else {
+    //          $.each( MandatorySub, function( key, value1 ) {
+
+    //                $.each(AllSub, function (key, value2) {
+
+
+    //                              if (value1 == value2) {
+
+
+    //                                     $("#" + value1).removeAttr('checked');
+    //                              }
+
+
+
+    //                          });
+
+
+    //                      });
+
+    //      }
+    //   // $('#textbox1').val(this.checked);
+    //});
+
+
+        $("#Email").bind('blur', function () {
+            var email = $("#Email").val();
+
+           var testEmail = /^[A-Z0-9._%+-]+@@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+            if (email != "") {
+
+            if (testEmail.test(email)) {
+
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/AspNetUser/Email",
+                    data: { "Email": email },
+                    success: function (data) {
+                        console.log(data);
+                        if (data == 0) {
+                            $('#FormSubmit').prop('disabled', false);
+                        }
+                        else {
+                            $('#Email-Error').html("Email Already taken");
+                            $('#FormSubmit').prop('disabled', true);
+                        }
+                    }
+                });
+
+            }
+
+
+            else {
+                $('#Email-Error').html("Email is Not Valid ");
+                  $('#FormSubmit').prop('disabled', true);
+            }
+             }
+
+
+        });
+
+        debugger;
+
+        var CourseType = $("#CourseType").val();
+        var SectionTiming = $("#SectionTiming").val();
+        //alert(SectionTiming);
+        var Na = $("#NATION").val();
+        var Re = $("#RELEGION").val();
+        var Ge = $("#GENDER").val();
+        var De = $('#Degree').val();
+        $('#Nationality option[value="' + Na + '"]').prop('selected', true);
+        $('#Religion option[value="' + Re + '"]').prop('selected', true);
+        $('#Gender option[value="' + Ge + '"]').prop('selected', true);
+        $('#Degree option[value="' + De + '"]').prop('selected', true);
+        $("#ClassTimings option[value='" + SectionTiming + "']").prop('selected', true);
+
+      //  $('#CourseType option[value="' + CourseType + '"]').prop('selected', true);
+        $("input[value ='" + CourseType + "' ]").prop('checked', true);
+        var SelectedClassValueFirst;
+        var selectedStudent = '@Model.Id';
+        $.get('@Url.Action("StudentClass")',
+
+            { id: selectedStudent }, function (data) {
+                selectedClass = data.ClassIDNAMEv;
+
+                SelectedClassValueFirst = data.ClassIDNAMEv;
+              //  SelectedClassValueFirst = data;
+
+                $('#ClassID').val(data.ClassIDNAMEv);
+                $("#SessionFee").val(data.SessionFeeOfSession);
+
+                $.get('@Url.Action("SubjectsByClass")',
+
+
+                    { id: $('#ClassID').val(), coursetype: CourseType}, function (data) {
+                     $('#subjects').html('');
+                        $('#subjects').prop('disabled', false);
+                        debugger
+                        var selectedClass = $("#ClassID").val();
+                        var CourseType =$("input[name='CourseType']:checked").val();
+
+
+                           var MandatorySubjectsList = data.MandatorySubjectsList;
+                            var OptionalSubjecsList = data.OptionalSubjectsList;
+                            $("#MandatorySubjectsPMS").html('');
+                            $("#SubjectPMSGroup1").html('');
+                            $("#SubjectPMSGroup2").html('');
+                            $("#SubjectPMSGroup3").html('');
+                            $("#SubjectPMSGroup4").html('');
+                            $("#SubjectPMSGroup5").html('');
+
+                            $("#MandatorySubjectsCSS").html('');
+                            $("#SubjectCSSGroup1").html('');
+                            $("#SubjectCSSGroup2").html('');
+                            $("#SubjectCSSGroup3").html('');
+                            $("#SubjectCSSGroup4").html('');
+                            $("#SubjectCSSGroup5").html('');
+                            $("#SubjectCSSGroup6").html('');
+                            $("#SubjectCSSGroup7").html('');
+
+
+                        if (CourseType == "CSS") {
+
+                            $(".SubjectsBoxesCSS").css('display', 'block');
+                            $(".SubjectsBoxesPMS").css('display', 'none');
+
+                            $("#MandatorySubjectsCSS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects</b></span><input  type="checkbox" class="CheckboxCSSMandatory"></h3>');
+                            $("#MandatorySubjectsCSS").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsCSSTableBody"></tbody></table>');
+                            $.each(MandatorySubjectsList, function (key, value1) {
+
+                             $("#MandatorySubjectsCSSTableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="checkbox" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects0"></td></tr>');
+
+                            })
+                            $("#SubjectCSSGroup1").append('<h3><span style="color:#3C8DBC !important"><b>Group 1</b></span> <input  type="checkbox" class="CheckboxCSSGroup1"></h3>');
+                            $("#SubjectCSSGroup2").append('<h3><span style="color:#3C8DBC !important"><b>Group 2</b></span> <input  type="checkbox" class="CheckboxCSSGroup2"></h3>');
+                            $("#SubjectCSSGroup3").append('<h3><span style="color:#3C8DBC !important"><b>Group 3</b></span> <input  type="checkbox" class="CheckboxCSSGroup3"></h3>');
+                            $("#SubjectCSSGroup4").append('<h3><span style="color:#3C8DBC !important"><b>Group 4</b></span> <input  type="checkbox" class="CheckboxCSSGroup4"></h3>');
+                            $("#SubjectCSSGroup5").append('<h3><span style="color:#3C8DBC !important"><b>Group 5</b></span> <input  type="checkbox" class="CheckboxCSSGroup5"></h3>');
+                            $("#SubjectCSSGroup6").append('<h3><span style="color:#3C8DBC !important"><b>Group 6</b></span> <input  type="checkbox" class="CheckboxCSSGroup6"></h3>');
+                            $("#SubjectCSSGroup7").append('<h3><span style="color:#3C8DBC !important"><b>Group 7</b></span> <input  type="checkbox" class="CheckboxCSSGroup7"></h3>');
+
+                            $("#SubjectCSSGroup1").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup1TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup2").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup2TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup3").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup3TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup4").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup4TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup5").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup5TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup6").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup6TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup7").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup7TableBody"></tbody></table>');
+
+                            $.each(OptionalSubjecsList, function (key, value1) {
+
+                                if (value1.SubjectGroup == "1") {
+
+
+                           $("#SubjectCSSGroup1TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects1"></td></tr>');
+
+                                }
+                                else if (value1.SubjectGroup == "2") {
+
+                                    $("#SubjectCSSGroup2TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects2"></td></tr>');
+
+                                }
+                                else if (value1.SubjectGroup == "3") {
+
+                                    $("#SubjectCSSGroup3TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects3"></td></tr>');
+
+                                }
+                                else if (value1.SubjectGroup == "4") {
+
+                                    $("#SubjectCSSGroup4TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects4"></td></tr>');
+
+                                }
+                                else if (value1.SubjectGroup == "5") {
+
+                                    $("#SubjectCSSGroup5TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects5"></td></tr>');
+
+                                }
+                                else if (value1.SubjectGroup == "6") {
+
+                                    $("#SubjectCSSGroup6TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects6"></td></tr>');
+
+                                }
+                                else if (value1.SubjectGroup == "7") {
+
+                                    $("#SubjectCSSGroup7TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects7"></td></tr>');
+
+                                }
+                                else {
+
+                                }
+
+
+
+                            })
+
+                        }
+
+                        else if (CourseType == "PMS") {
+
+                            $(".SubjectsBoxesCSS").css('display', 'none');
+
+                            $(".SubjectsBoxesPMS").css('display', 'block');
+
+                            $("#MandatorySubjectsPMS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects</b></span> <input  type="checkbox" class="CheckboxPMSMandatory"></h3>');
+                            $("#MandatorySubjectsPMS").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsPMSTableBody"></tbody></table>');
+                            $.each(MandatorySubjectsList, function (key, value1) {
+
+
+                                $("#MandatorySubjectsPMSTableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="checkbox" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects0"></td></tr>');
+
+                            })
+                            $("#SubjectPMSGroup1").append('<h3><span style="color:#3C8DBC !important"><b>Group 1</b></span><input  type="checkbox" class="CheckboxPMSGroup1"></h3>');
+                            $("#SubjectPMSGroup2").append('<h3><span style="color:#3C8DBC !important"><b>Group 2</b></span><input  type="checkbox" class="CheckboxPMSGroup2"></h3>');
+                            $("#SubjectPMSGroup3").append('<h3><span style="color:#3C8DBC !important"><b>Group 3</b></span><input  type="checkbox" class="CheckboxPMSGroup3"></h3>');
+                            $("#SubjectPMSGroup4").append('<h3><span style="color:#3C8DBC !important"><b>Group 4</b></span><input  type="checkbox" class="CheckboxPMSGroup4"></h3>');
+                            $("#SubjectPMSGroup5").append('<h3><span style="color:#3C8DBC !important"><b>Group 5</b></span><input  type="checkbox" class="CheckboxPMSGroup5"></h3>');
+
+                            $("#SubjectPMSGroup1").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup1TableBody"></tbody></table>');
+                            $("#SubjectPMSGroup2").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup2TableBody"></tbody></table>');
+                            $("#SubjectPMSGroup3").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup3TableBody"></tbody></table>');
+                            $("#SubjectPMSGroup4").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup4TableBody"></tbody></table>');
+                            $("#SubjectPMSGroup5").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup5TableBody"></tbody></table>');
+
+
+                            $.each(OptionalSubjecsList, function (key, value1) {
+
+                                if (value1.SubjectGroup == "1") {
+
+
+                                    $("#SubjectPMSGroup1TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects1"></td></tr>');
+
+
+                                }
+                                else if (value1.SubjectGroup == "2") {
+
+                                    $("#SubjectPMSGroup2TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects2"></td></tr>');
+
+
+
+                                }
+                                else if (value1.SubjectGroup == "3") {
+
+                                    $("#SubjectPMSGroup3TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects3"></td></tr>');
+
+
+
+                                }
+                                else if (value1.SubjectGroup == "4") {
+
+                                    $("#SubjectPMSGroup4TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects4"></td></tr>');
+
+
+
+                                }
+                                else if (value1.SubjectGroup == "5") {
+
+                                    $("#SubjectPMSGroup5TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects5"></td></tr>');
+
+                                }
+
+                                else {
+
+                                }
+
+                            })
+
+                        }
+
+                    var CourseType1 = $("#CourseType").val();
+
+                        $.get('@Url.Action("SubjectsByStudent")',
+                            { id: selectedStudent, coursetype: $("input[name='CourseType']:checked").val() }, function (data) {
+                            //  $('#subjects').prop('disabled', false);
+                                 var MandatorySubjectsList = data.MandatorySubjectsList;
+                                   var OptionalSubjecsList = data.OptionalSubjectsList;
+
+                                          debugger
+
+                               // alert(CourseType1);
+                                if (CourseType1 == "CSS") {
+
+
+                                    $.each(MandatorySubjectsList, function (key, value1) {
+                                        //  $("#SubjectsList input[value='" + item.Id + "']").prop("checked", true);
+                                        $("#MandatorySubjectsCSSTableBody input[value='" + value1.Id + "']").prop("checked", true);
+
+
+                                    })
+
+
+                                    $.each(OptionalSubjecsList, function (key, value1) {
+                                        //  $("#SubjectsList input[value='" + item.Id + "']").prop("checked", true);
+
+
+                                        $("#MandatorySubjectsCSSTableBody input[value='" + value1.Id + "']").prop("checked", true);
+
+                                        if (value1.SubjectGroup == "1") {
+                                            
+                                         $("#SubjectCSSGroup1TableBody input[ value='" + value1.Id + "']").prop("checked", true);
+
+                                        }
+                                        else if (value1.SubjectGroup == "2") {
+
+                                            $("#SubjectCSSGroup2TableBody input[  value='" + value1.Id + "']").prop("checked", true);
+
+                                        }
+                                        else if (value1.SubjectGroup == "3") {
+                                            $("#SubjectCSSGroup3TableBody input[  value='" + value1.Id + "']").prop("checked", true);
+                                        }
+
+                                        else if (value1.SubjectGroup == "4") {
+                                            $("#SubjectCSSGroup4TableBody input[  value='" + value1.Id + "']").prop("checked", true);
+                                        }
+
+                                        else if (value1.SubjectGroup == "5") {
+                                            $("#SubjectCSSGroup5TableBody input[  value='" + value1.Id + "']").prop("checked", true);
+                                        }
+                                        else if (value1.SubjectGroup == "6") {
+                                            $("#SubjectCSSGroup6TableBody input[  value='" + value1.Id + "']").prop("checked", true);
+                                        }
+                                        else if (value1.SubjectGroup == "7") {
+                                            $("#SubjectCSSGroup7TableBody input[  value='" + value1.Id + "']").prop("checked", true);
+                                        }
+
+
+                                    })
+                                }
+                                else if (CourseType1 == "PMS") {
+
+                                      $.each(MandatorySubjectsList, function (key, value1) {
+                                        //  $("#SubjectsList input[value='" + item.Id + "']").prop("checked", true);
+                                        $("#MandatorySubjectsPMSTableBody input[value='" + value1.Id + "']").prop("checked", true);
+
+                                      })
+
+
+                                    $.each(OptionalSubjecsList, function (key, value1) {
+
+                                        if (value1.SubjectGroup == "1") {
+
+                                            $("#SubjectPMSGroup1TableBody  input[  value='" + value1.Id + "']").prop("checked", true);
+                                        }
+
+                                        else if (value1.SubjectGroup == "2") {
+
+                                            $("#SubjectPMSGroup2TableBody  input[  value='" + value1.Id + "']").prop("checked", true);
+
+                                        }
+
+                                        else if (value1.SubjectGroup == "3") {
+                                            $("#SubjectPMSGroup3TableBody  input[  value='" + value1.Id + "']").prop("checked", true);
+
+                                        }
+
+                                        else if (value1.SubjectGroup == "4") {
+                                            $("#SubjectPMSGroup4TableBody  input[  value='" + value1.Id + "']").prop("checked", true);
+
+
+
+                                        }
+                                        else if (value1.SubjectGroup == "5") {
+                                            $("#SubjectPMSGroup5TableBody  input[  value='" + value1.Id + "']").prop("checked", true);
+
+                                        }
+
+                                    })
+
+
+                                }
+                                else {
+
+                                }
+
+
+                        });
+                 });
+        });
+
+
+           $('input[name="CourseType"]').click(function () {
+
+             $('#SubjectsList').html('');
+               $("#ClassID").click();
+
+        })
+
+
+      $("#ClassID").click(function () {
+            debugger;
+              $("#MandatorySubjects").removeAttr('checked');
+
+           //  alert($("#ClassID").val());
+            var selectedClass = $("#ClassID").val();
+            var CourseType = $("input[name='CourseType']:checked").val();
+
+            if (selectedClass == "") {
+                //    alert("Please select a Class");
+            }
+            else {
+
+                $.get('@Url.Action("SubjectsByClass")',
+                    { id: selectedClass, coursetype: CourseType }, function (data) {
+
+                        // $('#SubjectsList').html('');
+                        debugger
+
+                        var MandatorySubjectsList = data.MandatorySubjectsList;
+                        var OptionalSubjecsList = data.OptionalSubjectsList;
+                            $("#MandatorySubjectsPMS").html('');
+                            $("#SubjectPMSGroup1").html('');
+                            $("#SubjectPMSGroup2").html('');
+                            $("#SubjectPMSGroup3").html('');
+                            $("#SubjectPMSGroup4").html('');
+                            $("#SubjectPMSGroup5").html('');
+
+                           $("#MandatorySubjectsCSS").html('');
+                            $("#SubjectCSSGroup1").html('');
+                            $("#SubjectCSSGroup2").html('');
+                            $("#SubjectCSSGroup3").html('');
+                            $("#SubjectCSSGroup4").html('');
+                            $("#SubjectCSSGroup5").html('');
+                            $("#SubjectCSSGroup6").html('');
+                            $("#SubjectCSSGroup7").html('');
+
+                        if (CourseType == "CSS") {
+
+                            $(".SubjectsBoxesCSS").css('display', 'block');
+                            $(".SubjectsBoxesPMS").css('display', 'none');
+
+                            $("#MandatorySubjectsCSS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects</b></span><input  type="checkbox" class="CheckboxCSSMandatory"></h3>');
+                            $("#MandatorySubjectsCSS").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsCSSTableBody"></tbody></table>');
+                            $.each(MandatorySubjectsList, function (key, value1) {
+
+                             $("#MandatorySubjectsCSSTableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="checkbox" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects0"></td></tr>');
+
+                            })
+                            $("#SubjectCSSGroup1").append('<h3><span style="color:#3C8DBC !important"><b>Group 1</b></span><input  type="checkbox" class="CheckboxCSSGroup1"></h3>');
+                            $("#SubjectCSSGroup2").append('<h3><span style="color:#3C8DBC !important"><b>Group 2</b></span> <input  type="checkbox" class="CheckboxCSSGroup2"></h3>');
+                            $("#SubjectCSSGroup3").append('<h3><span style="color:#3C8DBC !important"><b>Group 3</b></span> <input  type="checkbox" class="CheckboxCSSGroup3"></h3>');
+                            $("#SubjectCSSGroup4").append('<h3><span style="color:#3C8DBC !important"><b>Group 4</b></span> <input  type="checkbox" class="CheckboxCSSGroup4"></h3>');
+                            $("#SubjectCSSGroup5").append('<h3><span style="color:#3C8DBC !important"><b>Group 5</b></span> <input  type="checkbox" class="CheckboxCSSGroup5"></h3>');
+                            $("#SubjectCSSGroup6").append('<h3><span style="color:#3C8DBC !important"><b>Group 6</b></span> <input  type="checkbox" class="CheckboxCSSGroup6"></h3>');
+                            $("#SubjectCSSGroup7").append('<h3><span style="color:#3C8DBC !important"><b>Group 7</b></span> <input  type="checkbox" class="CheckboxCSSGroup7"></h3>');
+
+                            $("#SubjectCSSGroup1").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup1TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup2").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup2TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup3").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup3TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup4").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup4TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup5").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup5TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup6").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup6TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup7").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup7TableBody"></tbody></table>');
+
+                            $.each(OptionalSubjecsList, function (key, value1) {
+
+                                if (value1.SubjectGroup == "1") {
+
+
+                           $("#SubjectCSSGroup1TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects1"></td></tr>');
+
+                                }
+                                else if (value1.SubjectGroup == "2") {
+
+                                    $("#SubjectCSSGroup2TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects2"></td></tr>');
+
+                                }
+                                else if (value1.SubjectGroup == "3") {
+
+                                    $("#SubjectCSSGroup3TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects3"></td></tr>');
+
+                                }
+                                else if (value1.SubjectGroup == "4") {
+
+                                    $("#SubjectCSSGroup4TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects4"></td></tr>');
+
+                                }
+                                else if (value1.SubjectGroup == "5") {
+
+                                    $("#SubjectCSSGroup5TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects5"></td></tr>');
+
+                                }
+                                else if (value1.SubjectGroup == "6") {
+
+                                    $("#SubjectCSSGroup6TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects6"></td></tr>');
+
+                                }
+                                else if (value1.SubjectGroup == "7") {
+
+                                    $("#SubjectCSSGroup7TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects7"></td></tr>');
+
+                                }
+                                else {
+
+                                }
+
+
+
+                            })
+
+                        }
+
+                        else if (CourseType == "PMS") {
+
+                            $(".SubjectsBoxesCSS").css('display', 'none');
+
+                            $(".SubjectsBoxesPMS").css('display', 'block');
+
+                            $("#MandatorySubjectsPMS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects</b></span><input  type="checkbox" class="CheckboxPMSMandatory"></h3>');
+                            $("#MandatorySubjectsPMS").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsPMSTableBody"></tbody></table>');
+                            $.each(MandatorySubjectsList, function (key, value1) {
+
+
+                                $("#MandatorySubjectsPMSTableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="checkbox" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects0"></td></tr>');
+
+                            })
+                            $("#SubjectPMSGroup1").append('<h3><span style="color:#3C8DBC !important"><b>Group 1</b></span></span><input  type="checkbox" class="CheckboxPMSGroup1"> </h3>');
+                            $("#SubjectPMSGroup2").append('<h3><span style="color:#3C8DBC !important"><b>Group 2</b></span> </span><input  type="checkbox" class="CheckboxPMSGroup2"></h3>');
+                            $("#SubjectPMSGroup3").append('<h3><span style="color:#3C8DBC !important"><b>Group 3</b></span> </span><input  type="checkbox" class="CheckboxPMSGroup3"></h3>');
+                            $("#SubjectPMSGroup4").append('<h3><span style="color:#3C8DBC !important"><b>Group 4</b></span> </span><input  type="checkbox" class="CheckboxPMSGroup4"></h3>');
+                            $("#SubjectPMSGroup5").append('<h3><span style="color:#3C8DBC !important"><b>Group 5</b></span> </span><input  type="checkbox" class="CheckboxPMSGroup5"></h3>');
+
+                            $("#SubjectPMSGroup1").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup1TableBody"></tbody></table>');
+                            $("#SubjectPMSGroup2").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup2TableBody"></tbody></table>');
+                            $("#SubjectPMSGroup3").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup3TableBody"></tbody></table>');
+                            $("#SubjectPMSGroup4").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup4TableBody"></tbody></table>');
+                            $("#SubjectPMSGroup5").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup5TableBody"></tbody></table>');
+
+
+                            $.each(OptionalSubjecsList, function (key, value1) {
+
+                                if (value1.SubjectGroup == "1") {
+
+
+                                    $("#SubjectPMSGroup1TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects1"></td></tr>');
+
+
+                                }
+                                else if (value1.SubjectGroup == "2") {
+
+                                    $("#SubjectPMSGroup2TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects2"></td></tr>');
+
+
+
+                                }
+                                else if (value1.SubjectGroup == "3") {
+
+                                    $("#SubjectPMSGroup3TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects3"></td></tr>');
+
+
+
+                                }
+                                else if (value1.SubjectGroup == "4") {
+
+                                    $("#SubjectPMSGroup4TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects4"></td></tr>');
+
+
+
+                                }
+                                else if (value1.SubjectGroup == "5") {
+
+                                    $("#SubjectPMSGroup5TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects5"></td></tr>');
+
+
+
+                                }
+
+                                else {
+
+                                }
+
+
+
+                            })
+
+                        }
+
+                    })
+
+
+            }
+
+
+
+          
+
+      });
+
+
+          $("#NotesAmount").bind('keyup mouseup', function () {
+
+
+             $("#DiscountInAmount").val(0);
+             $("#RemainingAmount").val(0);
+             $("#Discount").val(0);
+             $("#TotalFee").val("");
+             $("#DiscountPercentage").val(0);
+
+        })
+
+
+
+
+        $("#BirthDate").bind('blur', function () {
+            var dob = $("#birthDate").val();
+            var dob = dob.split("-");
+            var date = new Date();
+
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+
+            if (dob[0] <= year) {
+                $('#FormSubmit').prop('disabled', false);
+                $('#DOB-Error').html(" ");
+                if (dob[0] == year) {
+                    if (dob[1] <= month) {
+                        $('#FormSubmit').prop('disabled', false);
+                        $('#DOB-Error').html(" ");
+                        if (dob[1] == month) {
+                            if (dob[2] < day) {
+                                $('#FormSubmit').prop('disabled', false);
+                                $('#DOB-Error').html(" ");
+                            } else {
+                                $('#FormSubmit').prop('disabled', true);
+                                $('#DOB-Error').html("Enter a date less than today");
+                            }
+                        } else if (dob[1] > month) {
+                            $('#FormSubmit').prop('disabled', true);
+                            $('#DOB-Error').html("Enter a date less than today");
+                        }
+                    } else {
+                        $('#FormSubmit').prop('disabled', true);
+                        $('#DOB-Error').html("Enter a date less than today");
+                    }
+                }
+            } else {
+                $('#FormSubmit').prop('disabled', true);
+                $('#DOB-Error').html("Enter a date less than today")
+            }
+
+        });
+
+    });
+
+    
+
+    function checkPhone(phone) {
+        //var phone = $("#inputEmail3").val();
+        var length = phone.value.length;
+        console.log(length);
+
+        if (length == 11) {
+            var patt = new RegExp("^[0]+[0-9]{10,}$");
+            var test = patt.test(phone.value);
+            console.log(test);
+            if (test == false) {
+                $('#Phone-Error').html("Phone number is not in correct formate");
+                $('#FormSubmit').prop('disabled', true);
+            } else {
+                $('#FormSubmit').prop('disabled', false);
+                $('#Phone-Error').html(" ");
+            }
+        } else {
+            $('#Phone-Error').html("Phone number is not in correct formate");
+            $('#FormSubmit').prop('disabled', true);
+        }
+    }
+
+    function onCancel() {
+        $('#cancel').click();
+    }
+    function onSave() {
+        $('#FormSubmit').click();
+    }
+
+
+      function Calc() {
+
+           //   $("#Fee").val(0);
+         //   $("#FeeType").val(0);
+
+
+            $("#DiscountPercentage").val(0);
+            $("#Discount").val(0);
+            $("#RemainingAmount").val(0);
+
+          //  $("#TotalFee").val("");
+
+
+        var SessionFee = $("#SessionFee").val();
+        var FeeType = $("#FeeType").val();
+      //  var Discount = $("#Discount").val();
+        var NotesAmount = $("#NotesAmount").val();
+        if (SessionFee == "")
+            SessionFee = 0;
+
+        //if (Discount == "")
+        //       Discount = 0;
+
+        if (NotesAmount == "")
+               NotesAmount = 0;
+            debugger
+
+                if (FeeType == "Installment" && FeeType != "")
+                {
+                    $('#Fee').val(parseInt(SessionFee) + 6000 /*+ parseInt(NotesAmount) - parseInt(Discount)*/);
+                    $('#TotalFee').val(parseInt(SessionFee) + 6000 + parseInt(NotesAmount));
+
+                  }
+                else if (FeeType == "PerMonth" && FeeType != "")
+                {
+                    $('#Fee').val(parseInt(SessionFee) + 12000 /*+ parseInt(NotesAmount) - parseInt(Discount)*/);
+                    $('#TotalFee').val(parseInt(SessionFee) + 12000 + parseInt(NotesAmount));
+                }
+                else if (FeeType == "FullFee" && FeeType != "")
+                {
+                    $('#Fee').val(parseInt(SessionFee)  /*+ parseInt(NotesAmount) - parseInt(Discount)*/);
+                    $('#TotalFee').val(parseInt(SessionFee) + parseInt(NotesAmount) );
+                }
+
+                else
+                {
+                    return false;
+                }
+
+
+
+        $("#DiscountDiv").css('display', 'block');
+    }
+
+
+</script>
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > @Html.ActionLink("Student", "StudentsIndex", "AspNetUser") > <span class="text-primary"><b>Edit</b></span></label>
+
+<h4 class="orange">Edit Student</h4>
+<div class="row" style="padding-bottom: 10px; padding-top: 10px; padding-left: 20px; padding-right: 20px;">
+    <button class="btn btn-default pull-left btn-sm" onclick="onCancel()">
+        Cancel
+    </button>
+    <button class="pull-right" style="background-color: transparent; border: none; outline: none; font-size: 20px; color: rgb(89, 89, 89) !important" onclick="onSave()">
+        <i class="fa fa-floppy-o"></i>
+    </button>
+</div>
+
+@using (Html.BeginForm("EditStudent", "AspNetUser", FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="box box-primary">
+        <hr />
+        <div class="form-horizontal">
+            <div class="box-header with-border"><h3 class="orange">User Information<span class="red-mark">*</span></h3></div>
+
+
+
+            <div class="box-body">
+
+
+                <div class="row">
+                    <div class="col-md-5">
+
+                        <input type="hidden" id="VoucherExist" name="VoucherExist" value="@ViewBag.VoucherExist" />
+                        <input type="hidden" name="VoucherId" id="VoucherId" value="@ViewBag.VoucherId " />
+                        
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.Id)
+
+                        @*<input type="hidden" name="PasswordHash" value="@ViewBag.UserPassword" />*@
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-lg-2">Name<span class="red-mark">*</span></label>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required="required" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-lg-2">Father's Name</label>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.AspNetStudents.FirstOrDefault().Fathers_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                            <label class="control-label col-md-2 col-lg-2">Address</label>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.AspNetStudents.FirstOrDefault().Address, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+
+                        @*<div class="form-group">
+                            <label class="control-label col-md-2 col-lg-2">Age</label>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.AspNetStudents.FirstOrDefault().Age, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-lg-2">Section Timings </label>
+                            <div class="col-md-10">
+                                <input type="hidden" id="SectionTiming" value="@ViewBag.ClassTiming" />
+
+                                <select name="ClassTimings" class="form-control round-border" id="ClassTimings">
+                                    <option value="Morning">Morning</option>
+                                    <option value="Evening">Evening</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-lg-2 control-label">Course Type:</label>
+                            <div class="col-md-10">
+                                <input type="hidden" value="@ViewBag.CourseType" id="CourseType" />
+
+                                <input type="radio" name="CourseType" value="CSS"> CSS
+                                <br>
+                                <input type="radio" name="CourseType" value="PMS"> PMS
+                                <br>
+
+                                <label><input type="radio" name="CourseType" id="OnePaper" value="OnePaper"> One Paper </label>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7">
+
+                        @if (@ViewBag.StudentImage != null)
+                        {
+                            <img id="imgPreview" style="height:200px;width:200px;" src="~/Content/Images/StudentImages/@ViewBag.StudentImage" alt="Alternate Text" />
+
+                        }
+
+
+
+
+                        <input title="Upload a product image" id="UploadImg" type="file" name="image" />
+                    </div>
+
+
+
+
+                </div> <!--row-->
+                <br />
+
+                <div class="box box-primary">
+
+                    <div class="box-header with-border"><h3 class="orange">Account Information</h3></div>
+                    <div class="box-body">
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-lg-2"> Email<span class="red-mark">*</span></label>
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", @id = "Email-Error" })
+                            </div>
+                        </div>
+
+                        @*<div class="form-group">
+                                <label class="control-label col-md-2 col-lg-2"> Phone Number</label>
+                                <div class="col-md-5">
+                                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @onblur = "checkPhone(this)" } })
+                                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger", @id = "Phone-Error" })
+                                </div>
+                            </div>*@
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-lg-2"> User Name<span class="red-mark">*</span></label>
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger", @id = "UserName-Error" })
+                            </div>
+                        </div>
+
+
+                        <br />
+                        <br />
+                    </div>
+                </div>
+
+
+
+
+                @*<div class="box box-primary">
+                        <div class="box-title"></div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="col-md-1 col-lg-1 control-label" style="text-align:center;">Please Prepare My Child For:</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="SchoolName" placeholder="School Name" value="@ViewBag.employee.SchoolName" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                <!--
+                <div class="box box-primary">
+                    <div class="box-title"></div>
+
+
+                    <div class="box-header with-border"><h3 class="orange">Personal Information<span class="red-mark">*</span></h3></div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <label class="control-label">Birth Date (M/D/Y) <span class="red-mark">*</span></label>
+                                    <input type="date" name="BirthDate" id="BirthDate" class="form-control" required value="">
+                                    <span id="DOB-Error" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <label class="control-label">Nationality <span class="red-mark">*</span></label>
+                                    <input type="hidden" id="NATION" value="" />
+                                    <select name="Nationality" class="form-control" id="Nationality" required>
+                                        <option value="">-- select one --</option>
+                                        <option value="afghan">Afghan</option>
+                                        <option value="albanian">Albanian</option>
+                                        <option value="algerian">Algerian</option>
+                                        <option value="american">American</option>
+                                        <option value="andorran">Andorran</option>
+                                        <option value="angolan">Angolan</option>
+                                        <option value="antiguans">Antiguans</option>
+                                        <option value="argentinean">Argentinean</option>
+                                        <option value="armenian">Armenian</option>
+                                        <option value="australian">Australian</option>
+                                        <option value="austrian">Austrian</option>
+                                        <option value="azerbaijani">Azerbaijani</option>
+                                        <option value="bahamian">Bahamian</option>
+                                        <option value="bahraini">Bahraini</option>
+                                        <option value="bangladeshi">Bangladeshi</option>
+                                        <option value="barbadian">Barbadian</option>
+                                        <option value="barbudans">Barbudans</option>
+                                        <option value="batswana">Batswana</option>
+                                        <option value="belarusian">Belarusian</option>
+                                        <option value="belgian">Belgian</option>
+                                        <option value="belizean">Belizean</option>
+                                        <option value="beninese">Beninese</option>
+                                        <option value="bhutanese">Bhutanese</option>
+                                        <option value="bolivian">Bolivian</option>
+                                        <option value="bosnian">Bosnian</option>
+                                        <option value="brazilian">Brazilian</option>
+                                        <option value="british">British</option>
+                                        <option value="bruneian">Bruneian</option>
+                                        <option value="bulgarian">Bulgarian</option>
+                                        <option value="burkinabe">Burkinabe</option>
+                                        <option value="burmese">Burmese</option>
+                                        <option value="burundian">Burundian</option>
+                                        <option value="cambodian">Cambodian</option>
+                                        <option value="cameroonian">Cameroonian</option>
+                                        <option value="canadian">Canadian</option>
+                                        <option value="cape verdean">Cape Verdean</option>
+                                        <option value="central african">Central African</option>
+                                        <option value="chadian">Chadian</option>
+                                        <option value="chilean">Chilean</option>
+                                        <option value="chinese">Chinese</option>
+                                        <option value="colombian">Colombian</option>
+                                        <option value="comoran">Comoran</option>
+                                        <option value="congolese">Congolese</option>
+                                        <option value="costa rican">Costa Rican</option>
+                                        <option value="croatian">Croatian</option>
+                                        <option value="cuban">Cuban</option>
+                                        <option value="cypriot">Cypriot</option>
+                                        <option value="czech">Czech</option>
+                                        <option value="danish">Danish</option>
+                                        <option value="djibouti">Djibouti</option>
+                                        <option value="dominican">Dominican</option>
+                                        <option value="dutch">Dutch</option>
+                                        <option value="east timorese">East Timorese</option>
+                                        <option value="ecuadorean">Ecuadorean</option>
+                                        <option value="egyptian">Egyptian</option>
+                                        <option value="emirian">Emirian</option>
+                                        <option value="equatorial guinean">Equatorial Guinean</option>
+                                        <option value="eritrean">Eritrean</option>
+                                        <option value="estonian">Estonian</option>
+                                        <option value="ethiopian">Ethiopian</option>
+                                        <option value="fijian">Fijian</option>
+                                        <option value="filipino">Filipino</option>
+                                        <option value="finnish">Finnish</option>
+                                        <option value="french">French</option>
+                                        <option value="gabonese">Gabonese</option>
+                                        <option value="gambian">Gambian</option>
+                                        <option value="georgian">Georgian</option>
+                                        <option value="german">German</option>
+                                        <option value="ghanaian">Ghanaian</option>
+                                        <option value="greek">Greek</option>
+                                        <option value="grenadian">Grenadian</option>
+                                        <option value="guatemalan">Guatemalan</option>
+                                        <option value="guinea-bissauan">Guinea-Bissauan</option>
+                                        <option value="guinean">Guinean</option>
+                                        <option value="guyanese">Guyanese</option>
+                                        <option value="haitian">Haitian</option>
+                                        <option value="herzegovinian">Herzegovinian</option>
+                                        <option value="honduran">Honduran</option>
+                                        <option value="hungarian">Hungarian</option>
+                                        <option value="icelander">Icelander</option>
+                                        <option value="indian">Indian</option>
+                                        <option value="indonesian">Indonesian</option>
+                                        <option value="iranian">Iranian</option>
+                                        <option value="iraqi">Iraqi</option>
+                                        <option value="irish">Irish</option>
+                                        <option value="israeli">Israeli</option>
+                                        <option value="italian">Italian</option>
+                                        <option value="ivorian">Ivorian</option>
+                                        <option value="jamaican">Jamaican</option>
+                                        <option value="japanese">Japanese</option>
+                                        <option value="jordanian">Jordanian</option>
+                                        <option value="kazakhstani">Kazakhstani</option>
+                                        <option value="kenyan">Kenyan</option>
+                                        <option value="kittian and nevisian">Kittian and Nevisian</option>
+                                        <option value="kuwaiti">Kuwaiti</option>
+                                        <option value="kyrgyz">Kyrgyz</option>
+                                        <option value="laotian">Laotian</option>
+                                        <option value="latvian">Latvian</option>
+                                        <option value="lebanese">Lebanese</option>
+                                        <option value="liberian">Liberian</option>
+                                        <option value="libyan">Libyan</option>
+                                        <option value="liechtensteiner">Liechtensteiner</option>
+                                        <option value="lithuanian">Lithuanian</option>
+                                        <option value="luxembourger">Luxembourger</option>
+                                        <option value="macedonian">Macedonian</option>
+                                        <option value="malagasy">Malagasy</option>
+                                        <option value="malawian">Malawian</option>
+                                        <option value="malaysian">Malaysian</option>
+                                        <option value="maldivan">Maldivan</option>
+                                        <option value="malian">Malian</option>
+                                        <option value="maltese">Maltese</option>
+                                        <option value="marshallese">Marshallese</option>
+                                        <option value="mauritanian">Mauritanian</option>
+                                        <option value="mauritian">Mauritian</option>
+                                        <option value="mexican">Mexican</option>
+                                        <option value="micronesian">Micronesian</option>
+                                        <option value="moldovan">Moldovan</option>
+                                        <option value="monacan">Monacan</option>
+                                        <option value="mongolian">Mongolian</option>
+                                        <option value="moroccan">Moroccan</option>
+                                        <option value="mosotho">Mosotho</option>
+                                        <option value="motswana">Motswana</option>
+                                        <option value="mozambican">Mozambican</option>
+                                        <option value="namibian">Namibian</option>
+                                        <option value="nauruan">Nauruan</option>
+                                        <option value="nepalese">Nepalese</option>
+                                        <option value="new zealander">New Zealander</option>
+                                        <option value="ni-vanuatu">Ni-Vanuatu</option>
+                                        <option value="nicaraguan">Nicaraguan</option>
+                                        <option value="nigerien">Nigerien</option>
+                                        <option value="north korean">North Korean</option>
+                                        <option value="northern irish">Northern Irish</option>
+                                        <option value="norwegian">Norwegian</option>
+                                        <option value="omani">Omani</option>
+                                        <option value="pakistani">Pakistani</option>
+                                        <option value="palauan">Palauan</option>
+                                        <option value="panamanian">Panamanian</option>
+                                        <option value="papua new guinean">Papua New Guinean</option>
+                                        <option value="paraguayan">Paraguayan</option>
+                                        <option value="peruvian">Peruvian</option>
+                                        <option value="polish">Polish</option>
+                                        <option value="portuguese">Portuguese</option>
+                                        <option value="qatari">Qatari</option>
+                                        <option value="romanian">Romanian</option>
+                                        <option value="russian">Russian</option>
+                                        <option value="rwandan">Rwandan</option>
+                                        <option value="saint lucian">Saint Lucian</option>
+                                        <option value="salvadoran">Salvadoran</option>
+                                        <option value="samoan">Samoan</option>
+                                        <option value="san marinese">San Marinese</option>
+                                        <option value="sao tomean">Sao Tomean</option>
+                                        <option value="saudi">Saudi</option>
+                                        <option value="scottish">Scottish</option>
+                                        <option value="senegalese">Senegalese</option>
+                                        <option value="serbian">Serbian</option>
+                                        <option value="seychellois">Seychellois</option>
+                                        <option value="sierra leonean">Sierra Leonean</option>
+                                        <option value="singaporean">Singaporean</option>
+                                        <option value="slovakian">Slovakian</option>
+                                        <option value="slovenian">Slovenian</option>
+                                        <option value="solomon islander">Solomon Islander</option>
+                                        <option value="somali">Somali</option>
+                                        <option value="south african">South African</option>
+                                        <option value="south korean">South Korean</option>
+                                        <option value="spanish">Spanish</option>
+                                        <option value="sri lankan">Sri Lankan</option>
+                                        <option value="sudanese">Sudanese</option>
+                                        <option value="surinamer">Surinamer</option>
+                                        <option value="swazi">Swazi</option>
+                                        <option value="swedish">Swedish</option>
+                                        <option value="swiss">Swiss</option>
+                                        <option value="syrian">Syrian</option>
+                                        <option value="taiwanese">Taiwanese</option>
+                                        <option value="tajik">Tajik</option>
+                                        <option value="tanzanian">Tanzanian</option>
+                                        <option value="thai">Thai</option>
+                                        <option value="togolese">Togolese</option>
+                                        <option value="tongan">Tongan</option>
+                                        <option value="trinidadian or tobagonian">Trinidadian or Tobagonian</option>
+                                        <option value="tunisian">Tunisian</option>
+                                        <option value="turkish">Turkish</option>
+                                        <option value="tuvaluan">Tuvaluan</option>
+                                        <option value="ugandan">Ugandan</option>
+                                        <option value="ukrainian">Ukrainian</option>
+                                        <option value="uruguayan">Uruguayan</option>
+                                        <option value="uzbekistani">Uzbekistani</option>
+                                        <option value="venezuelan">Venezuelan</option>
+                                        <option value="vietnamese">Vietnamese</option>
+                                        <option value="welsh">Welsh</option>
+                                        <option value="yemenite">Yemenite</option>
+                                        <option value="zambian">Zambian</option>
+                                        <option value="zimbabwean">Zimbabwean</option>
+                                    </select>
+                                </div>
+                            </div>
+                            @*<div class="col-md-3">
+                                <div class="text-center">
+                                    <label>Religion <span class="red-mark">*</span></label>
+                                    <input type="hidden" id="RELEGION" value="@ViewBag.employee.Religion" />
+                                    <select name="Religion" class="form-control" required id="Religion">
+                                        <option value="">-- select one --</option>
+                                        <option value="christian">Christian</option>
+                                        <option value="muslim">Muslim</option>
+                                        <option value="hindu">Hindu</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>*@
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <label>Gender <span class="red-mark">*</span></label>
+                                    <input type="hidden" id="GENDER" value="" />
+                                    <select name="Gender" class="form-control" required id="Gender">
+                                        <option value="">-- select one --</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    -->
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label class="col-md-1 col-lg-1 control-label">Select Section</label>
+                            <div class="col-md-6">
+                                @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control", @readonly="readonly" })
+                                <br />
+                                <span style="color:red"> @ViewBag.SubjectsErrorMsg</span>
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                                <label class="col-md-1 col-lg-1 control-label">Mandatory Subjects</label>
+                                <div class="col-md-2">
+                                    <input id="MandatorySubjects" type="checkbox" name="name" style="width:30px;height:30px" value="" />
+
+                                </div>
+
+
+                            </div>*@
+
+                        @*<select multiple class="form-control" id="subjects" name="subjects" required></select>*@
+
+
+                        @*<div class="form-group" id="subjectsdiv">
+                                <label class="control-label col-md-1 col-lg-1">Subjects</label>
+                                <div class="col-md-6">
+
+                                    <div class="checkbox-group required" id="SubjectsList">
+
+
+
+                                    </div>
+
+
+                                </div>
+                            </div>*@
+
+
+                        <div class="form-group SubjectsBoxesCSS" id="MandatorySubjectCss">
+                            <div class="col-md-12" id="MandatorySubjectsCSS">
+
+
+
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group SubjectsBoxesCSS" id="Group1CSS">
+
+                            <div class="col-md-12" id="SubjectCSSGroup1">
+
+                            </div>
+
+                        </div>
+                        <div class="form-group SubjectsBoxesCSS" id="Group2CSS">
+
+                            <div class="col-md-12" id="SubjectCSSGroup2">
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group SubjectsBoxesCSS" id="Group3CSS">
+                            <div class="col-md-12" id="SubjectCSSGroup3">
+
+                            </div>
+
+                        </div>
+                        <div class="form-group SubjectsBoxesCSS" id="Group4CSS">
+                            <div class="col-md-12" id="SubjectCSSGroup4">
+
+                            </div>
+
+                        </div>
+                        <div class="form-group SubjectsBoxesCSS" id="Group5CSS">
+                            <div class="col-md-12" id="SubjectCSSGroup5">
+                            </div>
+
+                        </div>
+                        <div class="form-group SubjectsBoxesCSS" id="Group6CSS">
+                            <div class="col-md-12" id="SubjectCSSGroup6">
+
+                            </div>
+
+                        </div>
+                        <div class="form-group SubjectsBoxesCSS" id="Group7CSS">
+                            <div class="col-md-12" id="SubjectCSSGroup7">
+
+                            </div>
+
+                        </div>
+
+
+                        <!--PMS-->
+
+                        <div class="form-group SubjectsBoxesPMS" id="MandatorySubjectPMS">
+                            <div class="col-md-12" id="MandatorySubjectsPMS">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group SubjectsBoxesPMS" id="Group1PMS">
+
+                            <div class="col-md-12" id="SubjectPMSGroup1">
+
+                            </div>
+
+                        </div>
+                        <div class="form-group SubjectsBoxesPMS" id="Group2PMS">
+
+                            <div class="col-md-12" id="SubjectPMSGroup2">
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group SubjectsBoxesPMS" id="Group3PMS">
+                            <div class="col-md-12" id="SubjectPMSGroup3">
+
+                            </div>
+
+                        </div>
+                        <div class="form-group SubjectsBoxesPMS" id="Group4PMS">
+                            <div class="col-md-12" id="SubjectPMSGroup4">
+
+                            </div>
+
+                        </div>
+                        <div class="form-group SubjectsBoxesPMS" id="Group5PMS">
+                            <div class="col-md-12" id="SubjectPMSGroup5">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="box box-primary" id="FeeDetailDiv" style="display:none">
+                    @*<div class="box-title"></div>*@
+                    <div class="box-header with-border"><h3 class="orange">Fee Details</h3></div>
+                    <div class="box-body">
+
+                        <div class="form-group">
+                            <label for="CourseType" class="col-md-2 col-lg-2 control-label"><b>Notes Catergory:</b> <span class="red-mark">*</span></label>
+                            <div class="col-md-6">
+
+                                <div class="form-group RadioButtonPadding">
+                                    <div class="checkbox" id="NotesCategoryDiv">
+
+                                        <label><input type="radio" name="NotesCategory" value="WithOutNotes" id="WithOutNotes">Without Notes</label>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <label><input type="radio" name="NotesCategory" value="WithNotes" id="WithNotes">With Notes</label>
+
+                                    </div>
+
+                                </div>
+                                <span id="Phone-Error" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        <div class="form-group" style="display:none" id="NotesID">
+                            <label class="col-md-2 col-lg-2 control-label"><b>Notes Amount:</b><span class="red-mark">*</span></label>
+                            <div class="col-md-6">
+
+
+
+                                @if (ViewBag.NotesFee != null)
+                                {
+                                    <input type="hidden" value="@ViewBag.NotesFee" id="NotesAmountHidden" />
+
+                                    <input value="@ViewBag.NotesFee" type="number" class="form-control round-border" name="NotesAmount" id="NotesAmount" />
+
+
+                                }
+
+                                else
+                                {
+                                    <input type="number" class="form-control round-border" name="NotesAmount" id="NotesAmount" />
+
+                                }
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-lg-2 control-label"><b>Session Fee:</b><span class="red-mark">*</span></label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control round-border" name="SessionFee" id="SessionFee" value="0" readonly />
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-lg-2 control-label"><b>Fee Type</b><span class="red-mark">*</span></label>
+                            <div class="col-md-6">
+
+                                <input type="hidden" id="FeeTypeOfStudent" name="name" value="@ViewBag.FeeType" />
+
+                                <select name="FeeType" id="FeeType" class="form-control text_box_style">
+                                    <option value="" selected>   Select One</option>
+                                    <option value="FullFee">Full Fee</option>
+                                    <option value="Installment">Installment</option>
+                                    <option value="PerMonth">Per Month</option>
+
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-lg-2 control-label"></label>
+                            <div class="col-md-6">
+                                <button id="CalculateFee" type="button" onclick="Calc()" class="btn btn-primary ">Calculate Fee</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-lg-2 control-label"><b>Fee:</b></label>
+                            <div class="col-md-6">
+                                <input type="text" value="@ViewBag.StudentFeeOfFeeType" required class="form-control text_box_style" name="Fee" id="Fee" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-lg-2 control-label"><b>Discount %</b></label>
+                            <div class="col-md-6">
+                                <input type="number"  value="@ViewBag.DiscountPercentage" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control round-border"  name="DiscountPercentage" id="DiscountPercentage" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-lg-2 control-label"><b>Discount Amount:</b></label>
+                            <div class="col-md-6">
+
+                                @if (ViewBag.Discount != null)
+                                {
+                                    <input type="number" readonly value="@ViewBag.Discount" class="form-control round-border" name="Discount" id="Discount" />
+
+                                }
+
+                                else
+                                {
+
+                                    <input type="number" readonly value="0" class="form-control round-border" name="Discount" id="Discount" />
+
+                                }
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-lg-2 control-label"><b>Remaining Amount </b></label>
+                            <div class="col-md-6">
+                                <input type="number" value="@ViewBag.RemainingAmount" class="form-control round-border" name="RemainingAmount" id="RemainingAmount" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-lg-2 control-label"><b>Total Fee:</b></label>
+                            <div class="col-md-6">
+
+                                @if (ViewBag.FeePayAbleAsTotalFee != null)
+                                {
+                                    <input type="text" value="@ViewBag.FeePayAbleAsTotalFee" required class="form-control text_box_style totalfeeclass" name="TotalFee" id="TotalFee" readonly />
+
+                                }
+                                else
+
+                                {
+
+                                    <input type="text" required class="form-control text_box_style totalfeeclass" name="TotalFee" id="TotalFee" readonly />
+
+
+                                }
+
+
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-lg-offset-1 col-md-5">
+                        <button type="submit" class="btn btn-primary" value="Register" id="FormSubmit">Update</button>
+                        <button type="button" id="cancel" class="btn btn-default" onclick="redirect()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div>
+</div>
+<script>
+    function redirect() {
+        window.location.href = "StudentsIndex";
+    }
+
+
+
+
+    $(document).ready(function () {
+        $("#UploadImg").change(function () {
+
+            $("#imgPreview").css('display', 'block');
+            readURL(this);
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+
+
+                    $('#imgPreview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    })
+
+
+    $(document).ready(function () {
+
+         $("form").submit(function(){
+             debugger
+             var TotalFee  = $("#TotalFee").val();
+
+             if (TotalFee == "" && TotalFee <0) {
+                 return false;
+             }
+
+
+            $("#FormSubmit").attr("disabled", true);
+
+
+         });
+
+        $("input").click(function () {
+
+            $("#FormSubmit").attr("disabled", false);
+
+        })
+
+        $("input[value='OnePaper']").click(function () {
+
+            // $('#subjects').prop('required', false);
+
+            $("#subjectsdiv").css("display", "none");
+
+        })
+        $("input[value='CSS']").click(function () {
+
+            // $('#subjects').prop('required', true);
+            $("#subjectsdiv").css("display", "block");
+
+
+        })
+        $("input[value='PMS']").click(function () {
+
+            // $('#subjects').prop('required', true);
+            $("#subjectsdiv").css("display", "block");
+
+
+        })
+        if ($("input[value='OnePaper']").is(':checked')) {
+
+            //  $('#subjects').prop('required', false);
+            $("#subjectsdiv").css("display", "none");
+
+        }
+
+
+        $("#MandatorySubjectsCSS").on('change', ".CheckboxCSSMandatory", function () {
+            debugger
+
+            var CourseType = $("input[name='CourseType']").val();
+
+
+            if ($(this).is(':checked')) {
+
+
+                $("input[name='CSSSubjects0']").prop("checked", true);
+
+            }
+
+            else {
+
+                $("input[name='CSSSubjects0']").prop("checked", false);
+
+            }
+
+        })
+
+
+            $("#SubjectCSSGroup1").on('change', ".CheckboxCSSGroup1", function () {
+            
+            if ($(this).is(':checked')) {
+
+                $("input[name='CSSSubjects1']:first").prop("checked", true);
+
+            }
+
+            else {
+
+                $("input[name='CSSSubjects1']").prop("checked", false);
+
+
+
+            }
+
+        })
+
+
+          $("#SubjectCSSGroup2").on('change', ".CheckboxCSSGroup2", function () {
+            
+            if ($(this).is(':checked')) {
+
+                $("input[name='CSSSubjects2']:first").prop("checked", true);
+
+            }
+
+            else {
+
+                $("input[name='CSSSubjects2']").prop("checked", false);
+
+
+
+            }
+
+        })
+
+        
+          $("#SubjectCSSGroup3").on('change', ".CheckboxCSSGroup3", function () {
+            
+            if ($(this).is(':checked')) {
+
+                $("input[name='CSSSubjects3']:first").prop("checked", true);
+
+            }
+
+            else {
+
+                $("input[name='CSSSubjects3']").prop("checked", false);
+
+
+
+            }
+
+        })
+
+        
+          $("#SubjectCSSGroup4").on('change', ".CheckboxCSSGroup4", function () {
+            
+            if ($(this).is(':checked')) {
+
+                $("input[name='CSSSubjects4']:first").prop("checked", true);
+
+            }
+
+            else {
+
+                $("input[name='CSSSubjects4']").prop("checked", false);
+
+
+
+            }
+
+        })
+
+        
+          $("#SubjectCSSGroup5").on('change', ".CheckboxCSSGroup5", function () {
+            
+            if ($(this).is(':checked')) {
+
+                $("input[name='CSSSubjects5']:first").prop("checked", true);
+
+            }
+
+            else {
+
+                $("input[name='CSSSubjects5']").prop("checked", false);
+
+
+
+            }
+
+        })
+
+        
+          $("#SubjectCSSGroup6").on('change', ".CheckboxCSSGroup6", function () {
+            
+            if ($(this).is(':checked')) {
+
+                $("input[name='CSSSubjects6']:first").prop("checked", true);
+
+            }
+
+            else {
+
+                $("input[name='CSSSubjects6']").prop("checked", false);
+
+
+
+            }
+
+        })
+
+        
+          $("#SubjectCSSGroup7").on('change', ".CheckboxCSSGroup7", function () {
+            
+            if ($(this).is(':checked')) {
+
+                $("input[name='CSSSubjects7']:first").prop("checked", true);
+
+            }
+
+            else {
+
+                $("input[name='CSSSubjects7']").prop("checked", false);
+
+
+
+            }
+
+        })
+
+
+
+        $("#MandatorySubjectsPMS").on('change', ".CheckboxPMSMandatory", function () {
+            debugger
+
+            var CourseType = $("input[name='CourseType']").val();
+
+
+            if ($(this).is(':checked')) {
+
+
+                $("input[name='PMSSubjects0']").prop("checked", true);
+
+            }
+
+            else {
+
+                $("input[name='PMSSubjects0']").prop("checked", false);
+
+            }
+        })
+
+
+        
+        
+          $("#SubjectPMSGroup1").on('change', ".CheckboxPMSGroup1", function () {
+            
+            if ($(this).is(':checked')) {
+
+                $("input[name='PMSSubjects1']:first").prop("checked", true);
+
+            }
+
+            else {
+
+                $("input[name='PMSSubjects1']").prop("checked", false);
+
+
+
+            }
+
+          })
+        
+          $("#SubjectPMSGroup2").on('change', ".CheckboxPMSGroup2", function () {
+            
+            if ($(this).is(':checked')) {
+
+                $("input[name='PMSSubjects2']:first").prop("checked", true);
+
+            }
+
+            else {
+
+                $("input[name='PMSSubjects2']").prop("checked", false);
+
+
+
+            }
+
+          })
+        
+          $("#SubjectPMSGroup3").on('change', ".CheckboxPMSGroup3", function () {
+            
+            if ($(this).is(':checked')) {
+
+                $("input[name='PMSSubjects3']:first").prop("checked", true);
+
+            }
+
+            else {
+
+                $("input[name='PMSSubjects3']").prop("checked", false);
+
+
+
+            }
+
+          })
+        
+          $("#SubjectPMSGroup4").on('change', ".CheckboxPMSGroup4", function () {
+            
+            if ($(this).is(':checked')) {
+
+                $("input[name='PMSSubjects4']:first").prop("checked", true);
+
+            }
+
+            else {
+
+                $("input[name='PMSSubjects4']").prop("checked", false);
+
+
+
+            }
+
+          })
+
+          $("#SubjectPMSGroup5").on('change', ".CheckboxPMSGroup5", function () {
+            
+            if ($(this).is(':checked')) {
+
+                $("input[name='PMSSubjects5']:first").prop("checked", true);
+
+            }
+
+            else {
+
+                $("input[name='PMSSubjects5']").prop("checked", false);
+
+
+
+            }
+
+          })
+
+
+
+
+
+    })
+
+
+</script>

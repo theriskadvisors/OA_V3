@@ -1,0 +1,199 @@
+﻿@model SEA_Application.Models.AspNetNote
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
+
+
+}
+    <style>
+
+            .modal-content {
+        position: relative;
+        background-color: #fff;
+        margin-top: 102px;
+        background-clip: padding-box;
+        border: 1px solid #999;
+        border: 1px solid rgba(0,0,0,.2);
+        border-radius: 6px;
+        -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
+        box-shadow: 0 3px 9px rgba(0,0,0,.5);
+        outline: 0;
+    }
+    </style>
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > @Html.ActionLink("Order Notes", "Index", "AspNetOrderNotes") > <a href="#"><b>Details</b></a> </label>
+<h4 class="orange"> Order Notes Details </h4>
+<div class="box box-primary">
+    <div class="box-body">
+
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-horizontal">
+            <h4>Order Notes</h4>
+
+            <script>
+                $(document).ready(function () {
+                    // $('input').prop('disabled', true);
+                    $('select').prop('disabled', true);
+                    $("#QuantityBtn").prop('readonly', false);
+                })
+            </script>
+
+            <hr />
+
+            <div class="form-group">
+                <label class="control-label col-md-2"> @Html.DisplayNameFor(model => model.Title):</label>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-md-2"> @Html.DisplayNameFor(model => model.Description):</label>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Course Type</label>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.CourseType, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.CourseType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Notes Type</label>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.NotesType, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.NotesType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Price</label>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.GrandTotal, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.GrandTotal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2"> Quantity</label>
+                <div class="col-md-4">
+                    <input id="QuantityBtn" class="form-control" type="number" name="name" value="1" min="1" max="5" onkeydown="return false" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2"> @Html.DisplayNameFor(model => model.AspNetSubject.SubjectName)</label>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.AspNetSubject.SubjectName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.AspNetSubject.SubjectName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button id="confirmOrder" type="button" class="btn btn-info btn-primary" >Proceed</button>
+                    <button type="button" id="cancel" class="btn btn-default">Back</button>
+
+                </div>
+            </div>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to add this order to Cart?</p>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button id="Order" type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+    </div>
+    </div>
+<script>
+
+    $(document).ready(function () {
+
+          $("#cancel").click(function () {
+
+            window.location.href = '/AspNetOrderNotes/index';
+
+        });
+
+        var ActualPrice = parseInt($("#price").text());
+
+
+
+        $("#QuantityBtn").change(function () {
+
+            var Quantiy = $(this).val();
+
+            updatePrice = Quantiy * ActualPrice;
+
+            $("#price").text(updatePrice);
+
+
+
+        }) //end of QuantityBtn Change
+
+
+
+
+        $("#confirmOrder").click(function () {
+
+            var NotesId = $("#Id").val();
+            var Quantity = $("#QuantityBtn").val();
+            debugger
+            $.ajax({
+
+                type: "POST",
+
+
+                url: "/AspNetOrderNotes/ConfirmOrder",
+                data: {
+                    "NotesId": NotesId,
+                    "Quantity": Quantity,
+                },
+                success: function (data) {
+
+                    $("#confirmOrder").prop('disabled', true);
+                    window.location.href = '/AspNetOrderNotes/Index/';
+
+                }
+
+
+            })
+
+        })
+
+
+    })
+
+
+</script>

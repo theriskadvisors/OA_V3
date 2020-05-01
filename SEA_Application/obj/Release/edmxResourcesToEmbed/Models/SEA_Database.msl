@@ -1,0 +1,1499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="NGS_DatabaseModelStoreContainer" CdmEntityContainer="SEA_DatabaseEntities">
+    <FunctionImportMapping FunctionImportName="GetStudentBasicData" FunctionName="NGS_DatabaseModel.Store.GetStudentBasicData">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="NGS_DatabaseModel.GetStudentBasicData_Result">
+          <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Religion" ColumnName="Religion" />
+          <ScalarProperty Name="Class" ColumnName="Class" />
+          <ScalarProperty Name="Section" ColumnName="Section" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetStudentSessionSubjectAssessment" FunctionName="NGS_DatabaseModel.Store.GetStudentSessionSubjectAssessment">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="NGS_DatabaseModel.GetStudentSessionSubjectAssessment_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="STAID" ColumnName="STAID" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="Catageory" ColumnName="Catageory" />
+          <ScalarProperty Name="FirstTermGrade" ColumnName="FirstTermGrade" />
+          <ScalarProperty Name="SecondTermGrade" ColumnName="SecondTermGrade" />
+          <ScalarProperty Name="ThirdTermGrade" ColumnName="ThirdTermGrade" />
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetStudentSubjects" FunctionName="NGS_DatabaseModel.Store.GetStudentSubjects">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="NGS_DatabaseModel.GetStudentSubjects_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetStudentTermSubjectAssessment" FunctionName="NGS_DatabaseModel.Store.GetStudentTermSubjectAssessment">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="NGS_DatabaseModel.GetStudentTermSubjectAssessment_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="STAID" ColumnName="STAID" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="Catageory" ColumnName="Catageory" />
+          <ScalarProperty Name="FirstTermGrade" ColumnName="FirstTermGrade" />
+          <ScalarProperty Name="SecondTermGrade" ColumnName="SecondTermGrade" />
+          <ScalarProperty Name="ThirdTermGrade" ColumnName="ThirdTermGrade" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetSubjctAssessmentQuestions" FunctionName="NGS_DatabaseModel.Store.GetSubjctAssessmentQuestions">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="NGS_DatabaseModel.GetSubjctAssessmentQuestions_Result">
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_MSforeach_worker" FunctionName="NGS_DatabaseModel.Store.sp_MSforeach_worker" />
+    <FunctionImportMapping FunctionImportName="sp_MSforeachtable" FunctionName="NGS_DatabaseModel.Store.sp_MSforeachtable" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="NGS_DatabaseModel.Store.sp_upgraddiagrams" />
+    <EntitySetMapping Name="AspNetAbsent_Student">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetAbsent_Student">
+        <MappingFragment StoreEntitySet="AspNetAbsent_Student">
+          <ScalarProperty Name="Class" ColumnName="Class" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Roll_Number" ColumnName="Roll_Number" />
+          <ScalarProperty Name="AbsentId" ColumnName="AbsentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetAnnouncements">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetAnnouncement">
+        <MappingFragment StoreEntitySet="AspNetAnnouncement">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetAnnouncement_Subject">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetAnnouncement_Subject">
+        <MappingFragment StoreEntitySet="AspNetAnnouncement_Subject">
+          <ScalarProperty Name="AnnouncementID" ColumnName="AnnouncementID" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetAssessments">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetAssessment">
+        <MappingFragment StoreEntitySet="AspNetAssessment">
+          <ScalarProperty Name="AcceptSubmission" ColumnName="AcceptSubmission" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="Weightage" ColumnName="Weightage" />
+          <ScalarProperty Name="TotalMarks" ColumnName="TotalMarks" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Subject_CatalogID" ColumnName="Subject_CatalogID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetAssessment_Question">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetAssessment_Question">
+        <MappingFragment StoreEntitySet="AspNetAssessment_Question">
+          <ScalarProperty Name="QuestionCategory" ColumnName="QuestionCategory" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetAssessment_Questions_Category">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetAssessment_Questions_Category">
+        <MappingFragment StoreEntitySet="AspNetAssessment_Questions_Category">
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetAssessment_Topic">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetAssessment_Topic">
+        <MappingFragment StoreEntitySet="AspNetAssessment_Topic">
+          <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+          <ScalarProperty Name="AssessmentID" ColumnName="AssessmentID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetAttendances">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetAttendance">
+        <MappingFragment StoreEntitySet="AspNetAttendance">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetCatalogs">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetCatalog">
+        <MappingFragment StoreEntitySet="AspNetCatalog">
+          <ScalarProperty Name="CatalogName" ColumnName="CatalogName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetChapters">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetChapter">
+        <MappingFragment StoreEntitySet="AspNetChapter">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="ChapterName" ColumnName="ChapterName" />
+          <ScalarProperty Name="ChapterNo" ColumnName="ChapterNo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetClasses">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetClass">
+        <MappingFragment StoreEntitySet="AspNetClass">
+          <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+          <ScalarProperty Name="Section" ColumnName="Section" />
+          <ScalarProperty Name="Class" ColumnName="Class" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetClass_FeeType">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetClass_FeeType">
+        <MappingFragment StoreEntitySet="AspNetClass_FeeType">
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="LedgerID" ColumnName="LedgerID" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetCurriculums">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetCurriculum">
+        <MappingFragment StoreEntitySet="AspNetCurriculum">
+          <ScalarProperty Name="CurriculumName" ColumnName="CurriculumName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetDurationTypes">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetDurationType">
+        <MappingFragment StoreEntitySet="AspNetDurationType">
+          <ScalarProperty Name="MonthsDuration" ColumnName="MonthsDuration" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetEmp_Auto_Absent">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetEmp_Auto_Absent">
+        <MappingFragment StoreEntitySet="AspNetEmp_Auto_Absent">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetEmp_Auto_Attendance">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetEmp_Auto_Attendance">
+        <MappingFragment StoreEntitySet="AspNetEmp_Auto_Attendance">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="TimeOut" ColumnName="TimeOut" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="TimeIn" ColumnName="TimeIn" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetEmployees">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetEmployee">
+        <MappingFragment StoreEntitySet="AspNetEmployee">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Illness" ColumnName="Illness" />
+          <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+          <ScalarProperty Name="VirtualRoleId" ColumnName="VirtualRoleId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="EOP" ColumnName="EOP" />
+          <ScalarProperty Name="Tax" ColumnName="Tax" />
+          <ScalarProperty Name="ProvidedFund" ColumnName="ProvidedFund" />
+          <ScalarProperty Name="Accomodation" ColumnName="Accomodation" />
+          <ScalarProperty Name="MedicalAllowance" ColumnName="MedicalAllowance" />
+          <ScalarProperty Name="BasicSalary" ColumnName="BasicSalary" />
+          <ScalarProperty Name="GrossSalary" ColumnName="GrossSalary" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="SpouseBusinessAddress" ColumnName="SpouseBusinessAddress" />
+          <ScalarProperty Name="SpouseOccupation" ColumnName="SpouseOccupation" />
+          <ScalarProperty Name="SpouseHighestDegree" ColumnName="SpouseHighestDegree" />
+          <ScalarProperty Name="SpouseName" ColumnName="SpouseName" />
+          <ScalarProperty Name="Landline" ColumnName="Landline" />
+          <ScalarProperty Name="CellNo" ColumnName="CellNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="MailingAddress" ColumnName="MailingAddress" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Religion" ColumnName="Religion" />
+          <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DateAvailable" ColumnName="DateAvailable" />
+          <ScalarProperty Name="PositionAppliedFor" ColumnName="PositionAppliedFor" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetEmployee_Attendance">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetEmployee_Attendance">
+        <MappingFragment StoreEntitySet="AspNetEmployee_Attendance">
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="AttendanceID" ColumnName="AttendanceID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetEmployeeAttendances">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetEmployeeAttendance">
+        <MappingFragment StoreEntitySet="AspNetEmployeeAttendance">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetFeeChallans">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetFeeChallan">
+        <MappingFragment StoreEntitySet="AspNetFeeChallan">
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ValidDate" ColumnName="ValidDate" />
+          <ScalarProperty Name="Penalty" ColumnName="Penalty" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="DurationTypeID" ColumnName="DurationTypeID" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetFeedBackForms">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetFeedBackForm">
+        <MappingFragment StoreEntitySet="AspNetFeedBackForm">
+          <ScalarProperty Name="FormFor" ColumnName="FormFor" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetFeeTypes">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetFeeType">
+        <MappingFragment StoreEntitySet="AspNetFeeType">
+          <ScalarProperty Name="LedgerID" ColumnName="LedgerID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetFinanceLedgers">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetFinanceLedger">
+        <MappingFragment StoreEntitySet="AspNetFinanceLedgers">
+          <ScalarProperty Name="ShowIndividual" ColumnName="ShowIndividual" />
+          <ScalarProperty Name="StartingBalance" ColumnName="StartingBalance" />
+          <ScalarProperty Name="Head" ColumnName="Head" />
+          <ScalarProperty Name="TakeAble" ColumnName="TakeAble" />
+          <ScalarProperty Name="IsGroup" ColumnName="IsGroup" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetFinanceLedgerTypes">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetFinanceLedgerType">
+        <MappingFragment StoreEntitySet="AspNetFinanceLedgerType">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetFinanceMonths">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetFinanceMonth">
+        <MappingFragment StoreEntitySet="AspNetFinanceMonth">
+          <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartData" ColumnName="StartData" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetFinancePeriods">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetFinancePeriod">
+        <MappingFragment StoreEntitySet="AspNetFinancePeriod">
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetHoliday_Calendar_Notification">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetHoliday_Calendar_Notification">
+        <MappingFragment StoreEntitySet="AspNetHoliday_Calendar_Notification">
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetHomeworks">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetHomework">
+        <MappingFragment StoreEntitySet="AspNetHomework">
+          <ScalarProperty Name="PrincipalApproved_status" ColumnName="PrincipalApproved_status" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetLessonPlans">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetLessonPlan">
+        <MappingFragment StoreEntitySet="AspNetLessonPlan">
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="LessonPlanNo" ColumnName="LessonPlanNo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetLessonPlan_Topic">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetLessonPlan_Topic">
+        <MappingFragment StoreEntitySet="AspNetLessonPlan_Topic">
+          <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+          <ScalarProperty Name="LessonPlanID" ColumnName="LessonPlanID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetLessonPlanBreakdowns">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetLessonPlanBreakdown">
+        <MappingFragment StoreEntitySet="AspNetLessonPlanBreakdown">
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="Resources" ColumnName="Resources" />
+          <ScalarProperty Name="Minutes" ColumnName="Minutes" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="BreakDownHeadingID" ColumnName="BreakDownHeadingID" />
+          <ScalarProperty Name="LessonPlanID" ColumnName="LessonPlanID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetLessonPlanBreakdownHeadings">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetLessonPlanBreakdownHeading">
+        <MappingFragment StoreEntitySet="AspNetLessonPlanBreakdownHeading">
+          <ScalarProperty Name="BreakDownHeadingName" ColumnName="BreakDownHeadingName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetLogs">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetLog">
+        <MappingFragment StoreEntitySet="AspNetLog">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Operation" ColumnName="Operation" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetLoginTimes">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetLoginTime">
+        <MappingFragment StoreEntitySet="AspNetLoginTime">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetMessage_Receiver">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetMessage_Receiver">
+        <MappingFragment StoreEntitySet="AspNetMessage_Receiver">
+          <ScalarProperty Name="SeenTime" ColumnName="SeenTime" />
+          <ScalarProperty Name="Seen" ColumnName="Seen" />
+          <ScalarProperty Name="ReceiverID" ColumnName="ReceiverID" />
+          <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetMessages">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetMessage">
+        <MappingFragment StoreEntitySet="AspNetMessages">
+          <ScalarProperty Name="IsText" ColumnName="IsText" />
+          <ScalarProperty Name="IsEmail" ColumnName="IsEmail" />
+          <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetNotifications">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetNotification">
+        <MappingFragment StoreEntitySet="AspNetNotification">
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetNotification_User">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetNotification_User">
+        <MappingFragment StoreEntitySet="AspNetNotification_User">
+          <ScalarProperty Name="Seen" ColumnName="Seen" />
+          <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetParents">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetParent">
+        <MappingFragment StoreEntitySet="AspNetParent">
+          <ScalarProperty Name="MotherEmployer" ColumnName="MotherEmployer" />
+          <ScalarProperty Name="MotherOccupation" ColumnName="MotherOccupation" />
+          <ScalarProperty Name="MotherEmail" ColumnName="MotherEmail" />
+          <ScalarProperty Name="MotherCellNo" ColumnName="MotherCellNo" />
+          <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+          <ScalarProperty Name="FatherEmployer" ColumnName="FatherEmployer" />
+          <ScalarProperty Name="FatherOccupation" ColumnName="FatherOccupation" />
+          <ScalarProperty Name="FatherEmail" ColumnName="FatherEmail" />
+          <ScalarProperty Name="FatherCellNo" ColumnName="FatherCellNo" />
+          <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetParent_Child">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetParent_Child">
+        <MappingFragment StoreEntitySet="AspNetParent_Child">
+          <ScalarProperty Name="ChildID" ColumnName="ChildID" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetParent_Notification">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetParent_Notification">
+        <MappingFragment StoreEntitySet="AspNetParent_Notification">
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Attachment" ColumnName="Attachment" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetParentTeacherMeetings">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetParentTeacherMeeting">
+        <MappingFragment StoreEntitySet="AspNetParentTeacherMeeting">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetProjects">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetProject">
+        <MappingFragment StoreEntitySet="AspNetProject">
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="AcceptSubmission" ColumnName="AcceptSubmission" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetPTM_ParentFeedback">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetPTM_ParentFeedback">
+        <MappingFragment StoreEntitySet="AspNetPTM_ParentFeedback">
+          <ScalarProperty Name="FeedBack" ColumnName="FeedBack" />
+          <ScalarProperty Name="HeadingID" ColumnName="HeadingID" />
+          <ScalarProperty Name="PTMID" ColumnName="PTMID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetPTM_TeacherFeedback">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetPTM_TeacherFeedback">
+        <MappingFragment StoreEntitySet="AspNetPTM_TeacherFeedback">
+          <ScalarProperty Name="FeedBack" ColumnName="FeedBack" />
+          <ScalarProperty Name="HeadingID" ColumnName="HeadingID" />
+          <ScalarProperty Name="PTMID" ColumnName="PTMID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetPTMAttendances">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetPTMAttendance">
+        <MappingFragment StoreEntitySet="AspNetPTMAttendance">
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="MeetingID" ColumnName="MeetingID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetPTMFormRoles">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetPTMFormRole">
+        <MappingFragment StoreEntitySet="AspNetPTMFormRoles">
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetPushNotifications">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetPushNotification">
+        <MappingFragment StoreEntitySet="AspNetPushNotifications">
+          <ScalarProperty Name="IsOpenParent" ColumnName="IsOpenParent" />
+          <ScalarProperty Name="IsOpenStudent" ColumnName="IsOpenStudent" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetRole">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="VirtualId" ColumnName="VirtualId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetSalaries">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetSalary">
+        <MappingFragment StoreEntitySet="AspNetSalary">
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="VirtualRoleID" ColumnName="VirtualRoleID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetSalaryDetails">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetSalaryDetail">
+        <MappingFragment StoreEntitySet="AspNetSalaryDetail">
+          <ScalarProperty Name="SalaryId" ColumnName="SalaryId" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="TotalSalary" ColumnName="TotalSalary" />
+          <ScalarProperty Name="SalaryHold" ColumnName="SalaryHold" />
+          <ScalarProperty Name="Bonus" ColumnName="Bonus" />
+          <ScalarProperty Name="ATaxSalary" ColumnName="ATaxSalary" />
+          <ScalarProperty Name="BTaxSalary" ColumnName="BTaxSalary" />
+          <ScalarProperty Name="SchoolEOP" ColumnName="SchoolEOP" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="EmployeeEOP" ColumnName="EmployeeEOP" />
+          <ScalarProperty Name="AdvanceSalary" ColumnName="AdvanceSalary" />
+          <ScalarProperty Name="EmployeePF" ColumnName="EmployeePF" />
+          <ScalarProperty Name="AdvancePf" ColumnName="AdvancePf" />
+          <ScalarProperty Name="AfterCutSalary" ColumnName="AfterCutSalary" />
+          <ScalarProperty Name="FineCut" ColumnName="FineCut" />
+          <ScalarProperty Name="BasicSalary" ColumnName="BasicSalary" />
+          <ScalarProperty Name="Tax" ColumnName="Tax" />
+          <ScalarProperty Name="AccomodationAllowance" ColumnName="AccomodationAllowance" />
+          <ScalarProperty Name="MedicalAllowance" ColumnName="MedicalAllowance" />
+          <ScalarProperty Name="GrossSalary" ColumnName="GrossSalary" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetSessions">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetSession">
+        <MappingFragment StoreEntitySet="AspNetSession">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="SessionEndDate" ColumnName="SessionEndDate" />
+          <ScalarProperty Name="SessionStartDate" ColumnName="SessionStartDate" />
+          <ScalarProperty Name="SessionName" ColumnName="SessionName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetStudents">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetStudent">
+        <MappingFragment StoreEntitySet="AspNetStudent">
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Religion" ColumnName="Religion" />
+          <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetStudent_Announcement">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetStudent_Announcement">
+        <MappingFragment StoreEntitySet="AspNetStudent_Announcement">
+          <ScalarProperty Name="Seen" ColumnName="Seen" />
+          <ScalarProperty Name="AnnouncementID" ColumnName="AnnouncementID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetStudent_Assessment">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetStudent_Assessment">
+        <MappingFragment StoreEntitySet="AspNetStudent_Assessment">
+          <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
+          <ScalarProperty Name="SubmittedFileName" ColumnName="SubmittedFileName" />
+          <ScalarProperty Name="SubmissionStatus" ColumnName="SubmissionStatus" />
+          <ScalarProperty Name="MarksGot" ColumnName="MarksGot" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="AssessmentID" ColumnName="AssessmentID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetStudent_Attendance">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetStudent_Attendance">
+        <MappingFragment StoreEntitySet="AspNetStudent_Attendance">
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="AttendanceID" ColumnName="AttendanceID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetStudent_AutoAttendance">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetStudent_AutoAttendance">
+        <MappingFragment StoreEntitySet="AspNetStudent_AutoAttendance">
+          <ScalarProperty Name="Class" ColumnName="Class" />
+          <ScalarProperty Name="TimeOut" ColumnName="TimeOut" />
+          <ScalarProperty Name="TimeIn" ColumnName="TimeIn" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Roll_Number" ColumnName="Roll_Number" />
+          <ScalarProperty Name="Attendance_id" ColumnName="Attendance_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetStudent_Fine">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetStudent_Fine">
+        <MappingFragment StoreEntitySet="AspNetStudent_Fine">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="FineDetail" ColumnName="FineDetail" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetStudent_HomeWork">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetStudent_HomeWork">
+        <MappingFragment StoreEntitySet="AspNetStudent_HomeWork">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ParentComments" ColumnName="ParentComments" />
+          <ScalarProperty Name="TeacherComments" ColumnName="TeacherComments" />
+          <ScalarProperty Name="Reading" ColumnName="Reading" />
+          <ScalarProperty Name="HomeworkID" ColumnName="HomeworkID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetStudent_Notification">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetStudent_Notification">
+        <MappingFragment StoreEntitySet="AspNetStudent_Notification">
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Attachment" ColumnName="Attachment" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetStudent_Payment">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetStudent_Payment">
+        <MappingFragment StoreEntitySet="AspNetStudent_Payment">
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="FeeChallanID" ColumnName="FeeChallanID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetStudent_PaymentDetail">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetStudent_PaymentDetail">
+        <MappingFragment StoreEntitySet="AspNetStudent_PaymentDetail">
+          <ScalarProperty Name="PreviousFeeID" ColumnName="PreviousFeeID" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="LedgerID" ColumnName="LedgerID" />
+          <ScalarProperty Name="Student_PaymentID" ColumnName="Student_PaymentID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetStudent_Project">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetStudent_Project">
+        <MappingFragment StoreEntitySet="AspNetStudent_Project">
+          <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
+          <ScalarProperty Name="SubmittedFileName" ColumnName="SubmittedFileName" />
+          <ScalarProperty Name="SubmissionStatus" ColumnName="SubmissionStatus" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetStudent_Subject">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetStudent_Subject">
+        <MappingFragment StoreEntitySet="AspNetStudent_Subject">
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetStudent_Term_Assessment">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetStudent_Term_Assessment">
+        <MappingFragment StoreEntitySet="AspNetStudent_Term_Assessment">
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+          <ScalarProperty Name="NotifyTeacher" ColumnName="NotifyTeacher" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ParentsComments" ColumnName="ParentsComments" />
+          <ScalarProperty Name="PrincipalComments" ColumnName="PrincipalComments" />
+          <ScalarProperty Name="TeacherComments" ColumnName="TeacherComments" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="TermID" ColumnName="TermID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetStudent_Term_Assessments_Answers">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetStudent_Term_Assessments_Answers">
+        <MappingFragment StoreEntitySet="AspNetStudent_Term_Assessments_Answers">
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="ThirdTermGrade" ColumnName="ThirdTermGrade" />
+          <ScalarProperty Name="SecondTermGrade" ColumnName="SecondTermGrade" />
+          <ScalarProperty Name="FirstTermGrade" ColumnName="FirstTermGrade" />
+          <ScalarProperty Name="Catageory" ColumnName="Catageory" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="STAID" ColumnName="STAID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetStudentPerformanceReports">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetStudentPerformanceReport">
+        <MappingFragment StoreEntitySet="AspNetStudentPerformanceReport">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Assessment" ColumnName="Assessment" />
+          <ScalarProperty Name="Regularity" ColumnName="Regularity" />
+          <ScalarProperty Name="Punctuality" ColumnName="Punctuality" />
+          <ScalarProperty Name="PerformanceSkills" ColumnName="PerformanceSkills" />
+          <ScalarProperty Name="Handwriting" ColumnName="Handwriting" />
+          <ScalarProperty Name="ProjectLines" ColumnName="ProjectLines" />
+          <ScalarProperty Name="InstructionFollowing" ColumnName="InstructionFollowing" />
+          <ScalarProperty Name="ReadingSkills" ColumnName="ReadingSkills" />
+          <ScalarProperty Name="Homework" ColumnName="Homework" />
+          <ScalarProperty Name="TimeManagement" ColumnName="TimeManagement" />
+          <ScalarProperty Name="LearningConcept" ColumnName="LearningConcept" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetSubject_Catalog">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetSubject_Catalog">
+        <MappingFragment StoreEntitySet="AspNetSubject_Catalog">
+          <ScalarProperty Name="Weightage" ColumnName="Weightage" />
+          <ScalarProperty Name="CatalogID" ColumnName="CatalogID" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetSubject_Homework">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetSubject_Homework">
+        <MappingFragment StoreEntitySet="AspNetSubject_Homework">
+          <ScalarProperty Name="HomeworkID" ColumnName="HomeworkID" />
+          <ScalarProperty Name="HomeworkDetail" ColumnName="HomeworkDetail" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetSubjects">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetSubject">
+        <MappingFragment StoreEntitySet="AspNetSubjects">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetTeachers">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetTeacher">
+        <MappingFragment StoreEntitySet="AspNetTeacher">
+          <ScalarProperty Name="Illness" ColumnName="Illness" />
+          <ScalarProperty Name="SchoolCollageUniversityCity" ColumnName="SchoolCollageUniversityCity" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="MajorSubjects" ColumnName="MajorSubjects" />
+          <ScalarProperty Name="DegreeCertificate" ColumnName="DegreeCertificate" />
+          <ScalarProperty Name="SpouseBusinessAddress" ColumnName="SpouseBusinessAddress" />
+          <ScalarProperty Name="SpouseOccupation" ColumnName="SpouseOccupation" />
+          <ScalarProperty Name="SpouseHeighestDegree" ColumnName="SpouseHeighestDegree" />
+          <ScalarProperty Name="SpouseName" ColumnName="SpouseName" />
+          <ScalarProperty Name="Landline" ColumnName="Landline" />
+          <ScalarProperty Name="CellNo" ColumnName="CellNo" />
+          <ScalarProperty Name="MailingAddress" ColumnName="MailingAddress" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Religion" ColumnName="Religion" />
+          <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="PositionAppliedFor" ColumnName="PositionAppliedFor" />
+          <ScalarProperty Name="DateAvailable" ColumnName="DateAvailable" />
+          <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+          <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetTerms">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetTerm">
+        <MappingFragment StoreEntitySet="AspNetTerm">
+          <ScalarProperty Name="TermNo" ColumnName="TermNo" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="TermEndDate" ColumnName="TermEndDate" />
+          <ScalarProperty Name="TermStartDate" ColumnName="TermStartDate" />
+          <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+          <ScalarProperty Name="TermName" ColumnName="TermName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetTime_Setting">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetTime_Setting">
+        <MappingFragment StoreEntitySet="AspNetTime_Setting">
+          <ScalarProperty Name="LateTime" ColumnName="LateTime" />
+          <ScalarProperty Name="AbsentTime" ColumnName="AbsentTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetTopics">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetTopic">
+        <MappingFragment StoreEntitySet="AspNetTopic">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ChapterID" ColumnName="ChapterID" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="TopicName" ColumnName="TopicName" />
+          <ScalarProperty Name="TopicNo" ColumnName="TopicNo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetUserClaim">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetUserLogin">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetUser">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="LastPasswordChange" ColumnName="LastPasswordChange" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetVirtualRoles">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AspNetVirtualRole">
+        <MappingFragment StoreEntitySet="AspNetVirtualRole">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Office" ColumnName="Office" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employee_SalaryIncrement">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.Employee_SalaryIncrement">
+        <MappingFragment StoreEntitySet="Employee_SalaryIncrement">
+          <ScalarProperty Name="IncrementAmount" ColumnName="IncrementAmount" />
+          <ScalarProperty Name="EmpSalaryRecordId" ColumnName="EmpSalaryRecordId" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="AfterSalary" ColumnName="AfterSalary" />
+          <ScalarProperty Name="PreviousSalary" ColumnName="PreviousSalary" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employee_SalaryRecord">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.Employee_SalaryRecord">
+        <MappingFragment StoreEntitySet="Employee_SalaryRecord">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="CurrentSalary" ColumnName="CurrentSalary" />
+          <ScalarProperty Name="StartingSalary" ColumnName="StartingSalary" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeAdvanceSalaries">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.EmployeeAdvanceSalary">
+        <MappingFragment StoreEntitySet="EmployeeAdvanceSalary">
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Months" ColumnName="Months" />
+          <ScalarProperty Name="AdvanceSalary" ColumnName="AdvanceSalary" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeePenalties">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.EmployeePenalty">
+        <MappingFragment StoreEntitySet="EmployeePenalty">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="PenaltyId" ColumnName="PenaltyId" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeePenaltyTypes">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.EmployeePenaltyType">
+        <MappingFragment StoreEntitySet="EmployeePenaltyType">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="PenaltyType" ColumnName="PenaltyType" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeSalaries">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.EmployeeSalary">
+        <MappingFragment StoreEntitySet="EmployeeSalary">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Months" ColumnName="Months" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.Event">
+        <MappingFragment StoreEntitySet="Event">
+          <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+          <ScalarProperty Name="IsFullDay" ColumnName="IsFullDay" />
+          <ScalarProperty Name="ThemeColor" ColumnName="ThemeColor" />
+          <ScalarProperty Name="End" ColumnName="End" />
+          <ScalarProperty Name="Start" ColumnName="Start" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="EventID" ColumnName="EventID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FeeDateSettings">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.FeeDateSetting">
+        <MappingFragment StoreEntitySet="FeeDateSetting">
+          <ScalarProperty Name="ValidityDate" ColumnName="ValidityDate" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FeeDiscounts">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.FeeDiscount">
+        <MappingFragment StoreEntitySet="FeeDiscount">
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ledgers">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.Ledger">
+        <MappingFragment StoreEntitySet="Ledger">
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+          <ScalarProperty Name="LedgerHeadId" ColumnName="LedgerHeadId" />
+          <ScalarProperty Name="Is_Default" ColumnName="Is_Default" />
+          <ScalarProperty Name="LedgerGroupId" ColumnName="LedgerGroupId" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CurrentBalance" ColumnName="CurrentBalance" />
+          <ScalarProperty Name="StartingBalance" ColumnName="StartingBalance" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LedgerGroups">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.LedgerGroup">
+        <MappingFragment StoreEntitySet="LedgerGroup">
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="LedgerHeadID" ColumnName="LedgerHeadID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LedgerHeads">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.LedgerHead">
+        <MappingFragment StoreEntitySet="LedgerHead">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Month_Multiplier">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.Month_Multiplier">
+        <MappingFragment StoreEntitySet="Month_Multiplier">
+          <ScalarProperty Name="PaymentMonth" ColumnName="PaymentMonth" />
+          <ScalarProperty Name="FeeMonthId" ColumnName="FeeMonthId" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="AdjustedMonth" ColumnName="AdjustedMonth" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NonRecurringCharges">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.NonRecurringCharge">
+        <MappingFragment StoreEntitySet="NonRecurringCharges">
+          <ScalarProperty Name="ExpenseType" ColumnName="ExpenseType" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NonRecurringFeeMultipliers">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.NonRecurringFeeMultiplier">
+        <MappingFragment StoreEntitySet="NonRecurringFeeMultiplier">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Multiplier" ColumnName="Multiplier" />
+          <ScalarProperty Name="RemainingInstalments" ColumnName="RemainingInstalments" />
+          <ScalarProperty Name="PaidInstalments" ColumnName="PaidInstalments" />
+          <ScalarProperty Name="Instalments" ColumnName="Instalments" />
+          <ScalarProperty Name="SharePerInstalment" ColumnName="SharePerInstalment" />
+          <ScalarProperty Name="RemainingAmount" ColumnName="RemainingAmount" />
+          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+          <ScalarProperty Name="TutionFee" ColumnName="TutionFee" />
+          <ScalarProperty Name="DescriptionId" ColumnName="DescriptionId" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PenaltyFees">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.PenaltyFee">
+        <MappingFragment StoreEntitySet="PenaltyFee">
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ruffdatas">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.ruffdata">
+        <MappingFragment StoreEntitySet="ruffdata">
+          <ScalarProperty Name="StudentClassName" ColumnName="StudentClassName" />
+          <ScalarProperty Name="StudentPassword" ColumnName="StudentPassword" />
+          <ScalarProperty Name="StudentUserName" ColumnName="StudentUserName" />
+          <ScalarProperty Name="FatherPassword" ColumnName="FatherPassword" />
+          <ScalarProperty Name="FatherUserName" ColumnName="FatherUserName" />
+          <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+          <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Student_ChallanForm">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.Student_ChallanForm">
+        <MappingFragment StoreEntitySet="Student_ChallanForm">
+          <ScalarProperty Name="TutionFee" ColumnName="TutionFee" />
+          <ScalarProperty Name="AmountPayable" ColumnName="AmountPayable" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="ClassChallanFormId" ColumnName="ClassChallanFormId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentChallanForms">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.StudentChallanForm">
+        <MappingFragment StoreEntitySet="StudentChallanForm">
+          <ScalarProperty Name="ChallanNo" ColumnName="ChallanNo" />
+          <ScalarProperty Name="StudentFeeMonthId" ColumnName="StudentFeeMonthId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentDiscounts">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.StudentDiscount">
+        <MappingFragment StoreEntitySet="StudentDiscount">
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="FeeDiscountId" ColumnName="FeeDiscountId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentFeeMonths">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.StudentFeeMonth">
+        <MappingFragment StoreEntitySet="StudentFeeMonth">
+          <ScalarProperty Name="ValildityDate" ColumnName="ValildityDate" />
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+          <ScalarProperty Name="IsPrinted" ColumnName="IsPrinted" />
+          <ScalarProperty Name="FeePayable" ColumnName="FeePayable" />
+          <ScalarProperty Name="Multiplier" ColumnName="Multiplier" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+          <ScalarProperty Name="InstalmentAmount" ColumnName="InstalmentAmount" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Months" ColumnName="Months" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentPenalties">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.StudentPenalty">
+        <MappingFragment StoreEntitySet="StudentPenalty">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PenaltyId" ColumnName="PenaltyId" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentPenaltyTypes">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.StudentPenaltyType">
+        <MappingFragment StoreEntitySet="StudentPenaltyType">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="PenaltyType" ColumnName="PenaltyType" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentRecurringFees">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.StudentRecurringFee">
+        <MappingFragment StoreEntitySet="StudentRecurringFee">
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+          <ScalarProperty Name="TotalFee" ColumnName="TotalFee" />
+          <ScalarProperty Name="TutionFee" ColumnName="TutionFee" />
+          <ScalarProperty Name="Other" ColumnName="Other" />
+          <ScalarProperty Name="AdvanceTax" ColumnName="AdvanceTax" />
+          <ScalarProperty Name="ChineseClassFee" ColumnName="ChineseClassFee" />
+          <ScalarProperty Name="SportsShirt" ColumnName="SportsShirt" />
+          <ScalarProperty Name="Transportation" ColumnName="Transportation" />
+          <ScalarProperty Name="LabCharges" ColumnName="LabCharges" />
+          <ScalarProperty Name="SecurityServices" ColumnName="SecurityServices" />
+          <ScalarProperty Name="ComputerLabCharges" ColumnName="ComputerLabCharges" />
+          <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TeacherPenaltyRecords">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.TeacherPenaltyRecord">
+        <MappingFragment StoreEntitySet="TeacherPenaltyRecord">
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Months" ColumnName="Months" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PenaltyType" ColumnName="PenaltyType" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ToDoLists">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.ToDoList">
+        <MappingFragment StoreEntitySet="ToDoList">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vouchers">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.Voucher">
+        <MappingFragment StoreEntitySet="Voucher">
+          <ScalarProperty Name="VoucherNo" ColumnName="VoucherNo" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VoucherRecords">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.VoucherRecord">
+        <MappingFragment StoreEntitySet="VoucherRecord">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="VoucherId" ColumnName="VoucherId" />
+          <ScalarProperty Name="AfterBalance" ColumnName="AfterBalance" />
+          <ScalarProperty Name="CurrentBalance" ColumnName="CurrentBalance" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="LedgerId" ColumnName="LedgerId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AggregatedCounters">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.AggregatedCounter">
+        <MappingFragment StoreEntitySet="AggregatedCounter">
+          <ScalarProperty Name="ExpireAt" ColumnName="ExpireAt" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Counters">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.Counter">
+        <MappingFragment StoreEntitySet="Counter">
+          <ScalarProperty Name="ExpireAt" ColumnName="ExpireAt" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hashes">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.Hash">
+        <MappingFragment StoreEntitySet="Hash">
+          <ScalarProperty Name="ExpireAt" ColumnName="ExpireAt" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Field" ColumnName="Field" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Jobs">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.Job">
+        <MappingFragment StoreEntitySet="Job">
+          <ScalarProperty Name="ExpireAt" ColumnName="ExpireAt" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="Arguments" ColumnName="Arguments" />
+          <ScalarProperty Name="InvocationData" ColumnName="InvocationData" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobParameters">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.JobParameter">
+        <MappingFragment StoreEntitySet="JobParameter">
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="JobId" ColumnName="JobId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobQueues">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.JobQueue">
+        <MappingFragment StoreEntitySet="JobQueue">
+          <ScalarProperty Name="FetchedAt" ColumnName="FetchedAt" />
+          <ScalarProperty Name="Queue" ColumnName="Queue" />
+          <ScalarProperty Name="JobId" ColumnName="JobId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lists">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.List">
+        <MappingFragment StoreEntitySet="List">
+          <ScalarProperty Name="ExpireAt" ColumnName="ExpireAt" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Schemata">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.Schema">
+        <MappingFragment StoreEntitySet="Schema">
+          <ScalarProperty Name="Version" ColumnName="Version" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Servers">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.Server">
+        <MappingFragment StoreEntitySet="Server">
+          <ScalarProperty Name="LastHeartbeat" ColumnName="LastHeartbeat" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sets">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.Set">
+        <MappingFragment StoreEntitySet="Set">
+          <ScalarProperty Name="ExpireAt" ColumnName="ExpireAt" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="States">
+      <EntityTypeMapping TypeName="NGS_DatabaseModel.State">
+        <MappingFragment StoreEntitySet="State">
+          <ScalarProperty Name="Data" ColumnName="Data" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="JobId" ColumnName="JobId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="NGS_DatabaseModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetUser">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+      <EndProperty Name="AspNetRole">
+        <ScalarProperty Name="Id" ColumnName="RoleId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

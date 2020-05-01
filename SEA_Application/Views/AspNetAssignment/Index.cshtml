@@ -1,0 +1,96 @@
+﻿@model IEnumerable<SEA_Application.Models.AspNetAssignment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script src="~/AdminLTE/selectone.js"></script>
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("New Assignment", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PublishDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DueDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalMarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Weightage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FileName)
+        </th>
+        <th>
+            File
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AspNetClass.ClassName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AspNetSubject.SubjectName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AspNetUser.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PublishDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DueDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalMarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Weightage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FileName)
+        </td>
+        <td>
+
+            @Html.ActionLink("Download File", "downloadFile", new { id = item.Id })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetClass.ClassName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetSubject.SubjectName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUser.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

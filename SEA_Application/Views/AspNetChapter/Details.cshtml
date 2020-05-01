@@ -1,0 +1,72 @@
+﻿@model SEA_Application.Models.AspNetChapter
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">User</a> > <a href="/Teacher_Dashboard/Topics">Manage Topics</a> > <a><b>Details</b></a></label>
+
+<div class="box box-primary">
+    <div class="box-body">
+        <div>
+            <h4>Chapter</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    Chapter No.:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ChapterNo)
+                </dd>
+
+                <dt>
+                    Chapter Name:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ChapterName)
+                </dd>
+
+                <dt>
+                    Start Date:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.StartDate)
+                </dd>
+
+                <dt>
+                    End Date:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EndDate)
+                </dd>
+
+                <dt>
+                    Status:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Status)
+                </dd>
+
+                <dt>
+                    Subject Name:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AspNetSubject.SubjectName)
+                </dd>
+
+            </dl>
+        </div>
+        <div>
+            <button class="btn btn-danger col-md-offset-3 col-md-1" onclick="window.location.href = '/Teacher_Dashboard/Topics'">Back</button>
+            <button class="btn btn-primary col-md-offset-1 col-md-1" onclick="Edit()">Edit</button>
+            <button class="btn btn-danger col-md-offset-1 col-md-1" onclick="Delete()">Delete</button>
+        </div>
+    </div>
+</div>
+

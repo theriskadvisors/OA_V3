@@ -1,0 +1,255 @@
+﻿
+@{
+    ViewBag.Title = "TeachersIndex";
+}
+
+@*<script src="~/AdminLTE/selectone.js"></script>*@
+
+@if (ViewBag.Error != null)
+{
+    <div class="box-alert" id="work">
+        Teacher Successfully created and updated
+    </div>
+}
+
+
+<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.js" />
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css" />
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#work").hide(6000);
+
+
+
+
+
+    });
+</script>
+
+
+@if (this.User.IsInRole("Accountant"))
+{
+    <script>
+        var table;
+
+        $(document).ready(function () {
+
+            $("#ClassID").prepend('<option value="ALL" >All</option>');
+            table = $('#datatable').dataTable();
+
+
+            $('.table').on('click', 'tbody tr', function () {
+                var td = $(this).children("td");
+
+                if ($(td).html() != "No data available in table")
+                    window.location.href = "TeacherDetail?userName=" + $(td[1]).html();
+            });
+
+            Teachers();
+
+        });
+    </script>
+}
+else
+{
+    <script>
+
+
+        $(document).ready(function () {
+
+            $("#ClassID").prepend('<option value="ALL" >All</option>');
+          //  table = $('#datatable').dataTable();
+
+
+
+            var table = $('#datatable').dataTable({
+                buttons: [
+                    {
+                        text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
+                    },
+                    {
+                        text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
+                        action: function (e, dt, button, config) {
+                            window.location.href = '/Admin_Dashboard/TeacherRegister';
+                        }
+                    },
+                    {
+                        text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
+                    }
+                ],
+                "language": {
+                    "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
+                        "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
+                        "  </div>\n" +
+                        "  </div>",
+                    "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
+                    "paginate": {
+                        "first": "Firstt",
+                        "last": "Lastt",
+                        "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
+                        "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
+                    }
+                },
+                "searching": true,
+                // dom: '<"class">Blfrtip',
+                dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
+                    "<'row'<'col-sm-12 datatablesData'tr>>" +
+                    "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
+            });
+            $('input#global_filter').on('keyup click', function () {
+                filterGlobal();
+            });
+
+
+
+            $('.table').on('click', 'tbody tr', function () {
+                var td = $(this).children("td");
+
+                if ($(td).html() != "No data available in table");
+                window.location.href = "TeacherDetail?userName=" + $(td[1]).html();
+            });
+
+            $("#PageHeader").html("Teachers");
+
+            $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
+            $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Teachers</a></li>');
+
+
+
+            Teachers();
+
+
+            $('.eeniart0017').css("display", "block");
+             $.get('@Url.Action("AllTeachers", "AspNetUser")',
+            function (data) {
+                $('.eeniart0017').css("display", "none");
+
+                table.fnClearTable();
+                $.each(data, function (i, item) {
+                    if (item.PhoneNumber == null) { item.PhoneNumber = "-"; }
+                    table.fnAddData([item.Name, item.UserName, item.Email, item.PhoneNumber, item.Class]);
+                });
+                table.fnDraw();
+                $('#View').html("View Default");
+            });
+
+
+        });
+    </script>
+}
+
+<script type="text/javascript">
+    // var table=$('#example').dataTable();
+    //var tableTools = new $.fn.dataTable.tableTools(table, {
+    //    'sSwfPath': '//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls.swf',
+    //    'aButtons': ['#download']
+    //});
+    //$(tableTools.fnContainer()).insertBefore('#example_wrapper');
+
+    function Teachers() {
+
+    }
+
+    function TeacherByClass(selectedClass) {
+       // alert("test");
+        $('.eeniart0017').css("display", "block");
+        $.get('@Url.Action("TeachersByClass", "AspNetUser")',
+           { id: selectedClass }, function (data) {
+               console.log(data);
+               $('#submission_table').html('');
+               table.fnClearTable();
+               $.each(data, function (i, item) {
+                   if (item.PhoneNumber == null) { item.PhoneNumber = "-"; }
+                   table.fnAddData([item.Name, item.UserName, item.Email, item.PhoneNumber, item.ClassName]);
+               });
+               table.fnDraw();
+               $('.eeniart0017').css("display", "none");
+               $('#View').html("View Filtered");
+           });
+    }
+
+
+    function download() {
+        var classId = $("#Class").val();
+        var myUrlPattern = '.local';
+
+        if (window.location.hostname === "localhost" || location.hostname === "127.0.0.1" || window.location.hostname.indexOf(myUrlPattern) >= 0) {
+
+            var url = "http://localhost:1331/AspNetUser/TeacherExcelRecord?ClassId=" + classId;
+            var WINDOW = window.open(url, '_blank');
+
+        }
+        else {
+               var url = "http://sea-oacss.com/AspNetUser/TeacherExcelRecord?ClassId=" + classId;
+        var WINDOW = window.open(url, '_blank');
+        }
+
+    }
+    function class_click(item) {
+        if (item.value != "ALL")
+            TeacherByClass(item.value);
+        else {
+            Teachers();
+        }
+
+    }
+
+
+
+
+</script>
+
+
+
+<div class="col-md-10" style="display:none">
+    @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+</div>
+<style>
+    .table tr td:nth-child(4) {
+        text-align: right
+    }
+</style>
+
+
+
+
+
+    <div class="card">
+        <div class="card-body p-4">
+
+            <div class="box box-primary">
+                <div class="box-body">
+                    <br />
+                    <table class="table hover table-striped table-bordered" id="datatable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    User Name
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    Phone Number
+                                </th>
+                                <th>
+                                    Class
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="submission_table"></tbody>
+                    </table>
+                    <div id="Error"></div>
+                </div>
+            </div>
+            <!----------------------------------------------------------------------------------->
+        </div>
+    </div>

@@ -1,0 +1,156 @@
+﻿@{
+    ViewBag.Title = "Quizes";
+    Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
+}
+
+<style>
+    .buttonload {
+        border-radius: 25px !important;
+        color: white; /* White text */
+        padding: 8px 16px; /* Some padding */
+    }
+
+    /* Add a right margin to each icon */
+    .fa {
+        margin-left: -12px;
+        margin-right: 8px;
+    }
+</style>
+
+<script>
+    var table;
+
+    $(document).ready(function () {
+  //      $("#example").dataTable();
+
+
+
+
+                table = $('#datatable').dataTable({
+                    buttons: [
+                        {
+                            text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
+                        },
+                        {
+                            text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
+                            //action: function (e, dt, button, config) {
+                            //    window.location.href = '';
+                            //}
+                        },
+                        {
+                            text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
+                        }
+                    ],
+                    "language": {
+                        "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
+                            "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
+                            "  </div>\n" +
+                            "  </div>",
+                        "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
+                        "paginate": {
+                            "first": "Firstt",
+                            "last": "Lastt",
+                            "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
+                            "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
+                        }
+                    },
+                    "searching": true,
+                    // dom: '<"class">Blfrtip',
+                    dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
+                        "<'row'<'col-sm-12 datatablesData'tr>>" +
+                        "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
+                });
+
+
+        $.ajax({
+            type: "POST",
+            url: "/Student_Dashboard/Quiz_student_check",
+            success: function (data) {
+                $.each(data, function (i, item) {
+                    $("#" + item).removeClass("hidden");
+                });
+            }
+        });
+
+    });
+
+
+    
+             $("#PageHeader").html("Quizes");
+
+                $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
+                $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Quizes</a></li>');
+
+
+
+    function start(btn) {
+
+        var id = $(btn).attr("id");
+        $(btn).children('i').addClass('fa-spin');
+
+        $.ajax({
+            type: "POST",
+            url: "/Student_Dashboard/StartQuiz_Student?QuizId=" + id,
+            success: function (data) {
+                if (data == 'Success')
+                    window.location.href = "/Student_Dashboard/GetQuestions?id=" + id;
+                else if (data == "Something went Wrong")
+                    alert("There is an issue in your quiz startup, Kindly contact administrator");
+            }
+        });
+
+        //
+    }
+
+</script>
+
+
+
+<div class="card">
+    <div class="card-body p-4">
+
+
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="col-md-12">
+                    <div class="form-three widget-shadow">
+                        <table class="table hover table-striped table-bordered" id="datatable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Quiz
+                                    </th>
+                                    <th>
+                                        Details
+                                    </th>
+                                    <th>
+                                        Start Date
+                                    </th>
+                                    <th>
+                                        Due date
+                                    </th>
+                                    <th>
+                                        Start Quiz
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.quizes)
+                                {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.Start_Date</td>
+                                    <td>@item.Due_Date</td>
+                                    <td><button class="btn buttonload btn-sm btn-success hidden" id="@item.Id" onclick="start(this)"><i class="fa fa-spinner"></i>Start</button></td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

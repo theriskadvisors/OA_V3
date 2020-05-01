@@ -1,0 +1,462 @@
+﻿@{
+    ViewBag.Title = "LogDuration";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+<style>
+    #refresh:hover {
+        background-color: #21cd54 !important;
+        color: #ffffff !important;
+    }
+
+    #cre:hover {
+        background-color: #128edb !important;
+        color: #ffffff !important;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $('.eeniart0017').css("display", "block");
+        $.ajax({
+            type: "post",
+            url: "/Account/LogDurationDetail",
+            success: function (data) {
+
+                //////////////////////////////start time//////////////////////////////////////////////
+                var starttime = data.startdate;
+                var starttimesplit = starttime.split('(')[1];
+                var endtimesplit = starttimesplit.split(')')[0];
+                var etsplit = parseInt(endtimesplit);
+                var e = new Date(etsplit);
+                var sss = e.toLocaleDateString();
+                ///////////////////////////////End time////////////////////////////////////////////////
+                var endtime = data.enddate;
+                var endtimesplit = endtime.split('(')[1];
+                var endsplt = endtimesplit.split(')')[0];
+                var etsplit = parseInt(endsplt);
+                var ss = new Date(etsplit);
+                debugger;
+                var now = new Date();
+                var dd = ("0" + now.getDate()).slice(-2);
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var yy = now.getFullYear();
+                var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                var mm = months[month - 1];
+                start_date = '01' + ' ' + mm + ', ' + yy;
+                end_date = dd + ' ' + mm + ', ' + yy;
+                var eee = ss.toLocaleDateString();
+
+                $('.eeniart0017').css("display", "none");
+                $.each(data.logindetail, function (i, item) {
+                    var time = item.LastLogin;
+                    var startsplit = time.split('(')[1];
+                    var endsplit = startsplit.split(')')[0];
+                    var endsp = parseInt(endsplit);
+                    var d = new Date(endsp);
+                    var ab = d.toLocaleDateString() + " " + d.toLocaleTimeString();
+
+
+                    //////////////////////////////////////////////////////////////////////////////////////
+                    if (item.ChangePassword != null) {
+                        var passtime = item.ChangePassword;
+                        var start = passtime.split('(')[1];
+                        var end = start.split(')')[0];
+                        var sp = parseInt(end);
+                        var p = new Date(sp);
+                        var fd = p.toLocaleDateString() + " " + p.toLocaleTimeString();
+                    }
+                    if (item.LoginCount == 0) {
+                        var logintime = item.logintime;
+                        logintime = "-";
+                        if (item.ChangePassword == null) {
+                            var passchange = item.ChangePassword;
+                            passchange = "-";
+                            $('#submission_table').append('<tr><td>' + item.Name + '</td><td>' + logintime + '</td><td>' + passchange + '</td><td>' + item.LoginCount + '</td></tr>');
+                        }
+                        else {
+                            $('#submission_table').append('<tr><td>' + item.Name + '</td><td>' + logintime + '</td><td>' + fd + '</td><td>' + item.LoginCount + '</td></tr>');
+                        }
+                    }
+                        // table.fnAddData([item.Name, item.LastLogin,item.ChangePassword,item.LoginCount]);
+                    else {
+                        if (item.ChangePassword == null) {
+                            var passchange = item.ChangePassword;
+                            passchange = "-";
+                            $('#submission_table').append('<tr><td>' + item.Name + '</td><td>' + ab + '</td><td>' + passchange + '</td><td>' + item.LoginCount + '</td></tr>');
+                        }
+                        else {
+                            $('#submission_table').append('<tr><td>' + item.Name + '</td><td>' + ab + '</td><td>' + fd + '</td><td>' + item.LoginCount + '</td></tr>');
+                        }
+                    }
+                });
+                $("#startdate").append(start_date);
+                $("#enddate").append(end_date);
+                $("#usertype").append("Admin");
+            }
+        });
+
+        $("#ID").change(function () {
+            var value = $("#ID").val();
+            $('.eeniart0017').css("display", "block");
+            $.ajax({
+                type: "POST",
+                url: "/Account/UserLoginRecord",
+                data: { 'type': value },
+                success: function (data) {
+                    $('.eeniart0017').css("display", "none");
+                    $('tbody').html("");
+                    $("#usertype").html ("");
+                    $("#usertype").append(value);
+                    $.each(data, function (i, item) {
+
+                        var time = item.LastLogin;
+                        var startsplit = time.split('(')[1];
+                        var endsplit = startsplit.split(')')[0];
+                        var endsp = parseInt(endsplit);
+                        var d = new Date(endsp);
+                        var ab = d.toLocaleDateString() + " " + d.toLocaleTimeString();
+                        ///////////////////////////////////////////////////////////
+
+                        if (item.ChangePassword != null) {
+                            var passtime = item.ChangePassword;
+                            var start = passtime.split('(')[1];
+                            var end = start.split(')')[0];
+                            var sp = parseInt(end);
+                            var p = new Date(sp);
+                            var fd = p.toLocaleDateString() + " " + p.toLocaleTimeString();
+                        }
+
+
+                        if (item.LoginCount == 0) {
+                            var logintime = item.logintime;
+                            logintime = "-";
+                            if (item.ChangePassword == null) {
+                                var passchange = item.ChangePassword;
+                                passchange = "-";
+                                $('#submission_table').append('<tr><td>' + item.Name + '</td><td>' + logintime + '</td><td>' + passchange + '</td><td>' + item.LoginCount + '</td></tr>');
+                            }
+                            else {
+                                $('#submission_table').append('<tr><td>' + item.Name + '</td><td>' + logintime + '</td><td>' + fd + '</td><td>' + item.LoginCount + '</td></tr>');
+                            }
+                        }
+                            // table.fnAddData([item.Name, item.LastLogin,item.ChangePassword,item.LoginCount]);
+                        else {
+                            if (item.ChangePassword == null) {
+                                var passchange = item.ChangePassword;
+                                passchange = "-";
+                                $('#submission_table').append('<tr><td>' + item.Name + '</td><td>' + ab + '</td><td>' + passchange + '</td><td>' + item.LoginCount + '</td></tr>');
+                            }
+                            else {
+                                $('#submission_table').append('<tr><td>' + item.Name + '</td><td>' + ab + '</td><td>' + fd + '</td><td>' + item.LoginCount + '</td></tr>');
+                            }
+                        }
+                    });
+                }
+            });
+        })
+
+    });
+    function downloadWord() {
+        $("#message").html("");
+        var start = $("#startDate").val();
+        var end = $("#endDate").val();
+
+        var value = $("#ID").val();
+
+        if (start != "" && end != "") {
+            var url = "http://www.sea-ngsipc.com/Account/ExportToWord?type=" + value + "&start=" + start + "&end=" + end;
+            var WINDOW = window.open(url, '_blank');
+        }
+
+        else if (start == "" && end == "") {
+            $("#message").append("Please select a Start and end date");
+        }
+        else if (start == "") {
+            $("#message").append("Please select a Start date to export file");
+        }
+        else {
+            $("#message").append("Please select an End date to export file");
+        }
+    }
+    function downloadExcel() {
+        debugger;
+        $("#message").html("");
+        var start = $("#startDate").val();
+        var end = $("#endDate").val();
+
+        var value = $("#ID").val();
+
+        if (start != "" && end != "") {
+            var url = "http://www.sea-ngsipc.com/Account/ExcelLoginReport?type=" + value + "&start=" + start + "&end=" + end;
+            var WINDOW = window.open(url, '_blank');
+        }
+        else if (start == "" && end == "") {
+            $("#message").append("Please select a Start and end date");
+        }
+        else if (start == "") {
+            $("#message").append("Please select a Start date to export file");
+        }
+        else {
+            $("#message").append("Please select an End date to export file");
+        }
+
+
+    }
+    function DateFilter() {
+        $("#message").html("");
+
+        var start = $("#startDate").val();
+        var end = $("#endDate").val();
+        var value = $("#ID").val();
+        if (start != "" && end != "") {
+            $('.eeniart0017').css("display", "block");
+            $.ajax({
+                type: "POST",
+                url: "/Account/UserLoginDateFilter",
+                data: { 'start': start, 'end': end, 'type': value },
+
+                success: function (data) {
+                    $('tbody').html("");
+                    startsplit = start.split("-");
+                    var sdd = startsplit[2];
+                    var syy = startsplit[0];
+                    var monthno = startsplit[1];
+                    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                    var smm = months[monthno - 1];
+                    start_date = sdd + ' ' + smm + ', ' + syy;
+                    $("#startdate").html("");
+                    $("#startdate").append(start_date);
+                    endsplit = end.split("-");
+                    var dd = endsplit[2];
+                    var yy = endsplit[0];
+                    var monthno = endsplit[1];
+                    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                    var mm = months[monthno - 1];
+                    end_date = dd + ' ' + mm + ', ' + yy;
+                    $("#enddate").html("");
+                    $("#enddate").append(end_date);
+                    $('.eeniart0017').css("display", "none");
+                    $.each(data, function (i, item) {
+                        var time = item.LastLogin;
+                        var startsplit = time.split('(')[1];
+                        var endsplit = startsplit.split(')')[0];
+                        var endsp = parseInt(endsplit);
+                        var d = new Date(endsp);
+                        debugger;
+         
+                        var ab = d.toLocaleDateString() + " " + d.toLocaleTimeString();
+                        //////////////////////////////////////////////////////////////////////////////////////
+
+                        if (item.ChangePassword != null) {
+                            var passtime = item.ChangePassword;
+                            var start = passtime.split('(')[1];
+                            var end = start.split(')')[0];
+                            var sp = parseInt(end);
+                            var p = new Date(sp);
+                            var fd = p.toLocaleDateString() + " " + p.toLocaleTimeString();
+                        }
+
+
+                        if (item.LoginCount == 0) {
+                            var logintime = item.logintime;
+                            logintime = "-";
+                            if (item.ChangePassword == null) {
+                                var passchange = item.ChangePassword;
+                                passchange = "-";
+                                $('#submission_table').append('<tr><td>' + item.Name + '</td><td>' + logintime + '</td><td>' + passchange + '</td><td>' + item.LoginCount + '</td></tr>');
+                            }
+                            else {
+                                $('#submission_table').append('<tr><td>' + item.Name + '</td><td>' + logintime + '</td><td>' + fd + '</td><td>' + item.LoginCount + '</td></tr>');
+                            }
+                        }
+                            // table.fnAddData([item.Name, item.LastLogin,item.ChangePassword,item.LoginCount]);
+                        else {
+                            if (item.ChangePassword == null) {
+                                var passchange = item.ChangePassword;
+                                passchange = "-";
+                                $('#submission_table').append('<tr><td>' + item.Name + '</td><td>' + ab + '</td><td>' + passchange + '</td><td>' + item.LoginCount + '</td></tr>');
+                            }
+                            else {
+                                $('#submission_table').append('<tr><td>' + item.Name + '</td><td>' + ab + '</td><td>' + fd + '</td><td>' + item.LoginCount + '</td></tr>');
+                            }
+                        }
+
+                    }
+                    )
+                }
+            });
+
+        }
+        else if (start == "" && end == "") {
+            $("#message").append("Please select a Start and End date to Filter");
+        }
+        else if (start == "") {
+            $("#message").append("Please select a Start date to Filter");
+        }
+        else {
+            $("#message").append("Please select an End date to Filter");
+        }
+    }
+    function print() {
+        debugger;
+       
+        debugger;
+        var s = $("#sss").val();
+        var e = $("#eee").val();
+    
+        var start = document.getElementById("startdate").innerText;
+        var end = document.getElementById("enddate").innerText;
+    //    var start = $("#startdate").val();
+     //   var end = $("#enddate").val();
+
+
+        $("#startdate").html('');
+        $("#enddate").html('');
+        var html = '';
+        html += '<br/>';
+        html += '<div class="paragraphs">';
+        html += '<div class="row">';
+        html += '<div class="span4">';
+        html += '<img style="float:left" src="/Content/Images/logo SEA.PNG"/>';
+        html += '<br/>';
+        html += '<label style="font-size:25px"><b>Login Activity Summary for ' + start + '  -  ' + end + '</b></label>';
+        html += '<div class="usertype">';
+        html += '<br/>';
+        html += '<label style="font-size:18px"><b>User type :  '+ $("#ID").val(); +' </b></label>';
+        
+        html += '</div>';
+        html += '<br/>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+       
+
+
+       
+
+        if (start == "" && end == "") {
+
+            $("#startdate").append(s);
+            $("#enddate").append(e);
+            var divToPrint = document.getElementById('eeniartstuddentassessment');
+            divToPrint.innerHTML = divToPrint.innerHTML;
+            $(divToPrint).find('.box-footer').css("display", "none");
+            var newWin = window.open('', 'Print-Window');
+            //newWin.document.open();
+            newWin.document.write('<html><body onload="window.print()">' + html + divToPrint.innerHTML + '</body></html>');//onclick="window.print()"
+            //$('body').find('box-footer').addClass('eeniartblock');
+            $(newWin).find('body').trigger('click');
+            newWin.document.close();
+            setTimeout(function () { newWin.close(); }, 10);
+            var divToPrint = document.getElementById('eeniartstuddentassessment');
+            $(divToPrint).find('.box-footer').css("display", "block");
+        }
+        else {
+
+
+            $("#startdate").append(start);
+            $("#enddate").append(end);
+            var divToPrint = document.getElementById('eeniartstuddentassessment');
+            divToPrint.innerHTML =  divToPrint.innerHTML;
+            $(divToPrint).find('.box-footer').css("display", "none");
+            var newWin = window.open('', 'Print-Window');
+            //newWin.document.open();
+            newWin.document.write('<html><body onload="window.print()">' + html + divToPrint.innerHTML + '</body></html>');//onclick="window.print()"
+            //$('body').find('box-footer').addClass('eeniartblock');
+            $(newWin).find('body').trigger('click');
+            newWin.document.close();
+            setTimeout(function () { newWin.close(); }, 10);
+            var divToPrint = document.getElementById('eeniartstuddentassessment');
+            $(divToPrint).find('.box-footer').css("display", "block");
+
+        }
+
+   
+   
+    }
+</script>
+<label> @Html.ActionLink("Home", "Dashboard", "Account")  >  <b><a href="#">User Login Report</a></b></label>
+<h4>Login Details</h4>
+
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="col-md-12 row">
+            <br /><br />
+            <div class="col-md-2">
+                <div class="col-md-4">
+                    <label class="control-label">Select</label>
+                </div>
+                <div class="col-md-8">
+                    <select name="Nationality" class="form-control" id="ID" required>
+                        <option value="Admin">Admin</option>
+                        <option value="Accountant">Accountant</option>
+                        <option value="Parents">Parents</option>
+                        <option value="Principal">Principal</option>
+                        <option value="Student">Student</option>
+                        <option value="Teacher">Teacher</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-1">
+                    <label>Start From</label>
+                </div>
+                <div class="col-md-3">
+                    <input class="form-control" type="date" id="startDate" />
+                </div>
+
+                <div class="col-md-1">
+                    <label>End to</label>
+                </div>
+                <div class="col-md-3">
+                    <input class="form-control" type="date" id="endDate" style="border-radius:initial" />
+                </div>
+
+                <input type="button" value="Filter" onclick="DateFilter()" class="btn btn-default" id="filter" />
+            </div>
+            <div class="col-md-4">
+                <button  class="btn btn-success" id="refresh" onclick="downloadExcel()" style="border-radius:45px;border-color:#21cd54;color:#21cd54;background-color:#ffffff" ><i class="fa fa-download"></i> Export to Excel</button>
+                <button class="btn btn-success" id="cre" onclick="downloadWord()"  style="border-radius: 45px;  border-color: #128edb; color: #128edb; background-color: #ffffff"><i class="fa fa-download"></i> Export to Word</button>
+                <button type="button" class="btn btn-default pull-right" onclick="print()" ><i class="fa fa-print"></i>Take Print</button>
+            </div>
+
+            <br /><br />
+        </div>
+        <div class="col-md-12 col-md-offset-3">
+            <span id="message" style="color:red;"></span>
+            <br /><br />
+        </div>
+
+
+        <h2 style="text-align:center"><b>Login Activity Summary</b></h2>
+        <div style="text-align:center" id="dates">
+            <label><b>Start Date :&nbsp;</b></label><span id="startdate"></span><br />
+            <label><b>End Date :&nbsp;</b></label><span id="enddate"></span><br />
+            <label><b>User Type :&nbsp;</b></label><span id="usertype"></span>
+
+        </div>
+        <div class="col-md-12" id="eeniartstuddentassessment">
+            <table class="table table-bordered table-striped" style="width:100%" id="submission_table" border="1">
+                <thead style="background-color: #c1c1c1;">
+                    <tr style="text-align:left">
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Last Login
+                        </th>
+                        <th>
+                            Password Last Changed
+                        </th>
+                        <th>
+                            Login Count
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tablebody"></tbody>
+            </table>
+        </div>
+
+
+    </div>
+</div>

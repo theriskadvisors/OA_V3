@@ -1,0 +1,53 @@
+﻿<script src="~/AdminLTE/selectone.js"></script>
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">Academics</a> > @Html.ActionLink("Assessment Questions Category", "Index", "AspNetAssessment_Questions_Category") > <a href="#"><b>Create</b></a> </label>
+<h4>Create</h4>
+
+<div class="box box-primary">
+    <div class="box-body">
+        @model SEA_Application.Models.AspNetAssessment_Questions_Category
+        @{
+            ViewBag.Title = "Create";
+        }
+
+        <script>
+            $(document).ready(function () {
+                $("#CategoryName").prop('required', true);
+            })
+        </script>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Assessment_Questions_Category</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="col-md-1 col-lg-1 control-label">Category Name</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-lg-offset-1 col-md-2">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                        <button class="btn btn-default" onclick="redirect()">Cancel</button>
+                    </div>
+
+                </div>
+            </div>
+        }
+        <div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function redirect() {
+        window.location.href = "Index";
+    }
+</script>

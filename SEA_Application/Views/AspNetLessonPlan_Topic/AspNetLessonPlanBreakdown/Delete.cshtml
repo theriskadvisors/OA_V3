@@ -1,0 +1,72 @@
+﻿@model SEA_Application.Models.AspNetLessonPlanBreakdown
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>AspNetLessonPlanBreakdown</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Minutes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Minutes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Resources)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Resources)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Priority)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Priority)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetLessonPlan.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetLessonPlan.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetLessonPlanBreakdownHeading.BreakDownHeadingName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetLessonPlanBreakdownHeading.BreakDownHeadingName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,106 @@
+﻿@model SEA_Application.Models.StudentRecurringFee
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StudentRecurringFee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ComputerLabCharges)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ComputerLabCharges)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityServices)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SecurityServices)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LabCharges)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LabCharges)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transportation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transportation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SportsShirt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SportsShirt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChineseClassFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChineseClassFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdvanceTax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdvanceTax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Other)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Other)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TutionFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TutionFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetClass.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetClass.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

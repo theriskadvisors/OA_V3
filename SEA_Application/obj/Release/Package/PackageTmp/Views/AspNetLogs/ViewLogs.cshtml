@@ -1,0 +1,175 @@
+﻿@{
+    ViewBag.Title = "ViewLogs";
+    
+}
+
+<script src="~/AdminLTE/selectone.js"></script>
+
+<script type="text/javascript">
+
+    var table;
+
+    $(document).ready(function () {
+
+        table = $("#example").dataTable();
+        DrawTable();
+        //$("#Class").select2();
+        
+        //$('#Class').on('select2-open', function () {
+        //    $('.select2-results .info').on('mouseup', function (e) {
+        //        e.stopPropagation();
+        //        console.log('clicked');
+        //        console.log($('#Class').val());
+        //    });
+        //});
+
+        function parseJsonDate(jsonDateString) {
+            var currentdate = new Date(parseInt(jsonDateString.replace('/Date(', '')));
+            return currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear();
+        }
+
+        $("#search").click(function () {
+            var userName = $("#Class").val();
+            console.log(userName);
+            if (userName != "")
+            $.get('@Url.Action("GetUserLogs", "AspNetLogs")',
+                { username: userName }, function (data) {
+                    table.fnClearTable();
+                    if (data != "No users found")
+                        $.each(data, function (i, item) {
+                            item.Time = parseJsonDate(item.Time);
+                            table.fnAddData([item.Operation, item.Time]);
+                        });
+                    else {
+                        table.fnClearTable();
+                        table.fnAddData(["No users found"]);
+                    }
+                        
+                });
+            else {
+                table.fnClearTable();
+                table.fnAddData(["Please Write a UserName", " "]);
+            }
+                
+
+            table.fnDraw();
+        });
+
+    });
+
+    function DrawTable() {
+        $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+        //$('#example_filter').addClass("col-lg-4 col-md-4 col-sm-12 col-xs-12");
+        $('#example_wrapper').css("text-align", "left");
+        $('#example_length').css("text-align", "left");
+        $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+        $("#example_length label").css("text-align", "left");
+        $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+        // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+        //$('#example_length').css({ "overflow": "auto" });
+        $('#example_filter input').addClass("add");
+        $('#example_filter').append('<span class="glyphicon glyphicon-search form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+        var list = $("#UserID").html();
+        $('#example_length').append(
+
+            '<div class="col-md-1" style="width:0%; padding-left:1px;">' +
+            '<div class="d-bar"></div>' +
+            '</div>'
+              +
+
+           '<lable class="col-md-2 col-lg-2 col-sm-12 col-xs-12 control-label" style="text-align:left;margin-top:4px ;width:100px; padding-left:0px; padding-right:0px;">Select User</lable>' +
+           '<div class="col-md-2 col-lg-2">' +
+            '<select class="form-control input-sm" id="Class" name="ClassID" onclick="class_click()" >' + list +
+            '</select>' +
+           '</div>' +
+
+           '<div class="col-md-1" style="width:0%; padding-left:-10px;">' +
+           '<div class="d-bar"></div>' +
+           '</div>' +
+
+           '<div class="col-md-4 col-lg-4" style="padding-left=0px">' +
+           '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><span style="color:grey"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></span></a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><span style="color:grey"><i class="fa fa-ban"  data-placement="bottom"></i></span>' + '</a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><span style="color:grey"><i class="glyphicon glyphicon-download-alt" data-placement="bottom"></i></span></a></div>' +
+           ' <div class="col-md-1" style="width:0%; padding-left:10px;">' +
+           '<div class="d-bar"></div>' +
+           '</div>' +
+          '</div>');
+        //$("#Class").prepend("<option value='0'>All</option>");
+    }
+
+
+ 
+    function class_click() {
+        $("#search").click();
+    }
+</script>
+
+<style>
+    span{
+        color:gray;
+    }
+</style>
+
+<html>
+<body>
+    <label> @Html.ActionLink("Home", "Dashboard", "Account")  > <b><a href="#">View Logs</a></b></label>
+    <h4>View Logs</h4>
+
+    <div class="box box-primary" style="display:none">
+        <div class="box-body">
+            <div class="col-md-12">
+                <div class="form-three widget-shadow">
+                    <div class="forms form-horizontal">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <lable class="col-md-3 control-label"><b>Select User Name</b></lable>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        @Html.DropDownList("UserID", null, htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" id="search" class="btn btn-primary col-md-2">Search</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box box-primary">
+        <div class="box-title"></div>
+        <div class="box-body">
+            <section>
+                <table class="table table-striped table-bordered" id="example">
+                    <thead>
+                        <tr>
+                            <th>
+                                Operation
+                            </th>
+                            <th>
+                                Time
+                            </th>
+                        </tr>                        
+                    </thead>
+                    <tbody id="Log_Table"></tbody>
+                </table>
+            </section>
+            </div></div>
+</body>
+</html>
+
+
+
+

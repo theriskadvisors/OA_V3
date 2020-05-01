@@ -1,0 +1,81 @@
+﻿@model SEA_Application.Models.AspNetStudent_Project
+@{
+    ViewBag.Title = "Student_Project_Submission";
+}
+
+  
+<h4>Student Details</h4>
+
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="form-horizontal">
+            <input type="hidden" name="id" id="id" value=@Model.Id>
+            <hr />
+            <div class="form-group">
+                <label class="col-md-1 col-lg-1 control-label"> @Html.DisplayNameFor(model => model.AspNetProject.FileName)<span class="red-mark">*</span></label>
+                <div class="col-md-6">
+
+                    @if (@Model.AspNetProject.FileName != "-/-")
+                    {
+                        @Html.ActionLink(Model.AspNetProject.FileName, "downloadProjectFile", new { id = Model.AspNetProject.Id },new { htmlAttributes = new { @class = "fileName"} })
+
+                    }
+                    else
+                    {
+
+                        @Html.DisplayFor(model => model.AspNetProject.FileName)
+
+                    }
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-md-1 col-lg-1 control-label">@Html.DisplayNameFor(model => model.AspNetProject.Description)<span class="red-mark">*</span></label>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.AspNetProject.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.AspNetProject.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-md-1 col-lg-1 control-label">@Html.DisplayNameFor(model => model.AspNetProject.DueDate)<span class="red-mark">*</span></label>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.AspNetProject.DueDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.AspNetProject.DueDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-1 col-lg-1 control-label">@Html.DisplayNameFor(model => model.AspNetProject.AspNetSubject.AspNetUser.Name)<span class="red-mark">*</span></label>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.AspNetProject.AspNetSubject.AspNetUser.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.AspNetProject.AspNetSubject.AspNetUser.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <button type="button" id="back" class="btn btn-primary">Back</button>
+
+        </div>
+
+        
+
+        <script>
+
+
+                $(document).ready(function () {
+
+
+        $("#back").click(function () {
+
+            window.location.href = '/Student_Dashboard/View_Project';
+
+        });
+
+                    
+
+    })
+
+        </script>

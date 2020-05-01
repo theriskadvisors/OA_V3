@@ -1,0 +1,93 @@
+﻿
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(function () {
+            $.ajax({
+                url: "@(Url.Action("View_LessonPlan", "Teacher_Dashboard"))",
+                type: "GET",
+
+            cache: false,
+            success: function (data) {
+                //Fill div with results
+                $("#ViewLessonPlan").html(data);
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+        });
+
+        $("#AddLessonPlan1").click(function () {
+            $.ajax({
+                url: "@(Url.Action("AddLessonPlan", "AspNetLessonPlans"))",
+                type: "GET",
+
+            cache: false,
+            success: function (data) {
+                //Fill div with results
+                $("#AddLessonPlan").html(data);
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+        });
+
+        $("#AddHeading1").click(function () {
+            $.ajax({
+                url: "@(Url.Action("Create", "AspNetLessonPlanHeadings"))",
+                type: "GET",
+
+            cache: false,
+            success: function (data) {
+                //Fill div with results
+                $("#AddHeading").html(data);
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+        });
+        $("#AddBreakdown1").click(function () {
+            $.ajax({
+                url: "@(Url.Action("LessonPlan", "Teacher_Dashboard"))",
+                type: "GET",
+
+            cache: false,
+            success: function (data) {
+                //Fill div with results
+                $("#AddBreakdown").html(data);
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+    });
+
+
+    });
+</script>
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#ViewLessonPlan2">View Lesson Plan</a></li>
+    <li><a data-toggle="tab" id="AddLessonPlan1" href="#AddLessonPlan2">Add Lesson Plan</a></li>
+    <li><a data-toggle="tab" id="AddBreakDown1" href="#AddBreakdown2">Add Lesson Plan Breakdown</a></li>
+    <li><a data-toggle="tab" id="AddHeading1" href="#AddHeading2">Add Lesson Plan Heading</a></li>
+</ul>
+<div class="tab-content">
+    <div id="ViewLessonPlan2" class="tab-pane fade in active">
+        <div id="ViewLessonPlan">
+        </div>
+    </div>
+    <div id="AddLessonPlan2" class="tab-pane fade in">
+        <div id="AddLessonPlan">
+        </div>
+    </div>
+    <div id="AddBreakdown2" class="tab-pane fade in">
+        <div id="AddBreakdown">
+        </div>
+    </div>
+    <div id="AddHeading2" class="tab-pane fade in">
+        <div id="AddHeading">
+        </div>
+    </div>
+</div>

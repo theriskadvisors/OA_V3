@@ -1,0 +1,50 @@
+﻿.eeniartnone {
+    display: block;
+}
+
+.eeniartblock {
+    display: none;
+}
+
+.eeniart001 {
+}
+
+    .eeniart001 > select {
+        background-color: #fff;
+        padding-right: 7px;
+        padding-left: 7px;
+        padding-top: 5px;
+        border-radius: 16px;
+        color: #000;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+
+#eeniart655 > tr {
+    border-bottom: 2px solid #808080;
+}
+
+.eeniart002 {
+    font-size: 30px;
+    font-weight: 900;
+    margin-left: 30%;
+}
+
+.eeniart003 {
+    border: 1px solid #c5c4c4;
+    padding: 10px;
+}
+
+.eeniart004 {
+    font-size: 50px;
+    position: absolute;
+}
+
+.eeniart005 {
+    width: 150px;
+}
+
+.eeniart006 {
+    width: 175px;
+    margin-top: 16px;
+}

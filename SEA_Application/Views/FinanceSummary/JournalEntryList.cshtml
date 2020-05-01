@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = "JournalEntryList";
+}
+
+<h2>Ledger Record</h2>
+<script>
+    $(document).ready(function () {
+        table = $('#example').dataTable();
+
+        drawTable();
+        var id = $("#ledgerid").val();
+        $.ajax({
+            type: "POST",
+            url: "/FinanceSummary/LedgerRecord",
+            data:{id:id},
+            success: function (data) {
+                table.fnClearTable();
+                $.each(data, function (i, item) {
+                    debugger;
+                    var ab = "";
+                    if (item.Date != null) {
+                        var time = item.Date;
+                        var startsplit = time.split('(')[1];
+                        var endsplit = startsplit.split(')')[0];
+                        var endsp = parseInt(endsplit);
+                        var d = new Date(endsp);
+                        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                        var mm = months[new Date(endsp).getMonth()];
+                        var dd = new Date(endsp).getDate();
+                        var yy = new Date(endsp).getFullYear();
+                        ab = dd + ' ' + mm + ' ' + yy;
+                    }
+                    var Debit = "-";
+                    var Credit = "-";
+                    if (item.type == "Dr") {
+                        Debit = item.Amount;
+                    }
+                    else {
+                        Credit = item.Amount;
+                    }
+                    table.fnAddData([item.ID, item.Name, item.LedgerName, item.Notes, ab, numberWithCommas(item.BeforeBalance), numberWithCommas(Debit), numberWithCommas(Credit), numberWithCommas(item.Afterbalance)]);
+                })
+            }
+        })
+    })
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    function drawTable() {
+        $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+        //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+
+        $('#example_wrapper').css("text-align", "left");
+        $('#example_length').css("text-align", "left");
+        $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+        $("#example_length label").css("text-align", "left");
+        $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+        // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+        //$('#example_length').css({ "overflow": "auto" });
+        $('#example_filter input').addClass("add");
+        $('#example_filter').append('<span class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+        var list = $("#ClassID").html();
+        $('#example_length').append(
+
+           '</div>' +
+           '</div>');
+        $("#Class").prepend("<option value='0' selected>All</option>");
+    }
+
+</script>
+<input type="hidden" id="ledgerid" value="@ViewBag.LedgerId" />
+<style>
+    #example tr > :nth-child(1) {
+        display: none;
+    }
+</style>
+<div class="box box-primary">
+    <div class="box-body">
+
+        <table class="table table-bordered" id="example">
+            <thead style="text-align:center">
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Account
+                    </th>
+
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Before Balance
+                    </th>
+                    <th>
+                        Debit
+                    </th>
+                    <th>
+                        Credit
+                    </th>
+                    <th>
+                        After Balance
+                    </th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>

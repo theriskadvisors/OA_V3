@@ -1,0 +1,126 @@
+﻿@model SEA_Application.Models.StudentFeeMonth
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Add Fee Months</h2>
+
+<script>
+    $(document).ready(function () {
+        debugger;
+        var dsds=@ViewBag.ErrorMessage;
+        $("#mess").html(dsds);
+    })
+    function GetStudent() {
+        var stdid = $("#StudentId").val();
+        $.ajax({
+            type: "POST",
+            url: "/StudentFeeMonths/GetStudentInstalment",
+            data:{stdid:stdid},
+            success: function (data) {
+                $("#instalmentAmount").val(data);
+            }
+        })
+    }
+</script>
+<div class="box box-primary">
+    <div class="box-body">
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "Registerform" }))
+{
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Student Fee Month</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <span class="col-md-2">Student Name</span>
+                    <div class="col-md-6">
+                        @Html.DropDownList("StudentId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Status</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Instalment Amount</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.InstalmentAmount, new { htmlAttributes = new { @class = "form-control", @id = "instalmentAmount", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.InstalmentAmount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Issue Date</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.IssueDate, new { htmlAttributes = new { @class = "form-control", @type = "Date" } })
+                        @Html.ValidationMessageFor(model => model.IssueDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom:50px">
+                    <span class="col-md-2">Months</span>
+                    <div class="col-md-6">
+                        <div class="col-md-6" style="height:10em">
+                            <input id="january" type="checkbox" name="MonthName" value="January" />
+                            <label for="cheese">January</label>
+                            <br />
+                            <input id="february" type="checkbox" name="MonthName" value="February" />
+                            <label for="cheese">February</label>
+                            <br />
+                            <input id="march" type="checkbox" name="MonthName" value="March" />
+                            <label for="cheese">March</label>
+                            <br />
+                            <input id="april" type="checkbox" name="MonthName" value="April" />
+                            <label for="cheese">April</label>
+                            <br />
+                            <input id="may" type="checkbox" name="MonthName" value="May" />
+                            <label for="cheese">May</label>
+                            <br />
+                            <input id="june" type="checkbox" name="MonthName" value="June" />
+                            <label for="cheese">June</label>
+                            <br />
+                        </div>
+                        <div class="col-md-6" style="height:8em">
+                            <input id="july" type="checkbox" name="MonthName" value="July" />
+                            <label for="cheese">July</label>
+                            <br />
+                            <input id="august" type="checkbox" name="MonthName" value="August" />
+                            <label for="cheese">August</label>
+                            <br />
+                            <input id="september" type="checkbox" name="MonthName" value="September" />
+                            <label for="cheese">September</label>
+                            <br />
+                            <input id="october" type="checkbox" name="MonthName" value="October" />
+                            <label for="cheese">October</label>
+                            <br />
+                            <input id="november" type="checkbox" name="MonthName" value="November" />
+                            <label for="cheese">November</label>
+                            <br />
+                            <input id="december" type="checkbox" name="MonthName" value="December" />
+                            <label for="cheese">December</label>
+                        </div>
+                        @*@Html.EditorFor(model => model.Months, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Months, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-md-offset-2 col-md-5">
+            <br />
+            <button class="col-md-2 form-control" onclick="window.location.href = '/StudentFeeMonths/Index'" style="border-radius:35px;border:hidden;background-color:red;margin-right:10px;color:white;font-size:11px;width:98px;height:38px;font-family:Montserrat" id="return"><i class="fa fa-arrow-left"></i> &nbsp;&nbsp; Return</button>
+            <input class="col-md-2 form-control" id="submit" form="Registerform" type="submit" value="Save" style="border-radius:35px;color:white;border:hidden;background-color:#128edb;font-size:11px;width:98px;height:38px;font-family:Montserrat" />
+            <br />
+            <br /><br />
+        </div>
+    </div>
+</div>
+

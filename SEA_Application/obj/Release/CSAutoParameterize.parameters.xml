@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=184.168.194.64;Initial Catalog=NGS_Database;User Id=tra;Password=TheRiskAdvisors@123" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\mrasa\\Documents\\GitHub\\Version1_SEA\\SEA_Application\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="SEA_DatabaseEntities-Web.config Connection String" description="SEA_DatabaseEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.SEA_Database.csdl|res://*/Models.SEA_Database.ssdl|res://*/Models.SEA_Database.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=184.168.194.64;initial catalog=NGS_Database;user id=tra;password=TheRiskAdvisors@123;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\mrasa\\Documents\\GitHub\\Version1_SEA\\SEA_Application\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='SEA_DatabaseEntities']/@connectionString" />
+  </parameter>
+</parameters>

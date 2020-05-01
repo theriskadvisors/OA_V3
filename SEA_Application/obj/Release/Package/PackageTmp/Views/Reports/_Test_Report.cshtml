@@ -1,0 +1,271 @@
+﻿
+<!-- Chart code -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#exportButton").click(function () {
+            // parse the HTML table element having an id=exportTable
+            var dataSource = shield.DataSource.create({
+                data: "#exportTable",
+                schema: {
+                    type: "table",
+                    fields: {
+                        UserName: { type: String },
+                        Name: { type: String },
+                        MarksGot: { type: Number },
+                        Percentage: { type: Number },
+                        Status: { type: String }
+                    }
+                }
+            });
+
+            // when parsing is done, export the data to Excel
+            dataSource.read().then(function (data) {
+                new shield.exp.OOXMLWorkbook({
+                    author: "PrepBootstrap",
+                    worksheets: [
+                        {
+                            name: "PrepBootstrap Table",
+                            rows: [
+                                {
+                                    cells: [
+                                        {
+                                            style: {
+                                                bold: true
+                                            },
+                                            type: String,
+                                            value: "User Name"
+                                        },
+                                        {
+                                            style: {
+                                                bold: true
+                                            },
+                                            type: String,
+                                            value: "Name"
+                                        },
+                                        {
+                                            style: {
+                                                bold: true
+                                            },
+                                            type: String,
+                                            value: "Marks Got"
+                                        },
+                                        {
+                                            style: {
+                                                bold: true
+                                            },
+                                            type: String,
+                                            value: "Percentage"
+                                        },
+                                        {
+                                            style: {
+                                                bold: true
+                                            },
+                                            type: String,
+                                            value: "Status"
+                                        }
+                                    ]
+                                }
+                            ].concat($.map(data, function (item) {
+                                return {
+                                    cells: [
+                                        { type: String, value: item.UserName },
+                                        { type: String, value: item.Name },
+                                        { type: Number, value: item.MarksGot },
+                                        { type: Number, value: item.Percentage },
+                                        { type: String, value: item.Status }
+                                    ]
+                                };
+                            }))
+                        }
+                    ]
+                }).saveAs({
+                    fileName: $("#TestID option:selected").text() + "_Report"
+                });
+            });
+        });
+
+        $("#ClassID").click(function () {
+            var selectedClass = $("#ClassID").val();
+            $.get('@Url.Action("SubjectsByClass","Teacher_Dashboard")',
+                { id: selectedClass }, function (data) {
+                    $('#SubjectID').html('');
+                    $('#SubjectID').prop('disabled', false);
+                    $.each(data, function (i, item) {
+                        $('#SubjectID').append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
+                    });
+
+                });
+        });
+        $("#SubjectID").click(function () {
+            var selectedSubject = $("#SubjectID").val();
+            $.get('@Url.Action("TestBySubject", "Teacher_Dashboard")',
+                { id: selectedSubject }, function (data) {
+
+                    $('#TestID').html('');
+                    $('#TestID').prop('disabled', false);
+                    $.each(data, function (i, item) {
+                        $('#TestID').append('<option value=' + item.Id + '>' + item.Title + '</option>');
+                    });
+
+                });
+        });
+        $("#TestID").click(function () {
+            $('#btnAdd').prop('disabled', false);
+            $('#percentage').prop('disabled', false);
+
+        });
+        $("#btnAdd").bind("click", function () {
+            var selectedTest = $("#TestID").val();
+            var passpercentage = $("#percentage").val();
+            $.get('@Url.Action("ReportByTest", "Reports")',
+               { test: selectedTest, percentage: passpercentage }, function (data) {
+                   console.log(JSON.stringify(data));
+                   var chart = AmCharts.makeChart("pie", {
+                       "type": "pie",
+                       "theme": "light",
+                       "dataProvider": data,
+                       "valueField": "number",
+                       "titleField": "result",
+                       "colorField": "color",
+                       "balloon": {
+                           "fixedPosition": true,
+                       },
+                       "export": {
+                           "enabled": true
+                       }
+                   });
+
+               });
+            $.get('@Url.Action("AverageByTest", "Reports")',
+               { test: selectedTest, percentage: passpercentage }, function (data) {
+                   console.log(JSON.stringify(data));
+
+                   var gaugeChart = AmCharts.makeChart("guage", {
+                       "type": "gauge",
+                       "theme": "light",
+                       "axes": [{
+                           "axisThickness": 1,
+                           "axisAlpha": 0.2,
+                           "tickAlpha": 0.2,
+                           "valueInterval": 10,
+                           "bands": data.band,
+                           "bottomText": "Average",
+                           "bottomTextYOffset": -20,
+                           "endValue": data.band[2].endValue
+                       }],
+                       "arrows": [{}],
+                       "export": {
+                           "enabled": true
+                       }
+                   });
+                   setTimeout(function () { randomValue(); }, 2000);
+                   function randomValue() {
+
+                       var value = Math.round(data.average_marks);
+                       if (gaugeChart) {
+                           if (gaugeChart.arrows) {
+                               if (gaugeChart.arrows[0]) {
+                                   if (gaugeChart.arrows[0].setValue) {
+                                       gaugeChart.arrows[0].setValue(value);
+                                       gaugeChart.axes[0].setBottomText("Average:" + value);
+                                   }
+                               }
+                           }
+                       }
+                   }
+               });
+            $.get('@Url.Action("TestResult_Report", "Reports")',
+               { test: selectedTest, percentage: passpercentage }, function (data) {
+                   console.log(JSON.stringify(data));
+                   $('#ResultTable').html(' ');
+                   $.each(data, function (i, item) {
+                       if (item.Status == "Fail") {
+                           $('#ResultTable').append('<tr class="danger"><td>' + item.UserName + '</td><td>' + item.Name + '</td><td>' + item.MarksGot + '</td><td>' + item.Percentage + '</td><td>' + item.Status + '</td>')
+                       }
+                       else {
+                           $('#ResultTable').append('<tr><td>' + item.UserName + '</td><td>' + item.Name + '</td><td>' + item.MarksGot + '</td><td>' + item.Percentage + '</td><td>' + item.Status + '</td>')
+
+                       }
+
+                   });
+
+               });
+
+        });
+
+    });
+
+</script>
+<script>
+
+
+
+</script>
+
+<!-- HTML -->
+<div class="container">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <lable class="col-md-3 control-label"><b>Select Subject</b></lable>
+                    <div class="col-md-8">
+                        @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br />
+                    <lable class="col-md-3 control-label"><b>Select Subject</b></lable>
+                    <div class="col-md-8">
+                        <select class="form-control" id="SubjectID" name="SubjectID" disabled></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br />
+                    <lable class="col-md-3 control-label"><b>Select Test</b></lable>
+                    <div class="col-md-8">
+                        <select class="form-control" id="TestID" name="TestID" disabled></select>
+                    </div>
+                </div>
+                <div class="form-group">
+            <br />
+                    <lable class="col-md-3 control-label"><b>Passing Percentage</b></lable>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="percentage" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button id="btnAdd" type="button" class="btn btn-primary" disabled>Generate Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+
+        <div id="pie" class="col-md-6">
+
+        </div>
+        <div id="guage" class="col-md-6">
+
+        </div>
+    </div>
+    <div class="row">
+        <div id="table" class="col-md-12">
+            <button id="exportButton" class="btn btn-lg btn-danger clearfix"><span class="fa fa-file-excel-o"></span> Export to Excel</button>
+
+            <table class="table" id="exportTable">
+                <thead>
+                    <tr>
+                        <th>UserName</th>
+                        <th>Name</th>
+                        <th>MarksGot</th>
+                        <th>Percentage</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="ResultTable"></tbody>
+            </table>
+        </div>
+    </div>
+</div>

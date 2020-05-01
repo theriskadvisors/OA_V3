@@ -1,0 +1,100 @@
+﻿@model IEnumerable<SEA_Application.Models.AspNetMessage_Receiver>
+
+@{
+    ViewBag.Title = "Mailbox";
+    ViewBag.SubTitle = "Inbox";
+}
+
+<script src="~/AdminLTE/selectone.js"></script>
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <b><a href="#">Mail Box</a></b></label>
+<h3>SEA Mailbox </h3>
+
+        <div class="row">
+            <div class="col-md-3">
+          
+                @if (this.User.IsInRole("Admin") || this.User.IsInRole("Parent") || this.User.IsInRole("Teacher") || this.User.IsInRole("Principal") || this.User.IsInRole("Accountant"))
+                {
+                    <a href="@Url.Action("NewMessage","AspNetMessages")" class="btn btn-primary btn-block margin-bottom">Compose</a>}
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Folders</h3>
+                        <div class="box-tools">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body no-padding">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li class="active">
+                                <a href="@Url.Action("Inbox","AspNetMessages")">
+                                    <i class="fa fa-inbox"></i> Inbox
+                                    @* <span class="label label-primary pull-right">12</span>*@
+                                </a>
+                            </li>
+                            
+
+                            @if (this.User.IsInRole("Admin") || this.User.IsInRole("Parent") || this.User.IsInRole("Teacher") || this.User.IsInRole("Principal"))
+                            {
+                                <li><a href="@Url.Action("Sent", "AspNetMessages")"><i class="fa fa-envelope-o"></i> Sent</a></li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Inbox</h3>
+
+                    </div>
+                    <div class="box-body no-padding">
+
+                        <div class="table-responsive mailbox-messages">
+                            <table class="table">
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr onclick="window.document.location='@Url.Action("ReceiveMessageDetail", "AspNetMessages", new { messageID=item.MessageID })';">
+                                            @if (item.Seen == "Seen")
+                                            {
+
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.AspNetUser.UserName)
+                                                </td>
+                                                <td>
+                                                    <b style="width : 500px; overflow:hidden; display:inline-block; text-overflow: ellipsis; white-space: nowrap;">@Html.DisplayFor(modelItem => item.AspNetMessage.Subject)</b>
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.AspNetMessage.Time)
+                                                </td>
+
+                                            }
+                                            else
+                                            {
+                                                <td style="background-color:gainsboro">
+                                                    @Html.DisplayFor(modelItem => item.AspNetUser.UserName)
+                                                </td>
+                                                <td style="background-color:gainsboro">
+                                                    <b style="width : 500px; overflow:hidden; display:inline-block; text-overflow: ellipsis; white-space: nowrap;">@Html.DisplayFor(modelItem => item.AspNetMessage.Subject)</b>
+                                                </td>
+
+                                                <td style="background-color:gainsboro">
+                                                    @Html.DisplayFor(modelItem => item.AspNetMessage.Time)
+                                                </td>
+
+                                            }
+
+                                        </tr>
+                                      
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>

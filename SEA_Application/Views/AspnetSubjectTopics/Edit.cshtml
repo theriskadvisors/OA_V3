@@ -1,0 +1,207 @@
+﻿@model SEA_Application.Models.AspnetSubjectTopic
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
+}
+
+<style>
+
+    .page-sidebar .page-sidebar-menu, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: 1000px !important;
+    }
+
+    .form-horizontal {
+        background-color: #fff;
+        /* margin: 10px; */
+        margin-left: 5px;
+    }
+
+    textarea {
+        width: 557px;
+        height: 126px;
+    }
+</style>
+
+<script>
+
+    $(document).ready(function () {
+        $("#btnCancel").click(function () {
+
+            window.location.href = "/AspnetSubjectTopics/Index";
+        })
+
+
+        var course = 'CSS';
+        var Class;
+        $('#CTId').change(function () {
+
+
+            var crse = $(this).val();
+
+            if (crse != "") {
+
+
+                console.log(crse);
+                course = crse;
+                $.ajax({
+                    type: "POST",
+                    cache: false,
+                    url: "/AspNetProject/GetSubjectsByClass?CT=" + course,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        var sch = JSON.parse(data);
+                        console.log(sch);
+                        var $el = $("#SubjectId");
+                        $el.empty();
+                        if (sch.length > 0) {
+                            $el.append($("<option></option>")
+                                .attr("value", "").text('Select Subject'));
+                            for (i = 0; i < sch.length; i++) {
+
+                                $el.append($("<option></option>")
+                                    .attr("value", sch[i].Id).text(sch[i].SubjectName));
+                            }
+                        }
+                        else {
+                            $el.append($("<option></option>")
+                                .attr("value", '').text('Select'));
+                        }
+                    }
+                });
+
+            }
+            else {
+
+                   var $el = $("#SubjectId");
+                        $el.empty();
+            }
+
+        });
+
+
+        $('#ClassID').change(function () {
+
+            var UserName = $(this).val();
+            Class = UserName;
+            $.ajax({
+                type: "POST",
+                cache: false,
+                url: "/AspNetProject/GetSubjectsByClass?ClassID=" + UserName + "&&CT=" + course,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    var sch = JSON.parse(data);
+                    console.log(sch);
+                    var $el = $("#SubjectId");
+                    $el.empty();
+                    if (sch.length > 0) {
+                        $el.append($("<option></option>")
+                            .attr("value", "").text('Select Subject'));
+                        for (i = 0; i < sch.length; i++) {
+
+                            $el.append($("<option></option>")
+                                .attr("value", sch[i].Id).text(sch[i].SubjectName));
+                        }
+                    }
+                    else {
+                        $el.append($("<option></option>")
+                            .attr("value", '').text('Select'));
+                    }
+                }
+            });
+
+        });
+    })
+
+
+</script>
+
+<div class="box-header with-border"><h3 class="orange">Edit Topic<span class="red-mark">*</span></h3></div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="box box-primary">
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" ,@required = true} })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            @*<div class="form-group">
+                <label class="col-md-2 col-lg-2 control-label"> Section:<span class="red-mark">*</span></label>
+                <div class="col-md-6">
+                    @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control text_box_style", @required = true })
+
+                    <span style="color:red"> @ViewBag.SubjectsErrorMsg</span>
+                </div>
+
+            </div>*@
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    <label>Course Type <span class="text-danger">*</span></label>
+                </div>
+                <div class="col-md-6">
+
+                    @Html.DropDownList("CTId", new List<SelectListItem>
+                      {
+
+                    new SelectListItem{ Text="Select One", Value = "" },
+                       new SelectListItem{ Text="CSS", Value = "CSS" },
+                      new SelectListItem{ Text="PMS", Value = "PMS" },
+
+                       }, htmlAttributes: new { @class = "form-control",@required = true })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SubjectId, "SubjectId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DropDownList("SubjectId", null, htmlAttributes: new { @class = "form-control" ,@required = true })
+                    @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FAQ, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.TextAreaFor(model => model.FAQ, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FAQ, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+}

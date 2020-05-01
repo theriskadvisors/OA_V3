@@ -1,0 +1,33 @@
+﻿
+@if (this.User.IsInRole("Teacher"))
+{
+    Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
+}
+else
+{
+    Layout = "~/Views/Shared/Principal_DashboardLayout.cshtml";
+}
+
+<script src="~/AdminLTE/selectone.js"></script>
+
+<style>
+    #pie {
+        width: 50%;
+        height: 500px;
+    }
+
+    #guage {
+        width: 50%;
+        height: 500px;
+    }
+
+    #chartdiv {
+        width: 50%;
+        height: 500px;
+    }
+
+    #chartdiv1 {
+        width: 100%;
+        height: 500px;
+    }
+</style>

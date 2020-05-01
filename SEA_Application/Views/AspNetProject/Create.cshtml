@@ -1,0 +1,173 @@
+﻿@model SEA_Application.Models.AspNetProject
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<script src="~/AdminLTE/selectone.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $("#ClassID").prop('required', true);
+        $("#SubjectID").prop('required', true);
+        $("#Title").prop('required', true);
+        $("#Description").prop('required', true);
+        $("#PublishDate").prop('required', true);
+        $("#PublishDate").prop('type', 'date');
+        $("#DueDate").prop('required', true);
+        $("#DueDate").prop('type', 'date');
+        //$("#attachment").prop('required', true);
+        
+        $('#cancel').click(function () {
+            window.location.href = '@Url.Action("Dashboard", "Account")';
+        });
+
+
+        $("#ClassID").change(function () {
+
+            var selectedClass = $("#ClassID").val();
+            if (selectedClass != "") {
+
+
+
+                $.ajax({
+                    type: "POST",
+                    cache: false,
+                    url: "/AspNetStudentPerformanceReport/GetSubjects?ClassID=" + selectedClass,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        debugger;
+                        var sch = JSON.parse(data);
+                        debugger;
+                        var $el = $(".SubjectIdDDL");
+                        $el.empty();
+                        if (sch.length > 0) {
+                            $el.append($("<option></option>")
+                                .attr("value", 0).text('Select Subject'));
+                            for (i = 0; i < sch.length; i++) {
+                                $el.append($("<option></option>")
+                                    .attr("value", sch[i].Value).text(sch[i].Text));
+                            }
+                        }
+                        else {
+                            $el.append($("<option></option>")
+                                .attr("value", '').text('Select'));
+                        }
+                    }
+
+
+                });
+
+
+
+
+
+                @*$.get('@Url.Action("SubjectsByClass", "Teacher_Dashboard")',
+                    { id: selectedClass }, function (data) {
+
+                        $('#SubjectID').html('');
+                        debugger
+                        $.each(data, function (i, item) {
+                            $('#SubjectID').append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
+                        });
+
+                    });*@
+
+            }
+
+            else {
+                debugger
+                  $('#SubjectId').html('');
+
+            }
+        });
+       
+    });
+</script>
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") >  @Html.ActionLink("Project", "Index", "AspNetProject") > <b><a href="#">Create</a></b></label>
+<h4>Create Project</h4>
+
+<div class="box box-primary">
+    
+    @using (Html.BeginForm("Create", "AspNetProject", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        
+            <div class="box-body">
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        <lable class="col-md-1 col-lg-1 pull-left">Class Name:</lable>
+                        <div class="col-md-6">
+                            @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control col-md-6" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-1 col-lg-1">Subject Name:</label>
+                        <div class="col-md-6">
+
+                            <select class="form-control SubjectIdDDL" id="SubjectId" name="SubjectId"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <lable class="col-md-1 col-lg-1 pull-left">Title:</lable>
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <lable class="col-md-1 col-lg-1 pull-left">Description:</lable>
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                        <lable class="col-md-1 col-lg-1 pull-left">Publish Date:</lable>                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PublishDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <lable class="col-md-1 col-lg-1 pull-left">Due Date:</lable>                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.DueDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DueDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <lable class="col-md-1 col-lg-1 pull-left">Accept Submission:</lable>                
+                            <div class="col-md-6">
+                            <div class="checkbox" style="margin-left:18px">
+                                @Html.CheckBoxFor(model => model.AcceptSubmission)
+                                @Html.ValidationMessageFor(model => model.AcceptSubmission, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="form-group" style="margin-left:5px">
+                        <div class="btn btn-default btn-file col-md-offset-1 col-lg-offset-1">
+                            <i class="fa fa-paperclip"></i> Attachment:
+                            <input type="file" id="attachment" name="attachment">
+                        </div>
+                        <div class="col-md-offset-1 col-lg-offset-1">
+                            <p class="help-block">Max. 32MB</p>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-lg-offset-1 col-md-2">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                        <button class="btn btn-default" onclick="window.location.href = 'Index'">Back</button>
+                    </div>
+
+                </div>
+        </div>
+    }
+</div>

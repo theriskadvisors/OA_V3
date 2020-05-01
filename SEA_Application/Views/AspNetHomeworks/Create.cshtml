@@ -1,0 +1,154 @@
+﻿@model SEA_Application.Models.AspNetHomework
+
+@{
+    ViewBag.Title = "Create";
+}
+<script>
+    var Subject_Homework =
+    {
+        SubjectID: '',
+        HomeworkDetail: ''
+    }
+    var Homework =
+        {
+            ClassId: '',
+            Date: '',
+            TeacherComment: '',
+            Reading: '',
+            subject_Homework: []
+        }
+
+    $(document).ready(function () {
+        $("#Date").prop('type', 'date');
+
+        $('#ClassId').change(function () {
+            var ClassId = $('#ClassId').val();
+            $.get('@Url.Action("SubjectByClass")',
+                { classId: ClassId }, function (data) {
+                    $("#HomeworkDetailTbody").html('');
+                    $.each(data, function (i, item) {
+                        $("#HomeworkDetailTbody").append('<tr id=' + item.Id + '><td>' + item.SubjectName + '</td><td><textarea class="form-control" id="HomeWorkDetail"></textarea></td></tr>');
+                    });
+                });
+        });
+
+        $('#AddDiary').click(function () {
+            aspNetHomework = Object.create(Homework);
+            aspNetHomework.ClassId = $('#ClassId').val();
+            aspNetHomework.Date = $('#Date').val();
+            aspNetHomework.TeacherComment = $('#TeacherComment').val();
+            aspNetHomework.Reading = $('#Reading').val();
+            aspNetHomework.subject_Homework = [];
+            $('#HomeworkDetailTbody tr').each(function () {
+                aspNetSubject_Homework = Object.create(Subject_Homework);
+                aspNetSubject_Homework.SubjectID = $(this).attr('id');
+                aspNetSubject_Homework.HomeworkDetail = $('#HomeWorkDetail', this).val();
+                aspNetHomework.subject_Homework.push(aspNetSubject_Homework);
+            });
+            aspNetHomework = JSON.stringify({ 'aspNetHomework': aspNetHomework });
+
+            console.log(aspNetHomework);
+            debugger;
+            $('.eeniart0017').css("display", "block");
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: '/AspNetHomeworks/AddDiary',
+                data: aspNetHomework,
+                success: function () {
+                    debugger;
+                    $('.eeniart0017').css("display", "none");
+                    $('#partial').html('Attendance Successfully Save');
+                    //window.location.href = "Index";
+                    window.location.href = "/AspNetHomeworks/successmessage";
+                },
+                failure: function (response) {
+                    $('#partial').html('Something went wrong');
+                }
+            });
+        });
+    });
+</script>
+<label>@Html.ActionLink("Home", "Dashboard", "Account") >  @Html.ActionLink("Diary", "Index", "AspNetHomeworks") > <a href="#"><b>Create</b></a> </label>
+<h4>Create New Diary</h4>
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+
+    </div>
+    <div class="box-body">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-lable col-md-2">Class Name</label>
+                <div class="col-md-6">
+                    @Html.DropDownList("ClassId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="box box-primary">
+    <div class="box-header with-border">
+
+    </div>
+    <div class="box-body">
+        <div class="col-md-12">
+            <table class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th>
+                            Subject Name
+                        </th>
+                        <th>
+                            Homework Detail
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="HomeworkDetailTbody"></tbody>
+            </table>
+            <hr />
+            <table class="table table-bordered">
+                <tbody>
+                    <tr class="hidden"> 
+                        <td>
+                            Reading
+                        </td>
+                        <td>
+                            <textarea class="form-control" id="Reading"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Teacher Comment
+                        </td>
+                        <td>
+                            <textarea class="form-control" id="TeacherComment"></textarea>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+       
+    </div>
+    <div class="box-footer">
+        <button onclick="window.location.href='/AspNetHomeworks/Index'" class="btn btn-primary pull-left">Back</button>
+        <button id="AddDiary" class="btn btn-primary pull-right">Add Diary</button>
+    </div>
+</div>
+
+
+
+
+
+

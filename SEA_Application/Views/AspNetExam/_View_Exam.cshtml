@@ -1,0 +1,235 @@
+﻿@model IEnumerable<SEA_Application.Models.AspNetExam>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+
+<p>
+    @Html.ActionLink("New Exam", "Create")
+</p>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var subjectcookieval = null;
+        var ClassCookie_Examval = null;
+        var allcookies = document.cookie;
+
+        // Get all the cookies pairs in an array
+        cookiearray = allcookies.split(';');
+
+        // Now take key value pair out of this array
+        for (var i = 0; i < cookiearray.length; i++) {
+            name = cookiearray[i].split('=')[0];
+            value = cookiearray[i].split('=')[1];
+
+            console.log(cookiearray[i]);
+
+            if (cookiearray[i].split('=')[0] == " ClassCookie_Exam" || cookiearray[i].split('=')[0] == "ClassCookie_Exam") {
+                ClassCookie_Examval = cookiearray[i].split('=')[1];
+
+            }
+
+            if (cookiearray[i].split('=')[0] == " SubjectsCookie_Exam" || cookiearray[i].split('=')[0] == "SubjectsCookie_Exam") {
+                subjectcookieval = cookiearray[i].split('=')[1];
+
+            }
+        }
+        console.log("classval", ClassCookie_Examval);
+
+        console.log("subval", subjectcookieval);
+        if (ClassCookie_Examval != null && subjectcookieval != null) {
+
+            var selectClass = document.getElementById('ClassID');
+            selectClass.value = ClassCookie_Examval;
+
+
+            $.get('@Url.Action("SubjectsByClass")',
+                    { id: ClassCookie_Examval }, function (data) {
+                        //alert(JSON.stringify(data));
+                        $('#SubjectID').html('');
+                        $('#SubjectID').prop('disabled', false);
+                        $.each(data, function (i, item) {
+                            $('#SubjectID').append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
+                        });
+                        $.get('@Url.Action("ExamsBySubject", "Teacher_Dashboard")',
+                        { id: subjectcookieval }, function (data) {
+                            $('#ExamID').html(' ');
+                            $.each(data, function (i, item) {
+                                var html = '<div class="bs-calltoaction bs-calltoaction-primary">';
+                                html += '<div class="row"><div class="col-md-9 cta-contents">'
+                                html += '<h1 class="cta-title">' + item.Title + '</h1>';
+                                html += '<div class="cta-desc">';
+                                html += '<p>' + item.Description + '</p>';
+                                html += '</div></div>';
+                                html += '<div class="col-md-3 cta-button">';
+                                html += '<a href="/AspNetExam/Details?id=' + item.Id + '" class="btn btn-lg btn-block btn-primary">Detail</a>';
+                                html += '</div></div></div>';
+                                $('#ExamID').append(html);
+
+                            });
+
+                        });
+                    });
+        }
+
+
+
+        $('#SubjectID').prop('disabled', true);
+        $("#ClassID").click(function () {
+            var selectedClass = $("#ClassID").val();
+            document.cookie = "ClassCookie_Exam=" + selectedClass + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+            $.get('@Url.Action("SubjectsByClass","Teacher_Dashboard")',
+                { id: selectedClass }, function (data) {
+
+                    //alert(JSON.stringify(data));
+                    $('#SubjectID').html('');
+                    $('#SubjectID').prop('disabled', false);
+                    $.each(data, function (i, item) {
+                        $('#SubjectID').append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
+                    });
+
+                });
+        });
+        $("#SubjectID").click(function () {
+            var selectedSubject = $("#SubjectID").val();
+            document.cookie = "SubjectsCookie_Exam=" + selectedSubject + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+            $.get('@Url.Action("ExamsBySubject", "Teacher_Dashboard")',
+                { id: selectedSubject }, function (data) {
+                    $('#ExamID').html(' ');
+                    $.each(data, function (i, item) {
+                        var html = '<div class="bs-calltoaction bs-calltoaction-primary">';
+                        html += '<div class="row"><div class="col-md-9 cta-contents">'
+                        html += '<h1 class="cta-title">' + item.Title + '</h1>';
+                        html += '<div class="cta-desc">';
+                        html += '<p>' + item.Description + '</p>';
+                        html += '</div></div>';
+                        html += '<div class="col-md-3 cta-button">';
+                        html += '<a href="/AspNetExam/Details?id=' + item.Id + '" class="btn btn-lg btn-block btn-primary">Detail</a>';
+                        html += '</div></div></div>';
+                        $('#ExamID').append(html);
+
+                    });
+
+                });
+        });
+    });
+</script>
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<style>
+    .bs-calltoaction {
+        position: relative;
+        width: auto;
+        padding: 15px 25px;
+        border: 1px solid black;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+        .bs-calltoaction > .row {
+            display: table;
+            width: calc(100% + 30px);
+        }
+
+            .bs-calltoaction > .row > [class^="col-"],
+            .bs-calltoaction > .row > [class*=" col-"] {
+                float: none;
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+    .cta-contents {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .cta-title {
+        margin: 0 auto 15px;
+        padding: 0;
+    }
+
+    .cta-desc {
+        padding: 0;
+    }
+
+        .cta-desc p:last-child {
+            margin-bottom: 0;
+        }
+
+    .cta-button {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    @@media (max-width: 991px) {
+        .bs-calltoaction > .row {
+            display: block;
+            width: auto;
+        }
+
+            .bs-calltoaction > .row > [class^="col-"],
+            .bs-calltoaction > .row > [class*=" col-"] {
+                float: none;
+                display: block;
+                vertical-align: middle;
+                position: relative;
+            }
+
+        .cta-contents {
+            text-align: center;
+        }
+    }
+
+    .bs-calltoaction.bs-calltoaction-primary {
+        color: #fff;
+        background-color: #337ab7;
+        border-color: #2e6da4;
+    }
+
+
+        .bs-calltoaction.bs-calltoaction-primary .cta-button .btn,
+        .bs-calltoaction.bs-calltoaction-info .cta-button .btn,
+        .bs-calltoaction.bs-calltoaction-success .cta-button .btn,
+        .bs-calltoaction.bs-calltoaction-warning .cta-button .btn,
+        .bs-calltoaction.bs-calltoaction-danger .cta-button .btn {
+            border-color: #fff;
+        }
+</style>
+<div class="container">
+    <div class="box box-info">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <br />
+                        <lable class="col-md-3 control-label"><b>Select Class</b></lable>
+                        <div class="col-md-8">
+                            @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <br />
+                        <lable class="col-md-3 control-label"><b>Select Subject</b></lable>
+                        <div class="col-md-8">
+                            @Html.DropDownList("SubjectID", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box box-info">
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="ExamID">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,144 @@
+﻿
+@{
+    ViewBag.Title = "ChartsOf_Accounts";
+}
+<style>
+          #example1 tr > :nth-child(3) {
+    display: none;
+}
+         #example2 tr > :nth-child(3) {
+        display: none;
+    }
+         .content{
+             background-color:#ffffff !important;
+         }
+         .content-wrapper{
+             background-color:#ffffff !important;
+         }
+         td{
+             font-family:Montserrat;
+         }
+         
+</style>
+
+<div style="border:1px solid #f7f7f7;height:60px;background-color:#f7f7f7;margin:15px;">
+    <br />
+    <span style="margin:15px"><b>Chart Of Accounts</b></span>
+
+</div>
+<br /><br />
+<script>
+    $(document).ready(function () {
+        $('.eeniart0017').css("display", "block");
+        $.ajax({
+            type: "POST",
+            url: "/ChartOfAccounts/GetChart",
+            success: function (data) {
+                $("#SubmitTable").append('');
+                $('.eeniart0017').css("display", "none");
+                $.each(data, function (i, item) {
+                   
+
+                    var head = data[i];
+                    if (head.HeadName == "Assets" || head.HeadName=="Liabilities" || head.HeadName=="Equity")
+                    {
+                        $("#SubmitTable1").append('<tr><td></td><td><b>' + head.HeadName + '</b></td><td>' + head.HeadId + '</td></tr>');
+                        var ledger = head.ledger;
+                        for (var i = 0; i < ledger.length; i++) {
+                            var btn = '<input type="button" id="showdetails" onclick="REDIRECTLedger()" value="Edit" style="font-weight:700;margin-left:5px;margin-right:5px;margin-top:5px;border-radius:5px;border:1px solid #f7f7f7;color:#808080;font-size:10px;font-family:Montserrat;background-color:#ffffff;width:80%;height:25px" />';
+                            $("#SubmitTable1").append('<tr><td>' + btn + '</td><td>' + ledger[i].LedgerName + '</td><td>' + ledger[i].LedgerId + '</td></tr>');
+                        }
+                        var ledgergroup = head.ledgerGroup;
+                        for (var i = 0; i < ledgergroup.length; i++) {
+                            var btn = '<input type="button" id="showdetails" onclick="REDIRECTGroup()" value="Edit" style="font-weight:700;margin-left:5px;margin-right:5px;margin-top:5px;border-radius:5px;border:1px solid #f7f7f7;color:#808080;font-size:10px;font-family:Montserrat;background-color:#ffffff;width:80%;height:25px" />';
+                            $("#SubmitTable1").append('<tr><td>' + btn + '</td><td style="padding-left:30px"><b>' + ledgergroup[i].GroupName + '</b></td><td>' + ledgergroup[i].GroupId + '</td></tr>');
+                            var lgr = ledgergroup[i].ledger;
+                            for (var j = 0; j < lgr.length; j++) {
+                                var btn = '<input type="button" id="showdetails" onclick="REDIRECTLedger()" value="Edit" style="font-weight:700;margin-left:5px;margin-right:5px;margin-top:5px;border-radius:5px;border:1px solid #f7f7f7;color:#808080;font-size:10px;font-family:Montserrat;background-color:#ffffff;width:80%;height:25px" />';
+                                $("#SubmitTable1").append('<tr><td>' + btn + '</td><td style="padding-left:30px" >' + lgr[j].LedgerName + '</td><td>' + lgr[j].LedgerId + '</td></tr>');
+                            }
+                        }
+                    }
+                    else {
+                        $("#SubmitTable2").append('<tr><td></td><td><b>' + head.HeadName + '</b></td><td>' + head.HeadId + '</td></tr>');
+                        var ledger = head.ledger;
+                        for (var i = 0; i < ledger.length; i++) {
+                            var btn = '<input type="button" id="showdetails" onclick="REDIRECTLedger()" value="Edit" style="font-weight:700;margin-left:5px;margin-right:5px;margin-top:5px;border-radius:5px;border:1px solid #f7f7f7;color:#808080;font-size:10px;font-family:Montserrat;background-color:#ffffff;width:80%;height:25px" />';
+                            $("#SubmitTable2").append('<tr><td>' + btn + '</td><td>' + ledger[i].LedgerName + '</td><td>' + ledger[i].LedgerId + '</td></tr>');
+                        }
+                        var ledgergroup = head.ledgerGroup;
+                        for (var i = 0; i < ledgergroup.length; i++) {
+                            var btn = '<input type="button" id="showdetails" onclick="REDIRECTGroup()" value="Edit" style="font-weight:700;margin-left:5px;margin-right:5px;margin-top:5px;border-radius:5px;border:1px solid #f7f7f7;color:#808080;font-size:10px;font-family:Montserrat;background-color:#ffffff;width:80%;height:25px" />';
+                            $("#SubmitTable2").append('<tr><td>' + btn + '</td><td style="padding-left:30px"><b>' + ledgergroup[i].GroupName + '<b></td><td>' + ledgergroup[i].GroupId + '</td></tr>');
+                            var lgr = ledgergroup[i].ledger;
+                            for (var j = 0; j < lgr.length; j++) {
+                                var btn = '<input type="button" id="showdetails" onclick="REDIRECTLedger()" value="Edit" style="font-weight:700;margin-left:5px;margin-right:5px;margin-top:5px;border-radius:5px;border:1px solid #f7f7f7;color:#808080;font-size:10px;font-family:Montserrat;background-color:#ffffff;width:80%;height:25px" />';
+                                $("#SubmitTable2").append('<tr><td>' + btn + '</td><td style="padding-left:30px" >' + lgr[j].LedgerName + '</td><td>' + lgr[j].LedgerId + '</td></tr>');
+                            }
+                        }
+                    }
+                  
+                                               
+                })
+            }
+        })
+    })
+    function NewGroup() {
+        window.location.href = "/LedgerGroups/Create";
+    }
+    function NewAccount() {
+        window.location.href = "/Ledgers/Create";
+    }
+    function REDIRECTLedger() {
+        $('.table').on('click', 'tbody tr', function () {
+            var td = $(this).children("td");
+            debugger;
+            if ($(td).html() != "No data available in table");
+            window.location.href = "/Ledgers/Edit?id=" + $(td[2]).html();
+        })
+    }
+    function REDIRECTGroup() {
+        $('.table').on('click', 'tbody tr', function () {
+            var td = $(this).children("td");
+            debugger;
+            if ($(td).html() != "No data available in table");
+            window.location.href = "/LedgerGroups/Edit?id=" + $(td[2]).html();
+        })
+    }
+</script>
+<div class="col-md-6 pull-left" >
+    <div style="border:1px solid #f7f7f7;height:60px;background-color:#f7f7f7;padding-top:5px!important;">
+
+        <span style="font-size:15px;color:#c2c1c1;letter-spacing:3px;padding:10px"><b>Balance Sheet</b></span>
+        <input type="button" class="btn btn-default" onclick="NewGroup()" style="background-color:white;margin-top:7px;font-weight:700" value="New Group" />
+        <input type="button" class="btn btn-default" onclick="NewAccount()" style="background-color:white;margin-top:7px;font-weight:700" value="New Account" />
+    </div>
+    <table class="table table-bordered table-striped" id="example1">
+        <thead>
+            <tr>
+                <th style="width:80px"><i class="fa fa-edit" style="color:#c2c1c1"></i></th>
+                <th>Name</th>
+                <th>ID</th>
+            </tr>
+        </thead>
+        <tbody id="SubmitTable1"></tbody>
+    </table>
+</div>
+ <div class="col-md-6 pull-right" >
+     <div style="border:1px solid #f7f7f7;height:60px;background-color:#f7f7f7;padding-top:5px!important;">
+         <span style="font-size:15px;color:#c2c1c1;letter-spacing:2px;padding:10px"><b>Profit and Loss Statement</b></span>
+         <input type="button" class="btn btn-default" onclick="NewGroup()" style="background-color:white;margin-top:7px;font-weight:700" value="New Group" />
+         <input type="button" class="btn btn-default" onclick="NewAccount()" style="background-color:white;margin-top:7px;font-weight:700" value="New Account" />
+     </div>
+     <table class="table table-bordered table-striped" id="example2">
+        <thead>
+            <tr>
+                <th style="width:80px"><i class="fa fa-edit" style="color:#c2c1c1"></i></th>
+                <th>Name</th>
+                <th>ID</th>
+            </tr>
+        </thead>
+        <tbody id="SubmitTable2"></tbody>
+    </table>
+</div>
+  

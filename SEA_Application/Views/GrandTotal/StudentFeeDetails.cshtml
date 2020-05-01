@@ -1,0 +1,371 @@
+﻿@model SEA_Application.Models.AspNetStudent
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AccountantDashboardLayout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    var RecurreningFee= NonRecurringFee= PlentyFee =Discount =GrandTotal = 0;
+    var studentID =0;
+    var SFMID=0;
+    $(document).ready(function () {
+       studentID =  @ViewBag.StudentID;
+        var Month = '@ViewBag.Month';
+
+        $('.eeniart0017').css("display", "block");
+            $.ajax({
+                type: "POST",
+                url: "/GrandTotal/AllResults?Month="+Month+ "&&StudentID="+studentID,
+                success: function (data) {
+
+                    if (data != "error") {
+                        $('.eeniart0017').css("display", "none");
+                        data = JSON.parse(data);
+
+                        $("#RecurringFee").val(data.RecurrenceFee);
+                        $("#NonRecurringFee").val(data.NonRecurrenceFee);
+                        $("#PlentyFee").val(data.PlentyFee);
+                        $("#DiscountFee").val(data.Discount);
+                        $("#Arrear").val(data.Arrear);
+                        SFMID= data.StudentFeeMonthId;
+                       
+                        var total=parseFloat(data.RecurrenceFee)+parseFloat(data.NonRecurrenceFee)+parseFloat(data.PlentyFee) +parseFloat(data.Arrear)+-parseFloat(data.Discount);
+
+                        if(isNaN(total) || total == "undefined" )
+                        {
+                            $("#GrandTotal").val("0");
+                        }
+                        else if( total < 0 ){
+                            $("#GrandTotal").val("Discount amount is greater than Fee.");
+                        }
+                        else{
+                            $("#GrandTotal").val(Math.round(total));
+                        }
+
+                    }
+                    else {
+                        $("#GrandTotal").val("0");
+                    }
+
+                }
+            });
+
+
+            $.ajax({
+                type: "POST",
+                cache: false,
+                url: "/GrandTotal/GetChallanDate",
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    debugger;
+                    var obj = JSON.parse(data);
+                    if(data !='error')
+                    {
+                       var  duedate = obj.DueDate.split("T00:00:00");
+                       var  validitydate = obj.ValidityDate.split("T00:00:00");
+                       $('#duedate').val((duedate[0]));
+                       $('#validitydate').val(validitydate[0]);
+                    }
+                
+                }
+            });
+            $('#Print').click(function () {
+                var restorepage = $('body').html();
+                var printcontent = $('#ChallanForm').clone();
+                $('body').empty().html(printcontent);
+                window.print();
+                $('body').html(restorepage);
+            });
+      
+    })
+
+    function parseJsonDate(jsonDateString) {
+        debugger;
+        var month_names_short= ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    
+        var currentdate = new Date(parseInt(jsonDateString.replace('/Date(', '')));
+        return currentdate.getDate() + "-" + (month_names_short[currentdate.getMonth()]) + "-" + currentdate.getFullYear();
+    }
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    function GetChallanForm() {
+
+        debugger;
+        var _SID=$("#StudentID").val();
+        var _Mnth=$("#SelectMonth").val();
+        var _DueDate = $("#duedate").val();
+        var _validitydate = $("#validitydate").val();;
+        $.ajax({
+            type: "POST",
+            async: false,
+            cache: false,
+            url: "/GrandTotal/UpdateStudentFeeMonth_Dates?StudentID="+_SID+"&&Month="+_Mnth+"&&validitydate="+_validitydate+"&&duedate="+_DueDate,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+            }
+        });
+
+
+
+
+        var arrears=$("#Arrear").val();
+        var grandtotal=$("#GrandTotal").val();
+
+       var non= $("#NonRecurringFee").val();
+       var pen= $("#PlentyFee").val();
+       var others=parseInt(non)+parseInt(pen);
+
+        var jd = $("#duedate").val().split('-');
+        var yy = jd[0];
+        var mm = parseInt(jd[1]);
+        var dd = parseInt(jd[2]);
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var duedate = months[mm - 1] +' '+ dd+', '  + yy;
+       
+        var jd = $("#validitydate").val().split('-');
+        debugger;
+        var yy = jd[0];
+        var mm = parseInt(jd[1]);
+        var dd = parseInt(jd[2]);
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var validdate = months[mm - 1] +' '+ dd+', '  + yy;
+        debugger;
+        $('.eeniart0017').css("display", "block");
+        $.get('@Url.Action("GetChallanForm")',
+          { StudentID: studentID,SFMID:SFMID,total:grandtotal }, function (data) {
+              var html = "";
+              $('#ChallanForm').html(' ');
+              $('.eeniart0017').css("display", "none");
+
+              console.log(data);
+              $.each(data.ChallanCopy, function (i, item) {
+                  debugger;
+
+                  html += '<div class="col-xs-4">';
+                  html += '<center>';
+                  html += ' <div style="border:1px solid black; margin-bottom:5px"><font size="3"><b>' + data.SchoolName + '</b></font></div>';
+                  html += '</center>';
+                  html += '<center>';
+                  html += '<div style="border:1px solid black"><font size="2"><b>Fee Voucher</font></div></br>';
+                  html += '</center>';
+                  html += '<center>';
+                  html += '<font size="2">Payable at any MBL Branch</font>';
+                  html += '</center>';
+                  html += '<center>';
+                  html += '</br><div style="border:1px solid black"><font size="2"><b>Customer Code: NGS</b></font></div>';
+                  html += '</center>';
+                  html += '<section id="fee" class="section" style="margin-bottom:5px; padding:8px; height:150px">';
+                  html += '<div><font size="2">Challan#:&nbsp;&nbsp;&nbsp;<spam style="border-bottom:1px solid black">' + data.ChallanID + '</spam></font>';
+                  html += '<font size="2" class="pull-right">Due Date:&nbsp;&nbsp;&nbsp;<spam style="border-bottom:1px solid black">' + duedate + '</spam></font></div>';
+                  html += '<div><font size="2">Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spam style="border-bottom:1px solid black">' + data.StudentName + '</spam></font>';
+                  html += '<font size="2" class="pull-right">Validity date:&nbsp;&nbsp;&nbsp;&nbsp;<spam style="border-bottom:1px solid black">' + validdate + '</spam></font></div>';
+                  html += '<div><font size="2">Class:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spam style="border-bottom:1px solid black">' + data.StudentClass + '</spam></font>';
+                  html += '<font size="2" class="pull-right">Roll No.&nbsp;&nbsp;&nbsp;<spam style="border-bottom:1px solid black">' + data.StudentUserName + '</spam></font></div>';
+            //   html += '<div></br><i>Fee for the term</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spam style="border-bottom:1px solid black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + d.getMonthName() + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spam></div>';
+                  html += '</section>';
+                  html += '<section id="fee" class="section" ; margin-bottom:10px; padding:4px; height:150px">';
+                  html += '<table class="table">';
+                  html += '<tr>';
+                  html += '<th style="border:1px solid black">';
+                  html += '<font size="3"><b><i>PARTICULARS</i></b></font>';
+                  html += '</th style="border:1px solid black">';
+                  html += '<th style="border:1px solid black;text-align:center">';
+                  html += '<font size="3"><b><i>AMOUNT</i></b></font>';
+                  html += '</th>';
+                  html += '</tr>';
+                  html += '<tbody>';
+                 
+                  //$.each(data.FeeType, function (i, item) {
+                  //    debugger;
+                  //    html += '<tr>';
+                  //    html += '<td style="border:1px solid black;"><font size="2">' + item.Name + '</font></td>';
+                  //    html += '<td style="border:1px solid black" align="center"><font size="2" pull-right>Rs.&nbsp;&nbsp;' + numberWithCommas(item.Amount) + '</font></td>';
+                  //    html += '</tr>';
+                  //});
+
+                  html += '<tr>';
+                  html += '<td style="border:1px solid black">';
+                  html += '<font size="2">  <b>Payable Fee</b></font>';
+                  html += '</td>';
+                  html += '<td align="center" style="border:1px solid black">';
+                  html += '<font size="2" pull-right><b>Rs.&nbsp;&nbsp;' + numberWithCommas(data.TotalAmount) + '</b></font>';
+                  html += '</tr>';
+ 
+                  html += '<tr>';
+                  html += '<td style="border:1px solid black">';
+                  html += '<font size="2">  <b>Others</b></font>';
+                  html += '</td>';
+                  html += '<td align="center" style="border:1px solid black">';
+                  html += '<font size="2" pull-right><b>Rs.&nbsp;&nbsp;' + numberWithCommas(others) + '</b></font>';
+                  html += '</tr>';
+                  html += '<tr>';
+
+                  html += '<tr>';
+                  html += '<td style="border:1px solid black">';
+                  html += '<font size="2">  <b>Arrears</b></font>';
+                  html += '</td>';
+                  html += '<td align="center" style="border:1px solid black">';
+                  html += '<font size="2" pull-right><b>Rs.&nbsp;&nbsp;' + numberWithCommas(arrears) + '</b></font>';
+                  html += '</tr>';
+                  html += '<tr>';
+                  html += '<td style="border:1px solid black">';
+                  html += '<font size="2"><b> Payable before due date</b></font>';
+                  html += '</td>';
+                  html += '<td align="center" style="border:1px solid black">';
+                  html += '<font size="2" pull-right><b>Rs.&nbsp;&nbsp;' + numberWithCommas(grandtotal) + '</b></font>';
+                  html += '</tr>';
+                  html += '<tr>';
+                  html += '<td style="border:1px solid black">';
+                  html += '<font size="2">  <b>Payable After Due Date</b></font>';
+                  html += '</td>';
+                  html += '<td align="center" style="border:1px solid black">';
+                  html += '<font size="2"><b>Rs.&nbsp;&nbsp;' + numberWithCommas(grandtotal) + '</b></font>';
+                  html += '</td>';
+                  html += '</tr>';
+                  html += '</tbody>';
+                  html += '</table>';
+                  html += '</section>';
+
+                  html += '<font size="2">*Payment Terms:</font>';
+                  html += '<br />';
+                  html += '<font size="1">1. After due date student will pay PKR 100/-per day as a charity on </font>';
+                  html += '<br />';
+                  html += '<font size="1">2. Only Cash and MBL Cheque/Payorder will be accepted</font>';
+                  html += '<br />';
+                  html += '<font size="1">3. The additional amount collected after due date will be donated for charitable purpose.</font>';
+                  html += '<br />';
+                  html += '<font size="1" style="font-family:"Times New Roman", Georgia, Serif"><b>*Other Charges*</b> Includes: Stationery, Energy, Science & Computer Supplies, Sports and Swimming.</font>';
+                  html += '<center></br>' + item + '</center>';
+                  html += '</div>';
+              });
+              $('#ChallanForm').html(html);
+          });
+    }
+</script>
+
+<h4 class="orange">Student Fee Info</h4>
+
+@if (ViewBag.Error == "NotFound")
+{
+    <p style="color: red; font-size: 11px">Error ! Data not Found. </p>
+}
+<div class="row" style="padding-bottom: 10px; padding-top: 10px; padding-left: 20px; padding-right: 20px;">
+    <input type="hidden" id="ID" />
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="nav-tabs-custom">
+            <div class="tab-content" style="background-color:#ECF0F5; padding:10px 0px 0px 0px;">
+                <div class="tab-pane active" id="tab_1">
+                    <div class="form-three widget-shadow">
+                      
+                            <div class="box box-primary">
+                                <div class="box-header with-border"><h3 class="orange">Student Fee Information</h3></div>
+                                <div class="box-body">
+                                    <div class="form-horizontal">
+                                        <div class="col-md-4 hidden">
+                                            <input type="text" value="@ViewBag.StudentID" class="form-control" id="StudentID" readonly />
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2 col-lg-2">Month </label>
+                                            <div class="col-md-4">
+                                                <input type="text" value="@ViewBag.Month" class="form-control" id="SelectMonth" readonly />
+
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2 col-lg-2">Name</label>
+                                            <div class="col-md-4">
+                                                <input type="text" value="@ViewBag.Name" class="form-control" id="Name" readonly />
+                                               </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2 col-lg-2">Roll Number</label>
+                                            <div class="col-md-4">
+                                                <input type="text" value="@ViewBag.RollNo" class="form-control" id="RollNo" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2 col-lg-2">Cell Number</label>
+                                            <div class="col-md-4">
+                                                <input type="text" value="@ViewBag.PhoneNo" class="form-control" id="PhoneNo" readonly />
+                                               </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2 col-lg-2">Recurring Fee</label>
+                                            <div class="col-md-4">
+                                             <input type="text" class="form-control" id="RecurringFee" readonly/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2 col-lg-2">Non-Recurring Fee</label>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" id="NonRecurringFee" readonly />                                       
+                                                 </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2 col-lg-2">Plenty Fee:</label>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" id="PlentyFee" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2 col-lg-2">Discount Fee</label>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" id="DiscountFee" readonly />
+                                              </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2 col-lg-2">Arrear</label>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" id="Arrear" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2 col-lg-2">Grand Total</label>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" id="GrandTotal" readonly />
+                                                </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2 col-lg-2">Due Date </label>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" id="duedate" readonly/>
+                                            </div>
+                                        </div> 
+                                          <div class="form-group">
+                                            <label class="control-label col-md-2 col-lg-2">Validity Date </label>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" id="validitydate" readonly/>
+                                                </div>
+                                        </div>
+                                        <br />
+                                    </div>
+                                    <input type="submit" class="success" onclick="GetChallanForm()" value="View Challan Form" />
+                                </div>
+                            </div>
+                         
+         
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="box-header with-border">
+            <button id="Print" class="btn-primary">Print</button>
+        </div>
+        <div id="ChallanForm">
+
+        </div>
+    </div>
+</div>

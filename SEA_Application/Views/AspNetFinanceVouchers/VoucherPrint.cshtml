@@ -1,0 +1,142 @@
+﻿@model SEA_Application.Models.AspNetFinanceVoucher
+<div style="text-align:center">
+    <h2>Voucher</h2>
+</div>
+<script>
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    $(function () {
+        var grandTotal = 0;
+        $("[id*=amtbl_1]").each(function () {
+            grandTotal = grandTotal + parseFloat($(this).html());
+
+        });
+        $("[id*=totaltbl_1]").html("Total=" + grandTotal.toString());
+    });
+    $(function () {
+        var grandTotal = 0;
+        $("[id*=amtbl_2]").each(function () {
+            grandTotal = grandTotal + parseFloat($(this).html());
+
+        });
+        $("[id*=totaltbl_2]").html("Total=" + grandTotal.toString());
+    });
+
+    $(document).ready(function () {
+
+        var balance = $(".money");
+
+        $.each(balance, function (i, item) {
+            item.innerHTML = numberWithCommas(item.innerHTML);
+        });
+
+        var time = $("#time").val();
+        time = time.split(" ");
+        $("#Time").text(time[0]);
+
+        var selectedValue = $('#PeriodId option[value = ' + $('#PeriodId').val() + ']').text();
+        $('#PeriodName').text(selectedValue);
+
+        var type = $("#type").val();
+        $('#VoucherType option[value="' + type + '"]').prop('selected', true);
+    });
+</script>
+
+<style>
+    .table th {
+        font-weight: normal;
+    }
+</style>
+
+
+@*<div class="box box-primary">
+    <div class="box-body">*@
+
+        <div class="row padding-bottom">
+            <div class="col-md-2">
+                <text>Voucher Type: </text> @Model.VoucherType
+            </div>
+        </div>
+        <div class="row padding-bottom">
+            <div class="col-md-2">
+                <lable class="">Voucher No: </lable>@Model.VoucherNo
+            </div>
+        </div>
+        <div class="row padding-bottom">
+            <div class="col-md-6">
+                <lable class="">Description: </lable>@Model.VoucherDescription
+            </div>
+        </div>
+
+        <div class="row padding-bottom">
+            <div class="col-md-2">
+                <lable class="control-label">Date: </lable>
+                <span id="Time"></span>
+                <input type="hidden" value="@Model.Time" id="time" />
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <table id="example" class="table table-bordered" cellspacing="1" cellpadding="1">
+                <thead>
+                    <tr>
+                        <th>
+                            Code
+                        </th>
+                        <th>
+                            Narration
+                        </th>
+                        <th>
+                            Debit
+                        </th>
+                        <th>
+                            Credit
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.AspNetFinanceVoucherDetails)
+                    {
+                        <tr>
+                            <td>
+                                @item.AspNetFinanceLedger.Code
+                            </td>
+                            <td>
+                                @item.TransactionDescription
+                            </td>
+                            <td class="money" id="amtbl_1">
+                                @item.Debit
+                            </td>
+                            <td class="money" id="amtbl_2">
+                                @item.Credit
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td style="border:none"></td>
+                        <td style="border:none"></td>
+                        <td>
+                            <text class="money" id="totaltbl_1" />
+                        </td>
+                        <td>
+                            <text class="money" id="totaltbl_2" />
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+            <div class="col-md-offset-7">
+            </div>
+        </div>
+        <div class="row">
+
+        </div>
+
+
+    @*</div>
+</div>*@
+
+

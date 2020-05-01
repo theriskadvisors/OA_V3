@@ -1,0 +1,248 @@
+﻿
+@model IEnumerable<SEA_Application.Models.AspNetAnnouncement_Subject>
+<script type="text/javascript">
+    function parseJsonDate(jsonDateString) {
+        var currentdate = new Date(parseInt(jsonDateString.replace('/Date(', '')));
+
+        return currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate();
+    }
+    $(document).ready(function () {
+
+        $("#SubmitDate").prop("type","date");
+
+        var dueDate;
+        var DefaultFee;
+        var FeeAfterDueDate;
+
+        $("#search").click(function () {
+            var challanID = $("#ChallanID").val();
+            var date = $("#SubmitDate").val();
+
+            if(challanID != "" && date != "")
+            $.get('@Url.Action("GetUserFeeDetail")',
+                { ChallanID: challanID, Date: date }, function (item) {
+
+                    console.log(JSON.stringify(item));
+                    $('#SchoolName').text(item.SchoolName);
+                    $('#BranchName').text(item.BranchName);
+                    $('#Challan').text(item.ChallanID);
+                    item.AcademicSessionStart = parseJsonDate(item.AcademicSessionStart);
+                    item.AcademicSessionEnd = parseJsonDate(item.AcademicSessionEnd);
+                    $('#AcadamicSession').text(item.AcademicSessionStart + "-" + item.AcademicSessionEnd);
+                    $('#StudentName').text(item.StudentName);
+                    $('#StudentID').text(item.StudentID);
+                    $('#Class').text(item.StudentClass);
+                    $('#FeeType').html(' ');
+                    $.each(item.FeeType, function (i, feetype) {
+
+                        var html = '';
+                        html = '<tr><td><font size="2"><b>' + feetype.Name + ':</b></font></td><td><font size="2">Rs.</font></td><td align="center"><font size="2">' + feetype.Amount + '</font></td></tr>';
+                        $('#FeeType').append(html);
+                    });
+
+                    item.DueDate = parseJsonDate(item.DueDate);
+                    //item.ValidDate = parseJsonDate(item.ValidDate);
+                    $('#DueDate').text(item.DueDate);
+                    $('#PayableAmount').text(item.TotalAmount);
+                    $('#validDate').text(item.ValidDate);
+                    $('#Penalty').text(item.Penalty);
+                    var penalty = item.TotalAmount + item.Penalty;
+                    $('#AfterDueDate').text(penalty);
+                    dueDate = item.DueDate;
+                    DefaultFee = item.TotalAmount;
+                    FeeAfterDueDate = penalty;
+
+                });
+            else {
+                $("#myErrorModal").modal('show');
+            }
+
+        });
+
+
+        $("#submitFee").click(function () {
+            var submittedDate = $("#SubmitDate").val();
+            var challanID = $("#ChallanID").val();
+            $.get('@Url.Action("FeeSubmit")',
+                { ChallanID: challanID, SubmitedDateSave: submittedDate }, function (data) {
+                    var popup = document.getElementById("myPopup");
+                    popup.innerHTML = data;
+                    popup.classList.toggle("show");
+
+
+                });
+        });
+
+    });
+
+</script>
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">Fee Management</a> > <a href="#"><b>Students Status Clear</b></a></label>
+<h4>Students Status Clear</h4>
+<label id="View">View Default</label>
+
+
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="box box-primary">
+            <div class="box-header with-border ">
+            </div>
+            <div class="box-body">
+
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <lable class="col-md-2 " alt="123"><b>Enter Challan Id:</b><span class="red-mark">*</span></lable>
+                        <div class="col-md-6">
+                            <input id="ChallanID" class="form-control col-md-2" placeholder="Challan Id" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <lable class="col-md-2"><b>Select Date:</b><span class="red-mark">*</span></lable>
+                        <div class="col-md-6 ">
+                            <input id="SubmitDate" class="form-control col-md-2"  type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer with-border">
+                <button type="button" id="search" class="offset btn btn-primary col-md-1">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="box box-primary">
+            <div class="box-body">
+                <div id="detailTable">
+                    <div class="col-md-12">
+
+                        <section class="section">
+                            <table>
+                                <tr>
+                                    <td><font size="2"><b>Challan ID:</b></font></td>
+                                    <td align="center"><font size="2" id="Challan"></font></td>
+                                </tr>
+                                <tr>
+                                    <td><font size="2"><b>Acadamic Session:</b></font></td>
+                                    <td align="center"><font size="2" id="AcadamicSession"></font></td>
+                                </tr>
+                            </table>
+                        </section>
+                        <section class="section">
+                            <table>
+                                <tr>
+                                    <td><font size="2"><b>Student Name:</b></font></td>
+                                    <td align="center"><font size="2" id="StudentName"></font></td>
+                                </tr>
+                                <tr>
+                                    <td><font size="2"><b>Student ID:</b></font></td>
+                                    <td align="center"><font size="2" id="StudentID"></font></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <font size="2"><b>Class:</b></font>
+                                    </td>
+                                    <td align="center"><font size="2" id="Class"></font></td>
+                                </tr>
+                            </table>
+                        </section>
+                        <section id="fee" class="section">
+                            <table class="table">
+                                <tbody id="FeeType"></tbody>
+                            </table>
+                        </section>
+                        <section>
+                            <table class="table table-striped table-bordered">
+                                <tbody id="PaymentDetail">
+                                    <tr>
+                                        <td>
+                                            <font size="2"><b>Due Date of Payment:</b></font>
+                                        </td>
+                                        <td></td>
+                                        <td align="center">
+                                            <font size="2" id="DueDate"></font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <font size="2">  <b>Payable Amount</b></font>
+                                        </td>
+                                        <td>Rs.</td>
+                                        <td align="center">
+                                            <font size="2" id="PayableAmount"></font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <font size="2">  <b>Valid Till</b></font>
+                                        </td>
+                                        <td>Rs.</td>
+                                        <td align="center">
+                                            <font size="2" id="validDate"></font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <font size="2">  <b>Penalty</b></font>
+                                        </td>
+                                        <td>Rs.</td>
+                                        <td align="center">
+                                            <font size="2" id="Penalty"></font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <font size="2">  <b>Payable Amount After Due Date:</b></font>
+                                        </td>
+                                        <td>Rs.</td>
+                                        <td align="center">
+                                            <font size="2" id="AfterDueDate"></font>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </section>
+                    </div>
+                    <div class="box-footer with-border">
+                        <section>
+                            <div class="col-md-12" style="align-content:center;align-items:center">
+                                <div style="text-align: center">
+
+                                    <div class="popup">
+                                        <span class="popuptext" id="myPopup"></span>
+                                    </div>
+                                    <button type="button" id="submitFee" class="btn btn-primary col-md-12">Submit Fee</button>
+
+                                </div>
+
+
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+
+            </div>
+            <div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="exampleModalLabel">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-danger">
+                The * fields are required
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

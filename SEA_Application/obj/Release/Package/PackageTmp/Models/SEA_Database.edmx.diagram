@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4b489fa5f8ef485e96a1089a9ef6704c" Name="Diagram1" ZoomLevel="97">
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetAbsent_Student" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetAnnouncement" Width="1.5" PointX="3" PointY="96.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetAnnouncement_Subject" Width="1.5" PointX="12.75" PointY="105.125" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetAssessment" Width="1.5" PointX="18" PointY="117.25" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetAssessment_Question" Width="1.5" PointX="12.75" PointY="102" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetAssessment_Questions_Category" Width="1.5" PointX="10.5" PointY="117.25" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetAssessment_Topic" Width="1.5" PointX="14.25" PointY="132.125" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetAttendance" Width="1.5" PointX="9.75" PointY="128.875" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetCatalog" Width="1.5" PointX="13.5" PointY="117.25" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetChapter" Width="1.5" PointX="9.75" PointY="131.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetClass" Width="1.5" PointX="5.25" PointY="124.375" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetClass_FeeType" Width="1.5" PointX="7.5" PointY="124.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetCurriculum" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetDurationType" Width="1.5" PointX="8.25" PointY="117.125" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetEmp_Auto_Absent" Width="1.5" PointX="2.75" PointY="7.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetEmp_Auto_Attendance" Width="1.5" PointX="7.75" PointY="4.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetEmployee" Width="1.5" PointX="8.25" PointY="88.5" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetEmployee_Attendance" Width="1.5" PointX="13.5" PointY="87.375" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetEmployeeAttendance" Width="1.5" PointX="11.25" PointY="87" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetFeeChallan" Width="1.5" PointX="10.5" PointY="124.125" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetFeedBackForm" Width="1.5" PointX="18.75" PointY="86.375" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetFeeType" Width="1.5" PointX="7.5" PointY="137.125" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetFinanceLedger" Width="1.5" PointX="5.25" PointY="136.125" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetFinanceLedgerType" Width="1.5" PointX="4.75" PointY="7.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetFinanceMonth" Width="1.5" PointX="8" PointY="1" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetFinancePeriod" Width="1.5" PointX="5.75" PointY="1.375" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetHoliday_Calendar_Notification" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetHomework" Width="1.5" PointX="7.5" PointY="158.375" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetLessonPlan" Width="1.5" PointX="9.75" PointY="135.375" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetLessonPlan_Topic" Width="1.5" PointX="14.25" PointY="135.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetLessonPlanBreakdown" Width="1.5" PointX="12" PointY="136.25" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetLessonPlanBreakdownHeading" Width="1.5" PointX="9.75" PointY="142.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetLog" Width="1.5" PointX="5.25" PointY="79.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetLoginTime" Width="1.5" PointX="8.75" PointY="7.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetMessage_Receiver" Width="1.5" PointX="7.5" PointY="84.5" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetMessage" Width="1.5" PointX="5.25" PointY="76.25" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetNotification" Width="1.5" PointX="5.25" PointY="132.125" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetNotification_User" Width="1.5" PointX="7.5" PointY="109.5" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetParent" Width="1.5" PointX="5.25" PointY="114.375" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetParent_Child" Width="1.5" PointX="5.25" PointY="69.875" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetParent_Notification" Width="1.5" PointX="5.25" PointY="85.5" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetParentTeacherMeeting" Width="1.5" PointX="13.5" PointY="75.25" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetProject" Width="1.5" PointX="9.75" PointY="138.625" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetPTM_ParentFeedback" Width="1.5" PointX="21" PointY="92.375" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetPTM_TeacherFeedback" Width="1.5" PointX="21" PointY="95.375" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetPTMAttendance" Width="1.5" PointX="15.75" PointY="94.875" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetPTMFormRole" Width="1.5" PointX="16.5" PointY="86.625" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetPushNotification" Width="1.5" PointX="5.25" PointY="105.25" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetRole" Width="1.5" PointX="0.75" PointY="88.875" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetSalary" Width="1.5" PointX="11.25" PointY="80.625" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetSalaryDetail" Width="1.5" PointX="13.5" PointY="95" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetSession" Width="1.5" PointX="13.5" PointY="83.25" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetStudent" Width="1.5" PointX="10.5" PointY="104.875" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetStudent_Announcement" Width="1.5" PointX="5.25" PointY="89.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetStudent_Assessment" Width="1.5" PointX="21.25" PointY="102.25" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetStudent_Attendance" Width="1.5" PointX="15" PointY="108.5" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetStudent_AutoAttendance" Width="1.5" PointX="9.75" PointY="4.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetStudent_Fine" Width="1.5" PointX="5.25" PointY="64" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetStudent_HomeWork" Width="1.5" PointX="9.75" PointY="120.125" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetStudent_Notification" Width="1.5" PointX="5.25" PointY="128.375" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetStudent_Payment" Width="1.5" PointX="18.75" PointY="96.5" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetStudent_PaymentDetail" Width="1.5" PointX="21" PointY="98.875" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetStudent_Project" Width="1.5" PointX="13" PointY="113.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetStudent_Subject" Width="1.5" PointX="10.75" PointY="93.5" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetStudent_Term_Assessment" Width="1.5" PointX="15.75" PointY="89.375" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetStudent_Term_Assessments_Answers" Width="1.5" PointX="18" PointY="90.125" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetStudentPerformanceReport" Width="1.5" PointX="15.75" PointY="99.125" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetSubject_Catalog" Width="1.5" PointX="15.75" PointY="104.875" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetSubject_Homework" Width="1.5" PointX="9.75" PointY="100.375" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetSubject" Width="1.5" PointX="7.5" PointY="103.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetTeacher" Width="1.5" PointX="5.25" PointY="108.375" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetTerm" Width="1.5" PointX="13.5" PointY="78.875" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetTime_Setting" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetTopic" Width="1.5" PointX="12" PointY="131.625" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="118.625" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="67.125" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetUser" Width="1.5" PointX="3" PointY="84.5" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AspNetVirtualRole" Width="1.5" PointX="6" PointY="92.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.Employee" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.Employee_SalaryIncrement" Width="1.5" PointX="12.75" PointY="110.25" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.Employee_SalaryRecord" Width="1.5" PointX="10.5" PointY="110.25" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.EmployeeAdvanceSalary" Width="1.5" PointX="10.5" PointY="90" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.EmployeePenalty" Width="1.5" PointX="13.5" PointY="91.5" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.EmployeePenaltyType" Width="1.5" PointX="11.25" PointY="83.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.EmployeeSalary" Width="1.5" PointX="10.5" PointY="96.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.Event" Width="1.5" PointX="5.25" PointY="72.625" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.FeeDateSetting" Width="1.5" PointX="2.75" PointY="10.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.FeeDiscount" Width="1.5" PointX="15.5" PointY="120.125" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.Ledger" Width="1.5" PointX="18.75" PointY="81.875" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.LedgerGroup" Width="1.5" PointX="16.5" PointY="71.625" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.LedgerHead" Width="1.5" PointX="14.25" PointY="71.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.Month_Multiplier" Width="1.5" PointX="18" PointY="122" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.NonRecurringCharge" Width="1.5" PointX="16.5" PointY="125.25" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.NonRecurringFeeMultiplier" Width="1.5" PointX="18.75" PointY="112" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.PenaltyFee" Width="1.5" PointX="16.5" PointY="83.125" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.ruffdata" Width="1.5" PointX="4.75" PointY="10.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.Student_ChallanForm" Width="1.5" PointX="6.75" PointY="10.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.StudentChallanForm" Width="1.5" PointX="18.75" PointY="104.875" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.StudentDiscount" Width="1.5" PointX="17.75" PointY="108.875" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.StudentFeeMonth" Width="1.5" PointX="15.75" PointY="112" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.StudentPenalty" Width="1.5" PointX="18.75" PointY="100.875" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.StudentPenaltyType" Width="1.5" PointX="10.75" PointY="7.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.StudentRecurringFee" Width="1.5" PointX="7.5" PointY="120" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.TeacherPenaltyRecord" Width="1.5" PointX="10.5" PointY="113.375" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.ToDoList" Width="1.5" PointX="5.25" PointY="121.375" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.Voucher" Width="1.5" PointX="18.75" PointY="78.5" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.VoucherRecord" Width="1.5" PointX="21" PointY="82.25" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.AggregatedCounter" Width="1.5" PointX="8.75" PointY="10.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.Counter" Width="1.5" PointX="10.75" PointY="10.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.Hash" Width="1.5" PointX="11.75" PointY="3.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.Job" Width="1.5" PointX="0.75" PointY="2.25" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.JobParameter" Width="1.5" PointX="3" PointY="4.25" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.JobQueue" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.List" Width="1.5" PointX="12.75" PointY="6.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.Schema" Width="1.5" PointX="12.75" PointY="9.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.Server" Width="1.5" PointX="12.75" PointY="11.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.Set" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="NGS_DatabaseModel.State" Width="1.5" PointX="3" PointY="1.125" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_Announcement_Subject_ToAnnouncement" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_Student_Announcement_ToAnnouncement" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_Announcement_Subject_ToSubject" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetAssessment_Topic_ToAssessment" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetAssessment_ToSubjectCatalog" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_Assessment_ToAssessment" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetAssessment_Question_ToQuestionCategory" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetAssessment_Question_ToSubject" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetAssessment_Topic_ToTopic" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetAttendance_ToSubject" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_Attendance_ToAttendance" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetSubject_Catalog_ToCatalog" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetChapter_ToSubject" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetTopic_ToSubject" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetClass_FeeType_ToClass" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetClass_ToAspNetClass" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetClass_ToAspNetUsers" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetFeeChallan_ToClass" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetHomework_AspNetClass" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_RecurringFeeClass" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_Student_ToAspNetClass" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetClass_FeeType_ToFeeType" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetFeeChallan_ToDurationType" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK__TeacherPe__Emplo__6B0FDBE9" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AdvanceSalaryUser" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetEmployee_AspNetUsers" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetEmployee_Attendance_TO_AspNetEmployee" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetEmployee_VirtualRole" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetSalaryDetail_AspNetEmployee" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_EmployeePenalty_Employee" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_SalaryRecord_EmployeeId" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_SalaryUser" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetEmployee_Attendance_To_AspNetEmployeeAttendance" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_Payment_ToFeeChallan" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetFeedBackForm_ToRole" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetPTM_ParentFeedback_ToForm" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetPTM_TeacherFeedback_ToForm" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetFeeType_ToLedger" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_PaymentDetail_ToLedger" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetFinanceMonth_AspNetFinancePeriod" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_HomeWork_AspNetHomework" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetLessonPlan_Topic_ToLessonPlan" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetLessonPlan_ToSubject" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_LessonPlanBreakdown_ToLessonPlan" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetLessonPlan_Topic_ToTopic" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_LessonPlanBreakdown_ToLessonPlanBreakDownHeading" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetLog_ToUsers" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_MessageReceiver_Messages" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_MessageReceiver_User" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_MessagesSender_ToAspNetUsers" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetNotification_ToUser" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetNotification_User_ToNotification" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetNotification_User_ToUser" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetParent_ToParent" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetParent_Child_ChildToUsers" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetParent_Child_ParentToUsers" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetParent_Notification_ParentToUser" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetParent_Notification_SenderToUser" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetPTMAttendance_ToMeeting" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetProject_ToSubject" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_Project_ToProject" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetPTM_ParentFeedback_ToPTM" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetPTM_TeacherFeedback_ToPTM" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetPTMAttendance_ToParent" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetPTMAttendance_ToSubject" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_Notifications_ToAspNetUsers" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetSalary_VirtualID" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetSalaryDetail_SalaryTable" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_Term_Assessment_ToSession" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetTerm_ToSession" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_Ledger_Session" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_RecurringFeeClass_Session" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_StudentFeeMonth_AspNetSession" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_NonRecurring_student" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_Student_ToAspNetUsers" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_StudentChallan_Student" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_studentdiscount_student" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_StudentFeeMonth_student" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_StudentPenalty_Stuedent" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_Student_Announcement_ToStudent" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_Assessment_ToStudent" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_Attendance_ToUser" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_Fine_ToStudent" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_HomeWork_AspNetUsers" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_Notification_SenderToUser" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_Notification_StudentToUser" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_Payment_ToStudent" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_PaymentDetail_ToStudentPayment" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_PaymentDetail_ToStudentPaymentPrevious" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_Project_ToStudent" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_Student_Subject_ToStudent" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_Student_Subject_ToSubject" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_Term_Assessment_ToSubject" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_Term_Assessment_ToTerm" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_Term_Assessment_ToUsers" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudent_Term_Assessments_Answers_ToStudent_Term_Assessment" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudentPerformanceReport_ToSubject" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetStudentPerformanceReport_ToUsers" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetSubject_Catalog_ToSubject" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetSubject_Homework_AspNetSubjects" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetClass_ToAspNetUsersTeacher" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_Teacher_ToAspNetUsers" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK__Event__UserId__52442E1F" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_ToDoList_ToAspNetUsers" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_AspNetVirtualRole_AspNetVirtualRole" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_SalaryIncrement_SalaryRecord" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_EmployeePenalty_Penalty" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_studentdiscount_Feedisocunt" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_Ledger_LedgerGroup" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_Ledger_LedgerHead" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_VoucherRecord_Voucher" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_LedgerGroup_LedgerHead" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_FeeMonth" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_NonRecurring_Description" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_StudentPenalty_Penalty" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_StudentChallan_StudentFeeMonth" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_VoucherRecord_LedgerId" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_HangFire_JobParameter_Job" />
+        <AssociationConnector Association="NGS_DatabaseModel.FK_HangFire_State_Job" />
+        <AssociationConnector Association="NGS_DatabaseModel.AspNetUserRoles" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

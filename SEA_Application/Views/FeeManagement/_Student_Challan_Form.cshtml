@@ -1,0 +1,281 @@
+﻿
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+
+    function parseJsonDate(jsonDateString) {
+        var month_names_short= ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    
+        var currentdate = new Date(parseInt(jsonDateString.replace('/Date(', '')));
+        return currentdate.getDate() + "-" + (month_names_short[currentdate.getMonth()]) + "-" + currentdate.getFullYear();
+    }
+    Date.prototype.monthNames = [
+    "January", "February", "March",
+    "April", "May", "June",
+    "July", "August", "September",
+    "October", "November", "December"
+    ];
+    Date.prototype.getMonthName = function () {
+        return this.monthNames[this.getMonth()];
+    }
+    var d = new Date();
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    var table;
+    $(document).ready(function () {
+
+        table = $("#example").dataTable();
+        DrawTable();
+
+        $('#Print').click(function () {
+            var restorepage = $('body').html();
+            var printcontent = $('#ChallanForm').clone();
+            $('body').empty().html(printcontent);
+            window.print();
+            $('body').html(restorepage);
+        });
+       
+        $('#example').on('click', 'tbody tr', function () {
+            var td = $(this).children("td");
+            var userName = $(td[0]).children("input").val();
+            userName = userName.trim();
+            GetChallanForm(userName)
+        });
+
+    });
+
+    function class_click() {
+        var selectedClass = $("#Class").val();
+        $.get('@Url.Action("StudentsByClass")',
+            { id: selectedClass }, function (data) {
+                table.fnClearTable();
+                $.each(data, function (i, item) {
+                    table.fnAddData([item.UserName + "<input type='hidden' value=" + item.Id + " />", item.Name]); // , "<a id='myLink' href='#' onclick='GetChallanForm(\"" + item.Id + "\");return false;'>Generate Challan</a>"
+                });
+                table.fnDraw();
+            });
+        $.get('@Url.Action("FeeChallanByClass")',
+            { ClassID: selectedClass }, function (data) {
+                $('#Challan').html(' ');
+                $.each(data, function (i, item) {
+                    $('#Challan').append("<option value='" + item.Id + "'>" + item.Title + "</option>");
+                });
+                $('#Challan').attr("disabled", false);
+            });
+    }
+
+    
+
+    function DrawTable() {
+        $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+        //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+
+        $('#example_wrapper').css("text-align", "left");
+        $('#example_length').css("text-align", "left");
+        $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+        $("#example_length label").css("text-align", "left");
+        $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+        // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#2b2b2b !important" });
+        //$('#example_length').css({ "overflow": "auto" });
+        $('#example_filter input').addClass("add");
+        $('#example_filter').append('<span class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+        var list = $("#ClassID").html();
+        $('#example_length').append(
+
+            '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+                    '<div class="d-bar"></div>' +
+            '</div>' +
+            '<div class="col-md-3 col-lg-3">' +
+                   '<div class="col-md-6" style="padding:0px; margin-top:0px">' +
+                        '<lable class="control-label">Select Class</lable>' +
+                   '</div>' +
+                   '<div class="col-md-6">' +
+                       '<select class="form-control  input-sm" id="Class" style="padding-top:-4px" name="ClassID" onclick="class_click()">' + list +
+                       '</select>' +
+                   '</div>' +
+              '</div>' +
+
+              '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+                    '<div class="d-bar"></div>' +
+              '</div>' +
+
+           '<div class="col-md-3 col-lg-3">' +
+           '<div class="col-md-6" style="padding:0px;  margin-top:5px">' +
+           '<lable class="control-label">Select Challan</lable>' +
+           '</div>' +
+           '<div class="col-md-6">' +
+           '<select class="form-control  input-sm" id="Challan"  style="padding-top:-4px !important;" name="subjects" disabled><option>Select one</option></select>' + //onclick="GetChallanForm(this)"
+           '</div>' +
+           '</div>' +
+
+           '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+                    '<div class="d-bar"></div>' +
+           '</div>' +
+
+
+            '<div class="col-md-3 col-lg-3">' +
+                   '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
+                   '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></span</a></div>' +
+                   '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="fa fa-ban" data-placement="bottom"></i></span></a></div>' +
+                   '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="glyphicon glyphicon-download-alt"  data-placement="bottom"></i></span></a></div>' +
+                   '<div class="col-md-1" padding-left:0px;">' +
+                   '<div class="d-bar"></div>' +
+             '</div>' +
+           '</div>');
+        $("#Class").prepend("<option value='0' selected>Select One</option>");
+    }
+
+    function GetChallanForm(studentID) {
+        
+
+        var selectedChallan = $("#Challan").val();
+        $.get('@Url.Action("GetChallanForm")',
+          { StudentID: studentID, ChallanID: selectedChallan }, function (data) {
+              var html = "";
+              $('#ChallanForm').html(' ');
+              console.log(data);
+              $.each(data.ChallanCopy, function (i, item) {
+
+                  html += '<div class="col-xs-4">';
+                  html += '<center>';
+                  html += ' <div style="border:1px solid black; margin-bottom:5px"><font size="3"><b>' + data.SchoolName + '</b></font></div>';
+                  html += '</center>';
+                  html += '<center>';
+                  html += '<div style="border:1px solid black"><font size="2"><b>Fee Voucher</font></div></br>';
+                  html += '</center>';
+                  html += '<center>';
+                  html += '<font size="2">Payable at any MBL Branch</font>';
+                  html += '</center>';
+                  html += '<center>';
+                  html += '</br><div style="border:1px solid black"><font size="2"><b>Customer Code: NGS</b></font></div>';
+                  html += '</center>';
+       
+                  html += '<section id="fee" class="section" style="margin-bottom:5px; padding:8px; height:150px">';                 
+                  html += '<div><font size="2">Challan#:&nbsp;&nbsp;&nbsp;<spam style="border-bottom:1px solid black">' + data.ChallanID + '</spam></font>';
+                  html += '<font size="2" class="pull-right">Due Date of Payment:&nbsp;&nbsp;&nbsp;<spam style="border-bottom:1px solid black">' + parseJsonDate(data.DueDate) + '</spam></font></div>';
+                  html += '<div><font size="2">Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spam style="border-bottom:1px solid black">' + data.StudentName + '</spam></font>';
+                  html += '<font size="2" class="pull-right">Validity date:&nbsp;&nbsp;&nbsp;&nbsp;<spam style="border-bottom:1px solid black">' + parseJsonDate(data.ValidDate) + '</spam></font></div>';
+                  html += '<div><font size="2">Class:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spam style="border-bottom:1px solid black">' + data.StudentClass + '</spam></font>';
+                  html += '<font size="2" class="pull-right">Roll No.&nbsp;&nbsp;&nbsp;<spam style="border-bottom:1px solid black">' + data.StudentUserName + '</spam></font></div>';           
+                  html += '<div></br><i>Fee for the term</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spam style="border-bottom:1px solid black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + d.getMonthName() + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spam></div>';
+                  html += '</section>';
+
+                  html += '<section id="fee" class="section" ; margin-bottom:10px; padding:4px; height:150px">';
+                  html += '<table class="table">';
+                  html += '<tr>';
+                  html += '<th style="border:1px solid black">';
+                  html += '<font size="3"><b><i>PARTICULARS</i></b></font>';
+                  html += '</th style="border:1px solid black">';
+                  html += '<th style="border:1px solid black">';
+                  html += '<font size="3"><b><i>AMOUNT</i></b></font>';
+                  html += '</th>';
+                  html += '</tr>';
+                  html += '<tbody>';
+                  $.each(data.FeeType, function (i, item) {
+                      html += '<tr>';
+                      html += '<td style="border:1px solid black;"><font size="2">' + item.Name + '</font></td>';
+                      html += '<td style="border:1px solid black" align="center"><font size="2" pull-right>Rs.&nbsp;&nbsp;' + numberWithCommas(item.Amount) + '</font></td>';
+                      html += '</tr>';
+                  });
+       
+                  html += '<tr>';
+                  html += '<td style="border:1px solid black">';
+                  html += '<font size="2">  <b>Payable before Due Date</b></font>';
+                  html += '</td>';
+                  html += '<td align="center" style="border:1px solid black">';
+                  html += '<font size="2" pull-right><b>Rs.&nbsp;&nbsp;' + numberWithCommas(data.TotalAmount) + '</b></font>';
+                  html += '</td>';
+                  html += '</tr>';
+                  html += '<tr>';
+                  html += '<td style="border:1px solid black">';
+                  html += '<font size="2">  <b>Payable After Due Date</b></font>';
+                  html += '</td>';
+                  html += '<td align="center" style="border:1px solid black">';
+                  html += '<font size="2"><b>Rs.&nbsp;&nbsp;' + numberWithCommas(data.TotalAmount) + '</b></font>';
+                  html += '</td>';
+                  html += '</tr>';
+                  html += '</tbody>';
+                  html += '</table>';
+                  html += '</section>';
+
+                  
+                  html += '<font size="2">*Payment Terms:</font>';
+                  html += '<br />';
+                  html += '<font size="1">1. After due date student will pay PKR 100/-per day as a charity on </font>';
+                  html += '<br />';
+                  html += '<font size="1">2. Only Cash and MBL Cheque/Payorder will be accepted</font>';
+                  html += '<br />';
+                  html += '<font size="1">3. The additional amount collected after due date will be donated for charitable purpose.</font>';
+                  html += '<br />';
+                  html += '<font size="1" style="font-family:"Times New Roman", Georgia, Serif"><b>*Other Charges*</b> Includes: Stationery, Energy, Science & Computer Supplies, Sports and Swimming.</font>';
+                  html += '<center></br>' + item + '</center>';
+                  html += '</div>';
+              });
+              $('#ChallanForm').html(html);
+          });
+    }
+</script>
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">Fee Management</a> > <a href="#"><b>Student Challan Forms</b></a></label>
+<h4>Student Challan Forms</h4>
+<label id="View">View Default</label>
+
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="box box-primary" style="display:none">
+                    <div class="box-body">
+                        <div class="form-horizontal">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <lable class="col-md-2 control-label"><b>Select Class</b></lable>
+                                    <div class="col-md-6">
+                                        @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <lable class="col-md-2 control-label"><b>Select Challan</b></lable>
+                                    <div class="col-md-6">
+                                       <select class="form-control"id="ChallanID"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <table class="table table-striped table-bordered" id="example">
+                            <thead>
+                                <tr>
+                                    <th>User Name</th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody id="StudentTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <button id="Print" class="btn-primary">Print</button>
+                    </div>
+                    <div class="box-body">
+                        <div id="ChallanForm">
+
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+      

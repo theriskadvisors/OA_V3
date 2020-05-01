@@ -1,0 +1,66 @@
+﻿
+@model IEnumerable<SEA_Application.Models.AspNetAnnouncement_Subject>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ClassID").click(function () {
+            var selectedClass = $("#ClassID").val();
+            $.get('@Url.Action("FeeTypeByClass")',
+                { classID: selectedClass }, function (data) {
+                    $('#class_fee_table').html(' ');
+                    $.each(data, function (i, item) {
+                        $('#class_fee_table').append('<tr><td>' + item.ClassName + '</td><td>' + item.Name + '</td><td>' + item.Amount + '</td><td><a href="/AspNetClass_FeeType/Edit?id=' + item.Id + '">Edit</a>|<a href="/AspNetClass_FeeType/Details?id=' + item.Id + '">Detail</a>|<a href="/AspNetClass_FeeType/Delete?id=' + item.Id + '">Delete</a></td></tr>');
+                    });
+                });
+        });
+
+    });
+</script>
+<h2 class="orange">Class Fee &nbsp; <i class="fa fa-list" aria-hidden="true"></i></h2>
+<p>
+    @Html.ActionLink("Add New Class Fee", "Create", "AspNetClass_FeeType")
+</p>
+<div class="box box-primary">
+    <div class="box-title"></div>
+    <div class="box-body">
+        <div class="container">
+            <div class="row">
+                <div class="form-horizontal">
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <lable class="col-md-2 control-label"><b>Select Class</b></lable>
+                            <div class="col-md-10">
+                                @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="box box-primary">
+    <div class="box-title"></div>
+    <div class="box-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Class
+                    </th>
+                    <th>
+                        Fee Type
+                    </th>
+                    <th>
+                        Amount
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="class_fee_table"></tbody>
+        </table>
+        </div></div>

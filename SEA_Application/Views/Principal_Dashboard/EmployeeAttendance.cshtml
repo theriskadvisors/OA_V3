@@ -1,0 +1,324 @@
+﻿@model SEA_Application.Models.AspNetAttendance
+
+<script type="text/javascript">
+
+    var EmployeeAttendance =
+        {
+            Id: '',
+            Username: '',
+            Name: '',
+            Status: '',
+            Reson: ''
+
+
+        };
+    var attendance =
+                   {
+                       Id: '',
+                       Status: '',
+                       EmployeeAttendance: []
+
+                   };
+    attendances = [];
+
+    $(document).ready(function () {
+
+        AllEmployeesAttendance();
+        $('#radio').click(function () {
+            var s = $('#radio', this).val();
+        });
+        $('#save_attendance').click(function () {
+            var mandatory = true;
+            attendance = Object.create(attendance);
+            attendance.EmployeeAttendance = [];
+            $('table tbody tr').each(function () {
+                EmployeeAttendance = Object.create(EmployeeAttendance);
+                EmployeeAttendance.Id = $(this).attr('id');
+                EmployeeAttendance.Status = $('input[name=' + EmployeeAttendance.Id + ']:checked').val();
+                EmployeeAttendance.Reason = $('#reason', this).val();
+                if (EmployeeAttendance.Status == "Absent" ||EmployeeAttendance.Status=="Late"  && EmployeeAttendance.Reason == "") {
+                    mandatory = false;
+                }
+
+                attendance.EmployeeAttendance.push(EmployeeAttendance);
+
+            });
+
+            if (mandatory) {
+                attendances = JSON.stringify({ 'attendances': attendance });
+
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: '/Principal_Dashboard/SaveEmployeeAttendance',
+                    data: attendances,
+                    success: function () {
+                        $('#partial').html('Attendance Successfully Save');
+                        window.location.href = "EmployeeAttendance";
+                    },
+                    failure: function (response) {
+                        $('#partial').html('Something went wrong');
+                    }
+                });
+            } else {
+                $("#myErrorModal").modal('show');
+            }
+
+        });
+
+        $('#Edit_Attendance').click(function () {
+            $('#attendance_table tr').each(function () {
+                $('input', this).prop('disabled', false);
+                $('#reason', this).prop('disabled', true);
+                $('#save_attendance').attr('disabled', false);
+            });
+        });
+    });
+    function Present_All() {
+       
+        if ($("#present_all").is(':checked')) {
+            $("#absent_all").attr("checked", false)
+            $("#late_all").attr("checked", false)
+            $("tr #reason").each(function (i, item) {
+                $(item).prop('disabled', true);
+                $(item).prop('placeholder', " ");
+
+            });
+                $(".present").each(function (i, item) {
+                    $(item).prop("checked", true);
+                })
+            }
+            else {
+            $("tr #reason").each(function (i, item) {
+                $(item).prop('disabled', true);
+            });
+            $(".present").each(function (i, item) {
+                    $(item).prop("checked", false);
+                })
+
+            }
+    }
+    function Absent_All() {
+
+        if ($("#absent_all").is(':checked')) {
+            $("#present_all").attr("checked", false)
+            $("#late_all").attr("checked", false)
+
+            $("tr #reason").each(function (i, item) {
+                $(item).prop('disabled', false);
+                $(item).prop('placeholder', "please provide the reason");
+
+            })
+            $(".absent").each(function (i, item) {
+                $(item).prop("checked", true);
+
+            })
+        }
+        else {
+            $("tr #reason").each(function (i, item) {
+                $(item).prop('disabled', true);
+                $(item).prop('placeholder', " ");
+
+            })
+
+            $(".absent").each(function (i, item) {
+                $(item).prop("checked", false);
+            })
+
+        }
+    }
+
+    function Late_All() {
+
+        if ($("#late_all").is(':checked')) {
+            $("#absent_all").attr("checked", false)
+            $("#present_all").attr("checked", false)
+            $("tr #reason").each(function (i, item) {
+                $(item).prop('disabled', false);
+                $(item).prop('placeholder', "please provide the reason");
+
+            });
+            $(".late").each(function (i, item) {
+                $(item).prop("checked", true);
+            })
+        }
+        else {
+            $("tr #reason").each(function (i, item) {
+                $(item).prop('disabled', true);
+                $(item).prop('placeholder', " ");
+
+            });
+            $(".late").each(function (i, item) {
+                $(item).prop("checked", false);
+            })
+
+        }
+    }
+
+    function AllEmployeesAttendance() {
+        $.get('@Url.Action("AllEmployees", "Principal_Dashboard")',
+                function (data) {
+                    $('#attendance_table').html('');
+                    if (data.Status == false) {
+                        $('#Attendance_Status').prop('hidden', true);
+                        $.each(data.EmployeeAttendance, function (i, item) {
+                            $('#attendance_table').append('<tr id=' + item.Id + '><td>' + item.Name + '</td><td id="Status" >Present <input type="radio"name=' + item.Id + ' checked="checked" onclick="Reason(this)" class="present" id="present" value="Present" />&nbsp&nbsp&nbsp&nbsp Absent <input type="radio" id="absent" class="absent" onclick="Reason(this)" name=' + item.Id + ' value="Absent"  />&nbsp&nbsp&nbsp&nbsp Late <input type="radio" class="late" id="late" onclick="Reason(this)" name=' + item.Id + ' value="Late" /></td><td><input type="text" disabled class="form-control" id="reason" ></td></tr>');
+                        });
+                    }
+                    else {
+                        $('#Attendance_Status').prop('hidden', false);
+                        $.each(data.EmployeeAttendance, function (i, item) {
+                            if (item.Reason == null) {
+                                item.Reason = "";
+                            }
+                            $('#attendance_table').append('<tr id=' + item.Id + '><td>' + item.Name + '</td><td id="Status" >Present <input type="radio"name=' + item.Id + ' onclick="Reason(this)" id="present" class="present" value="Present" />&nbsp&nbsp&nbsp&nbsp Absent <input type="radio" id="absent" class="absent"  onclick="Reason(this)" name=' + item.Id + ' value="Absent"  />&nbsp&nbsp&nbsp&nbsp Late <input type="radio" id="late" class="late" onclick="Reason(this)" name=' + item.Id + ' value="Late" /></td><td><input class="form-control" type="text"  id="reason" disabled value="'+item.Reason+'"/></td></tr>');
+                            $("input[name=" + item.Id + "][value=" + item.Status + "]").prop("checked", true);
+                            $('#save_attendance').attr('disabled', true);
+                        });
+                    }
+                });
+    }
+
+    function Reason(item) {
+
+        var tr = $(item).closest("tr");
+        var td = $(tr).children("td");
+        
+        if (item.value == "Present") {
+            var search = $(td[2]).children("input").prop('disabled', true);
+            var search = $(td[2]).children("input").prop('placeholder', " ");
+        } else {
+            var search = $(td[2]).children("input").prop('disabled', false);
+            var search = $(td[2]).children("input").prop('placeholder', "please provide the reason");
+        }
+    }
+</script>
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">User</a> > <b><a href="#">Attendance</a></b> </label>
+<h4>Attendance</h4>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1" data-toggle="tab">Take Attendance</a></li>
+                @*<li><a href="#tab_2" data-toggle="tab">Upload Excel File</a></li>*@
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="orange">Employee Attendance  &nbsp; <i class="fa fa-list" aria-hidden="true"></i></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="alert alert-success alert-dismissible" id="Attendance_Status" hidden>
+                                <h4>Attendance Already Saved!</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box-header with-border">
+                                       <button type="button" id="Edit_Attendance" class="btn btn-primary pull-right">Edit</button>
+                                    
+                                        Present All&nbsp;<input type="checkbox" onclick="Present_All()" id="present_all">&nbsp;&nbsp;|
+                                        Absent All&nbsp;<input type="checkbox" onclick="Absent_All()" id="absent_all">&nbsp;&nbsp;|
+                                        Late All&nbsp;<input type="checkbox" onclick="Late_All()"  id="late_all">
+                                    </div>
+                                    <style>
+                                      .table tr td:nth-child(2){
+                                          text-align:center
+                                      }
+                                    </style>
+                                            <table class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Employee Name
+                                                        </th>
+                                                        <th>
+                                                            Status
+                                                        </th>
+                                                        <th>
+                                                            Reason
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="attendance_table"></tbody>
+                                            </table>
+                                        <div class="box-footer">
+                                            <button type="button" id="save_attendance" class="btn btn-primary">Save</button>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab_2">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="orange">Add Attendence from File  &nbsp; <i class="fa fa-file-excel-o" aria-hidden="true"></i></h3>
+                        </div>
+                        @using (Html.BeginForm("AttendancefromFile", "AspNetAttendance", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+            {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="box-body">
+                               
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-6">
+                                        @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", type = "Date", @id = "Date" } })
+                                        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-left:5px">
+                                    <div class="btn btn-default btn-file col-md-offset-2">
+                                        <i class="fa fa-paperclip"></i> Attachment
+                                        <input type="file" id="Attendance" name="Attendance">
+                                    </div>
+                                    <div class="col-md-offset-2">
+                                        <p class="help-block">Max. 32MB</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="myErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="exampleModalLabel">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-danger">
+                The reason for absents Employee is required
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

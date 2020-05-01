@@ -1,0 +1,117 @@
+﻿@model SEA_Application.Models.AspNetAnnouncement
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<style>
+
+    .select[multiple], select[size] {
+    height: 201px;
+}
+    
+</style>
+
+
+<script src="~/AdminLTE/selectone.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $("#Title").prop('required', true);
+        $("#Description").prop('required', true);
+        $("#ClassID").prop('required', true);
+        $("#subjects").prop('required', true);
+
+        @*$('#cancel').click(function () {
+            window.location.href = '@Url.Action("Dashboard", "Account")';
+        });*@
+    });
+
+</script>
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") >  @Html.ActionLink("Announcement", "Teacher_Announcement", "Teacher_Dashboard") > <b><a href="#">Create</a></b></label>
+<h4>Create Announcement</h4>
+
+<div class="box box-primary">
+    <div class="box-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1">Title:</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1">Description:</label>
+                    <div class="col-md-6">
+                        @Html.TextAreaFor(model => model.Description, 10, 100, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1" > Choose Class:</label>
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label class="control-label col-md-2">Class:</label>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="control-label col-md-2">Subjects:</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                @Html.ListBox("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-5">
+                                <select multiple class="form-control" id="subjects" name="subjects"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+
+                        $("#ClassID").change(function () {
+                            var selectedClass = $("#ClassID").val();
+                            $.ajax({
+                                url: '@Url.Action("SubjectsByClass")',
+                                type: 'GET',
+                                dataType: 'json',
+                                cache: false,
+                                traditional: true,
+                                data: { bdoIds: selectedClass },
+
+                            }).done(function (response) {
+                                $('#subjects').html('');
+
+                                $.each(response, function (i, item) {
+                                    var classname = $("#ClassID option[value='" + item.ClassID + "']").text()
+                                    $('#subjects').append('<option value=' + item.Id + '>' + item.SubjectName + ' (' + classname + ')</option>');
+                                });
+                            })
+
+
+                        });
+                    });
+                </script>
+
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-lg-offset-1 col-md-2">
+                        <input type="submit" value="Create" class="btn btn-primary" />                  
+                        <button type="button" id="cancel" class="btn btn-default" onclick="window.location.href = '/Teacher_Dashboard/Teacher_Announcement'">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+</div>

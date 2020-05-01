@@ -1,0 +1,77 @@
+﻿<label>@Html.ActionLink("Home", "Dashboard", "Account") >  @Html.ActionLink("Subject", "ClassIndex", "AspNetSubject") > <a href="#"><b>Edit</b></a> </label>
+
+<h4>Edit </h4>
+<div class="box box-primary">
+    <div class="box-body">
+
+@model SEA_Application.Models.AspNetSubject
+
+@{
+    ViewBag.Title = "Edit";
+}
+    <script>
+        $(document).ready(function () {
+            $("#ClassID option[value='']").remove();
+            $("#TeacherID option[value='']").remove();
+
+           $('#cancel').click(function () {
+            window.location.href = '@Url.Action("ClassIndex", "AspNetSubject")';
+           });
+        });
+    </script>
+   @if(ViewBag.Error!=null)
+   {
+       <span style="color:red">ViewBag.Error</span>
+   }
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Edit Subject</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Subject Name<span class="red-mark">*</span></label>
+            <div class="col-md-6"> 
+                @Html.EditorFor(model => model.SubjectName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SubjectName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Class Name<span class="red-mark">*</span></label>
+            <div class="col-md-6">
+               
+                @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ClassID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Teacher Name<span class="red-mark">*</span></label>
+            <div class="col-md-6">
+                @Html.DropDownList("TeacherID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TeacherID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-2">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+            <div class="col-md-2">
+                <button type="button" id="cancel" class="btn btn-danger">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+}
+
+<div>
+</div>
+
+
+</div></div>

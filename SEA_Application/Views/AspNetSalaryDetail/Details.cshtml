@@ -1,0 +1,211 @@
+﻿@model SEA_Application.Models.AspNetSalaryDetail
+@{
+    ViewBag.Title = "Edit";
+}
+<script>
+    $(document).ready(function () {
+        $('input').prop('disabled', true);
+        $('select').prop('disabled', true);
+    });
+   function Back()
+    {
+       window.location.href = '/AspNetSalaries/Index';
+    }
+</script>
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">Accounts Management</a> > @Html.ActionLink("Salaries", "Index", "AspNetSalaries") > <a href="#"><b>Detail</b></a> </label>
+
+<h4>Details</h4>
+<div class="box box-primary">
+    <div class="box-body">
+
+     
+        
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Salary Detail</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1"> Employee Name</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.AspNetEmployee.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AspNetEmployee.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1"> Role</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.AspNetEmployee.AspNetVirtualRole.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AspNetEmployee.AspNetVirtualRole.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1"> Gross Salary</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.GrossSalary, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.GrossSalary, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1"> Medical Allowance</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.MedicalAllowance, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MedicalAllowance, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1"> Accomodation Allowance</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.AccomodationAllowance, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AccomodationAllowance, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Tax, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Tax, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Tax, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1"> Basic Salary</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.BasicSalary, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BasicSalary, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1"> Fine Cut</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.FineCut, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FineCut, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1"> After fine Salary</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.AfterCutSalary, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AfterCutSalary, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1"> Advance PF</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.AdvancePf, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AdvancePf, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1"> Employee PF</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.EmployeePF, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EmployeePF, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1"> Advance Salary</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.AdvanceSalary, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AdvanceSalary, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1"> Employee EOP</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.EmployeeEOP, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EmployeeEOP, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1"> School EOP</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.SchoolEOP, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SchoolEOP, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1"> Before Tax Salary</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.BTaxSalary, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BTaxSalary, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1"> After Tax Salary</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.ATaxSalary, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ATaxSalary, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Bonus, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Bonus, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Bonus, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1">Salary Hold</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.SalaryHold, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SalaryHold, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1"> Total Salary</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.TotalSalary, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TotalSalary, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+              <hr />
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <button class="btn btn-default" onclick="Back()">Back</button>
+                    </div>
+                </div>
+                
+            </div>
+        
+      
+      
+    </div>
+</div>

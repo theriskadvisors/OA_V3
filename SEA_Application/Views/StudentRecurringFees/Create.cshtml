@@ -1,0 +1,204 @@
+﻿@model SEA_Application.Models.StudentRecurringFee
+@{
+    ViewBag.Title = "Create";
+}
+<style>
+    #error-tag {
+        color: red;
+    }
+    </style>
+<h2>Add Recurring Fee</h2>
+<script>
+    $(document).ready(function () {
+        debugger;
+        $("#error-tag").hide();
+       var classid = '@ViewBag.Class_ID';
+        var defaultclassid = $("#ClassId").val();
+        if(classid == defaultclassid)
+        {
+            $("#error-tag").show();
+            $('#submit').prop("disabled", true);
+
+        }
+        $('#ClassId').change(function () {
+            debugger;
+            var ClassId = $(this).val();
+
+            $.post(
+                "/StudentRecurringFees/CheckClassDeplication?Id="+ClassId,
+                function (value) {
+                    debugger
+                    if (value != 'error') {
+
+                        $('#submit').prop("disabled", false);
+                        $("#error-tag").hide();
+                    }
+                    else {
+
+                        $("#error-tag").show();
+                        $('#submit').prop("disabled", true);
+                    }
+                },
+                "text"
+            );
+        });
+        $("#total").val(0);
+        $(".code").on("keyup", function () {
+            TotalFee();
+        })
+
+    })
+
+    function TotalFee(a) {
+        debugger;
+        var sum = 0;
+        var total = 0;
+
+        //var feetype = parseInt(e);
+        total = parseInt($("#total").val());
+        if (isNaN(total)) {
+            total = 0;
+            $("#total").val(total);
+
+        }
+
+        var sum = 0;
+        $(".code").each(function () {
+            debugger;
+            if (!isNaN(this.value) && this.value.length != 0) {
+                sum += +$(this).val();
+            }
+            $("#total").val(sum);
+
+        })
+    }
+
+
+
+</script>
+<div class="box box-primary">
+    <div class="box-body">
+        <h4>Class Recurring Fee</h4>
+
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div style="margin-top:10px">
+                <span class="text-danger">@ViewBag.ErrorMessage</span>
+
+            </div>
+        }
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "Registerform" }))
+{
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <span class="col-md-2">Class</span>
+                    <div class="col-md-6">
+                        @Html.DropDownList("ClassId", null, htmlAttributes: new { @class = "form-control",@id = "ClassId" })
+                        @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
+                        <div class="error" id="error-tag">Class Already Exists !</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-md-2">Tution Fee</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.TutionFee, new { htmlAttributes = new { @class = "form-control code" } })
+                        @Html.ValidationMessageFor(model => model.TutionFee, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-md-2">Computer Lab Charges</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.ComputerLabCharges, new { htmlAttributes = new { @class = "form-control code" } })
+                        @Html.ValidationMessageFor(model => model.ComputerLabCharges, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Security Services</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.SecurityServices, new { htmlAttributes = new { @class = "form-control code" } })
+                        @Html.ValidationMessageFor(model => model.SecurityServices, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Lab Charges</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.LabCharges, new { htmlAttributes = new { @class = "form-control code" } })
+                        @Html.ValidationMessageFor(model => model.LabCharges, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Transportation</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Transportation, new { htmlAttributes = new { @class = "form-control code" } })
+                        @Html.ValidationMessageFor(model => model.Transportation, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Sports Shirt</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.SportsShirt, new { htmlAttributes = new { @class = "form-control code" } })
+                        @Html.ValidationMessageFor(model => model.SportsShirt, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Chinese Class Fee</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.ChineseClassFee, new { htmlAttributes = new { @class = "form-control code" } })
+                        @Html.ValidationMessageFor(model => model.ChineseClassFee, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Advance Tax</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.AdvanceTax, new { htmlAttributes = new { @class = "form-control code" } })
+                        @Html.ValidationMessageFor(model => model.AdvanceTax, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Other</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Other, new { htmlAttributes = new { @class = "form-control code" } })
+                        @Html.ValidationMessageFor(model => model.Other, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Session </span>
+                    <div class="col-md-6">
+                        @Html.DropDownList("SessionId", null, htmlAttributes: new { @class = "form-control", @required = "required" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="col-md-2">Total Fee</span>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.TotalFee, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "total" } })
+                        @Html.ValidationMessageFor(model => model.TotalFee, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+            </div>
+        }
+
+        <div class="col-md-offset-2 col-md-5">
+            <br />
+            <button class="col-md-2 form-control" onclick="window.location.href = '/StudentRecurringFees/Index'" style="border-radius:35px;border:hidden;background-color:red;margin-right:10px;color:white;font-size:11px;width:98px;height:38px;font-family:Montserrat" id="return"><i class="fa fa-arrow-left"></i> &nbsp;&nbsp; Return</button>
+            <input class="col-md-2 form-control" id="submit" form="Registerform" type="submit" value="Save" style="border-radius:35px;color:white;border:hidden;background-color:#128edb;font-size:11px;width:98px;height:38px;font-family:Montserrat" />
+            <br />
+            <br /><br />
+        </div>
+    </div>
+</div>
+

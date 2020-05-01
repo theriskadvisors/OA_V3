@@ -1,0 +1,283 @@
+﻿
+@{
+    ViewBag.Title = "Report";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+<script src="~/Content/HtmlToPdf/html2canvas.min.js"></script>
+<script src="~/Content/HtmlToPdf/pdfmake.min.js"></script>
+
+
+<script type="text/javascript">
+    function Export() {
+        //alert("hello");
+        html2canvas(document.getElementById('ExpenseBody'), {
+            onrendered: function (canvas) {
+                var data = canvas.toDataURL();
+                var docDefinition = {
+                    content: [{
+                        image: data,
+                        width: 500
+                    }]
+                };
+                pdfMake.createPdf(docDefinition).download("ExpenseReport.pdf");
+                // alert("Admit Card Downloading Started");
+            }
+        });
+    }
+</script>
+<style type="text/css">
+
+    th{
+        font-size:20px;
+    }
+
+  
+</style>
+@*<style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        h3.headings {
+        }
+
+        th, td {
+            padding: 5px;
+            background-color: none;
+            border-top: 1px solid;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        td {
+            border-top: 1px solid;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        .text_underline {
+            text-decoration: underline;
+        }
+    </style>*@
+<br />
+<br />
+
+<div class="col-md-12" style="padding:20px" >
+
+    <div id="ExpenseBody" style="border: 1px solid; height: auto;padding:20px;" >
+
+
+        <h3 class="headings" align="center"> Daily Account Sheet @SEA_Application.Models.GetLocalDateTime.GetLocalDateTimeFunction() </h3>
+                
+
+        <table id="DebitTable" border="1" width="50%" align="left">
+
+            <thead>
+                <tr>
+                    <th>Cash In</th>
+                    <th>Amount</th>
+
+                </tr>
+
+
+
+            </thead>
+
+            <tbody id="DebitTableBody">
+            </tbody>
+
+        </table>
+
+
+
+
+        <table id="ExpenseTable" border="1" width="50%">
+            <thead>
+
+                <tr>
+                    <th>Expenditure</th>
+                    <th>Amount</th>
+
+                </tr>
+
+
+
+            </thead>
+
+            <tbody id="ExpenseTableBody">
+            </tbody>
+
+        </table>
+
+        <br />
+    </div>
+    <center>
+        <input onclick="Export()" type="button" id="btnExport" class="btn btn-primary" name="name" value="Download as PDF" />
+    </center>
+    <br />
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        var TotalDebit = 0;
+        var TotalCredit = 0;
+        $.ajax({
+
+            type: "POST",
+            url: "/Expense/DebitRecords",
+            data: {},
+            success: function (result) {
+
+                //var currentDate = new Date();
+                //var date = currentDate.getDate();
+                //var month = currentDate.getMonth();
+                //var year = currentDate.getFullYear();
+
+                //  var monthDateYear = (month + 1) + "/" + date + "/" + year;
+                //alert(monthDateYear);
+                //var Total = 0;
+                //var TotalCredit = 0;
+                TotalDebit = 0;
+                $.each(result, function (index) {
+
+                    
+                    //   var ste = result[index].Date == Date.now;
+
+                   
+
+                    var TableRow = "<tr class='blank_row'><td>&nbsp;&nbsp;" + result[index].VoucherDescription + "</td> <td align='right'>" + result[index].VoucherAmount + "&nbsp;&nbsp; </td></tr>"
+
+                      TotalDebit = TotalDebit + parseFloat(result[index].VoucherAmount);
+
+                    // TotalCredit = TotalCredit + parseFloat(result[index].VoucherAmount);
+
+
+                    // alert(result[index].Date);
+
+                    $('#DebitTableBody').append(TableRow);
+
+
+
+                });
+
+                var Total = TotalDebit;
+                $('#DebitTableBody').append("<tr id='total'><td  ><b>&nbsp;&nbsp;Total:</b></td>   <td align='right'><b>" + Total + "&nbsp;</b></td></tr>");
+
+                ExpenseTable();
+
+            }
+
+
+        })//end of ajax
+
+        function ExpenseTable() {
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Expense/ReportRecords",
+            data: {},
+            success: function (result) {
+
+                //var currentDate = new Date();
+                //var date = currentDate.getDate();
+                //var month = currentDate.getMonth();
+                //var year = currentDate.getFullYear();
+
+                //  var monthDateYear = (month + 1) + "/" + date + "/" + year;
+                //alert(monthDateYear);
+                //var Total = 0;
+                 TotalCredit = 0;
+                //var TotalDebit = 0;
+                $.each(result, function (index) {
+
+                    
+                    var ste = result[index].Date == Date.now;
+
+
+                    
+                   var TableRow = "<tr class='blank_row'><td>&nbsp;&nbsp;" + result[index].VoucherDescription + "</td> <td align='right'>" + result[index].VoucherAmount + "&nbsp;&nbsp; </td></tr>"
+
+                     TotalCredit = TotalCredit + parseFloat(result[index].VoucherAmount);
+                    // alert(result[index].Date);
+
+                    $('#ExpenseTableBody').append(TableRow);
+
+                });
+                var Total = TotalCredit;
+
+                debugger
+                var GrandTotal = TotalDebit - TotalCredit;
+                $('#ExpenseTableBody').append("<tr id='total'><td  ><b>&nbsp;&nbsp;Total exp:</b></td>   <td align='right'><b> " + Total + "&nbsp;&nbsp;</b></td></tr>");
+                
+                $('#ExpenseTableBody').append("<tr><td ><b>&nbsp;&nbsp;Bal:</b></td>   <td align='right'> <b>" + GrandTotal + "&nbsp;&nbsp;</b></td></tr>");
+
+
+                EmptyRows();
+                
+            }
+
+
+        })//end of ajax
+
+        }
+        function EmptyRows() {
+
+
+        var ExpenseTableBody = $("#ExpenseTableBody");
+        var DebitTableBody = $("#DebitTableBody");
+
+
+        var DebitTableRows = $('#DebitTableBody tr').length;
+        var ExpenseTableRows = $('#ExpenseTableBody tr').length;
+
+        //alert(DebitTableRows);
+        //alert(ExpenseTableRows);
+
+        var RowsToAdd = 0;
+
+        if (DebitTableRows > ExpenseTableRows) {
+            debugger
+
+            RowsToAdd = DebitTableRows - ExpenseTableRows;
+
+            //aler(RowsToAdd);
+
+
+            for (i = 1; i <= RowsToAdd; i++) {
+
+                $("#ExpenseTableBody #total").before("<tr class='blank_row' style='height:21px'><td></td><td></td></tr>");
+
+            }
+
+
+        }
+        else if (DebitTableRows < ExpenseTableRows) {
+            debugger
+            RowsToAdd = ExpenseTableRows - DebitTableRows;
+
+
+            for (i = 1; i <= RowsToAdd; i++) {
+                $("#DebitTableBody #total").before("<tr  class='blank_row' style='height:21px' ><td></td><td></td></tr>");
+
+            }
+
+
+        }
+
+        else {
+
+        }
+        }
+
+
+    })
+
+</script>

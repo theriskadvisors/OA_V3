@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "BankCreate";
+}
+<style>
+    span{
+        font-family:Montserrat;
+    }
+    input{
+                font-family:Montserrat;
+
+    }
+
+
+   #error-tag {
+        color: red;
+    }
+</style>
+
+
+<script>
+
+
+
+    $(document).ready(function () {
+
+        $("#error-tag").hide();
+        //$('#startingbalance').change(function () {
+        //    debugger;
+        //    var balance = $(this).val();
+          
+        //            if (balance > 0) {
+
+        //                  $('#submit').prop("disabled", false);
+        //                 $("#error-tag").hide();
+        //              }
+        //              else {
+
+        //                 $("#error-tag").show();
+        //                  $('#submit').prop("disabled", true);
+        //              }
+              
+        //});
+
+
+
+
+        //$('#submit').prop("disabled", true);
+    });
+
+</script>
+
+
+
+
+<h2 style="font-family:Montserrat">Bank Account</h2>
+@if(ViewBag.Error!=null)
+{
+    <span style="color:red">@ViewBag.Error</span>
+}
+<div class="col-md-8 col-md-offset-1" style="background-color:#f1f2e5;border-radius:10px;margin-top:50px;box-shadow: rgba(0, 0, 0, 0.16) 5px 10px 5px, rgba(0, 0, 0, 0.23) 0px 3px 5px">
+ @using (Html.BeginForm("NewBankAccount", "Ledgers", FormMethod.Post, new { enctype = "multipart/form-data",id= "Registerform" }))
+ {
+      <h4 style="font-family:Montserrat">Add New Bank Account</h4>
+      <hr />
+<br />
+    <div class="col-md-12">
+        <div
+             class="col-md-3">
+            <span >Name</span>
+            <input type="text" name="name" class="form-control" required />
+            <br />
+        </div>
+     </div>
+    <div class="col-lg-12">
+        <div class="col-md-3">
+            <span>Starting Balance</span>
+            <input type="number" name="startingbalance" class="form-control" id = "startingbalance" />
+            <div class="error" id="error-tag">Balance must be greater than 0</div>
+
+             <br />
+        </div>
+    </div>
+  <div class="col-md-12">
+      <div class="col-md-3">
+          <span>Group</span>
+          @Html.DropDownList("LedgerGroupId", null, htmlAttributes: new { @class = "form-control",@style="font-family:Montserrat" })
+          <br />
+      </div>
+  </div>
+    <div class="col-md-12">
+        <div class="col-md-3">
+            <span>Session</span>
+            @Html.DropDownList("SessionId", null, htmlAttributes: new { @class = "form-control", @required = "required", @style = "font-family:Montserrat" })
+            <br />
+        </div>
+    </div>
+
+
+ }
+        <div class="col-md-5">
+        <br />
+        <button class="col-md-2 form-control" onclick="window.location.href = '/FinanceSummary/BankIndex'" style="border-radius:35px;border:hidden;margin-right:10px;background-color:red;color:white;font-size:11px;width:98px;height:38px;font-family:Montserrat" id="return"><i class="fa fa-arrow-left"></i> &nbsp;&nbsp; Return</button>
+        <input class="col-md-2 form-control" id="submit" form="Registerform" type="submit" value="Save" style="border-radius:35px;color:white;border:hidden;font-family:Montserrat;background-color:#128edb;font-size:11px;width:98px;height:38px;font-family:Montserrat" />
+        <br />
+        <br /><br />
+    </div>
+</div>

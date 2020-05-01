@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="25.486" height="26.076" viewBox="0 0 25.486 26.076">
+    <defs>
+        <style>
+            .prefix__cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px}
+        </style>
+    </defs>
+    <g id="prefix__Icon-Vouchers" transform="translate(-1561.01 -658.175)">
+        <path id="prefix__Path_408" d="M1585.5 664.808V660.8a1.042 1.042 0 0 0-.7-.966 1.294 1.294 0 0 0-1.277.172l-1.655 1.3-2.252-1.789a1.307 1.307 0 0 0-1.589 0l-2.25 1.787-2.251-1.787a1.308 1.308 0 0 0-1.59 0l-2.252 1.789-1.657-1.3a1.292 1.292 0 0 0-1.672.088.988.988 0 0 0-.3.706v17.515m6.671 4.934h9.587a3.02 3.02 0 0 0 3.183-2.827v-11.454" class="prefix__cls-1" data-name="Path 408"/>
+        <path id="prefix__Path_409" d="M1571.168 668.281h3.774" class="prefix__cls-1" data-name="Path 409"/>
+        <path id="prefix__Path_410" d="M1571.168 672.2h9.29" class="prefix__cls-1" data-name="Path 410"/>
+        <path id="prefix__Path_411" d="M1582.743 683.251h-16.4a4.522 4.522 0 0 1-4.336-4.689h16.365s.017 4.689 4.371 4.689z" class="prefix__cls-1" data-name="Path 411"/>
+    </g>
+</svg>

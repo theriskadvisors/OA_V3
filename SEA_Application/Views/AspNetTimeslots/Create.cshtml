@@ -1,0 +1,98 @@
+﻿@model SEA_Application.Models.AspNetTimeslot
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > @Html.ActionLink("Room Slot", "Index", "AspNetTimeslots") > <a href="#"><b>Create</b></a> </label>
+
+<h4 class="orange">Add Time Slot </h4>
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="box box-primary">
+        <div class="box-title"></div>
+
+        <div class="box-body">
+
+            <div class="form-horizontal">
+                <h4>Time Slot</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="control-label col-md-2">Name</label>
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <label class="control-label col-md-2">Start Time</label>
+                    <div class="col-md-4">
+
+
+                        <input type="datetime-local" name="Start_Time" class="form-control">
+
+
+
+                        @*@Html.EditorFor(model => model.Start_Time, new { htmlAttributes = new { @class = "form-control date" } })
+                            @Html.ValidationMessageFor(model => model.Start_Time, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">End Time</label>
+
+                    <div class="col-md-4">
+
+
+                        <input type="datetime-local" name="End_Time" class="form-control">
+
+
+                        @*@Html.EditorFor(model => model.End_Time, new { htmlAttributes = new { @class = "form-control date" } })
+                            @Html.ValidationMessageFor(model => model.End_Time, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Minutes, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Minutes, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Minutes, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                        <button type="button" id="cancel" class="btn btn-default">Back</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+}
+
+<script>
+    $(document).ready(function () {
+
+    
+        $("#cancel").click(function () {
+            
+        window.location.href = '/AspnetTimeSlots/index';
+
+    });
+    
+    })
+
+</script>

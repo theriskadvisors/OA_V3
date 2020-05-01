@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewBag.Title = "Calendar_Notify";
+}
+<script>
+    $(document).ready(function () {
+        $('.eeniart0017').css("display", "block");
+        $.ajax({
+            type: "POST",
+            url: "/AspNetPushNotifications/Holidays_Details",
+            success: function (data) {
+                debugger;
+                $('.eeniart0017').css("display", "none");
+                $('#SubmitionTable').html('');
+                $.each(data, function (i, item) {
+                    debugger;
+                    var time = item.StartDate;
+                    var startsplit = time.split('(')[1];
+                    var endsplit = startsplit.split(')')[0];
+                    var endsp = parseInt(endsplit);
+                    var d = new Date(endsp);
+                    var sd = d.toLocaleDateString();
+
+                    var time = item.EndDate;
+                    var startsplit = time.split('(')[1];
+                    var endsplit = startsplit.split(')')[0];
+                    var endsp = parseInt(endsplit);
+                    var d = new Date(endsp);
+                    var ed = d.toLocaleDateString();
+                    $("#SubmitionTable").append('<tr><td>'+item.Title+'</td><td>'+sd+'</td><td>'+ed+'</td></tr>');
+                   // table.fnAddData([item.Title, sd, ed]);
+                })
+               
+
+            }
+        });
+    })
+        function save()
+        {
+            debugger;
+            var start = $("#start").val();
+            var end = $("#end").val();
+            var title = $("#title").val();
+            var check = $("#check").val();
+            if ($('#check').is(":checked")) {
+                check="On"
+            }
+       
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: "/AspNetPushNotifications/Save_Holiday",
+                data: {check:check,title: title, start: start, end: end },
+                success: function (data) {
+                    debugger;
+                    window.location.href = "/AspNetPushNotifications/Calendar_Notify";
+                }
+            });
+        }
+        function show()
+        {
+            debugger;
+            var start = $("#start").val();
+            var end = $("#end").val();
+            if (start == "" && end!="")
+            {
+                $("#Startdate").append("Please Enter a start date");
+            }
+            else if(end=="" && start!=""){
+                $("#End").append("Please Enter an End date");
+            }
+            else if (start == "" && end == "")
+            {
+                $("#d_check").append("Please Enter a Start and End date");
+            }
+            else {
+                $("#myModal1").modal('show');
+            }
+         
+           
+        }
+</script>
+<label> @Html.ActionLink("Home", "Dashboard", "Account")  > <b><a href="#">Calendar Notification</a></b></label>
+
+<h4>Calendar Notification</h4>
+<div class="box box-primary">
+    <div class="box box-body">
+        <h3>Holiday Announcement</h3>
+        <hr />
+        <div class="col-md-6">
+            <div class="col-md-2">
+                <span>Title</span>
+            </div>
+            <div class="col-md-10"><input type="text" id="title" class="form-control" /></div>           
+        </div>
+ 
+        <div class="col-md-6">
+            <div class="col-md-6">
+                <div class="col-md-4" style="float:left">Start Date</div>
+                <div class="col-md-8"><input type="date" id="start" class="form-control" />
+                    <span id="Startdate" style="color:red; text-align:center"></span>
+                    </div>
+                <span id="d_check" style="color:red; text-align:center;float:right"></span>
+            </div>
+           
+            <div class="col-md-6">
+                <div class="col-md-4">End Date</div>
+                <div class="col-md-8"><input type="date"id="end" class="form-control" />
+                    <span id="End" style="color:red; text-align:center"></span></div>
+            </div>
+        </div>
+        <br /><br /><br />
+        <div class="col-md-2 pull-right">
+             <input type="checkbox" value="Off" id="check" /><span>Send Notification </span>
+            <input type="button" name="save" class="btn btn-default" onclick="show()" value="Done" />
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Calendar Notification</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you really want to Add this?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="save()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="box box-primary">
+    <div class="box-body">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Start Date
+                    </th>
+                    <th>
+                        End Date
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="SubmitionTable"></tbody>
+        </table>
+    </div>
+</div>

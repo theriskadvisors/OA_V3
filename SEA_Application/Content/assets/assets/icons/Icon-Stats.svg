@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22.227" height="26.022" viewBox="0 0 22.227 26.022">
+    <defs>
+        <style>
+            .prefix__cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px}
+        </style>
+    </defs>
+    <g id="prefix__Icon-Stats" transform="translate(-1807.732 -672.391)">
+        <path id="prefix__Path_384" d="M1821.45 680.57l5.154-4.971a6.934 6.934 0 0 0-5.114-2.208h-.04z" class="prefix__cls-1" data-name="Path 384"/>
+        <path id="prefix__Path_385" d="M1818.846 697.391h.044a10.073 10.073 0 0 0 6.846-2.711c.083-.077.165-.157.245-.237a10.078 10.078 0 0 0 2.972-6.819c0-.1.006-.211.006-.317v-.029a10.08 10.08 0 0 0-2.769-6.953l-.179-.184-7.165 7.166m7.344-6.982" class="prefix__cls-1" data-name="Path 385"/>
+        <path id="prefix__Path_386" d="M1818.846 690.687v-13.524a10.078 10.078 0 0 0-7.165 2.978c-.081.081-.16.162-.238.246a10.074 10.074 0 0 0-2.711 6.89v.029c0 .106 0 .212.006.317a10.082 10.082 0 0 0 2.971 6.819l.184.179a10.079 10.079 0 0 0 6.953 2.77v-3.5m-7.165-13.754" class="prefix__cls-1" data-name="Path 386"/>
+    </g>
+</svg>

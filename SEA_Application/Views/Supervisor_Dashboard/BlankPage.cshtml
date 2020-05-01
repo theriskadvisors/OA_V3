@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Calendar";
+    ViewBag.SubTitle = "";
+}
+
+
+<script src="~/AdminLTE/plugins/jquery/js/jQuery-2.1.4.min.js"></script>
+
+<link href="~/css/monthly.css" rel="stylesheet" />
+<script src="~/Scripts/monthly.js"></script>
+<script>
+
+
+
+    $(document).ready(function () {
+        var event={ "monthly": [
+              {
+                  "id": 1,
+                  "name": "Project 1",
+                  "startdate": "2017-9-15",
+                  "enddate": "2017-9-21",
+                  "starttime": "12:00",
+                  "endtime": "2:00",
+                  "color": "#FFB128",
+                  "url": ""
+              },
+              {
+                  "id": 2,
+                  "name": "Parent Teacher Meeting",
+                  "startdate": "2017-9-20",
+                  "enddate": "",
+                  "starttime": "12:00",
+                  "endtime": "2:00",
+                  "color": "#2874A6",
+                  "url": ""
+              },
+              {
+                  "id": 3,
+                  "name": "Home Work Diary",
+                  "startdate": "2017-9-22",
+                  "enddate": "2017-9-25",
+                  "starttime": "12:00",
+                  "endtime": "2:00",
+                  "color": "#633974",
+                  "url": ""
+              },
+              {
+                  "id": 4,
+                  "name": "Lesson Plan 1",
+                  "startdate": "2017-9-13",
+                  "enddate": "",
+                  "starttime": "12:00",
+                  "endtime": "2:00",
+                  "color": "#2ECC71",
+                  "url": ""
+              },
+              {
+                  "id": 5,
+                  "name": "Lesson Plan 2",
+                  "startdate": "2017-9-16",
+                  "enddate": "",
+                  "starttime": "12:00",
+                  "endtime": "2:00",
+                  "color": "#2ECC71 ",
+                  "url": ""
+              },
+              {
+                  "id": 6,
+                  "name": "Lesson Plan 3",
+                  "startdate": "2017-9-22",
+                  "enddate": "",
+                  "starttime": "12:00",
+                  "endtime": "2:00",
+                  "color": "#2ECC71  ",
+                  "url": ""
+              },
+
+        ]
+        }
+        $('#mycalendar').monthly({
+            mode: 'event',
+            dataType: 'json',
+            events: event
+        });
+
+    });
+</script>
+
+<div class="monthly" id="mycalendar" style="margin-top:10px"></div>

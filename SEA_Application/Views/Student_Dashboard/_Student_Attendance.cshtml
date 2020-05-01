@@ -1,0 +1,185 @@
+﻿<script type="text/javascript">
+    var table;
+    $(document).ready(function () {
+        
+     //   table = $("#example").dataTable();
+     //   DrawTable();
+
+        
+                table = $('#datatable').dataTable({
+                    buttons: [
+                        {
+                            text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
+                        },
+                        {
+                            text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
+                            //action: function (e, dt, button, config) {
+                            //    window.location.href = '';
+                            //}
+                        },
+                        {
+                            text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
+                        }
+                    ],
+                    "language": {
+                        "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
+                            "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
+                            "  </div>\n" +
+                            "  </div>",
+                        "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
+                        "paginate": {
+                            "first": "Firstt",
+                            "last": "Lastt",
+                            "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
+                            "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
+                        }
+                    },
+                    "searching": true,
+                    // dom: '<"class">Blfrtip',
+                    dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
+                        "<'row'<'col-sm-12 datatablesData'tr>>" +
+                        "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
+                });
+        
+             $("#PageHeader").html("Attendance");
+
+                $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
+                $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Attendance</a></li>');
+
+
+        var allCookies = document.cookie;
+        cookieArray = allCookies.split(';');
+
+        for (var i = 0; i < cookieArray.length; i++) {
+            name = cookieArray[i].split('=')[0];
+            value = cookieArray[i].split('=')[1];
+
+            if (name == "StudentAttendanceCookie" || name == " StudentAttendanceCookie") {
+                var selectSubject = document.getElementById('SubjectID');
+                selectSubject.value = value;
+                StudentAttendance(value);
+
+            }
+        }
+
+        function StudentAttendance(selectedSubject)
+        {
+            $.get('@Url.Action("AttendanceBySubject")',
+               { subjectID: selectedSubject }, function (data) {
+                   table.fnClearTable();
+                   $('#Attendance_Subject').text($("#SubjectID option:selected").text());
+                   $.each(data, function (i, item) {
+                       var date;
+
+                       if (item.Date == null) {
+                           date = '';
+                       }
+                       else {
+                           date = new Date(parseInt(item.Date.replace(/(^.*\()|([+-].*$)/g, '')));
+                           date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+                       }
+                       if (item.Reason == null) {
+                           item.Reason = '-/-';
+                       }
+                       table.fnAddData([$("#SubjectID option:selected").text() + "<input type='hidden' value=" + item.Id + "/>", item.Status, date, item.Reason]);
+
+                   });
+                   table.fnDraw();
+
+               });
+        }
+
+        $("#SubjectID").click(function () {
+            var selectedSubject = $("#SubjectID").val();
+            document.cookie = "StudentAttendanceCookie=" + selectedSubject + "; expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+            StudentAttendance(selectedSubject);
+           
+        });
+    });
+    function DrawTable() {
+        $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+        //$('#example_filter').addClass("col-lg-4 col-md-4 col-sm-12 col-xs-12");
+        $('#example_wrapper').css("text-align", "left");
+        $('#example_length').css("text-align", "left");
+        $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+        $("#example_length label").css("text-align", "left");
+        $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+        // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+        //$('#example_length').css({ "overflow": "auto" });
+        $('#example_filter input').addClass("add");
+        $('#example_filter').append('<span class="glyphicon glyphicon-search form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+        var list = $("#SubjectID").html();
+        $('#example_length').append(
+
+            '<div class="col-md-1" style="width:0%; padding-left:1px;">' +
+             '<div class="d-bar"></div>' +
+            '</div>'
+              +
+           '<div class="col-md-5 col-lg-2" style="padding-left:0px">' +
+           '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></span></a></div>' +
+           '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="glyphicon glyphicon-download-alt" data-placement="bottom"></i></span></a></div>' +
+           ' <div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="fa fa-ban"  data-placement="bottom"></i></span>' + '</a></div>' + '<div class="col-md-1" padding-left:0px;">' +
+             '<div class="d-bar"></div>' +
+            '</div>' +
+          '</div>');
+        $("#Class").prepend("<option value='0'>All</option>");
+    }
+   
+
+</script>
+
+
+
+@*<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">User</a> > <a href="#"><b>Attandance</b></a></label>
+
+<h4>Attendance</h4>*@
+
+@*<div class="box box-primary">
+    <div class="box-header with-border">
+    </div>
+    <div class="box-body">
+        <form class="form-horizontal">
+            <div class="box-body">
+                <div class="form-group">
+                    <lable class="col-md-1 control-label"><b>Select Subject</b></lable>
+                    <div class="col-md-offset-1 col-md-6">
+                        @Html.DropDownList("SubjectID", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>*@
+
+<div class="card">
+    <div class="card-body p-4">
+
+        <div class="box box-primary">
+            <div class="box-body">
+                <table class="table hover table-striped table-bordered" id="datatable">
+                    <thead>
+                        <tr>
+                            <th>
+                                Subject
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Reason
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendance_table"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

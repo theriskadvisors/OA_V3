@@ -1,0 +1,974 @@
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\ApplicationInsights.config
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\roslyn\csc.exe
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\roslyn\vbc.exe
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\roslyn\VBCSCompiler.exe
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\SEA_Application.dll.config
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\SEA_Application.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\SEA_Application.pdb
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Antlr3.Runtime.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\EntityFramework.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\EntityFramework.SqlServer.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\EPPlus.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\itextsharp.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\itextsharp.xmlworker.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.AI.Web.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.ApplicationInsights.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Owin.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Owin.Security.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Newtonsoft.Json.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\NReco.PdfGenerator.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Owin.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Quartz.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\RazorPDF.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Rotativa.Core.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Rotativa.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Net.Http.Formatting.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Web.Helpers.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Web.Http.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Web.Http.WebHost.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Web.Mvc.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Web.Optimization.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Web.Razor.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Web.WebPages.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Web.WebPages.Razor.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\WebGrease.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\EntityFramework.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\EntityFramework.SqlServer.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\EPPlus.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\itextsharp.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.AI.Web.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.ApplicationInsights.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\NReco.PdfGenerator.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Quartz.pdb
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Quartz.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Net.Http.Formatting.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Web.Http.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Web.Http.WebHost.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Web.Helpers.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Web.Mvc.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Web.Optimization.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Web.Razor.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Web.WebPages.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\System.Web.WebPages.Razor.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Antlr3.Runtime.pdb
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Newtonsoft.Json.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Owin.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Owin.Security.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\obj\Debug\SEA_Application.dll
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\obj\Debug\SEA_Application.pdb
+C:\Users\Asad\Documents\GitHub\SEA_NGS_V1\SEA_Application\obj\Debug\SEA_Application.csprojResolveAssemblyReference.cache
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\ApplicationInsights.config
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\csc.exe
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\vbc.exe
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\VBCSCompiler.exe
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\SEA_Application.dll.config
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\SEA_Application.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\SEA_Application.pdb
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Antlr3.Runtime.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\EntityFramework.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\EntityFramework.SqlServer.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\EPPlus.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\itextsharp.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\itextsharp.xmlworker.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.Web.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.ApplicationInsights.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Newtonsoft.Json.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\NReco.PdfGenerator.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Owin.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Quartz.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\RazorPDF.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Rotativa.Core.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Rotativa.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Net.Http.Formatting.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Helpers.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Http.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Http.WebHost.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Mvc.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Optimization.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Razor.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.WebPages.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.WebPages.Razor.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\WebGrease.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\EntityFramework.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\EntityFramework.SqlServer.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\EPPlus.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\itextsharp.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.Web.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.ApplicationInsights.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\NReco.PdfGenerator.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Quartz.pdb
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Quartz.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Net.Http.Formatting.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Http.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Http.WebHost.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Helpers.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Mvc.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Optimization.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Razor.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.WebPages.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.WebPages.Razor.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Antlr3.Runtime.pdb
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Newtonsoft.Json.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\obj\Debug\SEA_Application.csprojResolveAssemblyReference.cache
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\obj\Debug\SEA_Application.dll
+C:\Users\Asad\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\obj\Debug\SEA_Application.pdb
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\ApplicationInsights.config
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\csc.exe
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\vbc.exe
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\VBCSCompiler.exe
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\SEA_Application.dll.config
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\SEA_Application.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\SEA_Application.pdb
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Antlr3.Runtime.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\EntityFramework.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\EntityFramework.SqlServer.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\EPPlus.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\itextsharp.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\itextsharp.xmlworker.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.Web.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.ApplicationInsights.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Newtonsoft.Json.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\NReco.PdfGenerator.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Owin.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Quartz.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\RazorPDF.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Rotativa.Core.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Rotativa.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Net.Http.Formatting.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Helpers.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Http.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Http.WebHost.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Mvc.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Optimization.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Razor.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.WebPages.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.WebPages.Razor.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\WebGrease.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\EntityFramework.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\EntityFramework.SqlServer.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\EPPlus.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\itextsharp.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.Web.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.ApplicationInsights.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\NReco.PdfGenerator.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Quartz.pdb
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Quartz.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Net.Http.Formatting.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Http.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Http.WebHost.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Helpers.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Mvc.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Optimization.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.Razor.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.WebPages.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\System.Web.WebPages.Razor.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Antlr3.Runtime.pdb
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Newtonsoft.Json.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\obj\Debug\SEA_Application.dll
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\obj\Debug\SEA_Application.pdb
+C:\Users\Hello\Documents\GitHub\NGSIPC_SEA_V1\SEA_Application\obj\Debug\SEA_Application.csprojResolveAssemblyReference.cache
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\ApplicationInsights.config
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\csc.exe
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\vbc.exe
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\VBCSCompiler.exe
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\SEA_Application.dll.config
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\SEA_Application.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\SEA_Application.pdb
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Antlr3.Runtime.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\EntityFramework.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\EntityFramework.SqlServer.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\EPPlus.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\itextsharp.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\itextsharp.xmlworker.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.Web.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.ApplicationInsights.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Newtonsoft.Json.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\NReco.PdfGenerator.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Owin.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Quartz.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\RazorPDF.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Rotativa.Core.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Rotativa.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Net.Http.Formatting.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Helpers.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Http.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Http.WebHost.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Mvc.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Optimization.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Razor.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.WebPages.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.WebPages.Razor.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\WebGrease.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\EntityFramework.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\EntityFramework.SqlServer.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\EPPlus.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\itextsharp.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.Web.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.ApplicationInsights.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\NReco.PdfGenerator.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Quartz.pdb
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Quartz.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Net.Http.Formatting.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Http.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Http.WebHost.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Helpers.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Mvc.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Optimization.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Razor.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.WebPages.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.WebPages.Razor.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Antlr3.Runtime.pdb
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Newtonsoft.Json.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\obj\Debug\SEA_Application.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\obj\Debug\SEA_Application.pdb
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Hangfire.Core.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Hangfire.SqlServer.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Hangfire.Core.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\Hangfire.SqlServer.xml
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\es\Hangfire.Core.resources.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\zh\Hangfire.Core.resources.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\zh-TW\Hangfire.Core.resources.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\ApplicationInsights.config
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\csc.exe
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\vbc.exe
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\VBCSCompiler.exe
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\SEA_Application.dll.config
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\SEA_Application.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\SEA_Application.pdb
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Antlr3.Runtime.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\EntityFramework.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\EntityFramework.SqlServer.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\EPPlus.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Hangfire.Core.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Hangfire.SqlServer.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\itextsharp.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\itextsharp.xmlworker.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.Web.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.ApplicationInsights.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Newtonsoft.Json.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\NReco.PdfGenerator.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Owin.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Quartz.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\RazorPDF.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Rotativa.Core.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Rotativa.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Net.Http.Formatting.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Helpers.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Http.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Http.WebHost.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Mvc.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Optimization.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Razor.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.WebPages.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.WebPages.Razor.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\WebGrease.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\EntityFramework.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\EntityFramework.SqlServer.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\EPPlus.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Hangfire.Core.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Hangfire.SqlServer.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\itextsharp.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.Web.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.ApplicationInsights.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\NReco.PdfGenerator.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Quartz.pdb
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Quartz.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Net.Http.Formatting.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Http.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Http.WebHost.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Helpers.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Mvc.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Optimization.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Razor.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.WebPages.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.WebPages.Razor.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Antlr3.Runtime.pdb
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Newtonsoft.Json.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\es\Hangfire.Core.resources.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\zh\Hangfire.Core.resources.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\zh-TW\Hangfire.Core.resources.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\obj\Debug\SEA_Application.csprojResolveAssemblyReference.cache
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\obj\Debug\SEA_Application.dll
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\obj\Debug\SEA_Application.pdb
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Linq.Dynamic.dll
+C:\Users\Hello\Documents\GitHub\Version1_SEA\SEA_Application\obj\Debug\SEA_Application.csprojResolveAssemblyReference.cache
+C:\Users\Asad\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Linq.Dynamic.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\ApplicationInsights.config
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\csc.exe
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\vbc.exe
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\VBCSCompiler.exe
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\SEA_Application.dll.config
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\SEA_Application.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\SEA_Application.pdb
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Antlr3.Runtime.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\EntityFramework.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\EntityFramework.SqlServer.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\EPPlus.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Hangfire.Core.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Hangfire.SqlServer.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\itextsharp.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\itextsharp.xmlworker.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.Web.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.ApplicationInsights.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Newtonsoft.Json.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\NReco.PdfGenerator.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Owin.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Quartz.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\RazorPDF.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Rotativa.Core.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Rotativa.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Linq.Dynamic.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Net.Http.Formatting.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Helpers.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Http.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Http.WebHost.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Mvc.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Optimization.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Razor.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.WebPages.Deployment.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.WebPages.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.WebPages.Razor.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\WebGrease.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\EntityFramework.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\EntityFramework.SqlServer.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\EPPlus.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Hangfire.Core.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Hangfire.SqlServer.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\itextsharp.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.Web.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.ApplicationInsights.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\NReco.PdfGenerator.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Quartz.pdb
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Quartz.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Net.Http.Formatting.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Http.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Http.WebHost.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Helpers.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Mvc.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Optimization.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.Razor.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.WebPages.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.WebPages.Deployment.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\System.Web.WebPages.Razor.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Antlr3.Runtime.pdb
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Newtonsoft.Json.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\es\Hangfire.Core.resources.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\zh\Hangfire.Core.resources.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\bin\zh-TW\Hangfire.Core.resources.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\obj\Debug\SEA_Application.csprojAssemblyReference.cache
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\obj\Debug\SEA_Application.csproj.CoreCompileInputs.cache
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\obj\Debug\SEA_Application.csproj.CopyComplete
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\obj\Debug\SEA_Application.dll
+C:\Users\mrasa\Documents\GitHub\Version1_SEA\SEA_Application\obj\Debug\SEA_Application.pdb
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\ApplicationInsights.config
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\roslyn\csc.exe
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\roslyn\System.Collections.Immutable.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\roslyn\System.Reflection.Metadata.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\roslyn\vbc.exe
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\roslyn\VBCSCompiler.exe
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\roslyn\VBCSCompiler.exe.config
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\SEA_Application.dll.config
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\SEA_Application.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\SEA_Application.pdb
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Antlr3.Runtime.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\CrystalDecisions.CrystalReports.Engine.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\EntityFramework.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\EntityFramework.SqlServer.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\EPPlus.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Hangfire.Core.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Hangfire.SqlServer.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\itextsharp.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\itextsharp.xmlworker.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.AI.Agent.Intercept.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.AI.DependencyCollector.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.AI.Web.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.AI.WindowsServer.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.ApplicationInsights.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.AspNet.Identity.Core.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Owin.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.Cookies.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.Facebook.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.Google.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.OAuth.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.Twitter.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Web.Infrastructure.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Newtonsoft.Json.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\NReco.PdfGenerator.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Owin.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Quartz.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\RazorPDF.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Rotativa.Core.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Rotativa.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Linq.Dynamic.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Net.Http.Formatting.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Web.Helpers.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Web.Http.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Web.Http.WebHost.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Web.Mvc.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Web.Optimization.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Web.Razor.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Web.WebPages.Deployment.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Web.WebPages.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Web.WebPages.Razor.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\WebGrease.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\EntityFramework.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\EntityFramework.SqlServer.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\EPPlus.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Hangfire.Core.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Hangfire.SqlServer.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\itextsharp.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.AI.DependencyCollector.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.AI.Web.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.AI.WindowsServer.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.ApplicationInsights.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\NReco.PdfGenerator.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Quartz.pdb
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Quartz.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Net.Http.Formatting.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Web.Http.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Web.Http.WebHost.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Web.Helpers.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Web.Mvc.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Web.Optimization.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Web.Razor.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Web.WebPages.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Web.WebPages.Deployment.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\System.Web.WebPages.Razor.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Antlr3.Runtime.pdb
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Newtonsoft.Json.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.AspNet.Identity.Core.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Owin.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.Facebook.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.Cookies.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.OAuth.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.Google.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.Twitter.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\es\Hangfire.Core.resources.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\zh\Hangfire.Core.resources.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\bin\zh-TW\Hangfire.Core.resources.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\obj\Debug\SEA_Application.csprojResolveAssemblyReference.cache
+D:\SEA New\Version1_SEA_01\SEA_Application\obj\Debug\SEA_Application.dll
+D:\SEA New\Version1_SEA_01\SEA_Application\obj\Debug\SEA_Application.pdb
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\obj\Debug\SEA_Application.csprojResolveAssemblyReference.cache
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\obj\Debug\SEA_Application.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\obj\Debug\SEA_Application.pdb
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\ApplicationInsights.config
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\roslyn\csc.exe
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\roslyn\System.Collections.Immutable.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\roslyn\System.Reflection.Metadata.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\roslyn\vbc.exe
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\roslyn\VBCSCompiler.exe
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\roslyn\VBCSCompiler.exe.config
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\SEA_Application.dll.config
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\SEA_Application.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\SEA_Application.pdb
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Antlr3.Runtime.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\CrystalDecisions.CrystalReports.Engine.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\EntityFramework.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\EntityFramework.SqlServer.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\EPPlus.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Hangfire.Core.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Hangfire.SqlServer.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\itextsharp.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\itextsharp.xmlworker.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.AI.Agent.Intercept.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.AI.DependencyCollector.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.AI.Web.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.AI.WindowsServer.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.ApplicationInsights.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.AspNet.Identity.Core.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Owin.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.Cookies.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.Facebook.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.Google.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.OAuth.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.Twitter.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Web.Infrastructure.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Newtonsoft.Json.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\NReco.PdfGenerator.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Owin.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Quartz.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\RazorPDF.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Rotativa.Core.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Rotativa.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Linq.Dynamic.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Net.Http.Formatting.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Web.Helpers.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Web.Http.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Web.Http.WebHost.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Web.Mvc.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Web.Optimization.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Web.Razor.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Web.WebPages.Deployment.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Web.WebPages.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Web.WebPages.Razor.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\WebGrease.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\EntityFramework.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\EntityFramework.SqlServer.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\EPPlus.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Hangfire.Core.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Hangfire.SqlServer.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\itextsharp.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.AI.DependencyCollector.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.AI.Web.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.AI.WindowsServer.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.ApplicationInsights.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\NReco.PdfGenerator.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Quartz.pdb
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Quartz.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Net.Http.Formatting.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Web.Http.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Web.Http.WebHost.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Web.Helpers.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Web.Mvc.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Web.Optimization.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Web.Razor.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Web.WebPages.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Web.WebPages.Deployment.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\System.Web.WebPages.Razor.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Antlr3.Runtime.pdb
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Newtonsoft.Json.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.AspNet.Identity.Core.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Owin.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.Facebook.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.Cookies.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.OAuth.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.Google.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.Twitter.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\es\Hangfire.Core.resources.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\zh\Hangfire.Core.resources.dll
+D:\SEA New DATA\NGS_SEA_01\SEA_Application\bin\zh-TW\Hangfire.Core.resources.dll
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\bin\ApplicationInsights.config
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\bin\roslyn\csc.exe
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\bin\roslyn\vbc.exe
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\bin\roslyn\VBCSCompiler.exe
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\bin\SEA_Application.dll.config
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\bin\SEA_Application.dll
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\bin\SEA_Application.pdb
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\obj\Debug\SEA_Application.dll
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\obj\Debug\SEA_Application.pdb
+C:\Users\Hello\Desktop\NGS_SEA_01\SEA_Application\obj\Debug\SEA_Application.csprojResolveAssemblyReference.cache
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\obj\Debug\SEA_Application.csprojResolveAssemblyReference.cache
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\obj\Debug\SEA_Application.dll
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\obj\Debug\SEA_Application.pdb
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\bin\ApplicationInsights.config
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\bin\roslyn\csc.exe
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\bin\roslyn\vbc.exe
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\bin\roslyn\VBCSCompiler.exe
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\bin\SEA_Application.dll.config
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\bin\SEA_Application.dll
+C:\Users\Hello\Documents\NGS_SEA_01\NGS-Latest\SEA_Application\bin\SEA_Application.pdb
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\bin\ApplicationInsights.config
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\bin\roslyn\csc.exe
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\bin\roslyn\vbc.exe
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\bin\roslyn\VBCSCompiler.exe
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\bin\SEA_Application.dll.config
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\bin\SEA_Application.dll
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\bin\SEA_Application.pdb
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\obj\Debug\SEA_Application.csprojResolveAssemblyReference.cache
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\obj\Debug\SEA_Application.dll
+C:\Users\TRA\Documents\NGS-Latest\SEA_Application\obj\Debug\SEA_Application.pdb
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\obj\Debug\SEA_Application.dll
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\obj\Debug\SEA_Application.pdb
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\bin\ApplicationInsights.config
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\bin\roslyn\csc.exe
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\bin\roslyn\vbc.exe
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\bin\roslyn\VBCSCompiler.exe
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\bin\SEA_Application.dll.config
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\bin\SEA_Application.dll
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\bin\SEA_Application.pdb
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\obj\Debug\SEA_Application.csproj.CopyComplete
+C:\Users\TRA\Documents\GitHub\OfficersAcademy\SEA_Application\obj\Debug\SEA_Application.csprojAssemblyReference.cache
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\ApplicationInsights.config
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\csc.exe
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\System.Collections.Immutable.dll
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\System.Reflection.Metadata.dll
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\vbc.exe
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\VBCSCompiler.exe
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\VBCSCompiler.exe.config
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\SEA_Application.dll.config
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\SEA_Application.dll
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\SEA_Application.pdb
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\obj\Debug\SEA_Application.csprojAssemblyReference.cache
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\obj\Debug\SEA_Application.csproj.CopyComplete
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\obj\Debug\SEA_Application.dll
+E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\obj\Debug\SEA_Application.pdb
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\ApplicationInsights.config
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\csc.exe
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\System.Collections.Immutable.dll
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\System.Reflection.Metadata.dll
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\vbc.exe
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\VBCSCompiler.exe
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\VBCSCompiler.exe.config
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\SEA_Application.dll.config
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\SEA_Application.dll
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\SEA_Application.pdb
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\obj\Debug\SEA_Application.csprojResolveAssemblyReference.cache
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\obj\Debug\SEA_Application.dll
+D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\obj\Debug\SEA_Application.pdb

@@ -1,0 +1,48 @@
+﻿@model SEA_Application.Models.AspNetAnnouncement_Subject
+
+@{
+    ViewBag.Title = "AnnouncementDetail";
+}
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">User</a> > @Html.ActionLink("Announcement", "Student_Announcement", "Parent_Dashboard") ><b> <a href="#">Detail</a></b></label>
+<h4>Announcement Detail</h4>
+
+<div class="box box-primary">
+    <div class="box-body">
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                   <label class="col-md-2 control-label">Title:</label> 
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.AspNetAnnouncement.Title)
+                </dd>
+                <dt>
+                    <label class="col-md-2 control-label">Description:</label> 
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.AspNetAnnouncement.Description)
+                </dd>
+                <dt>
+                    <label class="col-md-2 control-label">Subject Name:</label> 
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.AspNetSubject.SubjectName)
+                </dd>
+                <dt>
+                    <label class="col-md-2 control-label">Announcement Date:</label>
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.AspNetAnnouncement.Date)
+                </dd>
+            </dl> 
+        </div>
+    </div>
+    <div class="box-footer">
+        <div class="control-label">
+            <button class="btn btn-default" onclick="window.location.href = '/Parent_Dashboard/Student_Announcement'">Back</button>
+        </div>
+    </div>
+</div>
+
+
+

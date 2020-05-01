@@ -1,0 +1,186 @@
+﻿<script type="text/javascript">
+
+    var _classId;
+    var _subjectId;
+    var _studentId;
+
+    $(document).ready(function () {
+        $(function () {
+           $.get('@Url.Action("CheckPTM","AspNetParentTeacherMeetings")', function (result) {
+               if(result=="False")
+               {
+                   $('#container').html('<div class="box box-primary"><div class="box-header with-border">Alert</div><div class="box-body"><div class="callout callout-info"><h4>Sorry! There is no Parent Teacher Meeting Scheduled</h4></div></div></div>');
+               }
+           });
+       });
+        var ClassIDCookie = null;
+        var SubjectIDCookie = null;
+        var StudentIDCookie = null;
+        var allcookies = document.cookie;
+
+        // Get all the cookies pairs in an array
+        cookiearray = allcookies.split(';');
+
+        // Now take key value pair out of this array
+        for (var i = 0; i < cookiearray.length; i++) {
+
+            if (cookiearray[i].split('=')[0] == " ClassIDCookie") {
+                ClassIDCookie = cookiearray[i].split('=')[1];
+
+            }
+
+            if (cookiearray[i].split('=')[0] == " SubjectIDCookie") {
+                SubjectIDCookie = cookiearray[i].split('=')[1];
+
+            }
+
+            if (cookiearray[i].split('=')[0] == " StudentIDCookie") {
+                StudentIDCookie = cookiearray[i].split('=')[1];
+
+            }
+        }
+
+        if (ClassIDCookie != null && SubjectIDCookie != null && StudentIDCookie != null) {
+
+            var selectClass = document.getElementById('ClassID');
+            selectClass.value = ClassIDCookie;
+            SubjectsByClassID(ClassIDCookie);
+            StudentsBySubject(SubjectIDCookie);
+            EvaluationByStudent(StudentIDCookie, SubjectIDCookie);
+        }
+
+        $("#ClassID").click(function () {
+            var selectedClass = $("#ClassID").val();
+            document.cookie = "ClassIDCookie=" + selectedClass + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+            SubjectsByClassID(selectedClass);
+        });
+
+        $("#SubjectID").click(function () {
+            $('#save_attendance').prop('disabled', false);
+            var selectedSubject = $("#SubjectID").val();
+            document.cookie = "SubjectIDCookie=" + selectedSubject + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+            StudentsBySubject(selectedSubject);
+        });
+
+        $("#StudentID").click(function () {
+            var selectedStudent = $("#StudentID").val();
+            var selectedSubject = $("#SubjectID").val();
+            document.cookie = "StudentIDCookie=" + selectedStudent + ";expires=Thu, 2 Aug 2018 20:47:11 UTC; path=/";
+            EvaluationByStudent(selectedStudent, selectedSubject);
+        });
+
+        function SubjectsByClassID(classIDVal) {
+
+            $.get('@Url.Action("SubjectsByClasss")',
+                { id: classIDVal }, function (data) {
+
+                    $('#SubjectID').html('');
+
+                    $.each(data, function (i, item) {
+                        $('#SubjectID').append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
+                    });
+
+                });
+
+        }
+
+        function StudentsBySubject(SubjectID) {
+            $.get('@Url.Action("StudentsBySubject")',
+               { id: SubjectID }, function (data) {
+
+                   $('#StudentID').html('');
+
+                   $.each(data, function (i, item) {
+                       $('#StudentID').append('<option value=' + item.Id + '>' + item.Name + '</option>');
+                   });
+
+               });
+        }
+
+        function EvaluationByStudent(StudentID, SubjectID) {
+            //_classId = $("#ClassID").val();
+            //_subjectId = $("#SubjectID").val()
+            //_studentId = $("#StudentID").val()
+
+            //console.log("before");
+            //console.log(_classId);
+            //console.log(_subjectId);
+            //console.log(_studentId);
+
+
+            $.get('@Url.Action("Edit", "AspNetPTMAttendance")',
+              { studentID: StudentID, subjectID: SubjectID }, function (data) {
+                  $("#ParentAttendance").html(data);
+              });
+
+            $.get('@Url.Action("TeacherFeedback", "AspNetPTM_TeacherFeedback")', function (data) {
+                $("#Evaluation").html(data);
+            });
+
+
+            //console.log("after");
+            //console.log(_classId);
+            //console.log(_subjectId);
+            //console.log(_studentId);
+
+
+            //$("#ClassID").val(_classId);
+            //$("#SubjectID").val(_subjectId);
+            //$("#StudentID").val(_studentId);
+        }
+
+
+
+    });
+
+</script>
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <b><a href="#">Parent Teacher Meeting</a></b> </label>
+<h4>Select Student</h4>
+
+<div id="container">
+
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="orange">Select Student<i class="fa fa-list" aria-hidden="true"></i></h3>
+        </div>
+        <div class="box-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <lable class="col-md-1">Select Class</lable>
+                    <div class="col-md-offset-1 col-md-6">
+                        @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <lable class="col-md-1 control-lable">Select Subject</lable>
+                    <div class="col-md-offset-1 col-md-6">
+                        <select class="form-control" id="SubjectID" name="SubjectID"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <lable class="col-md-1 control-lable">Select Student</lable>
+                    <div class="col-md-offset-1 col-md-6">
+                        <select class="form-control" id="StudentID" name="StudentID"></select>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" id="parentattendances" href="#parentattendance">Parent Attendance</a></li>
+        <li><a data-toggle="tab" id="evaluations" href="#evaluation">Evaluation</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="parentattendance" class="tab-pane fade in active">
+            <div id="ParentAttendance">
+            </div>
+        </div>
+        <div id="evaluation" class="tab-pane fade in">
+            <div id="Evaluation">
+            </div>
+        </div>
+    </div>
+</div>

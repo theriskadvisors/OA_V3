@@ -1,0 +1,81 @@
+﻿@model SEA_Application.Models.AspNetStudent_Project
+@{
+    ViewBag.Title = "Student_Project_Submission";
+}
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > <a href="#" class="sidebar-toggle navigate" data-toggle="offcanvas" style="background-color:#F7F7F7 !important">User</a> > @Html.ActionLink("Project", "Student_Projects", "Parent_Dashboard") > <a href="#"><b>Detail</b></a> </label><div>
+<h4>Student Project</h4>
+    <div class="box box-primary">
+        <div class="box-body">
+            <dl class="dl-horizontal">
+                @using (Html.BeginForm("Student_Project_Submission", "Student_Dashboard", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <dt>
+                        <input type="hidden" name="id" id="id" value=@Model.Id>
+                    </dt>
+                    <dt>
+                        <label class="col-md-2 control-label">File Name:</label>
+                    </dt>
+                    if (@Model.AspNetProject.FileName != "-/-")
+                    {
+                        <dd>
+                            @Html.ActionLink(Model.AspNetProject.FileName, "downloadProjectFile", new { id = Model.AspNetProject.Id })
+                        </dd>
+                    }
+                    else
+                    {
+
+                        <dd>
+                            @Html.DisplayFor(model => model.AspNetProject.FileName)
+                        </dd>
+                    }
+
+                    <dt>
+                        <label class="col-md-2 control-label">Due Date:</label>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AspNetProject.DueDate)
+                    </dd>
+                    <dt>
+                        <label class="col-md-2 control-label">Description:</label>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AspNetProject.Description)
+                    </dd>
+
+                    <dt>
+                        <label class="col-md-2 control-label">Teacher Name:</label>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AspNetProject.AspNetSubject.AspNetUser.Name)
+                    </dd>
+                    @*if (@Model.AspNetProject.AcceptSubmission == true)
+                        {
+                            <dt>
+                                File
+                            </dt>
+                            <dd>
+                                <input id="document" name="document" type="file" />
+                            </dd>
+
+
+                            <dd>
+                                <input type="submit" value="Submit Assignment" class="btn btn-default" />
+                            </dd>
+                        }*@
+                }
+            </dl>
+            
+        </div>
+        <div class="box-footer">
+            <div class="control-label">
+                <button class="btn btn-default" onclick="window.location.href = '/Parent_Dashboard/Student_Projects'">Back</button>
+            </div>
+        </div>
+
+    </div>
+</div>

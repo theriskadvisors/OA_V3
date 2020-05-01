@@ -1,0 +1,82 @@
+﻿@model IEnumerable<SEA_Application.Models.AspNetMessage>
+
+@{
+    ViewBag.Title = "Mailbox";
+    ViewBag.SubTitle = "Sent";
+}
+
+<script>
+    $(document).ready(function () {
+        $('#example').on('click', 'tbody tr', function () {
+            var td = $(this).children("td");
+            var userName = $(td[0]).children("input").val();
+            userName = userName.trim();
+
+            window.location.href = '/AspNetMessages/Details?id=' + userName;
+        });
+    });
+</script>
+
+<div class="row">
+    <div class="col-md-3">
+        <a href="@Url.Action("NewMessage", "AspNetMessages")" class="btn btn-primary btn-block margin-bottom">Compose</a>
+        <div class="box box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">Folders</h3>
+                <div class="box-tools">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body no-padding">
+                <ul class="nav nav-pills nav-stacked">
+                    <li>
+                        <a href="@Url.Action("Inbox","AspNetMessages")">
+                            <i class="fa fa-inbox"></i> Inbox
+                            
+                        </a>
+                    </li>
+                    <li class="active"><a href="@Url.Action("Sent","AspNetMessages")"><i class="fa fa-envelope-o"></i> Sent</a></li>
+                   
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    <div class="col-md-9">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Sent</h3>
+               
+            </div>
+            <div class="box-body no-padding">
+                
+                <div class="table-responsive mailbox-messages">
+                    <table class="table">
+                        <tbody>
+                             @foreach (var item in Model)
+                    {
+                        <tr  onclick="window.document.location='@Url.Action("SentMessageDetail", "AspNetMessages", new { messageID = item.Id })';">
+                            <td>
+                               <a href="#">@Html.DisplayFor(modelItem => item.AspNetUser.UserName)</a> 
+                            </td>
+                            <td >
+                                <b style="width : 500px; overflow:hidden; display:inline-block; text-overflow: ellipsis; white-space: nowrap;">@Html.DisplayFor(modelItem => item.Subject)</b>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Time)
+                            </td>
+                        </tr>
+                    }
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+

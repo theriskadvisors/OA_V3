@@ -1,0 +1,130 @@
+﻿<!-- Chart code -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ClassID").click(function () {
+            var selectedClass = $("#ClassID").val();
+            $.get('@Url.Action("SubjectsByClass","Teacher_Dashboard")',
+                { id: selectedClass }, function (data) {
+                    $('#SubjectID').html('');
+                    $('#SubjectID').prop('disabled', false);
+                    $.each(data, function (i, item) {
+                        $('#SubjectID').append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
+                    });
+
+                });
+        });
+        $("#SubjectID").click(function () {
+            $('#btnAdd').prop('disabled', false);
+            $('#percentage').prop('disabled', false);
+        });
+
+        $("#btnAdd").bind("click", function () {
+            var selectedSubject = $("#SubjectID").val();
+            var passpercentage = $("#percentage").val();
+            $.get('@Url.Action("ReportByMultipleTest", "Reports")',
+               { subject: selectedSubject, percentage: passpercentage }, function (data) {
+
+                   var chart = AmCharts.makeChart("chartdiv", {
+                       "type": "serial",
+                       "theme": "light",
+                       "categoryField": "Test",
+
+                       "startDuration": 1,
+                       "categoryAxis": {
+                           "gridPosition": "start",
+                           "position": "left"
+                       },
+                       "trendLines": [],
+                       "graphs": [
+                           {
+                               "balloonText": "Fail:[[value]]",
+                               "fillAlphas": 0.8,
+                               "id": "AmGraph-1",
+                               "lineAlpha": 0.2,
+                               "title": "Fail",
+                               "type": "column",
+                               "valueField": "Fail",
+                               "fillColors": "#ef553a"
+                           },
+                           {
+                               "balloonText": "Pass:[[value]]",
+                               "fillColors": "#4F52BA",
+                               "fillAlphas": 0.8,
+                               "id": "AmGraph-2",
+                               "lineAlpha": 0.2,
+                               "title": "Pass",
+                               "type": "column",
+                               "valueField": "Pass"
+                           }
+                       ],
+                       "guides": [],
+                       "valueAxes": [
+                           {
+                               "id": "ValueAxis-1",
+                               "position": "top",
+                               "axisAlpha": 0
+                           }
+                       ],
+                       "allLabels": [],
+                       "balloon": {},
+                       "titles": [],
+                       "dataProvider": data,
+                       "export": {
+                           "enabled": true
+                       }
+
+
+
+                   });
+               });
+
+        });
+
+    });
+
+</script>
+<script>
+
+
+
+</script>
+
+<!-- HTML -->
+<div class="container">
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <lable class="col-md-3 control-label"><b>Select Subject</b></lable>
+                    <div class="col-md-8">
+                        @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+            <br />
+                    <lable class="col-md-3 control-label"><b>Select Subject</b></lable>
+                    <div class="col-md-8">
+                        <select class="form-control" id="SubjectID" name="SubjectID" disabled></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+            <br />
+                    <lable class="col-md-3 control-label"><b>Passing Percentage</b></lable>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="percentage" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button id="btnAdd" type="button" class="btn btn-primary" disabled>Generate Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+
+        <div id="chartdiv"></div>
+    </div>
+</div>
+

@@ -1,0 +1,118 @@
+﻿@model SEA_Application.Models.AspNetAssessment_Question
+@{
+            ViewBag.Title = "Edit";
+}
+
+<script>
+    $(document).ready(function () {
+        $('input').prop('disabled', true)
+        $('select').prop('disabled', true)
+    });
+</script>
+
+<label>@Html.ActionLink("Home", "Dashboard", "Account") > @Html.ActionLink("Assessment Questions", "Index", "AspNetAssessment_Question") > <a href="#"><b>Details</b></a> </label>
+<h4>Details</h4>
+<div class="box box-primary">
+    <div class="box-body">
+       
+
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Assessment_Question</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1">Class:</label>
+                    <div class="col-md-6">
+                        @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.AspNetSubject.AspNetClass.Id, "", new { @class = "text-danger" })
+
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1">Subject:</label>
+                    <div class="col-md-6">
+                        @Html.DropDownList("SubjectID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.SubjectID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1">Question:</label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Question, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Question, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+              
+                <div class="form-group">
+                    <label class="control-label col-md-1 col-lg-1">Question Catagory:</label>
+                    <div class="col-md-6">
+                        @Html.DropDownList("QuestionCategory", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.QuestionCategory, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-lg-offset-1 col-md-6">
+                        <button class="btn btn-default" onclick="window.location.href='Index'">Back</button>
+                        <button class="btn btn-primary" onclick="Edit()">Edit</button>
+                        <button class="btn btn-default pull-right" onclick="Delete()">Delete</button>
+                    </div>
+                </div>
+                <div class="col-md-offset-2 col-md-4">
+                    @if (ViewBag.Error != null)
+                  {
+                        <span class="text-danger">@ViewBag.Error</span>
+
+                    }
+                </div>
+            </div>
+       
+        
+
+
+
+        
+        
+
+    </div>
+</div>
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Complete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you really want to delete this Class?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="cnfmDisable()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function Edit() {
+        var id = $('#Id').val();
+        window.location.href = "/AspNetAssessment_Question/Edit?id=" + id;
+    }
+    function Delete() {
+        $("#myModal1").modal('show');
+    }
+    function cnfmDisable() {
+        var id = $("#Id").val();
+        window.location.href = "/AspNetAssessment_Question/DeleteCnfm?id=" + id;
+    }
+</script>
+
+
+

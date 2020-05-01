@@ -1,0 +1,63 @@
+﻿@model IEnumerable<SEA_Application.Models.AspNetSubject>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script>
+    $(document).ready(function () {
+        $("#example").dataTable();
+    })
+</script>
+
+<h2>Index</h2>
+
+<div class="box box-primary">
+    <div class="box-body" style="padding: 20px !important">
+<div class="row">
+    <div class="form-three widget-shadow">
+
+        <table class="table" id="example">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SubjectName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AspNetClass.ClassName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AspNetUser.Name)
+                    </th>
+                    <th></th>
+                </tr>
+                
+                
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubjectName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AspNetClass.ClassName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AspNetUser.Name)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+</div>
+</div>
+</div>
+</div>
