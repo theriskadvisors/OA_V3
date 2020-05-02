@@ -51,8 +51,16 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
 
-
                     <li class="nav-item active">
+                        <a href="@Url.Action("Dashboard", "Admin_Dashboard")" class="nav-link nav-toggle">
+                            <i class="sea-dash">
+                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
+                            </i>
+                            <p id="">Home </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a href="@Url.Action("StudentsIndex", "AspNetUser")" class="nav-link nav-toggle">
                             <i class="sea-dash">
                                 <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
@@ -105,14 +113,14 @@
                         </a>
                     </li>
                     @*<li class="nav-item">
-                            <a href="@(Url.Action("MonthlyFeeStudent", "Admin_Dashboard"))">
+            <a href="@(Url.Action("MonthlyFeeStudent", "Admin_Dashboard"))">
 
-                                <i class="sea-dash">
-                                    <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
-                                </i>
-                                <p>Fee Status</p>
-                            </a>
-                        </li>*@
+                <i class="sea-dash">
+                    <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
+                </i>
+                <p>Fee Status</p>
+            </a>
+        </li>*@
 
                     <li class="nav-item">
                         <a href="@Url.Action("Index", "Expense")" class="nav-link nav-toggle">
@@ -249,7 +257,7 @@
                                         </svg>
                                     </i>
                                     <span class="d-lg-inline-block d-md-inline-block">
-                                        Setting
+                                      Notifications
                                     </span>
                                     <div class="ripple-container"></div>
                                 </a>
@@ -313,10 +321,10 @@
                                         <h1 id="PageHeader" class="float-left"></h1>
                                    
                                     </div>
-                                    <div class="col-sm-12 col-md-9 col-lg-9">
+                                    @*<div class="col-sm-12 col-md-9 col-lg-9">
                                         <button type="button" class="btn btn-primary pull-right rounded rounded-lg createBtn">Create</button>
                                         <input type="text" placeholder="Type Keyword" id="global_filter" class="searchBox pull-right pl-4 p-2 pull-right rounded rounded-lg   mr-3">
-                                    </div>
+                                    </div>*@
                                 </div>
                             </div>
                         </div>

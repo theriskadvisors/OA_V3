@@ -471,7 +471,7 @@ else
                     </ul>
                     <div class="tab-content" style="
         /*background-color: #ECF0F5;*/
-        padding: 10px 0px 0px 0px;
+
     ">
 
                         <div class="tab-pane active" id="tab_1">
@@ -527,97 +527,81 @@ else
                         <div class="tab-pane" id="tab_2">
 
 
+                            @using (Html.BeginForm("NewSubjectsForTeacher", "AspNetSubject", FormMethod.Post, new { enctype = "multipart/form-data", @class = "forms form-horizontal", role = "form" }))
+                            {
 
 
-                            <div class="box box-primary">
-                                <input type="hidden" name="TeacherId" />
+                                <div class="col-md-8 pl-5 pr-5 ">
+                                    <br />
+                                    <div class="form-row mt-4">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <label for="" class="bmd-label-static pl-2">Select Section </label>
 
-
-                                <div class="box-header with-border"></div>
-                                @using (Html.BeginForm("NewSubjectsForTeacher", "AspNetSubject", FormMethod.Post, new { enctype = "multipart/form-data", @class = "forms form-horizontal", role = "form" }))
-                                {
-
-
-                                    <div class="box-body row">
-
-
-
-                                        <div class="col-md-12">
-
-
-                                            <div class="form-group">
-                                                <label class="col-md-2 col-lg-2  control-label"> Section:<span class="red-mark">*</span></label>
-                                                <div class="col-md-6">
-                                                    @Html.DropDownList("ClassID1", null, "Select One ", htmlAttributes: new { @class = "form-control text_box_style", name = "ClassID1", @required = true })
-                                                    <br />
-                                                </div>
-                                            </div>
-
-
-
-
+                                            @Html.DropDownList("ClassID1", null, "Select One ", htmlAttributes: new { @class = "form-control text_box_style", name = "ClassID1", @required = true })
                                         </div>
+                                    </div>
 
-                                        <div class="col-md-12">
-                                            <div class="form-group">
+                                    <div class="form-row mt-4">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <label for="" class="bmd-label-static pl-2">Select Teacher* </label>
 
-                                                <label class="col-md-2 col-lg-2  control-label"> Teachers: <span class="red-mark">*</span></label>
-                                                <div class="col-md-6">
+                                            <select class="form-control" id="teachers" name="teachers">
+                                                <option value="">Select One</option>
+                                            </select>
+                                            <span style="display:none;color:red" id="Error">Teacher and Section Fields are Required</span>
 
-                                                    <select class="form-control" id="teachers" name="teachers">
-                                                        <option value="">Select One</option>
-                                                    </select>
-                                                    <span style="display:none;color:red" id="Error">Teacher and Section Fields are Required</span>
-
-                                                    <br />
-                                                </div>
-
-                                            </div>
-
+                                            <br />
                                         </div>
-
-                                        <div class="col-md-12">
-                                            <div class="col-md-6  col-md-offset-3">
-                                                <button class="btn btn-primary" id="saveButton" type="submit">Save Changes</button>
-                                                <button type="button" class="btn btn-danger" id="btnCancel">Cancel</button>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="col-md-12">
-
-
-                                            <div class="form-group SubjectsBoxesCSS" id="MandatorySubjectCss">
-                                                <div class="col-md-12 " id="MandatorySubjectsCSS">
-
-                                                </div>
-
-                                            </div>
-
-
-                                        </div>
-
-                                        <div class="col-md-12">
-
-                                            <div class="form-group SubjectsBoxesCSS" id="Group1CSS">
-
-                                                <div class="col-md-12" id="SubjectCSSGroup1">
-
-                                                </div>
-
-                                            </div>
-
-
-                                        </div>
-
-
 
                                     </div>
-                                }
 
-                            </div>
+
+
+                                </div>
+
+                                <div class="col-md-8 pl-5 pr-5 ">
+                                    <button type="submit" id="saveButton" class="btn btn-primary rounded rounded-lg"> Save </button>
+
+
+                                    <button type="button" id="btnCancel" class="btn btn-primary rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
+                                        <i class="material-icons mr-2">cached</i>  Cancel
+                                    </button>
+
+
+
+                                </div>
+                                <br />
+                                <div class="col-md-12">
+
+
+                                    <div class="form-group SubjectsBoxesCSS" id="MandatorySubjectCss">
+                                        <div class="col-md-12 " id="MandatorySubjectsCSS">
+
+                                        </div>
+                                            
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-md-12">
+
+                                    <div class="form-group SubjectsBoxesCSS" id="Group1CSS">
+
+                                        <div class="col-md-12" id="SubjectCSSGroup1">
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+
+                            }
+
+
                         </div>
-
 
 
 

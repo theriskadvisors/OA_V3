@@ -210,13 +210,13 @@
 
                         } else {
 
-                             
+
                             //  window.location.href = "/Expense/index";
                             $("#Error").css('display', 'block');
                             $("#Success").css('display', 'none');
 
                         }
-                           $("#submit").prop('disabled', false);
+                        $("#submit").prop('disabled', false);
 
                         $("#loaderDiv").css('display', 'none');
 
@@ -450,120 +450,139 @@
 
 
 </script>
-<div class="col-md-10" id="maindiv" style="background-color: #f7f7f7; margin: 50px; border-radius: 10px; padding: 10px; box-shadow: rgba(0, 0, 0, 0.16) 5px 10px 5px, rgba(0, 0, 0, 0.23) 0px 3px 5px">
 
 
-
-    <h4>Cash Transaction</h4>
-    <div id="Success" style="display:none;color:white;background:rgb(150,181,103)">
-        Expense has been Added
-    </div>
-    <div id="Error" style="color:white;display:none;background:rgb(176,71,85)">
-
-        Admin Drawer Don't  have enough balance to perform this action.
-
-    </div>
-
-    <div>
-        <span id="title" style="color:#808080;font-size:15px;font-weight:600"></span>
-        <hr />
-    </div>
-    <div class="col-md-10">
-        <div class="col-md-3">
-            <span>Date</span><br />
-            <input type="date" class="form-control round-border" id="ddate" />
-            <br />
-
-        </div>
-        <div class="col-md-3">
-            <span>Admin Drawer Balance</span><br />
-            <input type="text" class="form-control round-border" value="@ViewBag.CurrentBalance" id="AdminDrawerBalance" readonly />
-            <br />
-
-        </div>
-
-    </div>
-    <div class="col-md-10">
-        <div class="col-md-2">
-            <span style="font-weight:600">Voucher No</span>
-            <div class="input-group">
-                <span style="font-weight:600" class="input-group-addon">#</span>
-                <input id="VoucherNo" type="text" class="form-control" readonly />
-            </div>
-        </div>
-        <div class="col-md-3">
-            <span>Voucher</span><br />
-            <input type="text" class="form-control round-border" id="voucher" />
-            <span id="Error_Vocuher" style="color:red"></span>
-            <br />
-        </div>
-    </div>
-    <div class="col-md-10">
-        <div class="col-md-4">
-            <span>Notes</span>
-            <input type="text" name="Name" id="Notes" class="form-control" />
-            <br />
-        </div>
-        <div class="col-md-4">
-
-            <div style="text-align:center;display:none" id="loaderDiv">
-                <img src="~/Content/InternetSlowdown_Day.gif" width="50" /> @* //put any image in content folder*@
-            </div>
-        </div>
-
-    </div>
-
-
-    <div class="col-md-10" id="top">
-        <div class="col-md-2">
-            <span>Account</span>
-            <select id='Expenses0' class='form-control' style="width:135px"></select>
-        </div>
-        <div class="col-md-4" style="padding-left:35px">
-            <span>Description</span>
-            <input type="text" name="Name" id="description0" class="form-control" />
-        </div>
-
-        <div class="col-md-1" style="padding:0px">
-            <span>Amount</span>
-            <input type="text" name="cr" onkeyup="creditvalue()" onblur="NAN(this)" id="credit0" class="form-control cr" />
-        </div>
-        <div class="col-md-1">
-            <br />
-            <button id="JournalEntries" class="btn btn-default" onclick="journalentries()"><i class="fa fa-plus" style="color:gray"></i></button>
-
-        </div>
-
-    </div>
-
-
-
-    <div id="journaldiv">
-
-    </div>
-
-
-
-
-    <div class="col-md-10">
-        <br />
-        <div class="col-md-1 col-md-offset-6" style="padding:0px">
-            <input type="text" name="total" onblur="NAN(this)" id="zero" class="form-control" readonly />
-            <span id="ErrorMsgOfEmptyFields" style="color:red"></span>
-        </div>
-
-        <span id="zero_Error" style="color:red;margin-top:5px !important;"></span>
-
-        <div class="col-md-1 col-md-offset-6" style="padding:0px">
-        </div>
-    </div>
-
+<div class="row">
     <div class="col-md-12">
-        <hr />
-        <button class="col-md-2 form-control" onclick="window.location.href = '/FinanceSummary/CashIndex'" style="border-radius:35px;border:hidden;margin-right:10px;background-color:red;color:white;font-size:11px;width:98px;height:38px;font-family:Montserrat" id="return"><i class="fa fa-arrow-left"></i> &nbsp;&nbsp; Return</button>
+        <div class="card">
+            <div class="card-body p-5">
 
-        <input class="col-md-2 form-control" id="submit" onclick="SaveVoucher()" type="submit" value="Save" style="border-radius:35px;color:white;border:hidden;background-color:#128edb;font-size:11px;width:98px;height:38px;font-family:Montserrat" />
+                <div class="col-md-8 pl-5 pr-5 ">
 
+                    <h2 class="column-heading mb-4">Cash Transaction</h2>
+
+
+                    <div id="Success" style="display:none;color:white;background:rgb(150,181,103)">
+                        Expense has been Added
+                    </div>
+                    <div id="Error" style="color:white;display:none;background:rgb(176,71,85)">
+
+                        Admin Drawer Don't  have enough balance to perform this action.
+
+                    </div>
+
+                    @*<div>
+                <span id="title" style="color:#808080;font-size:15px;font-weight:600"></span>
+                <hr />
+            </div>*@
+
+
+
+                    <div class="form-row mt-4">
+                        <div class="form-group col-md-12 bmd-form-group">
+                            <label for="" class="bmd-label-static pl-2">Date </label>
+                            <input type="date" class="form-control round-border" id="ddate" />
+
+                        </div>
+                    </div>
+
+                    <div class="form-row mt-4">
+                        <div class="form-group col-md-12 bmd-form-group">
+                            <label for="" class="bmd-label-static pl-2">Admin Drawer Balance </label>
+                            <input type="text" class="form-control round-border" value="@ViewBag.CurrentBalance" id="AdminDrawerBalance" readonly />
+
+                        </div>
+                    </div>
+
+                    <div class="form-row mt-4">
+                        <div class="form-group col-md-12 bmd-form-group">
+                            <label for="" class="bmd-label-static pl-2">Voucher No </label>
+                            <input id="VoucherNo" type="text" class="form-control" readonly />
+
+                        </div>
+                    </div>
+
+                    <div class="form-row mt-4">
+                        <div class="form-group col-md-12 bmd-form-group">
+                            <label for="" class="bmd-label-static pl-2">Voucher  </label>
+                            <input type="text" class="form-control round-border" id="voucher" />
+                            <span id="Error_Vocuher" style="color:red"></span>
+                            <br />
+
+                        </div>
+                    </div>
+
+                    <div class="form-row mt-4">
+                        <div class="form-group col-md-12 bmd-form-group">
+                            <label for="" class="bmd-label-static pl-2">Notes  </label>
+                            <input type="text" name="Name" id="Notes" class="form-control" />
+
+                        </div>
+                    </div>
+
+
+                    <div style="text-align:center;display:none" id="loaderDiv">
+                        <img src="~/Content/InternetSlowdown_Day.gif" width="50" /> @* //put any image in content folder*@
+                    </div>
+
+
+
+
+
+
+
+                </div><!--end of column-->
+                <div class="col-md-12 pl-5 pr-5 ">
+
+                    <div class="form-row mt-4">
+
+
+                        <div class="form-group col-md-3 bmd-form-group">
+                            <label for="" class="bmd-label-static pl-2">Account  </label>
+                            <select id='Expenses0' class='form-control'></select>
+
+                        </div>
+
+
+                        <div class="form-group col-md-3 bmd-form-group">
+                            <label for="" class="bmd-label-static pl-2">Description  </label>
+                            <input type="text" name="Name" id="description0" class="form-control" />
+
+                        </div>
+
+                        <div class="form-group col-md-3 bmd-form-group">
+                            <label for="" class="bmd-label-static pl-2">Amount  </label>
+                            <input type="text" name="cr" onkeyup="creditvalue()" onblur="NAN(this)" id="credit0" class="form-control cr" />
+
+                        </div>
+
+                        <div class="form-group col-md-3 bmd-form-group">
+
+                            <button id="JournalEntries" class="btn btn-default" onclick="journalentries()"><i class="fa fa-plus fa-2x" style="color:gray"></i></button>
+
+                        </div>
+
+
+                        <div id="journaldiv">
+
+                        </div>
+
+
+                        <div class="form-group col-md-offset-6 bmd-form-group">
+                            <input type="text" name="total" onblur="NAN(this)" id="zero" class="form-control" readonly />
+                            <span id="ErrorMsgOfEmptyFields" style="color:red"></span>
+                        </div>
+                        <span id="zero_Error" style="color:red;margin-top:5px !important;"></span>
+                        <div class="col-md-1 col-md-offset-6" style="padding:0px">
+                        </div>
+
+                    </div>
+
+                    </div>
+            </div>
+            </div>
     </div>
 </div>
-<script src="~/Content/Toaster/toastr.min.js"></script>
+
+
+                <script src="~/Content/Toaster/toastr.min.js"></script>

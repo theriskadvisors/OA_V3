@@ -50,8 +50,8 @@ namespace SEA_Application.Controllers
         {
 
 
-            var StartDate = Convert.ToDateTime(Request.Form["StartDate"]);
-            var EndDate = Convert.ToDateTime(Request.Form["EndDate"]);
+            var StartDate = Convert.ToDateTime(Request.Form["Start_Time"]);
+            var EndDate = Convert.ToDateTime(Request.Form["End_Time"]);
             aspNetTimeslot.Start_Time = StartDate;
             aspNetTimeslot.End_Time = EndDate;
 

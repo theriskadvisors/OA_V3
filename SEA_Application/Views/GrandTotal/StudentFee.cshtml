@@ -254,202 +254,263 @@
     <div class="card-body p-4">
 
 
-
-
-
-
         <div class="tab-content" style="   padding: 10px 0px 0px 0px; ">
             <div class="tab-pane active" id="tab_1">
-                <div class="box box-primary">
-                    <div class="box-body">
-                        <h4>Session  Fee</h4>
-                        @if (ViewBag.ErrorMessage != null)
-                        {
-                            <div style="margin-top:10px">
-                                <span class="text-danger">@ViewBag.ErrorMessage</span>
+
+
+                <div class="col-md-8 pl-5 pr-5 ">
+                    <h2 class="column-heading mb-4">Student Fee</h2>
+                    @if (ViewBag.ErrorMessage != null)
+                    {
+                        <div style="margin-top:10px">
+                            <span class="text-danger">@ViewBag.ErrorMessage</span>
+                        </div>
+                    }
+                    @using (Html.BeginForm("AddData", "StudentRecurringFees", FormMethod.Post, new { @class = "forms form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+
+
+                        <div class="form-row mt-4">
+                            <div class="form-group col-md-12 bmd-form-group">
+                                <label for="" class="bmd-label-static pl-2">Select  Session</label>
+                                <input type="hidden" name="FeeTypeHidden" value="" id="FeeTypeHidden" />
+                                @Html.DropDownList("ClassId", null, " Select One", htmlAttributes: new { @class = "form-control", @id = "ClassId" })
+                                @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
+
                             </div>
-                        }
-                        @using (Html.BeginForm("AddData", "StudentRecurringFees", FormMethod.Post, new { @class = "forms form-horizontal", role = "form" }))
-                        {
-                            @Html.AntiForgeryToken()
-
-                            <div class="form-horizontal">
-                                <hr />
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                <div class="form-group">
-                                    <span class="col-md-2">Session</span>
-                                    <div class="col-md-6">
-
-                                        <input type="hidden" name="FeeTypeHidden" value="" id="FeeTypeHidden" />
-                                        @Html.DropDownList("ClassId", null, " Select One", htmlAttributes: new { @class = "form-control", @id = "ClassId" })
-                                        @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
-
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2 col-lg-2">Students: <span class="red-mark">*</span></label>
-                                    <div class="col-md-6">
-                                        <select class="form-control" id="students" name="students" required>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2 col-lg-2">Total Fee <span class="red-mark">*</span></label>
-                                    <div class="col-md-6">
-                                        <input type="number" name="TotalFee" class="form-control" value="" id="TotalFee" readonly />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2 col-lg-2">Payable Fee <span class="red-mark">*</span></label>
-                                    <div class="col-md-6">
-                                        <input type="number" name="PayableFee" class="form-control" value="" id="PayableFee" readonly />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2 col-lg-2"> Fee Type <span class="red-mark">*</span></label>
-                                    <div class="col-md-6">
-                                        <input type="text" name="FeeType" class="form-control" value="" id="FeeType" readonly />
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2 col-lg-2">Cash Received <span class="red-mark">*</span></label>
-                                    <div class="col-md-6">
-                                        <input required type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="CashReceived" class="form-control" value="" id="CashReceived" />
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2 col-lg-2">Discount<span class="red-mark">*</span></label>
-                                    <div class="col-md-6">
-                                        <input type="number" name="Discount" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control" value="" id="Discount" />
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2 col-lg-2">Remaining Balance <span class="red-mark">*</span></label>
-                                    <div class="col-md-6">
-                                        <input type="number" name="RemainingBalance" min="0" class="form-control" value="" id="RemainingBalance" readonly />
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 col-lg-2 control-label">Due Date <span class="red-mark">*</span></label>
-                                    <div class="col-md-6">
-                                        <input type="date" id="DueDate" name="DueDate" class="form-control" required>
-                                        <span id="DueDateError" class="text-danger"></span>
-
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 col-lg-2 control-label">Issue Date <span class="red-mark">*</span></label>
-                                    <div class="col-md-6">
-                                        <input type="date" id="IssueDate" name="IssueDate" class="form-control" required>
-                                        <span id="IssueDateError" class="text-danger"></span>
-
-                                    </div>
-                                </div>
-
-                                <input class="btn btn-primary" type="button" id="ChallanForm" value=" Get challan" />
-                            </div>
-                        }
-                        <br />
-
-                        <div id="bill" style="margin-left:30px">
-
-                            <div class="ticket" id="ticket">
-                                <br>
-                                <center>
-                                    <img src="/Content/print-receipt-thermal-printer-master/print-receipt-thermal-printer-master/logo.PNG" />
-
-                                </center>
-
-
-                                <p class="centered">
-                                    Officer's Academy
-                                    <br><span id="Recipt">Recipt#<span id="challanNo"></span> </span>
-                                    <br><span id="DateTime"></span>
-                                </p>
-
-
-                                <b>Cashier:</b> @ViewBag.UserName <span>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Admin Copy</b>
-                                </span>
-
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th class="description" colspan="2">Challan Information</th>
-
-                                        </tr>
-
-                                    </thead>
-                                    <tbody id="billbody" style="border: 1px solid black">
-                                    </tbody>
-                                </table>
-                                <p class="centered">
-                                    <br>Developed by : TheRiskAdvisors
-                                </p>
-                            </div>
-
-
                         </div>
 
-                        <br />
+                        <div class="form-row mt-4">
+                            <div class="form-group col-md-12 bmd-form-group">
+                                <label for="" class="bmd-label-static pl-2">Students*</label>
+                                <select class="form-control" id="students" name="students" required>
+                                </select>
 
-
-                        <!--slip 2-->
-                        <div id="bill1" style="margin-left:30px">
-
-                            <div class="ticket" id="ticket">
-                                <br>
-                                <center>
-                                    <img src="/Content/print-receipt-thermal-printer-master/print-receipt-thermal-printer-master/logo.PNG" />
-
-                                </center>
-
-
-                                <p class="centered">
-                                    Officer's Academy
-                                    <br><span id="Recipt1">Recipt#<span id="challanNo1"></span> </span>
-                                    <br><span id="DateTime1"></span>
-                                </p>
-
-                                <b>Cashier:</b> @ViewBag.UserName <span>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Student Copy</b>
-                                </span>
-
-
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th class="description" colspan="2">Challan Information</th>
-
-                                        </tr>
-
-
-                                    </thead>
-                                    <tbody id="billbody1" style="border: 1px solid black">
-                                    </tbody>
-                                </table>
-                                <p class="centered">
-                                    <br>Developed by : TheRiskAdvisors
-                                </p>
                             </div>
-
-
                         </div>
 
-                        <button id="btnPrint" style="display:none;margin-left:30px;" class="hidden-print">Print</button>
+                        @*<div class="form-group bmd-form-group is-filled">
+
+                        <label class="bmd-label-floating">Total Fee: <span class="red-mark">*</span></label>
+
+                        <input type="number" name="TotalFee" class="form-control" value="" id="TotalFee" readonly />
+                    </div>*@
+
+                        <div class="form-row mt-4">
+                            <div class="form-group col-md-12 bmd-form-group">
+                                <label for="" class="bmd-label-static pl-2">Total Fee</label>
+                                <input type="number" name="TotalFee" class="form-control" value="" id="TotalFee" readonly />
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-row mt-4">
+                            <div class="form-group col-md-12 bmd-form-group">
+                                <label for="" class="bmd-label-static pl-2">Payable Fee</label>
+                                <input type="number" name="PayableFee" class="form-control" value="" id="PayableFee" readonly />
+
+                            </div>
+                        </div>
+
+
+
+                        @*<div class="form-group bmd-form-group is-filled">
+
+                        <label class="bmd-label-floating">Payable Fee : <span class="red-mark">*</span></label>
+
+                        <input type="number" name="PayableFee" class="form-control" value="" id="PayableFee" readonly />
+                    </div>*@
+
+
+                        <div class="form-row mt-4">
+                            <div class="form-group col-md-12 bmd-form-group">
+                                <label for="" class="bmd-label-static pl-2">Fee Type</label>
+                                <input type="text" name="FeeType" class="form-control" value="" id="FeeType" readonly />
+
+                            </div>
+                        </div>
+
+                        @*<div class="form-group bmd-form-group is-filled">
+
+                        <label class="bmd-label-floating"> Fee Type : <span class="red-mark">*</span></label>
+
+                        <input type="text" name="FeeType" class="form-control" value="" id="FeeType" readonly />
+                    </div>*@
+
+                        @*<div class="form-group bmd-form-group is-filled">
+
+                        <label class="bmd-label-floating"> Cash Received : <span class="red-mark">*</span></label>
+
+                        <input required type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="CashReceived" class="form-control" value="" id="CashReceived" />
+
+                    </div>*@
+
+
+
+                        <div class="form-row mt-4">
+                            <div class="form-group col-md-12 bmd-form-group">
+                                <label for="" class="bmd-label-static pl-2">Cash Received*</label>
+                                <input required type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="CashReceived" class="form-control" value="" id="CashReceived" />
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-row mt-4">
+                            <div class="form-group col-md-12 bmd-form-group">
+                                <label for="" class="bmd-label-static pl-2">Discount*</label>
+                                <input type="number" name="Discount" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control" value="" id="Discount" />
+
+                            </div>
+                        </div>
+
+                        @*<div class="form-group bmd-form-group is-filled">
+
+                        <label class="bmd-label-floating">Dicount: <span class="red-mark">*</span></label>
+
+                        <input type="number" name="Discount" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control" value="" id="Discount" />
+                    </div>*@
+
+                        <div class="form-row mt-4">
+                            <div class="form-group col-md-12 bmd-form-group">
+                                <label for="" class="bmd-label-static pl-2">Remaining Balance*</label>
+                                <input type="number" name="RemainingBalance" min="0" class="form-control" value="" id="RemainingBalance" readonly />
+
+                            </div>
+                        </div>
+
+                        @*<div class="form-group bmd-form-group is-filled">
+
+                        <label class="bmd-label-floating"> Remaining Balance : <span class="red-mark">*</span></label>
+
+                        <input type="number" name="RemainingBalance" min="0" class="form-control" value="" id="RemainingBalance" readonly />
+                    </div>*@
+
+                        <div class="form-row mt-4">
+                            <div class="form-group col-md-12 bmd-form-group">
+                                <label for="" class="bmd-label-static pl-2">Due Date</label>
+                                <input type="date" id="DueDate" name="DueDate" class="form-control" required>
+                                <span id="DueDateError" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-row mt-4">
+                            <div class="form-group col-md-12 bmd-form-group">
+                                <label for="" class="bmd-label-static pl-2">Issue Date</label>
+                                <input type="date" id="IssueDate" name="IssueDate" class="form-control" required>
+                                <span id="IssueDateError" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+
+                        <input class="btn btn-primary" type="button" id="ChallanForm" value=" Get challan" />
+                    }
+
+                    <br />
+                    <br />
+                    <div id="bill" style="margin-left:30px">
+
+                        <div class="ticket" id="ticket">
+                            <br>
+                            <center>
+                                <img src="/Content/print-receipt-thermal-printer-master/print-receipt-thermal-printer-master/logo.PNG" />
+
+                            </center>
+
+
+                            <p class="centered">
+                                Officer's Academy
+                                <br><span id="Recipt">Recipt#<span id="challanNo"></span> </span>
+                                <br><span id="DateTime"></span>
+                            </p>
+
+
+                            <b>Cashier:</b> @ViewBag.UserName <span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Admin Copy</b>
+                            </span>
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="description" colspan="2">Challan Information</th>
+
+                                    </tr>
+
+                                </thead>
+                                <tbody id="billbody" style="border: 1px solid black">
+                                </tbody>
+                            </table>
+                            <p class="centered">
+                                <br>Developed by : TheRiskAdvisors
+                            </p>
+                        </div>
 
 
                     </div>
-                </div>
+
+                    <br />
+
+
+                    <!--slip 2-->
+                    <div id="bill1" style="margin-left:30px">
+
+                        <div class="ticket" id="ticket">
+                            <br>
+                            <center>
+                                <img src="/Content/print-receipt-thermal-printer-master/print-receipt-thermal-printer-master/logo.PNG" />
+
+                            </center>
+
+
+                            <p class="centered">
+                                Officer's Academy
+                                <br><span id="Recipt1">Recipt#<span id="challanNo1"></span> </span>
+                                <br><span id="DateTime1"></span>
+                            </p>
+
+                            <b>Cashier:</b> @ViewBag.UserName <span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Student Copy</b>
+                            </span>
+
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="description" colspan="2">Challan Information</th>
+
+                                    </tr>
+
+
+                                </thead>
+                                <tbody id="billbody1" style="border: 1px solid black">
+                                </tbody>
+                            </table>
+                            <p class="centered">
+                                <br>Developed by : TheRiskAdvisors
+                            </p>
+                        </div>
+
+
+                    </div>
+
+                    <button id="btnPrint" style="display:none;margin-left:30px;" class="hidden-print">Print</button>
+
+
+                @*</div>
+            </div>*@
+
+
+        </div>
+
+
             </div><!--tab 1-->
 
 
@@ -522,9 +583,9 @@
 
         $(document).ready(function () {
 
-          //  var table = $('#datatable').dataTable({});
+            //  var table = $('#datatable').dataTable({});
 
-              var   table = $('#datatable').dataTable({
+            var table = $('#datatable').dataTable({
                 buttons: [
                     {
                         text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
@@ -557,8 +618,8 @@
                 dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
                     "<'row'<'col-sm-12 datatablesData'tr>>" +
                     "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
-              });
-              $("#PageHeader").html("Student Fee");
+            });
+            $("#PageHeader").html("Student Fee");
 
             $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
             $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Student Fee </a></li>');

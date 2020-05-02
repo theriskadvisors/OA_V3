@@ -4,72 +4,72 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
 }
-<label>@Html.ActionLink("Home", "Dashboard", "Account") > @Html.ActionLink("Notes", "Index", "AspnetNotes") > <a href="#"><b>Create</b></a> </label>
-
-<h4 class="orange">Add Notes </h4>
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <div class="box box-primary">
-        <div class="box-title"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body p-5">
 
-        <div class="box-body">
-            <div class="form-horizontal">
-                <h4>Notes</h4>
-                <hr />
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
 
-                <input type="hidden" id="grandTotalHidden" name="grandTotalHidden" />
-                <input type="hidden" id="photoCopierHidden" name="photoCopierHidden" />
-                <input type="hidden" id="oAHidden" name="oAHidden" />
-                
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-4">
-                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @required = true  } })
-                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-                    </div>
+
+                    <input type="hidden" id="grandTotalHidden" name="grandTotalHidden" />
+                    <input type="hidden" id="photoCopierHidden" name="photoCopierHidden" />
+                    <input type="hidden" id="oAHidden" name="oAHidden" />
+
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="col-md-8 pl-5 pr-5 ">
+                <h2 class="column-heading mb-4">Notes</h2>
+                <div class="form-group bmd-form-group is-filled">
+
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "bmd-label-floating" })
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-4">
-                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                    </div>
+                <div class="form-group bmd-form-group is-filled">
+
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "bmd-label-floating" })
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
                 </div>
 
-                <div class="form-group">
-                    <label class="control-label col-md-2">Subject</label>
-                    <div class="col-md-4">
-                        @Html.DropDownList("SubjectID", null, htmlAttributes: new { @class = "form-control", @required = true  })
+
+
+                <div class="form-row mt-4">
+                    <div class="form-group col-md-12 bmd-form-group">
+                        <label class="bmd-label-static pl-2">Subject</label>
+
+                        @Html.DropDownList("SubjectID", null, htmlAttributes: new { @class = "form-control", @required = true })
                         @Html.ValidationMessageFor(model => model.SubjectID, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.CourseType, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-4">
-                        <div>
-                            <select name="CourseType" class="form-control" required>
-                                <option value="CSS">CSS</option>
-                                <option value="PMS">PMS</option>
-                            </select>
 
-                            <span id="Phone-Error" class="text-danger"></span>
-                        </div>
+                <div class="form-row mt-4">
+                    <div class="form-group col-md-12 bmd-form-group">
 
+                        @Html.LabelFor(model => model.CourseType, htmlAttributes: new { @class = "bmd-label-static pl-2" })
+
+                        <select name="CourseType" class="form-control" required>
+                            <option value="CSS">CSS</option>
+                            <option value="PMS">PMS</option>
+                        </select>
+                        <span id="Phone-Error" class="text-danger"></span>
                     </div>
                 </div>
 
+                <div class="form-row mt-4">
+                    <div class="form-group col-md-12 bmd-form-group">
 
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.NotesType, htmlAttributes: new { @class = "control-label col-md-2",  @required = true  })
-                    <div class="col-md-4">
-
+                        @Html.LabelFor(model => model.NotesType, htmlAttributes: new { @class = "bmd-label-static pl-2", @required = true })
                         <div>
                             <select id="Notestype" name="NotesType" class="form-control" required>
                                 <option value="Choose">Select One</option>
@@ -77,121 +77,143 @@
                                 <option value="Books">Books</option>
 
                             </select>
-                            @Html.ValidationMessageFor(model => model.NotesType, "", new { @class = "text-danger",@id="NotesTypeValidation" })
+                            @Html.ValidationMessageFor(model => model.NotesType, "", new { @class = "text-danger", @id = "NotesTypeValidation" })
 
                             <span id="Phone-Error" class="text-danger"></span>
                         </div>
 
+                        <span id="Phone-Error" class="text-danger"></span>
                     </div>
+                </div>
+
+
+
+                <div class="form-group bmd-form-group is-filled">
+
+
+                    <label class="bmd-label-floating">Price</label>
+
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @id = "price", @min = "0", @class = "form-control", @required = true } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    <span style="color:red;display:none;" id="priceMsg"></span>
+
+                </div>
+
+
+                <div id="bookPercentageBlock" style="display:none">
+
+                    <div class="form-group bmd-form-group is-filled">
+
+                        <label class="bmd-label-floating">Book Percentage</label>
+                        @Html.EditorFor(model => model.OABookPercentage, new { htmlAttributes = new { @id = "bookPercentage", @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.OABookPercentage, "", new { @class = "text-danger" })
+
+                    </div>
+
+                </div><!--Book Percentage Block-->
+
+
+
+                <div id="totalPagesBlock" style="display:none">
+
+                    <div class="form-group bmd-form-group is-filled">
+
+                        <label class="bmd-label-floating">Total Pages</label>
+                        @Html.EditorFor(model => model.Pages, new { htmlAttributes = new { @id = "totalPages", @class = "form-control" } })
+
+                        @Html.ValidationMessageFor(model => model.Pages, "", new { @class = "text-danger" })
+
+                    </div>
+
+
+                </div><!--total Pages Block-->
+
+
+                <div id="perPagePriceBlock" style="display:none">
+
+                    <div class="form-group bmd-form-group is-filled">
+
+                        <label class="bmd-label-floating">Per Page Price</label>
+                        @Html.EditorFor(model => model.PerPagePrice, new { htmlAttributes = new { @id = "perPagePrice", @class = "form-control" } })
+
+                        @Html.ValidationMessageFor(model => model.PerPagePrice, "", new { @class = "text-danger" })
+
+                    </div>
+
+
+                </div><!--perPagePriceBlock-->
+
+
+
+                <div class="form-group bmd-form-group is-filled">
+
+                    <label class="bmd-label-floating">Binding Price</label>
+                    @Html.EditorFor(model => model.BindingPrice, new { htmlAttributes = new { @id = "bindingPrice", @class = "form-control", @required = true } })
+
+                    @Html.ValidationMessageFor(model => model.BindingPrice, "", new { @class = "text-danger" })
+
+                </div>
+                <br />
+
+                <div class="form-group">
+
+                    <label class="control-label col-md-4">OA Price</label>
+
+                    <label class="control-label  col-md-4">    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Rs <span id="oAPrice">0.0</span>/-</label>
+
+
                 </div>
 
                 <div class="form-group">
 
-                    <label class="control-label col-md-2">Price</label>
-                    <div class="col-md-4">
-                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @id = "price", @min = "0", @class = "form-control", @required = true } })
-                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-                        <span style="color:red;display:none;" id="priceMsg"></span>
-                    </div>
-                </div>
-                <div class="form-group" id="bookPercentageBlock" style="display:none">
+                    <label class="control-label  col-md-4">PhotoCopier Price</label>
 
-                    <div>
+                    <label class="control-label  col-md-4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Rs <span id="photoCopierPrice">0.0</span>/- </label>
 
-                        <label class="control-label col-md-2">Book Percentage</label>
-                        <div class="col-md-4">
-                            @*<input type="number" min="0" class="form-control" id="bookPercentage" name="bookPercentage" value="" />*@
-                            @Html.EditorFor(model => model.OABookPercentage, new { htmlAttributes = new {  @id="bookPercentage" , @class = "form-control"} })
-                            @Html.ValidationMessageFor(model => model.OABookPercentage, "", new { @class = "text-danger" })
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="form-group" id="totalPagesBlock" style="display:none">
-                    <div>
-
-                        <label class="control-label col-md-2">Total Pages</label>
-                        <div class="col-md-4">
-
-                            @*<input type="number" min="0"  class="form-control" id="totalPages" name="totalPages" value="" />*@
-                            @Html.EditorFor(model => model.Pages, new { htmlAttributes = new { @id="totalPages", @class = "form-control" } })
-
-                            @Html.ValidationMessageFor(model => model.Pages, "", new { @class = "text-danger" })
-
-
-                        </div>
-                    </div>
-                  </div>
-
-                <div class="form-group" id="perPagePriceBlock" style="display:none">
-                    <div>
-
-                        <label class="control-label col-md-2">Per Page Price</label>
-                        <div class="col-md-4">
-
-
-                            @*<input type="number" min="0" id="perPagePrice" class="form-control" name="perPagePrice" value="" />*@
-                            @Html.EditorFor(model => model.PerPagePrice, new { htmlAttributes = new { @id="perPagePrice", @class = "form-control" } })
-
-                            @Html.ValidationMessageFor(model => model.PerPagePrice, "", new { @class = "text-danger" })
-
-
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-
-                    <label class="control-label col-md-2">Binding Price</label>
-                    <div class="col-md-4">
-                        @*<input type="number" min="0" id="bindingPrice" class="form-control"  name="bindingPrice" value="" />*@
-                        @Html.EditorFor(model => model.BindingPrice, new { htmlAttributes = new { @id="bindingPrice", @class = "form-control",@required = true  } })
-
-                        @Html.ValidationMessageFor(model => model.BindingPrice, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-
-                    <label class="control-label col-md-2">OA Price</label>
-                    <div class="col-md-4">
-                       Rs <span id="oAPrice" >0.0</span>/-
-                    </div>
                 </div>
                 <div class="form-group">
 
-                    <label class="control-label col-md-2">PhotoCopier Price</label>
-                    <div class="col-md-4">
-                       Rs <span id="photoCopierPrice" >0.0</span>/-
-                    </div>
-                </div>
-                <div class="form-group">
+                    <label class="control-label  col-md-4">Grand Total</label>
 
-                    <label class="control-label col-md-2">Grand Total</label>
-                    <div class="col-md-4">
-                       Rs <span id="grandTotal" >0.0</span>/-
-                    </div>
+                    <label class="control-label  col-md-4">      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Rs <span id="grandTotal">0.0</span>/-</label>
+
                 </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create"  class="btn btn-primary" />
-                        <button type="button" id="cancel" class="btn btn-default">Back</button>
 
-                    </div>
-                </div>
+
+
+
+
+            </div> <!--End of Col 8-->
+
+            <div class="col-md-8 pl-5 pr-5 ">
+                <button type="submit" class="btn btn-primary rounded rounded-lg"> Save </button>
+
+
+                <button type="button"  id="cancel" onclick="redirect()" class="btn btn-primary rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
+                    <i class="material-icons mr-2">cached</i>  Cancel
+                </button>
+
+
+
             </div>
 
+                }
 
 
+            </div>
         </div>
     </div>
-}
+</div>
 <script>
     $(document).ready(function () {
+
+
+        $("#PageHeader").html("Add Notes");
+
+        $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li> <a href="/AspnetNotes/Index"> Notes </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Create</a></li>');
 
 
         $("#cancel").click(function () {
@@ -208,13 +230,13 @@
 
 
         //});
-      
+
 
         $("#Notestype").click(function () {
 
 
             $("#NotesTypeValidation").css('display', 'none');
-           
+
         })
 
         $("#Notestype").change(function () {
@@ -265,7 +287,7 @@
         })
 
 
-        $("#totalPages").bind('keyup mouseup', function () {    
+        $("#totalPages").bind('keyup mouseup', function () {
 
 
             Calculations();
