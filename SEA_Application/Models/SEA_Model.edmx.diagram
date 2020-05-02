@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="da8746ea6f2c48b1b748e8b19ad0c810" Name="Diagram1">
+        <EntityTypeShape EntityType="OA_DatabaseModel.Aspnet_Employee_Session" Width="1.5" PointX="19.5" PointY="111.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetAbsent_Student" Width="1.5" PointX="5.25" PointY="96.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetAnnouncement" Width="1.5" PointX="16.5" PointY="86.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetAnnouncement_Subject" Width="1.5" PointX="18.75" PointY="105.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetAssessment" Width="1.5" PointX="29" PointY="95.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetAssessment_Question" Width="1.5" PointX="18.75" PointY="102.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetAssessment_Questions_Category" Width="1.5" PointX="16.5" PointY="90.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetAssessment_Topic" Width="1.5" PointX="27.25" PointY="102" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetAttendance" Width="1.5" PointX="15.75" PointY="104.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetCatalog" Width="1.5" PointX="19.5" PointY="93.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetChapter" Width="1.5" PointX="15.75" PointY="100.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetClass" Width="1.5" PointX="5.25" PointY="117.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetClass_FeeType" Width="1.5" PointX="13.5" PointY="123.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspnetComment_Head" Width="1.5" PointX="8.25" PointY="118.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspnetComment" Width="1.5" PointX="19.5" PointY="118.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetCurriculum" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetDurationType" Width="1.5" PointX="14.25" PointY="145.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetEmp_Auto_Absent" Width="1.5" PointX="5.25" PointY="99.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetEmp_Auto_Attendance" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetEmployee" Width="1.5" PointX="11.25" PointY="114.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetEmployee_Attendance" Width="1.5" PointX="21.5" PointY="122.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetEmployeeAttendance" Width="1.5" PointX="19.25" PointY="134.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetFeeChallan" Width="1.5" PointX="16.5" PointY="117.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetFeedBackForm" Width="1.5" PointX="24.75" PointY="137.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetFeeType" Width="1.5" PointX="29" PointY="146.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetFinanceLedger" Width="1.5" PointX="26.75" PointY="145.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetFinanceLedgerType" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetFinanceMonth" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetFinancePeriod" Width="1.5" PointX="5.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetHoliday_Calendar_Notification" Width="1.5" PointX="5.25" PointY="102.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetHomework" Width="1.5" PointX="7.5" PointY="130.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspnetLesson" Width="1.5" PointX="12" PointY="99.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetLessonPlan" Width="1.5" PointX="15.75" PointY="96.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetLessonPlan_Topic" Width="1.5" PointX="23.25" PointY="97.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetLessonPlanBreakdown" Width="1.5" PointX="18" PointY="96.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetLessonPlanBreakdownHeading" Width="1.5" PointX="15.75" PointY="94.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetLog" Width="1.5" PointX="5.25" PointY="126.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetLoginTime" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetMessage_Receiver" Width="1.5" PointX="5.25" PointY="114.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetMessage" Width="1.5" PointX="8.25" PointY="114.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetNote" Width="1.5" PointX="15.75" PointY="132" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetNotesOrder" Width="1.5" PointX="23.75" PointY="123.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetNotification" Width="1.5" PointX="8.25" PointY="122.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetNotification_User" Width="1.5" PointX="19.5" PointY="108.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspnetOption" Width="1.5" PointX="20.25" PointY="86" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetOrder" Width="1.5" PointX="21.5" PointY="140.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetParent" Width="1.5" PointX="5.25" PointY="140" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetParent_Child" Width="1.5" PointX="5.25" PointY="144.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetParent_Notification" Width="1.5" PointX="5.25" PointY="147" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetParent_Session" Width="1.5" PointX="5.25" PointY="105.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetParentTeacherMeeting" Width="1.5" PointX="22.5" PointY="133.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetProject" Width="1.5" PointX="15.75" PointY="137.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetPTM_ParentFeedback" Width="1.5" PointX="27" PointY="113.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetPTM_TeacherFeedback" Width="1.5" PointX="32" PointY="113.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetPTMAttendance" Width="1.5" PointX="24.75" PointY="113" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetPTMFormRole" Width="1.5" PointX="22.5" PointY="137.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetPushNotification" Width="1.5" PointX="5.25" PointY="110.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspnetQuestion" Width="1.5" PointX="22.5" PointY="85.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspnetQuiz" Width="1.5" PointX="22.5" PointY="81.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetRole" Width="1.5" PointX="0.75" PointY="118.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetRoom" Width="1.5" PointX="24.5" PointY="94.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetSalary" Width="1.5" PointX="19.25" PointY="137.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetSalaryDetail" Width="1.5" PointX="21.5" PointY="125.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetSession" Width="1.5" PointX="3" PointY="102.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetStudent" Width="1.5" PointX="16.5" PointY="110.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetStudent_Announcement" Width="1.5" PointX="5.25" PointY="122.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetStudent_Assessment" Width="1.5" PointX="32.25" PointY="109.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetStudent_Attendance" Width="1.5" PointX="22" PointY="118.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetStudent_AutoAttendance" Width="1.5" PointX="5.25" PointY="93" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetStudent_Fine" Width="1.5" PointX="8.25" PointY="110.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetStudent_HomeWork" Width="1.5" PointX="15.75" PointY="123.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetStudent_Notification" Width="1.5" PointX="8.25" PointY="126" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetStudent_Payment" Width="1.5" PointX="26.75" PointY="127" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetStudent_PaymentDetail" Width="1.5" PointX="29" PointY="127.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetStudent_Project" Width="1.5" PointX="18" PointY="130.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetStudent_Session_class" Width="1.5" PointX="18.75" PointY="114.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetStudent_Subject" Width="1.5" PointX="15.75" PointY="107.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetStudent_Term_Assessment" Width="1.5" PointX="23.75" PointY="105.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetStudent_Term_Assessments_Answers" Width="1.5" PointX="26" PointY="97.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspnetStudentAssignment" Width="1.5" PointX="14.25" PointY="89.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspnetStudentAssignmentSubmission" Width="1.5" PointX="21.75" PointY="114.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspnetStudentAttachment" Width="1.5" PointX="14.25" PointY="86.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspnetStudentLink" Width="1.5" PointX="14.25" PointY="83.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetStudentPerformanceReport" Width="1.5" PointX="26.75" PointY="117.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetSubject_Catalog" Width="1.5" PointX="21.75" PointY="100.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetSubject_Homework" Width="1.5" PointX="15.75" PointY="143" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetSubject" Width="1.5" PointX="13.5" PointY="105.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspnetSubjectTopic" Width="1.5" PointX="9.75" PointY="100.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetTeacher" Width="1.5" PointX="5.25" PointY="164.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetTeacher_Session" Width="1.5" PointX="7.5" PointY="166.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetTeacherSubject" Width="1.5" PointX="26.75" PointY="109.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetTerm" Width="1.5" PointX="21.5" PointY="90.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetTime_Setting" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetTimeslot" Width="1.5" PointX="24.5" PointY="90.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetTimeTable" Width="1.5" PointX="26.75" PointY="104.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetTopic" Width="1.5" PointX="21" PointY="104.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="170.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="173.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetUser" Width="1.5" PointX="3" PointY="111.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetUsers_Session" Width="1.5" PointX="11.25" PointY="110.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AspNetVirtualRole" Width="1.5" PointX="9" PointY="106.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Comment_Head" Width="1.5" PointX="14.25" PointY="79.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Comment" Width="1.5" PointX="16.5" PointY="79.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Employee" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Employee_SalaryIncrement" Width="1.5" PointX="15.75" PointY="127.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Employee_SalaryRecord" Width="1.5" PointX="13.5" PointY="127.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.EmployeeAdvanceSalary" Width="1.5" PointX="13.5" PointY="131" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.EmployeePenalty" Width="1.5" PointX="18.5" PointY="127.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.EmployeePenaltyType" Width="1.5" PointX="16.25" PointY="148.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.EmployeeSalary" Width="1.5" PointX="13.5" PointY="137.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Event" Width="1.5" PointX="14.25" PointY="117" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.FeeDateSetting" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.FeeDiscount" Width="1.5" PointX="27.5" PointY="134.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.GenericSubject" Width="1.5" PointX="7.5" PointY="100.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Ledger" Width="1.5" PointX="29.75" PointY="140.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.LedgerGroup" Width="1.5" PointX="27.5" PointY="141.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.LedgerHead" Width="1.5" PointX="25.25" PointY="141.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Month_Multiplier" Width="1.5" PointX="32" PointY="102.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.NonRecurringCharge" Width="1.5" PointX="27.5" PointY="131.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.NonRecurringFeeMultiplier" Width="1.5" PointX="29.75" PointY="111.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.PenaltyFee" Width="1.5" PointX="24.5" PointY="128.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Quiz_Topic_Questions" Width="1.5" PointX="26.75" PointY="90.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.ruffdata" Width="1.5" PointX="5.25" PointY="130.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Student_ChallanForm" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Student_GenericSubjects" Width="1.5" PointX="11.25" PointY="126.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Student_Quiz_Scoring" Width="1.5" PointX="24.75" PointY="101.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.StudentChallanForm" Width="1.5" PointX="29.75" PointY="107.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.StudentDiscount" Width="1.5" PointX="29.75" PointY="117.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.StudentFeeMonth" Width="1.5" PointX="29.75" PointY="101.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.StudentLessonTracking" Width="1.5" PointX="14.25" PointY="113.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.StudentPenalty" Width="1.5" PointX="26.75" PointY="123.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.StudentPenaltyType" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.StudentRecurringFee" Width="1.5" PointX="18.5" PointY="122.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Teacher_GenericSubjects" Width="1.5" PointX="22.5" PointY="110.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.TeacherPenaltyRecord" Width="1.5" PointX="24.5" PointY="117" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.ToDoList" Width="1.5" PointX="5.25" PointY="191.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Voucher" Width="1.5" PointX="29.75" PointY="121.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.VoucherRecord" Width="1.5" PointX="32" PointY="121.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.AggregatedCounter" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Counter" Width="1.5" PointX="4.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Hash" Width="1.5" PointX="6.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Job" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.JobParameter" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.JobQueue" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.List" Width="1.5" PointX="8.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Schema" Width="1.5" PointX="10.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Server" Width="1.5" PointX="11.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.Set" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OA_DatabaseModel.State" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Aspnet_Employee_Session_EMP" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Aspnet_Employee_Session_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetAbsent_Student_AspNetSession" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Announcement_Subject_ToAnnouncement" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetAnnouncement_AspNetAnnouncement" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetAnnouncement_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Student_Announcement_ToAnnouncement" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Announcement_Subject_ToSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetAssessment_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetAssessment_Topic_ToAssessment" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetAssessment_ToSubjectCatalog" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Assessment_ToAssessment" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetAssessment_Question_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetAssessment_Question_ToQuestionCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetAssessment_Question_ToSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetAssessment_Topic_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetAttendance_ToSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Attendance_ToAttendance" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetSubject_Catalog_ToCatalog" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetChapter_ToSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetTopic_ToSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetClass_FeeType_ToClass" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetClass_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetClass_ToAspNetClass" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetClass_ToAspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetFeeChallan_ToClass" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetHomework_AspNetClass" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Session_class_CLASS" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspnetStudentAssignmentSubmission_AspNetClass" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_RecurringFeeClass" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Student_ToAspNetClass" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetClass_FeeType_ToFeeType" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspnetComment_Head_AspnetLesson" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspnetComment_Head_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspnetComments_AspnetComment_Head" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspnetComments_AspnetComments" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspnetComments_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetFeeChallan_ToDurationType" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetEmp_Auto_Absent_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__TeacherPe__Emplo__6D6238AF" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__TeacherPe__Emplo__6E565CE8" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__TeacherPe__Emplo__6F4A8121" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__TeacherPe__Emplo__703EA55A" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__TeacherPe__Emplo__7132C993" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__TeacherPe__Emplo__7226EDCC" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__TeacherPe__Emplo__731B1205" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__TeacherPe__Emplo__740F363E" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__TeacherPe__Emplo__75035A77" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__TeacherPe__Emplo__75F77EB0" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__TeacherPe__Emplo__76EBA2E9" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__TeacherPe__Emplo__77DFC722" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AdvanceSalaryUser" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetEmployee_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetEmployee_Attendance_TO_AspNetEmployee" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetEmployee_VirtualRole" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetSalaryDetail_AspNetEmployee" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetTeacherSubject_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_EmployeePenalty_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_SalaryRecord_EmployeeId" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_SalaryUser" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Teacher_GenericSubjects_AspNetEmployee" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetEmployee_Attendance_To_AspNetEmployeeAttendance" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Payment_ToFeeChallan" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetFeedBackForm_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetFeedBackForm_ToRole" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetPTM_ParentFeedback_ToForm" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetPTM_TeacherFeedback_ToForm" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetFeeType_ToLedger" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetFinanceLedgers_AspNetFinanceLedgers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetFinanceLedgers_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_PaymentDetail_ToLedger" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetFinanceMonth_AspNetFinancePeriod" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetHoliday_Calendar_Notification_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_HomeWork_AspNetHomework" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspnetLesson_AspnetSubjectTopic" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspnetQuestion_AspnetLesson" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspnetStudentAssignment_AspnetLesson" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspnetStudentAssignmentSubmission_AspnetLesson" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspnetStudentAttachment_AspnetLesson" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspnetStudentLink_AspnetLesson" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Comment_Head_AspnetLesson" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_StudentLessonTracking_AspnetLesson" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetLessonPlan_Topic_ToLessonPlan" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetLessonPlan_ToSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_LessonPlanBreakdown_ToLessonPlan" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetLessonPlan_Topic_ToTopic" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_LessonPlanBreakdown_ToLessonPlanBreakDownHeading" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetLog_ToUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_MessageReceiver_Messages" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_MessageReceiver_User" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetMessages_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_MessagesSender_ToAspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetNotes_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetNotesOrders_Notes" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetNotesOrders_AspNetOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetNotesOrders_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetNotification_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetNotification_ToUser" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetNotification_User_ToNotification" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetNotification_User_ToUser" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspnetQuestion_AspnetOption1" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetParent_ToParent" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetParent_Child_ChildToUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetParent_Child_ParentToUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetParent_Notification_ParentToUser" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetParent_Notification_SenderToUser" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetParent_Session_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetParentTeacherMeeting_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetPTMAttendance_ToMeeting" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetProject_ToSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Project_ToProject" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetPTM_ParentFeedback_ToPTM" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetPTM_TeacherFeedback_ToPTM" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetPTMAttendance_ToParent" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetPTMAttendance_ToSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetPushNotifications_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Notifications_ToAspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Quiz_Topic_Questions_AspnetQuestion" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Student_Quiz_Scoring_AspnetQuestion" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Quiz_Topic_Questions_AspnetQuiz" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Student_Quiz_Scoring_AspnetQuiz" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetTimeTable_Room" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetSalary_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetSalary_VirtualID" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetSalaryDetail_SalaryTable" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_AutoAttendance_AspNetStudent_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Fine_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Notification_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Session_class_SESSION" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Term_Assessment_ToSession" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetTeacher_Session_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetTerm_ToSession" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetUsers_Session_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Event_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Ledger_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_NonRecurringFeeMultiplier_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_RecurringFeeClass_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_ruffdata_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_StudentFeeMonth_AspNetSession" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_TeacherPenaltyRecord_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Voucher_Session" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Session_class_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspnetStudentAssignmentSubmission_AspNetStudent" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_NonRecurring_student" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Student_Quiz_Scoring_AspNetStudent" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Student_ToAspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Student_Voucher" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_StudentChallan_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_studentdiscount_student" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_StudentFeeMonth_student" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_StudentPenalty_Stuedent" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Student_Announcement_ToStudent" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Assessment_ToStudent" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Attendance_ToUser" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Fine_ToStudent" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_HomeWork_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Notification_SenderToUser" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Notification_StudentToUser" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Payment_ToStudent" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_PaymentDetail_ToStudentPayment" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_PaymentDetail_ToStudentPaymentPrevious" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Project_ToStudent" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Student_Subject_ToStudent" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Student_Subject_ToSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Term_Assessment_ToSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Term_Assessment_ToTerm" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Term_Assessment_ToUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudent_Term_Assessments_Answers_ToStudent_Term_Assessment" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspnetStudentAssignmentSubmission_AspnetSubjectTopic" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudentPerformanceReport_ToSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetStudentPerformanceReport_ToUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetSubject_Catalog_ToSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetSubject_Homework_AspNetSubjects" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetClass_ToAspNetUsersTeacher" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetTeacherSubject_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetTimeTable_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetTopic_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspnetSubjectTopic_AspNetSubjects" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Quiz_Topic_Questions_AspnetSubjectTopic" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetTeacher_Session_Teacher" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Teacher_ToAspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetTimeTable_Slot" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetTimeTable_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__Event__UserId__436BFEE3" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__Event__UserId__4460231C" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__Event__UserId__45544755" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__Event__UserId__46486B8E" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__Event__UserId__473C8FC7" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__Event__UserId__4830B400" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__Event__UserId__4924D839" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__Event__UserId__4A18FC72" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__Event__UserId__4B0D20AB" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__Event__UserId__4C0144E4" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__Event__UserId__4CF5691D" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK__Event__UserId__4DE98D56" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetUsers_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetUsers_Session_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Student_GenericSubjects_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_StudentLessonTracking_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_ToDoList_ToAspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_AspNetVirtualRole_AspNetVirtualRole" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Comments_Comment_Head" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_SalaryIncrement_SalaryRecord" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_EmployeePenalty_Penalty" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_studentdiscount_Feedisocunt" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Student_GenericSubjects_GenericSubjects" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Teacher_GenericSubjects_GenericSubjects" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Ledger_LedgerGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_Ledger_LedgerHead" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_VoucherRecord_Voucher" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_LedgerGroup_LedgerHead" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_FeeMonth" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_NonRecurring_Description" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_StudentPenalty_Penalty" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_StudentChallan_StudentFeeMonth" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_VoucherRecord_LedgerId" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_HangFire_JobParameter_Job" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.FK_HangFire_State_Job" ManuallyRouted="false" />
+        <AssociationConnector Association="OA_DatabaseModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -953,22 +953,40 @@ E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\obj\De
 E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\obj\Debug\SEA_Application.csproj.CopyComplete
 E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\obj\Debug\SEA_Application.dll
 E:\Git\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\obj\Debug\SEA_Application.pdb
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\ApplicationInsights.config
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\csc.exe
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.dll
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\Microsoft.CSharp.Core.targets
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\Microsoft.VisualBasic.Core.targets
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\System.Collections.Immutable.dll
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\System.Reflection.Metadata.dll
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\vbc.exe
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\VBCSCompiler.exe
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\roslyn\VBCSCompiler.exe.config
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\SEA_Application.dll.config
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\SEA_Application.dll
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\bin\SEA_Application.pdb
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\obj\Debug\SEA_Application.csprojResolveAssemblyReference.cache
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\obj\Debug\SEA_Application.dll
-D:\The Risk Advisors\SEA\Officers Acadmey\OA_V3\SEA_Application\obj\Debug\SEA_Application.pdb
+C:\Users\TRA\Downloads\OA Project (New Theme Integrated)   27-4-2020\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\ApplicationInsights.config
+C:\Users\TRA\Downloads\OA Project (New Theme Integrated)   27-4-2020\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\csc.exe
+C:\Users\TRA\Downloads\OA Project (New Theme Integrated)   27-4-2020\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\TRA\Downloads\OA Project (New Theme Integrated)   27-4-2020\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\TRA\Downloads\OA Project (New Theme Integrated)   27-4-2020\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\TRA\Downloads\OA Project (New Theme Integrated)   27-4-2020\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\TRA\Downloads\OA Project (New Theme Integrated)   27-4-2020\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\TRA\Downloads\OA Project (New Theme Integrated)   27-4-2020\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\TRA\Downloads\OA Project (New Theme Integrated)   27-4-2020\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\TRA\Downloads\OA Project (New Theme Integrated)   27-4-2020\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\TRA\Downloads\OA Project (New Theme Integrated)   27-4-2020\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\vbc.exe
+C:\Users\TRA\Downloads\OA Project (New Theme Integrated)   27-4-2020\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\VBCSCompiler.exe
+C:\Users\TRA\Downloads\OA Project (New Theme Integrated)   27-4-2020\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\TRA\Downloads\OA Project (New Theme Integrated)   27-4-2020\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\SEA_Application.dll.config
+C:\Users\TRA\Downloads\OA Project (New Theme Integrated)   27-4-2020\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\SEA_Application.dll
+C:\Users\TRA\Downloads\OA Project (New Theme Integrated)   27-4-2020\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\bin\SEA_Application.pdb
+C:\Users\TRA\Downloads\OA Project (New Theme Integrated)   27-4-2020\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\obj\Debug\SEA_Application.dll
+C:\Users\TRA\Downloads\OA Project (New Theme Integrated)   27-4-2020\27-4-2020 3 fields ni aspnetlesson\OfficersAcademy\SEA_Application\obj\Debug\SEA_Application.pdb
+C:\Users\TRA\Documents\OA_V3\SEA_Application\bin\ApplicationInsights.config
+C:\Users\TRA\Documents\OA_V3\SEA_Application\bin\roslyn\csc.exe
+C:\Users\TRA\Documents\OA_V3\SEA_Application\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\TRA\Documents\OA_V3\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\TRA\Documents\OA_V3\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\TRA\Documents\OA_V3\SEA_Application\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\TRA\Documents\OA_V3\SEA_Application\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\TRA\Documents\OA_V3\SEA_Application\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\TRA\Documents\OA_V3\SEA_Application\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\TRA\Documents\OA_V3\SEA_Application\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\TRA\Documents\OA_V3\SEA_Application\bin\roslyn\vbc.exe
+C:\Users\TRA\Documents\OA_V3\SEA_Application\bin\roslyn\VBCSCompiler.exe
+C:\Users\TRA\Documents\OA_V3\SEA_Application\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\TRA\Documents\OA_V3\SEA_Application\bin\SEA_Application.dll.config
+C:\Users\TRA\Documents\OA_V3\SEA_Application\bin\SEA_Application.dll
+C:\Users\TRA\Documents\OA_V3\SEA_Application\bin\SEA_Application.pdb
+C:\Users\TRA\Documents\OA_V3\SEA_Application\obj\Debug\SEA_Application.csprojResolveAssemblyReference.cache
+C:\Users\TRA\Documents\OA_V3\SEA_Application\obj\Debug\SEA_Application.dll
+C:\Users\TRA\Documents\OA_V3\SEA_Application\obj\Debug\SEA_Application.pdb
