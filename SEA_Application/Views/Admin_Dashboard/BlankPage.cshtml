@@ -224,6 +224,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 <style>
+    .mid {
+    margin-top: 12;
+    /* margin-top: 46px; */
+    margin-bottom: -30px;
+}
     .col-md-12 {
         width: 100%;
         background-color: white;
@@ -503,7 +508,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Save Event</h4>
+                <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body">
                 <form class="col-md-12 form-horizontal">
@@ -555,8 +560,12 @@
                             <label><input type="checkbox" id="IsPublic" checked="checked" />  Is Public</label>
                         </div>
                     </div>
-                    <button type="button" id="btnSave" class="btn btn-success">Save</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    
+                    <div class="mid">
+
+                        <button type="button" id="btnSave" class="btn btn-success">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
                 </form>
             </div>
         </div>
