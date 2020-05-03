@@ -3,8 +3,11 @@ using Newtonsoft.Json;
 using SEA_Application.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -73,11 +76,14 @@ namespace SEA_Application.Controllers
             return View();
         }
 
-        public ActionResult StudentLessons(int id)
+        public ActionResult StudentLessons(string id)
         {
 
-            var Lesson = db.AspnetLessons.Where(x => x.Id == id).FirstOrDefault();
-
+            var Lesson = db.AspnetLessons.Where(x => x.EncryptedID == id).FirstOrDefault();
+            if (Lesson == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             int? TopicId = Lesson.TopicId;
             string Name = Lesson.Name;
 
@@ -116,11 +122,11 @@ namespace SEA_Application.Controllers
             //Tab 6 data end
 
             ViewBag.TopicId = TopicId;
-            ViewBag.LessonID = id;
+            ViewBag.LessonID = Lesson.Id;
 
             return View();
         }
-        public ActionResult IsLastLesson( int LessonID)
+        public ActionResult IsLastLesson(int LessonID)
         {
             var Lesson = db.AspnetLessons.Where(x => x.Id == LessonID).FirstOrDefault();
 
@@ -142,11 +148,11 @@ namespace SEA_Application.Controllers
             }
 
             //ViewBag.TopicId = TopicId;
-           // ViewBag.IsLastLesson = IsLastLesson;
-           
+            // ViewBag.IsLastLesson = IsLastLesson;
 
 
-            return Json(new { TopicId = TopicId , IsLastLesson = IsLastLesson }, JsonRequestBehavior.AllowGet);
+
+            return Json(new { TopicId = TopicId, IsLastLesson = IsLastLesson }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -165,9 +171,9 @@ namespace SEA_Application.Controllers
             return Json(new { LessonId = Lesson.Id, LessonName = Lesson.Name, LessonVideo = Lesson.Video_Url, LessonDescription = Lesson.Description }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Test(int id )
+        public ActionResult Test(int id)
         {
-    
+
             return View();
 
         } // End of Test Action Methods
@@ -252,7 +258,7 @@ namespace SEA_Application.Controllers
                 QuestionObj.id = QuestionFromDB.Id;
                 QuestionObj.type = QuestionFromDB.Type;
 
-                
+
                 string val = selectedAnswers[i];
                 if (selectedAnswers[i] == ans.ToString())
                 {
@@ -266,26 +272,27 @@ namespace SEA_Application.Controllers
                     QuestionObj.IsCorrect = "Yes";
 
                 }
-                else {
+                else
+                {
 
 
-                var AnswerName = db.AspnetOptions.Where(x => x.Id == QuestionFromDB.AnswerId).FirstOrDefault().Name;
-                var LessonName = db.AspnetLessons.Where(x => x.Id == QuestionFromDB.LessonId).FirstOrDefault().Name;
+                    var AnswerName = db.AspnetOptions.Where(x => x.Id == QuestionFromDB.AnswerId).FirstOrDefault().Name;
+                    var LessonName = db.AspnetLessons.Where(x => x.Id == QuestionFromDB.LessonId).FirstOrDefault().Name;
 
-                    if(selectedAnswers[i] == "")
+                    if (selectedAnswers[i] == "")
                     {
 
-                    QuestionObj.IsCorrect = "No";
-                    var WrongAnswer = "Correct Answer  is " + AnswerName +" you need to revise "+ LessonName + " Lesson";
+                        QuestionObj.IsCorrect = "No";
+                        var WrongAnswer = "Correct Answer  is " + AnswerName + " you need to revise " + LessonName + " Lesson";
 
-                    QuestionObj.Message = WrongAnswer;
+                        QuestionObj.Message = WrongAnswer;
 
                     }
                     else
                     {
 
                         QuestionObj.IsCorrect = "No";
-                         var WrongAnswer = "Your Answer is Wrong .Correct Answer  is " + AnswerName + " you need to revise " + LessonName +" Lesson";
+                        var WrongAnswer = "Your Answer is Wrong .Correct Answer  is " + AnswerName + " you need to revise " + LessonName + " Lesson";
 
                         QuestionObj.Message = WrongAnswer;
 
@@ -298,11 +305,11 @@ namespace SEA_Application.Controllers
 
                 questionList_MCQS.Add(QuestionObj);
             }
-         
+
             return Json(questionList_MCQS, JsonRequestBehavior.AllowGet);
 
         }
-        public ActionResult TestResult( )
+        public ActionResult TestResult()
         {
 
 
@@ -314,7 +321,7 @@ namespace SEA_Application.Controllers
             return View();
         }
 
-       
+
 
         public class question1
         {
@@ -323,7 +330,7 @@ namespace SEA_Application.Controllers
             public string type;
             public string Message;
             public string IsCorrect;
-          
+
         }
 
 
@@ -345,81 +352,109 @@ namespace SEA_Application.Controllers
 
         public ActionResult GetSubjectTopicsAndLessons(int SubjectId)
         {
-            //  var SubjectTopics = db.AspnetSubjectTopics.Where(x => x.SubjectId == SubjectId).ToList();
 
-
-            //var AllSubjectTopicsLessons = from SubjectTopic in db.AspnetSubjectTopics
-            //                              join Lesson in db.AspnetLessons on SubjectTopic.Id equals Lesson.TopicId
-            //                              where SubjectTopic.SubjectId == SubjectId
-            //                              select new
-            //                              {
-            //                                  TopicId = SubjectTopic.Id,
-            //                                  TopicName =   SubjectTopic.Name,
-            //                                  LessonId = Lesson.Id,
-            //                                  LessonName = Lesson.Name,
-            //                                  Lesson.Duration,
-            //                                  Lesson.Description
-
-            //                              };
-
-            var SubjectsTopics = db.AspnetSubjectTopics.Where(x => x.SubjectId == SubjectId).ToList();
-
-            var UserId = User.Identity.GetUserId();
-
-
-            List<Topic> TopicListObj = new List<Topic>();
-
-            int Count = 0;
-            foreach (var a in SubjectsTopics)
+            try
             {
-                int count1 = 0;
-                Topic TopicObj = new Topic();
 
-                var list = db.AspnetLessons.Where(x => x.TopicId == a.Id).ToList();
+                var UserId = User.Identity.GetUserId();
 
-                TopicObj.TopicId = a.Id;
-                TopicObj.TopicName = a.Name;
+                var userSessionId = db.AspNetUsers_Session.Where(x => x.UserID == UserId).FirstOrDefault().SessionID;
 
 
 
-                List<Lesson> LessonsList = new List<Lesson>();
+                //  var SubjectTopics = db.AspnetSubjectTopics.Where(x => x.SubjectId == SubjectId).ToList();
 
 
-                foreach (var lesson in list)
+                //var AllSubjectTopicsLessons = from SubjectTopic in db.AspnetSubjectTopics
+                //                              join Lesson in db.AspnetLessons on SubjectTopic.Id equals Lesson.TopicId
+                //                              where SubjectTopic.SubjectId == SubjectId
+                //                              select new
+                //                              {
+                //                                  TopicId = SubjectTopic.Id,
+                //                                  TopicName =   SubjectTopic.Name,
+                //                                  LessonId = Lesson.Id,
+                //                                  LessonName = Lesson.Name,
+                //                                  Lesson.Duration,
+                //                                  Lesson.Description
+
+                //                              };
+
+                var SubjectsTopics = db.AspnetSubjectTopics.Where(x => x.SubjectId == SubjectId).ToList();
+
+
+
+                List<Topic> TopicListObj = new List<Topic>();
+
+                int Count = 0;
+                foreach (var a in SubjectsTopics)
                 {
-                    var LessonExist = "";
-                    StudentLessonTracking LessonTracking = db.StudentLessonTrackings.Where(x => x.LessonId == lesson.Id & x.StudentId == UserId).FirstOrDefault();
+                    int count1 = 0;
+                    Topic TopicObj = new Topic();
 
-                    if (LessonTracking == null)
-                    {
-                        LessonExist = "No";
-                    }
-                    else
-                    {
-                        LessonExist = "Yes";
-                    }
-                    Lesson lessonobj = new Lesson();
-                    lessonobj.LessonId = lesson.Id;
-                    lessonobj.LessonName = lesson.Name;
-                    lessonobj.LessonDuration = lesson.Duration;
-                    lessonobj.LessonExistInTrackingTable = LessonExist;
+                    //  var list = db.AspnetLessons.Where(x => x.TopicId == a.Id).Where(x=>x.IsActive== true).ToList();
 
-                    LessonsList.Add(lessonobj);
-                    Count++;
-                    count1++;
+
+
+
+                    var today = DateTime.Today;
+                    var LessonList = (from Lesson in db.AspnetLessons
+                                      join LessonSession in db.Lesson_Session on Lesson.Id equals LessonSession.LessonId
+                                      where Lesson.TopicId == a.Id && Lesson.IsActive == true && LessonSession.SessionId == userSessionId && LessonSession.StartDate <= today && today <= LessonSession.DueDate
+                                      select Lesson).ToList();
+
+
+                    TopicObj.TopicId = a.Id;
+                    TopicObj.TopicName = a.Name;
+
+
+
+                    List<Lesson> LessonsList = new List<Lesson>();
+
+
+                    foreach (var lesson in LessonList)
+                    {
+                        var LessonExist = "";
+                        StudentLessonTracking LessonTracking = db.StudentLessonTrackings.Where(x => x.LessonId == lesson.Id & x.StudentId == UserId).FirstOrDefault();
+
+                        if (LessonTracking == null)
+                        {
+                            LessonExist = "No";
+                        }
+                        else
+                        {
+                            LessonExist = "Yes";
+                        }
+                        Lesson lessonobj = new Lesson();
+                        lessonobj.LessonId = lesson.Id;
+                        lessonobj.LessonName = lesson.Name;
+                        lessonobj.LessonDuration = lesson.Duration;
+                        lessonobj.LessonExistInTrackingTable = LessonExist;
+                        lessonobj.EncryptedID = lesson.EncryptedID;
+                        LessonsList.Add(lessonobj);
+                        Count++;
+                        count1++;
+                    }
+
+                    List<Lesson> OrderByLessons = LessonsList.OrderBy(x => x.LessonName).ToList();
+
+                    TopicObj.LessonList = OrderByLessons;
+
+                    TopicObj.TotalLessons = Count;
+                    TopicObj.TotalLessons1 = count1;
+
+                    TopicListObj.Add(TopicObj);
                 }
+                return Json(TopicListObj.OrderBy(x => x.TopicName).ToList(), JsonRequestBehavior.AllowGet);
 
-               List<Lesson> OrderByLessons =  LessonsList.OrderBy(x => x.LessonName).ToList();
-
-                TopicObj.LessonList = OrderByLessons;
-
-                TopicObj.TotalLessons = Count;
-                TopicObj.TotalLessons1 = count1;
-
-                TopicListObj.Add(TopicObj);
             }
-                
-            return Json(TopicListObj.OrderBy(x=>x.TopicName).ToList(), JsonRequestBehavior.AllowGet);
+
+            catch (Exception ex)
+            {
+                var a = ex.Message;
+            }
+
+
+            return Json("", JsonRequestBehavior.AllowGet);
 
         }
         public ActionResult UpdateStudentLessonTracking(int LessonId)
@@ -454,7 +489,7 @@ namespace SEA_Application.Controllers
 
         public ActionResult GetCourseContent(int LessonID)
         {
-            var UserId = User.Identity.GetUserId(); 
+            var UserId = User.Identity.GetUserId();
 
             var TopicId = db.AspnetLessons.Where(x => x.Id == LessonID).FirstOrDefault().TopicId;
             var SubjectId = db.AspnetSubjectTopics.Where(x => x.Id == TopicId).FirstOrDefault().SubjectId;
@@ -469,14 +504,27 @@ namespace SEA_Application.Controllers
                 int count1 = 0;
                 Topic TopicObj = new Topic();
 
-                var list = db.AspnetLessons.Where(x => x.TopicId == a.Id).ToList();
+                //var list = db.AspnetLessons.Where(x => x.TopicId == a.Id).ToList();
+
+                var UserId1 = User.Identity.GetUserId();
+
+                var userSessionId = db.AspNetUsers_Session.Where(x => x.UserID == UserId1).FirstOrDefault().SessionID;
+
 
                 TopicObj.TopicId = a.Id;
                 TopicObj.TopicName = a.Name;
 
+
+                var today = DateTime.Today;
+
+                var LessonList = (from Lesson in db.AspnetLessons
+                                  join LessonSession in db.Lesson_Session on Lesson.Id equals LessonSession.LessonId
+                                  where Lesson.TopicId == a.Id && Lesson.IsActive == true && LessonSession.SessionId == userSessionId && LessonSession.StartDate <= today && today <= LessonSession.DueDate
+                                  select Lesson).ToList();
+
                 List<Lesson> LessonsList = new List<Lesson>();
 
-                foreach (var lesson in list)
+                foreach (var lesson in LessonList)
                 {
                     var LessonExist = "";
                     StudentLessonTracking LessonTracking = db.StudentLessonTrackings.Where(x => x.LessonId == lesson.Id && x.StudentId == UserId).FirstOrDefault();
@@ -699,12 +747,24 @@ namespace SEA_Application.Controllers
 
             var id = User.Identity.GetUserId();
             AspnetComment_Head commentHead = new AspnetComment_Head();
+            string EncrID = LessonID + Title + Body + id;
+
+            commentHead.EncryptedID = Encrpt.Encrypt(EncrID, true);
+
+
+            var newString = Regex.Replace(commentHead.EncryptedID, @"[^0-9a-zA-Z]+", "s");
+
+            string str = newString.Substring(0, 32);
+
+
+            commentHead.EncryptedID = str;
 
             //Comment_Head commentHead = new Comment_Head();
             commentHead.Comment_Head = Title;
             commentHead.CommentBody = Body;
             commentHead.LessonId = LessonID;
             commentHead.CreatedBy = id;
+
             commentHead.CreationDate = GetLocalDateTime.GetLocalDateTimeFunction();
             db.AspnetComment_Head.Add(commentHead);
             db.SaveChanges();
@@ -783,6 +843,7 @@ namespace SEA_Application.Controllers
                                      LessonId = commentHead.LessonId,
                                      UserName = user.Name,
                                      Date = commentHead.CreationDate,
+                                     EncryptedID = commentHead.EncryptedID
                                  };
 
             return Json(AllCommentHead, JsonRequestBehavior.AllowGet);
@@ -796,11 +857,15 @@ namespace SEA_Application.Controllers
 
         }
 
-        public ActionResult CommentsPage1(int id)
+        public ActionResult CommentsPage1(string id)
         {
-            ViewBag.CommentHeadId = id;
+            ViewBag.CommentHeadId = db.AspnetComment_Head.Where(x => x.EncryptedID == id).FirstOrDefault().Id;
+            ViewBag.EncryptedID = id;
+            int? LessonId = db.AspnetComment_Head.Where(x => x.EncryptedID == id).FirstOrDefault().LessonId;
+            ViewBag.LessonId = LessonId;
+            ViewBag.LessonEncryptedId = db.AspnetLessons.Where(x => x.Id == LessonId).FirstOrDefault().EncryptedID;
 
-            ViewBag.LessonId = db.AspnetComment_Head.Where(x => x.Id == id).FirstOrDefault().LessonId;
+
 
             return View("Comments");
         }
@@ -885,6 +950,7 @@ namespace SEA_Application.Controllers
             public TimeSpan? LessonDuration { get; set; }
 
             public string LessonExistInTrackingTable { get; set; }
+            public string EncryptedID { get; set; }
 
             public int LessonCount { get; set; }
         }

@@ -198,13 +198,13 @@ namespace SEA_Application.Controllers
 
 
         // GET: AspNetOrderNotes/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AspNetNote aspNetNote = db.AspNetNotes.Find(id);
+            AspNetNote aspNetNote = db.AspNetNotes.Where(x => x.EncryptedID == id).FirstOrDefault();
             if (aspNetNote == null)
             {
                 return HttpNotFound();
@@ -399,7 +399,7 @@ namespace SEA_Application.Controllers
 
 
 
-        public ActionResult ConfirmOrder(int NotesId, int Quantity)
+        public ActionResult ConfirmOrder(string NotesId, int Quantity)
         {
 
             var CurrentUserId = User.Identity.GetUserId();
@@ -408,8 +408,8 @@ namespace SEA_Application.Controllers
 
 
             AspNetNotesOrder NotesOrder = new AspNetNotesOrder();
-
-            NotesOrder.NotesID = NotesId;
+            int NotesID=   db.AspNetNotes.Where(x => x.EncryptedID == NotesId).FirstOrDefault().Id;
+            NotesOrder.NotesID = NotesID;
             NotesOrder.StudentID = StudentId;
             NotesOrder.CreationDate = DateTime.Now;
             NotesOrder.Quantity = Quantity;
@@ -440,6 +440,9 @@ namespace SEA_Application.Controllers
         {
             if (ModelState.IsValid)
             {
+               // string EncrID = aspNetNote.Id + aspNetNote.SubjectID + aspNetNote.Price.ToString();
+              //  aspNetNote.EncryptedID = Encrpt.Encrypt(EncrID, true);
+
                 db.AspNetNotes.Add(aspNetNote);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -459,22 +459,31 @@ namespace SEA_Application.Controllers
                 db.SaveChanges();
             }
 
+            var CommentHeadEncryptedId = db.AspnetComment_Head.Where(x => x.Id == CommentHeadId).FirstOrDefault().EncryptedID;
 
-                var UserNameLog = User.Identity.Name;
-                AspNetUser currentUser = db.AspNetUsers.First(x => x.UserName == UserNameLog);
+            var UserNameLog = User.Identity.Name;
+            AspNetUser currentUser = db.AspNetUsers.First(x => x.UserName == UserNameLog);
 
-                var UserId = User.Identity.GetUserId();
-                var UserName = db.AspNetUsers.Where(x => x.Id == UserId).FirstOrDefault().Name;
-                var NotificationObj = new AspNetNotification();
-                NotificationObj.Description ="Teacher "+ UserName + " Replied";
-                NotificationObj.Subject = "Reply To Student Comment";
-                NotificationObj.SenderID = UserId;
-                NotificationObj.Time = GetLocalDateTime.GetLocalDateTimeFunction();
-                NotificationObj.Url = "/StudentCourses/CommentsPage1/" + CommentHeadId;
+            var UserId = User.Identity.GetUserId();
+            var UserName = db.AspNetUsers.Where(x => x.Id == UserId).FirstOrDefault().Name;
+            var NotificationObj = new AspNetNotification();
+            NotificationObj.Description = "Teacher " + UserName + " Replied";
+            NotificationObj.Subject = "Reply To Student Comment";
+            NotificationObj.SenderID = UserId;
+            NotificationObj.Time = GetLocalDateTime.GetLocalDateTimeFunction();
+            //  NotificationObj.Url = "/StudentCourses/CommentsPage1/" + CommentHeadId;
+            NotificationObj.Url = "/StudentCourses/CommentsPage1/" + CommentHeadEncryptedId;
+            try
+            {
 
-                db.AspNetNotifications.Add(NotificationObj);
-                db.SaveChanges();
-                
+            db.AspNetNotifications.Add(NotificationObj);
+            db.SaveChanges();
+            }
+
+            catch(Exception ex )
+            {
+                    var a = ex.Message;
+            }
             //int? LessonID = db.AspnetComment_Head.Where(x => x.Id == CommentHeadId).FirstOrDefault().LessonId;
             //int? TopicId = db.AspnetLessons.Where(x => x.Id == LessonID).FirstOrDefault().TopicId;
             //int? SubjectId = db.AspnetSubjectTopics.Where(x => x.Id == TopicId).FirstOrDefault().SubjectId;
@@ -486,21 +495,21 @@ namespace SEA_Application.Controllers
 
             //foreach (var receiver in DistinctStudents)
             //{
-          var receiver =  db.AspnetComment_Head.Where(x => x.Id == CommentHeadId).Select(x => x.CreatedBy).FirstOrDefault();
+            var receiver = db.AspnetComment_Head.Where(x => x.Id == CommentHeadId).Select(x => x.CreatedBy).FirstOrDefault();
 
             SEA_DatabaseEntities db2 = new SEA_DatabaseEntities();
 
 
-                    var notificationRecieve = new AspNetNotification_User();
-                    notificationRecieve.NotificationID = NotificationObj.Id;
-                    notificationRecieve.UserID = Convert.ToString(receiver);
-                    notificationRecieve.Seen = false;
-                    db2.AspNetNotification_User.Add(notificationRecieve);
-                    db2.SaveChanges();
+            var notificationRecieve = new AspNetNotification_User();
+            notificationRecieve.NotificationID = NotificationObj.Id;
+            notificationRecieve.UserID = Convert.ToString(receiver);
+            notificationRecieve.Seen = false;
+            db2.AspNetNotification_User.Add(notificationRecieve);
+            db2.SaveChanges();
 
 
-               // }
-            
+            // }
+
             return Json("", JsonRequestBehavior.AllowGet);
         }
         public ActionResult AllComments(int CommentHeadId)

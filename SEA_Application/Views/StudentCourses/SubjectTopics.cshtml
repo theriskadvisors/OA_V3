@@ -95,11 +95,11 @@
                         if (lesson.LessonExistInTrackingTable == "Yes") {
 
 
-                            $("#TopicList").append('<div   class ="TopicsAndLesson" style="border:1px solid black"><a class="StudentLessons" name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.LessonId + '">' + lesson.LessonName + '</a> <span class="glyphicon glyphicon-ok"></span>  </div>');
+                            $("#TopicList").append('<div   class ="TopicsAndLesson" style="border:1px solid black"><a class="StudentLessons" name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '">' + lesson.LessonName + '</a> <span class="glyphicon glyphicon-ok"></span>  </div>');
                         }
                         else {
 
-                            $("#TopicList").append('<div   class ="TopicsAndLesson" style="border:1px solid black"><a class="StudentLessons" name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.LessonId + '">' + lesson.LessonName + '</a>   </div>');
+                            $("#TopicList").append('<div   class ="TopicsAndLesson" style="border:1px solid black"><a class="StudentLessons" name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '">' + lesson.LessonName + '</a>   </div>');
 
                         }
 

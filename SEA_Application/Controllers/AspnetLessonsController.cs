@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Collections;
 using SEA_Application.Models;
 using Microsoft.AspNet.Identity;
+using System.Text.RegularExpressions;
 
 namespace SEA_Application.Controllers
 {
@@ -43,7 +44,7 @@ namespace SEA_Application.Controllers
 
         public ActionResult LoadSectionIdDDL()
         {
-            var ClassList = db.AspNetClasses.ToList().Select(x => new { x.Id, x.ClassName });
+            var ClassList = db.AspNetSessions.ToList().Select(x => new { x.Id, x.SessionName });
 
             string status = Newtonsoft.Json.JsonConvert.SerializeObject(ClassList);
 
@@ -67,21 +68,46 @@ namespace SEA_Application.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(LessonViewModel LessonViewModel)
         {
-            
+
             AspnetLesson Lesson = new AspnetLesson();
 
             Lesson.Name = LessonViewModel.LessonName;
             Lesson.Video_Url = LessonViewModel.LessonVideoURL;
             Lesson.TopicId = LessonViewModel.TopicId;
             Lesson.DurationMinutes = LessonViewModel.LessonDuration;
-            Lesson.StartTime = LessonViewModel.StartTime;
-            Lesson.EndTime = LessonViewModel.EndTime;
-            Lesson.AddLink = LessonViewModel.AddLink;
+            Lesson.IsActive = LessonViewModel.IsActive;
             Lesson.CreationDate = LessonViewModel.CreationDate;
             Lesson.Description = LessonViewModel.LessonDescription;
             Lesson.CreationDate = DateTime.Now;
+
+            string EncrID = Lesson.Name + Lesson.Description + Lesson.Id;
+
+            Lesson.EncryptedID = Encrpt.Encrypt(EncrID, true);
+
+
+            var newString = Regex.Replace(Lesson.EncryptedID, @"[^0-9a-zA-Z]+", "s");
+
+            // Lesson.EncryptedID.Replace('/', 's').Replace('-','s').Replace('+','s').Replace('%','s').Replace('&','s');
+
+            Lesson.EncryptedID = newString;
             db.AspnetLessons.Add(Lesson);
             db.SaveChanges();
+
+
+            IEnumerable<string> SelectedSessions = Request.Form["Sessions"].Split(',');
+
+            foreach (var SessionId in SelectedSessions)
+            {
+                Lesson_Session lessonSession = new Lesson_Session();
+                lessonSession.LessonId = Lesson.Id;
+                lessonSession.SessionId = Convert.ToInt32(SessionId);
+                lessonSession.StartDate = LessonViewModel.StartDate;
+                lessonSession.DueDate = LessonViewModel.DueDate;
+
+                db.Lesson_Session.Add(lessonSession);
+                db.SaveChanges();
+
+            }
 
 
             HttpPostedFileBase Assignment = Request.Files["Assignment"];
@@ -213,11 +239,20 @@ namespace SEA_Application.Controllers
 
 
 
-            return RedirectToAction("ViewTopicsAndLessons","AspnetSubjectTopics");
+            return RedirectToAction("ViewTopicsAndLessons", "AspnetSubjectTopics");
 
         }
+        public JsonResult SessionByLesson(int id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var subs = (from session in db.Lesson_Session
+                        where session.LessonId == id
+                        select new { session.SessionId, session.LessonId }).ToList();
 
 
+            return Json(subs, JsonRequestBehavior.AllowGet);
+
+        }
 
         // GET: AspnetLessons/Edit/5
         public ActionResult Edit(int? id)
@@ -241,15 +276,35 @@ namespace SEA_Application.Controllers
             lessonViewModel.LessonVideoURL = aspnetLesson.Video_Url;
             lessonViewModel.LessonName = aspnetLesson.Name;
             lessonViewModel.LessonDuration = aspnetLesson.DurationMinutes;
-            lessonViewModel.StartTime = aspnetLesson.StartTime;
-            lessonViewModel.EndTime =  aspnetLesson.EndTime;
-            lessonViewModel.AddLink = aspnetLesson.AddLink;
-            
+
+            Lesson_Session LessonSession = db.Lesson_Session.Where(x => x.LessonId == id).FirstOrDefault();
+
+            lessonViewModel.IsActive = Convert.ToBoolean(aspnetLesson.IsActive);
+
+            var StartDate = Convert.ToDateTime(LessonSession.StartDate);
+
+            var StartDateInString = StartDate.ToString("yyyy-MM-dd");
+
+            ViewBag.LessonStartDate = StartDateInString;
+
+            ////Due Date
+            var DueDate = Convert.ToDateTime(LessonSession.DueDate);
+
+            var DueDateInString = DueDate.ToString("yyyy-MM-dd");
+
+
+            ViewBag.LessonDueDate = DueDateInString;
+
+
             int? TopicId = aspnetLesson.TopicId;
+
             ViewBag.LessonDuration = aspnetLesson.DurationMinutes;
+
             int? SubjectId = db.AspnetSubjectTopics.Where(x => x.Id == TopicId).FirstOrDefault().SubjectId;
             GenericSubject Subject = db.GenericSubjects.Where(x => x.Id == SubjectId).FirstOrDefault();
-                    
+
+
+
             var CourseType = Subject.SubjectType;
 
             lessonViewModel.Id = aspnetLesson.Id;
@@ -341,23 +396,10 @@ namespace SEA_Application.Controllers
             //  ViewBag.SecId = new SelectList(db.AspNetClasses, "Id", "ClassName", ClassId);
             // ViewBag.SubId = new SelectList(db.GenericSubjects.Where(x => x.SubjectType == Subject.SubjectType), "Id", "SubjectName", SubjectId);
 
-
-            var UserId = User.Identity.GetUserId();
-
-
-            var SubjectofCurrentSessionTeacher = from subject in db.GenericSubjects
-                                                 join TeacherSubject in db.Teacher_GenericSubjects on subject.Id equals TeacherSubject.SubjectId
-                                                 join employee in db.AspNetEmployees on TeacherSubject.TeacherId equals employee.Id
-                                                 where employee.UserId == UserId && subject.SubjectType == Subject.SubjectType
-                                                 select new
-                                                 {
-                                                     subject.Id,
-                                                     subject.SubjectName,
-                                                 };
-
-             ViewBag.SubId = new SelectList(SubjectofCurrentSessionTeacher, "Id", "SubjectName", SubjectId);
-
+            ViewBag.SubId = new SelectList(db.GenericSubjects.Where(x => x.SubjectType == Subject.SubjectType), "Id", "SubjectName", SubjectId);
             ViewBag.TopicId = new SelectList(db.AspnetSubjectTopics.Where(x => x.SubjectId == SubjectId), "Id", "Name", aspnetLesson.TopicId);
+            ViewBag.SessionId = new SelectList(db.AspNetSessions, "Id", "SessionName", LessonSession.SessionId);
+
             ViewBag.CTId = Subject.SubjectType;
 
 
@@ -380,7 +422,46 @@ namespace SEA_Application.Controllers
             Lesson.TopicId = LessonViewModel.TopicId;
             Lesson.DurationMinutes = LessonViewModel.LessonDuration;
             Lesson.Description = LessonViewModel.LessonDescription;
+            Lesson.IsActive = LessonViewModel.IsActive;
+
             db.SaveChanges();
+
+            IEnumerable<string> SelectedSessions = Request.Form["Sessions"].Split(',');
+
+            if (SelectedSessions != null)
+            {
+
+                List<Lesson_Session> LessonSessionToDelete = db.Lesson_Session.Where(x => x.LessonId == Lesson.Id).ToList();
+
+                db.Lesson_Session.RemoveRange(LessonSessionToDelete);
+                db.SaveChanges();
+
+
+
+
+                foreach (var SessionId in SelectedSessions)
+                {
+                    Lesson_Session lessonSession = new Lesson_Session();
+                    lessonSession.LessonId = Lesson.Id;
+                    lessonSession.SessionId = Convert.ToInt32(SessionId);
+                    lessonSession.StartDate = LessonViewModel.StartDate;
+                    lessonSession.DueDate = LessonViewModel.DueDate;
+
+                    db.Lesson_Session.Add(lessonSession);
+                    db.SaveChanges();
+
+                }
+
+            }
+
+
+            //Lesson_Session lessonSession =  db.Lesson_Session.Where(x => x.LessonId == Lesson.Id).FirstOrDefault();
+
+            // lessonSession.SessionId = LessonViewModel.SessionId;
+            // lessonSession.StartDate = LessonViewModel.StartDate;
+            // lessonSession.DueDate = LessonViewModel.DueDate;
+
+            // db.SaveChanges();
 
 
             HttpPostedFileBase Assignment = Request.Files["Assignment"];
@@ -397,31 +478,31 @@ namespace SEA_Application.Controllers
             }
             AspnetStudentAssignment studentAssignment = db.AspnetStudentAssignments.Where(x => x.LessonId == Lesson.Id).FirstOrDefault();
 
-            if(studentAssignment !=null)
+            if (studentAssignment != null)
             {
 
-            if (fileName != "")
-            {
+                if (fileName != "")
+                {
 
-                studentAssignment.FileName = fileName;
+                    studentAssignment.FileName = fileName;
 
-            }
+                }
 
-            studentAssignment.Name = LessonViewModel.AssignmentName;
-            string DueDate = Convert.ToString(LessonViewModel.AssignmentDueDate);
+                studentAssignment.Name = LessonViewModel.AssignmentName;
+                string DueDate = Convert.ToString(LessonViewModel.AssignmentDueDate);
 
-            if (DueDate == "1/1/0001 12:00:00 AM")
-            {
-                studentAssignment.DueDate = null;
-            }
-            else
-            {
-                studentAssignment.DueDate = LessonViewModel.AssignmentDueDate;
+                if (DueDate == "1/1/0001 12:00:00 AM")
+                {
+                    studentAssignment.DueDate = null;
+                }
+                else
+                {
+                    studentAssignment.DueDate = LessonViewModel.AssignmentDueDate;
 
-            }
+                }
 
-            studentAssignment.Description = LessonViewModel.AssignmentDescription;
-            db.SaveChanges();
+                studentAssignment.Description = LessonViewModel.AssignmentDescription;
+                db.SaveChanges();
             }
             else
             {
@@ -476,13 +557,13 @@ namespace SEA_Application.Controllers
             db.AspnetStudentLinks.RemoveRange(studentLinks);
             db.SaveChanges();
 
-         SEA_DatabaseEntities db1 = new SEA_DatabaseEntities();
+            SEA_DatabaseEntities db1 = new SEA_DatabaseEntities();
 
-        List<AspnetStudentAttachment> studentAttachments1 = db1.AspnetStudentAttachments.Where(x => x.LessonId == Lesson.Id).ToList();
+            List<AspnetStudentAttachment> studentAttachments1 = db1.AspnetStudentAttachments.Where(x => x.LessonId == Lesson.Id).ToList();
 
-            int TotalAttachments =  studentAttachments1.Count;
+            int TotalAttachments = studentAttachments1.Count;
 
-            if(TotalAttachments == 0)
+            if (TotalAttachments == 0)
             {
                 if (Attachment1.ContentLength > 0)
                 {
@@ -551,7 +632,7 @@ namespace SEA_Application.Controllers
                         var fileName1 = Path.GetFileName(Attachment1.FileName);
                         FileName = fileName1;
                         Attachment1.SaveAs(Server.MapPath("~/Content/StudentAttachments/") + fileName1);
-                        
+
                     }
                     FirstElement.Path = FileName;
                     db1.SaveChanges();
@@ -594,38 +675,38 @@ namespace SEA_Application.Controllers
                 }
 
                 else if (TotalAttachments == 2)
-                  {
+                {
 
-                        var FirstElement = studentAttachments1.ElementAt(0);
-                        FirstElement.Name = LessonViewModel.AttachmentName1;
+                    var FirstElement = studentAttachments1.ElementAt(0);
+                    FirstElement.Name = LessonViewModel.AttachmentName1;
 
-                        var FileName0 = FirstElement.Path;
+                    var FileName0 = FirstElement.Path;
 
-                        if (Attachment1.ContentLength > 0)
-                        {
-                            var fileName1 = Path.GetFileName(Attachment1.FileName);
-                            FileName0 = fileName1;
-                            Attachment1.SaveAs(Server.MapPath("~/Content/StudentAttachments/") + fileName1);
+                    if (Attachment1.ContentLength > 0)
+                    {
+                        var fileName1 = Path.GetFileName(Attachment1.FileName);
+                        FileName0 = fileName1;
+                        Attachment1.SaveAs(Server.MapPath("~/Content/StudentAttachments/") + fileName1);
 
-                        }
-                        FirstElement.Path = FileName0;
-                        db1.SaveChanges();
+                    }
+                    FirstElement.Path = FileName0;
+                    db1.SaveChanges();
 
 
                     var SecondElement = studentAttachments1.ElementAt(1);
-                        SecondElement.Name = LessonViewModel.AttachmentName2;
+                    SecondElement.Name = LessonViewModel.AttachmentName2;
 
-                        var FileName1 = SecondElement.Path;
+                    var FileName1 = SecondElement.Path;
 
-                        if (Attachment2.ContentLength > 0)
-                        {
-                            var fileName2 = Path.GetFileName(Attachment2.FileName);
-                            FileName1 = fileName2;
-                            Attachment2.SaveAs(Server.MapPath("~/Content/StudentAttachments/") + fileName2);
+                    if (Attachment2.ContentLength > 0)
+                    {
+                        var fileName2 = Path.GetFileName(Attachment2.FileName);
+                        FileName1 = fileName2;
+                        Attachment2.SaveAs(Server.MapPath("~/Content/StudentAttachments/") + fileName2);
 
-                        }
-                        SecondElement.Path = FileName1;
-                        db1.SaveChanges();
+                    }
+                    SecondElement.Path = FileName1;
+                    db1.SaveChanges();
 
 
 
@@ -704,7 +785,7 @@ namespace SEA_Application.Controllers
 
             }
 
-          
+
 
             if (LessonViewModel.LinkUrl1 != null)
             {
@@ -741,7 +822,7 @@ namespace SEA_Application.Controllers
             }
 
 
-            return RedirectToAction("ViewTopicsAndLessons","AspnetSubjectTopics");
+            return RedirectToAction("ViewTopicsAndLessons", "AspnetSubjectTopics");
         }
 
         // GET: AspnetLessons/Delete/5

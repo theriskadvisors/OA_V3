@@ -7,7 +7,7 @@
 
 <style>
 
-    /*input[type=search] {
+    input[type=search] {
         border: 1px solid rgb(221, 221, 221);
         border-radius: 40px;
         height: 30px;
@@ -15,7 +15,7 @@
         padding-left: 10px;
         color: rgb(221, 221, 221);
         margin-top: 0px;
-    }*/
+    }
 </style>
 
 <!-- Modal -->
@@ -47,327 +47,231 @@
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#tab_1" id="tab1" data-toggle="tab">Notes</a></li>
-        <li><a href="#tab_2" id="tab2" data-toggle="tab">Cart</a></li>
+        <li><a href="#tab_2"  id="tab2"  data-toggle="tab">Cart</a></li>
         <li><a href="#tab_3" id="tab3" data-toggle="tab">Recent Order</a></li>
     </ul>
 </div>
 
-
-
-<div class="card">
-    <div class="card-body p-4">
-
-        <div class="tab-content" style="
+<div class="tab-content" style="    background-color: #f7f6f6;
         padding: 10px 0px 0px 0px; ">
 
-            <p>
-            </p>
-            <div class="tab-pane active" id="tab_1">
-                <div class="box box-primary">
-                    <div class="box-title"></div>
-                    <div class="box-body">
-                        <table class="table hover table-bordered table-striped"  id="datatable1">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Id)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Title)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Description)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.CourseType)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.NotesType)
-                                    </th>
-                                    <th>
-                                        Price
-                                    </th>
+    <p>
+    </p>
+    <div class="tab-pane active" id="tab_1">
+        <div class="box box-primary">
+            <div class="box-title"></div>
+            <div class="box-body">
+                <table class="table" id="example">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Title)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Description)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CourseType)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NotesType)
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                           
+                            <th>
+                                @Html.DisplayNameFor(model => model.AspNetSubject.SubjectName)
+                            </th>
+                            <th></th>
 
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.AspNetSubject.SubjectName)
-                                    </th>
-                                    <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                                </tr>
-                            </thead>
-                            <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CourseType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NotesType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GrandTotal)
+                            </td>
 
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Id)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Title)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Description)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.CourseType)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.NotesType)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.GrandTotal)
-                                        </td>
-
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.AspNetSubject.SubjectName)
-                                        </td>
-                                        <td>
-
-
-                                            <a href="/AspNetOrderNotes/Details/@item.Id">  <button type="button" class="btn btn-success" id="@item.Id">Add to Cart</button> </a>
-
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
-            </div>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AspNetSubject.SubjectName)
+                            </td>
+                            <td>
 
 
-            <div class="tab-pane" id="tab_2">
-                <div class="box box-primary">
-                    <div class="box-title"></div>
-                    <div class="box-body">
-                        <table class="table hover table-bordered table-striped"  id="datatable2">
-                            <thead>
-                                <tr>
+                                <a href="/AspNetOrderNotes/Details/@item.EncryptedID">  <button type="button" class="btn btn-success" id="@item.Id">Add to Cart</button> </a>
 
-                                    <th>
-                                        Title
-                                    </th>
-                                    <th>
-                                        Description
-                                    </th>
-                                    <th>
-                                        Course Type
-                                    </th>
-                                    <th>
-                                        Price
-                                    </th>
-                                    <th>
-                                        Quantity
-                                    </th>
-                                    <th>
-                                        Total
-                                    </th>
-                                    <th>
-                                        Status
-                                    </th>
-                                    <th>
-                                        <input style="display:none" type="checkbox" id="checkBoxToAllChek" name="name" value="" />
-                                        Select
-                                    </th>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
 
-                                </tr>
-                            </thead>
-
-
-
-                            <tbody id="CartOrders">
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
-                <label style="font-size:15px;color:black">Total  <span id="TotalAmount"> 0.00</span> </label>
-
-                <br />
-                <button id="ConfirmOrder" disabled class="btn btn-success">Confirm Order</button>
-                <button id="DeleteOrders" disabled class="btn btn-danger">Delete</button>
-            </div>
-
-
-            <div class="tab-pane" id="tab_3">
-                <div class="box box-primary">
-                    <div class="box-title"></div>
-                    <div class="box-body">
-
-                        <table class="table hover table-bordered table-striped"  id="datatable3">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Order Id
-                                    </th>
-                                    <th>
-                                        Title
-                                    </th>
-                                    <th>
-                                        Description
-                                    </th>
-                                    <th>
-                                        Course Type
-                                    </th>
-                                    <th>
-                                        Price
-                                    </th>
-                                    <th>
-                                        Quantity
-                                    </th>
-                                    <th>
-                                        Status
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-                            <tbody id="RecentOrderTableBody">
-                            </tbody>
-
-
-
-                        </table>
-
-                    </div>
-                </div>
+                </table>
             </div>
         </div>
+    </div>
 
+
+    <div class="tab-pane" id="tab_2">
+        <div class="box box-primary">
+            <div class="box-title"></div>
+            <div class="box-body">
+                <table class="table" id="datatable">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Course Type
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                Quantity
+                            </th>
+                            <th>
+                                Total
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                <input style="display:none" type="checkbox" id="checkBoxToAllChek" name="name" value="" />
+                                Select
+                            </th>
+
+                        </tr>
+                    </thead>
+
+
+
+                    <tbody id="CartOrders">
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <label style="font-size:15px;color:black">Total  <span id="TotalAmount"> 0.00</span> </label>
+
+        <br />
+        <button id="ConfirmOrder" disabled class="btn btn-success">Confirm Order</button>
+        <button id="DeleteOrders" disabled class="btn btn-danger">Delete</button>
+    </div>
+
+
+    <div class="tab-pane" id="tab_3">
+        <div class="box box-primary">
+            <div class="box-title"></div>
+            <div class="box-body">
+
+                <table class="table" id="datatable1">
+                    <thead>
+                        <tr>
+                            <th>
+                                Order Id
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Course Type
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                Quantity
+                            </th>
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+                    <tbody id="RecentOrderTableBody">
+                    </tbody>
+
+
+
+                </table>
+
+            </div>
+        </div>
     </div>
 </div>
-
 
 @*<button id="confirmOrder" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Confirm Order</button>*@
 <script>
     $(document).ready(function () {
 
-           var table;
+      
 
-        //$('#example').dataTable({
-        //});
+        $('#example').dataTable({
+        });
 
-     
-        //table = $('#datatable').dataTable();
+        var table;
+        table = $('#datatable').dataTable();
 
-        //var table1;
-        //table1 = $('#datatable1').dataTable();
+        var table1;
+        table1 = $('#datatable1').dataTable();
 
-        $('#datatable1').dataTable({
-                    buttons: [
-                        {
-                            text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
-                        },
-                        {
-                            text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
-                            action: function (e, dt, button, config) {
-                                window.location.href = '';
-                            }
-                        },
-                        {
-                            text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
-                        }
-                    ],
-                    "language": {
-                        "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
-                            "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
-                            "  </div>\n" +
-                            "  </div>",
-                        "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
-                        "paginate": {
-                            "first": "Firstt",
-                            "last": "Lastt",
-                            "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
-                            "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
-                        }
-                    },
-                    "searching": true,
-                    // dom: '<"class">Blfrtip',
-                    dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
-                        "<'row'<'col-sm-12 datatablesData'tr>>" +
-                        "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
-                });
-        
-            var table1 = $('#datatable2').dataTable({
-                    buttons: [
-                        {
-                            text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
-                        },
-                        {
-                            text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
-                            action: function (e, dt, button, config) {
-                                window.location.href = '';
-                            }
-                        },
-                        {
-                            text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
-                        }
-                    ],
-                    "language": {
-                        "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
-                            "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
-                            "  </div>\n" +
-                            "  </div>",
-                        "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
-                        "paginate": {
-                            "first": "Firstt",
-                            "last": "Lastt",
-                            "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
-                            "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
-                        }
-                    },
-                    "searching": true,
-                    // dom: '<"class">Blfrtip',
-                    dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
-                        "<'row'<'col-sm-12 datatablesData'tr>>" +
-                        "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
+        $.ajax({
+
+            type: "POST",
+            url: "/AspNetOrderNotes/RecentOrders",
+            data: {},
+            success: function (data) {
+
+                table1.fnClearTable();
+                $.each(data, function (index) {
+
+                    //    var TableRow = "<tr><td>" + data[index].Title + "</td> <td>" + data[index].Discription + "</td>  <td>" + data[index].CourseType + "</td> <td>" + data[index].Price + "</td>  <td>" + data[index].Quantity + "</td><td>" + data[index].Status + "</td> <td id='btnid'><button data-toggle='modal' data-target='#myModal' style='display:none'  class='CancelOrderBtn btn btn-danger' id='" + data[index].Id + "' >Cancel Order</button></td>    </tr> "
+
+                    //                    table1.fnAddData(["<input class='checkboxes' id=" + data[index].Id + " type='checkbox' value=" + data[index].Total + "  >", data[index].Title, data[index].Discription, data[index].CourseType, data[index].Price, data[index].Quantity, data[index].Total, data[index].Status]);
+                    table1.fnAddData([data[index].OrderId,data[index].Title, data[index].Discription, data[index].CourseType, data[index].Price, data[index].Quantity, data[index].Status]);
+
+                    //$('#RecentOrderTableBody').append(TableRow);
                 });
 
 
-                
-            var table2 = $('#datatable3').dataTable({
-                    buttons: [
-                        {
-                            text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
-                        },
-                        {
-                            text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
-                            action: function (e, dt, button, config) {
-                                window.location.href = '';
-                            }
-                        },
-                        {
-                            text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
-                        }
-                    ],
-                    "language": {
-                        "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
-                            "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
-                            "  </div>\n" +
-                            "  </div>",
-                        "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
-                        "paginate": {
-                            "first": "Firstt",
-                            "last": "Lastt",
-                            "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
-                            "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
-                        }
-                    },
-                    "searching": true,
-                    // dom: '<"class">Blfrtip',
-                    dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
-                        "<'row'<'col-sm-12 datatablesData'tr>>" +
-                        "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
-                });
+                table1.fnDraw();
+                $('.eeniart0017').css("display", "none");
 
-        
-             $("#PageHeader").html("Notes Order");
+            }
 
-                $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
-                $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Order Notes</a></li>');
 
+        })
 
 
         $.ajax({
@@ -378,13 +282,13 @@
             success: function (data) {
 
 
-                table1.fnClearTable();
+                table.fnClearTable();
                 $.each(data, function (index) {
 
                     if (data[index].Status == "Draft") {
 
                         // var TableRow = "<tr>  <td> <input class='checkboxes' id=" + data[index].Id + "  type='checkbox' value=" + data[index].Total + "> </td>  <td>" + data[index].Title + "</td> <td>" + data[index].Discription + "</td>  <td>" + data[index].CourseType + "</td> <td>" + data[index].Price + "</td>  <td>" + data[index].Quantity + "</td> <td class='TotalPrice'>" + data[index].Total + "</td>  <td>" + data[index].Status + "</td>    </tr> "
-                        table1.fnAddData([data[index].Title, data[index].Discription, data[index].CourseType, data[index].Price, data[index].Quantity, data[index].Total, data[index].Status, "<input class='checkboxes' id=" + data[index].Id + " type='checkbox' value=" + data[index].Total + "  >"]);
+                        table.fnAddData([data[index].Title, data[index].Discription, data[index].CourseType, data[index].Price, data[index].Quantity, data[index].Total, data[index].Status, "<input class='checkboxes' id=" + data[index].Id + " type='checkbox' value=" + data[index].Total + "  >"]);
 
 
                     }
@@ -393,39 +297,11 @@
                     //alert(data[index].Discription);
                     // $('#CartOrders').append(TableRow);
                 });
-                table1.fnDraw();
+                table.fnDraw();
                 $('.eeniart0017').css("display", "none");
             }
         })//end of ajax card orders
 
-        
-        $.ajax({
-
-            type: "POST",
-            url: "/AspNetOrderNotes/RecentOrders",
-            data: {},
-            success: function (data) {
-
-                table2.fnClearTable();
-                $.each(data, function (index) {
-
-                    debugger
-                    //    var TableRow = "<tr><td>" + data[index].Title + "</td> <td>" + data[index].Discription + "</td>  <td>" + data[index].CourseType + "</td> <td>" + data[index].Price + "</td>  <td>" + data[index].Quantity + "</td><td>" + data[index].Status + "</td> <td id='btnid'><button data-toggle='modal' data-target='#myModal' style='display:none'  class='CancelOrderBtn btn btn-danger' id='" + data[index].Id + "' >Cancel Order</button></td>    </tr> "
-
-                    //                    table1.fnAddData(["<input class='checkboxes' id=" + data[index].Id + " type='checkbox' value=" + data[index].Total + "  >", data[index].Title, data[index].Discription, data[index].CourseType, data[index].Price, data[index].Quantity, data[index].Total, data[index].Status]);
-                    table2.fnAddData([data[index].OrderId, data[index].Title, data[index].Discription, data[index].CourseType, data[index].Price, data[index].Quantity, data[index].Status]);
-
-                    //$('#RecentOrderTableBody').append(TableRow);
-                });
-
-
-                table2.fnDraw();
-                $('.eeniart0017').css("display", "none");
-
-            }
-
-
-        })
 
         var Total = 0;
         var arr = [];
@@ -486,12 +362,12 @@
 
 
                 success: function (data) {
-
-                    //$("#tab2").trigger('click');
+                  
+                      //$("#tab2").trigger('click');
                     window.location.href = '/AspNetOrderNotes/Index/';
 
 
-
+                    
                     // $('#example').dataTable().clear();
 
                     //   $('#example').data.reload();

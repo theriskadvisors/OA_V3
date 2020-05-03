@@ -666,7 +666,7 @@
             data: { "LessonID": LessonId },
             success: function (data) {
 
-                debugger
+                debugger;
 
 
 
@@ -681,10 +681,10 @@
                         value.getDate() +
                         "/" +
                         value.getFullYear();
-
+                    var ff= data[index].EncryptedID;
                     var id = parseInt(data[index].CommentHeadId);
 
-                    $("#AllCommentsHead").append('<a href = "/StudentCourses/CommentsPage1/' + data[index].CommentHeadId + '"><div id="QADiv"  name ="' + data[index].CommentHeadId + '"   class ="CommentDivs" ><p id="TitleParagraph" class="titleParagraphs" style="padding:10px;" ><b>' + data[index].Title + '</b> </p> <div style="padding:10px;"> <p>' + data[index].Body + '</p> <p><b>' + dat + ' &nbsp;&nbsp;&nbsp; ' + data[index].UserName + '</b></p><p><b></p> </b></div> </div></a>');
+                    $("#AllCommentsHead").append('<a href = "/StudentCourses/CommentsPage1/' + data[index].EncryptedID + '"><div id="QADiv"  name ="' + data[index].CommentHeadId + '"   class ="CommentDivs" ><p id="TitleParagraph" class="titleParagraphs" style="padding:10px;" ><b>' + data[index].Title + '</b> </p> <div style="padding:10px;"> <p>' + data[index].Body + '</p> <p><b>' + dat + ' &nbsp;&nbsp;&nbsp; ' + data[index].UserName + '</b></p><p><b></p> </b></div> </div></a>');
 
                 });
 
