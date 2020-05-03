@@ -8,6 +8,11 @@
 
 <script>
     $(document).ready(function () {
+
+        $("#UploadImg").change(function () {
+            readURL(this);
+        });
+
         $('#GrossSalary').blur(function () {
             Basic_Salary();
             Medical_Allowance();
@@ -48,6 +53,7 @@
                     console.log(data);
                     if (data.count == 0) {
                         $('#FormSubmit').removeAttr('disabled');
+                        $('#UserName-Error').html("");
                     }
                     else {
                         $('#UserName-Error').html("UserName Already taken by "+ data.by);
@@ -69,9 +75,24 @@
                 $('#FormSubmit').prop('disabled', true);
             } else {
                 $('#FormSubmit').prop('disabled', false);
+                $('#Password-Error').html("");
             }
-
         });
+
+        $("#ConfirmPassword").bind('blur', function () {
+            var password = $("#Password").val();
+            var ConfirmPassword = $("#ConfirmPassword").val();
+            var check = password.localeCompare(ConfirmPassword);
+
+            if (check) {
+                $("#ConfirmPassword-Error").html("Password Dosen't match");
+                $('#FormSubmit').prop('disabled', true);
+            } else {
+                $("#ConfirmPassword-Error").html("");
+                $('#FormSubmit').prop('disabled', false);
+            }
+        });
+
 
         $("#Email").bind('blur', function () {
             var email = $("#Email").val();
@@ -84,6 +105,7 @@
                     console.log(data);
                     if (data == 0) {
                         $('#FormSubmit').prop('disabled', false);
+                        $('#Email-Error').html("");
                     }
                     else {
                         $('#Email-Error').html("Email Already taken");
@@ -274,23 +296,37 @@
      function onSave() {
          $('#FormSubmit').click();
      }
+
+     function readURL(input) {
+         $("#UploadPhotoDiv").hide();
+         $("#imgPreview").height("150");
+         $("#imgPreview").width("150");
+
+         if (input.files && input.files[0]) {
+             var reader = new FileReader();
+             reader.onload = function (e) {
+                 $('#imgPreview').attr('src', e.target.result);
+             }
+             reader.readAsDataURL(input.files[0]);
+         }
+     }
 </script>
 
-<div class="row" style="padding-bottom: 10px; padding-top: 10px; padding-left: 20px; padding-right: 20px;">
+@*<div class="row" style="padding-bottom: 10px; padding-top: 10px; padding-left: 20px; padding-right: 20px;">
     <button class="btn btn-default pull-left btn-sm" onclick="onCancel()">
         Cancel
     </button>
     <button class="pull-right" style="background-color: transparent; border: none; outline: none; font-size: 20px; color: rgb(89, 89, 89) !important" onclick="onSave()">
         <i class="fa fa-floppy-o"></i>
     </button>
-</div>
+</div>*@
 @*<h2 class="orange">Add Teacher &nbsp; <i class="fa fa-file" aria-hidden="true"></i></h2>*@
 
 <div class="nav-tabs-custom">
-    <ul class="nav nav-tabs">
+    @*<ul class="nav nav-tabs">
         <li class="active"><a href="#tab_1" data-toggle="tab">Add Teacher</a></li>
         <li><a href="#tab_2" data-toggle="tab">Upload Excel File</a></li>
-    </ul>
+    </ul>*@
 
     <div class="row">
         <div class="col-md-12">
@@ -299,106 +335,98 @@
 
                     <div class="tab-content" style="">
 
-                        <div class="tab-pane active" id="tab_1">
+                        <div class="tab-pane active" id="tab_1"> 
 
-                            @using (Html.BeginForm("TeacherRegister", "Admin_Dashboard", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            @using (Html.BeginForm("TeacherRegister", "Admin_Dashboard", FormMethod.Post, new { enctype = "multipart/form-data", @class = "forms form-horizontal", role = "form" }))
                             {
                                 @Html.AntiForgeryToken()
-                            <div class="col-md-8 pl-5 pr-5" >
-                                <h2 class="column-heading mb-4">User Information</h2>
 
-                                <div class="form-group bmd-form-group is-filled" >
-                                    <label class="bmd-label-floating">Name <span class="red-mark">*</span></label>
-                                    @*<input type="text" class="form-control" value="Abdul Malik">*@
-                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control round-border" })
-                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 pl-3 pr-5">
+                                        <div style="height: 120px;" class="upload-photo border rounded d-flex align-items-center justify-content-center flex-column mb-4">
+                                            <a href="#">
+                                                <img id="imgPreview" src="../assets/assets/icons/Upload.png" onclick="$('#UploadImg').click();" />
+                                            </a>
+                                            <input style="display:none;" id="UploadImg" type="file" name="image" />
+                                            <div id="UploadPhotoDiv" class="mt-3">Upload Photo</div>
+                                        </div>
+                                    </div> 
 
-                                <div class="form-group bmd-form-group my-3">
-                                    <label class="bmd-label-floating">User Name *</label>
+                                    <div class="col-md-5 pl-5 pr-5 border-right border-color-sea">
+                                        <h2 class="column-heading mb-4">User Information</h2>
 
-                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control round-border" })
-                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger", @id = "UserName-Error" })
+                                        <div class="form-group bmd-form-group is-filled">
+                                            <label class="bmd-label-floating">Name <span class="red-mark">*</span></label>
+                                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control round-border" })
+                                        </div>
+
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="bmd-label-floating">User Name *</label>
+                                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control round-border" })
+                                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger", @id = "UserName-Error" })
+                                        </div>
+
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="bmd-label-floating">Password *</label>
+                                            @Html.PasswordFor(m => m.Password, new { @class = "form-control round-border" })
+                                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", @id = "Password-Error" })
+                                        </div>
+
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="bmd-label-floating">Confirm Password *</label>
+                                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control round-border" })
+                                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger", @id = "ConfirmPassword-Error" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5 pl-5 pr-5 ">
+                                        @*<h2 class="column-heading mb-4">Personal Information</h2>
+
+                                        <div class="form-row mt-4">
+                                            <div class="form-group col-md-12 bmd-form-group">
+                                                <label for="" class="bmd-label-static pl-2">Section *</label>
+                                                @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control text_box_style", name = "ClassID", @required = true })
+                                            </div>
+                                        </div>*@
+
+                                        <h2 class="column-heading mb-4">Contact Details</h2>
+
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="bmd-label-floating">Mailing Address </label>
+                                            <input type="text" class="form-control round-border" id="inputEmail3" name="mailingAddress">
+                                        </div>
+
+                                        <div class="form-group bmd-form-group is-filled">
+                                            <label class="bmd-label-floating">Email <span class="red-mark">*</span></label>
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control round-border" })
+                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", @id = "Email-Error" })
+                                        </div>
+
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="bmd-label-floating">Cell No <span class="red-mark">*</span> </label>
+                                            <input type="text" class="form-control round-border" id="inputEmail3" name="cellNo" onblur="checkPhone(this)" required>
+                                            <span class="text-danger" id="Phone-Error"></span>
+                                        </div>
 
 
-                                </div>
-                                <div class="form-group bmd-form-group my-3">
-                                    <label class="bmd-label-floating">Password *</label>
-
-                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control round-border" })
-                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", @id = "Password-Error" })
-
-
-                                </div>
-
-                                <div class="form-group bmd-form-group my-3">
-                                    <label class="bmd-label-floating">Confirm Password *</label>
-
-                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control round-border" })
-                                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-
-
-                                </div>
-
-                                <div class="form-row mt-4">
-                                    <div class="form-group col-md-12 bmd-form-group">
-                                        <label for="" class="bmd-label-static pl-2">Section *</label>
-                                        @*<select class="form-control" style="color: #b9cbe1;">
-                                    <option selected="">Select</option>
-                                    <option>Male</option>
-                                    <option>Female</option>
-                                </select>*@
-
-                               @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control text_box_style", name = "ClassID", @required = true })
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="bmd-label-floating">Land Line No </label>
+                                            <input type="text" class="form-control round-border" id="inputEmail3" name="landLine">
+                                        </div>
                                     </div>
                                 </div>
-                                <br />
 
-                                <h2 class="column-heading mb-4">Contact Details</h2>
+                                <hr class="mt-5 mb-4">
 
-                                <div class="form-group bmd-form-group my-3">
-                                    <label class="bmd-label-floating">Mailing Address </label>
-
-                                    <input type="text" class="form-control round-border" id="inputEmail3" name="mailingAddress">
-
-                                </div>
-
-
-                                <div class="form-group bmd-form-group is-filled">
-                                    <label class="bmd-label-floating">Email <span class="red-mark">*</span></label>
-                                    @*<input type="text" class="form-control" value="Abdul Malik">*@
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control round-border" })
-                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", @id = "Email-Error" })
-                                </div>
-
-                                <div class="form-group bmd-form-group my-3">
-
-                                    <label class="bmd-label-floating">Cell No <span class="red-mark">*</span> </label>
-
-                                    <input type="text" class="form-control round-border" placeholder="03***********" id="inputEmail3" name="cellNo" onblur="checkPhone(this)" required>
-                                    <span class="text-danger" id="Phone-Error"></span>  
-                                </div>
-
-
-                                <div class="form-group bmd-form-group my-3">
-
-                                    <label class="bmd-label-floating">Land Line No </label>
-
-                                    <input type="text" class="form-control round-border" id="inputEmail3" name="landLine">
-
-                                </div>
-
-
-                                <button type="submit" id="FormSubmit" class="btn btn-primary pull-right rounded rounded-lg"> Save </button>
-                                <button type="button" id="cancel" onclick="redirect()" class="btn btn-primary pull-right rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
-                                    <i class="material-icons mr-2">cached</i>  Cancel   
+                                <button type="submit" id="FormSubmit" class="btn btn-primary pull-right rounded rounded-lg"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Save &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </button>
+                                <button type="button" class="btn btn-primary pull-right rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
+                                    <i class="material-icons mr-2">cached</i>  Reset &nbsp; &nbsp;
                                 </button>
-
-                            </div>
-
+                                <div class="clearfix"></div>
                             }
                             </div><!--end of tab 1-->
 
-                        <div class="tab-pane" id="tab_2">
+                        <div class="tab-pane" style="visibility:hidden" id="tab_2">
 
                             <div class="box box-primary">
 

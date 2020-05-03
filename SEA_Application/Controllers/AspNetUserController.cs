@@ -440,6 +440,7 @@ namespace SEA_Application.Controllers
             //     ViewBag.date = Convert.ToDateTime(TeacherDetail.DateAvailable);
             //   string[] date = TeacherDetail.DateAvailable.Split(' ');
             // string[] join = TeacherDetail.JoiningDate.Split(' ');
+
             ViewBag.ClassID = new SelectList(db.AspNetClasses, "Id", "ClassName");
 
             ViewBag.TeacherDetail = TeacherDetail;

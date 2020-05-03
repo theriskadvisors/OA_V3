@@ -4,145 +4,34 @@
 }
 <link rel="stylesheet" type="text/css" href="css/jquery.datepick.css">
 <script type="text/javascript" src="js/jquery.plugin.js"></script>
-@*<script type="text/javascript" src="js/jquery.datepick.js"></script>*@
 <script src="~/AdminLTE/selectone.js"></script>
 <script src="~/Content/JqueryMultiselect/jquery.multiselect.js"></script>
 <link href="~/Content/JqueryMultiselect/jquery.multiselect.css" rel="stylesheet" />
 
-<style>
-
-
-    .page-sidebar .page-sidebar-menu, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu {
-        list-style: none;
-        margin: 0; 
-        padding: 0;
-        height: 4200px !important;
-    }
-
-
-    /*#SubjectsList {
-        border: 1px solid ;
-        height: 90px;
-        padding: 10px;
-        overflow: auto;
-        margin: auto;
-    }*/
-
-    .SubjectsBoxesCSS {
-    }
-
-    .SubjectsBoxesPMS {
-    }
-
-    .RadioButtonPadding {
-        padding-left: 20px;
-    }
-
-    .text_box_style {
-        padding: .5em;
-        padding-right: 1.5em;
-        margin-bottom: 0;
-        border-radius: 0;
-        height: 40px;
-        font-size: 14px;
-    }
-
-    label {
-        color: black !important;
-        text-align: right !important;
-        font-family: OpenSans,Arial,sans-serif;
-        font-weight: bold;
-    }
-
-    input[type=text], input[type=password], input[type=email], input[type=number], inut[type=date], input[type=hidden] {
-        border-radius: 0px !important;
-    }
-
-    select {
-        border-radius: 0px !important;
-    }
-
-    .table {
-        width: 70%;
-        max-width: 70%;
-        margin-bottom: 20px;
-    }
-
-        .table .SubjectHeader {
-            text-align: left;
-        }
-
-    table {
-        border: 1px solid rgb(221, 221, 221);
-    }
-
-    input[type=checkbox] {
-        width: 25px;
-        height: 25px;
-    }
-
-    table input[type=radio] {
-        width: 20px;
-        height: 20px;
-    }
-
-    table th, td {
-        width: 200px;
-    }
-
-    .font_style {
-        color: black;
-    }
-
-    .RadioButtonsInline {
-        display: inline-block;
-        padding-right: 20px;
-    }
-
-    input[type=radio]:hover {
-        cursor: pointer;
-    }
-
-    .box {
-        margin-bottom: 0;
-    }
-
-    b {
-        font-family: OpenSans,Arial,sans-serif;
-    }
-
-    #StudentPhoto {
-        cursor: pointer;
-        padding: 8px;
-        background: #337ab7;
-        border-color: #2e6da4;
-        color: white !important;
-    }
-
-        #StudentPhoto:hover {
-            background: #204d74;
-            border-color: #122b40;
-        }
-</style>
-
-@*<label>@Html.ActionLink("Home", "Dashboard", "Account") > @Html.ActionLink("Student", "StudentsIndex", "AspNetUser") > <span class="text-primary">Create</span></label>*@
 
 <script>
     $(document).ready(function () {
-        $('#cancel').click(function () {
+        
+        $("#PageHeader").html("Add Student");
+
+        $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li> <a href="/AspNetUser/StudentsIndex"> Student </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Create</a></li>');
+
+        document.getElementById('DueDate').valueAsDate = new Date();
+
+        $('#cancel').click(function () {StudentsIndex
             window.location.href = '@Url.Action("StudentsIndex", "AspNetUser")';
         });
-
-     
-
+		
         $("#ClassID").change(function () {
-
-          $("#DiscountInAmount").val(0);
+          
+            $("#DiscountInAmount").val(0);
 
             $("#TotalFee").val("");
             $("#Discount").val(0);
             $("#DiscountPercentage").val(0);
-          //  $("#RemainingAmount").val("");
+            //  $("#RemainingAmount").val("");
 
 
             $("#Discount").val(0);
@@ -150,119 +39,32 @@
             $("#Fee").val(0);
 
 
-          //  $('#CalculateFee').click();
+            //  $('#CalculateFee').click();
             $("#MandatorySubjects").removeAttr('checked');
 
             var ClassId = $(this).val();
 
             if (ClassId != "") {
 
-            $.ajax({
-                type: "POST",
-                url: "/Admin_Dashboard/GetSessionFee",
-                data: { "SelectedClassId": ClassId },
-                success: function (data) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin_Dashboard/GetSessionFee",
+                    data: { "SelectedClassId": ClassId },
+                    success: function (data) {
 
 
                         $("#SessionFee").val(data);
 
                     }
 
-            })
+                })
             }
 
         })
+
         var MandatorySub;
         var AllSub;
-    //  $('#MandatorySubjects').change(function() {
-    //      if (this.checked) {
-
-    //          var ClassId = $("#ClassID").val();
-
-    //          if (ClassId != "") {
-
-    //              $.ajax({
-
-    //                 type: "POST",
-    //                 url: "/Admin_Dashboard/GetMandatorySubjects",
-    //                 data: { "ClassId":ClassId},
-    //                  success: function (data) {
-
-    //                      var MandatorySubjects = data.MandatorySubjects;
-    //                      var AllSubjects = data.AllSubjects;
-    //                      MandatorySub = data.MandatorySubjects;
-    //                        AllSub=data.AllSubjects;
-
-    //                      $.each( MandatorySubjects, function( key, value1 ) {
-
-    //                          $.each( AllSubjects, function( key, value2 ) {
-
-
-    //                              if (value1 == value2) {
-
-
-    //                                     $("#" + value1).prop("checked", true);
-    //                              }
-
-
-
-    //                          });
-
-
-    //                      });
-
-
-    //                  }
-    //              })
-
-
-    //          }
-
-
-
-
-
-    //      }
-    //      else {
-
-
-    //            $.each( MandatorySub, function( key, value1 ) {
-
-    //                $.each(AllSub, function (key, value2) {
-
-
-    //                              if (value1 == value2) {
-
-
-    //                                     $("#" + value1).removeAttr('checked');
-    //                              }
-
-    //                          });
-
-
-    //                      });
-
-    //        //  $("input[name='subjects']").removeAttr('checked');
-
-
-
-    //      }
-    //   // $('#textbox1').val(this.checked);
-    //});
-        //$("#WithNotes").click(function () {
-
-        //    $("#FeeType  option[value='PerMonth']").remove();
-        //    $("#NotesAmount").prop('required', true);
-        //})
-        //$("WithOutNotes").click(function () {
-        //    //debugger
-        //   // alert("Without note");
-        //       $('#FeeType').append('<option value="PerMonth">PerMonth</option>');
-
-        //    $("#NotesAmount").prop('required', false);
-
-        //})
-
+		
         $.ajax({
             type: "POST",
             url: "/AspNetUser/GetRollNumber",
@@ -270,7 +72,7 @@
             success: function (data) {
 
                 if (data.count != null) {
-                  //  $('#UserName').val(data)
+                    //  $('#UserName').val(data)
                     document.getElementsByName('UserName')[0].value = data;
 
                 }
@@ -293,24 +95,6 @@
 
 
         $("#subjects option[value='']").remove();
-
-
-        //$("#subjects").change(function () {
-
-        //    var selectedClass = $("#subjects").val();
-        //    var total_size = selectedClass.length;
-        //    if(total_size == 3)
-        //    {
-        //        $('#FormSubmit').prop('disabled', false);
-
-        //    }
-        //    else
-        //    {
-        //        $('#FormSubmit').prop('disabled', true);
-
-        //    }
-
-        //});
 
         $('#WithOutNotes').click(function () {
             $('#NotesID').hide();
@@ -350,7 +134,7 @@
 
         function ValidateDueDate() {
 
-           var dob = $("#DueDate").val();
+            var dob = $("#DueDate").val();
             var dob = dob.split("-");
             var date = new Date();
 
@@ -380,111 +164,21 @@
                         } else if (dob[1] < month) {
                             $('#FormSubmit').prop('disabled', true);
                             $('#DueDateError').html("DueDate Should be today or greater than today");
-                                return false;
+                            return false;
 
                         }
                     } else {
                         $('#FormSubmit').prop('disabled', true);
                         $('#DueDateError').html("DueDate Should be today or greater than today");
-                                return false;
-
+                        return false;
                     }
                 }
             } else {
                 $('#FormSubmit').prop('disabled', true);
                 $('#DueDateError').html("DueDate Should be today or greater than today");
-                                return false;
-
+                return false;
             }
-
-
-
         }
-
-
-        $("#birthDate").bind('blur', function () {
-            var dob = $("#birthDate").val();
-            var dob = dob.split("-");
-            var date = new Date();
-
-            var day = date.getDate();
-            var month = date.getMonth() + 1;
-            var year = date.getFullYear();
-
-            if (dob[0] <= year) {
-                $('#FormSubmit').prop('disabled', false);
-                $('#DOB-Error').html(" ");
-                if (dob[0] == year) {
-                    if (dob[1] <= month) {
-                        $('#FormSubmit').prop('disabled', false);
-                        $('#DOB-Error').html(" ");
-                        if (dob[1] == month) {
-                            if (dob[2] < day) {
-                                $('#FormSubmit').prop('disabled', false);
-                                $('#DOB-Error').html(" ");
-                            } else {
-                                $('#FormSubmit').prop('disabled', true);
-                                $('#DOB-Error').html("Enter a date less than today");
-                                return false;
-                            }
-                        } else if (dob[1] > month) {
-                            $('#FormSubmit').prop('disabled', true);
-                            $('#DOB-Error').html("Enter a date less than today");
-
-                             return false;
-                        }
-                    } else {
-                        $('#FormSubmit').prop('disabled', true);
-                        $('#DOB-Error').html("Enter a date less than today");
-                         return false;
-                    }
-                }
-            } else {
-                $('#FormSubmit').prop('disabled', true);
-                $('#DOB-Error').html("Enter a date less than today");
-                 return false;
-            }
-
-        });
-
-
-        $("#Password").bind('blur', function () {
-            var password = $("#Password").val();
-
-            var patt = new RegExp("^(?=.{6,})(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[@@#$%^&+=]).*$");
-            var test = patt.test(password);
-
-            if (test == false) {
-                $('#Password-Error').html("There should be one uppercase, one lowercase, one special chracter('@@#$%^&+=') and one number in password");
-                $('#FormSubmit').prop('disabled', true);
-            } else {
-                $('#FormSubmit').prop('disabled', false);
-            }
-
-        });
-
-
-        //$("#UserName").bind('blur', function () {
-        //    var userName = $("#UserName").val();
-
-        //    $.ajax({
-        //        type: "POST",
-        //        url: "/AspNetUser/GetUserName",
-        //        data: { "userName": userName },
-        //        success: function (data) {
-        //            debugger
-        //            if (data.count == 0) {
-        //                $('#FormSubmit').removeAttr('disabled');
-        //            }
-        //            else {
-        //                $('#UserName-Error').html("RollNumber Already taken by " + data.by);
-        //                $('#FormSubmit').prop('disabled', true);
-        //            }
-
-        //        }
-        //    });
-
-        //});
 
         $("#Email").bind('blur', function () {
             var email = $("#Email").val();
@@ -510,31 +204,23 @@
 
         $('input[name="CourseType"]').click(function () {
             debugger;
-             $('#SubjectsList').html('');
-               $("#ClassID").click();
+            $('#SubjectsList').html('');
+            $("#ClassID").click();
 
         })
-          $("form").submit(function(){
+        $("form").submit(function(){
 
-          var TotalFee  = $("#TotalFee").val();
-              debugger
-              if (ValidateDueDate()== true) {
+            var TotalFee  = $("#TotalFee").val();
+              
+            if (TotalFee > 0) {
 
-                  if (TotalFee > 0) {
+                $("#FormSubmit").attr("disabled", true);
 
-                      $("#FormSubmit").attr("disabled", true);
-
-                  }
-                  else
-                      return false;
-              }
-              else {
-
-                  return false;
-              }
-
-
-          });
+            }
+            else
+                return false;
+              
+        });
 
         $("input,select").click(function () {
 
@@ -545,10 +231,10 @@
         $("#FeeType").change(function () {
             debugger
 
-          $("#DiscountInAmount").val(0);
+            $("#DiscountInAmount").val(0);
 
             $("#Fee").val(0);
-         // $("#FeeType").val(0);
+            // $("#FeeType").val(0);
             $("#DiscountPercentage").val(0);
             $("#Discount").val(0);
             $("#RemainingAmount").val(0);
@@ -563,7 +249,7 @@
             $("#DiscountAmountDiv").css('display', 'none');
             $("#DiscountPercentageDiv").css('display', 'block');
 
-         $("#RemainingAmount").val(0);
+            $("#RemainingAmount").val(0);
             $("#TotalFee").val("");
             $("#Discount").val(0);
 
@@ -576,7 +262,7 @@
 
             $("#DiscountPercentageDiv").css('display', 'none');
             $("#DiscountAmountDiv").css('display', 'block');
-             $("#RemainingAmount").val(0);
+            $("#RemainingAmount").val(0);
             $("#TotalFee").val("");
             $("#Discount").val(0);
 
@@ -591,7 +277,7 @@
             debugger;
             //  $("#MandatorySubjects").removeAttr('checked');
 
-           //  alert($("#ClassID").val());
+            //  alert($("#ClassID").val());
             var selectedClass = $("#ClassID").val();
             var CourseType = $("input[name='CourseType']:checked").val();
 
@@ -608,21 +294,21 @@
 
                         var MandatorySubjectsList = data.MandatorySubjectsList;
                         var OptionalSubjecsList = data.OptionalSubjectsList;
-                            $("#MandatorySubjectsPMS").html('');
-                            $("#SubjectPMSGroup1").html('');
-                            $("#SubjectPMSGroup2").html('');
-                            $("#SubjectPMSGroup3").html('');
-                            $("#SubjectPMSGroup4").html('');
-                            $("#SubjectPMSGroup5").html('');
+                        $("#MandatorySubjectsPMS").html('');
+                        $("#SubjectPMSGroup1").html('');
+                        $("#SubjectPMSGroup2").html('');
+                        $("#SubjectPMSGroup3").html('');
+                        $("#SubjectPMSGroup4").html('');
+                        $("#SubjectPMSGroup5").html('');
 
-                            $("#MandatorySubjectsCSS").html('');
-                            $("#SubjectCSSGroup1").html('');
-                            $("#SubjectCSSGroup2").html('');
-                            $("#SubjectCSSGroup3").html('');
-                            $("#SubjectCSSGroup4").html('');
-                            $("#SubjectCSSGroup5").html('');
-                            $("#SubjectCSSGroup6").html('');
-                            $("#SubjectCSSGroup7").html('');
+                        $("#MandatorySubjectsCSS").html('');
+                        $("#SubjectCSSGroup1").html('');
+                        $("#SubjectCSSGroup2").html('');
+                        $("#SubjectCSSGroup3").html('');
+                        $("#SubjectCSSGroup4").html('');
+                        $("#SubjectCSSGroup5").html('');
+                        $("#SubjectCSSGroup6").html('');
+                        $("#SubjectCSSGroup7").html('');
 
                         if (CourseType == "CSS") {
 
@@ -633,7 +319,7 @@
                             $("#MandatorySubjectsCSS").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsCSSTableBody"></tbody></table>');
                             $.each(MandatorySubjectsList, function (key, value1) {
 
-                             $("#MandatorySubjectsCSSTableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="checkbox" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects0"></td></tr>');
+                                $("#MandatorySubjectsCSSTableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="checkbox" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects0"></td></tr>');
 
                             })
                             $("#SubjectCSSGroup1").append('<h3><span style="color:#3C8DBC !important"><b>Group 1</b></span>  <input  type="checkbox" class="CheckboxCSSGroup1"></h3>');
@@ -657,7 +343,7 @@
                                 if (value1.SubjectGroup == "1") {
 
 
-                           $("#SubjectCSSGroup1TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input onclick=' + "group(this,'.CheckboxCSSGroup1')" + ' class="CSSSubjects1" type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects1"></td></tr>');
+                                    $("#SubjectCSSGroup1TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input onclick=' + "group(this,'.CheckboxCSSGroup1')" + ' class="CSSSubjects1" type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects1"></td></tr>');
 
                                 }
                                 else if (value1.SubjectGroup == "2") {
@@ -784,19 +470,19 @@
         $("#MandatorySubjectsCSS").on('change', "#CheckboxCSSMandatory", function () {
             debugger
 
-          var CourseType =    $("input[name='CourseType']").val();
+            var CourseType =    $("input[name='CourseType']").val();
 
 
-           if ($(this).is(':checked')) {
+            if ($(this).is(':checked')) {
 
 
-               $("input[name='CSSSubjects0']").prop("checked", true);
+                $("input[name='CSSSubjects0']").prop("checked", true);
 
             }
 
             else {
 
-               $("input[name='CSSSubjects0']").prop("checked", false);
+                $("input[name='CSSSubjects0']").prop("checked", false);
 
             }
 
@@ -807,24 +493,24 @@
         $("#MandatorySubjectsPMS").on('change', "#CheckboxPMSMandatory", function () {
             debugger
 
-          var CourseType =    $("input[name='CourseType']").val();
+            var CourseType =    $("input[name='CourseType']").val();
 
 
-           if ($(this).is(':checked')) {
+            if ($(this).is(':checked')) {
 
 
-               $("input[name='PMSSubjects0']").prop("checked", true);
+                $("input[name='PMSSubjects0']").prop("checked", true);
 
             }
 
             else {
 
-               $("input[name='PMSSubjects0']").prop("checked", false);
+                $("input[name='PMSSubjects0']").prop("checked", false);
 
             }
 
         })
-               $("#SubjectCSSGroup1").on('change', ".CheckboxCSSGroup1", function () {
+        $("#SubjectCSSGroup1").on('change', ".CheckboxCSSGroup1", function () {
 
             if ($(this).is(':checked')) {
 
@@ -841,7 +527,7 @@
         })
 
 
-          $("#SubjectCSSGroup2").on('change', ".CheckboxCSSGroup2", function () {
+        $("#SubjectCSSGroup2").on('change', ".CheckboxCSSGroup2", function () {
 
             if ($(this).is(':checked')) {
 
@@ -858,7 +544,7 @@
         })
 
 
-          $("#SubjectCSSGroup3").on('change', ".CheckboxCSSGroup3", function () {
+        $("#SubjectCSSGroup3").on('change', ".CheckboxCSSGroup3", function () {
 
             if ($(this).is(':checked')) {
 
@@ -877,7 +563,7 @@
         })
 
 
-          $("#SubjectCSSGroup4").on('change', ".CheckboxCSSGroup4", function () {
+        $("#SubjectCSSGroup4").on('change', ".CheckboxCSSGroup4", function () {
 
             if ($(this).is(':checked')) {
 
@@ -896,7 +582,7 @@
         })
 
 
-          $("#SubjectCSSGroup5").on('change', ".CheckboxCSSGroup5", function () {
+        $("#SubjectCSSGroup5").on('change', ".CheckboxCSSGroup5", function () {
 
             if ($(this).is(':checked')) {
 
@@ -915,7 +601,7 @@
         })
 
 
-          $("#SubjectCSSGroup6").on('change', ".CheckboxCSSGroup6", function () {
+        $("#SubjectCSSGroup6").on('change', ".CheckboxCSSGroup6", function () {
 
             if ($(this).is(':checked')) {
 
@@ -934,7 +620,7 @@
         })
 
 
-          $("#SubjectCSSGroup7").on('change', ".CheckboxCSSGroup7", function () {
+        $("#SubjectCSSGroup7").on('change', ".CheckboxCSSGroup7", function () {
 
             if ($(this).is(':checked')) {
 
@@ -953,7 +639,7 @@
         })
 
 
-          $("#SubjectPMSGroup1").on('change', ".CheckboxPMSGroup1", function () {
+        $("#SubjectPMSGroup1").on('change', ".CheckboxPMSGroup1", function () {
 
             if ($(this).is(':checked')) {
 
@@ -969,9 +655,9 @@
 
             }
 
-          })
+        })
 
-          $("#SubjectPMSGroup2").on('change', ".CheckboxPMSGroup2", function () {
+        $("#SubjectPMSGroup2").on('change', ".CheckboxPMSGroup2", function () {
 
             if ($(this).is(':checked')) {
 
@@ -987,9 +673,9 @@
 
             }
 
-          })
+        })
 
-          $("#SubjectPMSGroup3").on('change', ".CheckboxPMSGroup3", function () {
+        $("#SubjectPMSGroup3").on('change', ".CheckboxPMSGroup3", function () {
 
             if ($(this).is(':checked')) {
 
@@ -1005,9 +691,9 @@
 
             }
 
-          })
+        })
 
-          $("#SubjectPMSGroup4").on('change', ".CheckboxPMSGroup4", function () {
+        $("#SubjectPMSGroup4").on('change', ".CheckboxPMSGroup4", function () {
 
             if ($(this).is(':checked')) {
 
@@ -1023,9 +709,9 @@
 
             }
 
-          })
+        })
 
-          $("#SubjectPMSGroup5").on('change', ".CheckboxPMSGroup5", function () {
+        $("#SubjectPMSGroup5").on('change', ".CheckboxPMSGroup5", function () {
 
             if ($(this).is(':checked')) {
 
@@ -1041,1335 +727,567 @@
 
             }
 
-          })
+        })
 
         $("#NotesAmount").bind('keyup mouseup', function () {
 
 
-             $("#DiscountInAmount").val(0);
-             $("#RemainingAmount").val(0);
-             $("#Discount").val(0);
-             $("#TotalFee").val("");
-             $("#DiscountPercentage").val(0);
+            $("#DiscountInAmount").val(0);
+            $("#RemainingAmount").val(0);
+            $("#Discount").val(0);
+            $("#TotalFee").val("");
+            $("#DiscountPercentage").val(0);
 
         })
 
 
-         $("#DiscountPercentage").bind('keyup mouseup', function () {
+        $("#DiscountPercentage").bind('keyup mouseup', function () {
 
-             $('#FormSubmit').prop('disabled', false);
+            $('#FormSubmit').prop('disabled', false);
 
-          //  Calculations();
-
-
-             $("#DiscountInAmount").val(0);
-             $("#RemainingAmount").val("");
-             $("#Discount").val(0);
-             $("#TotalFee").val("");
+            $("#DiscountInAmount").val(0);
+            $("#RemainingAmount").val("");
+            $("#Discount").val(0);
+            $("#TotalFee").val("");
 
 
-              var FeeType = $("#FeeType").val();
-             var SessionFee = $("#SessionFee").val();
-             var FeeAfterFeeType = $("#Fee").val();
+            var FeeType = $("#FeeType").val();
+            var SessionFee = $("#SessionFee").val();
+            var FeeAfterFeeType = $("#Fee").val();
 
-             var DiscountPercentage = $("#DiscountPercentage").val();
-                var NotesAmount = $("#NotesAmount").val();
-             var DiscountedAmount;
-             var TotalFee;
+            var DiscountPercentage = $("#DiscountPercentage").val();
+            var NotesAmount = $("#NotesAmount").val();
+            var DiscountedAmount;
+            var TotalFee;
 
-             debugger
-             if (NotesAmount == "")
-                 NotesAmount = 0;
+            debugger
+            if (NotesAmount == "")
+                NotesAmount = 0;
 
-             if ( FeeType !="" &&  FeeAfterFeeType != 0 && DiscountPercentage != 0 && DiscountPercentage>0 ) {
+            if ( FeeType !="" &&  FeeAfterFeeType != 0 && DiscountPercentage != 0 && DiscountPercentage>0 ) {
                 
-                 DiscountedAmount = parseFloat(FeeAfterFeeType) * (parseFloat(DiscountPercentage) / 100);
+                DiscountedAmount = parseFloat(FeeAfterFeeType) * (parseFloat(DiscountPercentage) / 100);
 
-                 var RemainingFeeAfterFeeType = parseFloat(FeeAfterFeeType) - parseFloat(DiscountedAmount);
+                var RemainingFeeAfterFeeType = parseFloat(FeeAfterFeeType) - parseFloat(DiscountedAmount);
 
-                 var RoundRemainingFeeAfterFeeType = Math.round(RemainingFeeAfterFeeType);
+                var RoundRemainingFeeAfterFeeType = Math.round(RemainingFeeAfterFeeType);
 
-                 $("#Discount").val(Math.round( DiscountedAmount));
+                $("#Discount").val(Math.round( DiscountedAmount));
 
-                  $("#RemainingAmount").val(RoundRemainingFeeAfterFeeType);
+                $("#RemainingAmount").val(RoundRemainingFeeAfterFeeType);
 
-                 TotalFee = parseFloat(RoundRemainingFeeAfterFeeType) + parseFloat(NotesAmount);
+                TotalFee = parseFloat(RoundRemainingFeeAfterFeeType) + parseFloat(NotesAmount);
 
-                 $("#TotalFee").val(TotalFee);
+                $("#TotalFee").val(TotalFee);
 
-                 if (RoundRemainingFeeAfterFeeType < 0) {
+                if (RoundRemainingFeeAfterFeeType < 0) {
 
                     $('#FormSubmit').prop('disabled', true);
-                 }
-             }
-
-
-
-
-         });
+                }
+            }
+        });
 
 
         $("#DiscountInAmount").bind('keyup mouseup', function () {
 
-             $('#FormSubmit').prop('disabled', false);
+            $('#FormSubmit').prop('disabled', false);
 
             $("#RemainingAmount").val(0);
-             $("#Discount").val(0);
+            $("#Discount").val(0);
             $("#TotalFee").val("");
             $("#DiscountPercentage").val(0);
 
-              var FeeType = $("#FeeType").val();
-              var SessionFee = $("#SessionFee").val();
-              var FeeAfterFeeType = $("#Fee").val();
+            var FeeType = $("#FeeType").val();
+            var SessionFee = $("#SessionFee").val();
+            var FeeAfterFeeType = $("#Fee").val();
 
-           //  var DiscountPercentage = $("#DiscountPercentage").val();
+            //  var DiscountPercentage = $("#DiscountPercentage").val();
 
-                var DiscountInAmount = $("#DiscountInAmount").val();
-                var NotesAmount = $("#NotesAmount").val();
+            var DiscountInAmount = $("#DiscountInAmount").val();
+            var NotesAmount = $("#NotesAmount").val();
 
-                var DiscountedAmount;
-                var TotalFee;
+            var DiscountedAmount;
+            var TotalFee;
 
-             debugger
-             if (NotesAmount == "")
+            debugger
+            if (NotesAmount == "")
                 NotesAmount = 0;
 
 
 
-              if ( FeeType !="" &&  FeeAfterFeeType != 0 && DiscountInAmount != 0 && DiscountInAmount>0 ) {
+            if ( FeeType !="" &&  FeeAfterFeeType != 0 && DiscountInAmount != 0 && DiscountInAmount>0 ) {
 
 
-                   DiscountedAmount = parseFloat(DiscountInAmount);
-                  var RemainingFeeAfterFeeType = parseFloat(FeeAfterFeeType) - parseFloat(DiscountInAmount);
+                DiscountedAmount = parseFloat(DiscountInAmount);
+                var RemainingFeeAfterFeeType = parseFloat(FeeAfterFeeType) - parseFloat(DiscountInAmount);
 
-                  var RoundRemainingFeeAfterFeeType = Math.round(RemainingFeeAfterFeeType);
+                var RoundRemainingFeeAfterFeeType = Math.round(RemainingFeeAfterFeeType);
 
-                 $("#Discount").val(DiscountedAmount);
+                $("#Discount").val(DiscountedAmount);
 
-                 $("#RemainingAmount").val(RoundRemainingFeeAfterFeeType);
+                $("#RemainingAmount").val(RoundRemainingFeeAfterFeeType);
 
-                 TotalFee = parseFloat(RoundRemainingFeeAfterFeeType) + parseFloat(NotesAmount);
+                TotalFee = parseFloat(RoundRemainingFeeAfterFeeType) + parseFloat(NotesAmount);
 
-                 $("#TotalFee").val(TotalFee);
+                $("#TotalFee").val(TotalFee);
 
-                 if (RoundRemainingFeeAfterFeeType < 0) {
+                if (RoundRemainingFeeAfterFeeType < 0) {
 
                     $('#FormSubmit').prop('disabled', true);
-                 }
-             }
+                }
+            }
 
         })
 
-
-
-        //$("#")
-
-
-  //      $("#FeeType").change(function () {
-  //          var SessionFee = $("#SessionFee").val();
-
-  //          var FeeType = $("#FeeType").val();
-
-  //          var Discount = $("#Discount").val();
-
-  //          var NotesAmount = $("#NotesAmount").val();
-
-  //          if (NotesAmount == "")
-  //              NotesAmount = 0;
-
-  //          if (SessionFee == "")
-  //              SessionFee = 0;
-  //          if (Discount == "")
-  //              Discount = 0;
-  //          if (NotesAmount == "")
-  //              NotesAmount = 0;
-
-  //          if(FeeType == "Installment" && FeeType !="")
-  //          {
-  //              $('#TotalFee').val(parseInt(SessionFee) + 6000 + parseInt(NotesAmount) - parseInt(Discount));
-  //          }
-  //          else if (FeeType == "PerMonth" && FeeType != "")
-  //          {
-  //              $('#TotalFee').val(parseInt(SessionFee) + 12000 + parseInt(NotesAmount) - parseInt(Discount));
-  //          }
-  //          else
-  //          {
-
-  //              $('#TotalFee').val(SessionFee);
-  //          }
-
-  //      });
-  ////      $("#Discount").change(function () {
-  //          $("#Discount").bind('keyup mouseup', function () {
-  //              //  alert($("#ClassID").val());
-  //                  var SessionFee = $("#SessionFee").val();
-  //                  var Discount = $("#Discount").val();
-  //                  var NotesAmount = $("#NotesAmount").val();
-  //                  if (SessionFee == "")
-  //                      SessionFee = 0;
-  //                  if (Discount == "")
-  //                      Discount = 0;
-  //                  if (NotesAmount == "")
-  //                      NotesAmount = 0;
-  //                  if ($('#TotalFee').val()  != "")
-  //                  {
-  //                      var FinalFee = parseInt(SessionFee) + parseInt(NotesAmount) - parseInt(Discount);
-  //                      if (FinalFee >= 0)
-  //                         $('#TotalFee').val(FinalFee);
-  //                  }
-  //              else {
-
-  //                  //var TotalFee = $('#TotalFee').val();
-  //                  //var FinalFee = parseInt(TotalFee) + parseInt(NotesAmount) - parseInt(Discount);
-  //                  //if (FinalFee >= 0)
-  //                  //    $('#TotalFee').val(FinalFee);
-
-  //                  }
-  //          });
-
-  //          $("#NotesAmount").bind('keyup mouseup', function () {
-  //              //  alert($("#ClassID").val());
-  //              var SessionFee = $("#SessionFee").val();
-  //              var Discount = $("#Discount").val();
-  //              var NotesAmount = $("#NotesAmount").val();
-  //              if (SessionFee == "")
-  //                  SessionFee = 0;
-  //              if (Discount == "")
-  //                  Discount = 0;
-  //              if (NotesAmount == "")
-  //                  NotesAmount = 0;
-
-  //              var FinalFee = parseInt(SessionFee) + parseInt(NotesAmount) - parseInt(Discount);
-  //              if (FinalFee >= 0)
-  //                  $('#TotalFee').val(FinalFee);
-
-  //          });
-
-
-        @*$('.radioButton').click(function () {
-            //var selectedClass = $("input:radio[name ='radio']:checked").val();
-            var selectedClass = $('input[name=radio]:checked').val()
-            $.get('@Url.Action("SubjectsByClass")',
-                { id: selectedClass }, function (data) {
-
-                    $('#subjects').html('');
-
-                    $.each(data, function (i, item) {
-                        $('#subjects').append('<option value=' + item.Id + '>' + item.SubjectName + '</option>');
-                    });
-
-                });
-        });*@
-
-          $('#framework').multiselect({
-          nonSelectedText: 'Select Framework',
-          enableFiltering: true,
-          enableCaseInsensitiveFiltering: true,
-          buttonWidth:'400px'
-         });
-
-         $('#framework_form').on('submit', function(event){
-          event.preventDefault();
-          var form_data = $(this).serialize();
-          $.ajax({
-           url:"insert.php",
-           method:"POST",
-           data:form_data,
-           success:function(data)
-           {
-            $('#framework option:selected').each(function(){
-             $(this).prop('selected', false);
-            });
-               $('#framework').multiselect('refresh');
-            //   $('#framework').multiselect('rebuild');
-            alert(data);
-           }
-          });
-         });
-
-    });
-
-    function Calc() {
-
-
-           //   $("#Fee").val(0);
-         //   $("#FeeType").val(0);
-
-          $("#DiscountInAmount").val(0);
-            $("#DiscountPercentage").val(0);
-            $("#Discount").val(0);
-            $("#RemainingAmount").val(0);
-
-          //  $("#TotalFee").val("");
-
-
-        var SessionFee = $("#SessionFee").val();
-        var FeeType = $("#FeeType").val();
-      //  var Discount = $("#Discount").val();
-        var NotesAmount = $("#NotesAmount").val();
-        if (SessionFee == "")
-            SessionFee = 0;
-
-        //if (Discount == "")
-        //       Discount = 0;
-
-        if (NotesAmount == "")
-               NotesAmount = 0;
-            debugger
-
-                if (FeeType == "Installment" && FeeType != "")
-                {
-                    $('#Fee').val(parseInt(SessionFee) + 6000 /*+ parseInt(NotesAmount) - parseInt(Discount)*/);
-                    $('#TotalFee').val(parseInt(SessionFee) + 6000 + parseInt(NotesAmount));
-
-                  }
-                else if (FeeType == "PerMonth" && FeeType != "")
-                {
-                    $('#Fee').val(parseInt(SessionFee) + 12000 /*+ parseInt(NotesAmount) - parseInt(Discount)*/);
-                    $('#TotalFee').val(parseInt(SessionFee) + 12000 + parseInt(NotesAmount));
-                }
-                else if (FeeType == "FullFee" && FeeType != "")
-                {
-                    $('#Fee').val(parseInt(SessionFee)  /*+ parseInt(NotesAmount) - parseInt(Discount)*/);
-                    $('#TotalFee').val(parseInt(SessionFee) + parseInt(NotesAmount) );
-                }
-
-                else
-                {
-                    return false;
-                }
-
-
-
-        $("#DiscountDiv").css('display', 'block');
-    }
-
-
-    function group(a,y) {
-        $(y).prop('checked', true);
-    }
-    function onCancel() {
-        $('#cancel').click();
-    }
-    function onSave() {
-        $('#FormSubmit').click();
-    }
-
-    function checkPhone(phone) {
-        //var phone = $("#inputEmail3").val();
-        var length = phone.value.length;
-        console.log(length);
-
-        if (length == 11) {
-            var patt = new RegExp("^[0]+[0-9]{10,}$");
-            var test = patt.test(phone.value);
-            console.log(test);
-            if (test == false) {
-                $('#Phone-Error').html("Phone number is not in correct formate");
-                $('#FormSubmit').prop('disabled', true);
-            } else {
-                $('#FormSubmit').prop('disabled', false);
-                $('#Phone-Error').html(" ");
-            }
-        } else {
-            $('#Phone-Error').html("Phone number is not in correct formate");
-            $('#FormSubmit').prop('disabled', true);
-        }
-    }
-
-
-
-
-</script>
-<h4 class="orange">Add Student</h4>
-<div class="row" style="padding-bottom: 10px; padding-top: 10px; padding-left: 20px; padding-right: 20px;">
-    <button class="btn btn-default pull-left btn-sm" onclick="onCancel()">
-        Cancel
-    </button>
-    <button class="pull-right" style="    background-color: transparent;
-        border: none;
-        outline: none;
-        font-size: 20px;
-        color: rgb(89, 89, 89) !important
-    " onclick="onSave()">
-        <i class="fa fa-floppy-o"></i>
-    </button>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="nav-tabs-custom">
-
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#tab_1" data-toggle="tab">Add Student</a></li>
-                <li><a href="#tab_2" data-toggle="tab">Upload Excel File</a></li>
-            </ul>
-
-            <div class="tab-content" style="
-        background-color: #ECF0F5;
-        padding: 10px 0px 0px 0px;
-    ">
-                <div class="tab-pane active" id="tab_1">
-
-                    <div class="form-three widget-shadow">
-                        @using (Html.BeginForm("StudentRegister", "Admin_Dashboard", FormMethod.Post, new { enctype = "multipart/form-data", @class = "forms form-horizontal", role = "form" }))
-                        {
-                            @Html.AntiForgeryToken()
-
-                            <div class="box box-primary">
-                                <div class="box-header with-border"><h3 class="orange">User Information<span class="red-mark">*</span></h3></div>
-                                <div class="box-body row">
-
-                                    <div class="col-md-12">
-
-                                        <div class="form-group">
-                                            <label class="col-md-2 col-lg-2" for="Name"><b>Name: </b><span class="red-mark">*</span></label>
-                                            <div class="col-md-6">
-                                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control text_box_style" })
-                                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-
-                                                <span>@ViewBag.ErrorMsg</span>
-                                                <br />
-
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-2 col-lg-2" for="Name"><b>Profile Photo:</b></label>
-                                            <div class="col-md-6">
-
-                                                <img src="/Content/Images/StudentDummy3.png" id="imgPreview" height="150" width="150" />
-                                                <br>
-                                                <br>
-                                                @*<input title="Upload a product image" id="UploadImg" type="file" name="image" />*@
-                                                <label for="UploadImg" id="StudentPhoto" class="custom-file-upload">
-                                                    Browse
-                                                </label>
-                                                <input style="display:none;" id="UploadImg" type="file" name="image" />
-
-                                                <br />
-
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <label class="col-md-2 col-lg-2" for="Father_Name"><b style="">Father's Name: </b></label>
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control  text_box_style" id="Father_Name" name="Father_Name">
-                                            </div>
-                                        </div>
-                                        @*<div class="form-group">
-                                                <label class="col-md-2 col-lg-2 control-label" for="Address"><b>Address:</b></label>
-                                                <div class="col-md-6">
-                                                    <input type="text" class="form-control text_box_style" id="Address" name="Address">
-                                                </div>
-                                            </div>*@
-
-                                        @*<div class="form-group">
-                                                <label class="col-md-2 col-lg-2 control-label" for="Name"><b>Age: </b><span class="red-mark"></span></label>
-                                                <div class="col-md-6">
-                                                    <input type="number" class="form-control text_box_style" id="Age" name="Age" min="15" max="60" T>
-
-                                                </div>
-                                            </div>*@
-
-                                        <div class="form-group">
-                                            <label for="inputEmail3" class="col-md-2 col-lg-2 control-label"><b>Cell No:</b> </label>
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control text_box_style" id="inputEmail3" name="cellNo" placeholder="03*********" onblur="checkPhone(this)">
-                                                <span id="Phone-Error" class="text-danger"></span>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="ClassTimings" class="col-md-2 col-lg-2 control-label"><b>Section Timings:</b> </label>
-                                            <div class="col-md-6">
-                                                <select name="ClassTimings" class="form-control text_box_style">
-                                                    <option value="Morning">Morning</option>
-                                                    <option value="Evening">Evening</option>
-                                                </select>
-                                                <span id="Phone-Error" class="text-danger"></span>
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="form-group">
-                                            <label for="CourseType" class="col-md-2 col-lg-2 control-label"><b>Course Type:</b> <span class="red-mark">*</span></label>
-                                            <div class="col-md-6">
-
-                                                <div class="form-group RadioButtonPadding">
-                                                    <div class="radio RadioButtonsInline">
-
-                                                        <label><input type="radio" name="CourseType" id="CssCourse" value="CSS" checked> CSS</label>
-                                                    </div>
-                                                    <div class="radio RadioButtonsInline">
-
-                                                        <label><input type="radio" name="CourseType" id="PmsCourse" value="PMS"> PMS </label>
-                                                    </div>
-                                                    <div class="radio RadioButtonsInline">
-
-                                                        <label><input type="radio" name="CourseType" id="OnePaper" value="OnePaper"> One Paper </label>
-                                                    </div>
-
-                                                </div>
-                                                <span id="Phone-Error" class="text-danger"></span>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-                            <div class="box box-primary" @*style="border:0"*@>
-
-                                <div class="box-header with-border"><h3 class="orange">Account Information</h3></div>
-                                <div class="box-body">
-
-                                    <div class="form-group">
-                                        <label class="col-md-2 col-lg-2 control-label" for="Email"><b>Email:</b> </label>
-                                        <div class="col-md-6">
-
-                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control text_box_style" })
-                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", @id = "Email-Error" })
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 col-lg-2 control-label" for="UserName"><b>Roll Number:</b> <span class="red-mark">*</span></label>
-                                        <div class="col-md-6">
-                                            @*@Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })*@
-                                            @*@Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger", @id = "UserName-Error" })*@
-                                            <input type="text" id="UserName" class="form-control text_box_style" name="UserName" readonly />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 col-lg-2 control-label" for="Password"><b>Password:</b> <span class="red-mark">*</span></label>
-                                        <div class="col-md-6">
-                                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control text_box_style", Value = "Oa@1234", @readonly = "readonly" })
-                                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", @id = "Password-Error" })
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 col-lg-2 control-label" for="Confirm Password"><b>Confirm Password:</b> <span class="red-mark">*</span></label>
-                                        <div class="col-md-6">
-                                            @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control text_box_style", Value = "Oa@1234", @readonly = "readonly" })
-                                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-
-                                    <br />
-                                    <br />
-                                </div>
-                            </div>
-
-
-
-
-                            @*<div class="box box-primary">
-
-                                    <div class="box-header with-border"><h3 class="orange">Work Experience and Education</h3></div>
-                                    <div class="box-body">
-                                        @*<div class="form-group">
-                                                <label class="col-md-1 col-lg-1 control-label">Industry:</label>
-                                                <div class="col-md-4">
-                                                    <input type="text" id="Industry" class="form-control round-border" name="Industry" />
-                                                </div>
-                                            </div>
-                                        <div class="form-group">
-                                            <label class="col-md-1 col-lg-1 control-label">Occupation:</label>
-                                            <div class="col-md-4">
-                                                <input type="text" class="form-control round-border" name="Occupation" id="Occupation" />
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-1 col-lg-1 control-label">Highest Degree:</label>
-                                            <div class="col-md-4">
-                                                <select name="Degree" class="form-control round-border">
-                                                    <option value="Less than high school diploma (or equivalent)">Less than high school diploma (or equivalent)</option>
-                                                    <option value="High school diploma (or equivalent)">High school diploma (or equivalent)</option>
-                                                    <option value="Some college but no degree">Some college but no degree</option>
-                                                    <option value="Associate Degree (e.g., AA, AS)<">Associate Degree (e.g., AA, AS)</option>
-                                                    <option value="Bachelor's degree (e.g., BA, AB, BS)">Bachelor's degree (e.g., BA, AB, BS)</option>
-                                                    <option value="Master's degree (e.g., MA, MS, MEng, MEd, MSW, MBA)">Master's degree (e.g., MA, MS, MEng, MEd, MSW, MBA)</option>
-                                                    <option value="Professional school degree (e.g., MD, DDS, DVM, LLB, JD)">Professional school degree (e.g., MD, DDS, DVM, LLB, JD)</option>
-                                                    <option value="Doctorate degree (e.g., PhD, EdD)">Doctorate degree (e.g., PhD, EdD)</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-1 col-lg-1 control-label">University:</label>
-                                            <div class="col-md-4">
-                                                <input type="text" class="form-control round-border" name="University" id="University" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-1 col-lg-1 control-label">Field or Major:</label>
-                                            <div class="col-md-4">
-                                                <input type="text" class="form-control round-border" name="Field" id="Field" />
-                                            </div>
-                                        </div>
-
-
-                                        <br />
-                                        <br />
-                                    </div>
-                                </div>
-
-                                @*<div class="box box-primary">
-                                        <div class="box-title"></div>
-                                        <div class="box-body">
-                                            <div class="form-group">
-                                                <label class="col-md-1 col-lg-1 control-label" style="text-align:center;">Prepare Child For:</label>
-                                                <div class="col-md-6" >
-                                                    <input type="text" class="form-control" name="SchoolName" placeholder="School Name" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>*@
-
-                            <!--
-                                    <div class="box box-primary">
-                                        <div class="box-title"></div>
-                                        <div class="box-header with-border"><h3 class="orange">Personal Information<span class="red-mark">*</span></h3></div>
-                                        <div class="box-body">
-
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="">
-                                                        <label class="control-label">Birth Date (M/D/Y): <span class="red-mark">*</span></label>
-                                                        <input type="date" id="birthDate" name="BirthDate" class="form-control" required>
-                                                        <span id="DOB-Error" class="text-danger"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="">
-                                                        <label class="control-label">Nationality: <span class="red-mark">*</span></label>
-                                                        <select name="Nationality" class="form-control" required>
-                                                            <option value="afghan">Afghan</option>
-                                                            <option value="albanian">Albanian</option>
-                                                            <option value="algerian">Algerian</option>
-                                                            <option value="american">American</option>
-                                                            <option value="andorran">Andorran</option>
-                                                            <option value="angolan">Angolan</option>
-                                                            <option value="antiguans">Antiguans</option>
-                                                            <option value="argentinean">Argentinean</option>
-                                                            <option value="armenian">Armenian</option>
-                                                            <option value="australian">Australian</option>
-                                                            <option value="austrian">Austrian</option>
-                                                            <option value="azerbaijani">Azerbaijani</option>
-                                                            <option value="bahamian">Bahamian</option>
-                                                            <option value="bahraini">Bahraini</option>
-                                                            <option value="bangladeshi">Bangladeshi</option>
-                                                            <option value="barbadian">Barbadian</option>
-                                                            <option value="barbudans">Barbudans</option>
-                                                            <option value="batswana">Batswana</option>
-                                                            <option value="belarusian">Belarusian</option>
-                                                            <option value="belgian">Belgian</option>
-                                                            <option value="belizean">Belizean</option>
-                                                            <option value="beninese">Beninese</option>
-                                                            <option value="bhutanese">Bhutanese</option>
-                                                            <option value="bolivian">Bolivian</option>
-                                                            <option value="bosnian">Bosnian</option>
-                                                            <option value="brazilian">Brazilian</option>
-                                                            <option value="british">British</option>
-                                                            <option value="bruneian">Bruneian</option>
-                                                            <option value="bulgarian">Bulgarian</option>
-                                                            <option value="burkinabe">Burkinabe</option>
-                                                            <option value="burmese">Burmese</option>
-                                                            <option value="burundian">Burundian</option>
-                                                            <option value="cambodian">Cambodian</option>
-                                                            <option value="cameroonian">Cameroonian</option>
-                                                            <option value="canadian">Canadian</option>
-                                                            <option value="cape verdean">Cape Verdean</option>
-                                                            <option value="central african">Central African</option>
-                                                            <option value="chadian">Chadian</option>
-                                                            <option value="chilean">Chilean</option>
-                                                            <option value="chinese">Chinese</option>
-                                                            <option value="colombian">Colombian</option>
-                                                            <option value="comoran">Comoran</option>
-                                                            <option value="congolese">Congolese</option>
-                                                            <option value="costa rican">Costa Rican</option>
-                                                            <option value="croatian">Croatian</option>
-                                                            <option value="cuban">Cuban</option>
-                                                            <option value="cypriot">Cypriot</option>
-                                                            <option value="czech">Czech</option>
-                                                            <option value="danish">Danish</option>
-                                                            <option value="djibouti">Djibouti</option>
-                                                            <option value="dominican">Dominican</option>
-                                                            <option value="dutch">Dutch</option>
-                                                            <option value="east timorese">East Timorese</option>
-                                                            <option value="ecuadorean">Ecuadorean</option>
-                                                            <option value="egyptian">Egyptian</option>
-                                                            <option value="emirian">Emirian</option>
-                                                            <option value="equatorial guinean">Equatorial Guinean</option>
-                                                            <option value="eritrean">Eritrean</option>
-                                                            <option value="estonian">Estonian</option>
-                                                            <option value="ethiopian">Ethiopian</option>
-                                                            <option value="fijian">Fijian</option>
-                                                            <option value="filipino">Filipino</option>
-                                                            <option value="finnish">Finnish</option>
-                                                            <option value="french">French</option>
-                                                            <option value="gabonese">Gabonese</option>
-                                                            <option value="gambian">Gambian</option>
-                                                            <option value="georgian">Georgian</option>
-                                                            <option value="german">German</option>
-                                                            <option value="ghanaian">Ghanaian</option>
-                                                            <option value="greek">Greek</option>
-                                                            <option value="grenadian">Grenadian</option>
-                                                            <option value="guatemalan">Guatemalan</option>
-                                                            <option value="guinea-bissauan">Guinea-Bissauan</option>
-                                                            <option value="guinean">Guinean</option>
-                                                            <option value="guyanese">Guyanese</option>
-                                                            <option value="haitian">Haitian</option>
-                                                            <option value="herzegovinian">Herzegovinian</option>
-                                                            <option value="honduran">Honduran</option>
-                                                            <option value="hungarian">Hungarian</option>
-                                                            <option value="icelander">Icelander</option>
-                                                            <option value="indian">Indian</option>
-                                                            <option value="indonesian">Indonesian</option>
-                                                            <option value="iranian">Iranian</option>
-                                                            <option value="iraqi">Iraqi</option>
-                                                            <option value="irish">Irish</option>
-                                                            <option value="israeli">Israeli</option>
-                                                            <option value="italian">Italian</option>
-                                                            <option value="ivorian">Ivorian</option>
-                                                            <option value="jamaican">Jamaican</option>
-                                                            <option value="japanese">Japanese</option>
-                                                            <option value="jordanian">Jordanian</option>
-                                                            <option value="kazakhstani">Kazakhstani</option>
-                                                            <option value="kenyan">Kenyan</option>
-                                                            <option value="kittian and nevisian">Kittian and Nevisian</option>
-                                                            <option value="kuwaiti">Kuwaiti</option>
-                                                            <option value="kyrgyz">Kyrgyz</option>
-                                                            <option value="laotian">Laotian</option>
-                                                            <option value="latvian">Latvian</option>
-                                                            <option value="lebanese">Lebanese</option>
-                                                            <option value="liberian">Liberian</option>
-                                                            <option value="libyan">Libyan</option>
-                                                            <option value="liechtensteiner">Liechtensteiner</option>
-                                                            <option value="lithuanian">Lithuanian</option>
-                                                            <option value="luxembourger">Luxembourger</option>
-                                                            <option value="macedonian">Macedonian</option>
-                                                            <option value="malagasy">Malagasy</option>
-                                                            <option value="malawian">Malawian</option>
-                                                            <option value="malaysian">Malaysian</option>
-                                                            <option value="maldivan">Maldivan</option>
-                                                            <option value="malian">Malian</option>
-                                                            <option value="maltese">Maltese</option>
-                                                            <option value="marshallese">Marshallese</option>
-                                                            <option value="mauritanian">Mauritanian</option>
-                                                            <option value="mauritian">Mauritian</option>
-                                                            <option value="mexican">Mexican</option>
-                                                            <option value="micronesian">Micronesian</option>
-                                                            <option value="moldovan">Moldovan</option>
-                                                            <option value="monacan">Monacan</option>
-                                                            <option value="mongolian">Mongolian</option>
-                                                            <option value="moroccan">Moroccan</option>
-                                                            <option value="mosotho">Mosotho</option>
-                                                            <option value="motswana">Motswana</option>
-                                                            <option value="mozambican">Mozambican</option>
-                                                            <option value="namibian">Namibian</option>
-                                                            <option value="nauruan">Nauruan</option>
-                                                            <option value="nepalese">Nepalese</option>
-                                                            <option value="new zealander">New Zealander</option>
-                                                            <option value="ni-vanuatu">Ni-Vanuatu</option>
-                                                            <option value="nicaraguan">Nicaraguan</option>
-                                                            <option value="nigerien">Nigerien</option>
-                                                            <option value="north korean">North Korean</option>
-                                                            <option value="northern irish">Northern Irish</option>
-                                                            <option value="norwegian">Norwegian</option>
-                                                            <option value="omani">Omani</option>
-                                                            <option value="pakistani">Pakistani</option>
-                                                            <option value="palauan">Palauan</option>
-                                                            <option value="panamanian">Panamanian</option>
-                                                            <option value="papua new guinean">Papua New Guinean</option>
-                                                            <option value="paraguayan">Paraguayan</option>
-                                                            <option value="peruvian">Peruvian</option>
-                                                            <option value="polish">Polish</option>
-                                                            <option value="portuguese">Portuguese</option>
-                                                            <option value="qatari">Qatari</option>
-                                                            <option value="romanian">Romanian</option>
-                                                            <option value="russian">Russian</option>
-                                                            <option value="rwandan">Rwandan</option>
-                                                            <option value="saint lucian">Saint Lucian</option>
-                                                            <option value="salvadoran">Salvadoran</option>
-                                                            <option value="samoan">Samoan</option>
-                                                            <option value="san marinese">San Marinese</option>
-                                                            <option value="sao tomean">Sao Tomean</option>
-                                                            <option value="saudi">Saudi</option>
-                                                            <option value="scottish">Scottish</option>
-                                                            <option value="senegalese">Senegalese</option>
-                                                            <option value="serbian">Serbian</option>
-                                                            <option value="seychellois">Seychellois</option>
-                                                            <option value="sierra leonean">Sierra Leonean</option>
-                                                            <option value="singaporean">Singaporean</option>
-                                                            <option value="slovakian">Slovakian</option>
-                                                            <option value="slovenian">Slovenian</option>
-                                                            <option value="solomon islander">Solomon Islander</option>
-                                                            <option value="somali">Somali</option>
-                                                            <option value="south african">South African</option>
-                                                            <option value="south korean">South Korean</option>
-                                                            <option value="spanish">Spanish</option>
-                                                            <option value="sri lankan">Sri Lankan</option>
-                                                            <option value="sudanese">Sudanese</option>
-                                                            <option value="surinamer">Surinamer</option>
-                                                            <option value="swazi">Swazi</option>
-                                                            <option value="swedish">Swedish</option>
-                                                            <option value="swiss">Swiss</option>
-                                                            <option value="syrian">Syrian</option>
-                                                            <option value="taiwanese">Taiwanese</option>
-                                                            <option value="tajik">Tajik</option>
-                                                            <option value="tanzanian">Tanzanian</option>
-                                                            <option value="thai">Thai</option>
-                                                            <option value="togolese">Togolese</option>
-                                                            <option value="tongan">Tongan</option>
-                                                            <option value="trinidadian or tobagonian">Trinidadian or Tobagonian</option>
-                                                            <option value="tunisian">Tunisian</option>
-                                                            <option value="turkish">Turkish</option>
-                                                            <option value="tuvaluan">Tuvaluan</option>
-                                                            <option value="ugandan">Ugandan</option>
-                                                            <option value="ukrainian">Ukrainian</option>
-                                                            <option value="uruguayan">Uruguayan</option>
-                                                            <option value="uzbekistani">Uzbekistani</option>
-                                                            <option value="venezuelan">Venezuelan</option>
-                                                            <option value="vietnamese">Vietnamese</option>
-                                                            <option value="welsh">Welsh</option>
-                                                            <option value="yemenite">Yemenite</option>
-                                                            <option value="zambian">Zambian</option>
-                                                            <option value="zimbabwean">Zimbabwean</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                @*<div class="col-md-3">
-                                                    <div class="">
-                                                        <label>Religion: <span class="red-mark">*</span></label>
-                                                        <select name="Religion" class="form-control" required>
-                                                            <option value="christian">Christian</option>
-                                                            <option value="muslim">Muslim</option>
-                                                            <option value="hindu">Hindu</option>
-                                                            <option value="other">Other</option>
-                                                        </select>
-                                                    </div>
-                                                </div>*@
-                                                <div class="col-md-4">
-                                                    <div class="">
-                                                        <label>Gender: <span class="red-mark">*</span></label>
-                                                        <select name="Gender" class="form-control" required>
-                                                            <option value="male">Male</option>
-                                                            <option value="female">Female</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                            -->
-                            <div class="box box-primary">
-
-                                <div class="box-header with-border"><h3 class="orange">Subject Details</h3></div>
-                                <div class="box-body">
-
-                                    <div class="form-group">
-                                        <label class="col-md-2 col-lg-2 control-label"><b> Section:</b> <span class="red-mark">*</span></label>
-                                        <div class="col-md-6">
-                                            @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control text_box_style", name = "ClassID", @required = true })
-                                            <br />
-                                            <span style="color:red"> @ViewBag.SubjectsErrorMsg</span>
-                                        </div>
-
-                                    </div>
-
-
-                                    <div class="form-group SubjectsBoxesCSS" id="MandatorySubjectCss">
-                                        <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="MandatorySubjectsCSS">
-
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="form-group SubjectsBoxesCSS" id="Group1CSS">
-
-                                        <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup1">
-
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group SubjectsBoxesCSS" id="Group2CSS">
-
-                                        <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup2">
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="form-group SubjectsBoxesCSS" id="Group3CSS">
-                                        <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup3">
-
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group SubjectsBoxesCSS" id="Group4CSS">
-                                        <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup4">
-
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group SubjectsBoxesCSS" id="Group5CSS">
-                                        <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup5">
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group SubjectsBoxesCSS" id="Group6CSS">
-                                        <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup6">
-
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group SubjectsBoxesCSS" id="Group7CSS">
-                                        <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup7">
-
-                                        </div>
-
-                                    </div>
-
-
-                                    <!--PMS-->
-
-                                    <div class="form-group SubjectsBoxesPMS" id="MandatorySubjectPMS">
-                                        <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="MandatorySubjectsPMS">
-                                        </div>
-
-                                    </div>
-
-                                    <div class="form-group SubjectsBoxesPMS" id="Group1PMS">
-
-                                        <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup1">
-
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group SubjectsBoxesPMS" id="Group2PMS">
-
-                                        <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup2">
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="form-group SubjectsBoxesPMS" id="Group3PMS">
-                                        <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup3">
-
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group SubjectsBoxesPMS" id="Group4PMS">
-                                        <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup4">
-
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group SubjectsBoxesPMS" id="Group5PMS">
-                                        <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup5">
-                                        </div>
-
-                                    </div>
-
-
-
-                                    @*<div class="form-group">
-                                            <label class="col-md-1 col-lg-1 control-label">Mandatory Subjects</label>
-                                            <div class="col-md-2">
-                                                <input id="MandatorySubjects" type="checkbox" name="name" style="width:30px;height:30px" value="" />
-                                            </div>
-                                        </div>*@
-
-
-                                    @*<select multiple class="form-control" id="subjects" name="subjects" required></select>*@
-
-                                    @*<div class="form-group" id="subjectsdiv">
-                                            <label class="control-label col-md-1 col-lg-1">Subjects: <span class="red-mark">*</span></label>
-                                            <div class="col-md-6">
-
-
-
-                                                <div class="checkbox-group required" id="SubjectsList">
-
-                                                </div>
-
-                                            </div>
-                                        </div>*@
-
-
-
-
-                                    @*<div class="form-group">
-                                            <label class="col-md-1 col-lg-1 control-label">Industry:</label>
-                                            <div class="col-md-4">
-                                                <input type="text" id="Industry" class="form-control round-border" name="Industry" />
-                                            </div>
-                                        </div>*@
-
-                                </div>
-                            </div>
-
-                            <div class="box box-primary">
-                                @*<div class="box-title"></div>*@
-                                <div class="box-header with-border"><h3 class="orange">Fee Details</h3></div>
-                                <div class="box-body">
-
-
-                                    <div class="form-group">
-                                        <label for="CourseType" class="col-md-2 col-lg-2 control-label"><b>Notes Catergory:</b> <span class="red-mark">*</span></label>
-                                        <div class="col-md-6">
-
-                                            <div class="form-group RadioButtonPadding">
-                                                <div class="checkbox">
-
-                                                    <label><input type="radio" name="NotesCategory" value="WithOutNotes" id="WithOutNotes" checked>Without Notes</label>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <label><input type="radio" name="NotesCategory" value="WithNotes" id="WithNotes">With Notes</label>
-
-                                                </div>
-
-                                            </div>
-                                            <span id="Phone-Error" class="text-danger"></span>
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group" style="display:none" id="NotesID">
-                                        <label class="col-md-2 col-lg-2 control-label"><b>Notes Amount:</b><span class="red-mark">*</span></label>
-                                        <div class="col-md-6">
-                                            <input type="number" class="form-control round-border" name="NotesAmount" id="NotesAmount" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 col-lg-2 control-label"><b>Session Fee:</b><span class="red-mark">*</span></label>
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control round-border" name="SessionFee" id="SessionFee" value="0" readonly />
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-2 col-lg-2 control-label"><b>Fee Type</b><span class="red-mark">*</span></label>
-                                        <div class="col-md-6">
-                                            <select name="FeeType" id="FeeType" class="form-control text_box_style">
-                                                <option value="FullFee" selected>Full Fee</option>
-                                                <option value="Installment">Installment</option>
-                                                <option value="PerMonth">Per Month</option>
-
-                                            </select>
-
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label class="col-md-2 col-lg-2 control-label"></label>
-                                        <div class="col-md-6">
-                                            <button id="CalculateFee" type="button" onclick="Calc()" class="btn btn-primary ">Calculate Fee</button>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label for="CourseType" class="col-md-2 col-lg-2 control-label"><b>Discount:</b> </label>
-                                        <div class="col-md-6">
-
-                                            <div class="form-group RadioButtonPadding">
-                                                <div class="checkbox">
-
-                                                    <label><input type="radio" name="DiscountRadioGroup" value="DiscountInPercentageRadio" id="DiscountInPercentageRadio" checked>Discount Percentage</label>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;
-
-                                                    <label><input type="radio" name="DiscountRadioGroup" value="DiscountAmount" id="DiscountAmountRadio">Discount Amount</label>
-
-                                                </div>
-
-                                            </div>
-                                            <span id="Phone-Error" class="text-danger"></span>
-                                        </div>
-
-                                    </div>
-
-
-
-
-                                    <div class="form-group">
-                                        <label class="col-md-2 col-lg-2 control-label"><b>Fee:</b></label>
-                                        <div class="col-md-6">
-                                            <input type="text" required class="form-control text_box_style" name="Fee" id="Fee" readonly />
-                                        </div>
-                                    </div>
-                                    <div id="DiscountDiv">
-
-                                        <div class="form-group" id="DiscountPercentageDiv">
-                                            <label class="col-md-2 col-lg-2 control-label"><b>Discount %</b></label>
-                                            <div class="col-md-6">
-                                                <input type="number" value="0"  onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control round-border" name="DiscountPercentage" id="DiscountPercentage" />
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group" id="DiscountAmountDiv" style="display:none">
-                                            <label class="col-md-2 col-lg-2 control-label"><b>Discount Amount</b></label>
-                                            <div class="col-md-6">
-                                                <input type="number" value="0"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control round-border" name="DiscountInAmount" id="DiscountInAmount" />
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group" id="DiscountReadOnlyDiv">
-                                            <label class="col-md-2 col-lg-2 control-label"><b>Discount Amount</b></label>
-                                            <div class="col-md-6">
-                                                <input type="number" value="0" class="form-control round-border" name="Discount" id="Discount" readonly />
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <label class="col-md-2 col-lg-2 control-label"><b>Remaining Amount </b></label>
-                                            <div class="col-md-6">
-                                                <input type="number" value="0" class="form-control round-border" name="RemainingAmount" id="RemainingAmount" readonly />
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label class="col-md-2 col-lg-2 control-label"><b>Total Fee:</b></label>
-                                        <div class="col-md-6">
-                                            <input type="text" required class="form-control text_box_style" name="TotalFee" id="TotalFee" readonly />
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                      
-                                        <label class="col-md-2 col-lg-2 control-label"><b>Due Date </b><span class="red-mark">*</span></label>
-                                        <div class="col-md-6">
-                                            <input type="date" id="DueDate" name="DueDate" class="form-control" required>
-                                            <span id="DueDateError" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                 
-                                    
-                                    @*<div class="form-group">
-                                      
-                                        <label class="col-md-2 col-lg-2 control-label"><b>Issue Date </b><span class="red-mark">*</span></label>
-                                        <div class="col-md-6">
-                                            <input type="date" id="IssueDate" name="IssueDate" class="form-control" required>
-                                            <span id="IssueDateError" class="text-danger"></span>
-                                        </div>
-                                    </div>*@
-                                 
-
-                                    <hr />
-                                    <br />
-                                    <div class="form-group">
-                                        <div class="col-md-offset-1 col-lg-offset-1 col-md-5">
-
-
-                                            @*<button  class="btn btn-primary" id="VerifyButton"> Thumb Verification   </button>*@
-
-                                            <button type="submit" class="btn btn-primary" value="Register" id="FormSubmit">Register</button>
-                                            <button type="button" id="cancel" class="btn btn-default">Cancel</button>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
-
-                <div class="tab-pane" id="tab_2">
-
-
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-
-
-                            <h3 class="orange">Upload Excel File &nbsp; <i class="fa fa-file-excel-o" aria-hidden="true"></i></h3>
-                        </div>
-
-                        <div class="form-three widget-shadow">
-                            @using (Html.BeginForm("StudentfromFile", "Admin_Dashboard", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                                <div class="form-group">
-                                    <div class="control-label col-md-3"><b>Excel File</b></div>
-                                    <div class="col-md-4">
-                                        <input id="students" name="students" type="file" />
-                                    </div>
-                                </div>
-                                <br />
-                                <br />
-
-                                @*<div id="ErrorDiv">
-                                        <span class="newlines" style="color:red"> @TempData["ErrorMsg"]</span>
-
-                                    </div>*@
-
-
-                                <div id="ErrorDiv">
-                                    <table border="1">
-                                        <thead>
-
-                                            <tr>
-                                                <th>Row</th>
-                                                <th>Message</th>
-                                                <th>Detail</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @if (TempData["ErrorMsg"] != null)
-                                            {
-                                                foreach (var Error in (List<SEA_Application.Controllers.Admin_DashboardController.ExcelSheetError>)TempData["ErrorMsg"])
-                                                {
-
-                                                    <tr>
-                                                        <td>@Error.Row</td>
-                                                        <td style="color:red">@Error.Message</td>
-                                                        <td>@Error.Detail</td>
-
-                                                    </tr>
-                                                }
-
-                                            }
-
-
-                                        </tbody>
-
-                                    </table>
-                                </div>
-
-
-                                <div class="box-footer">
-                                    <div class="form-group">
-                                        <div class="col-md-2">
-                                            <input type="submit" class="btn btn-primary" value="Register" />
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(document).ready(function () {
-
-
-
-        //$("#VerifyButton").click(function () {
-
-
-        //     alert("usama");
-        //                 WshShell = new ActiveXObject("Wscript.Shell"); //Create WScript Object
-        //        WshShell.run("C:\Program Files (x86)\Default Company Name\Biometric\zk4500.exe");
-
-
-        //})
-
-        /*
-        document.dispatchEvent(new CustomEvent('funcIntraLaunch',
-       {
-          'detail': { task: 'run',
-                   program: 'C:\\Program Files (x86)\\Default Company Name\\Bimetric\\zk4500.exe',
-             workingfolder: '',
-                  switches: '%MY_DOCUMENTS%\\switch.txt',
-               windowstate: 'max',
-                 recallapp: '',
-                   options: '',
-                       log: '',
-                 playsound: 'http://www.yourdomain.com/sound.wav',
-                showerrors: 'true'
-                    } }));
-
-
-        */
-
-
-
         $("#UploadImg").change(function () {
-
-
             readURL(this);
         });
 
+        $('#cancel').click(function () {
+            redirect();
+        });
+        
+        $("#Password").bind('blur', function () {
+            var password = $("#Password").val();
 
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+            var patt = new RegExp("^(?=.{6,})(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[@@#$%^&+=]).*$");
+            var test = patt.test(password);
 
-                reader.onload = function (e) {
-                    $('#imgPreview').attr('src', e.target.result);
-                }
-
-                reader.readAsDataURL(input.files[0]);
+            if (test == false) {
+                $('#Password-Error').html("There should be one uppercase, one lowercase, one special chracter('@@#$%^&+=') and one number in password");
+                $('#FormSubmit').prop('disabled', true);
+            } else {
+                $('#FormSubmit').prop('disabled', false);
+                $('#Password-Error').html("");
             }
-        }
+        });
 
-        //if ($("#OnePaper").click()) {
+        $("#ConfirmPassword").bind('blur', function () {
+            var password = $("#Password").val();
+            var ConfirmPassword = $("#ConfirmPassword").val();
+            var check = password.localeCompare(ConfirmPassword);
 
-        //    alert("123");
+            if (check) {
+                $("#ConfirmPassword-Error").html("Password Dosen't match");
+                $('#FormSubmit').prop('disabled', true);
+            } else {
+                $("#ConfirmPassword-Error").html("");
+                $('#FormSubmit').prop('disabled', false);
+            }
+        });
 
-        //}
-        //        var buttonclicked;
-        //        $("#OnePaper").click(function () {
+    });
 
-        //            if (buttonclicked != true) {
-        //                buttonclicked = true;
-        //                $("#subject").prop("required", 'false');
-        //            }
-        //            else {
-        ////                alert("Button was clicked before");
-        //                $("#subject").prop("required", 'true');
+    function redirect() {
+        var url = '@Url.Action("TeachersIndex", "AspNetUser")';
+        window.location.href = url;
+    }
 
-        //            }
+     function checkPhone(phone) {
+         var length = phone.value.length;
 
-
-        //        })
-        //$("#")
-
-
-
-        $("input[value='OnePaper']").click(function () {
-
-
-            $("#subjectsdiv").css("display", "none");
-
-        })
-        $("input[value='CSS']").click(function () {
-
-
-            $("#subjectsdiv").css("display", "block");
-
-
-        })
-        $("input[value='PMS']").click(function () {
-
-            $("#subjectsdiv").css("display", "block");
-
-
-        })
-
-        //  MyObject = new ActiveXObject( "WScript.Shell" )
+         if (length == 11) {
+             var patt = new RegExp("^[0]+[0-9]{10,}$");
+             var test = patt.test(phone.value);
+             console.log(test);
+             if (test == false) {
+                 $('#Phone-Error').html("Phone number is not in correct formate");
+                 $('#FormSubmit').prop('disabled', true);
+             } else {
+                 $('#FormSubmit').prop('disabled', false);
+                 $('#Phone-Error').html(" ");
+             }
+         } else {
+             $('#Phone-Error').html("Phone number is not in correct formate");
+             $('#FormSubmit').prop('disabled', true);
+         }
+    }
 
 
-    })
+     function onCancel() {
+         $('#cancel').click();
+     }
+     function onSave() {
+         $('#FormSubmit').click();
+     }
 
+     function readURL(input) {
+         $("#UploadPhotoDiv").hide();
+         $("#imgPreview").height("150");
+         $("#imgPreview").width("150");
+
+         if (input.files && input.files[0]) {
+             var reader = new FileReader();
+             reader.onload = function (e) {
+                 $('#imgPreview').attr('src', e.target.result);
+             }
+             reader.readAsDataURL(input.files[0]);
+         }
+     }
+
+     function Calc() {
+
+
+         //   $("#Fee").val(0);
+         //   $("#FeeType").val(0);
+
+         $("#DiscountInAmount").val(0);
+         $("#DiscountPercentage").val(0);
+         $("#Discount").val(0);
+         $("#RemainingAmount").val(0);
+
+         //  $("#TotalFee").val("");
+
+
+         var SessionFee = $("#SessionFee").val();
+         var FeeType = $("#FeeType").val();
+         //  var Discount = $("#Discount").val();
+         var NotesAmount = $("#NotesAmount").val();
+         if (SessionFee == "")
+             SessionFee = 0;
+
+         //if (Discount == "")
+         //       Discount = 0;
+
+         if (NotesAmount == "")
+             NotesAmount = 0;
+         debugger
+
+         if (FeeType == "Installment" && FeeType != "") {
+             $('#Fee').val(parseInt(SessionFee) + 6000 /*+ parseInt(NotesAmount) - parseInt(Discount)*/);
+             $('#TotalFee').val(parseInt(SessionFee) + 6000 + parseInt(NotesAmount));
+
+         }
+         else if (FeeType == "PerMonth" && FeeType != "") {
+             $('#Fee').val(parseInt(SessionFee) + 12000 /*+ parseInt(NotesAmount) - parseInt(Discount)*/);
+             $('#TotalFee').val(parseInt(SessionFee) + 12000 + parseInt(NotesAmount));
+         }
+         else if (FeeType == "FullFee" && FeeType != "") {
+             $('#Fee').val(parseInt(SessionFee)  /*+ parseInt(NotesAmount) - parseInt(Discount)*/);
+             $('#TotalFee').val(parseInt(SessionFee) + parseInt(NotesAmount));
+         }
+
+         else {
+             return false;
+         }
+         $("#DiscountDiv").css('display', 'block');
+     }
+
+
+     function group(a, y) {
+         $(y).prop('checked', true);
+     }
 
 </script>
+
+@*<div class="row" style="padding-bottom: 10px; padding-top: 10px; padding-left: 20px; padding-right: 20px;">
+        <button class="btn btn-default pull-left btn-sm" onclick="onCancel()">
+            Cancel
+        </button>
+        <button class="pull-right" style="background-color: transparent; border: none; outline: none; font-size: 20px; color: rgb(89, 89, 89) !important" onclick="onSave()">
+            <i class="fa fa-floppy-o"></i>
+        </button>
+    </div>*@
+@*<h2 class="orange">Add Teacher &nbsp; <i class="fa fa-file" aria-hidden="true"></i></h2>*@
+
+<div class="nav-tabs-custom">
+    @*<ul class="nav nav-tabs">
+            <li class="active"><a href="#tab_1" data-toggle="tab">Add Teacher</a></li>
+            <li><a href="#tab_2" data-toggle="tab">Upload Excel File</a></li>
+        </ul>*@
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body p-5">
+
+                    <div class="tab-content" style="">
+
+                        <div class="tab-pane active" id="tab_1">
+
+    @using (Html.BeginForm("AccountantRegister", "Admin_Dashboard", FormMethod.Post, new { enctype = "multipart/form-data", @class = "forms form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-md-2 pl-3 pr-5">
+                <div style="height: 120px;" class="upload-photo border rounded d-flex align-items-center justify-content-center flex-column mb-4">
+                    <a href="#">
+                        <img id="imgPreview" src="../assets/assets/icons/Upload.png" onclick="$('#UploadImg').click();" />
+                    </a>
+                    <input style="display:none;" id="UploadImg" type="file" name="image" />
+                    <div id="UploadPhotoDiv" class="mt-3">Upload Photo</div>
+                </div>
+            </div>
+
+            <div class="col-md-5 pl-5 pr-5 border-right border-color-sea">
+                <h2 class="column-heading mb-4">User Information</h2>
+
+                <div class="form-group bmd-form-group is-filled">
+                    <label class="bmd-label-floating">Name <span class="red-mark">*</span></label>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control round-border" })
+                </div>
+
+                <div class="form-group bmd-form-group my-3">
+                    <label class="bmd-label-floating">Father Name *</label>
+                    <input type="text" class="form-control round-border" id="Father_Name" name="Father_Name">
+                </div>
+
+                <div class="form-group bmd-form-group my-3">
+                    <label class="bmd-label-floating">Cell No <span class="red-mark">*</span> </label>
+                    <input type="text" class="form-control round-border" id="inputEmail3" name="cellNo" onblur="checkPhone(this)" required>
+                    <span class="text-danger" id="Phone-Error"></span>
+                </div>
+
+                <div class="form-group bmd-form-group my-3 is-filled">
+                    <label class="bmd-label-floating">Section Timings <span class="red-mark">*</span> </label>
+                    <select name="ClassTimings" class="form-control" style="color: #b9cbe1;">
+                        <option selected="">Select</option>
+                        <option value="Morning">Morning</option>
+                        <option value="Evening">Evening</option>
+                    </select>
+                </div>
+
+                <div class="form-group bmd-form-group my-3">
+                    <label class="bmd-label-floating">Course Type <span class="red-mark">*</span> </label>
+                    <div class="radio RadioButtonsInline">
+                        <label><input type="radio" name="CourseType" id="CssCourse" value="CSS" checked> CSS</label>
+                    </div>
+
+                    <div class="radio RadioButtonsInline">
+                        <label><input type="radio" name="CourseType" id="PmsCourse" value="PMS"> PMS </label>
+                    </div>
+
+                    <div class="radio RadioButtonsInline">
+                        <label><input type="radio" name="CourseType" id="OnePaper" value="OnePaper"> One Paper </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5 pl-5 pr-5 ">
+                <h2 class="column-heading mb-4">Account Information</h2>
+
+                <div class="form-group bmd-form-group">
+                    <label class="bmd-label-floating">Email <span class="red-mark">*</span></label>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control round-border" })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", @id = "Email-Error" })
+                </div>
+
+                <div class="form-group bmd-form-group my-3 is-filled">
+                    <label class="bmd-label-floating">Roll Number <span class="red-mark">*</span></label>
+                    <input type="text" id="UserName" class="form-control round-border" value="0" name="UserName" readonly />
+                </div>
+
+                <div class="form-group bmd-form-group my-3">
+                    <label class="bmd-label-floating">Password <span class="red-mark">*</span></label>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control round-border" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", @id = "Password-Error" })
+                </div>
+
+                <div class="form-group bmd-form-group my-3">
+                    <label class="bmd-label-floating">Confirm Password <span class="red-mark">*</span></label>
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control round-border" })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger", @id = "ConfirmPassword-Error" })
+                </div>
+            </div>
+        </div>
+
+                                <hr class="mt-5 mb-4">
+
+                                <div class="row">
+                                    <div class="col-md-5 pl-5 pr-5 ">
+                                        <h2 class="column-heading mb-4">Subject Details</h2>
+
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="bmd-label-floating">Section <span class="red-mark">*</span></label>
+                                            @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control", name = "ClassID", @required = true })
+                                            <br />
+                                            <span style="color:red"> @ViewBag.SubjectsErrorMsg</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-md-5 pl-5 pr-5 border-right border-color-sea">
+
+                                        <div class="form-group bmd-form-group my-3" id="MandatorySubjectCss">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="MandatorySubjectsCSS"></div>
+                                        </div>
+
+                                        <div class="form-group SubjectsBoxesCSS" id="Group3CSS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup3"></div>
+                                        </div>
+
+                                        <div class="form-group SubjectsBoxesCSS" id="Group5CSS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup5"></div>
+                                        </div>
+
+                                        <div class="form-group SubjectsBoxesCSS" id="Group7CSS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup7"></div>
+                                        </div>
+
+                                        <!--PMS-->
+                                        <div class="form-group SubjectsBoxesPMS" id="MandatorySubjectPMS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="MandatorySubjectsPMS"></div>
+                                        </div>
+
+                                        <div class="form-group SubjectsBoxesPMS" id="Group3PMS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup3"></div>
+                                        </div>
+
+                                        <div class="form-group SubjectsBoxesPMS" id="Group5PMS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup5"></div>
+                                        </div>
+
+                                    </div>
+                                
+                                    <div class="col-md-5 pl-5 pr-5 ">
+
+                                        <div class="form-group bmd-form-group my-3" id="Group1CSS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup1"></div>
+                                        </div>
+
+                                        <div class="form-group SubjectsBoxesCSS" id="Group2CSS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup2"></div>
+                                        </div>
+
+                                        <div class="form-group SubjectsBoxesCSS" id="Group4CSS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup4"></div>
+                                        </div>
+
+                                        <div class="form-group SubjectsBoxesCSS" id="Group6CSS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup6"></div>
+                                        </div>
+
+                                        <!--PMS-->
+                                        <div class="form-group SubjectsBoxesPMS" id="Group1PMS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup1"></div>
+                                        </div>
+
+                                        <div class="form-group SubjectsBoxesPMS" id="Group2PMS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup2"></div>
+                                        </div>
+
+                                        <div class="form-group SubjectsBoxesPMS" id="Group4PMS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup4"></div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+
+                                    <hr class="mt-5 mb-4">
+
+                                    <div class="row">
+                                        <div class="col-md-5 pl-5 pr-5 border-right border-color-sea">
+                                            <h2 class="column-heading mb-4">Fee Details</h2>
+
+                                            <div class="form-group bmd-form-group my-3">
+                                                <label class="bmd-label-floating">Notes Category <span class="red-mark">*</span> </label>
+
+                                                <div class="radio RadioButtonsInline">
+                                                    <label><input type="radio" name="NotesCategory" id="WithOutNotes" value="WithOutNotes" checked> Without Notes</label>
+                                                </div>
+
+                                                <div class="radio RadioButtonsInline">
+                                                    <label><input type="radio" name="NotesCategory" id="WithNotes" value="WithNotes"> With Notes </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group bmd-form-group my-3">
+                                                <label class="bmd-label-floating">Notes Amount <span class="red-mark">*</span></label>
+                                                <input type="number" class="form-control round-border" value="0" name="NotesAmount" id="NotesAmount" />
+                                            </div>
+
+                                            <div class="form-group bmd-form-group my-3">
+                                                <label class="bmd-label-floating">Session Fee</label>
+                                                <input type="text" class="form-control round-border" name="SessionFee" id="SessionFee" value="0" readonly />
+                                            </div>
+
+                                            <div class="form-group bmd-form-group my-3 is-filled">
+                                                <label class="bmd-label-floating">Fee Type <span class="red-mark">*</span> </label>
+                                                <select name="FeeType" id="FeeType" class="form-control" style="color: #b9cbe1;">
+                                                    <option value="FullFee" selected>Full Fee</option>
+                                                    <option value="Installment">Installment</option>
+                                                    <option value="PerMonth">Per Month</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group bmd-form-group my-3">
+                                                <button id="CalculateFee" type="button" onclick="Calc()" class="btn btn-primary ">Calculate Fee</button>
+                                            </div>
+
+                                            <div class="form-group bmd-form-group my-3">
+                                                <label class="bmd-label-floating">Discount</label>
+
+                                                <div class="radio RadioButtonsInline">
+                                                    <label><input type="radio" name="DiscountRadioGroup" id="DiscountInPercentageRadio" value="DiscountInPercentageRadio" checked> Discount Percentage</label>
+                                                </div>
+
+                                                <div class="radio RadioButtonsInline">
+                                                    <label><input type="radio" name="DiscountRadioGroup" id="DiscountAmount" value="DiscountAmount"> Discount Amount </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5 pl-5 pr-5 ">
+                                            <div class="form-group bmd-form-group my-3">
+                                                <label class="bmd-label-floating">Fee</label>
+                                                <input type="text" required class="form-control round-border" name="Fee" value="0" id="Fee" readonly />
+                                            </div>
+
+                                            <div class="form-group bmd-form-group my-3">
+                                                <label class="bmd-label-floating">Discount Percentage</label>
+                                                <input type="number" value="0" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control round-border" name="DiscountPercentage" id="DiscountPercentage" />
+                                            </div>
+
+                                            <div class="form-group bmd-form-group my-3" style="display:none">
+                                                <label class="bmd-label-floating">Discount Amount</label>
+                                                <input type="number" value="0" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control round-border" name="DiscountInAmount" id="DiscountInAmount" />
+                                            </div>
+
+                                            <div class="form-group bmd-form-group my-3">
+                                                <label class="bmd-label-floating">Discounted Amount</label>
+                                                <input type="number" value="0" class="form-control round-border" name="Discount" id="Discount" readonly />
+                                            </div>
+
+                                            <div class="form-group bmd-form-group my-3">
+                                                <label class="bmd-label-floating">Remaining Amount</label>
+                                                <input type="number" value="0" class="form-control round-border" name="RemainingAmount" id="RemainingAmount" readonly />
+                                            </div>
+
+                                            <div class="form-group bmd-form-group my-3">
+                                                <label class="bmd-label-floating">Total Fee</label>
+                                                <input type="text" required class="form-control round-border" name="TotalFee" id="TotalFee" readonly />
+                                            </div>
+
+                                            <div class="form-group bmd-form-group my-3 is-filled">
+                                                <label class="bmd-label-floating">Due Date <span class="red-mark">*</span> </label>
+                                                <input type="date" id="DueDate" name="DueDate" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <hr class="mt-5 mb-4">
+
+                                    <button type="submit" id="FormSubmit" class="btn btn-primary pull-right rounded rounded-lg"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Save &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </button>
+                                    <button type="button" class="btn btn-primary pull-right rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
+                                        <i class="material-icons mr-2">cached</i>  Reset &nbsp; &nbsp;
+                                    </button>
+                                    <div class="clearfix"></div>
+                                    }
+                                </div><!--end of tab 1-->
+                            </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
