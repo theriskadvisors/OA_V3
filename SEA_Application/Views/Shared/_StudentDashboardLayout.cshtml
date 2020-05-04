@@ -35,6 +35,7 @@
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- CSS Files -->
@@ -44,6 +45,7 @@
 
     <link rel="stylesheet" href="~/Content/assets/css/style.css">
     <script src="~/AdminLTE/plugins/jquery/js/jQuery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="~/Content/summernote.min.css">
 
     <style>
         table.dataTable.hover tbody tr:hover,
@@ -666,6 +668,26 @@
             });
 
         });
+    </script>
+
+    <script src="~/Content/JS/summernote.min.js"></script>
+    <script>
+    $('#summernote').summernote({
+        height: 150,
+        placeholder: 'Write your response',
+        codeviewFilter: false,
+        codeviewIframeFilter: false,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['fontname', []],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', []],
+            ['insert', ['link', 'picture']],
+            ['view', ['fullscreen']],
+        ]
+    });
     </script>
 
 
