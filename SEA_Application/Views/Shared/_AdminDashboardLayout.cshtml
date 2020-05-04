@@ -29,6 +29,10 @@
             background-color: #F2F5FA;
             cursor: pointer;
         }
+
+        .hidden{
+            display: none;
+        }
     </style>
 
 </head>
@@ -86,7 +90,7 @@
                             <p>Accountant</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item hidden">
                         <a href="@Url.Action("Index", "AspNetEmployees")" class="nav-link nav-toggle">
 
                             <i class="sea-dash">
@@ -161,7 +165,7 @@
                             <p>Notes</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item hidden">
 
                         <a href="@Url.Action("Index", "AspNetTimeTable")" class="nav-link nav-toggle">
                             <i class="sea-dash">
@@ -180,7 +184,7 @@
                             <p>Session</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item hidden">
 
 
                         <a href="@Url.Action("Index", "AspNetTimeslots")" class="nav-link nav-toggle">
@@ -190,7 +194,7 @@
                             <p>Slot</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item hidden">
 
 
                         <a href="@(Url.Action("Inbox", "AspNetMessages"))" class="nav-link nav-toggle">
@@ -200,7 +204,7 @@
                             <p>Mail Box</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item hidden">
 
 
                         <a href="https://smartereduanalytics.on.spiceworks.com/portal/tickets" class="nav-link nav-toggle">
@@ -262,35 +266,39 @@
                                     <div class="ripple-container"></div>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="javascript:;">
-                                    <i class="sea-icons-nav">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="26.287" height="26" viewBox="0 0 26.287 26">
-                                            <defs>
-                                                <style>
-                                                    .prefix__cls-1 {
-                                                        fill: none;
-                                                        stroke: #afbccc;
-                                                        stroke-linecap: round;
-                                                        stroke-linejoin: round;
-                                                        stroke-width: 2px;
-                                                    }
-                                                </style>
-                                            </defs>
-                                            <g id="prefix__Icon-logout" transform="translate(-1953.312 -668.03)">
-                                                <path id="prefix__Path_366" d="M1969.349 672.228a3.123 3.123 0 0 0-3.042-3.2h-8.953a3.121 3.121 0 0 0-3.042 3.2v17.6a3.121 3.121 0 0 0 3.042 3.2h8.953a3.123 3.123 0 0 0 3.042-3.2" class="prefix__cls-1" data-name="Path 366" />
-                                                <path id="prefix__Path_367" d="M1973.685 685.944l4.914-4.914-4.914-4.914" class="prefix__cls-1" data-name="Path 367" />
-                                                <path id="prefix__Line_1" d="M15.373 0L0 0" class="prefix__cls-1" data-name="Line 1" transform="translate(1963.028 681.03)" />
-                                            </g>
-                                        </svg>
-                                    </i>
-                                    <span class="d-lg-inline-block d-md-inline-block">
-                                        Logout
+                            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "form_padding_20" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">
+                                        <i class="sea-icons-nav">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26.287" height="26" viewBox="0 0 26.287 26">
+                                                <defs>
+                                                    <style>
+                                                        .prefix__cls-1 {
+                                                            fill: none;
+                                                            stroke: #afbccc;
+                                                            stroke-linecap: round;
+                                                            stroke-linejoin: round;
+                                                            stroke-width: 2px;
+                                                        }
+                                                    </style>
+                                                </defs>
+                                                <g id="prefix__Icon-logout" transform="translate(-1953.312 -668.03)">
+                                                    <path id="prefix__Path_366" d="M1969.349 672.228a3.123 3.123 0 0 0-3.042-3.2h-8.953a3.121 3.121 0 0 0-3.042 3.2v17.6a3.121 3.121 0 0 0 3.042 3.2h8.953a3.123 3.123 0 0 0 3.042-3.2" class="prefix__cls-1" data-name="Path 366" />
+                                                    <path id="prefix__Path_367" d="M1973.685 685.944l4.914-4.914-4.914-4.914" class="prefix__cls-1" data-name="Path 367" />
+                                                    <path id="prefix__Line_1" d="M15.373 0L0 0" class="prefix__cls-1" data-name="Line 1" transform="translate(1963.028 681.03)" />
+                                                </g>
+                                            </svg>
+                                        </i>
+                                        <span class="d-lg-inline-block d-md-inline-block">
+                                            Logout
 
-                                    </span>
-                                    <div class="ripple-container"></div>
-                                </a>
-                            </li>
+                                        </span>
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+                            }
                             <li class="nav-item dropdown">
                                 <a class="nav-link p-0" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img style="width: 45px;height: 45px;" src="~/Content/assets/assets/img/Profile.png">
