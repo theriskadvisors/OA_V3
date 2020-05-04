@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
 }
 <style>
-
     .page-sidebar .page-sidebar-menu, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu {
         list-style: none;
         margin: 0;
@@ -236,88 +235,84 @@
 
 </script>
 
-
-
-
-<div class="nav-tabs-custom">
-    <ul class="nav nav-tabs">
-        <li class="active">
-            <a href="#tab_1" data-toggle="tab">
-                Student
-                Fee
-            </a>
-        </li>
-        <li><a href="#tab_2" data-toggle="tab">Defaulter Students</a></li>
-    </ul>
-</div>
 <div class="card">
     <div class="card-body p-4">
+        <div class="tabsCon">
+
+            <ul class="nav nav-tabs" id="myTabAttr" role="tablist" \>
+                <li class="nav-item">
+                    <a class="nav-link active" id="Fee-tab-attr" data-toggle="tab" href="#Fee-attr" role="tab" aria-controls="Fee-attr"
+                       aria-selected="true" style="color:#141437 !important">Student Fee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="defaulter-tab-attr" data-toggle="tab" href="#defaulter-attr" role="tab" aria-controls="defaulter-attr"
+                       aria-selected="false" style="color:#141437 !important">Defaulter Students</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active show" id="Fee-attr" role="tabpanel" aria-labelledby="Fee-tab-attr">
 
 
-        <div class="tab-content" style="   padding: 10px 0px 0px 0px; ">
-            <div class="tab-pane active" id="tab_1">
-
-
-                <div class="col-md-8 pl-5 pr-5 ">
-                    <h2 class="column-heading mb-4">Student Fee</h2>
-                    @if (ViewBag.ErrorMessage != null)
-                    {
-                        <div style="margin-top:10px">
-                            <span class="text-danger">@ViewBag.ErrorMessage</span>
-                        </div>
-                    }
-                    @using (Html.BeginForm("AddData", "StudentRecurringFees", FormMethod.Post, new { @class = "forms form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-
-
-
-                        <div class="form-row mt-4">
-                            <div class="form-group col-md-12 bmd-form-group">
-                                <label for="" class="bmd-label-static pl-2">Select  Session</label>
-                                <input type="hidden" name="FeeTypeHidden" value="" id="FeeTypeHidden" />
-                                @Html.DropDownList("ClassId", null, " Select One", htmlAttributes: new { @class = "form-control", @id = "ClassId" })
-                                @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
-
+                    <div class="col-md-8 pl-5 pr-5 ">
+                        @*<h2 class="column-heading mb-4">Student Fee</h2>*@
+                        @if (ViewBag.ErrorMessage != null)
+                        {
+                            <div style="margin-top:10px">
+                                <span class="text-danger">@ViewBag.ErrorMessage</span>
                             </div>
-                        </div>
+                        }
+                        @using (Html.BeginForm("AddData", "StudentRecurringFees", FormMethod.Post, new { @class = "forms form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
 
-                        <div class="form-row mt-4">
-                            <div class="form-group col-md-12 bmd-form-group">
-                                <label for="" class="bmd-label-static pl-2">Students*</label>
-                                <select class="form-control" id="students" name="students" required>
-                                </select>
 
+
+                            <div class="form-row mt-4">
+                                <div class="form-group col-md-12 bmd-form-group">
+                                    <label for="" class="bmd-label-static pl-2">Select  Session</label>
+                                    <input type="hidden" name="FeeTypeHidden" value="" id="FeeTypeHidden" />
+                                    @Html.DropDownList("ClassId", null, " Select One", htmlAttributes: new { @class = "form-control", @id = "ClassId" })
+                                    @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
+
+                                </div>
                             </div>
-                        </div>
 
-                        @*<div class="form-group bmd-form-group is-filled">
+                            <div class="form-row mt-4">
+                                <div class="form-group col-md-12 bmd-form-group">
+                                    <label for="" class="bmd-label-static pl-2">Students*</label>
+                                    <select class="form-control" id="students" name="students" required></select>
+
+                                </div>
+                            </div>
+
+                            @*<div class="form-group bmd-form-group is-filled">
 
                         <label class="bmd-label-floating">Total Fee: <span class="red-mark">*</span></label>
 
                         <input type="number" name="TotalFee" class="form-control" value="" id="TotalFee" readonly />
                     </div>*@
 
-                        <div class="form-row mt-4">
-                            <div class="form-group col-md-12 bmd-form-group">
-                                <label for="" class="bmd-label-static pl-2">Total Fee</label>
-                                <input type="number" name="TotalFee" class="form-control" value="" id="TotalFee" readonly />
+                            <div class="form-row mt-4">
+                                <div class="form-group col-md-12 bmd-form-group">
+                                    <label for="" class="bmd-label-static pl-2">Total Fee</label>
+                                    <input type="number" name="TotalFee" class="form-control" value="" id="TotalFee" readonly />
 
+                                </div>
                             </div>
-                        </div>
 
 
-                        <div class="form-row mt-4">
-                            <div class="form-group col-md-12 bmd-form-group">
-                                <label for="" class="bmd-label-static pl-2">Payable Fee</label>
-                                <input type="number" name="PayableFee" class="form-control" value="" id="PayableFee" readonly />
+                            <div class="form-row mt-4">
+                                <div class="form-group col-md-12 bmd-form-group">
+                                    <label for="" class="bmd-label-static pl-2">Payable Fee</label>
+                                    <input type="number" name="PayableFee" class="form-control" value="" id="PayableFee" readonly />
 
+                                </div>
                             </div>
-                        </div>
 
 
 
-                        @*<div class="form-group bmd-form-group is-filled">
+                            @*<div class="form-group bmd-form-group is-filled">
 
                         <label class="bmd-label-floating">Payable Fee : <span class="red-mark">*</span></label>
 
@@ -325,22 +320,22 @@
                     </div>*@
 
 
-                        <div class="form-row mt-4">
-                            <div class="form-group col-md-12 bmd-form-group">
-                                <label for="" class="bmd-label-static pl-2">Fee Type</label>
-                                <input type="text" name="FeeType" class="form-control" value="" id="FeeType" readonly />
+                            <div class="form-row mt-4">
+                                <div class="form-group col-md-12 bmd-form-group">
+                                    <label for="" class="bmd-label-static pl-2">Fee Type</label>
+                                    <input type="text" name="FeeType" class="form-control" value="" id="FeeType" readonly />
 
+                                </div>
                             </div>
-                        </div>
 
-                        @*<div class="form-group bmd-form-group is-filled">
+                            @*<div class="form-group bmd-form-group is-filled">
 
                         <label class="bmd-label-floating"> Fee Type : <span class="red-mark">*</span></label>
 
                         <input type="text" name="FeeType" class="form-control" value="" id="FeeType" readonly />
                     </div>*@
 
-                        @*<div class="form-group bmd-form-group is-filled">
+                            @*<div class="form-group bmd-form-group is-filled">
 
                         <label class="bmd-label-floating"> Cash Received : <span class="red-mark">*</span></label>
 
@@ -350,597 +345,633 @@
 
 
 
-                        <div class="form-row mt-4">
-                            <div class="form-group col-md-12 bmd-form-group">
-                                <label for="" class="bmd-label-static pl-2">Cash Received*</label>
-                                <input required type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="CashReceived" class="form-control" value="" id="CashReceived" />
+                            <div class="form-row mt-4">
+                                <div class="form-group col-md-12 bmd-form-group">
+                                    <label for="" class="bmd-label-static pl-2">Cash Received*</label>
+                                    <input required type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="CashReceived" class="form-control" value="" id="CashReceived" />
 
+                                </div>
                             </div>
-                        </div>
 
 
-                        <div class="form-row mt-4">
-                            <div class="form-group col-md-12 bmd-form-group">
-                                <label for="" class="bmd-label-static pl-2">Discount*</label>
-                                <input type="number" name="Discount" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control" value="" id="Discount" />
+                            <div class="form-row mt-4">
+                                <div class="form-group col-md-12 bmd-form-group">
+                                    <label for="" class="bmd-label-static pl-2">Discount*</label>
+                                    <input type="number" name="Discount" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control" value="" id="Discount" />
 
+                                </div>
                             </div>
-                        </div>
 
-                        @*<div class="form-group bmd-form-group is-filled">
+                            @*<div class="form-group bmd-form-group is-filled">
 
                         <label class="bmd-label-floating">Dicount: <span class="red-mark">*</span></label>
 
                         <input type="number" name="Discount" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control" value="" id="Discount" />
                     </div>*@
 
-                        <div class="form-row mt-4">
-                            <div class="form-group col-md-12 bmd-form-group">
-                                <label for="" class="bmd-label-static pl-2">Remaining Balance*</label>
-                                <input type="number" name="RemainingBalance" min="0" class="form-control" value="" id="RemainingBalance" readonly />
+                            <div class="form-row mt-4">
+                                <div class="form-group col-md-12 bmd-form-group">
+                                    <label for="" class="bmd-label-static pl-2">Remaining Balance*</label>
+                                    <input type="number" name="RemainingBalance" min="0" class="form-control" value="" id="RemainingBalance" readonly />
 
+                                </div>
                             </div>
-                        </div>
 
-                        @*<div class="form-group bmd-form-group is-filled">
+                            @*<div class="form-group bmd-form-group is-filled">
 
                         <label class="bmd-label-floating"> Remaining Balance : <span class="red-mark">*</span></label>
 
                         <input type="number" name="RemainingBalance" min="0" class="form-control" value="" id="RemainingBalance" readonly />
                     </div>*@
 
-                        <div class="form-row mt-4">
-                            <div class="form-group col-md-12 bmd-form-group">
-                                <label for="" class="bmd-label-static pl-2">Due Date</label>
-                                <input type="date" id="DueDate" name="DueDate" class="form-control" required>
-                                <span id="DueDateError" class="text-danger"></span>
-
-                            </div>
-                        </div>
-
-
-                        <div class="form-row mt-4">
-                            <div class="form-group col-md-12 bmd-form-group">
-                                <label for="" class="bmd-label-static pl-2">Issue Date</label>
-                                <input type="date" id="IssueDate" name="IssueDate" class="form-control" required>
-                                <span id="IssueDateError" class="text-danger"></span>
-
-                            </div>
-                        </div>
-
-
-                        <input class="btn btn-primary" type="button" id="ChallanForm" value="Get challan" />
-                    }
-
-                    <br />
-                    <br />
-                    <div id="bill" style="margin-left:30px">
-
-                        <div class="ticket" id="ticket">
-                            <br>
-                            <center>
-                                <img src="/Content/print-receipt-thermal-printer-master/print-receipt-thermal-printer-master/logo.PNG" />
-
-                            </center>
-
-
-                            <p class="centered">
-                                Officer's Academy
-                                <br><span id="Recipt">Recipt#<span id="challanNo"></span> </span>
-                                <br><span id="DateTime"></span>
-                            </p>
-
-
-                            <b>Cashier:</b> @ViewBag.UserName <span>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Admin Copy</b>
-                            </span>
-
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th class="description" colspan="2">Challan Information</th>
-
-                                    </tr>
-
-                                </thead>
-                                <tbody id="billbody" style="border: 1px solid black">
-                                </tbody>
-                            </table>
-                            <p class="centered">
-                                <br>Developed by : TheRiskAdvisors
-                            </p>
-                        </div>
-
-
-                    </div>
-
-                    <br />
-
-
-                    <!--slip 2-->
-                    <div id="bill1" style="margin-left:30px">
-
-                        <div class="ticket" id="ticket">
-                            <br>
-                            <center>
-                                <img src="/Content/print-receipt-thermal-printer-master/print-receipt-thermal-printer-master/logo.PNG" />
-
-                            </center>
-
-
-                            <p class="centered">
-                                Officer's Academy
-                                <br><span id="Recipt1">Recipt#<span id="challanNo1"></span> </span>
-                                <br><span id="DateTime1"></span>
-                            </p>
-
-                            <b>Cashier:</b> @ViewBag.UserName <span>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Student Copy</b>
-                            </span>
-
-
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th class="description" colspan="2">Challan Information</th>
-
-                                    </tr>
-
-
-                                </thead>
-                                <tbody id="billbody1" style="border: 1px solid black">
-                                </tbody>
-                            </table>
-                            <p class="centered">
-                                <br>Developed by : TheRiskAdvisors
-                            </p>
-                        </div>
-
-
-                    </div>
-
-                    <button id="btnPrint" style="display:none;margin-left:30px;" class="hidden-print">Print</button>
-
-
-                @*</div>
-            </div>*@
-
-
-        </div>
-
-
-            </div><!--tab 1-->
-
-
-            <div class="tab-pane" id="tab_2">
-
-                <div class="box box-primary">
-                    <div class="box-title"></div>
-                    <div class="box-body">
-                        <div class="box-body">
-
-                            <div class="form-group">
-                                <span class="col-md-2">Session</span>
-                                <div class="col-md-6">
-
-
-                                    @Html.DropDownList("ClassId1", null, "All", htmlAttributes: new { @class = "form-control", @id = "ClassId1" })
+                            <div class="form-row mt-4">
+                                <div class="form-group col-md-12 bmd-form-group">
+                                    <label for="" class="bmd-label-static pl-2">Due Date</label>
+                                    <input type="date" id="DueDate" name="DueDate" class="form-control" required>
+                                    <span id="DueDateError" class="text-danger"></span>
 
                                 </div>
                             </div>
 
 
-                            <br />
-                            <br />
+                            <div class="form-row mt-4">
+                                <div class="form-group col-md-12 bmd-form-group">
+                                    <label for="" class="bmd-label-static pl-2">Issue Date</label>
+                                    <input type="date" id="IssueDate" name="IssueDate" class="form-control" required>
+                                    <span id="IssueDateError" class="text-danger"></span>
+
+                                </div>
+                            </div>
 
 
-                            <table class="table hover table-bordered table-striped" id="datatable">
-                                <thead>
-                                    <tr>
+                            <input class="btn btn-primary" type="button" id="ChallanForm" value="Get challan" />
+                        }
 
-                                        <th>
-                                            Student Name
-                                        </th>
-                                        <th>
-                                            Roll No
-                                        </th>
-                                        <th>
-                                            Session Name
-                                        </th>
-                                        <th>
-                                            Course Type
-                                        </th>
-                                        <th>
-                                            Fee Payable
-                                        </th>
+                        <br />
+                        <br />
+                        <div id="bill" style="margin-left:30px">
 
-                                        <th>
-                                            Due Date
-                                        </th>
+                            <div class="ticket" id="ticket">
+                                <br>
+                                <center>
+                                    <img src="/Content/print-receipt-thermal-printer-master/print-receipt-thermal-printer-master/logo.PNG" />
 
-                                    </tr>
-                                </thead>
-                                <tbody id="DefaulterStudents">
-                                </tbody>
-                            </table>
+                                </center>
 
+
+                                <p class="centered">
+                                    Officer's Academy
+                                    <br><span id="Recipt">Recipt#<span id="challanNo"></span> </span>
+                                    <br><span id="DateTime"></span>
+                                </p>
+
+
+                                <b>Cashier:</b> @ViewBag.UserName <span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Admin Copy</b>
+                                </span>
+
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="description" colspan="2">Challan Information</th>
+
+                                        </tr>
+
+                                    </thead>
+                                    <tbody id="billbody" style="border: 1px solid black"></tbody>
+                                </table>
+                                <p class="centered">
+                                    <br>Developed by : TheRiskAdvisors
+                                </p>
+                            </div>
 
 
                         </div>
+
+                        <br />
+
+
+                        <!--slip 2-->
+                        <div id="bill1" style="margin-left:30px">
+
+                            <div class="ticket" id="ticket">
+                                <br>
+                                <center>
+                                    <img src="/Content/print-receipt-thermal-printer-master/print-receipt-thermal-printer-master/logo.PNG" />
+
+                                </center>
+
+
+                                <p class="centered">
+                                    Officer's Academy
+                                    <br><span id="Recipt1">Recipt#<span id="challanNo1"></span> </span>
+                                    <br><span id="DateTime1"></span>
+                                </p>
+
+                                <b>Cashier:</b> @ViewBag.UserName <span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Student Copy</b>
+                                </span>
+
+
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="description" colspan="2">Challan Information</th>
+
+                                        </tr>
+
+
+                                    </thead>
+                                    <tbody id="billbody1" style="border: 1px solid black"></tbody>
+                                </table>
+                                <p class="centered">
+                                    <br>Developed by : TheRiskAdvisors
+                                </p>
+                            </div>
+
+
+                        </div>
+
+                        <button id="btnPrint" style="display:none;margin-left:30px;" class="hidden-print">Print</button>
+
+
+                        @*</div>
+                </div>*@
+
+
                     </div>
 
 
-                </div><!--tab 2-->
+                </div><!--tab 1-->
 
-            </div><!--tab Content-->
+
+                <div class="tab-pane" id="defaulter-attr" role="tabpanel" aria-labelledby="defaulter-tab-attr">
+
+                    <div class="box box-primary">
+                        <div class="box-title"></div>
+                        <div class="box-body">
+                            <div class="box-body">
+
+                                <div class="form-group row">
+                                    <span class="col-md-2">Session</span>
+                                    <div class="col-md-6 pull-right">
+
+
+                                        @Html.DropDownList("ClassId1", null, "All", htmlAttributes: new { @class = "form-control", @id = "ClassId1" })
+
+                                    </div>
+                                </div>
+
+
+                                <br />
+                                <br />
+
+
+                                <table class="table hover table-bordered table-striped" id="datatable">
+                                    <thead>
+                                        <tr>
+
+                                            <th>
+                                                Student Name
+                                            </th>
+                                            <th>
+                                                Roll No
+                                            </th>
+                                            <th>
+                                                Session Name
+                                            </th>
+                                            <th>
+                                                Course Type
+                                            </th>
+                                            <th>
+                                                Fee Payable
+                                            </th>
+
+                                            <th>
+                                                Due Date
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="DefaulterStudents"></tbody>
+                                </table>
+
+
+
+                            </div>
+                        </div>
+
+
+                    </div><!--tab 2-->
+
+                </div><!--tab Content-->
+            </div>
         </div>
     </div>
 
+</div>
 
-    <script>
+<script>
 
-        $(document).ready(function () {
+    $(document).ready(function () {
 
-            //  var table = $('#datatable').dataTable({});
+        //  var table = $('#datatable').dataTable({});
 
-            var table = $('#datatable').dataTable({
-                buttons: [
-                    {
-                        text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
-                    },
-                    {
-                        text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
-                        action: function (e, dt, button, config) {
-                            window.location.href = '';
-                        }
-                    },
-                    {
-                        text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
-                    }
-                ],
-                "language": {
-                    "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
-                        "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
-                        "  </div>\n" +
-                        "  </div>",
-                    "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
-                    "paginate": {
-                        "first": "Firstt",
-                        "last": "Lastt",
-                        "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
-                        "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
+        var table = $('#datatable').dataTable({
+            buttons: [
+                {
+                    text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
+                },
+                {
+                    text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
+                    action: function (e, dt, button, config) {
+                        window.location.href = '';
                     }
                 },
-                "searching": true,
-                // dom: '<"class">Blfrtip',
-                dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
-                    "<'row'<'col-sm-12 datatablesData'tr>>" +
-                    "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
-            });
-            $("#PageHeader").html("Student Fee");
+                {
+                    text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
+                }
+            ],
+            "language": {
+                "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
+                    "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
+                    "  </div>\n" +
+                    "  </div>",
+                "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
+                "paginate": {
+                    "first": "Firstt",
+                    "last": "Lastt",
+                    "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
+                    "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
+                }
+            },
+            "searching": true,
+            // dom: '<"class">Blfrtip',
+            dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
+                "<'row'<'col-sm-12 datatablesData'tr>>" +
+                "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
+        });
+        $("#PageHeader").html("Student Fee");
 
-            $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
-            $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Student Fee </a></li>');
+        $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Student Fee </a></li>');
 
 
 
 
-            $("#DueDate").bind('change', function () {
+        $("#DueDate").bind('change', function () {
 
-                debugger
-                var dob = $("#DueDate").val();
-                var dob = dob.split("-");
-                var date = new Date();
+            debugger
+            var dob = $("#DueDate").val();
+            var dob = dob.split("-");
+            var date = new Date();
 
-                var day = date.getDate();
-                var month = date.getMonth() + 1;
-                var year = date.getFullYear();
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
 
-                if (dob[0] >= year) {
-                    $('#ChallanForm').prop('disabled', false);
+            if (dob[0] >= year) {
+                $('#ChallanForm').prop('disabled', false);
 
 
 
-                    $('#DueDateError').html(" ");
-                    if (dob[0] == year) {
-                        if (dob[1] >= month) {
-                            $('#ChallanForm').prop('disabled', false);
-                            $('#DueDateError').html(" ");
-                            if (dob[1] == month) {
-                                if (dob[2] > day) {
-                                    $('#ChallanForm').prop('disabled', false);
-                                    $('#DueDateError').html(" ");
-                                } else {
-                                    $('#ChallanForm').prop('disabled', true);
-                                    $('#DueDateError').html("DueDate Should greater than today");
-                                }
-                            } else if (dob[1] < month) {
+                $('#DueDateError').html(" ");
+                if (dob[0] == year) {
+                    if (dob[1] >= month) {
+                        $('#ChallanForm').prop('disabled', false);
+                        $('#DueDateError').html(" ");
+                        if (dob[1] == month) {
+                            if (dob[2] > day) {
+                                $('#ChallanForm').prop('disabled', false);
+                                $('#DueDateError').html(" ");
+                            } else {
                                 $('#ChallanForm').prop('disabled', true);
                                 $('#DueDateError').html("DueDate Should greater than today");
                             }
-                        } else {
+                        } else if (dob[1] < month) {
                             $('#ChallanForm').prop('disabled', true);
                             $('#DueDateError').html("DueDate Should greater than today");
                         }
+                    } else {
+                        $('#ChallanForm').prop('disabled', true);
+                        $('#DueDateError').html("DueDate Should greater than today");
                     }
-                } else {
-                    $('#ChallanForm').prop('disabled', true);
-                    $('#DueDate').html("DueDate Should greater than today");
                 }
+            } else {
+                $('#ChallanForm').prop('disabled', true);
+                $('#DueDate').html("DueDate Should greater than today");
+            }
 
-            });
+        });
 
-            $("#CashReceived").bind('keyup mouseup', function () {
+        $("#CashReceived").bind('keyup mouseup', function () {
 
-                $("#bill").css('display', 'none');
+            $("#bill").css('display', 'none');
+            $("#btnPrint").css('display', 'none');
+            $("#bill1").css('display', 'none');
+            var payableFee = $("#PayableFee").val();
+
+            var cashReceived = $(this).val();
+            var remaining;
+            var discount = $("#Discount").val();
+            if (discount != "") {
+                remaining = parseFloat(payableFee) - parseFloat(cashReceived) - parseFloat(discount);
+            }
+            else {
+
+                remaining = parseFloat(payableFee) - parseFloat(cashReceived);
+
+            }
+
+            $("#RemainingBalance").val(Math.round(remaining));
+
+            if (remaining == 0) {
+
+                document.getElementById('DueDate').valueAsDate = new Date();
+
+                $("#DueDate").prop("readonly", true);
+                $('#ChallanForm').prop('disabled', false);
+                $('#DueDateError').html(" ");
+
+            }
+            else {
+
+                $("#DueDate").val("");
+                $("#DueDate").prop("readonly", false);
+                $('#ChallanForm').prop('disabled', true);
+                $('#DueDateError').html(" ");
+            }
+
+            var remainingB = $("#RemainingBalance").val();
+            if (remainingB == "" || cashReceived == 0 || remaining < 0 || cashReceived < 0 || discount < 0) {
+
                 $("#btnPrint").css('display', 'none');
-                $("#bill1").css('display', 'none');
-                var payableFee = $("#PayableFee").val();
-
-                var cashReceived = $(this).val();
-                var remaining;
-                var discount = $("#Discount").val();
-                if (discount != "") {
-                    remaining = parseFloat(payableFee) - parseFloat(cashReceived) - parseFloat(discount);
-                }
-                else {
-
-                    remaining = parseFloat(payableFee) - parseFloat(cashReceived);
-
-                }
-
-                $("#RemainingBalance").val(Math.round(remaining));
-
-                if (remaining == 0) {
-
-                    document.getElementById('DueDate').valueAsDate = new Date();
-
-                    $("#DueDate").prop("readonly", true);
-                    $('#ChallanForm').prop('disabled', false);
-                    $('#DueDateError').html(" ");
-
-                }
-                else {
-
-                    $("#DueDate").val("");
-                    $("#DueDate").prop("readonly", false);
-                    $('#ChallanForm').prop('disabled', true);
-                    $('#DueDateError').html(" ");
-                }
-
-                var remainingB = $("#RemainingBalance").val();
-                if (remainingB == "" || cashReceived == 0 || remaining < 0 || cashReceived < 0 || discount < 0) {
-
-                    $("#btnPrint").css('display', 'none');
-                    $("#ChallanForm").css('display', 'none');
-                    $("#bill").css('display', 'none');
-
-                }
-                else {
-                    //   $("#btnPrint").css('display', 'block');
-                    $("#ChallanForm").css('display', 'block');
-                }
-
-            })
-
-            $("#Discount").bind('keyup mouseup', function () {
+                $("#ChallanForm").css('display', 'none');
                 $("#bill").css('display', 'none');
+
+            }
+            else {
+                //   $("#btnPrint").css('display', 'block');
+                $("#ChallanForm").css('display', 'block');
+            }
+
+        })
+
+        $("#Discount").bind('keyup mouseup', function () {
+            $("#bill").css('display', 'none');
+            $("#btnPrint").css('display', 'none');
+            $("#bill1").css('display', 'none');
+
+            var payableFee = $("#PayableFee").val();
+            var discount = $(this).val();
+            var remaining;
+            var cashReceived = $("#CashReceived").val();
+            if (cashReceived != "") {
+                remaining = parseFloat(payableFee) - parseFloat(cashReceived) - parseFloat(discount);
+            }
+            else {
+                remaining = parseFloat(payableFee) - parseFloat(discount);
+            }
+
+            $("#RemainingBalance").val(Math.round(remaining));
+            var remainingB = $("#RemainingBalance").val();
+            if (remainingB == "" || cashReceived == 0 || remaining < 0 || cashReceived < 0 || discount < 0) {
+
                 $("#btnPrint").css('display', 'none');
-                $("#bill1").css('display', 'none');
+                $("#ChallanForm").css('display', 'none');
+                $("#bill").css('display', 'none');
+            }
+            else {
+                //$("#btnPrint").css('display', 'block');
+                $("#ChallanForm").css('display', 'block');
+            }
 
-                var payableFee = $("#PayableFee").val();
-                var discount = $(this).val();
-                var remaining;
-                var cashReceived = $("#CashReceived").val();
-                if (cashReceived != "") {
-                    remaining = parseFloat(payableFee) - parseFloat(cashReceived) - parseFloat(discount);
-                }
-                else {
-                    remaining = parseFloat(payableFee) - parseFloat(discount);
-                }
+            if (remaining == 0) {
 
-                $("#RemainingBalance").val(Math.round(remaining));
-                var remainingB = $("#RemainingBalance").val();
-                if (remainingB == "" || cashReceived == 0 || remaining < 0 || cashReceived < 0 || discount < 0) {
+                document.getElementById('DueDate').valueAsDate = new Date();
 
-                    $("#btnPrint").css('display', 'none');
-                    $("#ChallanForm").css('display', 'none');
-                    $("#bill").css('display', 'none');
-                }
-                else {
-                    //$("#btnPrint").css('display', 'block');
-                    $("#ChallanForm").css('display', 'block');
-                }
-
-                if (remaining == 0) {
-
-                    document.getElementById('DueDate').valueAsDate = new Date();
-
-                    $("#DueDate").prop("readonly", true);
-
-                    $('#ChallanForm').prop('disabled', false);
-                    $('#DueDateError').html(" ");
-                }
-                else {
-
-                    $("#DueDate").val("");
-                    $("#DueDate").prop("readonly", false);
-                    $('#ChallanForm').prop('disabled', true);
-                    $('#DueDateError').html("");
-                }
-
-            })
-
-            $("input").click(function () {
+                $("#DueDate").prop("readonly", true);
 
                 $('#ChallanForm').prop('disabled', false);
+                $('#DueDateError').html(" ");
+            }
+            else {
+
+                $("#DueDate").val("");
+                $("#DueDate").prop("readonly", false);
+                $('#ChallanForm').prop('disabled', true);
+                $('#DueDateError').html("");
+            }
+
+        })
+
+        $("input").click(function () {
+
+            $('#ChallanForm').prop('disabled', false);
+
+        })
+
+        $("#ChallanForm").click(function () {
+
+            var DueDate = document.getElementById("DueDate").value;
+
+            $('#billbody').html("");
+            $('#billbody1').html("");
+            var student = $("#students option:selected").text();
+            var session = $("#ClassId option:selected").text();
+
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            const d = new Date();
+            //document.write("The current month is " + monthNames[d.getMonth()]);
+
+            var Discount = $("#Discount").val();
+            var cashReceived = $("#CashReceived").val();
+            var remainingBalance = parseFloat($("#RemainingBalance").val());
+
+            var FeeType = $("#FeeType").val();
+
+            //   alert(FeeType);
+            var status = "";
+            if (remainingBalance == 0) {
+                status = "Paid";
+            }
+
+            else {
+                status = "Pending";
+
+            }
+            var TableRow;
+            if (Discount != "") {
+
+                TableRow = "<tr>  <td class='description'>Student Name</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + student + "</td></tr><tr>  <td class='description'>Student Session</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + session + "</td></tr><tr>  <td class='description'>Fee Month</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + monthNames[d.getMonth()] + "</td></tr>  <tr><td  class='description'> FeeType</td> <td class='quantity'>&nbsp;&nbsp;&nbsp;" + FeeType + "</td> </tr>  <tr>  <td class='description'>Total Fee</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + $("#TotalFee").val() + "</td></tr><tr>  <td class='description'>Cash Received</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + cashReceived + "</td></tr>  <tr>  <td class='description'>Discount</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + Discount + "</td></tr> <tr>  <td class='description'>Remaining Balance</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + remainingBalance + "</td></tr>    <tr>  <td class='description'>Status</td> <td class='quantity' >&nbsp;&nbsp;&nbsp; " + status + " </td></tr>  <tr>  <td class='description'>Due Date</td> <td class='quantity' >&nbsp;&nbsp;&nbsp; " + DueDate + " </td></tr> "
+            }
+            else {
+                TableRow = "<tr>  <td class='description'>Student Name</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + student + "</td></tr><tr>  <td class='description'>Student Session</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + session + "</td></tr><tr>  <td class='description'>Fee Month</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + monthNames[d.getMonth()] + "</td></tr>   <tr> <td class='description'> FeeType  </td> <td class='quantity'>&nbsp;&nbsp;&nbsp;" + FeeType + "</td></tr>  <tr>  <td class='description'>Total Fee</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + $("#TotalFee").val() + "</td></tr><tr>  <td class='description'>Cash Received</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + cashReceived + "</td></tr>   <tr>  <td class='description'>Remaining Balance</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + remainingBalance + "</td></tr>    <tr>  <td class='description'>Status</td> <td class='quantity' >&nbsp;&nbsp;&nbsp; " + status + " </td></tr>  <tr>  <td class='description'>Due Date</td> <td class='quantity' >&nbsp;&nbsp;&nbsp; " + DueDate + " </td></tr>    "
+
+            }
+
+            var challanNo = $("#ChallanForm").attr('name');
+
+            $('#billbody').append(TableRow);
+            $('#billbody1').append(TableRow);
+            $("#challanNo").html(challanNo);
+            $("#challanNo1").html(challanNo);
+
+
+            //var d = new Date($.now());
+
+            $("#DateTime").html(d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+
+
+            //  $("#btnPrint").attr('name', data.Id);
+
+
+
+            $("#bill").css('display', 'block');
+            $("#bill1").css('display', 'block');
+            $("#btnPrint").css('display', 'block');
+
+        })
+        $("#btnPrint").click(function () {
+
+            $("#btnPrint").css('display', 'none');
+            var mywindow = window.open('', '', '');
+
+            mywindow.document.write('<html><head><title></title>  ');
+
+            mywindow.document.write('<style>td,th,tr,table{border-top: 1px solid black;} td.description,th.description {width: 115px; max-width;115px;word-break: break-word;}  td.quantity,th.quantity{ width: 115px;max-width: 115px;word-break: break-word;} .centered {text-align: center;align-content: center;} .ticket{width:230px;max-width:230px;font-size: 12px}  img { } </style>');
+            mywindow.document.write('</head><body >');
+            // mywindow.document.write('<h1>' + document.title + '</h1>');
+            mywindow.document.write(document.getElementById('bill').innerHTML);
+            //mywindow.document.write('<br>');
+            mywindow.document.write(document.getElementById('bill1').innerHTML);
+            mywindow.document.write('</body></html>');
+            mywindow.document.close(); // necessary for IE >= 10
+            mywindow.focus(); // necessary for IE >= 10*/
+
+            mywindow.print();
+            mywindow.close();
+
+
+            //  var SessionName = $("ClassId")
+
+            var classId = $("#ClassId").val();
+
+            var id = $(this).attr('name');
+            var remainingfee = $("#RemainingBalance").val();
+            var Discount = parseFloat($("#Discount").val());
+            var CashReceived = parseFloat($("#CashReceived").val());
+
+            var DueDate = document.getElementById("DueDate").value;
+
+            var IssueDate = document.getElementById("IssueDate").value;
+            // CashReceived
+
+            if (isNaN(Discount)) {
+                Discount = 0;
+            }
+            if (isNaN(remainingfee)) {
+
+                remainingBalance = 0;
+            }
+            if (isNaN(CashReceived)) {
+
+                CashReceived = 0;
+            }
+
+            $.ajax({
+
+                type: "POST",
+                url: '/GrandTotal/StudentFeeUpdate',
+                data: { "Id": id, "RemainingFee": remainingfee, "Discount": Discount, "CashReceived": CashReceived, "ClassId": classId, "DueDate": DueDate, "IssueDate": IssueDate },
+                success: function () {
+
+                    // alert("success");
+                    window.location.href = '/GrandTotal/StudentFee/';
+                }
+
 
             })
 
-            $("#ChallanForm").click(function () {
+        })
 
-                var DueDate = document.getElementById("DueDate").value;
+        $("#ClassId").change(function () {
 
-                $('#billbody').html("");
-                $('#billbody1').html("");
-                var student = $("#students option:selected").text();
-                var session = $("#ClassId option:selected").text();
+            $("#ChallanForm").css('display', 'none');
 
-                const monthNames = ["January", "February", "March", "April", "May", "June",
-                    "July", "August", "September", "October", "November", "December"
-                ];
-                const d = new Date();
-                //document.write("The current month is " + monthNames[d.getMonth()]);
+            $("#bill").css('display', 'none');
+            $("#btnPrint").css('display', 'none');
 
-                var Discount = $("#Discount").val();
-                var cashReceived = $("#CashReceived").val();
-                var remainingBalance = parseFloat($("#RemainingBalance").val());
+            $("#ChallanForm1").css('display', 'none');
 
-                var FeeType = $("#FeeType").val();
+            $("#bill1").css('display', 'none');
 
-                //   alert(FeeType);
-                var status = "";
-                if (remainingBalance == 0) {
-                    status = "Paid";
+        })
+
+        $("#students").change(function () {
+
+            $("#ChallanForm").css('display', 'none');
+            $("#bill").css('display', 'none');
+            $("#btnPrint").css('display', 'none');
+            $("#ChallanForm1").css('display', 'none');
+            $("#bill1").css('display', 'none');
+        })
+
+        AllDefaulterStudents();
+
+        function AllDefaulterStudents() {
+
+            $.ajax({
+
+                type: "POST",
+                url: '/GrandTotal/AllDefaulterStudents',
+                success: function (data) {
+                    table.fnClearTable();
+
+
+                    $.each(data, function (index) {
+                        debugger
+                        var value = new Date(parseInt(data[index].DueDate.replace(/(^.*\()|([+-].*$)/g, '')));
+                        var dat = value.getMonth() +
+                            1 +
+                            "/" +
+                            value.getDate() +
+                            "/" +
+                            value.getFullYear();
+                        table.fnAddData([data[index].Name, data[index].UserName, data[index].ClassName, data[index].CourseType, data[index].FeePayable, dat]);
+
+                    })
+
+                    table.fnDraw();
                 }
-
-                else {
-                    status = "Pending";
-
-                }
-                var TableRow;
-                if (Discount != "") {
-
-                    TableRow = "<tr>  <td class='description'>Student Name</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + student + "</td></tr><tr>  <td class='description'>Student Session</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + session + "</td></tr><tr>  <td class='description'>Fee Month</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + monthNames[d.getMonth()] + "</td></tr>  <tr><td  class='description'> FeeType</td> <td class='quantity'>&nbsp;&nbsp;&nbsp;" + FeeType + "</td> </tr>  <tr>  <td class='description'>Total Fee</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + $("#TotalFee").val() + "</td></tr><tr>  <td class='description'>Cash Received</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + cashReceived + "</td></tr>  <tr>  <td class='description'>Discount</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + Discount + "</td></tr> <tr>  <td class='description'>Remaining Balance</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + remainingBalance + "</td></tr>    <tr>  <td class='description'>Status</td> <td class='quantity' >&nbsp;&nbsp;&nbsp; " + status + " </td></tr>  <tr>  <td class='description'>Due Date</td> <td class='quantity' >&nbsp;&nbsp;&nbsp; " + DueDate + " </td></tr> "
-                }
-                else {
-                    TableRow = "<tr>  <td class='description'>Student Name</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + student + "</td></tr><tr>  <td class='description'>Student Session</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + session + "</td></tr><tr>  <td class='description'>Fee Month</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + monthNames[d.getMonth()] + "</td></tr>   <tr> <td class='description'> FeeType  </td> <td class='quantity'>&nbsp;&nbsp;&nbsp;" + FeeType + "</td></tr>  <tr>  <td class='description'>Total Fee</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + $("#TotalFee").val() + "</td></tr><tr>  <td class='description'>Cash Received</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + cashReceived + "</td></tr>   <tr>  <td class='description'>Remaining Balance</td> <td class='quantity' >&nbsp;&nbsp;&nbsp;" + remainingBalance + "</td></tr>    <tr>  <td class='description'>Status</td> <td class='quantity' >&nbsp;&nbsp;&nbsp; " + status + " </td></tr>  <tr>  <td class='description'>Due Date</td> <td class='quantity' >&nbsp;&nbsp;&nbsp; " + DueDate + " </td></tr>    "
-
-                }
-
-                var challanNo = $("#ChallanForm").attr('name');
-
-                $('#billbody').append(TableRow);
-                $('#billbody1').append(TableRow);
-                $("#challanNo").html(challanNo);
-                $("#challanNo1").html(challanNo);
-
-
-                //var d = new Date($.now());
-
-                $("#DateTime").html(d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
-
-
-                //  $("#btnPrint").attr('name', data.Id);
-
-
-
-                $("#bill").css('display', 'block');
-                $("#bill1").css('display', 'block');
-                $("#btnPrint").css('display', 'block');
-
             })
-            $("#btnPrint").click(function () {
-
-                $("#btnPrint").css('display', 'none');
-                var mywindow = window.open('', '', '');
-
-                mywindow.document.write('<html><head><title></title>  ');
-
-                mywindow.document.write('<style>td,th,tr,table{border-top: 1px solid black;} td.description,th.description {width: 115px; max-width;115px;word-break: break-word;}  td.quantity,th.quantity{ width: 115px;max-width: 115px;word-break: break-word;} .centered {text-align: center;align-content: center;} .ticket{width:230px;max-width:230px;font-size: 12px}  img { } </style>');
-                mywindow.document.write('</head><body >');
-                // mywindow.document.write('<h1>' + document.title + '</h1>');
-                mywindow.document.write(document.getElementById('bill').innerHTML);
-                //mywindow.document.write('<br>');
-                mywindow.document.write(document.getElementById('bill1').innerHTML);
-                mywindow.document.write('</body></html>');
-                mywindow.document.close(); // necessary for IE >= 10
-                mywindow.focus(); // necessary for IE >= 10*/
-
-                mywindow.print();
-                mywindow.close();
+        }
 
 
-                //  var SessionName = $("ClassId")
+        $("#ClassId1").change(function () {
 
-                var classId = $("#ClassId").val();
 
-                var id = $(this).attr('name');
-                var remainingfee = $("#RemainingBalance").val();
-                var Discount = parseFloat($("#Discount").val());
-                var CashReceived = parseFloat($("#CashReceived").val());
+            var SelectedOptionText = $("#ClassId1 option:selected").html();
 
-                var DueDate = document.getElementById("DueDate").value;
+            if (SelectedOptionText == "All") {
+                AllDefaulterStudents();
+            }
 
-                var IssueDate = document.getElementById("IssueDate").value;
-                // CashReceived
-
-                if (isNaN(Discount)) {
-                    Discount = 0;
-                }
-                if (isNaN(remainingfee)) {
-
-                    remainingBalance = 0;
-                }
-                if (isNaN(CashReceived)) {
-
-                    CashReceived = 0;
-                }
-
+            else {
                 $.ajax({
 
                     type: "POST",
-                    url: '/GrandTotal/StudentFeeUpdate',
-                    data: { "Id": id, "RemainingFee": remainingfee, "Discount": Discount, "CashReceived": CashReceived, "ClassId": classId, "DueDate": DueDate, "IssueDate": IssueDate },
-                    success: function () {
-
-                        // alert("success");
-                        window.location.href = '/GrandTotal/StudentFee/';
-                    }
-
-
-                })
-
-            })
-
-            $("#ClassId").change(function () {
-
-                $("#ChallanForm").css('display', 'none');
-
-                $("#bill").css('display', 'none');
-                $("#btnPrint").css('display', 'none');
-
-                $("#ChallanForm1").css('display', 'none');
-
-                $("#bill1").css('display', 'none');
-
-            })
-
-            $("#students").change(function () {
-
-                $("#ChallanForm").css('display', 'none');
-                $("#bill").css('display', 'none');
-                $("#btnPrint").css('display', 'none');
-                $("#ChallanForm1").css('display', 'none');
-                $("#bill1").css('display', 'none');
-            })
-
-            AllDefaulterStudents();
-
-            function AllDefaulterStudents() {
-
-                $.ajax({
-
-                    type: "POST",
-                    url: '/GrandTotal/AllDefaulterStudents',
+                    url: '/GrandTotal/DefaulterStudentsByClass',
+                    data: { "ClassName": SelectedOptionText },
                     success: function (data) {
                         table.fnClearTable();
 
-
                         $.each(data, function (index) {
-                            debugger
+
                             var value = new Date(parseInt(data[index].DueDate.replace(/(^.*\()|([+-].*$)/g, '')));
                             var dat = value.getMonth() +
                                 1 +
@@ -948,6 +979,7 @@
                                 value.getDate() +
                                 "/" +
                                 value.getFullYear();
+
                             table.fnAddData([data[index].Name, data[index].UserName, data[index].ClassName, data[index].CourseType, data[index].FeePayable, dat]);
 
                         })
@@ -955,93 +987,55 @@
                         table.fnDraw();
                     }
                 })
-            }
 
 
-            $("#ClassId1").change(function () {
+            }   //end of else block
 
-
-                var SelectedOptionText = $("#ClassId1 option:selected").html();
-
-                if (SelectedOptionText == "All") {
-                    AllDefaulterStudents();
-                }
-
-                else {
-                    $.ajax({
-
-                        type: "POST",
-                        url: '/GrandTotal/DefaulterStudentsByClass',
-                        data: { "ClassName": SelectedOptionText },
-                        success: function (data) {
-                            table.fnClearTable();
-
-                            $.each(data, function (index) {
-
-                                var value = new Date(parseInt(data[index].DueDate.replace(/(^.*\()|([+-].*$)/g, '')));
-                                var dat = value.getMonth() +
-                                    1 +
-                                    "/" +
-                                    value.getDate() +
-                                    "/" +
-                                    value.getFullYear();
-
-                                table.fnAddData([data[index].Name, data[index].UserName, data[index].ClassName, data[index].CourseType, data[index].FeePayable, dat]);
-
-                            })
-
-                            table.fnDraw();
-                        }
-                    })
-
-
-                }   //end of else block
-
-            })
+        })
 
 
 
-        })//end of document ready
+    })//end of document ready
 
 
 
-        function drawTable() {
-            $('#example_filter').addClass("form-group");
-            $('#example_filter').addClass("has-feedback");
-            $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
-            //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+    function drawTable() {
+        $('#example_filter').addClass("form-group");
+        $('#example_filter').addClass("has-feedback");
+        $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+        //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
 
-            $('#example_wrapper').css("text-align", "left");
-            $('#example_length').css("text-align", "left");
-            $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
-            $("#example_length label").css("text-align", "left");
-            $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
-            // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
-            $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
-            //$('#example_length').css({ "overflow": "auto" });
-            $('#example_filter input').addClass("add");
-            $('#example_filter').append('<span  class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
-            var list = $("#ClassID").html();
-            $('#example_length').append(
+        $('#example_wrapper').css("text-align", "left");
+        $('#example_length').css("text-align", "left");
+        $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+        $("#example_length label").css("text-align", "left");
+        $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+        // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+        $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+        //$('#example_length').css({ "overflow": "auto" });
+        $('#example_filter input').addClass("add");
+        $('#example_filter').append('<span  class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+        var list = $("#ClassID").html();
+        $('#example_length').append(
 
-                '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
-                '<div class="d-bar"></div>' +
-                '</div>'
-                +
+            '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+            '<div class="d-bar"></div>' +
+            '</div>'
+            +
 
-                '<div class="col-md-3 col-lg-3">' +
-                '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
-                '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/Admin_Dashboard/StudentRegister"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></a></div>' +
-                '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/AspNetUser/DisableStudentIndex"><i class="fa fa-ban" data-placement="bottom"></i>' + '</a></div>' +
-                '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><i onclick="download()"class="glyphicon glyphicon-download-alt" onclick="download()" data-placement="bottom"></i></a></div>' +
-                '<div class="col-md-1" padding-left:0px;">' +
-                '<div class="d-bar"></div>' +
-                '</div>' +
-                '</div>');
-            //$("#Class").prepend("<option value='0'>Select One</option>");
-        }
+            '<div class="col-md-3 col-lg-3">' +
+            '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
+            '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/Admin_Dashboard/StudentRegister"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></a></div>' +
+            '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/AspNetUser/DisableStudentIndex"><i class="fa fa-ban" data-placement="bottom"></i>' + '</a></div>' +
+            '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><i onclick="download()"class="glyphicon glyphicon-download-alt" onclick="download()" data-placement="bottom"></i></a></div>' +
+            '<div class="col-md-1" padding-left:0px;">' +
+            '<div class="d-bar"></div>' +
+            '</div>' +
+            '</div>');
+        //$("#Class").prepend("<option value='0'>Select One</option>");
+    }
 
-    </script>
+</script>
 
 
 
