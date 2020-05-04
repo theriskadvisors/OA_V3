@@ -185,55 +185,57 @@ else
 
             <div class="box-body">
 
-                <table class="table hover table-bordered table-striped" id="datatable">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Name)
-                            </th>
-                            <th>
-                                Start Time
-                            </th>
-                            <th>
-                                End Time
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Minutes)
-                            </th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
+                <div class="table-responsive">
+                    <table class="table hover table-bordered table-striped" id="datatable">
+                        <thead>
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Start_Time)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.End_Time)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Minutes)
-                                </td>
-                                <td>
-
-                                    @*@Html.ActionLink("Delete", "Delete", new { id = item.Id },new { htmlAttributes = new { @class = "btn btn-default", } } )*@
-                                    <center>
-
-                                        <input class="btn btn-danger btn-sm deletebtn" value="Delete" type="button" id="@item.Id" name="name" />
-                                    </center>
-
-                                </td>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th>
+                                    Start Time
+                                </th>
+                                <th>
+                                    End Time
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Minutes)
+                                </th>
+                                <th>Action</th>
                             </tr>
-                        }
-                    </tbody>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Start_Time)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.End_Time)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Minutes)
+                                    </td>
+                                    <td>
 
-                </table>
-            </div>
+                                        @*@Html.ActionLink("Delete", "Delete", new { id = item.Id },new { htmlAttributes = new { @class = "btn btn-default", } } )*@
+                                        <center>
+
+                                            <input class="btn btn-danger btn-sm deletebtn" value="Delete" type="button" id="@item.Id" name="name" />
+                                        </center>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                    </div>
+                </div>
         </div>
     </div>
 </div>
