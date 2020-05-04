@@ -11,7 +11,7 @@
 
 <script>
     $(document).ready(function () {
-        
+
         $("#PageHeader").html("Add Student");
 
         $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
@@ -23,9 +23,9 @@
         $('#cancel').click(function () {StudentsIndex
             window.location.href = '@Url.Action("StudentsIndex", "AspNetUser")';
         });
-		
+
         $("#ClassID").change(function () {
-          
+
             $("#DiscountInAmount").val(0);
 
             $("#TotalFee").val("");
@@ -64,7 +64,7 @@
 
         var MandatorySub;
         var AllSub;
-		
+
         $.ajax({
             type: "POST",
             url: "/AspNetUser/GetRollNumber",
@@ -117,7 +117,7 @@
             $("#NotesAmount").prop('required', true);
             $('#NotesID').show();
             $("#TotalFee").val("");
-            $('#NotesAmount').val(16000); 
+            $('#NotesAmount').val(16000);
             $("#DiscountPercentage").val(0);
             $("#Discount").val(0);
             $("#RemainingAmount").val(0);
@@ -126,9 +126,9 @@
 
         });
 
-        
+
         $("#DueDate").bind('blur', function () {
-       
+
             ValidateDueDate();
         });
 
@@ -145,12 +145,12 @@
             if (dob[0] >= year) {
                 $('#FormSubmit').prop('disabled', false);
                 $('#DueDateError').html(" ");
-                
+
                 if (dob[0] == year) {
                     if (dob[1] >= month) {
                         $('#FormSubmit').prop('disabled', false);
                         $('#DueDateError').html(" ");
-                        
+
                         if (dob[1] == month) {
                             if (dob[2] >= day) {
                                 $('#FormSubmit').prop('disabled', false);
@@ -191,6 +191,7 @@
                     console.log(data);
                     if (data == 0) {
                         $('#FormSubmit').prop('disabled', false);
+                         $('#Email-Error').html("");
                     }
                     else {
                         $('#Email-Error').html("Email Already taken");
@@ -211,7 +212,7 @@
         $("form").submit(function(){
 
             var TotalFee  = $("#TotalFee").val();
-              
+
             if (TotalFee > 0) {
 
                 $("#FormSubmit").attr("disabled", true);
@@ -219,7 +220,7 @@
             }
             else
                 return false;
-              
+
         });
 
         $("input,select").click(function () {
@@ -254,7 +255,7 @@
             $("#Discount").val(0);
 
             $("#DiscountReadOnlyDiv").css('display', 'block');
-            
+
             $("#DiscountInAmount").val(0);
         })
 
@@ -278,6 +279,8 @@
             //  $("#MandatorySubjects").removeAttr('checked');
 
             //  alert($("#ClassID").val());
+
+          //  alert("123");
             var selectedClass = $("#ClassID").val();
             var CourseType = $("input[name='CourseType']:checked").val();
 
@@ -315,20 +318,20 @@
                             $(".SubjectsBoxesCSS").css('display', 'block');
                             $(".SubjectsBoxesPMS").css('display', 'none');
 
-                            $("#MandatorySubjectsCSS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects </b></span><input  type="checkbox" id="CheckboxCSSMandatory"></h3>');
+                            $("#MandatorySubjectsCSS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects </b></span></h3>');
                             $("#MandatorySubjectsCSS").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsCSSTableBody"></tbody></table>');
                             $.each(MandatorySubjectsList, function (key, value1) {
 
-                                $("#MandatorySubjectsCSSTableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="checkbox" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects0"></td></tr>');
+                                $("#MandatorySubjectsCSSTableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input class="form-check-input"   type="checkbox" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects0"></td></tr>');
 
                             })
-                            $("#SubjectCSSGroup1").append('<h3><span style="color:#3C8DBC !important"><b>Group 1</b></span>  <input  type="checkbox" class="CheckboxCSSGroup1"></h3>');
-                            $("#SubjectCSSGroup2").append('<h3><span style="color:#3C8DBC !important"><b>Group 2</b></span>  <input  type="checkbox" class="CheckboxCSSGroup2"></h3>');
-                            $("#SubjectCSSGroup3").append('<h3><span style="color:#3C8DBC !important"><b>Group 3</b></span>  <input  type="checkbox" class="CheckboxCSSGroup3"></h3>');
-                            $("#SubjectCSSGroup4").append('<h3><span style="color:#3C8DBC !important"><b>Group 4</b></span>  <input  type="checkbox" class="CheckboxCSSGroup4"></h3>');
-                            $("#SubjectCSSGroup5").append('<h3><span style="color:#3C8DBC !important"><b>Group 5</b></span>  <input  type="checkbox" class="CheckboxCSSGroup5"></h3>');
-                            $("#SubjectCSSGroup6").append('<h3><span style="color:#3C8DBC !important"><b>Group 6</b></span>  <input  type="checkbox" class="CheckboxCSSGroup6"></h3>');
-                            $("#SubjectCSSGroup7").append('<h3><span style="color:#3C8DBC !important"><b>Group 7</b></span>  <input  type="checkbox" class="CheckboxCSSGroup7"></h3>');
+                            $("#SubjectCSSGroup1").append('<h3><span style="color:#3C8DBC !important"><b>Group 1</b></span>   <label class="form-check-label"><input  type="checkbox" class="CheckboxCSSGroup1"></label></h3>');
+                            $("#SubjectCSSGroup2").append('<h3><span style="color:#3C8DBC !important"><b>Group 2</b></span>  </h3>');
+                            $("#SubjectCSSGroup3").append('<h3><span style="color:#3C8DBC !important"><b>Group 3</b></span> </h3>');
+                            $("#SubjectCSSGroup4").append('<h3><span style="color:#3C8DBC !important"><b>Group 4</b></span>  </h3>');
+                            $("#SubjectCSSGroup5").append('<h3><span style="color:#3C8DBC !important"><b>Group 5</b></span> </h3>');
+                            $("#SubjectCSSGroup6").append('<h3><span style="color:#3C8DBC !important"><b>Group 6</b></span>  </h3>');
+                            $("#SubjectCSSGroup7").append('<h3><span style="color:#3C8DBC !important"><b>Group 7</b></span> </h3>');
 
                             $("#SubjectCSSGroup1").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup1TableBody"></tbody></table>');
                             $("#SubjectCSSGroup2").append('<table  class="table table-condensed table-hover"><thead><tr><th  class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup2TableBody"></tbody></table>');
@@ -390,7 +393,7 @@
 
                             $(".SubjectsBoxesPMS").css('display', 'block');
 
-                            $("#MandatorySubjectsPMS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects</b></span> <input  type="checkbox" id="CheckboxPMSMandatory"></h3>');
+                            $("#MandatorySubjectsPMS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects</b></span> </h3>');
                             $("#MandatorySubjectsPMS").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsPMSTableBody"></tbody></table>');
                             $.each(MandatorySubjectsList, function (key, value1) {
 
@@ -398,11 +401,11 @@
                                 $("#MandatorySubjectsPMSTableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="checkbox" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects0"></td></tr>');
 
                             })
-                            $("#SubjectPMSGroup1").append('<h3><span style="color:#3C8DBC !important"><b>Group 1</b></span> <input  type="checkbox" class="CheckboxPMSGroup1"></h3>');
-                            $("#SubjectPMSGroup2").append('<h3><span style="color:#3C8DBC !important"><b>Group 2</b></span><input  type="checkbox" class="CheckboxPMSGroup2"></h3>');
-                            $("#SubjectPMSGroup3").append('<h3><span style="color:#3C8DBC !important"><b>Group 3</b></span><input  type="checkbox" class="CheckboxPMSGroup3"></h3>');
-                            $("#SubjectPMSGroup4").append('<h3><span style="color:#3C8DBC !important"><b>Group 4</b></span><input  type="checkbox" class="CheckboxPMSGroup4"></h3>');
-                            $("#SubjectPMSGroup5").append('<h3><span style="color:#3C8DBC !important"><b>Group 5</b></span><input  type="checkbox" class="CheckboxPMSGroup5"></h3>');
+                            $("#SubjectPMSGroup1").append('<h3><span style="color:#3C8DBC !important"><b>Group 1</b></span> </h3>');
+                            $("#SubjectPMSGroup2").append('<h3><span style="color:#3C8DBC !important"><b>Group 2</b></span></h3>');
+                            $("#SubjectPMSGroup3").append('<h3><span style="color:#3C8DBC !important"><b>Group 3</b></span></h3>');
+                            $("#SubjectPMSGroup4").append('<h3><span style="color:#3C8DBC !important"><b>Group 4</b></span></h3>');
+                            $("#SubjectPMSGroup5").append('<h3><span style="color:#3C8DBC !important"><b>Group 5</b></span></h3>');
 
                             $("#SubjectPMSGroup1").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup1TableBody"></tbody></table>');
                             $("#SubjectPMSGroup2").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup2TableBody"></tbody></table>');
@@ -467,267 +470,6 @@
         });
 
 
-        $("#MandatorySubjectsCSS").on('change', "#CheckboxCSSMandatory", function () {
-            debugger
-
-            var CourseType =    $("input[name='CourseType']").val();
-
-
-            if ($(this).is(':checked')) {
-
-
-                $("input[name='CSSSubjects0']").prop("checked", true);
-
-            }
-
-            else {
-
-                $("input[name='CSSSubjects0']").prop("checked", false);
-
-            }
-
-        })
-
-
-
-        $("#MandatorySubjectsPMS").on('change', "#CheckboxPMSMandatory", function () {
-            debugger
-
-            var CourseType =    $("input[name='CourseType']").val();
-
-
-            if ($(this).is(':checked')) {
-
-
-                $("input[name='PMSSubjects0']").prop("checked", true);
-
-            }
-
-            else {
-
-                $("input[name='PMSSubjects0']").prop("checked", false);
-
-            }
-
-        })
-        $("#SubjectCSSGroup1").on('change', ".CheckboxCSSGroup1", function () {
-
-            if ($(this).is(':checked')) {
-
-                $("input[name='CSSSubjects1']:first").prop("checked", true);
-
-            }
-
-            else {
-
-                $("input[name='CSSSubjects1']").prop("checked", false);
-
-            }
-
-        })
-
-
-        $("#SubjectCSSGroup2").on('change', ".CheckboxCSSGroup2", function () {
-
-            if ($(this).is(':checked')) {
-
-                $("input[name='CSSSubjects2']:first").prop("checked", true);
-
-            }
-
-            else {
-
-                $("input[name='CSSSubjects2']").prop("checked", false);
-
-            }
-
-        })
-
-
-        $("#SubjectCSSGroup3").on('change', ".CheckboxCSSGroup3", function () {
-
-            if ($(this).is(':checked')) {
-
-                $("input[name='CSSSubjects3']:first").prop("checked", true);
-
-            }
-
-            else {
-
-                $("input[name='CSSSubjects3']").prop("checked", false);
-
-
-
-            }
-
-        })
-
-
-        $("#SubjectCSSGroup4").on('change', ".CheckboxCSSGroup4", function () {
-
-            if ($(this).is(':checked')) {
-
-                $("input[name='CSSSubjects4']:first").prop("checked", true);
-
-            }
-
-            else {
-
-                $("input[name='CSSSubjects4']").prop("checked", false);
-
-
-
-            }
-
-        })
-
-
-        $("#SubjectCSSGroup5").on('change', ".CheckboxCSSGroup5", function () {
-
-            if ($(this).is(':checked')) {
-
-                $("input[name='CSSSubjects5']:first").prop("checked", true);
-
-            }
-
-            else {
-
-                $("input[name='CSSSubjects5']").prop("checked", false);
-
-
-
-            }
-
-        })
-
-
-        $("#SubjectCSSGroup6").on('change', ".CheckboxCSSGroup6", function () {
-
-            if ($(this).is(':checked')) {
-
-                $("input[name='CSSSubjects6']:first").prop("checked", true);
-
-            }
-
-            else {
-
-                $("input[name='CSSSubjects6']").prop("checked", false);
-
-
-
-            }
-
-        })
-
-
-        $("#SubjectCSSGroup7").on('change', ".CheckboxCSSGroup7", function () {
-
-            if ($(this).is(':checked')) {
-
-                $("input[name='CSSSubjects7']:first").prop("checked", true);
-
-            }
-
-            else {
-
-                $("input[name='CSSSubjects7']").prop("checked", false);
-
-
-
-            }
-
-        })
-
-
-        $("#SubjectPMSGroup1").on('change', ".CheckboxPMSGroup1", function () {
-
-            if ($(this).is(':checked')) {
-
-                $("input[name='PMSSubjects1']:first").prop("checked", true);
-
-            }
-
-            else {
-
-                $("input[name='PMSSubjects1']").prop("checked", false);
-
-
-
-            }
-
-        })
-
-        $("#SubjectPMSGroup2").on('change', ".CheckboxPMSGroup2", function () {
-
-            if ($(this).is(':checked')) {
-
-                $("input[name='PMSSubjects2']:first").prop("checked", true);
-
-            }
-
-            else {
-
-                $("input[name='PMSSubjects2']").prop("checked", false);
-
-
-
-            }
-
-        })
-
-        $("#SubjectPMSGroup3").on('change', ".CheckboxPMSGroup3", function () {
-
-            if ($(this).is(':checked')) {
-
-                $("input[name='PMSSubjects3']:first").prop("checked", true);
-
-            }
-
-            else {
-
-                $("input[name='PMSSubjects3']").prop("checked", false);
-
-
-
-            }
-
-        })
-
-        $("#SubjectPMSGroup4").on('change', ".CheckboxPMSGroup4", function () {
-
-            if ($(this).is(':checked')) {
-
-                $("input[name='PMSSubjects4']:first").prop("checked", true);
-
-            }
-
-            else {
-
-                $("input[name='PMSSubjects4']").prop("checked", false);
-
-
-
-            }
-
-        })
-
-        $("#SubjectPMSGroup5").on('change', ".CheckboxPMSGroup5", function () {
-
-            if ($(this).is(':checked')) {
-
-                $("input[name='PMSSubjects5']:first").prop("checked", true);
-
-            }
-
-            else {
-
-                $("input[name='PMSSubjects5']").prop("checked", false);
-
-
-
-            }
-
-        })
 
         $("#NotesAmount").bind('keyup mouseup', function () {
 
@@ -765,7 +507,7 @@
                 NotesAmount = 0;
 
             if ( FeeType !="" &&  FeeAfterFeeType != 0 && DiscountPercentage != 0 && DiscountPercentage>0 ) {
-                
+
                 DiscountedAmount = parseFloat(FeeAfterFeeType) * (parseFloat(DiscountPercentage) / 100);
 
                 var RemainingFeeAfterFeeType = parseFloat(FeeAfterFeeType) - parseFloat(DiscountedAmount);
@@ -846,7 +588,7 @@
         $('#cancel').click(function () {
             redirect();
         });
-        
+
         $("#Password").bind('blur', function () {
             var password = $("#Password").val();
 
@@ -980,6 +722,7 @@
 
 </script>
 
+
 @*<div class="row" style="padding-bottom: 10px; padding-top: 10px; padding-left: 20px; padding-right: 20px;">
         <button class="btn btn-default pull-left btn-sm" onclick="onCancel()">
             Cancel
@@ -1005,92 +748,94 @@
 
                         <div class="tab-pane active" id="tab_1">
 
-    @using (Html.BeginForm("AccountantRegister", "Admin_Dashboard", FormMethod.Post, new { enctype = "multipart/form-data", @class = "forms form-horizontal", role = "form" }))
-    {
-        @Html.AntiForgeryToken()
+                            @using (Html.BeginForm("StudentRegister", "Admin_Dashboard", FormMethod.Post, new { enctype = "multipart/form-data", @class = "forms form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
 
-        <div class="row">
-            <div class="col-md-2 pl-3 pr-5">
-                <div style="height: 120px;" class="upload-photo border rounded d-flex align-items-center justify-content-center flex-column mb-4">
-                    <a href="#">
-                        <img id="imgPreview" src="~/Content/Images/Upload.png" onclick="$('#UploadImg').click();" />
-                    </a>
-                    <input style="display:none;" id="UploadImg" type="file" name="image" />
-                    <div id="UploadPhotoDiv" class="mt-3">Upload Photo</div>
-                </div>
-            </div>
 
-            <div class="col-md-5 pl-5 pr-5 border-right border-color-sea">
-                <h2 class="column-heading mb-4">User Information</h2>
 
-                <div class="form-group bmd-form-group is-filled">
-                    <label class="bmd-label-floating">Name <span class="red-mark">*</span></label>
-                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control round-border" })
-                </div>
+                                <div class="row">
+                                    <div class="col-md-2 pl-3 pr-5">
+                                        <div style="height: 120px;" class="upload-photo border rounded d-flex align-items-center justify-content-center flex-column mb-4">
+                                            <a href="#">
+                                                <img id="imgPreview" src="../assets/assets/icons/Upload.png" onclick="$('#UploadImg').click();" />
+                                            </a>
+                                            <input style="display:none;" id="UploadImg" type="file" name="image" />
+                                            <div id="UploadPhotoDiv" class="mt-3">Upload Photo</div>
+                                        </div>
+                                    </div>
 
-                <div class="form-group bmd-form-group my-3">
-                    <label class="bmd-label-floating">Father Name *</label>
-                    <input type="text" class="form-control round-border" id="Father_Name" name="Father_Name">
-                </div>
+                                    <div class="col-md-5 pl-5 pr-5 border-right border-color-sea">
+                                        <h2 class="column-heading mb-4">User Information</h2>
 
-                <div class="form-group bmd-form-group my-3">
-                    <label class="bmd-label-floating">Cell No <span class="red-mark">*</span> </label>
-                    <input type="text" class="form-control round-border" id="inputEmail3" name="cellNo" onblur="checkPhone(this)" required>
-                    <span class="text-danger" id="Phone-Error"></span>
-                </div>
+                                        <div class="form-group bmd-form-group is-filled">
+                                            <label class="bmd-label-floating">Name <span class="red-mark">*</span></label>
+                                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control round-border", @required = "true" })
+                                        </div>
 
-                <div class="form-group bmd-form-group my-3 is-filled">
-                    <label class="bmd-label-floating">Section Timings <span class="red-mark">*</span> </label>
-                    <select name="ClassTimings" class="form-control" style="color: #b9cbe1;">
-                        <option selected="">Select</option>
-                        <option value="Morning">Morning</option>
-                        <option value="Evening">Evening</option>
-                    </select>
-                </div>
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="bmd-label-floating">Father Name *</label>
+                                            <input type="text" class="form-control round-border" id="Father_Name" name="Father_Name">
+                                        </div>
 
-                <div class="form-group bmd-form-group my-3">
-                    <label class="bmd-label-floating">Course Type <span class="red-mark">*</span> </label>
-                    <div class="radio RadioButtonsInline">
-                        <label><input type="radio" name="CourseType" id="CssCourse" value="CSS" checked> CSS</label>
-                    </div>
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="bmd-label-floating">Cell No <span class="red-mark">*</span> </label>
+                                            <input type="text" class="form-control round-border" id="inputEmail3" name="cellNo" onblur="checkPhone(this)">
+                                            <span class="text-danger" id="Phone-Error"></span>
+                                        </div>
 
-                    <div class="radio RadioButtonsInline">
-                        <label><input type="radio" name="CourseType" id="PmsCourse" value="PMS"> PMS </label>
-                    </div>
+                                        <div class="form-group bmd-form-group my-3 is-filled">
+                                            <label class="bmd-label-floating">Section Timings <span class="red-mark">*</span> </label>
+                                            <select name="ClassTimings" class="form-control" style="color: #b9cbe1;">
+                                                <option selected="">Select</option>
+                                                <option value="Morning">Morning</option>
+                                                <option value="Evening">Evening</option>
+                                            </select>
+                                        </div>
 
-                    <div class="radio RadioButtonsInline">
-                        <label><input type="radio" name="CourseType" id="OnePaper" value="OnePaper"> One Paper </label>
-                    </div>
-                </div>
-            </div>
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="bmd-label-floating">Course Type <span class="red-mark">*</span> </label>
+                                            <div class="radio RadioButtonsInline">
+                                                <label><input type="radio" name="CourseType" id="CssCourse" value="CSS" checked> CSS</label>
+                                            </div>
 
-            <div class="col-md-5 pl-5 pr-5 ">
-                <h2 class="column-heading mb-4">Account Information</h2>
+                                            <div class="radio RadioButtonsInline">
+                                                <label><input type="radio" name="CourseType" id="PmsCourse" value="PMS"> PMS </label>
+                                            </div>
 
-                <div class="form-group bmd-form-group">
-                    <label class="bmd-label-floating">Email <span class="red-mark">*</span></label>
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control round-border" })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", @id = "Email-Error" })
-                </div>
+                                            <div class="radio RadioButtonsInline">
+                                                <label><input type="radio" name="CourseType" id="OnePaper" value="OnePaper"> One Paper </label>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                <div class="form-group bmd-form-group my-3 is-filled">
-                    <label class="bmd-label-floating">Roll Number <span class="red-mark">*</span></label>
-                    <input type="text" id="UserName" class="form-control round-border" value="0" name="UserName" readonly />
-                </div>
+                                    <div class="col-md-5 pl-5 pr-5 ">
+                                        <h2 class="column-heading mb-4">Account Information</h2>
 
-                <div class="form-group bmd-form-group my-3">
-                    <label class="bmd-label-floating">Password <span class="red-mark">*</span></label>
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control round-border" })
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", @id = "Password-Error" })
-                </div>
+                                        <div class="form-group bmd-form-group">
+                                            <label class="bmd-label-floating">Email <span class="red-mark">*</span></label>
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control round-border" })
+                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", @id = "Email-Error" })
+                                        </div>
 
-                <div class="form-group bmd-form-group my-3">
-                    <label class="bmd-label-floating">Confirm Password <span class="red-mark">*</span></label>
-                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control round-border" })
-                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger", @id = "ConfirmPassword-Error" })
-                </div>
-            </div>
-        </div>
+                                        <div class="form-group bmd-form-group my-3 is-filled">
+                                            <label class="bmd-label-floating">Roll Number <span class="red-mark">*</span></label>
+                                            <input type="text" id="UserName" class="form-control round-border" value="0" name="UserName" readonly />
+                                        </div>
+
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="bmd-label-floating">Password <span class="red-mark">*</span></label>
+                                            @Html.PasswordFor(m => m.Password, new { @class = "form-control round-border", Value = "Oa@1234" })
+                                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", @id = "Password-Error" })
+                                        </div>
+
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="bmd-label-floating">Confirm Password <span class="red-mark">*</span></label>
+                                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control round-border", Value = "Oa@1234" })
+                                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger", @id = "ConfirmPassword-Error" })
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <hr class="mt-5 mb-4">
 
@@ -1099,20 +844,21 @@
                                         <h2 class="column-heading mb-4">Subject Details</h2>
 
                                         <div class="form-group bmd-form-group my-3">
-                                            <label class="bmd-label-floating">Section <span class="red-mark">*</span></label>
+                                            <label class="control-label">Section <span class="red-mark">*</span></label>
                                             @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control", name = "ClassID", @required = true })
                                             <br />
                                             <span style="color:red"> @ViewBag.SubjectsErrorMsg</span>
                                         </div>
+
                                     </div>
                                 </div>
 
-                                <br/>
+                                <br />
 
                                 <div class="row">
                                     <div class="col-md-5 pl-5 pr-5 border-right border-color-sea">
 
-                                        <div class="form-group bmd-form-group my-3" id="MandatorySubjectCss">
+                                        <div class="form-group SubjectsBoxesCSS" id="MandatorySubjectCss">
                                             <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="MandatorySubjectsCSS"></div>
                                         </div>
 
@@ -1142,7 +888,7 @@
                                         </div>
 
                                     </div>
-                                
+
                                     <div class="col-md-5 pl-5 pr-5 ">
 
                                         <div class="form-group bmd-form-group my-3" id="Group1CSS">
@@ -1176,74 +922,74 @@
 
                                     </div>
                                 </div>
-                                
 
-                                    <hr class="mt-5 mb-4">
 
-                                    <div class="row">
-                                        <div class="col-md-5 pl-5 pr-5 border-right border-color-sea">
-                                            <h2 class="column-heading mb-4">Fee Details</h2>
+                                <hr class="mt-5 mb-4">
 
-                                            <div class="form-group bmd-form-group my-3">
-                                                <label class="bmd-label-floating">Notes Category <span class="red-mark">*</span> </label>
+                                <div class="row">
+                                    <div class="col-md-5 pl-5 pr-5 border-right border-color-sea">
+                                        <h2 class="column-heading mb-4">Fee Details</h2>
 
-                                                <div class="radio RadioButtonsInline">
-                                                    <label><input type="radio" name="NotesCategory" id="WithOutNotes" value="WithOutNotes" checked> Without Notes</label>
-                                                </div>
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="bmd-label-floating">Notes Category <span class="red-mark">*</span> </label>
 
-                                                <div class="radio RadioButtonsInline">
-                                                    <label><input type="radio" name="NotesCategory" id="WithNotes" value="WithNotes"> With Notes </label>
-                                                </div>
+                                            <div class="radio RadioButtonsInline">
+                                                <label><input type="radio" name="NotesCategory" id="WithOutNotes" value="WithOutNotes" checked> Without Notes</label>
                                             </div>
 
-                                            <div class="form-group bmd-form-group my-3">
-                                                <label class="bmd-label-floating">Notes Amount <span class="red-mark">*</span></label>
-                                                <input type="number" class="form-control round-border" value="0" name="NotesAmount" id="NotesAmount" />
-                                            </div>
-
-                                            <div class="form-group bmd-form-group my-3">
-                                                <label class="bmd-label-floating">Session Fee</label>
-                                                <input type="text" class="form-control round-border" name="SessionFee" id="SessionFee" value="0" readonly />
-                                            </div>
-
-                                            <div class="form-group bmd-form-group my-3 is-filled">
-                                                <label class="bmd-label-floating">Fee Type <span class="red-mark">*</span> </label>
-                                                <select name="FeeType" id="FeeType" class="form-control" style="color: #b9cbe1;">
-                                                    <option value="FullFee" selected>Full Fee</option>
-                                                    <option value="Installment">Installment</option>
-                                                    <option value="PerMonth">Per Month</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group bmd-form-group my-3">
-                                                <button id="CalculateFee" type="button" onclick="Calc()" class="btn btn-primary ">Calculate Fee</button>
-                                            </div>
-
-                                            <div class="form-group bmd-form-group my-3">
-                                                <label class="bmd-label-floating">Discount</label>
-
-                                                <div class="radio RadioButtonsInline">
-                                                    <label><input type="radio" name="DiscountRadioGroup" id="DiscountInPercentageRadio" value="DiscountInPercentageRadio" checked> Discount Percentage</label>
-                                                </div>
-
-                                                <div class="radio RadioButtonsInline">
-                                                    <label><input type="radio" name="DiscountRadioGroup" id="DiscountAmount" value="DiscountAmount"> Discount Amount </label>
-                                                </div>
+                                            <div class="radio RadioButtonsInline">
+                                                <label><input type="radio" name="NotesCategory" id="WithNotes" value="WithNotes"> With Notes </label>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-5 pl-5 pr-5 ">
-                                            <div class="form-group bmd-form-group my-3">
-                                                <label class="bmd-label-floating">Fee</label>
-                                                <input type="text" required class="form-control round-border" name="Fee" value="0" id="Fee" readonly />
+                                        <div class="form-group bmd-form-group my-3" style="display:none" id="NotesID">
+                                            <label class="bmd-label-floating">Notes Amount <span class="red-mark">*</span></label>
+                                            <input type="number" class="form-control round-border" value="0" name="NotesAmount" id="NotesAmount" />
+                                        </div>
+
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="bmd-label-floating">Session Fee</label>
+                                            <input type="text" class="form-control round-border" name="SessionFee" id="SessionFee" value="0" readonly />
+                                        </div>
+
+                                        <div class="form-group bmd-form-group my-3 is-filled">
+                                            <label class="bmd-label-floating">Fee Type <span class="red-mark">*</span> </label>
+                                            <select name="FeeType" id="FeeType" class="form-control" style="color: #b9cbe1;">
+                                                <option value="FullFee" selected>Full Fee</option>
+                                                <option value="Installment">Installment</option>
+                                                <option value="PerMonth">Per Month</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group bmd-form-group my-3">
+                                            <button id="CalculateFee" type="button" onclick="Calc()" class="btn btn-primary ">Calculate Fee</button>
+                                        </div>
+
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="bmd-label-floating">Discount</label>
+
+                                            <div class="radio RadioButtonsInline">
+                                                <label><input type="radio" name="DiscountRadioGroup" id="DiscountInPercentageRadio" value="DiscountInPercentageRadio" checked> Discount Percentage</label>
                                             </div>
 
-                                            <div class="form-group bmd-form-group my-3">
+                                            <div class="radio RadioButtonsInline">
+                                                <label><input type="radio" name="DiscountRadioGroup" id="DiscountAmountRadio" value="DiscountAmount"> Discount Amount </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5 pl-5 pr-5 ">
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="bmd-label-floating">Fee</label>
+                                            <input type="text" required class="form-control round-border" name="Fee" value="0" id="Fee" readonly />
+                                        </div>
+                                        <div id="DiscountDiv">
+                                            <div class="form-group bmd-form-group my-3" id="DiscountPercentageDiv">
                                                 <label class="bmd-label-floating">Discount Percentage</label>
                                                 <input type="number" value="0" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control round-border" name="DiscountPercentage" id="DiscountPercentage" />
                                             </div>
 
-                                            <div class="form-group bmd-form-group my-3" style="display:none">
+                                            <div id="DiscountAmountDiv" class="form-group bmd-form-group my-3" style="display:none">
                                                 <label class="bmd-label-floating">Discount Amount</label>
                                                 <input type="number" value="0" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control round-border" name="DiscountInAmount" id="DiscountInAmount" />
                                             </div>
@@ -1257,30 +1003,31 @@
                                                 <label class="bmd-label-floating">Remaining Amount</label>
                                                 <input type="number" value="0" class="form-control round-border" name="RemainingAmount" id="RemainingAmount" readonly />
                                             </div>
+                                        </div>
 
-                                            <div class="form-group bmd-form-group my-3">
-                                                <label class="bmd-label-floating">Total Fee</label>
-                                                <input type="text" required class="form-control round-border" name="TotalFee" id="TotalFee" readonly />
-                                            </div>
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="control-label">Total Fee</label>
+                                            <input type="text" required class="form-control round-border" name="TotalFee" id="TotalFee" readonly />
+                                        </div>
 
-                                            <div class="form-group bmd-form-group my-3 is-filled">
-                                                <label class="bmd-label-floating">Due Date <span class="red-mark">*</span> </label>
-                                                <input type="date" id="DueDate" name="DueDate" class="form-control" required>
-                                            </div>
+                                        <div class="form-group bmd-form-group my-3 is-filled">
+                                            <label class="bmd-label-floating">Due Date <span class="red-mark">*</span> </label>
+                                            <input type="date" id="DueDate" name="DueDate" class="form-control" required>
                                         </div>
                                     </div>
+                                </div>
 
 
-                                    <hr class="mt-5 mb-4">
+                                <hr class="mt-5 mb-4">
 
-                                    <button type="submit" id="FormSubmit" class="btn btn-primary pull-right rounded rounded-lg"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Save &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </button>
-                                    <button type="button" class="btn btn-primary pull-right rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
-                                        <i class="material-icons mr-2">cached</i>  Reset &nbsp; &nbsp;
-                                    </button>
-                                    <div class="clearfix"></div>
-                                    }
-                                </div><!--end of tab 1-->
-                            </div>
+                                <button type="submit" id="FormSubmit" class="btn btn-primary pull-right rounded rounded-lg"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Save &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </button>
+                                <button type="button" class="btn btn-primary pull-right rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
+                                    <i class="material-icons mr-2">cached</i>  Reset &nbsp; &nbsp;
+                                </button>
+                                <div class="clearfix"></div>
+                            }
+                        </div><!--end of tab 1-->
+                    </div>
                 </div>
 
             </div>
