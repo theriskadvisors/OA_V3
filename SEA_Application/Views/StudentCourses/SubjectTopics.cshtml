@@ -4,145 +4,136 @@
     Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
 }
 
-<h2>SubjectTopics</h2>
-
 <style>
-
-    .TopicsAndLesson {
-        height: 50px;
-        width: 100%;
-        line-height: 50px;
-        display: inline-block;
-        cursor: pointer;
-        margin: auto;
-        padding-left: 10px;
-    }
-
-    #TopicList {
-        width: 70%;
-        height: auto;
-    }
-
-        #TopicList h3 {
-            display: inline-block;
-        }
-
-    .TopicDiv {
-        background: rgb(51, 70, 102);
-        color: white;
-    }
-
-    .page-sidebar .page-sidebar-menu, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        height: 2200px !important;
+    .mb-0{
+        color: #141437 ;
     }
 </style>
-
-<input type="hidden" id="SubjectId" name="name" value="@ViewBag.SubjectId" />
-
-<div class="col-md-12">
-
-
-    <div id="TopicList" style=" margin: auto;">
-
-
-        <h3 style="color:black">Course Content</h3>
-
-        <h3 style="float:right">Total Lessons &nbsp;&nbsp;<span id="TotalLessons"></span> </h3>
-
-
-        <br />
-    </div>
-    <br />
-    <br />
-</div>
-
-
-
-
 
 <script>
     $(document).ready(function () {
 
-        // $("#SubjectBoxesDiv").append('<div class="SubjectBoxes"><h3> usama </h3> </div>')
-
-
-
         var sub = $("#SubjectId").val();
         var Count = 0;
+        var heading = "headingOne";
+        var collapse = "collapseOne";
+        var index = 0;
+
         $.ajax({
-
-
             type: "POST",
             url: "/StudentCourses/GetSubjectTopicsAndLessons",
             data: { "SubjectId": sub },
             success: function (data) {
-
+                console.log(data);
                 $.each(data, function (key, value1) {
-
-
                     Count = value1.TotalLessons;
-
                     var lessonlist = value1.LessonList;
+                    var heading = "headingOne";
+                    index = index + 1;
+                    var headingIndex = heading + index;
+                    var collapseindex = collapse + index;
 
-                    $("#TopicList").append('<div   class ="TopicsAndLesson TopicDiv" style="border:1px solid black"><b> ' + value1.TopicName + '</b> <b><span style ="float:right">' + value1.TotalLessons1 + '  Lesson </span></b></div>');
+                    $("#accordionEx").append('<div class="card"><div class="card-header" role="tab" id="' + headingIndex + '"><a data-toggle="collapse" data-parent="#accordionEx" href="#' + collapseindex + '" aria-expanded="true" aria-controls="' + collapseindex + '" class=""><h5 class="mb-0">' + value1.TopicName + '<span class="completedAndTime">  (' + value1.TotalLessons1 + '-' + value1.TopicDuration + ' min) </span><i class="fas fa-angle-up rotate-icon pull-right"></i></h5></a></div><div id="' + collapseindex + '" class="collapse show" role="tabpanel" aria-labelledby="' + headingIndex + '" data-parent="#accordionEx" style=""><div class="card-body"><div class="row">');
 
                     $.each(lessonlist, function (key, lesson) {
                         debugger
 
                         if (lesson.LessonExistInTrackingTable == "Yes") {
-
-
-                            $("#TopicList").append('<div   class ="TopicsAndLesson" style="border:1px solid black"><a class="StudentLessons" name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '">' + lesson.LessonName + '</a> <span class="glyphicon glyphicon-ok"></span>  </div>');
+                            $("#accordionEx").append('<div class="col-md-12"><div class="form-check  my-2"><a name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '"> <label class="form-check-label"><input class="form-check-input" type="checkbox" checked="" readonly><span class="form-check-sign"><span class="check"></span></span>' + lesson.LessonName + '<div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></a></div></div>');
                         }
                         else {
-
-                            $("#TopicList").append('<div   class ="TopicsAndLesson" style="border:1px solid black"><a class="StudentLessons" name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '">' + lesson.LessonName + '</a>   </div>');
-
+                            $("#accordionEx").append('<div class="col-md-12"><div class="form-check  my-2"><a name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '"> <label class="form-check-label"><input class="form-check-input" type="checkbox" readonly><span class="form-check-sign"><span class="check"></span></span>' + lesson.LessonName + '<div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></a></div></div>');
                         }
 
                         //<span class="glyphicon glyphicon-ok"></span>
                     })
-
+                    $("#accordionEx").append('</div></div></div></div>');
                 })
-
-                $("#TotalLessons").text(Count);
-
             }
-
         })
 
-        $(".TopicDiv").click(function () {
+        $("#PageHeader").html("Subject Topics");
 
-            $(".div2").fadeToggle("slow");
+        $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li> <a href="/StudentCourses/Index"> Courses </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Lessons</a></li>');
+    });
+</script>
 
-        })
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body p-5">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="hidden" id="SubjectId" name="name" value="@ViewBag.SubjectId" />
+                        <div class="pageHeading">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-9 col-lg-9 text-center">
+                                    <div class="d-inline-block">
+                                        <div class="d-flex text-right">
+
+                                            <div class="countStuffLeft">
+                                                <div class="countComplete hidden">
+                                                    3 of 18 Complete.<a href="#"> Reset</a>
+                                                </div>
+                                                <div class="finishCourseText">Finish course to get your certificate</div>
+                                            </div>
+
+                                            <div style="margin-top: -7px;margin-left:5px">
+                                                <input type="hidden" value="100" step="5" min="0" max="100" class="progressVal">
+                                                <div class="trophyProgressCon" style="position: relative;width: 44px;height: 44px;">
+                                                    <span class="progressGrayRing" style="background: #e2e2ee;position: absolute;width: 40px;height: 40px;left: 0;border-radius: 50%;top: 0px;">
+                                                        <span class="trophyIcon" style="margin-top: 0px;position: absolute;left: 11px;top: 12px">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                                                                <g id="prefix__Group_503" data-name="Group 503" transform="translate(-591 -244)">
+                                                                    <path id="prefix__Path_530" d="M608.473 245.3h-2.31q.013-.384.013-.772a.528.528 0 0 0-.527-.527h-11.3a.527.527 0 0 0-.527.527q0 .388.013.772h-2.31a.527.527 0 0 0-.527.527 11.429 11.429 0 0 0 1.739 6.277 5.5 5.5 0 0 0 4.18 2.714 5.415 5.415 0 0 0 1.142.959v2.344h-.885a1.942 1.942 0 0 0-1.94 1.939v.885h-.034a.527.527 0 1 0 0 1.055h9.6a.527.527 0 1 0 0-1.055h-.037v-.885a1.942 1.942 0 0 0-1.94-1.939h-.885v-2.344a5.419 5.419 0 0 0 1.142-.959 5.5 5.5 0 0 0 4.18-2.714 11.43 11.43 0 0 0 1.74-6.277.527.527 0 0 0-.527-.527zm-14.856 6.22a10.163 10.163 0 0 1-1.551-5.166h1.83a17.619 17.619 0 0 0 1.638 6.4q.211.422.44.8a5.085 5.085 0 0 1-2.358-2.029zm12.766 0a5.085 5.085 0 0 1-2.358 2.029q.229-.376.44-.8a17.627 17.627 0 0 0 1.638-6.4h1.83a10.164 10.164 0 0 1-1.551 5.166zm0 0" data-name="Path 530" style="fill:#00b8ec"></path>
+                                                                </g>
+                                                            </svg>
+                                                        </span>
+                                                        <svg class="progress-ring hidden" width="44" height="44">
+                                                            <circle class="progress-ring__circle" stroke="#00b8ec" stroke-width="4" fill="transparent" r="18" style="stroke-dasharray: 113.097px, 113.097px; stroke-dashoffset: 100px;" cy="20" cx="24"></circle>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-lg-10 col-md-12">
+                                <div class="row column-heading accordion-heading mt-0 mb-2 hidden">
+                                    <div class="col-md">
+                                        Course Content
+                                    </div>
+                                    <div class="col-md text-right">
+                                        <span class="topicsCount">
+                                            Topics &nbsp;
+                                            <span>5</span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="accordionIn">
+
+                                    <!--Accordion Wrapper-->
+                                    <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
 
 
-        $("#TopicList").on('click', ".StudentLessons", function () {
-
-            var LessonId = $(this).attr('name');
-
-
-            $.ajax({
-                type: "POST",
-                url: "/StudentCourses/UpdateStudentLessonTracking",
-                data: { "LessonId": LessonId },
-
-                success: function (data) {
+                                    </div>
+                                    <!--Accordion Wrapper-->
+                                </div>
 
 
-
-
-                }
-
-
-            })
-
-        })
-          })//end of document ready
-
-
-</script>   
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
