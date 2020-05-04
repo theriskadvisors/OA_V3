@@ -114,40 +114,42 @@
             <div class="box-body">
                 <div class="col-md-12">
                     <div class="form-three widget-shadow">
-                        <table class="table hover table-striped table-bordered" id="datatable">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Quiz
-                                    </th>
-                                    <th>
-                                        Details
-                                    </th>
-                                    <th>
-                                        Start Date
-                                    </th>
-                                    <th>
-                                        Due date
-                                    </th>
-                                    <th>
-                                        Start Quiz
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in ViewBag.quizes)
-                                {
-                                <tr>
-                                    <td>@item.Name</td>
-                                    <td>@item.Description</td>
-                                    <td>@item.Start_Date</td>
-                                    <td>@item.Due_Date</td>
-                                    <td><button class="btn buttonload btn-sm btn-success hidden" id="@item.Id" onclick="start(this)"><i class="fa fa-spinner"></i>Start</button></td>
-                                </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                        <div class="table-responsive">
+                            <table class="table hover table-striped table-bordered" id="datatable">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Quiz
+                                        </th>
+                                        <th>
+                                            Details
+                                        </th>
+                                        <th>
+                                            Start Date
+                                        </th>
+                                        <th>
+                                            Due date
+                                        </th>
+                                        <th>
+                                            Start Quiz
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.quizes)
+                                    {
+                                        <tr>
+                                            <td>@item.Name</td>
+                                            <td>@item.Description</td>
+                                            <td>@item.Start_Date</td>
+                                            <td>@item.Due_Date</td>
+                                            <td><button class="btn buttonload btn-sm btn-success hidden" id="@item.Id" onclick="start(this)"><i class="fa fa-spinner"></i>Start</button></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>

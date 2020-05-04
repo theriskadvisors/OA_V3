@@ -173,46 +173,48 @@ else
 
             <div class="box-body">
 
-                <table class="table hover table-bordered table-striped" id="datatable">
-                    <thead>
-                        <tr>
-                            <th>
-                                Session Name
-                            </th>
-                            <th>
-                                Session Start Date
-                            </th>
-                            <th>
-                                Session End Date
-                            </th>
-                            <th>
-                                Total Fee
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
+                <div class="table-responsive">
+                    <table class="table hover table-bordered table-striped" id="datatable">
+                        <thead>
                             <tr>
-                                <td style="text-align:right">
-                                    @Html.DisplayFor(modelItem => item.SessionName)
-                                    <input type="hidden" value="@item.Id" />
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.SessionStartDate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.SessionEndDate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Total_Fee)
-                                </td>
+                                <th>
+                                    Session Name
+                                </th>
+                                <th>
+                                    Session Start Date
+                                </th>
+                                <th>
+                                    Session End Date
+                                </th>
+                                <th>
+                                    Total Fee
+                                </th>
                             </tr>
-                        }
-                    </tbody>
-
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td style="text-align:right">
+                                        @Html.DisplayFor(modelItem => item.SessionName)
+                                        <input type="hidden" value="@item.Id" />
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SessionStartDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SessionEndDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Total_Fee)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        
+                    </table>
+                    </div>
+                </div>
         </div>
     </div>
 </div>

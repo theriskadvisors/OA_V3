@@ -219,80 +219,80 @@ else
                         Employee Successfully created and updated
                     </div>
                 }
-
-                <table class="table hover table-bordered table-striped" id="datatable">
-                    <thead>
-                        <tr>
-                            <th>
-                                Position Applied For
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Name)
-                            </th>
-
-                            <th>
-                                @Html.DisplayNameFor(model => model.UserName)
-                            </th>
-
-                            <th>
-                                @Html.DisplayNameFor(model => model.Nationality)
-                            </th>
-
-                            <th>
-                                @Html.DisplayNameFor(model => model.Gender)
-                            </th>
-                            <th>
-                                Mailing Address
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Email)
-                            </th>
-                            <th>
-                                Cell No
-                            </th>
-                        </tr>
-
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
+                <div class="table-responsive">
+                    <table class="table hover table-bordered table-striped" id="datatable">
+                        <thead>
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.PositionAppliedFor)
-                                    <input type="hidden" value="@item.Id" />
-                                </td>
+                                <th>
+                                    Position Applied For
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UserName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Nationality)
-                                </td>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UserName)
+                                </th>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Gender)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.MailingAddress)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Email)
-                                </td>
-                                <td style="text-align:right">
-                                    @Html.DisplayFor(modelItem => item.CellNo)
-                                </td>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nationality)
+                                </th>
 
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Gender)
+                                </th>
+                                <th>
+                                    Mailing Address
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </th>
+                                <th>
+                                    Cell No
+                                </th>
                             </tr>
-                        }
-                    </tbody>
+
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PositionAppliedFor)
+                                        <input type="hidden" value="@item.Id" />
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nationality)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Gender)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MailingAddress)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td style="text-align:right">
+                                        @Html.DisplayFor(modelItem => item.CellNo)
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
 
 
-                </table>
-
-            </div>
+                    </table>
+                    </div>
+                </div>
         </div>
     </div>
 </div>

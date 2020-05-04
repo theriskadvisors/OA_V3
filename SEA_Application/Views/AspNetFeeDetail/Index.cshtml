@@ -150,73 +150,75 @@
 
             <div class="box-body">
 
-                <table class="table hover table-bordered table-striped" id="datatable">
-                    <thead>
+                <div class="table-responsive">
+                    <table class="table hover table-bordered table-striped" id="datatable">
+                        <thead>
 
-                        <tr>
-                            <th>
-                                Name
-                            </th>
-                            <th>
-                                RollNo
-                            </th>
-                            <th>
-                                Total Fee
-                            </th>
-                            <th>
-                                Payable Fee
-                            </th>
-                            <th>
-                                Fee Month
-                            </th>
-                            <th>
-                                Status
-                            </th>
-                            <th>
-                                Class Name
-                            </th>
-                            <th>
-                                CourseType
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UserName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.TotalFee)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.PayableFee)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Months)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Status)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ClassName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CourseType)
-                                </td>
-
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    RollNo
+                                </th>
+                                <th>
+                                    Total Fee
+                                </th>
+                                <th>
+                                    Payable Fee
+                                </th>
+                                <th>
+                                    Fee Month
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>
+                                    Class Name
+                                </th>
+                                <th>
+                                    CourseType
+                                </th>
                             </tr>
-                        }
-                    <tbody>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TotalFee)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PayableFee)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Months)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ClassName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CourseType)
+                                    </td>
 
-                </table>
+                                </tr>
+                            }
+                        <tbody>
+
+                    </table>
+                    </div>
 
 
-            </div>
+                </div>
         </div>
 
 
