@@ -14,10 +14,26 @@
     $(document).ready(function () {
 
         var sub = $("#SubjectId").val();
+        $("#global_Createbtn").hide();
+        $("#global_filter").hide();
+
         var Count = 0;
         var heading = "headingOne";
         var collapse = "collapseOne";
         var index = 0;
+
+        $('i').click(function () {
+            var className = $(this).attr("class");
+            if (~className.indexOf("fa-angle-down")) {
+                $(this).removeClass("fa-angle-down");
+                $(this).addClass("fa-angle-up");
+                //console.log("up");
+            } else {
+                $(this).removeClass("fa-angle-up");
+                $(this).addClass("fa-angle-down");
+                //console.log("down");
+            }
+        });
 
         $.ajax({
             type: "POST",
@@ -25,7 +41,7 @@
             data: { "SubjectId": sub },
             success: function (data) {
                 console.log(data);
-                console.log("Working");
+                //console.log("Working");
                 $.each(data, function (key, value1) {
                     Count = value1.TotalLessons;
                     var lessonlist = value1.LessonList;
@@ -37,16 +53,16 @@
                     var Topic;
                     var Lesson = "";
 
-                    Topic = '<div class="card"><div class="card-header" role="tab" id="' + headingIndex + '"><a data-toggle="collapse" data-parent="#accordionEx" href="#' + collapseindex + '" aria-expanded="true" aria-controls="' + collapseindex + '" class=""><h5 class="mb-0">' + value1.TopicName + '<span class="completedAndTime">  (' + value1.TotalLessons1 + '-' + value1.TopicDuration + ' min) </span><i class="fas fa-angle-up rotate-icon pull-right"></i></h5></a></div><div id="' + collapseindex + '" class="collapse show" role="tabpanel" aria-labelledby="' + headingIndex + '" data-parent="#accordionEx" style=""><div class="card-body"><div class="row">';
+                    Topic = '<div class="card"><div class="card-header" role="tab" id="' + headingIndex + '"><a data-toggle="collapse" data-parent="#accordionEx" href="#' + collapseindex + '" aria-expanded="true" aria-controls="' + collapseindex + '" class=""><h5 class="mb-0">' + value1.TopicName + '<span class="completedAndTime">  (' + value1.TotalLessons1 + '-' + value1.TopicDuration + ' min) </span><i class="fas fa-angle-down rotate-icon pull-right"></i></h5></a></div><div id="' + collapseindex + '" class="collapse show" role="tabpanel" aria-labelledby="' + headingIndex + '" data-parent="#accordionEx" style=""><div class="card-body"><div class="row">';
 
                     $.each(lessonlist, function (key, lesson) {
                         debugger
 
                         if (lesson.LessonExistInTrackingTable == "Yes") {
-                            Lesson = Lesson + '<div class="col-md-12"><div class="form-check  my-2"><a name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '"> <label class="form-check-label"><input class="form-check-input" type="checkbox" checked="" readonly><span class="form-check-sign"><span class="check"></span></span>' + lesson.LessonName + '<div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></a></div></div>';
+                            Lesson = Lesson + '<div class="col-md-12"><div class="form-check  my-2"><a name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '"> <label class="form-check-label"><input class="form-check-input" type="checkbox" checked="" disabled><span class="form-check-sign"><span class="check"></span></span>' + lesson.LessonName + '<div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></a></div></div>';
                         }
                         else {
-                            Lesson = Lesson + '<div class="col-md-12"><div class="form-check  my-2"><a name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '"> <label class="form-check-label"><input class="form-check-input" type="checkbox" readonly><span class="form-check-sign"><span class="check"></span></span>' + lesson.LessonName + '<div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></a></div></div>';
+                            Lesson = Lesson + '<div class="col-md-12"><div class="form-check  my-2"><a name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '"> <label class="form-check-label"><input class="form-check-input" type="checkbox" disabled><span class="form-check-sign"><span class="check"></span></span>' + lesson.LessonName + '<div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></a></div></div>';
                         }
 
                         //<span class="glyphicon glyphicon-ok"></span>
