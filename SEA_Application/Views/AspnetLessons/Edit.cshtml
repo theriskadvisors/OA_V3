@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
 }
 <style>
     .page-sidebar .page-sidebar-menu, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu {
@@ -20,32 +20,63 @@
 
 <script>
     $(document).ready(function () {
-        $.ajax({
+
+         $.ajax({
             type: "POST",
             cache: false,
             url: "/AspnetLessons/LoadSectionIdDDL",
             processData: false,
             contentType: false,
             success: function (data) {
-                var sch = JSON.parse(data);
+                 var sch = JSON.parse(data);
+              //  $('#Sessions').html("");
+                debugger
+                      //  $('#Sessions').append('<option value= "">Select </option>');
 
-                //var $el = $("#TopicId");
-                //$el.empty();
+                $.each(sch, function (i, item) {
 
-                if (sch.length > 0) {
-                    $el.append($("<option></option>")
-                        .attr("value", "").text('Select Section'));
-                    for (i = 0; i < sch.length; i++) {
-                        $el.append($("<option></option>")
-                            .attr("value", sch[i].Id).text(sch[i].ClassName));
-                    }
-                }
-                else {
-                    $el.append($("<option></option>")
-                        .attr("value", '').text('Select'));
-                }
+                    debugger
+                        $('#SessionId').append('<option value=' + item.Id + '>' + item.SessionName + '</option>');
+                    });
+
+            }
+         });
+
+           var SelectedLesson = '@Model.Id';
+           $.ajax({
+            type: "POST",
+            cache: false,
+            url: "/AspnetLessons/LoadSectionIdDDL",
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                 var sch = JSON.parse(data);
+                $('#Sessions').html("");
+
+                      //  $('#Sessions').append('<option value= "">Select </option>');
+
+                $.each(sch, function (i, item) {
+
+                    debugger
+                        $('#Sessions').append('<option value=' + item.Id + '>' + item.SessionName + '</option>');
+                });
+
+                   $.get('@Url.Action("SessionByLesson")',
+                        { id: SelectedLesson }, function (data) {
+                          //  $('#Sessions').prop('disabled', false);
+
+                            $.each(data, function (i, item) {
+
+                                debugger
+                                $("#Sessions option[value='" + item.SessionId + "']").prop("selected", true);
+
+                            });
+                        });
+
             }
         });
+
+
 
 
         var course = 'CSS';
@@ -360,6 +391,26 @@
                             @Html.ValidationMessageFor(model => model.TopicId, "", new { @class = "text-danger" })
                         </div>
                     </div>*@
+
+                <div class="form-group">
+
+                        <label class="control-label col-md-2">Select Section</label>
+                        <div class="col-md-6">
+                            @Html.DropDownList("SessionId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.SessionId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                @*<div class="form-group">
+                    <div class="col-md-2">
+                        <label>Select Sessions<span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-md-6">
+                        <select multiple class="form-control" id="Sessions" name="Sessions" required></select>
+                    </div>
+                </div>*@
+
+
                 <div class="form-group">
 
                     <label class="cocntrol-label col-md-2">Select Course Type</label>
@@ -399,7 +450,35 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
 
+                        @Html.CheckBoxFor(model => model.IsActive, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+
+                        <input type="date" name="StartDate" id="StartDate" value="@ViewBag.LessonStartDate" class="form-control" required />
+                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DueDate, htmlAttributes: new { @class = "control-label col-md-2", @required = true, })
+                    <div class="col-md-6">
+
+                        <input type="date" name="DueDate" id="DueDate" value="@ViewBag.LessonDueDate" class="form-control" required />
+
+                        @Html.ValidationMessageFor(model => model.DueDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
                 <div class="box box-primary">
                     <div class="box-header with-border"><h3 class="orange">Student Assignment</h3></div>

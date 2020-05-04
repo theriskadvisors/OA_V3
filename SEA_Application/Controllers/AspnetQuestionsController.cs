@@ -23,21 +23,13 @@ namespace SEA_Application.Controllers
         }
         public ActionResult ViewQuestionAndQuiz()
         {
-
-            var UserId = User.Identity.GetUserId();
-            int id = db.AspNetEmployees.Where(x => x.UserId == UserId).FirstOrDefault().Id;
-
-            var aspnetQuestions = db.AspnetQuestions.Include(a => a.AspnetLesson).Include(a => a.AspnetOption).Where(x=>x.AspnetLesson.AspnetSubjectTopic.GenericSubject.Teacher_GenericSubjects.Any(y=>y.TeacherId == id));
-       
+            var aspnetQuestions = db.AspnetQuestions.Include(a => a.AspnetLesson).Include(a => a.AspnetOption);
             return View(aspnetQuestions.ToList());
         }
         public ActionResult AllQuizList()
         {
 
-            var UserId = User.Identity.GetUserId();
-            int id = db.AspNetEmployees.Where(x => x.UserId == UserId).FirstOrDefault().Id;
-
-            var AllLessons = (from Quiz in db.AspnetQuizs.Where(x=>x.Quiz_Topic_Questions.Any(y=>y.AspnetSubjectTopic.GenericSubject.Teacher_GenericSubjects.Any(z=>z.TeacherId== id)))
+            var AllLessons = (from Quiz in db.AspnetQuizs
                               select new
                               {
                                   QuizId = Quiz.Id,
@@ -85,7 +77,7 @@ namespace SEA_Application.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(QuestionAnswerViewModel QuestionAnswerViewModel)
         {
-      
+
             var id = User.Identity.GetUserId();
             var username = db.AspNetUsers.Where(x => x.Id == id).Select(x => x.Name).FirstOrDefault();
 
@@ -212,7 +204,7 @@ namespace SEA_Application.Controllers
                                join lesson in db.AspnetLessons on topic.Id equals lesson.TopicId
                                join question in db.AspnetQuestions on lesson.Id equals question.LessonId
 
-                               where topic.Id == bdoIds && question.Is_Quiz == false && question.Type=="MCQ" 
+                               where topic.Id == bdoIds && question.Is_Quiz == false && question.Type == "MCQ"
                                select new
                                {
                                    question.Id,
@@ -244,10 +236,10 @@ namespace SEA_Application.Controllers
                 QuestionViewModel.QuestionType = aspnetQuestion.Type;
                 QuestionViewModel.QuestionName = aspnetQuestion.Name;
                 QuestionViewModel.Id = aspnetQuestion.Id;
-                QuestionViewModel.QuestionIsActive = Convert.ToBoolean( aspnetQuestion.Is_Active);
+                QuestionViewModel.QuestionIsActive = Convert.ToBoolean(aspnetQuestion.Is_Active);
                 string IsMandatory;
-              
-             
+
+
                 //if(QuestionViewModel.QuestionIsActive  ==true)
                 //{
 
@@ -311,38 +303,19 @@ namespace SEA_Application.Controllers
                 }
                 ViewBag.Answer = Answer;
 
-           //     ViewBag.IsMandatory = IsMandatory;
+                //     ViewBag.IsMandatory = IsMandatory;
                 int? TopicId = db.AspnetLessons.Where(x => x.Id == aspnetQuestion.LessonId).FirstOrDefault().TopicId;
 
                 int? SubjectId = db.AspnetSubjectTopics.Where(x => x.Id == TopicId).FirstOrDefault().SubjectId;
 
                 string SubjectType = db.GenericSubjects.Where(x => x.Id == SubjectId).FirstOrDefault().SubjectType;
 
-
-
-
-
                 //   ViewBag.SubId = new SelectList(db.GenericSubjects.Where(x => x.SubjectType == SubjectType), "Id", "SubjectName", SubjectId);
 
 
-
-                var UserId = User.Identity.GetUserId();
-
-
-                var SubjectofCurrentSessionTeacher = from subject in db.GenericSubjects
-                                                     join TeacherSubject in db.Teacher_GenericSubjects on subject.Id equals TeacherSubject.SubjectId
-                                                     join employee in db.AspNetEmployees on TeacherSubject.TeacherId equals employee.Id
-                                                     where employee.UserId == UserId && subject.SubjectType == SubjectType
-                                                     select new
-                                                     {
-                                                         subject.Id,
-                                                         subject.SubjectName,
-                                                     };
-
-                ViewBag.SubId = new SelectList(SubjectofCurrentSessionTeacher, "Id", "SubjectName", SubjectId);
-
+                ViewBag.SubId = new SelectList(db.GenericSubjects.Where(x => x.SubjectType == SubjectType), "Id", "SubjectName", SubjectId);
                 ViewBag.TopicId = new SelectList(db.AspnetSubjectTopics.Where(x => x.SubjectId == SubjectId), "Id", "Name", TopicId);
-                ViewBag.LessonId = new SelectList(db.AspnetLessons.Where(x=>x.TopicId==TopicId), "Id", "Name", aspnetQuestion.LessonId);
+                ViewBag.LessonId = new SelectList(db.AspnetLessons.Where(x => x.TopicId == TopicId), "Id", "Name", aspnetQuestion.LessonId);
                 ViewBag.CTId = SubjectType;
 
 
@@ -388,7 +361,7 @@ namespace SEA_Application.Controllers
             //    QuestionAnswerViewModel.QuestionIsActive = false;
             //}
 
-           // Question.Is_Active = QuestionAnswerViewModel.QuestionIsActive;
+            // Question.Is_Active = QuestionAnswerViewModel.QuestionIsActive;
 
 
             db.SaveChanges();

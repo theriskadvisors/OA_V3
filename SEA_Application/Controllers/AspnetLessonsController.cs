@@ -94,20 +94,16 @@ namespace SEA_Application.Controllers
             db.SaveChanges();
 
 
-            IEnumerable<string> SelectedSessions = Request.Form["Sessions"].Split(',');
 
-            foreach (var SessionId in SelectedSessions)
-            {
-                Lesson_Session lessonSession = new Lesson_Session();
-                lessonSession.LessonId = Lesson.Id;
-                lessonSession.SessionId = Convert.ToInt32(SessionId);
-                lessonSession.StartDate = LessonViewModel.StartDate;
-                lessonSession.DueDate = LessonViewModel.DueDate;
+            Lesson_Session lessonSession = new Lesson_Session();
+            lessonSession.LessonId = Lesson.Id;
+            lessonSession.SessionId = LessonViewModel.SessionId;
+            lessonSession.StartDate = LessonViewModel.StartDate;
+            lessonSession.DueDate = LessonViewModel.DueDate;
+            db.Lesson_Session.Add(lessonSession);
 
-                db.Lesson_Session.Add(lessonSession);
-                db.SaveChanges();
+            db.SaveChanges();
 
-            }
 
 
             HttpPostedFileBase Assignment = Request.Files["Assignment"];
@@ -426,40 +422,25 @@ namespace SEA_Application.Controllers
 
             db.SaveChanges();
 
-            IEnumerable<string> SelectedSessions = Request.Form["Sessions"].Split(',');
 
-            if (SelectedSessions != null)
-            {
+            Lesson_Session LessonSessionToDelete = db.Lesson_Session.Where(x => x.LessonId == Lesson.Id).FirstOrDefault();
 
-                List<Lesson_Session> LessonSessionToDelete = db.Lesson_Session.Where(x => x.LessonId == Lesson.Id).ToList();
+            db.Lesson_Session.Remove(LessonSessionToDelete);
+            db.SaveChanges();
 
-                db.Lesson_Session.RemoveRange(LessonSessionToDelete);
-                db.SaveChanges();
+            Lesson_Session lessonSession = new Lesson_Session();
 
-
-
-
-                foreach (var SessionId in SelectedSessions)
-                {
-                    Lesson_Session lessonSession = new Lesson_Session();
-                    lessonSession.LessonId = Lesson.Id;
-                    lessonSession.SessionId = Convert.ToInt32(SessionId);
-                    lessonSession.StartDate = LessonViewModel.StartDate;
-                    lessonSession.DueDate = LessonViewModel.DueDate;
-
-                    db.Lesson_Session.Add(lessonSession);
-                    db.SaveChanges();
-
-                }
-
-            }
+            lessonSession.SessionId = LessonViewModel.SessionId;
+            lessonSession.StartDate = LessonViewModel.StartDate;
+            lessonSession.DueDate = LessonViewModel.DueDate;
+            lessonSession.LessonId = Lesson.Id;
+            db.Lesson_Session.Add(lessonSession);
+            db.SaveChanges();
 
 
             //Lesson_Session lessonSession =  db.Lesson_Session.Where(x => x.LessonId == Lesson.Id).FirstOrDefault();
 
-            // lessonSession.SessionId = LessonViewModel.SessionId;
-            // lessonSession.StartDate = LessonViewModel.StartDate;
-            // lessonSession.DueDate = LessonViewModel.DueDate;
+
 
             // db.SaveChanges();
 

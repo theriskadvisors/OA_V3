@@ -5,118 +5,117 @@
     Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
 }
 
-    <style>
+<style>
 
-        select{
-            overflow-x:scroll;
-        }
+    select {
+        overflow-x: scroll;
+    }
+</style>
 
-    </style>
+<div class="box box-primary">
+    <div class="box-title"></div>
 
-    <div class="box box-primary">
-        <div class="box-title"></div>
+    <div class="box-body">
+        <div class="form-horizontal">
+            <h4>Quiz Detail</h4><br />
+            <input type="hidden" name="Id" id="Id" value="@Model.Id" />
 
-        <div class="box-body">
-            <div class="form-horizontal">
-                <h4>Quiz Detail</h4><br />
-                                    <input type="hidden"  name="Id" id="Id" value="@Model.Id" />
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = true, @readonly = "readonly" } })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = true, @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                    </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Created_By, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.Created_By, new { htmlAttributes = new { @class = "form-control", @required = true, @readonly = "readonly" } })
-                        @Html.ValidationMessageFor(model => model.Created_By, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Created_By, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Created_By, new { htmlAttributes = new { @class = "form-control", @required = true, @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Created_By, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
 
-                <div class="form-group">
-                    <span class="col-md-2">@Html.DisplayNameFor(model => model.Start_Date)</span>
-                    <div class="col-md-6">
+            <div class="form-group">
+                <span class="col-md-2">@Html.DisplayNameFor(model => model.Start_Date)</span>
+                <div class="col-md-6">
 
-                        <input readonly type="date" class="form-control" name="Due_Date" value="@ViewBag.StartDate" />
+                    <input readonly type="date" class="form-control" name="Due_Date" value="@ViewBag.StartDate" />
 
-                        @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
-                    </div>
+                    @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <span class="col-md-2">@Html.DisplayNameFor(model => model.Due_Date)</span>
-                    <div class="col-md-6">
+            <div class="form-group">
+                <span class="col-md-2">@Html.DisplayNameFor(model => model.Due_Date)</span>
+                <div class="col-md-6">
 
-                        <input readonly type="date" class="form-control" name="Due_Date" value="@ViewBag.DueDate" />
+                    <input readonly type="date" class="form-control" name="Due_Date" value="@ViewBag.DueDate" />
 
-                        @Html.ValidationMessageFor(model => model.Due_Date, "", new { @class = "text-danger" })
-                    </div>
+                    @Html.ValidationMessageFor(model => model.Due_Date, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
 
 
-                <div class="form-group">
+            <div class="form-group">
 
-                    <div class="col-md-12">
+                <div class="col-md-12">
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="box box-primary">
-                                    <div class="box-header with-border"><h3 class="orange">Topics:<span class="red-mark">*</span></h3></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box box-primary">
+                                <div class="box-header with-border"><h3 class="orange">Topics:<span class="red-mark">*</span></h3></div>
 
 
-                                    <div class="box-body">
-                                        @Html.ListBox("TopicId", null, htmlAttributes: new { @readonly = "readonly", @class = "form-control", @style = "height:400px;" })
-                                    </div>
+                                <div class="box-body">
+                                    @Html.ListBox("TopicId", null, htmlAttributes: new { @readonly = "readonly", @class = "form-control", @style = "height:400px;" })
                                 </div>
                             </div>
-
-
-                            <div class="col-md-6">
-                                <div class="box box-primary">
-                                    <div class="box-header with-border"><h3 class="orange">Questions:<span class="red-mark">*</span></h3></div>
-
-                                    <div class="box-body">
-                                        @Html.ListBox("QuestionID", null, htmlAttributes: new { @readonly = "readonly", @class = "form-control", @style = "height:400px;" })
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-offset-1 col-md-10">
-                                    <button type="button" id="edit" class="btn btn-primary" onclick="redirectToEdit()">Edit</button>
-
-                                </div>
-                            </div>
-
                         </div>
+
+
+                        <div class="col-md-6">
+                            <div class="box box-primary">
+                                <div class="box-header with-border"><h3 class="orange">Questions:<span class="red-mark">*</span></h3></div>
+
+                                <div class="box-body">
+                                    @Html.ListBox("QuestionID", null, htmlAttributes: new { @readonly = "readonly", @class = "form-control", @style = "height:400px;" })
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-1 col-md-10">
+                                <button type="button" id="edit" class="btn btn-primary" onclick="redirectToEdit()">Edit</button>
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+            </div>
 
 
 
-            </div><!--End of Form Horizontal-->
-        </div>
-        </div>
-    <script>
+        </div><!--End of Form Horizontal-->
+    </div>
+</div>
+<script>
 
-          function redirectToEdit() {
+    function redirectToEdit() {
         var id = $("#Id").val();
         window.location.href = "Edit?id=" + id;
     }
 
-    </script>
+</script>

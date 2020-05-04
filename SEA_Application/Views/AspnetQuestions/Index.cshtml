@@ -9,20 +9,20 @@
     $(document).ready(function () {
         $("#example").dataTable();
 
-            $('.table').on('click', 'tbody tr', function () {
+        $('.table').on('click', 'tbody tr', function () {
 
-           
-           var td = $(this).children("td");
 
-         //   var userName = $(td[0]).children("input").val();
+            var td = $(this).children("td");
 
-           //alert($(td[0]).html());    
-           var Id = parseInt($(td[0]).html());
-           //alert(Id);
+            //   var userName = $(td[0]).children("input").val();
 
-           // alert(Id);
+            //alert($(td[0]).html());
+            var Id = parseInt($(td[0]).html());
+            //alert(Id);
+
+            // alert(Id);
             //userName = userName.trim();
-           window.location.href = "/AspnetQuestions/Edit?id=" + Id;
+            window.location.href = "/AspnetQuestions/Edit?id=" + Id;
         });
 
         DrawTable();
@@ -50,18 +50,18 @@
         $('#example_length').append(
 
             '<div class="col-md-1" style="width:0%; padding-left:1px;">' +
-             '<div class="d-bar"></div>' +
+            '<div class="d-bar"></div>' +
             '</div>'
-              +
-           '<div class="col-md-5 col-lg-3" style="padding-left:0px">' +
-           '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
-           '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/AspnetQuestions/Create"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></a></div>' +
-           '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="glyphicon glyphicon-download-alt" data-placement="bottom"></i></span></a></div>' +
-           ' <div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="fa fa-ban"  data-placement="bottom"></i></span>' + '</a></div>' +
-           '<div class="col-md-1" padding-left:10px;">' +
-             '<div class="d-bar"></div>' +
+            +
+            '<div class="col-md-5 col-lg-3" style="padding-left:0px">' +
+            '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
+            '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/AspnetQuestions/Create"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></a></div>' +
+            '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="glyphicon glyphicon-download-alt" data-placement="bottom"></i></span></a></div>' +
+            ' <div class="col-md-1 col-sm-3 col-xs-3"><a href=""><span style="color:gray"><i class="fa fa-ban"  data-placement="bottom"></i></span>' + '</a></div>' +
+            '<div class="col-md-1" padding-left:10px;">' +
+            '<div class="d-bar"></div>' +
             '</div>' +
-          '</div>');
+            '</div>');
         $("#Class").prepend("<option value='0'>All</option>");
     }
 
@@ -85,7 +85,7 @@
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
                     <th>
-                      Is Quiz
+                        Is Quiz
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Type)
@@ -109,54 +109,54 @@
 
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td style="display:none">
+                    <tr>
+                        <td style="display:none">
 
-                        @item.Id
-                    </td>
-
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @if (item.Is_Quiz == true)
-                        {
-                            <span>Yes</span>
-                        }
-                        else if (item.Is_Quiz == false)
-                        {
-                            <span>No</span>
-                        }
-                        else
-                        {
-                            <span>Not Set</span>
-
-                        }
+                            @item.Id
+                        </td>
 
 
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @if (item.Is_Quiz == true)
+                            {
+                                <span>Yes</span>
+                            }
+                            else if (item.Is_Quiz == false)
+                            {
+                                <span>No</span>
+                            }
+                            else
+                            {
+                                <span>Not Set</span>
 
-                    </td>
+                            }
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Type)
-                    </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AspnetLesson.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AspnetOption.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreationDate)
-                    </td>
-                    @*<td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </td>*@
-                </tr>
+
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AspnetLesson.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AspnetOption.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreationDate)
+                        </td>
+                        @*<td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            </td>*@
+                    </tr>
 
 
                 }

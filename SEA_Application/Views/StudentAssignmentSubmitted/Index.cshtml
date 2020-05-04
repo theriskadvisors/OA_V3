@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<SEA_Application.Models.AssignmentViewModel>
-  @{
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
 }
@@ -12,9 +12,10 @@
 
     <div class="box-body">
 
-     
+
         <table class="table" id="datatable">
-            <thead>s
+            <thead>
+                s
 
                 <tr>
                     <th>
@@ -46,7 +47,7 @@
                         @Html.DisplayNameFor(model => model.AssignmentName)
                     </th>
 
-                 
+
                 </tr>
 
             </thead>
@@ -55,38 +56,38 @@
 
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NameOfStudent)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Section)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CourseType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SubjectName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Topic)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Lesson)
-                    </td>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NameOfStudent)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Section)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CourseType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubjectName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Topic)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Lesson)
+                        </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AssignmnetDueDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AssignmentSubmittedDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AssignmentName)
-                    </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AssignmnetDueDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AssignmentSubmittedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AssignmentName)
+                        </td>
 
 
-                </tr>
+                    </tr>
                 }
             </tbody>
 
@@ -102,7 +103,7 @@
 
     $(document).ready(function () {
 
-        
+
         $('#datatable').dataTable({
         });
 

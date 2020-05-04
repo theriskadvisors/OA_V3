@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
 }
 
 <style>
@@ -77,8 +77,8 @@
             }
             else {
 
-                   var $el = $("#SubjectId");
-                        $el.empty();
+                var $el = $("#SubjectId");
+                $el.empty();
             }
 
         });
@@ -136,7 +136,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" ,@required = true} })
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = true } })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -151,14 +151,14 @@
 
 
             @*<div class="form-group">
-                <label class="col-md-2 col-lg-2 control-label"> Section:<span class="red-mark">*</span></label>
-                <div class="col-md-6">
-                    @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control text_box_style", @required = true })
+                    <label class="col-md-2 col-lg-2 control-label"> Section:<span class="red-mark">*</span></label>
+                    <div class="col-md-6">
+                        @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control text_box_style", @required = true })
 
-                    <span style="color:red"> @ViewBag.SubjectsErrorMsg</span>
-                </div>
+                        <span style="color:red"> @ViewBag.SubjectsErrorMsg</span>
+                    </div>
 
-            </div>*@
+                </div>*@
 
             <div class="form-group">
                 <div class="col-md-2">
@@ -173,7 +173,7 @@
                        new SelectListItem{ Text="CSS", Value = "CSS" },
                       new SelectListItem{ Text="PMS", Value = "PMS" },
 
-                       }, htmlAttributes: new { @class = "form-control",@required = true })
+                       }, htmlAttributes: new { @class = "form-control", @required = true })
 
                 </div>
             </div>
@@ -181,7 +181,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.SubjectId, "SubjectId", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.DropDownList("SubjectId", null, htmlAttributes: new { @class = "form-control" ,@required = true })
+                    @Html.DropDownList("SubjectId", null, htmlAttributes: new { @class = "form-control", @required = true })
                     @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
                 </div>
             </div>

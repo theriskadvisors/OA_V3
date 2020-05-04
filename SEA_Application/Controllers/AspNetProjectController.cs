@@ -27,30 +27,27 @@ namespace SEA_Application.Controllers
         }
         public ActionResult GetSubjectsByClass(string CT)
         {
-            var UserId = User.Identity.GetUserId();
+            var SubjectsByClass = db.GenericSubjects.Where(x => x.SubjectType == CT).ToList().Select(x => new { x.Id, x.SubjectName });
 
-            var SubjectofCurrentSessionTeacher = from subject in db.GenericSubjects
-                                                 join TeacherSubject in db.Teacher_GenericSubjects on subject.Id equals TeacherSubject.SubjectId
-                                                 join employee in db.AspNetEmployees on TeacherSubject.TeacherId equals employee.Id
-                                                 where employee.UserId == UserId &&  subject.SubjectType == CT
-                                                 select new
-                                                 {
-                                                     subject.Id,
-                                                     subject.SubjectName,
-                                                 };
+            string status = Newtonsoft.Json.JsonConvert.SerializeObject(SubjectsByClass);
 
-           //   var SubjectsByClass = db.GenericSubjects.Where(x =>x.SubjectType== CT).ToList().Select(x => new { x.Id,x.SubjectName});
-
-            string status = Newtonsoft.Json.JsonConvert.SerializeObject(SubjectofCurrentSessionTeacher);
-    
             // return Json(SubjectsByClass, JsonRequestBehavior.AllowGet);
-               return Content(status);
+            return Content(status);
+
 
         }
-      
-             public ActionResult GetLession(int TopID)
+        public ActionResult GetSessions()
         {
-            var TopicList = db.AspnetLessons.Where(x => x.TopicId == TopID ).ToList().Select(x => new { x.Id, x.Name });
+
+            var AllSessions = db.AspNetSessions.ToList().Select(x => new { x.Id, x.SessionName });
+
+            string Sessions = Newtonsoft.Json.JsonConvert.SerializeObject(AllSessions);
+            return Content(Sessions);
+        }
+
+        public ActionResult GetLession(int TopID)
+        {
+            var TopicList = db.AspnetLessons.Where(x => x.TopicId == TopID).ToList().Select(x => new { x.Id, x.Name });
 
             string status = Newtonsoft.Json.JsonConvert.SerializeObject(TopicList);
 
@@ -60,7 +57,7 @@ namespace SEA_Application.Controllers
         }
         public ActionResult GetTopic(int SubID)
         {
-            var TopicList = db.AspnetSubjectTopics.Where(x => x.SubjectId == SubID ).ToList().Select(x => new { x.Id, x.Name });
+            var TopicList = db.AspnetSubjectTopics.Where(x => x.SubjectId == SubID).ToList().Select(x => new { x.Id, x.Name });
 
             string status = Newtonsoft.Json.JsonConvert.SerializeObject(TopicList);
 
@@ -82,18 +79,18 @@ namespace SEA_Application.Controllers
 
             else
             {
-                ViewBag.ClassID = new SelectList(db.AspNetClasses.Where(x=> x.SessionID == SessionID), "Id", "ClassName");
+                ViewBag.ClassID = new SelectList(db.AspNetClasses.Where(x => x.SessionID == SessionID), "Id", "ClassName");
             }
-            
-            ViewBag.SubjectID = new SelectList(db.AspNetSubjects.Where(x=> x.AspNetClass.SessionID == SessionID), "Id", "SubjectName");
+
+            ViewBag.SubjectID = new SelectList(db.AspNetSubjects.Where(x => x.AspNetClass.SessionID == SessionID), "Id", "SubjectName");
             return View();
         }
 
         public ViewResult Project_Submission()
         {
-            ViewBag.ClassID = new SelectList(db.AspNetClasses.Where(x=> x.SessionID == SessionID), "Id", "ClassName");
-            ViewBag.SubjectID = new SelectList(db.AspNetSubjects.Where(x=> x.AspNetClass.SessionID == SessionID), "Id", "SubjectName");
-            
+            ViewBag.ClassID = new SelectList(db.AspNetClasses.Where(x => x.SessionID == SessionID), "Id", "ClassName");
+            ViewBag.SubjectID = new SelectList(db.AspNetSubjects.Where(x => x.AspNetClass.SessionID == SessionID), "Id", "SubjectName");
+
             return View();
         }
 
@@ -120,7 +117,7 @@ namespace SEA_Application.Controllers
             //ViewBag.ClassID = new SelectList(db.AspNetSubjects.Where(x => x.TeacherID == TeacherID).Select(x => x.AspNetClass).Distinct(), "Id", "ClassName");
 
             ViewBag.ClassID = new SelectList(db.AspNetClasses, "Id", "ClassName");
-            ViewBag.SubjectID = new SelectList(db.AspNetSubjects.Where(x=> x.AspNetClass.SessionID == SessionID), "Id", "SubjectName");
+            ViewBag.SubjectID = new SelectList(db.AspNetSubjects.Where(x => x.AspNetClass.SessionID == SessionID), "Id", "SubjectName");
             return View();
         }
 
@@ -129,7 +126,7 @@ namespace SEA_Application.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( AspNetProject aspNetProject)
+        public ActionResult Create(AspNetProject aspNetProject)
         {
             HttpPostedFileBase file = Request.Files["attachment"];
             if (ModelState.IsValid)
@@ -138,10 +135,10 @@ namespace SEA_Application.Controllers
                 {
                     var fileName = Path.GetFileName(file.FileName);
                     //var path = Path.Combine(Server.MapPath("/App_Data/Projects/"), fileName);
-                    
+
                     file.SaveAs(Server.MapPath("~/Content/StudentProjects/") + fileName);
 
-                   // file.SaveAs(path);
+                    // file.SaveAs(path);
                     aspNetProject.FileName = fileName;
                 }
                 else
@@ -152,7 +149,7 @@ namespace SEA_Application.Controllers
                 db.SaveChanges();
 
                 int ProjectID = db.AspNetProjects.Max(x => x.Id);
-                 List<string> StudentIDs = db.AspNetStudent_Subject.Where(s => s.SubjectID == aspNetProject.SubjectID).Select(s => s.StudentID).ToList();
+                List<string> StudentIDs = db.AspNetStudent_Subject.Where(s => s.SubjectID == aspNetProject.SubjectID).Select(s => s.StudentID).ToList();
                 foreach (var item in StudentIDs)
                 {
                     AspNetStudent_Project student_project = new AspNetStudent_Project();
@@ -164,11 +161,11 @@ namespace SEA_Application.Controllers
 
                     db.SaveChanges();
                 }
-           /////////////////////////////////////////////////NOTIFICATION/////////////////////////////////////
+                /////////////////////////////////////////////////NOTIFICATION/////////////////////////////////////
 
                 var NotificationObj = new AspNetNotification();
-                NotificationObj.Description =aspNetProject.Description;
-                NotificationObj.Subject =aspNetProject.Title;
+                NotificationObj.Description = aspNetProject.Description;
+                NotificationObj.Subject = aspNetProject.Title;
                 NotificationObj.SenderID = User.Identity.GetUserId();
                 NotificationObj.Time = DateTime.Now;
                 NotificationObj.Url = "/AspNetProject/Details/" + aspNetProject.Id;
@@ -273,8 +270,8 @@ namespace SEA_Application.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ClassID = new SelectList(db.AspNetClasses.Where(x=> x.SessionID == SessionID), "Id", "ClassName");
-            ViewBag.SubjectID = new SelectList(db.AspNetSubjects.Where(x=> x.AspNetClass.SessionID == SessionID), "Id", "SubjectName", aspNetProject.SubjectID);
+            ViewBag.ClassID = new SelectList(db.AspNetClasses.Where(x => x.SessionID == SessionID), "Id", "ClassName");
+            ViewBag.SubjectID = new SelectList(db.AspNetSubjects.Where(x => x.AspNetClass.SessionID == SessionID), "Id", "SubjectName", aspNetProject.SubjectID);
             return View(aspNetProject);
         }
 
@@ -349,31 +346,31 @@ namespace SEA_Application.Controllers
 
         public JsonResult ProjectBySubject(int subjectID)
         {
-          var StudentId =  User.Identity.GetUserId();
+            var StudentId = User.Identity.GetUserId();
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             if (User.IsInRole("Teacher"))
             {
                 var projects = (from project in db.AspNetProjects
                                 join t4 in db.AspNetSubjects on project.SubjectID equals t4.Id
-                                where project.SubjectID == subjectID && t4.AspNetClass.SessionID == SessionID 
+                                where project.SubjectID == subjectID && t4.AspNetClass.SessionID == SessionID
                                 select project).ToList();
                 return Json(projects, JsonRequestBehavior.AllowGet);
             }
 
-           else
-          {
+            else
+            {
 
-            var projects = (from project in db.AspNetProjects
-                            join t4 in db.AspNetSubjects on project.SubjectID equals t4.Id
-                            join studentproject in db.AspNetStudent_Project  on project.Id equals studentproject.ProjectID
-                                where project.SubjectID == subjectID && t4.AspNetClass.SessionID == SessionID  && studentproject.StudentID == StudentId
-                            select project).ToList();
+                var projects = (from project in db.AspNetProjects
+                                join t4 in db.AspNetSubjects on project.SubjectID equals t4.Id
+                                join studentproject in db.AspNetStudent_Project on project.Id equals studentproject.ProjectID
+                                where project.SubjectID == subjectID && t4.AspNetClass.SessionID == SessionID && studentproject.StudentID == StudentId
+                                select project).ToList();
 
                 return Json(projects, JsonRequestBehavior.AllowGet);
             }
 
-        
+
         }
 
         public FileResult downloadProjectFile(int id)
@@ -399,8 +396,8 @@ namespace SEA_Application.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             var projects = (from project in db.AspNetProjects
-                               where project.SubjectID == subjectID && project.AcceptSubmission == true
-                               select project).ToList();
+                            where project.SubjectID == subjectID && project.AcceptSubmission == true
+                            select project).ToList();
             return Json(projects, JsonRequestBehavior.AllowGet);
         }
 
@@ -409,7 +406,7 @@ namespace SEA_Application.Controllers
         {
             db.Configuration.ProxyCreationEnabled = false;
             var projects = (from projectsubmission in db.AspNetStudent_Project
-                               where projectsubmission.ProjectID == ProjectID && projectsubmission.AspNetUser.Status != "False"
+                            where projectsubmission.ProjectID == ProjectID && projectsubmission.AspNetUser.Status != "False"
                             select new { projectsubmission, projectsubmission.AspNetUser.Name, projectsubmission.AspNetProject.AcceptSubmission }).ToList();
 
             return Json(projects, JsonRequestBehavior.AllowGet);
