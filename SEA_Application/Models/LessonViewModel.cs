@@ -30,8 +30,8 @@ namespace SEA_Application.Models
         [Display(Name = "Select Topic")]
 
         public int TopicId { get; set; }
-        
-        
+
+
         [Display(Name = "Assignment Name")]
 
         public string AssignmentName { get; set; }
@@ -51,8 +51,8 @@ namespace SEA_Application.Models
 
         public string AttachmentName2 { get; set; }
         [Display(Name = "Attachment Name-3")]
-        
-        
+
+
         public string AttachmentName3 { get; set; }
 
         [Display(Name = "Link Name")]
@@ -85,6 +85,25 @@ namespace SEA_Application.Models
         [Display(Name = "Add Link")]
 
         public string AddLink { get; set; }
+
+
+        [Display(Name = "Is Active")]
+
+        public bool IsActive { get; set; }
+
+
+
+        [Display(Name = "Start Date")]
+
+        public DateTime StartDate { get; set; }
+
+        [Display(Name = "Due Date")]
+
+        public DateTime DueDate { get; set; }
+
+        [Display(Name = "Select Session")]
+
+        public int SessionId { get; set; }
 
     }
 }
