@@ -13,27 +13,45 @@
 <script>
     $(document).ready(function () {
 
+        $("#PageHeader").html("Subject Topics");
+
+        $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li> <a href="/StudentCourses/Index"> Courses </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Lessons</a></li>');
+
         var sub = $("#SubjectId").val();
         $("#global_Createbtn").hide();
         $("#global_filter").hide();
+
+        // Ring Functionality JS
+        var circle = document.querySelector('circle');
+        var radius = circle.r.baseVal.value;
+        var circumference = radius * 2 * Math.PI;
+
+        circle.style.strokeDasharray = `${circumference} ${circumference}`;
+        circle.style.strokeDashoffset = `${circumference}`;
+
+        function setProgress(percent) {
+            const offset = circumference - percent / 100 * circumference;
+            circle.style.strokeDashoffset = offset;
+        }
+
+        const input = document.querySelector('input.progressVal');
+        setProgress(input.value);
+
+        input.addEventListener('change', function (e) {
+            if (input.value < 101 && input.value > -1) {
+                setProgress(input.value);
+            }
+        });
+        // #End Ring Functionality JS
 
         var Count = 0;
         var heading = "headingOne";
         var collapse = "collapseOne";
         var index = 0;
-
-        $('i').click(function () {
-            var className = $(this).attr("class");
-            if (~className.indexOf("fa-angle-down")) {
-                $(this).removeClass("fa-angle-down");
-                $(this).addClass("fa-angle-up");
-                //console.log("up");
-            } else {
-                $(this).removeClass("fa-angle-up");
-                $(this).addClass("fa-angle-down");
-                //console.log("down");
-            }
-        });
+        var trueCount = 0;
+        var percent = 0;
 
         $.ajax({
             type: "POST",
@@ -43,7 +61,8 @@
                 console.log(data);
                 //console.log("Working");
                 $.each(data, function (key, value1) {
-                    Count = value1.TotalLessons;
+                    //Count = value1.TotalLessons;
+                    Count = Count + 1;
                     var lessonlist = value1.LessonList;
                     var heading = "headingOne";
                     index = index + 1;
@@ -56,27 +75,35 @@
                     Topic = '<div class="card"><div class="card-header" role="tab" id="' + headingIndex + '"><a data-toggle="collapse" data-parent="#accordionEx" href="#' + collapseindex + '" aria-expanded="true" aria-controls="' + collapseindex + '" class=""><h5 class="mb-0">' + value1.TopicName + '<span class="completedAndTime">  (' + value1.TotalLessons1 + '-' + value1.TopicDuration + ' min) </span><i class="fas fa-angle-down rotate-icon pull-right"></i></h5></a></div><div id="' + collapseindex + '" class="collapse show" role="tabpanel" aria-labelledby="' + headingIndex + '" data-parent="#accordionEx" style=""><div class="card-body"><div class="row">';
 
                     $.each(lessonlist, function (key, lesson) {
-                        debugger
-
                         if (lesson.LessonExistInTrackingTable == "Yes") {
+                            trueCount = trueCount + 1;
                             Lesson = Lesson + '<div class="col-md-12"><div class="form-check  my-2"><a name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '"> <label class="form-check-label"><input class="form-check-input" type="checkbox" checked="" disabled><span class="form-check-sign"><span class="check"></span></span>' + lesson.LessonName + '<div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></a></div></div>';
                         }
                         else {
                             Lesson = Lesson + '<div class="col-md-12"><div class="form-check  my-2"><a name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '"> <label class="form-check-label"><input class="form-check-input" type="checkbox" disabled><span class="form-check-sign"><span class="check"></span></span>' + lesson.LessonName + '<div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></a></div></div>';
                         }
-
-                        //<span class="glyphicon glyphicon-ok"></span>
                     })
                     $("#accordionEx").append(Topic + Lesson + '</div></div></div></div>');
+                    percent = (trueCount / value1.TotalLessons) * 100;
+
+                    setProgress(percent);
+
+                    //$('i').click(function () {
+                    //    var className = $(this).attr("class");
+                    //    if (~className.indexOf("fa-angle-down")) {
+                    //        $(this).removeClass("fa-angle-down");
+                    //        $(this).addClass("fa-angle-up");
+                    //        //console.log("up");
+                    //    } else {
+                    //        $(this).removeClass("fa-angle-up");
+                    //        $(this).addClass("fa-angle-down");
+                    //        //console.log("down");
+                    //    }
+                    //});
+
                 })
             }
         })
-
-        $("#PageHeader").html("Subject Topics");
-
-        $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
-        $("#BreadCrumbs").append(' <li> <a href="/StudentCourses/Index"> Courses </a> <span>&gt;</span></li>');
-        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Lessons</a></li>');
     });
 </script>
 
@@ -111,7 +138,7 @@
                                                                 </g>
                                                             </svg>
                                                         </span>
-                                                        <svg class="progress-ring hidden" width="44" height="44">
+                                                        <svg class="progress-ring" width="44" height="44">
                                                             <circle class="progress-ring__circle" stroke="#00b8ec" stroke-width="4" fill="transparent" r="18" style="stroke-dasharray: 113.097px, 113.097px; stroke-dashoffset: 100px;" cy="20" cx="24"></circle>
                                                         </svg>
                                                     </span>

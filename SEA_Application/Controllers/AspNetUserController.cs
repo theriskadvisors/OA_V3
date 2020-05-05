@@ -739,8 +739,6 @@ namespace SEA_Application.Controllers
             // List<RollNumberList> rl = new List<RollNumberList>();
             string Max = db.GetStudentRollNo().FirstOrDefault().ToString();
 
-
-
             if (Max != null)
             {
                 string myString = Max;

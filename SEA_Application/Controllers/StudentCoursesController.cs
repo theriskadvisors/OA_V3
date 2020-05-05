@@ -123,6 +123,7 @@ namespace SEA_Application.Controllers
 
             ViewBag.TopicId = TopicId;
             ViewBag.LessonID = Lesson.Id;
+            ViewBag.SubjectId = Lesson.AspnetSubjectTopic.GenericSubject.Id;
 
             return View();
         }
@@ -389,24 +390,22 @@ namespace SEA_Application.Controllers
                 foreach (var a in SubjectsTopics)
                 {
                     int count1 = 0;
+                    decimal DurationCount = 0;
+
                     Topic TopicObj = new Topic();
 
-                    //  var list = db.AspnetLessons.Where(x => x.TopicId == a.Id).Where(x=>x.IsActive== true).ToList();
-
-
-
-
+                    var LessonList = db.AspnetLessons.Where(x => x.TopicId == a.Id).ToList();
+                    
                     var today = DateTime.Today;
-                    var LessonList = (from Lesson in db.AspnetLessons
-                                      join LessonSession in db.Lesson_Session on Lesson.Id equals LessonSession.LessonId
-                                      where Lesson.TopicId == a.Id && Lesson.IsActive == true && LessonSession.SessionId == userSessionId && LessonSession.StartDate <= today && today <= LessonSession.DueDate
-                                      select Lesson).ToList();
+                    //var LessonList = (from Lesson in db.AspnetLessons
+                    //                  join LessonSession in db.Lesson_Session on Lesson.Id equals LessonSession.LessonId
+                    //                  where Lesson.TopicId == a.Id && Lesson.IsActive == true && LessonSession.SessionId == userSessionId && LessonSession.StartDate <= today && today <= LessonSession.DueDate
+                    //                  select Lesson).ToList();
+
 
 
                     TopicObj.TopicId = a.Id;
                     TopicObj.TopicName = a.Name;
-
-
 
                     List<Lesson> LessonsList = new List<Lesson>();
 
@@ -427,9 +426,12 @@ namespace SEA_Application.Controllers
                         Lesson lessonobj = new Lesson();
                         lessonobj.LessonId = lesson.Id;
                         lessonobj.LessonName = lesson.Name;
-                        lessonobj.LessonDuration = lesson.Duration;
+                        lessonobj.LessonDuration = Int32.Parse(lesson.DurationMinutes.ToString());
                         lessonobj.LessonExistInTrackingTable = LessonExist;
                         lessonobj.EncryptedID = lesson.EncryptedID;
+
+                        DurationCount = DurationCount + lesson.DurationMinutes ?? 0;
+
                         LessonsList.Add(lessonobj);
                         Count++;
                         count1++;
@@ -441,6 +443,7 @@ namespace SEA_Application.Controllers
 
                     TopicObj.TotalLessons = Count;
                     TopicObj.TotalLessons1 = count1;
+                    TopicObj.TopicDuration = Int32.Parse(DurationCount.ToString());
 
                     TopicListObj.Add(TopicObj);
                 }
@@ -541,7 +544,7 @@ namespace SEA_Application.Controllers
                     Lesson lessonobj = new Lesson();
                     lessonobj.LessonId = lesson.Id;
                     lessonobj.LessonName = lesson.Name;
-                    lessonobj.LessonDuration = lesson.Duration;
+                    lessonobj.LessonDuration = Int32.Parse(lesson.DurationMinutes.ToString());
                     lessonobj.LessonExistInTrackingTable = LessonExist;
 
                     LessonsList.Add(lessonobj);
@@ -947,7 +950,7 @@ namespace SEA_Application.Controllers
         {
             public int LessonId { get; set; }
             public string LessonName { get; set; }
-            public TimeSpan? LessonDuration { get; set; }
+            public int LessonDuration { get; set; }
 
             public string LessonExistInTrackingTable { get; set; }
             public string EncryptedID { get; set; }
