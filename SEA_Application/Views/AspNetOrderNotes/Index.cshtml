@@ -6,7 +6,6 @@
 }
 
 <style>
-
     input[type=search] {
         border: 1px solid rgb(221, 221, 221);
         border-radius: 40px;
@@ -54,7 +53,7 @@
 
 <div class="card">
     <div class="card-body p-4">
-        <div class="tab-content" >
+        <div class="tab-content">
 
             <p>
             </p>
@@ -134,6 +133,10 @@
             </div>
 
 
+
+
+
+
             <div class="tab-pane" id="tab_2">
                 <div class="box box-primary">
                     <div class="box-title"></div>
@@ -173,8 +176,7 @@
 
 
 
-                            <tbody id="CartOrders">
-                            </tbody>
+                            <tbody id="CartOrders"></tbody>
 
                         </table>
                     </div>
@@ -220,8 +222,7 @@
                                 </tr>
 
                             </thead>
-                            <tbody id="RecentOrderTableBody">
-                            </tbody>
+                            <tbody id="RecentOrderTableBody"></tbody>
 
 
 
@@ -235,397 +236,397 @@
     </div>
 </div>
 
-        @*<button id="confirmOrder" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Confirm Order</button>*@
-        <script>
-            $(document).ready(function () {
+@*<button id="confirmOrder" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Confirm Order</button>*@
+<script>
+    $(document).ready(function () {
 
-                //var table;
+        $("#datatable_filter").hide();//var table;
 
-                // $('#example').dataTable({
-                // });
+        // $('#example').dataTable({
+        // });
 
-                var table;
+        var table;
 
 
-                $('#datatable1').dataTable({
-                    buttons: [
-                        {
-                            text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
-                        },
-                        {
-                            text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
-                            action: function (e, dt, button, config) {
-                                window.location.href = '';
-                            }
-                        },
-                        {
-                            text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
-                        }
-                    ],
-                    "language": {
-                        "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
-                            "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
-                            "  </div>\n" +
-                            "  </div>",
-                        "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
-                        "paginate": {
-                            "first": "Firstt",
-                            "last": "Lastt",
-                            "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
-                            "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
-                        }
-                    },
-                    "searching": true,
-                    // dom: '<"class">Blfrtip',
-                    dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
-                        "<'row'<'col-sm-12 datatablesData'tr>>" +
-                        "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
+        $('#datatable1').dataTable({
+            buttons: [
+                {
+                    text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
+                },
+                {
+                    text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
+                    action: function (e, dt, button, config) {
+                        window.location.href = '';
+                    }
+                },
+                {
+                    text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
+                }
+            ],
+            "language": {
+                "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
+                    "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
+                    "  </div>\n" +
+                    "  </div>",
+                "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
+                "paginate": {
+                    "first": "Firstt",
+                    "last": "Lastt",
+                    "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
+                    "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
+                }
+            },
+            "searching": true,
+            // dom: '<"class">Blfrtip',
+            dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
+                "<'row'<'col-sm-12 datatablesData'tr>>" +
+                "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
+        });
+
+        var table1 = $('#datatable2').dataTable({
+            buttons: [
+                {
+                    text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
+                },
+                {
+                    text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
+                    action: function (e, dt, button, config) {
+                        window.location.href = '';
+                    }
+                },
+                {
+                    text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
+                }
+            ],
+            "language": {
+                "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
+                    "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
+                    "  </div>\n" +
+                    "  </div>",
+                "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
+                "paginate": {
+                    "first": "Firstt",
+                    "last": "Lastt",
+                    "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
+                    "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
+                }
+            },
+            "searching": true,
+            // dom: '<"class">Blfrtip',
+            dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
+                "<'row'<'col-sm-12 datatablesData'tr>>" +
+                "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
+        });
+
+
+
+        var table2 = $('#datatable3').dataTable({
+            buttons: [
+                {
+                    text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
+                },
+                {
+                    text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
+                    action: function (e, dt, button, config) {
+                        window.location.href = '';
+                    }
+                },
+                {
+                    text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
+                }
+            ],
+            "language": {
+                "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
+                    "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
+                    "  </div>\n" +
+                    "  </div>",
+                "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
+                "paginate": {
+                    "first": "Firstt",
+                    "last": "Lastt",
+                    "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
+                    "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
+                }
+            },
+            "searching": true,
+            // dom: '<"class">Blfrtip',
+            dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
+                "<'row'<'col-sm-12 datatablesData'tr>>" +
+                "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
+        });
+
+
+
+
+        //table = $('#datatable').dataTable();
+
+        //var table1;
+        //table1 = $('#datatable1').dataTable();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/AspNetOrderNotes/RecentOrders",
+            data: {},
+            success: function (data) {
+
+                table1.fnClearTable();
+                $.each(data, function (index) {
+
+                    //    var TableRow = "<tr><td>" + data[index].Title + "</td> <td>" + data[index].Discription + "</td>  <td>" + data[index].CourseType + "</td> <td>" + data[index].Price + "</td>  <td>" + data[index].Quantity + "</td><td>" + data[index].Status + "</td> <td id='btnid'><button data-toggle='modal' data-target='#myModal' style='display:none'  class='CancelOrderBtn btn btn-danger' id='" + data[index].Id + "' >Cancel Order</button></td>    </tr> "
+
+                    //                    table1.fnAddData(["<input class='checkboxes' id=" + data[index].Id + " type='checkbox' value=" + data[index].Total + "  >", data[index].Title, data[index].Discription, data[index].CourseType, data[index].Price, data[index].Quantity, data[index].Total, data[index].Status]);
+                    table1.fnAddData([data[index].OrderId, data[index].Title, data[index].Discription, data[index].CourseType, data[index].Price, data[index].Quantity, data[index].Status]);
+
+                    //$('#RecentOrderTableBody').append(TableRow);
                 });
 
-                var table1 = $('#datatable2').dataTable({
-                    buttons: [
-                        {
-                            text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
-                        },
-                        {
-                            text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
-                            action: function (e, dt, button, config) {
-                                window.location.href = '';
-                            }
-                        },
-                        {
-                            text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
-                        }
-                    ],
-                    "language": {
-                        "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
-                            "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
-                            "  </div>\n" +
-                            "  </div>",
-                        "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
-                        "paginate": {
-                            "first": "Firstt",
-                            "last": "Lastt",
-                            "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
-                            "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
-                        }
-                    },
-                    "searching": true,
-                    // dom: '<"class">Blfrtip',
-                    dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
-                        "<'row'<'col-sm-12 datatablesData'tr>>" +
-                        "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
+
+                table1.fnDraw();
+                $('.eeniart0017').css("display", "none");
+
+            }
+
+
+        })
+
+
+        $.ajax({
+
+            type: "POST",
+            url: "/AspNetOrderNotes/CartOrders",
+            data: {},
+            success: function (data) {
+
+
+                table.fnClearTable();
+                $.each(data, function (index) {
+
+                    if (data[index].Status == "Draft") {
+
+                        // var TableRow = "<tr>  <td> <input class='checkboxes' id=" + data[index].Id + "  type='checkbox' value=" + data[index].Total + "> </td>  <td>" + data[index].Title + "</td> <td>" + data[index].Discription + "</td>  <td>" + data[index].CourseType + "</td> <td>" + data[index].Price + "</td>  <td>" + data[index].Quantity + "</td> <td class='TotalPrice'>" + data[index].Total + "</td>  <td>" + data[index].Status + "</td>    </tr> "
+                        table.fnAddData([data[index].Title, data[index].Discription, data[index].CourseType, data[index].Price, data[index].Quantity, data[index].Total, data[index].Status, "<input class='checkboxes' id=" + data[index].Id + " type='checkbox' value=" + data[index].Total + "  >"]);
+
+
+                    }
+
+
+                    //alert(data[index].Discription);
+                    // $('#CartOrders').append(TableRow);
                 });
+                table.fnDraw();
+                $('.eeniart0017').css("display", "none");
+            }
+        })//end of ajax card orders
+
+
+        var Total = 0;
+        var arr = [];
+        var CheckAllCheckBoxes = 0;
+        $("#CartOrders").on("click", "input[type='checkbox']", function () {
+            debugger
+
+
+            if ($(this).prop("checked") == true) {
+
+                Total = Total + parseInt($(this).val());
+
+                arr.push(parseInt($(this).attr('id')));
+
+                CheckAllCheckBoxes = CheckAllCheckBoxes + 1;
+                checkCheckBoxes();
+
+            }
+            else {
+
+                Total = Total - parseInt($(this).val());
+                var itemtoRemove = $(this).attr('id');
+
+                arr.splice($.inArray(itemtoRemove, arr), 1);
+
+
+                CheckAllCheckBoxes = CheckAllCheckBoxes - 1;
+
+                checkCheckBoxes();
+
+            }
+
+            $("#TotalAmount").text(Total);
+            //  alert(arr);
+        });
+
+        function checkCheckBoxes() {
+            if (CheckAllCheckBoxes == 0) {
+
+                $("#ConfirmOrder").attr("disabled", true);
+                $("#DeleteOrders").attr("disabled", true);
+            }
+            else {
+                $("#ConfirmOrder").attr("disabled", false);
+                $("#DeleteOrders").attr("disabled", false);
+
+            }
+        }
+
+
+        $("#DeleteOrders").click(function () {
+
+            $.ajax({
+
+                type: "POST",
+                url: "/AspNetOrderNotes/DeleteOrders",
+                data: { "DeleteOrders": arr },
+
+
+                success: function (data) {
+
+                    //$("#tab2").trigger('click');
+                    window.location.href = '/AspNetOrderNotes/Index/';
 
 
 
-                var table2 = $('#datatable3').dataTable({
-                    buttons: [
-                        {
-                            text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
-                        },
-                        {
-                            text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
-                            action: function (e, dt, button, config) {
-                                window.location.href = '';
-                            }
-                        },
-                        {
-                            text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
-                        }
-                    ],
-                    "language": {
-                        "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
-                            "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
-                            "  </div>\n" +
-                            "  </div>",
-                        "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
-                        "paginate": {
-                            "first": "Firstt",
-                            "last": "Lastt",
-                            "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
-                            "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
-                        }
-                    },
-                    "searching": true,
-                    // dom: '<"class">Blfrtip',
-                    dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
-                        "<'row'<'col-sm-12 datatablesData'tr>>" +
-                        "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
-                });
+                    // $('#example').dataTable().clear();
 
-
-
-
-                //table = $('#datatable').dataTable();
-
-                //var table1;
-                //table1 = $('#datatable1').dataTable();
-
-                $.ajax({
-
-                    type: "POST",
-                    url: "/AspNetOrderNotes/RecentOrders",
-                    data: {},
-                    success: function (data) {
-
-                        table1.fnClearTable();
-                        $.each(data, function (index) {
-
-                            //    var TableRow = "<tr><td>" + data[index].Title + "</td> <td>" + data[index].Discription + "</td>  <td>" + data[index].CourseType + "</td> <td>" + data[index].Price + "</td>  <td>" + data[index].Quantity + "</td><td>" + data[index].Status + "</td> <td id='btnid'><button data-toggle='modal' data-target='#myModal' style='display:none'  class='CancelOrderBtn btn btn-danger' id='" + data[index].Id + "' >Cancel Order</button></td>    </tr> "
-
-                            //                    table1.fnAddData(["<input class='checkboxes' id=" + data[index].Id + " type='checkbox' value=" + data[index].Total + "  >", data[index].Title, data[index].Discription, data[index].CourseType, data[index].Price, data[index].Quantity, data[index].Total, data[index].Status]);
-                            table1.fnAddData([data[index].OrderId, data[index].Title, data[index].Discription, data[index].CourseType, data[index].Price, data[index].Quantity, data[index].Status]);
-
-                            //$('#RecentOrderTableBody').append(TableRow);
-                        });
-
-
-                        table1.fnDraw();
-                        $('.eeniart0017').css("display", "none");
-
-                    }
-
-
-                })
-
-
-                $.ajax({
-
-                    type: "POST",
-                    url: "/AspNetOrderNotes/CartOrders",
-                    data: {},
-                    success: function (data) {
-
-
-                        table.fnClearTable();
-                        $.each(data, function (index) {
-
-                            if (data[index].Status == "Draft") {
-
-                                // var TableRow = "<tr>  <td> <input class='checkboxes' id=" + data[index].Id + "  type='checkbox' value=" + data[index].Total + "> </td>  <td>" + data[index].Title + "</td> <td>" + data[index].Discription + "</td>  <td>" + data[index].CourseType + "</td> <td>" + data[index].Price + "</td>  <td>" + data[index].Quantity + "</td> <td class='TotalPrice'>" + data[index].Total + "</td>  <td>" + data[index].Status + "</td>    </tr> "
-                                table.fnAddData([data[index].Title, data[index].Discription, data[index].CourseType, data[index].Price, data[index].Quantity, data[index].Total, data[index].Status, "<input class='checkboxes' id=" + data[index].Id + " type='checkbox' value=" + data[index].Total + "  >"]);
-
-
-                            }
-
-
-                            //alert(data[index].Discription);
-                            // $('#CartOrders').append(TableRow);
-                        });
-                        table.fnDraw();
-                        $('.eeniart0017').css("display", "none");
-                    }
-                })//end of ajax card orders
-
-
-                var Total = 0;
-                var arr = [];
-                var CheckAllCheckBoxes = 0;
-                $("#CartOrders").on("click", "input[type='checkbox']", function () {
-                    debugger
-
-
-                    if ($(this).prop("checked") == true) {
-
-                        Total = Total + parseInt($(this).val());
-
-                        arr.push(parseInt($(this).attr('id')));
-
-                        CheckAllCheckBoxes = CheckAllCheckBoxes + 1;
-                        checkCheckBoxes();
-
-                    }
-                    else {
-
-                        Total = Total - parseInt($(this).val());
-                        var itemtoRemove = $(this).attr('id');
-
-                        arr.splice($.inArray(itemtoRemove, arr), 1);
-
-
-                        CheckAllCheckBoxes = CheckAllCheckBoxes - 1;
-
-                        checkCheckBoxes();
-
-                    }
-
-                    $("#TotalAmount").text(Total);
-                    //  alert(arr);
-                });
-
-                function checkCheckBoxes() {
-                    if (CheckAllCheckBoxes == 0) {
-
-                        $("#ConfirmOrder").attr("disabled", true);
-                        $("#DeleteOrders").attr("disabled", true);
-                    }
-                    else {
-                        $("#ConfirmOrder").attr("disabled", false);
-                        $("#DeleteOrders").attr("disabled", false);
-
-                    }
+                    //   $('#example').data.reload();
                 }
 
+            })
 
-                $("#DeleteOrders").click(function () {
+        })
 
-                    $.ajax({
 
-                        type: "POST",
-                        url: "/AspNetOrderNotes/DeleteOrders",
-                        data: { "DeleteOrders": arr },
+        $("#ConfirmOrder").click(function () {
 
+            var TotalAmount = Total;
 
-                        success: function (data) {
+            $.ajax({
 
-                            //$("#tab2").trigger('click');
-                            window.location.href = '/AspNetOrderNotes/Index/';
+                type: "POST",
+                url: "/AspNetOrderNotes/ConfirmOdr",
+                data: { "TotalAmount": TotalAmount, "IDs": arr },
+                success: function (data) {
 
 
 
-                            // $('#example').dataTable().clear();
 
-                            //   $('#example').data.reload();
-                        }
+                    window.location.href = '/AspNetOrderNotes/Index/';
 
-                    })
-
-                })
-
-
-                $("#ConfirmOrder").click(function () {
-
-                    var TotalAmount = Total;
-
-                    $.ajax({
-
-                        type: "POST",
-                        url: "/AspNetOrderNotes/ConfirmOdr",
-                        data: { "TotalAmount": TotalAmount, "IDs": arr },
-                        success: function (data) {
-
-
-
-
-                            window.location.href = '/AspNetOrderNotes/Index/';
-
-                        }
-
-                    })
-
-
-                })
-
-                $("#RecentOrderTableBody").on("click", "button", function () {
-
-                    //alert( $(this).attr('id'));
-
-                    var OdrId = $(this).attr('id');
-
-
-                    $(".yesBtn").attr('name', OdrId);
-
-                    //$.ajax({
-
-                    //    type: "POST",
-                    //    url: "/AspNetOrderNotes/CancelOrder",
-                    //    data: { "OrderId": OdrId },
-                    //    success: function (data) {
-
-
-                    //    }
-
-                    // });
-
-
-
-                });
-
-                $("#checkBoxToAllChek").click(function () {
-
-                    $('#CartOrders input[type="checkbox"]').prop('checked', this.checked);
-
-                });
-
-
-                $("#yesBtn").click(function () {
-
-                    //  alert( $("#yesBtn").attr('name'));
-
-                    var OdrId = $("#yesBtn").attr('name')
-
-
-
-                    $.ajax({
-
-                        type: "POST",
-                        url: "/AspNetOrderNotes/CancelOrder",
-                        data: { "OrderId": OdrId },
-                        success: function (data) {
-
-
-
-                            // $('button[id="'+OdrId+'"]').prop('disabled', true);
-
-
-                            window.location.href = '/AspNetOrderNotes/Index/';
-
-
-
-
-                        }
-
-                    });
-
-
-
-                })
-
-                function drawTable() {
-                    $('#example_filter').addClass("form-group");
-                    $('#example_filter').addClass("has-feedback");
-                    $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
-                    //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
-
-                    $('#example_wrapper').css("text-align", "left");
-                    $('#example_length').css("text-align", "left");
-                    $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
-                    $("#example_length label").css("text-align", "left");
-                    $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
-                    // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
-                    $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
-                    //$('#example_length').css({ "overflow": "auto" });
-                    $('#example_filter input').addClass("add");
-                    $('#example_filter').append('<span  class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
-                    var list = $("#ClassID").html();
-                    $('#example_length').append(
-
-                        '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
-                        '<div class="d-bar"></div>' +
-                        '</div>'
-                        +
-
-
-
-
-                        '<div class="col-md-3 col-lg-3">' +
-                        '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
-                        '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/Admin_Dashboard/StudentRegister"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></a></div>' +
-                        '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/AspNetUser/DisableStudentIndex"><i class="fa fa-ban" data-placement="bottom"></i>' + '</a></div>' +
-                        '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><i onclick="download()"class="glyphicon glyphicon-download-alt" onclick="download()" data-placement="bottom"></i></a></div>' +
-                        '<div class="col-md-1" padding-left:0px;">' +
-                        '<div class="d-bar"></div>' +
-                        '</div>' +
-                        '</div>');
-                    //$("#Class").prepend("<option value='0'>Select One</option>");
                 }
-
-
-
-
 
             })
 
 
-        </script>
+        })
+
+        $("#RecentOrderTableBody").on("click", "button", function () {
+
+            //alert( $(this).attr('id'));
+
+            var OdrId = $(this).attr('id');
+
+
+            $(".yesBtn").attr('name', OdrId);
+
+            //$.ajax({
+
+            //    type: "POST",
+            //    url: "/AspNetOrderNotes/CancelOrder",
+            //    data: { "OrderId": OdrId },
+            //    success: function (data) {
+
+
+            //    }
+
+            // });
+
+
+
+        });
+
+        $("#checkBoxToAllChek").click(function () {
+
+            $('#CartOrders input[type="checkbox"]').prop('checked', this.checked);
+
+        });
+
+
+        $("#yesBtn").click(function () {
+
+            //  alert( $("#yesBtn").attr('name'));
+
+            var OdrId = $("#yesBtn").attr('name')
+
+
+
+            $.ajax({
+
+                type: "POST",
+                url: "/AspNetOrderNotes/CancelOrder",
+                data: { "OrderId": OdrId },
+                success: function (data) {
+
+
+
+                    // $('button[id="'+OdrId+'"]').prop('disabled', true);
+
+
+                    window.location.href = '/AspNetOrderNotes/Index/';
+
+
+
+
+                }
+
+            });
+
+
+
+        })
+
+        function drawTable() {
+            $('#example_filter').addClass("form-group");
+            $('#example_filter').addClass("has-feedback");
+            $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+            //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
+
+            $('#example_wrapper').css("text-align", "left");
+            $('#example_length').css("text-align", "left");
+            $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
+            $("#example_length label").css("text-align", "left");
+            $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
+            // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
+            $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
+            //$('#example_length').css({ "overflow": "auto" });
+            $('#example_filter input').addClass("add");
+            $('#example_filter').append('<span  class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
+            var list = $("#ClassID").html();
+            $('#example_length').append(
+
+                '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
+                '<div class="d-bar"></div>' +
+                '</div>'
+                +
+
+
+
+
+                '<div class="col-md-3 col-lg-3">' +
+                '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
+                '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/Admin_Dashboard/StudentRegister"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></a></div>' +
+                '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/AspNetUser/DisableStudentIndex"><i class="fa fa-ban" data-placement="bottom"></i>' + '</a></div>' +
+                '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><i onclick="download()"class="glyphicon glyphicon-download-alt" onclick="download()" data-placement="bottom"></i></a></div>' +
+                '<div class="col-md-1" padding-left:0px;">' +
+                '<div class="d-bar"></div>' +
+                '</div>' +
+                '</div>');
+            //$("#Class").prepend("<option value='0'>Select One</option>");
+        }
+
+
+
+
+
+    })
+
+
+</script>
