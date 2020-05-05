@@ -69,6 +69,9 @@ namespace SEA_Application.Controllers
         public ActionResult Create(LessonViewModel LessonViewModel)
         {
 
+
+
+
             AspnetLesson Lesson = new AspnetLesson();
 
             Lesson.Name = LessonViewModel.LessonName;
@@ -249,6 +252,70 @@ namespace SEA_Application.Controllers
             return Json(subs, JsonRequestBehavior.AllowGet);
 
         }
+        public ActionResult LessonSessionView()
+        {
+
+
+            return View("LessonSessionView");
+        }
+
+        public ActionResult GetLessonSessions()
+        {
+            var AllLessonSessions = from lesson in db.AspnetLessons
+                                    join lessonsesion in db.Lesson_Session on lesson.Id equals lessonsesion.LessonId
+                                    select new
+                                    {
+                                        lesson.Name,
+                                        lessonsesion.AspNetSession.SessionName,
+                                        lessonsesion.StartDate,
+                                        lessonsesion.DueDate
+
+                                    };
+
+
+                    return Json(AllLessonSessions, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult CreateLessonSession()
+        {
+
+            ViewBag.TopicId = new SelectList(db.AspnetSubjectTopics, "Id", "Name");
+
+            ViewBag.ClassID = new SelectList(db.AspNetClasses, "Id", "ClassName");
+
+            ViewBag.LessonId = new SelectList(db.AspnetLessons, "Id", "Name");
+
+
+
+            return View();
+
+        }
+        [HttpPost]
+        public ActionResult CreateLessonSession(int SessionId)
+        {
+
+                var SessionId1 =   Request.Form["SessionId"];
+                var LessonId = Request.Form["LessonId"];
+                var StartDate = Request.Form["StartDate"];
+                var DueDate = Request.Form["DueDate"];
+
+                
+
+            Lesson_Session ls = new Lesson_Session();
+
+            ls.LessonId = Convert.ToInt32( LessonId);
+            ls.SessionId = Convert.ToInt32(SessionId1);
+            ls.StartDate = Convert.ToDateTime(StartDate);
+            ls.DueDate = Convert.ToDateTime(DueDate);
+
+
+            db.Lesson_Session.Add(ls);
+            db.SaveChanges();
+
+            return RedirectToAction("LessonSessionView");
+        }
+
+        
 
         // GET: AspnetLessons/Edit/5
         public ActionResult Edit(int? id)

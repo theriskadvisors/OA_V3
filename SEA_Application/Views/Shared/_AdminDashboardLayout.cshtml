@@ -117,15 +117,15 @@
                         </a>
                     </li>
                     @*
-                    <li class="nav-item">
-                        <a href="@(Url.Action("MonthlyFeeStudent", "Admin_Dashboard" ))">
+        <li class="nav-item">
+            <a href="@(Url.Action("MonthlyFeeStudent", "Admin_Dashboard" ))">
 
-                            <i class="sea-dash">
-                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
-                            </i>
-                            <p>Fee Status</p>
-                        </a>
-                    </li>*@
+                <i class="sea-dash">
+                    <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
+                </i>
+                <p>Fee Status</p>
+            </a>
+        </li>*@
 
                     <li class="nav-item">
                         <a href="@Url.Action("Index", "Expense" )" class="nav-link nav-toggle">
@@ -156,7 +156,7 @@
                             <p>Subject</p>
                         </a>
                     </li>
-                   
+
                     <li class="nav-item">
                         <a href="@Url.Action("ViewTopicsAndLessons", "AspnetSubjectTopics" )" class="nav-link nav-toggle">
 
@@ -166,6 +166,18 @@
                             <p>Topics & Lessons</p>
                         </a>
                     </li>
+
+
+                    <li class="nav-item">
+                        <a href="@Url.Action("LessonSessionView", "AspnetLessons" )" class="nav-link nav-toggle">
+
+                            <i class="sea-dash">
+                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
+                            </i>
+                            <p>Lesson Session</p>
+                        </a>
+                    </li>
+
                     <li class="nav-item">
                         <a href="@Url.Action("ViewQuestionAndQuiz", "AspnetQuestions" )" class="nav-link nav-toggle">
                             <i class="sea-dash">
@@ -418,7 +430,8 @@
             <!--<script src="http://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>-->
             <!--<script src="https://cdn.datatables.net/buttons/1.10.20/js/buttons.flash.min.js" type="text/javascript"></script>-->
             <!--<script src="https://cdn.datatables.net/buttons/1.10.20/js/dataTables.buttons.min.js" type="text/javascript"></script>-->
-          
+            <script src="~/Content/assets/js/lesson.js"></script>
+
             <script>
     function filterGlobal() {
 
