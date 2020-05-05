@@ -9,29 +9,33 @@
             <div class="card">
                 <div class="card-body p-5">
                     <div>
-
-                        <table class="table hover table-bordered table-striped" id="datatable">
-                            <thead>
-                                <tr>
-
-                                    <th>
-                                        Lesson Name
-                                    </th>
-                                    <th>
-                                        Session Name
-                                    </th>
-                                    <th>
-                                        Strat Date
-                                    </th>
-                                    <th>
-                                        End Date
-                                    </th>
+                        <div class="table-responsive">
 
 
-                                </tr>
-                            </thead>
-                            <tbody id="DefaulterStudents"></tbody>
-                        </table>
+                            <table class="table table1 hover table-bordered table-striped" id="datatable">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+
+                                        <th>
+                                            Lesson Name
+                                        </th>
+                                        <th>
+                                            Session Name
+                                        </th>
+                                        <th>
+                                            Strat Date
+                                        </th>
+                                        <th>
+                                            End Date
+                                        </th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody id="DefaulterStudents"></tbody>
+                            </table>
+                        </div>
 
                     </div>
                 </div>
@@ -45,8 +49,8 @@
 
                             $("#PageHeader").html("Lesson Session ");
 
-            $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
-            $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Lesson Sessions</a></li>');
+                        $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
+                        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Lesson Sessions</a></li>');
 
 
 
@@ -123,12 +127,28 @@
 
 
 
-                                        table.fnAddData([data[index].Name, data[index].SessionName,dat,dat1]);
+                                        table.fnAddData([data[index].Id,data[index].Name, data[index].SessionName,dat,dat1]);
 
                                     })
 
                                     table.fnDraw();
                                 }
                             })
+
+          $('.table1').on('click', 'tbody tr', function () {
+            var td = $(this).children("td");
+            var userName = $(td[0]).children("input").val();
+
+            //alert($(td[0]).html());
+            var Id = parseInt($(td[0]).html())
+            // alert(Id);
+            //userName = userName.trim();
+            window.location.href = "/AspnetLessons/EditLessonSession?id=" + Id;
+        });
+
+
+
+
+
                         })
                     </script>

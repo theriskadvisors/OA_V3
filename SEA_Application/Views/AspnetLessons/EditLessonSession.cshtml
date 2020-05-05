@@ -33,41 +33,38 @@
     $(document).ready(function () {
 
 
+        $("#PageHeader").html("Edit Lesson Session");
+
+        $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li> <a href="/AspnetLessons/LessonSessionView"> Lesson Session </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Edit</a></li>');
+
            $("#btnCancel").click(function () {
 
                  window.location.href = "/AspnetLessons/LessonSessionView";
             })
 
 
-        $("#PageHeader").html("Add Lesson Session");
+        //$.ajax({
+        //    type: "POST",
+        //    cache: false,
+        //    url: "/AspnetLessons/LoadSectionIdDDL",
+        //    processData: false,
+        //    contentType: false,
+        //    success: function (data) {
+        //        var sch = JSON.parse(data);
+        //        $('#SessionId').html("");
+        //        debugger
+        //        //  $('#Sessions').append('<option value= "">Select </option>');
+        //        $('#SessionId').append('<option value="">Select Section</option>');
+        //        $.each(sch, function (i, item) {
 
-        $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
-        $("#BreadCrumbs").append(' <li> <a href="/AspnetLessons/LessonSessionView">Lesson Session </a> <span>&gt;</span></li>');
-        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Create</a></li>');
+        //            debugger
+        //            $('#SessionId').append('<option value=' + item.Id + '>' + item.SessionName + '</option>');
+        //        });
 
-
-
-
-        $.ajax({
-            type: "POST",
-            cache: false,
-            url: "/AspnetLessons/LoadSectionIdDDL",
-            processData: false,
-            contentType: false,
-            success: function (data) {
-                var sch = JSON.parse(data);
-                $('#Sessions').html("");
-                debugger
-                //  $('#Sessions').append('<option value= "">Select </option>');
-                $('#SessionId').append('<option value="">Select Section</option>');
-                $.each(sch, function (i, item) {
-
-                    debugger
-                    $('#SessionId').append('<option value=' + item.Id + '>' + item.SessionName + '</option>');
-                });
-
-            }
-        });
+        //    }
+        //});
 
 
         var course = 'CSS';
@@ -88,11 +85,11 @@
                     success: function (data) {
                         var sch = JSON.parse(data);
                         console.log(sch);
-                        var $el = $(".SubIdDDL");
+                        var $el = $("#SubId");
                         $el.empty();
-                        var $e2 = $(".TopIdDDL");
+                        var $e2 = $("#TopicId");
                         $e2.empty();
-                        var $e3 = $(".LessIdDDL");
+                        var $e3 = $("#LessonId");
                         $e3.empty();
                         if (sch.length > 0) {
                             $el.append($("<option></option>")
@@ -113,11 +110,11 @@
             }
             else {
 
-                var $el = $(".SubIdDDL");
+                var $el = $("#SubId");
                 $el.empty();
-                var $e2 = $(".TopIdDDL");
+                var $e2 = $("#TopicId");
                 $e2.empty();
-                var $e3 = $(".LessIdDDL");
+                var $e3 = $("#LessonId");
                 $e3.empty();
             }
         });
@@ -137,11 +134,11 @@
                 success: function (data) {
                     var sch = JSON.parse(data);
                     console.log(sch);
-                    var $el = $(".SubIdDDL");
+                    var $el = $("#SubIdDDL");
                     $el.empty();
-                    var $e2 = $(".TopIdDDL");
+                    var $e2 = $("#TopIdDDL");
                     $e2.empty();
-                    var $e3 = $(".LessIdDDL");
+                    var $e3 = $("#LessIdDDL");
                     $e3.empty();
                     if (sch.length > 0) {
                         $el.append($("<option></option>")
@@ -161,13 +158,13 @@
 
         });
 
-        $('#TopId').change(function () {
+        $('#TopicId').change(function () {
 
             var topid = $(this).val();
+
+          //  alert(topid);
             console.log(topid);
-
             if (topid != "") {
-
                 $.ajax({
                     type: "POST",
                     cache: false,
@@ -197,10 +194,10 @@
                 });
             }
             else {
-                  var $el = $("#LessonId");
+                      var $el = $("#LessonId");
                         $el.empty();
-            }
 
+            }
         });
 
 
@@ -209,7 +206,6 @@
             var subid = $(this).val();
             console.log(subid);
             if (subid != "") {
-
                 $.ajax({
                     type: "POST",
                     cache: false,
@@ -219,7 +215,7 @@
                     success: function (data) {
                         var sch = JSON.parse(data);
                         console.log(sch);
-                        var $el = $("#TopId");
+                        var $el = $("#TopicId");
                         $el.empty();
                         var $e1 = $("#LessonId");
                         $e1.empty();
@@ -239,12 +235,12 @@
                         }
                     }
                 });
-            }
-            else {
-                   var $el = $("#TopId");
+            } else {
+                  var $el = $("#TopicId");
                         $el.empty();
                         var $e1 = $("#LessonId");
                         $e1.empty();
+
             }
         });
 
@@ -258,83 +254,89 @@
         <div class="card">
             <div class="card-body p-5">
 
-                @using (Html.BeginForm("CreateLessonSession", "AspnetLessons", FormMethod.Post, new {  role = "form" }))
+                @using (Html.BeginForm("EditLessonSession", "AspnetLessons", FormMethod.Post, new { role = "form" }))
                 {
                     @Html.AntiForgeryToken()
 
                     @Html.AntiForgeryToken()
 
-                <div class="row">
-                    <div class="col-md-6 pl-5 pr-5 ">
+                    <input type="hidden" name="LessonSessionId" value="@ViewBag.Id" />
+
+                    <div class="row">
+                        <div class="col-md-6 pl-5 pr-5 ">
 
 
 
-                        <div class="form-group">
-                            <label for="" class="control-label">Course Type* </label>
+                            <div class="form-group">
+                                <label for="" class="control-label">Course Type* </label>
 
-                            <select class="form-control CTIdDDL" id="CTId" name="CTId" required>
+                                @Html.DropDownList("CTId", new List<SelectListItem>
+                                      {
 
-                                <option value="">Select One</option>
+                                    new SelectListItem{ Text="Select One", Value = "" },
+                                    new SelectListItem{ Text="CSS", Value = "CSS" },
+                                    new SelectListItem{ Text="PMS", Value = "PMS" },
 
-                                <option value="CSS">CSS</option>
-                                <option value="PMS">PMS</option>
-
-                            </select>
-                        </div>
-
-
-                        <div class="form-group ">
-                            <label for="" class="control-label">Subject* </label>
-
-                            <select class="form-control SubIdDDL" id="SubId" name="SubId" required></select>
-                        </div>
-
-                        <div class="form-group  ">
-                            <label for="" class="control-label">Topic* </label>
-
-                            <select class="form-control TopIdDDL" id="TopId" name="TopId" required></select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="" class="control-label">Lesson* </label>
-
-                            <select class="form-control LessIdDDL" id="LessonId" name="LessonId" required></select>
-                        </div>
+                                       }, htmlAttributes: new { @class = "form-control", @required = true })
 
 
-                        <div class="form-row mt-3">
-                            <div class="form-group col-md-12 bmd-form-group">
-                                <label for="" class="bmd-label-static pl-2">Select Section*</label>
-                                <select class="form-control SecIdDDL" id="SessionId" name="SessionId" required></select>
                             </div>
+
+
+                            <div class="form-group ">
+                                <label for="" class="control-label">Subject* </label>
+
+                                @Html.DropDownList("SubId", null, htmlAttributes: new { @class = "form-control" ,@required = true})
+                            </div>
+
+                            <div class="form-group  ">
+                                <label for="" class="control-label">Topic* </label>
+
+                                @Html.DropDownList("TopicId", null, htmlAttributes: new { @class = "form-control",@required = true })
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="control-label">Lesson* </label>
+
+                                @Html.DropDownList("LessonId", null, htmlAttributes: new { @class = "form-control",@required = true })
+                            </div>
+
+
+                            <div class="form-row mt-3">
+                                <div class="form-group col-md-12 bmd-form-group">
+                                    <label for="" class="bmd-label-static pl-2">Select Section*</label>
+                                    @*<select class="form-control SecIdDDL" id="SessionId" name="SessionId" required></select>*@
+
+                                    @Html.DropDownList("SessionId", null, htmlAttributes: new { @class = "form-control",  @required = true })
+                                </div>
+                            </div>
+                            <span style="padding:10px"></span>
+
+                            <div class="form-group">
+                                Start Date
+
+
+                                <input   type="date" name="StartDate" id="StartDate" value="@ViewBag.LessonStartDate" class="form-control" required />
+
+
+                            </div>
+
+                            <span style="padding:10px"></span>
+                            <div class="form-group">
+                                <label>Due Date</label>
+
+
+                                <input type="date" name="DueDate" id="DueDate" value="@ViewBag.LessonDueDate" class="form-control" required />
+
+
+
+                            </div>
+
                         </div>
-                        <span style="padding:10px"></span>
-
-                        <div class="form-group">
-                            Start Date
-
-
-                            <input type="date" name="StartDate" id="StartDate" value="" class="form-control" required />
-
-
-                        </div>
-
-                        <span style="padding:10px"></span>
-                        <div class="form-group">
-                            <label>Due Date</label>
-
-
-                            <input type="date" name="DueDate" id="DueDate" value="" class="form-control" required />
 
 
 
-                        </div>
-
-                    </div>
-
-
-                   
-                </div><!--row end-->
+                    </div><!--row end-->
 
 
 
@@ -342,7 +344,7 @@
                     <div class="col-md-8 pl-5 pr-5 ">
 
                         <br />
-                        <button type="submit" class="btn btn-primary rounded rounded-lg"> Save </button>
+                        <button type="submit" class="btn btn-primary rounded rounded-lg"> Update </button>
 
 
                         <button type="button" id="btnCancel" class="btn btn-primary rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
@@ -360,46 +362,3 @@
         </div>
     </div>
 </div>
-<script>
-
-    $(document).ready(function () {
-
-
-        //    $("#QuestionType").change(function () {
-
-
-        var QuestionType = "MCQ";
-
-        if (QuestionType == "MCQ" || QuestionType == "TF") {
-
-            $("#OptionsBlock").css('display', 'block');
-            $("#FillAnswerBlock").css('display', 'none');
-
-            $("#OptionsBlock input,select").prop('required', true);
-            $("#FillAnswer").prop('required', false);
-            $("#FillAnswer").val("");
-
-        }
-        else {
-
-            $("#OptionsBlock input").val("");
-
-
-            $("#OptionsBlock").css('display', 'none');
-            $("#FillAnswerBlock").css('display', 'block');
-
-            $("#OptionsBlock input,select").prop('required', false);
-            $("#FillAnswer").prop('required', true);
-
-
-        }
-
-
-
-        //  })
-
-
-
-    })
-
-</script>
