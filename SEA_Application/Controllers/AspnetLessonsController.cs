@@ -265,6 +265,7 @@ namespace SEA_Application.Controllers
                                     join lessonsesion in db.Lesson_Session on lesson.Id equals lessonsesion.LessonId
                                     select new
                                     {
+                                      lessonsesion.Id,
                                         lesson.Name,
                                         lessonsesion.AspNetSession.SessionName,
                                         lessonsesion.StartDate,
@@ -274,6 +275,102 @@ namespace SEA_Application.Controllers
 
 
                     return Json(AllLessonSessions, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult EditLessonSession(int id )
+        {
+
+            ViewBag.Id = id;
+
+            var LS = db.Lesson_Session.Where(x => x.Id == id).FirstOrDefault();
+
+            if (LS != null)
+            {
+
+
+                int? TopicId = db.AspnetLessons.Where(x => x.Id == LS.LessonId).FirstOrDefault().TopicId;
+
+                int? SubjectId = db.AspnetSubjectTopics.Where(x => x.Id == TopicId).FirstOrDefault().SubjectId;
+
+                string SubjectType = db.GenericSubjects.Where(x => x.Id == SubjectId).FirstOrDefault().SubjectType;
+
+                //   ViewBag.SubId = new SelectList(db.GenericSubjects.Where(x => x.SubjectType == SubjectType), "Id", "SubjectName", SubjectId);
+
+
+                ViewBag.SubId = new SelectList(db.GenericSubjects.Where(x => x.SubjectType == SubjectType), "Id", "SubjectName", SubjectId);
+                ViewBag.TopicId = new SelectList(db.AspnetSubjectTopics.Where(x => x.SubjectId == SubjectId), "Id", "Name", TopicId);
+                ViewBag.LessonId = new SelectList(db.AspnetLessons.Where(x => x.TopicId == TopicId), "Id", "Name", LS.LessonId);
+               
+                ViewBag.SessionId = new SelectList(db.AspNetSessions, "Id", "SessionName", LS.SessionId);
+
+                ViewBag.CTId = SubjectType;
+
+
+
+                var StartDate = Convert.ToDateTime(LS.StartDate);
+
+                var StartDateInString = StartDate.ToString("yyyy-MM-dd");
+
+                ViewBag.LessonStartDate = StartDateInString;
+
+                ////Due Date
+                var DueDate = Convert.ToDateTime(LS.DueDate);
+
+                var DueDateInString = DueDate.ToString("yyyy-MM-dd");
+
+
+                ViewBag.LessonDueDate = DueDateInString;
+
+
+
+            }
+
+
+
+
+
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EditLessonSession(int SessionId, int TopicId)
+        {
+
+            
+              var LessonSessionId =  Convert.ToInt64( Request.Form["LessonSessionId"]);
+
+              var LessonSessionToDelete =    db.Lesson_Session.Where(x => x.Id == LessonSessionId).FirstOrDefault();
+
+            db.Lesson_Session.Remove(LessonSessionToDelete);
+            db.SaveChanges();
+                
+
+
+            var SessionId1 = Request.Form["SessionId"];
+            var LessonId = Request.Form["LessonId"];
+            var StartDate = Request.Form["StartDate"];
+            var DueDate = Request.Form["DueDate"];
+
+
+
+            Lesson_Session ls = new Lesson_Session();
+
+            ls.LessonId = Convert.ToInt32(LessonId);
+            ls.SessionId = Convert.ToInt32(SessionId1);
+            ls.StartDate = Convert.ToDateTime(StartDate);
+            ls.DueDate = Convert.ToDateTime(DueDate);
+
+
+            db.Lesson_Session.Add(ls);
+            db.SaveChanges();
+
+            return RedirectToAction("LessonSessionView");
+
+
+
+
+
+            return View();
         }
 
         public ActionResult CreateLessonSession()
