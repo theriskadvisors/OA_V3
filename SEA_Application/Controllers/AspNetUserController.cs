@@ -766,16 +766,10 @@ namespace SEA_Application.Controllers
             int Roll_Number = 0;
             /////
             // List<RollNumberList> rl = new List<RollNumberList>();
-        //    string Max = db.GetStudentRollNo().FirstOrDefault().ToString();
-            string Max = "iuiu";
+            string Max = db.GetRollNumbers().FirstOrDefault().ToString();
             if (Max != null)
             {
-                string myString = Max;
-                string[] splitString = myString.Split('O');
-
-                //int MAX_RollNumber = Int32.Parse(splitString[0]);
-                int MAX_RollNumber = 55555;
-
+                int MAX_RollNumber = Int32.Parse(Max);
                 Roll_Number = ++MAX_RollNumber;
             }
             else
@@ -783,13 +777,8 @@ namespace SEA_Application.Controllers
                 Roll_Number = 1000;
             }
 
-            var RollNoInString = Roll_Number.ToString();
-
-            RollNoInString = RollNoInString + "OA2020";
-
-            return Content(RollNoInString);
+            return Content(Roll_Number.ToString());
         }
-
         public JsonResult GetUserName(string userName)
         {
             check Check = new check();
