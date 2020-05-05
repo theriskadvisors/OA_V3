@@ -16,6 +16,7 @@ body{
 /*     background-image: url('https://f0.pngfuel.com/png/711/104/white-square-shape-on-white-background-computer-icons-arrow-down-arrow-up-right-left-up-up-arrow-png-clip-art.png'); */
 }
 
+input[readonly]{ background-color: #fff !important; }
 
 body * {
     font-family: 'Poppins', sans-serif;
