@@ -4,10 +4,48 @@
     Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
 }
 
+<style>
+    #TotalQuestions { 
+            all:unset; 
+        }
+
+</style>
 <script>
     $(document).ready(function () {
+
+        $("#PageHeader").html("Subject Topics");
+
+        $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li> <a href="/StudentCourses/Index"> Courses </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Lessons</a></li>');
+
+        $("#GenericDiv").show();
+
         var LessonId = $("#LessonID").val();
         var sub = $("#SubjectId").val();
+
+        // Ring Functionality JS
+        var circle = document.querySelector('circle');
+        var radius = circle.r.baseVal.value;
+        var circumference = radius * 2 * Math.PI;
+
+        circle.style.strokeDasharray = `${circumference} ${circumference}`;
+        circle.style.strokeDashoffset = `${circumference}`;
+
+        function setProgress(percent) {
+            const offset = circumference - percent / 100 * circumference;
+            circle.style.strokeDashoffset = offset;
+        }
+
+        const input = document.querySelector('input.progressVal');
+        setProgress(input.value);
+
+        input.addEventListener('change', function (e) {
+            if (input.value < 101 && input.value > -1) {
+                setProgress(input.value);
+            }
+        });
+        // #End Ring Functionality JS
 
         $.ajax({
             type: "POST",
@@ -28,6 +66,9 @@
         var heading = "headingOne";
         var collapse = "collapseOne";
         var index = 0;
+        var trueCount = 0;
+        var percent = 0;
+        var total = 0;
 
         $.ajax({
             type: "POST",
@@ -53,6 +94,7 @@
                         debugger
 
                         if (lesson.LessonExistInTrackingTable == "Yes") {
+                            trueCount = trueCount + 1;
                             Lesson = Lesson + '<div class="col-md-12"><div class="form-check  my-2"><a name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '"> <label class="form-check-label"><input class="form-check-input" type="checkbox" checked="" disabled><span class="form-check-sign"><span class="check"></span></span>' + lesson.LessonName + '<div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></a></div></div>';
                         }
                         else {
@@ -61,23 +103,63 @@
                     })
                     $("#accordionEx").append(Topic + Lesson + '</div></div></div></div>');
                     $("#TotalTopics").html(Count);
+                    percent = (trueCount / value1.TotalLessons) * 100;
+                    total = value1.TotalLessons;
+                    
+                    $("#topicCompleted").html(trueCount);
+                    $("#Totaltopic").html(total);
 
-                    $('i').click(function () {
-                        var className = $(this).attr("class");
-                        if (~className.indexOf("fa-angle-down")) {
-                            $(this).removeClass("fa-angle-down");
-                            $(this).addClass("fa-angle-up");
-                            //console.log("up");
-                        } else {
-                            $(this).removeClass("fa-angle-up");
-                            $(this).addClass("fa-angle-down");
-                            //console.log("down");
-                        }
-                    });
+                    setProgress(percent);
+
+                    //$('i').click(function () {
+                    //    var className = $(this).attr("class");
+                    //    if (~className.indexOf("fa-angle-down")) {
+                    //        $(this).removeClass("fa-angle-down");
+                    //        $(this).addClass("fa-angle-up");
+                    //        //console.log("up");
+                    //    } else {
+                    //        $(this).removeClass("fa-angle-up");
+                    //        $(this).addClass("fa-angle-down");
+                    //        //console.log("down");
+                    //    }
+                    //});
 
                 })
+                
             }
         })
+
+        var TotalQuestions = 0;
+
+        $.ajax({
+            type: "POST",
+            url: "/StudentCourses/AllCommentsHead",
+            data: { "LessonID": LessonId },
+            success: function (data) {
+                console.log(data);
+                TotalQuestions = data.length;
+
+                $.each(data, function (index) {
+                    var value = new Date(parseInt(data[index].Date.replace(/(^.*\()|([+-].*$)/g, '')));
+                    var dat = value.getMonth() +
+                        1 +
+                        "/" +
+                        value.getDate() +
+                        "/" +
+                        value.getFullYear();
+                    var ff = data[index].EncryptedID;
+                    var id = parseInt(data[index].CommentHeadId);
+
+                    var initials = data[index].UserName.match(/\b\w/g) || [];
+                    initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
+
+                    $("#AllComments").append('<div class="d-flex py-3"><div class="mr-3 tabHeading"><span class="initialCircle">' + initials + '</span></div><div class=""><h3 class="tabMainHeading mt-0 mb-2">' + data[index].Title + '</h3><p>' + data[index].Body + '</p><div class="metaInfoQues">' + data[index].UserName + ' <strong class="ml-2">' + dat + '</strong></div></div></div><hr>');
+                    //$("#AllCommentsHead").append('<a href = "/StudentCourses/CommentsPage1/' + data[index].EncryptedID + '"><div id="QADiv"  name ="' + data[index].CommentHeadId + '"   class ="CommentDivs" ><p id="TitleParagraph" class="titleParagraphs" style="padding:10px;" ><b>' + data[index].Title + '</b> </p> <div style="padding:10px;"> <p>' + data[index].Body + '</p> <p><b>' + dat + ' &nbsp;&nbsp;&nbsp; ' + data[index].UserName + '</b></p><p><b></p> </b></div> </div></a>');
+                });
+                $("#TotalQuestions").html(TotalQuestions);
+            }
+        })
+
     });
 </script>
 
@@ -250,16 +332,6 @@
                                     </div>
 
                                     <!--Activity Tab Content-->
-
-
-
-
-
-
-
-
-
-
                                 </div>
 
 
@@ -269,7 +341,7 @@
 
                                     <!--QA CONTENT-->
                                     <h3 class="tabMainHeading">
-                                        59 questions in this course
+                                        <span id="TotalQuestions"></span> questions in this course
                                         <span class="askQues">
                                             <a href="#" class="btn btn-link btn-sm">
                                                 Ask a question
@@ -279,46 +351,10 @@
                                     </h3>
                                     <hr class="mt-2">
 
-                                    <div class="d-flex py-3">
-                                        <div class="mr-3 tabHeading">
-                                            <span class="initialCircle">MS</span>
-                                        </div>
-                                        <div class="">
-                                            <h3 class="tabMainHeading mt-0 mb-2">What is C++?</h3>
-                                            <p>Lorem ipsum dolor sit amet, purto quando legendos mel ut, vix ea noster molestie scribentur, pro ad dicam nostro audiam. Has habeo partiendo cotidieque at, gubergren persecuti te mei.</p>
-                                            <div class="metaInfoQues">Mohammad Sufyan - Lesson 1 <strong class="ml-2">6 hours ago</strong></div>
+                                    <div id="AllComments">
+                                        
+                                    </div>                                  
 
-                                        </div>
-
-                                    </div>
-                                    <hr>
-                                    <div class="d-flex py-3">
-                                        <div class="mr-3 tabHeading">
-                                            <span class="initialCircle initialOrange">MS</span>
-                                        </div>
-                                        <div class="">
-                                            <h3 class="tabMainHeading mt-0 mb-2">What is C++?</h3>
-                                            <p>Lorem ipsum dolor sit amet, purto quando legendos mel ut, vix ea noster molestie scribentur, pro ad dicam nostro audiam. Has habeo partiendo cotidieque at, gubergren persecuti te mei.</p>
-                                            <div class="metaInfoQues">Mohammad Sufyan - Lesson 1 <strong class="ml-2">6 hours ago</strong></div>
-
-                                        </div>
-
-                                    </div>
-                                    <hr>
-                                    <div class="d-flex py-3">
-                                        <div class="mr-3 tabHeading">
-                                            <span class="initialCircle initialPurple">MS</span>
-                                        </div>
-                                        <div class="">
-                                            <h3 class="tabMainHeading mt-0 mb-2">What is C++?</h3>
-                                            <p>Lorem ipsum dolor sit amet, purto quando legendos mel ut, vix ea noster molestie scribentur, pro ad dicam nostro audiam. Has habeo partiendo cotidieque at, gubergren persecuti te mei.</p>
-                                            <div class="metaInfoQues">Mohammad Sufyan - Lesson 1 <strong class="ml-2">6 hours ago</strong></div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <hr>
                                     <div class="d-flex py-3">
                                         <div class="mr-3 tabHeading">
                                             <span class="initialCircle">MS</span>

@@ -399,9 +399,38 @@
                                         <h1 id="PageHeader" class="float-left"></h1>
 
                                     </div>
-                                    <div class="col-sm-12 col-md-9 col-lg-9">
-                                        <button type="button" class="btn btn-primary pull-right rounded rounded-lg createBtn" id="global_Createbtn">Create</button>
-                                        <input type="text" placeholder="Type Keyword" id="global_filter" class="searchBox pull-right pl-4 p-2 pull-right rounded rounded-lg   mr-3">
+
+                                    <div class="col-sm-12 col-md-9 col-lg-9 text-right hidden" id="GenericDiv">
+                                        <div class="d-inline-block">
+                                            <div class="d-flex text-right">
+
+                                                <div class="countStuffLeft">
+                                                    <div class="countComplete">
+                                                        <span id="topicCompleted"></span> of <span id="Totaltopic"></span> Complete.<!--<a href="#"> Reset</a>-->
+                                                    </div>
+                                                    <div class="finishCourseText">Finish course to get your certificate</div>
+                                                </div>
+
+                                                <div>
+                                                    <input type="hidden" value="30" type="number" step="5" min="0" max="100" class="progressVal">
+                                                    <div class="trophyProgressCon" style="position: relative;width: 44px;height: 44px;">
+                                                        <span class="progressGrayRing" style="background: #e2e2ee;position: absolute;width: 40px;height: 40px;left: 0;border-radius: 50%;top: 0px;">
+                                                            <span class="trophyIcon">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                                                                    <g id="prefix__Group_503" data-name="Group 503" transform="translate(-591 -244)">
+                                                                        <path id="prefix__Path_530" d="M608.473 245.3h-2.31q.013-.384.013-.772a.528.528 0 0 0-.527-.527h-11.3a.527.527 0 0 0-.527.527q0 .388.013.772h-2.31a.527.527 0 0 0-.527.527 11.429 11.429 0 0 0 1.739 6.277 5.5 5.5 0 0 0 4.18 2.714 5.415 5.415 0 0 0 1.142.959v2.344h-.885a1.942 1.942 0 0 0-1.94 1.939v.885h-.034a.527.527 0 1 0 0 1.055h9.6a.527.527 0 1 0 0-1.055h-.037v-.885a1.942 1.942 0 0 0-1.94-1.939h-.885v-2.344a5.419 5.419 0 0 0 1.142-.959 5.5 5.5 0 0 0 4.18-2.714 11.43 11.43 0 0 0 1.74-6.277.527.527 0 0 0-.527-.527zm-14.856 6.22a10.163 10.163 0 0 1-1.551-5.166h1.83a17.619 17.619 0 0 0 1.638 6.4q.211.422.44.8a5.085 5.085 0 0 1-2.358-2.029zm12.766 0a5.085 5.085 0 0 1-2.358 2.029q.229-.376.44-.8a17.627 17.627 0 0 0 1.638-6.4h1.83a10.164 10.164 0 0 1-1.551 5.166zm0 0" data-name="Path 530" style="fill:#00b8ec"></path>
+                                                                    </g>
+                                                                </svg>
+                                                            </span>
+                                                            <svg class="progress-ring" width="44" height="44">
+                                                                <circle class="progress-ring__circle" stroke="#00b8ec" stroke-width="4" fill="transparent" r="18" style="stroke-dasharray: 113.097px, 113.097px; stroke-dashoffset: 100px;" cy="20" cx="24"></circle>
+                                                            </svg>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -652,31 +681,6 @@
 
                 });
             });
-
-            // Ring Functionality JS
-            var circle = document.querySelector('circle');
-            var radius = circle.r.baseVal.value;
-            var circumference = radius * 2 * Math.PI;
-
-            circle.style.strokeDasharray = `${circumference} ${circumference}`;
-            circle.style.strokeDashoffset = `${circumference}`;
-
-            function setProgress(percent) {
-                const offset = circumference - percent / 100 * circumference;
-                circle.style.strokeDashoffset = offset;
-            }
-
-            const input = document.querySelector('input.progressVal');
-            setProgress(input.value);
-
-            input.addEventListener('change', function (e) {
-                if (input.value < 101 && input.value > -1) {
-                    setProgress(input.value);
-                }
-            });
-            // #End Ring Functionality JS
-
-
 
             //Tabs Tabbable
             $('#myClassicTab a').on('click', function (e) {
