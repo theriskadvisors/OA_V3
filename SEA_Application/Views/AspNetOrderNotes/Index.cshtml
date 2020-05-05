@@ -6,7 +6,7 @@
 }
 
 <style>
-    input[type=search] {
+    /*input[type=search] {
         border: 1px solid rgb(221, 221, 221);
         border-radius: 40px;
         height: 30px;
@@ -14,7 +14,7 @@
         padding-left: 10px;
         color: rgb(221, 221, 221);
         margin-top: 0px;
-    }
+    }*/
 </style>
 
 <!-- Modal -->
@@ -579,53 +579,7 @@
 
             });
 
-
-
         })
-
-        function drawTable() {
-            $('#example_filter').addClass("form-group");
-            $('#example_filter').addClass("has-feedback");
-            $('#example_length').addClass("col-lg-9 col-md-8 col-sm-12 col-xs-12");
-            //$('#example_filter').css("col-lg-9 col-md-8 col-sm-12 col-xs-12");
-
-            $('#example_wrapper').css("text-align", "left");
-            $('#example_length').css("text-align", "left");
-            $('#example_length label').addClass("col-md-3 col-sm-12 col-lg-2");
-            $("#example_length label").css("text-align", "left");
-            $('#example_length label').addClass("col-md-2 col-lg-2 col-sm-12");
-            // // $('#example_length label select').addClass("col-md-3 col-sm-8 col-lg-3"); : auto;
-            $('#example_filter input').css({ "border": "1px solid #ddd", "border-radius": "40px", "height": "30px", "margin-top": "-5px", "outline": "none", "padding-left": "10px", "color": "#000000 !important" });
-            //$('#example_length').css({ "overflow": "auto" });
-            $('#example_filter input').addClass("add");
-            $('#example_filter').append('<span  class="glyphicon glyphicon-search  form-control-feedback" style="margin-top: -33px; color: #666;"></span>');
-            var list = $("#ClassID").html();
-            $('#example_length').append(
-
-                '<div class="col-md-1 col-lg-1" style="width:0%; padding-left:1px;">' +
-                '<div class="d-bar"></div>' +
-                '</div>'
-                +
-
-
-
-
-                '<div class="col-md-3 col-lg-3">' +
-                '<div class="col-md-1 col-sm-3 col-xs-3" style="padding-left:0px"><a href=""><i class="glyphicon glyphicon-repeat" data-toggle="tooltip" title="Refresh" data-placement="bottom"></i></a></div>' +
-                '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/Admin_Dashboard/StudentRegister"><i class="glyphicon glyphicon-edit" data-placement="bottom"></i></a></div>' +
-                '<div class="col-md-1 col-sm-3 col-xs-3"><a href="/AspNetUser/DisableStudentIndex"><i class="fa fa-ban" data-placement="bottom"></i>' + '</a></div>' +
-                '<div class="col-md-1 col-sm-3 col-xs-3"><a href=""><i onclick="download()"class="glyphicon glyphicon-download-alt" onclick="download()" data-placement="bottom"></i></a></div>' +
-                '<div class="col-md-1" padding-left:0px;">' +
-                '<div class="d-bar"></div>' +
-                '</div>' +
-                '</div>');
-            //$("#Class").prepend("<option value='0'>Select One</option>");
-        }
-
-
-
-
-
     })
 
 
