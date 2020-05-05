@@ -209,11 +209,13 @@
 
                         <div class="form-group">
 
-                            <label>Start Date</label>
+                            <label >Start Date</label>
+                            <div>
 
 
-                            @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { type = "date", @class = "form-control", @required = true } })
-                            @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { type = "date", @class = "form-control", @required = true } })
+                                @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
+                            </div>
 
                         </div>
 
@@ -325,7 +327,7 @@
 
                     <button type="submit"  class="btn btn-primary pull-right rounded rounded-lg"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Save &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </button>
                     <button type="button"  id="btnCancel" class="btn btn-primary pull-right rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
-                        <i class="material-icons mr-2">cached</i>  Reset &nbsp; &nbsp;
+                        <i class="material-icons mr-2">cached</i>  Cancel &nbsp; &nbsp;
                     </button>
                     <div class="clearfix"></div>
 
