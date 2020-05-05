@@ -356,8 +356,8 @@
                                         <h2 class="column-heading mb-4">User Information</h2>
 
                                         <div class="form-group bmd-form-group is-filled">
-                                            <label class="bmd-label-floating">Name <span class="red-mark">*</span></label>
-                                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control round-border" })
+                                            <label class="bmd-label-floating" style="background: white;margin-left: 0.5rem;border-left: 4px solid white;border-right: 4px solid white;transform: translateY(-1.75rem);top: 1.3rem;color: black;">Name <span class="red-mark">*</span></label>
+                                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control round-border Floating_text" })
                                         </div>
 
                                         @*<div class="form-group bmd-form-group my-3">
@@ -366,19 +366,19 @@
                                             @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger", @id = "UserName-Error" })
                                         </div>*@
                                         <div class="form-group bmd-form-group my-3 is-filled">
-                                            <label class="bmd-label-floating">User ID <span class="red-mark">*</span></label>
-                                            <input type="text" id="UserName" class="form-control round-border" value="@ViewBag.UserName" name="UserName" readonly />
+                                            <label class="bmd-label-floating" style="background: white;margin-left: 0.5rem;border-left: 4px solid white;border-right: 4px solid white;transform: translateY(-1.75rem);top: 1.3rem;color: black;">User ID <span class="red-mark">*</span></label>
+                                            <input type="text" id="UserName" class="form-control round-border Floating_text" value="@ViewBag.UserName" name="UserName" readonly />
                                         </div>
 
                                         <div class="form-group bmd-form-group my-3">
-                                            <label class="bmd-label-floating">Password *</label>
-                                            @Html.PasswordFor(m => m.Password, new { @class = "form-control round-border" })
+                                            <label class="bmd-label-floating" style="background: white;margin-left: 0.5rem;border-left: 4px solid white;border-right: 4px solid white;transform: translateY(-1.75rem);top: 1.3rem;color: black;">Password *</label>
+                                            @Html.PasswordFor(m => m.Password, new { @class = "form-control round-border Floating_text" })
                                             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", @id = "Password-Error" })
                                         </div>
 
                                         <div class="form-group bmd-form-group my-3">
-                                            <label class="bmd-label-floating">Confirm Password *</label>
-                                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control round-border" })
+                                            <label class="bmd-label-floating" style="background: white;margin-left: 0.5rem;border-left: 4px solid white;border-right: 4px solid white;transform: translateY(-1.75rem);top: 1.3rem;color: black;">Confirm Password *</label>
+                                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control round-border Floating_text" })
                                             @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger", @id = "ConfirmPassword-Error" })
                                         </div>
                                     </div>
@@ -396,26 +396,26 @@
                                         <h2 class="column-heading mb-4">Contact Details</h2>
 
                                         <div class="form-group bmd-form-group my-3">
-                                            <label class="bmd-label-floating">Mailing Address </label>
-                                            <input type="text" class="form-control round-border" id="inputEmail3" name="mailingAddress">
+                                            <label class="bmd-label-floating" style="background: white;margin-left: 0.5rem;border-left: 4px solid white;border-right: 4px solid white;transform: translateY(-1.75rem);top: 1.3rem;color: black;">Mailing Address </label>
+                                            <input type="text" class="form-control round-border Floating_text" id="inputEmail3" name="mailingAddress">
                                         </div>
 
                                         <div class="form-group bmd-form-group is-filled">
-                                            <label class="bmd-label-floating">Email <span class="red-mark">*</span></label>
-                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control round-border" })
+                                            <label class="bmd-label-floating" style="background: white;margin-left: 0.5rem;border-left: 4px solid white;border-right: 4px solid white;transform: translateY(-1.75rem);top: 1.3rem;color: black;">Email <span class="red-mark">*</span></label>
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control round-border Floating_text" })
                                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", @id = "Email-Error", @required = true })
                                         </div>
                                      
                                         <div class="form-group bmd-form-group my-3">
-                                            <label class="bmd-label-floating">Cell No <span class="red-mark">*</span> </label>
-                                            <input type="text" class="form-control round-border" id="inputEmail3" name="cellNo" onblur="checkPhone(this)" required>
+                                            <label class="bmd-label-floating" style="background: white;margin-left: 0.5rem;border-left: 4px solid white;border-right: 4px solid white;transform: translateY(-1.75rem);top: 1.3rem;color: black;">Cell No <span class="red-mark">*</span> </label>
+                                            <input type="text" class="form-control round-border Floating_text" id="inputEmail3" name="cellNo" onblur="checkPhone(this)" required>
                                             <span class="text-danger" id="Phone-Error"></span>
                                         </div>
 
 
                                         <div class="form-group bmd-form-group my-3">
-                                            <label class="bmd-label-floating">Land Line No </label>
-                                            <input type="text" class="form-control round-border" id="inputEmail3" name="landLine">
+                                            <label class="bmd-label-floating" style="background: white;margin-left: 0.5rem;border-left: 4px solid white;border-right: 4px solid white;transform: translateY(-1.75rem);top: 1.3rem;color: black;">Land Line No </label>
+                                            <input type="text" class="form-control round-border Floating_text" id="inputEmail3" name="landLine">
                                         </div>
                                     </div>
                                 </div>

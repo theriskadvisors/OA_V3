@@ -33,6 +33,21 @@
         .hidden{
             display: none;
         }
+
+        .Floating_label{
+            background: white;
+            margin-left: 0.5rem;
+            border-left: 4px solid white;
+            border-right: 4px solid white;
+            transform: translateY(-1.75rem);
+            top: 1.3rem;
+            color: black;
+        }
+
+        .Floating_text{
+            border:2px solid #eee ;
+            border-radius: 0.3rem;
+        }
     </style>
 
 </head>
@@ -359,10 +374,10 @@
                                         <h1 id="PageHeader" class="float-left"></h1>
                                    
                                     </div>
-                                    @*<div class="col-sm-12 col-md-9 col-lg-9">
+                                    <div class="col-sm-12 col-md-9 col-lg-9 hidden" id="generic_div">
                                         <button type="button" class="btn btn-primary pull-right rounded rounded-lg createBtn">Create</button>
                                         <input type="text" placeholder="Type Keyword" id="global_filter" class="searchBox pull-right pl-4 p-2 pull-right rounded rounded-lg   mr-3">
-                                    </div>*@
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -453,7 +468,7 @@
 
         $().ready(function () {
 
-         
+            $("#datatable_filter").hide();
 
             $sidebar = $('.sidebar');
 
