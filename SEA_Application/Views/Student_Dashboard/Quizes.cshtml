@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Quizes";
+    ViewBag.Title = "Quizzes";
     Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
 }
 
@@ -29,16 +29,16 @@
                 table = $('#datatable').dataTable({
                     buttons: [
                         {
-                            text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
+                            text: ''
                         },
                         {
-                            text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
+                            text: '',
                             //action: function (e, dt, button, config) {
                             //    window.location.href = '';
                             //}
                         },
                         {
-                            text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
+                            text: ''
                         }
                     ],
                     "language": {
@@ -76,10 +76,10 @@
 
 
     
-             $("#PageHeader").html("Quizes");
+             $("#PageHeader").html("Quizzes");
 
                 $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
-                $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Quizes</a></li>');
+                $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Quizzes</a></li>');
 
 
 
