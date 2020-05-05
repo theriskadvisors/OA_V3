@@ -1,480 +1,187 @@
 ﻿
 @{
-    ViewBag.Title = "Edit";
-}
-@if (this.User.IsInRole("Admin"))
-{
+    ViewBag.Title = "Create";
+
     Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
 }
-else if (this.User.IsInRole("Principal"))
-{
-    Layout = "~/Views/Shared/Principal_DashboardLayout.cshtml";
-}
-else if(this.User.IsInRole("Accountant"))
-{
-    Layout = "~/Views/Shared/_AccountantDashboardLayout.cshtml";
-}
-else if(this.User.IsInRole("Parent"))
-{
-    Layout = "~/Views/Shared/_ParentDashboardLayout.cshtml";
-}
-else if(this.User.IsInRole("Teacher"))
-{
-    Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
-}
 
+<style>
+    .page-sidebar .page-sidebar-menu, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: 1200px !important;
+    }
+
+    .form-horizontal {
+        background-color: #fff;
+        /* margin: 10px; */
+        margin-left: 5px;
+    }
+
+    textarea {
+        width: 557px;
+        height: 126px;
+    }
+</style>
 <script>
 
-    var usernameupdate = function () {
-        debugger;
-        $('.usernameupdate-form').validate({
-            errorElement: 'span', //default input error message container
-            errorClass: 'help-block', // default input error message class
-            focusInvalid: false, // do not focus the last invalid input
-            ignore: "",
-            rules: {
-                username: {
-                    required: true
-                },
-                emailaddress: {
-                    required: true
-                },
-                phoneno:{
-                    required:true
-                }
-            },
-
-            invalidHandler: function (event, validator) { //display error alert on form submit
-
-            },
-
-            highlight: function (element) { // hightlight error inputs
-                $(element)
-                    .closest('.form-group').addClass('has-error'); // set error class to the control group
-            },
-
-            success: function (label) {
-                label.closest('.form-group').removeClass('has-error');
-                label.remove();
-            },
-
-            errorPlacement: function (error, element) {
-                if (element.closest('.input-icon') === 1) {
-                    error.insertAfter(element.closest('.input-icon'));
-                } else {
-                    error.insertAfter(element);
-                }
-            },
-
-            submitHandler: function (form) {
-                debugger;
-                $.post(
-                    "/Manage/username_update",
-                    $(".usernameupdate-form").serialize(),
-                    function (data) {
-
-                        if (data === "success") {
-                      //      ShowSuccess("", "Your name updated successfully.");
-                            toastr.success('Profile updated successfully..')
-                        }
-
-                        else {
-                          //  ShowError("", "Your username not updated.");
-                            toastr.error('Error ! Profile not updated.')
-                        }
-                    },
-                    "text"
-                );
-
-            }
-        });
-
-
-        jQuery('#btn-changepassword').unbind().click(function () {
-            if ($('.changepassword-form').validate().form()) {
-
-                $('.changepassword-form').submit();
-            }
-        });
-    }
-
-    // change passwrdo
-    var changepassword = function () {
-        debugger;
-        $('.changepassword-form').validate({
-            errorElement: 'span', //default input error message container
-            errorClass: 'help-block', // default input error message class
-            focusInvalid: false, // do not focus the last invalid input
-            ignore: "",
-            rules: {
-                OldPassword: {
-                    required: true
-                },
-                NewPassword: {
-                    required: true
-                },
-                ConfirmPassword: {
-                    required: true
-                }
-            },
-
-            invalidHandler: function (event, validator) { //display error alert on form submit
-
-            },
-
-            highlight: function (element) { // hightlight error inputs
-                $(element)
-                    .closest('.form-group').addClass('has-error'); // set error class to the control group
-            },
-
-            success: function (label) {
-                label.closest('.form-group').removeClass('has-error');
-                label.remove();
-            },
-
-            errorPlacement: function (error, element) {
-                if (element.closest('.input-icon') === 1) {
-                    error.insertAfter(element.closest('.input-icon'));
-                } else {
-                    error.insertAfter(element);
-                }
-            },
-
-            submitHandler: function (form) {
-                debugger;
-                var x = $(".changepassword-form").serialize();
-                $.post(
-                    "/Manage/ChangePassword",
-                    $(".changepassword-form").serialize(),
-                    function (data) {
-
-                        if (data === "success") {
-                            //      ShowSuccess("", "Your name updated successfully.");
-                            toastr.success('Password changed successfully..')
-                        }
-
-                        else {
-                            //  ShowError("", "Your username not updated.");
-                            toastr.error('Error ! Password not changed.')
-                        }
-                    },
-                    "text"
-                );
-
-            }
-        });
-
-        //$('.usernameupdate-form').keypress(function (e) {
-        //    if (e.which === 13) {
-        //        if ($('.usernameupdate-form').validate().form()) {
-        //            $('.usernameupdate-form').submit();
-        //        }
-        //        return false;
-        //    }
-        //});
-
-        jQuery('#btn-update-username').unbind().click(function () {
-            if ($('.usernameupdate-form').validate().form()) {
-
-                $('.usernameupdate-form').submit();
-            }
-        });
-    }
-
-
     $(document).ready(function () {
-        usernameupdate();
-        changepassword();
-        debugger;
-        //$("#li").find("a:first").trigger("click");
-        $("#changediv").hide();
-        $("#chngPass").click(function () {
-            $(".active").css("border-bottom", "0px solid white");
-            $(".Inactive").css("border-bottom", "4px solid white");
-            $("#infodiv").hide();
-            $("#changediv").show();
-            $("#savechanges").hide();
-            $("#return").hide();
 
+
+        $("#PageHeader").html("Profile");
+
+        $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Profile</a></li>');
+
+
+
+        $("#btnCancel").click(function () {
+
+            window.location.href = "/AspnetSubjectTopics/ViewTopicsAndLessons";
         })
 
 
-        $("#showprof").click(function () {
-            $(".active").css("border-bottom", "4px solid white");
-            $(".Inactive").css("border-bottom", "0px solid white");
-            $("#infodiv").show();
-            $("#changediv").hide();
-            $("#savechanges").show();
-            $("#return").show();
 
-        })
-   
 
-        $(".active").css("border-bottom", "4px solid white");
- 
-           // $(this).css("border-bottom", "4px solid white");
-       // $("li").find("a:first").event("hover",true);
-        //
-        //var na = $('#STATUS').val();
-        //if (na == "InActive") {
-        //    $('#statusid option[value="' + 'False' + '"]').prop('selected', true);
-        //}
-        //else {
-        //    $('#statusid option[value="' + 'True' + '"]').prop('selected', true);
+        var course = 'CSS';
+        var Class;
+        $('#CTId').change(function () {
 
-        //}
-        //$("li").find("a:first").trigger("click");
-        //$("#showprof").trigger("click");
+
+            var crse = $(this).val();
+
+            if (crse != "") {
+
+                console.log(crse);
+                course = crse;
+                $.ajax({
+                    type: "POST",
+                    cache: false,
+                    url: "/AspNetProject/GetSubjectsByClass?CT=" + course,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        var sch = JSON.parse(data);
+                        console.log(sch);
+                        var $el = $(".SubIdDDL");
+                        $el.empty();
+                        if (sch.length > 0) {
+                            $el.append($("<option></option>")
+                                .attr("value", "").text('Select Subject'));
+                            for (i = 0; i < sch.length; i++) {
+
+                                $el.append($("<option></option>")
+                                    .attr("value", sch[i].Id).text(sch[i].SubjectName));
+                            }
+                        }
+                        else {
+                            $el.append($("<option></option>")
+                                .attr("value", '').text('Select'));
+                        }
+                    }
+                });
+
+            }
+            else {
+                var $el = $(".SubIdDDL");
+                $el.empty();
+            }
+
+        });
+
+
+        $('#ClassID').change(function () {
+
+            var UserName = $(this).val();
+            Class = UserName;
+            $.ajax({
+                type: "POST",
+                cache: false,
+                url: "/AspNetProject/GetSubjectsByClass?ClassID=" + UserName + "&&CT=" + course,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    var sch = JSON.parse(data);
+                    console.log(sch);
+                    var $el = $(".SubIdDDL");
+                    $el.empty();
+                    if (sch.length > 0) {
+                        $el.append($("<option></option>")
+                            .attr("value", "").text('Select Subject'));
+                        for (i = 0; i < sch.length; i++) {
+
+                            $el.append($("<option></option>")
+                                .attr("value", sch[i].Id).text(sch[i].SubjectName));
+                        }
+                    }
+                    else {
+                        $el.append($("<option></option>")
+                            .attr("value", '').text('Select'));
+                    }
+                }
+            });
+
+        });
     })
 
-    function DISABLE() {
-        var status = $("#statusid").val();
-        if (status == "True") {
-            var id = $("#ID").val();
-            window.location.href = "/AspNetStudents/EnableStudent?id=" + id;
-        }
-        else {
-            $("#myModal2").modal('show');
-
-        }
-    }
-    function cnfmDisable() {
-        var id = $("#ID").val();
-        window.location.href = "/AspNetStudents/DisableStudent?id=" + id;;
-    }
 
 </script>
-<style>
-    .sea-background {
-        /* background: -webkit-radial-gradient(#c4ccd0, #154158) !important; */
-        width: 100% !important;
-        /* height: 100% !important; */
-    }
-    .col-md-8.username {
-        color: #f7f7f7 !important;
-        padding-top: 20px;
-        font-size: 30px;
-    }
-    .content {
-        padding: 0px;
-        background-color:#f7f7f7 !important ;
-     
-    }
-    .content-wrapper {
-        background-color: #f7f7f7 !important;
-    }
-    div#changediv {
-        margin-bottom: 39px;
-        background-color: #ffffff !important;
-    }
-    .sea-background {
-        background: -webkit-radial-gradient(#f7f7f7, #f7f7f7) !important;
-        width: 100% !important;
-    }
-    div#chandiv {
-        padding-top: 23px;
-        padding-left: 54px;
-        padding-bottom: 19px;
-        background-color: #ffffff !important;
-    }
-    #navbox a:hover {
-        background-color: transparent !important;
-        color: white !important;
-        border-bottom: 4px solid white !important;
-    }
-
-    /*#navbox a.active{
-        background-color:transparent !important;
-        color:white;
-        border-bottom:4px solid white;
-    }*/
-    #navbox a:focus {
-        background-color: transparent !important;
-        color: white;
-        border-bottom: 4px solid white;
-       
-    }
-    .help-block {
-        display: block;
-        margin-top: 5px;
-        margin-bottom: 10px;
-        color: #ff0505;
-    }
-    textarea {
-        height: 100px;
-        width: 718px;
-    }
-    .color:hover{
-        background-color:#0e72af !important;
-    }
-       #refresh:hover {
-            background-color: #e9271f !important;
-            color: #ffffff !important;
-        }
 
 
-</style>
-<div class="col-md-12 col-lg-12 col-sm-12 Content" style="background-color:#f7f7f7 !important;padding:0px;" id="cover">
 
-    <div class="col-md-12 col-lg-12 col-sm-12 con" id="maindiv" style="background-color:#002938;height:120px">
-        @*<div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="dropdown" data-target=".navbar-collapse"></button>
-        </div>*@
-        <div class="col-md-12">
-                <div style="padding-left:30px" class="col-md-8 col-md-offset-4 username">
-                    @ViewBag.Name
-                </div>          
-        </div>
-        @*<div class="col-md-4 col-md-offset-4 col-sm-4 split-layout-right">
-            <div class="col-md-12 col-sm-12 col-lg-12">
-                <span id="full_name" style="font-weight:600;color:white;font-size:20px"></span>
-                <br />
-                <div class="col-md-12">
-                </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body p-5">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
 
-            </div>
-        </div>*@
-        <div class="col-md-4 col-md-offset-4">
-            <div class="navbar-collapse collapse">
-
-                <ul class="nav navbar-nav" id="navbox">
-                    <li><a style="text-align:center;font-family:Montserrat;color:#a9b2c0" id="showprof" class="active" href="#"><b>PROFILE</b></a></li>
-                    <li><a style="text-align:center;font-family:Montserrat;color:#a9b2c0;" id="chngPass" class="inactive" href="#"><b>CHANGE PASSWORD</b></a></li>
-                    <li style="visibility:hidden;border-bottom:4px solid #002938"><a style="text-align:center;color:#a9b2c0;" id="chnghidden" class="dropdown-item" href="#"><b>Change Password</b></a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4 col-lg-4 col-sm-4 split-layout-lefts" style="margin-top:-70px;z-index:2000;position:inherit;">
-      
-        <div class="col-md-12 col-lg-12 col-sm-12">
-            <div class="col-md-6 col-lg-6 col-sm-6">
-            
-            </div>
-        </div>
-        <div class="col-md-12 col-lg-12 col-sm-12">
-            <div class="col-md-6 col-lg-6 col-sm-6">
-               
-            </div>
-        </div>
-    </div>
-
-
-    <div class="col-md-12 col-lg-12">
-        <div class="col-md-6 col-lg-6 col-sm-6 col-md-offset-4" id="changediv" style="border:1px solid #a9b2c0;border-radius:8px;margin-top:25px">
-            <div class="tab-content">
-                <form class="changepassword-form">
-                    <div class="col-md-12 col-lg-12 col-sm-12">
-                        <div class="col-md-10 col-lg-10 col-sm-10">
-                            <br />
-                            <span style="font-family:Montserrat;color:#888">Old Password</span><br />
-                            <input class="form-control" id="OldPassword" name="OldPassword" type="password" />
-                            <br />
+                    <div class="col-md-8 pl-5 pr-5 ">
+                        <h2 class="column-heading mb-4"> Change Password</h2>
+                        <div class="form-group bmd-form-group is-filled">
+                          
                         </div>
-                        <div class="col-md-10 col-lg-10 col-sm-10">
-                            <span style="font-family:Montserrat;color:#888">New Password</span><br />
+                        <div class="form-group bmd-form-group is-filled">
+                           
+                        </div>
 
 
-                            <input class="form-control" id="NewPassword" name="NewPassword" type="password" />
-                            <span style="font-family:Montserrat;" class="text-danger" id="NewPassword-Error"></span>
-                            <br />
+
+                        <div class="form-group bmd-form-group my-3">
+                            <label class="bmd-label-floating">Old Password *</label>
+                            <input type="text" class="form-control round-border" id="OldPassword" name="OldPassword">
                         </div>
-                        <div class="col-md-10 col-lg-10 col-sm-10">
-                            <span style="font-family:Montserrat;color:#888">Confirm Password </span><br />
-                            <input class="form-control" id="ConfirmPassword" name="ConfirmPassword" type="password" />
-                            <span class="text-danger" id="cnfmPassword-Error"></span>
+
+
+                        <div class="form-group bmd-form-group my-3">
+                            <label class="bmd-label-floating">New Password *</label>
+                            <input type="text" class="form-control round-border" id="OldPassword" name="OldPassword">
                         </div>
-                        <br />
-                      
+
+                        <div class="form-group bmd-form-group my-3">
+                            <label class="bmd-label-floating">Confirm Password *</label>
+                            <input type="text" class="form-control round-border" id="OldPassword" name="OldPassword">
+                        </div>
+
+                     
+
+                    </div> <!-- End Column -->
+
+
+                    <div class="col-md-8 pl-5 pr-5 ">
+                        <button type="submit" class="btn btn-primary rounded rounded-lg"> Save </button>
+
+
+                        <button type="button" id="btnCancel" class="btn btn-primary rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
+                            <i class="material-icons mr-2">cached</i>  Cancel
+                        </button>
 
                     </div>
+                }
 
-
-                </form>
-                <div class="col-md-8 col-lg-8 col-sm-8">
-                    <br/>
-                    <button  class="col-md-2 form-control" id="refresh" onclick="window.location.href = '/Account/Dashboard'" style="border-radius:45px;border-color:#e9271f;color:#e9271f;width:120px;height:38px; margin-right:10px; font-size:13px;background-color:#ffffff" ><i class="fa fa-arrow-left"></i> Return</button>
-                    <input class="col-md-2 form-control color" id="btn-changepassword" type="submit" value="Save" style="border-radius: 35px; margin-bottom: 19px; color: white; border: hidden; background-color: #128edb; font-size:13px; font-size:13px; width: 120px; height: 38px; font-family: Montserrat">
-
-                </div>
-             
-            </div>
-         
-        </div>
-        
-        <div class="col-md-12 col-lg-12" id="infodiv">
-                    <div class="form-horizontal">
-                
-                        <div class="col-md-6 col-lg-6 col-sm-6 col-md-offset-4" id="chandiv" style="border:1px solid #a9b2c0;border-radius:8px;margin-top:25px">
-                            <div class="post">
-                                <form class="usernameupdate-form">
-                                    <div class="row">
-                                        <div class="col-md-5 hidden">
-                                            <label>Id </label>
-                                            <input type="text" class="form-control" value="@ViewBag.UserId" name="userid" id="userid">
-                                        </div>
-                                        <div class="col-md-5">
-                                            <label>Name </label>
-                                            <input type="text" class="form-control" value="@ViewBag.Name" name="username" id="username">
-                                        </div>
-                                        <div class="col-md-5">
-                                            <label>User Name </label>
-                                            <input type="text" class="form-control" value="@ViewBag.UserName" name="username" id="username">
-                                        </div>
-                                         <div class="col-md-5">
-                                            <label>PhoneNo </label>
-                                            <input type="text" class="form-control" value="@ViewBag.PhoneNumber" name="phoneno" id="phoneno">
-                                        </div>
-                                        <div class="col-md-5">
-                                            <label>University </label>
-                                            <input type="text" class="form-control" value="@ViewBag.University" name="university" id="university">
-                                        </div>
-                                        <div class="col-md-5">
-                                            <label>Occupation </label>
-                                            <input type="text" class="form-control" value="@ViewBag.Occupation" name="Occupation" id="Occupation">
-                                        </div>
-                                        <div class="col-md-5">
-                                            <label>Highest Degree </label>
-                                            <input type="text" class="form-control" value="@ViewBag.Highest_Degree" name="Highest_Degree" id="Highest_Degree">
-                                        </div>
-                                        <div class="col-md-5">
-                                            <label>Industry </label>
-                                            <input type="text" class="form-control" value="@ViewBag.Industry" name="Industry" id="Industry">
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <label>Email </label>
-                                            <input type="text" class="form-control" value="@ViewBag.Email" name="emailaddress" id="emailaddress">
-                                        </div>
-
-                                    </div>
-                                    <br>
-                               
-                                </form>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button class="col-md-2 form-control" id="refresh" onclick="window.location.href = '/Account/Dashboard'" style="border-radius:45px;margin-right:10px;border-color:#e9271f;color:#e9271f;height:38px;width:120px; font-size:13px;background-color:#ffffff"><i class="fa fa-arrow-left"></i> Return</button>
-
-                                        <input class="col-md-2 form-control color" id="btn-update-username"  type="submit" value="Save" style="border-radius:35px;color:white;border:hidden;background-color:#128edb;font-size:13px;width:120px;height:38px;font-family:Montserrat">
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-          </div>
-            
-            <div class="col-md-12 col-sm-12 col-lg-12">
-               
-                <br />
-
-               
-                <br /><br /><br />
             </div>
         </div>
-
     </div>
 </div>
