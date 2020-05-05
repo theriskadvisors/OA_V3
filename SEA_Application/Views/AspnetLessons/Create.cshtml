@@ -4,13 +4,286 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
 }
+  
+    <style>
+      
 
-<style>
-    .isactivestyle {
-        height: 20px;
-        width: 20px;
+
+    /*--------WIZARD-----*/
+    /*#regForm {
+        background-color: #ffffff;
+        margin: 100px auto;
+
+        padding: 40px;
+        width: 70%;
+        min-width: 300px;
     }
-</style>
+
+    h1 {
+        text-align: center;
+    }
+
+    input {
+        padding: 10px;
+        width: 100%;
+        font-size: 17px;
+
+        border: 1px solid #aaaaaa;
+    }*/
+
+    /* Mark input boxes that gets an error on validation: */
+    /*input.invalid {
+        background-color: #ffdddd;
+    }*/
+
+    /*button {
+        background-color: #4CAF50;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 17px;
+
+        cursor: pointer;
+    }
+    button:hover {
+        opacity: 0.8;
+    }
+    #prevBtn {
+        background-color: #bbbbbb;
+    }*/
+
+    /* Hide all steps by default: */
+    .tab {
+        display: none;
+    }
+    /* Make circles that indicate the steps of the form: */
+    .step {
+        height: 15px;
+        width: 15px;
+        margin: 0 15px;
+        /*background-color: #bbbbbb;*/
+        /*border: none;*/
+        border-radius: 50%;
+        display: inline-block;
+        /*opacity: 0.5;*/
+    }
+
+
+
+    .step.active {
+        opacity: 1;
+    }
+
+    /* Mark the steps that are finished and valid: */
+    .step.finish {
+        background-color: #4CAF50;
+    }
+
+
+
+    #prevBtn {
+        color: #afbccc !important;
+    }
+    #createLessonForm .step {
+        font-size: 12px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 21px;
+        text-align: center;
+        color: #afbccc;
+    }
+    #createLessonForm .step {
+        width: 24px;
+        height: 24px;
+        background-color: #ffffff;
+        border: solid 1px rgba(0, 0, 0, 0.1);
+        opacity: 1;
+    }
+    #createLessonForm .step.active {
+        width: 26px;
+        height: 26px;
+          border: solid 2px #ffffff;
+        background-color: #3cd876;
+        color: #ffffff;
+        box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+
+    }
+    #createLessonForm .step.finish {
+        width: 26px;
+        height: 26px;
+          border: solid 2px #ffffff;
+        color: #ffffff;
+        background-color: #3cd876;
+        box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    }
+    #createLessonForm .step.finish.active {
+        /*background-image: none;*/
+    }
+
+
+
+
+    /*#createLessonForm .step + .step::before {*/
+    /*    content: '';*/
+    /*}*/
+    .stepsCon {
+        position: relative;
+        display: inline-block;
+        z-index: 6;
+    }
+    .stepsCon::before {
+        content: '';
+        background-color: rgba(0, 0, 0, 0.1);
+        height: 1px;
+        width: calc(100% - 50px);
+        position: absolute;
+        left: 25px;
+        top: calc(50%);
+        z-index: -4;
+    }
+    .step.finish {
+        background-image: url(../../assets/assets/icons/finish.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .tab .leftCol .form-group {
+        margin-top: 30px !important;
+    }
+    .tab .leftCol .input-group .form-group {
+        margin-top: 5px !important;
+    }
+
+    /*--------WIZARD-----*/
+
+    @@media screen and (max-width: 767px) {
+        .tab > .row > .col-md-6.pl-5.pr-5 {
+            padding-left: 0 !important;
+        }
+    }
+
+    </style>
+@*<style>
+        .isactivestyle {
+            height: 20px;
+            width: 20px;
+        }
+
+        .column-heading.wizard-heading {
+            font-size: 24px;
+        }
+
+
+      .tab {
+    display: none;
+}
+/* Make circles that indicate the steps of the form: */
+.step {
+    height: 15px;
+    width: 15px;
+    margin: 0 15px;
+    /*background-color: #bbbbbb;*/
+    /*border: none;*/
+    border-radius: 50%;
+    display: inline-block;
+    /*opacity: 0.5;*/
+}
+.step.active {
+    opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+    background-color: #4CAF50;
+}
+
+
+
+#prevBtn {
+    color: #afbccc !important;
+}
+#createLessonForm .step {
+    font-size: 12px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 21px;
+    text-align: center;
+    color: #afbccc;
+}
+#createLessonForm .step {
+    width: 24px;
+    height: 24px;
+    background-color: #ffffff;
+    border: solid 1px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+}
+#createLessonForm .step.active {
+    width: 26px;
+    height: 26px;
+      border: solid 2px #ffffff;
+    background-color: #3cd876;
+    color: #ffffff;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+
+}
+#createLessonForm .step.finish {
+    width: 26px;
+    height: 26px;
+      border: solid 2px #ffffff;
+    color: #ffffff;
+    background-color: #3cd876;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+}
+#createLessonForm .step.finish.active {
+    /*background-image: none;*/
+}
+
+
+
+
+/*#createLessonForm .step + .step::before {*/
+/*    content: '';*/
+/*}*/
+.stepsCon {
+    position: relative;
+    display: inline-block;
+    z-index: 6;
+}
+.stepsCon::before {
+    content: '';
+    background-color: rgba(0, 0, 0, 0.1);
+    height: 1px;
+    width: calc(100% - 50px);
+    position: absolute;
+    left: 25px;
+    top: calc(50%);
+    z-index: -4;
+}
+.step.finish {
+    background-image: url(../../assets/assets/icons/finish.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.tab .leftCol .form-group {
+    margin-top: 30px !important;
+}
+.tab .leftCol .input-group .form-group {
+    margin-top: 5px !important;
+}
+
+/*--------WIZARD-----*/
+
+@@media screen and (max-width: 767px) {
+    .tab > .row > .col-md-6.pl-5.pr-5 {
+        padding-left: 0 !important;
+    }
+}
+
+</style>*@
+
+
+
 
 
 <script>
@@ -374,410 +647,327 @@
 </style>
 
 
-
 <div class="row">
     <div class="col-md-12">
         <div class="card">
+
+
             <div class="card-body p-5">
 
 
-                <div class="box box-primary">
-
-                    @*<div class=""><h3 class="orange">Lesson Basic Info<span class="red-mark">*</span></h3></div>*@
-
-                    <div class="box-body">
-
-                        @using (Html.BeginForm("Create", "AspnetLessons", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                        {
+                @using (Html.BeginForm("Create", "AspnetLessons", FormMethod.Post, new {id = "createLessonForm" ,enctype = "multipart/form-data" }))
+                {
+                    @*<form id="createLessonForm" class="md-form">*@
 
 
 
-                        <div class="row">
-                            <div class="col-md-6 pl-3 pr-5">
+                        <!-- Circles which indicates the steps of the form: -->
+                        <div class="mb-3 text-center">
+                            <div class="inline-block stepsCon">
+                                <span class="step">1</span>
+                                <span class="step">2</span>
+                                <span class="step">3</span>
+                                <span class="step">4</span>
+                            </div>
+                        </div>
 
+                        <!-- One "tab" for each step in the form: -->
+                        <div class="tab">
 
-                                <h2 class="column-heading mb-4">Lesson Basic Info</h2>
-                                @Html.AntiForgeryToken()
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <h2 class="column-heading wizard-heading mb-4">Lesson Basic Info</h2>
 
-                                <div class="form-group bmd-form-group is-filled">
-                                    @Html.LabelFor(model => model.LessonName, htmlAttributes: new { @class = "bmd-label-floating" })
+                            <div class="row">
 
-                                    @Html.EditorFor(model => model.LessonName, new { htmlAttributes = new { @class = "form-control", @required = true } })
-                                    @Html.ValidationMessageFor(model => model.LessonName, "", new { @class = "text-danger" })
+                                <div class="col-md-6 leftCol">
 
-                                </div>
+                                    <div class="form-group bmd-form-group">
+                                        <label class="bmd-label-floating">Lesson Name</label>
+                                        @Html.EditorFor(model => model.LessonName, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                                        @Html.ValidationMessageFor(model => model.LessonName, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group bmd-form-group my-3">
+                                        <label class="bmd-label-floating">Lesson video URL. Enter ispringcloud video Link</label>
 
-                                <div class="form-group bmd-form-group is-filled">
-                                    @Html.LabelFor(model => model.LessonVideoURL, htmlAttributes: new { @class = "bmd-label-floating" })
-
-                                    @Html.EditorFor(model => model.LessonVideoURL, new { htmlAttributes = new { @placeholder = " Video Url.Only Allow ispringcloud videos", @class = "form-control", @required = true, } })
-                                    @Html.ValidationMessageFor(model => model.LessonVideoURL, "", new { @class = "text-danger" })
-                                    <span style="color:red;" id="youtubeErrorMsg"></span>
-
-                                </div>
-
-
-                                <div class="form-group bmd-form-group is-filled">
-                                    @Html.LabelFor(model => model.LessonDescription, htmlAttributes: new { @class = "" })
-                                    <div>
-
-                                        @Html.TextAreaFor(model => model.LessonDescription, new { htmlAttributes = new { @class = "control-label" } })
-                                        @Html.ValidationMessageFor(model => model.LessonDescription, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.LessonVideoURL, new { htmlAttributes = new { @placeholder = " ", @class = "form-control", @required = true, } })
+                                        @Html.ValidationMessageFor(model => model.LessonVideoURL, "", new { @class = "text-danger" })
+                                        <span style="color:red;" id="youtubeErrorMsg"></span>
 
                                     </div>
+                                    <div class="form-group bmd-form-group pt-5">
+                                        <label class="bmd-label-floating">Lesson Description</label>
+
+                                        <textarea class="form-control" name="LessonDescription" id="LessonDescription" rows="5"></textarea>
+
+                                        @*@Html.TextAreaFor(model => model.LessonDescription, new { htmlAttributes = new { @rows= "5", @class="form-control" } })
+                                @Html.ValidationMessageFor(model => model.LessonDescription, "", new { @class = "text-danger" })*@
+
+
+                                    </div>
+
                                 </div>
 
+                                <div class="col-md-6 pl-5 pr-5 ">
 
-
-                                <div class="form-group">
-
-                                    <label>Select Section <span class="text-danger">*</span></label>
-
-
+                                    @*<div class="form-row mt-3">
+                                <div class="form-group col-md-12 bmd-form-group">
+                                    <label for="" class="bmd-label-static pl-2">Select Section*</label>
                                     <select class="form-control SecIdDDL" id="SessionId" name="SessionId" required></select>
-
                                 </div>
+                            </div>*@
+                                    <div class="form-row mt-3">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <label for="" class="bmd-label-static pl-2">Select Course Type*</label>
+                                            <select class="form-control CTIdDDL" id="CTId" name="CTId" required>
 
+                                                <option value="">Select One</option>
 
+                                                <option value="CSS">CSS</option>
+                                                <option value="PMS">PMS</option>
 
-                                <div class="form-group">
+                                            </select>
 
-                                    <label>Select Course Type <span class="text-danger">*</span></label>
-
-
-                                    <select class="form-control CTIdDDL" id="CTId" name="CTId" required>
-
-                                        <option value="">Select One</option>
-
-                                        <option value="CSS">CSS</option>
-                                        <option value="PMS">PMS</option>
-
-                                    </select>
-
-
-                                </div>
-
-
-
-                            </div>
-                            <div class="col-md-6 pl-3 pr-5">
-                                @*<div class="form-group">
-                <div class="col-md-2">
-                    <label>Select Sessions<span class="text-danger">*</span></label>
-                </div>
-                <div class="col-md-6">
-                    <select multiple class="form-control" id="Sessions" name="Sessions" required></select>
-                </div>
-            </div>*@
-                                <br />
-                              
-                                <div class="form-group">
-                                  
-                                        <label class="control-label"> Select Subjects <span class="text-danger">*</span></label>
-                                  
-                                  
-                                        <select class="form-control SubIdDDL" id="SubId" name="SubId" required></select>
-                                    
-                                </div>
-
-                                <div class="form-group">
-                                  
-                                        <label class="control-label">Select Topics <span class="text-danger">*</span></label>
-                                
-                                    
-                                        <select class="form-control TopicIdDDL" id="TopicId" name="TopicId" required></select>
-                                    
-                                </div>
-
-
-
-
-                                @*<div class="form-group">
-                @Html.LabelFor(model => model.TopicId, "TopicId", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.DropDownList("TopicId", null, "Select One", htmlAttributes: new { @class = "form-control", @required = true })
-                    @Html.ValidationMessageFor(model => model.TopicId, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.LessonDuration, htmlAttributes: new {@class="bmd-label-floating" })
-                                   
-                                        <input type="number" min="30" max="60" value="30" onkeydown="return false" class="form-control" name="LessonDuration" id="LessonDuration" required />
-                                        @Html.ValidationMessageFor(model => model.LessonDuration, "", new { @class = "text-danger" })
-                                   
-                                </div>
-
-
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class="bmd-label-floating"})
-                                  
-
-                                        @Html.CheckBoxFor(model => model.IsActive, new { htmlAttributes = new { @class = "form-control isactivestyle" } })
-                                        @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
-
-                                   
-                                </div>
-
-
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.StartDate, htmlAttributes: new {@class="bmd-label-floating" })
-                               
-
-                                        <input type="date" name="StartDate" id="StartDate" value="" class="form-control" required />
-                                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
-                                   
-                                </div>
-
-
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.DueDate, htmlAttributes: new { @class="bmd-label-floating"})
-                                  
-
-                                        <input type="date" name="DueDate" id="DueDate" value="" class="form-control" required />
-
-                                        @Html.ValidationMessageFor(model => model.DueDate, "", new { @class = "text-danger" })
-                                    
-                                </div>
-
-                            </div><!--End Column-->
-                        </div><!--Row End-->
-
-
-
-
-
-
-
-                            <div class="box box-primary">
-                                <div class="box-header with-border"><h3 class="orange">Student Assignment</h3></div>
-                                <div class="box-body row">
-
-
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.AssignmentName, htmlAttributes: new { @class="bmd-label-floating" })
-                                       
-                                            @Html.EditorFor(model => model.AssignmentName, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.AssignmentName, "", new { @class = "text-danger" })
-                                      
+                                        </div>
                                     </div>
-
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.AssignmentDescription, htmlAttributes: new { @class="bmd-label-floating" })
-                                      
-                                            @Html.TextAreaFor(model => model.AssignmentDescription, new { htmlAttributes = new { id = "TextAreaBox", @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.AssignmentDescription, "", new { @class = "text-danger" })
-                                      
+                                    <div class="form-row mt-3">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <label for="" class="bmd-label-static pl-2">Select Subject*</label>
+                                            <select class="form-control SubIdDDL" id="SubId" name="SubId" required></select>
+                                        </div>
                                     </div>
+                                    <div class="form-row mt-3">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <label for="" class="bmd-label-static pl-2">Select Topic*</label>
 
-
-                                    <div class="form-group">
-
-                                        <label class="control-label col-md-2"> Student Assigment</label>
-
-                                    
-
-                                            @*<div class="btn btn-default btn-file ">
-                        <i class="fa fa-paperclip"></i> Choose File Option:*@
-                                            <input type="file" id="Assignment" name="Assignment">
-                                            @*</div>*@
-                                            <div class="">
-                                                <p class="help-block">Max. 32MB. (File Name Should be unique)  </p>
-                                            </div>
-
-                                       
-
+                                            <select class="form-control TopicIdDDL" id="TopicId" name="TopicId" required></select>
+                                        </div>
                                     </div>
-
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.AssignmentDueDate, htmlAttributes: new {@class="bmd-label-floating" })
-                                       
-
-                                            <input type="date" name="AssignmentDueDate" id="AssignmentDueDate" value="" class="form-control" />
-
-                                            @Html.ValidationMessageFor(model => model.AssignmentDueDate, "", new { @class = "text-danger" })
-
-
-                                       
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="box box-primary">
-                                <div class="box-header with-border"><h3 class="orange">Reading Material</h3></div>
-                                <div class="box-body row">
-
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.AttachmentName1, htmlAttributes: new {@class="bmd-label-floating" })
-                                       
-                                            @Html.EditorFor(model => model.AttachmentName1, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.AttachmentName1, "", new { @class = "text-danger" })
-                                       
-                                    </div>
-
-
-                                    <div class="form-group">
-
-                                        <label class="control-label col-md-2"> Attach File-1</label>
-
-                                       
-
-
-                                            @*<div class="btn btn-default btn-file ">*@
-                                            @*<i class="fa fa-paperclip"></i> Choose File Option:*@
-                                            <input type="file" id="Attachment1" name="Attachment1">
-                                            @*</div>*@
-
-                                            <div>
-                                                <p class="help-block">Max. 32MB. (File Name Should be unique) </p>
-                                            </div>
-
-                                       
-
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.AttachmentName2, htmlAttributes: new {@class="bmd-label-floating" })
-                                     
-                                            @Html.EditorFor(model => model.AttachmentName2, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.AttachmentName2, "", new { @class = "text-danger" })
-                                       
-                                    </div>
-
-
-                                    <div class="form-group">
-
-                                        <label class="control-label col-md-2"> Attach File-2</label>
-                                     
-
-                                            @*<div class="btn btn-default btn-file ">*@
-                                            @*<i class="fa fa-paperclip"></i> Choose File Option:*@
-                                            <input type="file" id="Attachment2" name="Attachment2">
-                                            @*</div>*@
-
-                                            <div>
-                                                <p class="help-block">Max. 32MB. (File Name Should be unique) </p>
-                                            </div>
-                                       
-
-                                    </div>
-
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.AttachmentName3, htmlAttributes: new { @class="bmd-label-floating" })
-                                       
-                                            @Html.EditorFor(model => model.AttachmentName3, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.AttachmentName3, "", new { @class = "text-danger" })
-                                       
-                                    </div>
-
-
-                                    <div class="form-group">
-
-                                        <label class="control-label col-md-2"> Attach File-3</label>
-                                      
-
-                                            @*<div class="btn btn-default btn-file ">*@
-                                            @*<i class="fa fa-paperclip"></i> Choose File Option:*@
-                                            <input type="file" id="Attachment3" name="Attachment3">
-                                            @*</div>*@
-
-                                            <div class="    ">
-                                                <p class="help-block">Max. 32MB. (File Name Should be unique) </p>
-                                            </div>
-
-
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="box box-primary">
-                                <div class="box-header with-border"><h3 class="orange">Material Links (URL) </h3></div>
-                                <div class="box-body row">
-
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.LinkUrl1, htmlAttributes: new { @class="bmd-label-floating" })
-                                      
-                                            @Html.EditorFor(model => model.LinkUrl1, new { htmlAttributes = new { @placeholder = "Enter Data Must be a URL", @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.LinkUrl1, "", new { @class = "text-danger" })
-                                       
-                                    </div>
-
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.LinkUrl2, htmlAttributes: new {@class="bmd-label-floating" })
-                                       
-                                            @Html.EditorFor(model => model.LinkUrl2, new { htmlAttributes = new { @placeholder = "Enter Data Must be a URL", @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.LinkUrl2, "", new { @class = "text-danger" })
-                                        
-                                    </div>
-
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.LinkUrl3, htmlAttributes: new { @class="bmd-label-floating" })
-                                       
-                                            @Html.EditorFor(model => model.LinkUrl3, new { htmlAttributes = new { @placeholder = "Enter Data Must be a URL", @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.LinkUrl3, "", new { @class = "text-danger" })
-                                       
-                                    </div>
-
-                                    @*<div class="form-group">
-                    <div class="col-md-offset-2 col-md-6">
-                        <input type="submit" value="Create" id="CreateBtn" class="btn btn-primary" />
-                    </div>
-                </div>*@
-                                </div>
-
-                            </div>
-
-
-                            <div class="box box-primary">
-                                <div class="box-header with-border"><h3 class="orange"> Lesson Time </h3></div>
-                                <div class="box-body row">
-
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label" })
-                                       
-                                            @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @placeholder = "", @class = "form-control", @type = "datetime-local" } })
-                                            @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
-                                       
-                                    </div>
-
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label" })
-                                       
-                                            @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @placeholder = "", @class = "form-control", @type = "datetime-local" } })
-                                            @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
-                                        
-                                    </div>
-
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.AddLink, htmlAttributes: new { @class = "control-label" })
-                                      
-                                            @Html.EditorFor(model => model.AddLink, new { htmlAttributes = new { @placeholder = "", @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.AddLink, "", new { @class = "text-danger" })
-                                        
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <div class="col-md-offset-2 col-md-6">
-
-                                            <input type="submit" value="Create" id="CreateBtn" class="btn btn-primary" />
-                                            <button type="button" class="btn btn-danger" id="btnCancel">Cancel</button>
-
+                                    <div class="form-row mt-3">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <label class="bmd-label-floating">Lesson Duration*</label>
+                                            <input type="number" min="30" max="60" value="30" onkeydown="return false" class="form-control" name="LessonDuration" id="LessonDuration" required />
+                                            @Html.ValidationMessageFor(model => model.LessonDuration, "", new { @class = "text-danger" })
 
                                         </div>
                                     </div>
 
 
                                 </div>
+
                             </div>
-                            }
 
 
                         </div>
+                        <div class="tab">
+
+
+                            <h2 class="column-heading wizard-heading mb-4">Student Assignment</h2>
+
+                            <div class="row">
+
+                                <div class="col-md-6 leftCol">
+
+                                    <div class="form-group bmd-form-group">
+                                        <label class="bmd-label-floating">Assignment Name</label>
+                                        @Html.EditorFor(model => model.AssignmentName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.AssignmentName, "", new { @class = "text-danger" })
+                                    </div>
+                                    <br />
+                                    <br />
+
+                                    <div class="form-group">
+
+                                        <label class="control-label">Assignment Due Date </label>
+
+                                        <input type="date" name="AssignmentDueDate" id="AssignmentDueDate" value="" class="form-control" />
+
+                                        @Html.ValidationMessageFor(model => model.AssignmentDueDate, "", new { @class = "text-danger" })
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-md-6 pl-5 pr-5 ">
+
+                                    <div class="form-group bmd-form-group mt-3 pt-3">
+                                        <label class="bmd-label-floating">Assignment Description</label>
+                                        <textarea name="AssignmentDescription" id="AssignmentDescription" class="form-control" rows="5"></textarea>
+
+                                    </div>
+
+                                    <div class="form-row mt-5">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <div class="file-field d-flex">
+                                                <div class="btn btn-primary btn-md mb-0">
+                                                    <span>Choose file</span>
+                                                    <input id="Assignment" type="file">
+                                                </div>
+                                                <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
+                                                    <input class="file-path validate form-control" type="text" readonly disabled placeholder="No file Chosen">
+                                                </div>
+                                            </div>
+                                            <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-bottom: 100px;"></div>
+                                </div>
+
+                            </div>
+
+
                         </div>
-            </div>
+                        <div class="tab">
+
+
+                            <h2 class="column-heading wizard-heading mb-4">Reading Material</h2>
+
+                            <div class="row">
+
+                                <div class="col-md-6 leftCol">
+
+                                    <div class="form-group bmd-form-group">
+                                        <label class="bmd-label-floating">Attachment Name-1</label>
+                                        @Html.EditorFor(model => model.AttachmentName1, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.AttachmentName1, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <div class="file-field d-flex">
+                                                <div class="btn btn-primary btn-md mb-0">
+                                                    <span>Choose file</span>
+                                                    <input type="file">
+                                                </div>
+                                                <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
+                                                    <input class="file-path validate form-control" type="text" readonly disabled placeholder="No file Chosen">
+                                                </div>
+                                            </div>
+                                            <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group bmd-form-group">
+                                        <label class="bmd-label-floating">Attachment Name-3</label>
+                                        @Html.EditorFor(model => model.AttachmentName3, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.AttachmentName3, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <div class="file-field d-flex">
+                                                <div class="btn btn-primary btn-md mb-0">
+                                                    <span>Choose file</span>
+                                                    <input type="file">
+                                                </div>
+                                                <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
+                                                    <input class="file-path validate form-control" type="text" readonly disabled placeholder="No file Chosen">
+                                                </div>
+                                            </div>
+                                            <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-md-6 pl-5 pr-5  leftCol">
+
+
+                                    <div class="form-group bmd-form-group">
+                                        <label class="bmd-label-floating">Attachment Name-2</label>
+                                        @Html.EditorFor(model => model.AttachmentName2, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.AttachmentName2, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <div class="file-field d-flex">
+                                                <div class="btn btn-primary btn-md mb-0">
+                                                    <span>Choose file</span>
+                                                    <input type="file">
+                                                </div>
+                                                <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
+                                                    <input class="file-path validate form-control" type="text" readonly disabled placeholder="No file Chosen">
+                                                </div>
+                                            </div>
+                                            <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+                        <div class="tab">
+
+
+
+
+                            <h2 class="column-heading wizard-heading mb-4">Material Links (URL)</h2>
+
+                            <div class="row">
+
+                                <div class="col-md-6 leftCol">
+
+                                    <div class="form-group bmd-form-group">
+                                        <label class="bmd-label-floating">Material Link 1</label>
+                                        @Html.EditorFor(model => model.LinkUrl1, new { htmlAttributes = new { @placeholder = "Enter Data Must be a URL", @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.LinkUrl1, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group bmd-form-group mt-4">
+                                        <label class="bmd-label-floating">Material Link 3</label>
+                                        @Html.EditorFor(model => model.LinkUrl3, new { htmlAttributes = new { @placeholder = "Enter Data Must be a URL", @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.LinkUrl3, "", new { @class = "text-danger" })
+                                    </div>
+
+
+
+                                    <div style="margin-bottom: 100px;">&nbsp;</div>
+                                    <div style="margin-bottom: 100px;">&nbsp;</div>
+
+
+                                </div>
+
+                                <div class="col-md-6 pl-5 pr-5 leftCol">
+
+
+                                    <div class="form-group bmd-form-group">
+                                        <label class="bmd-label-floating">Material Link 2</label>
+                                        @Html.EditorFor(model => model.LinkUrl2, new { htmlAttributes = new { @placeholder = "Enter Data Must be a URL", @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.LinkUrl2, "", new { @class = "text-danger" })
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+
+
+
+                        </div>
+
+
+
+                        <hr class="mt-5 mb-4">
+                        <button id="prevBtn" onclick="nextPrev(-1)" class="btn btn-primary pull-left rounded rounded-lg bg-transparent text-muted shadow-none mr-3" type="reset">Back</button>
+
+                        <button class="btn btn-primary pull-right rounded rounded-lg" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                        <button onclick="/*showTab(0); currentTab = 0;*/" class="btn btn-primary pull-right rounded rounded-lg bg-transparent text-muted shadow-none mr-3" type="reset">
+                            <i class="material-icons mr-2">cached</i>  Reset &nbsp; &nbsp;
+                            <div class="ripple-container"></div>
+                        </button>
+                        <div class="clearfix"></div>
+                        @*</form>*@
+                        }
+
+                </div>
+
+
+
         </div>
     </div>
+
 </div>
