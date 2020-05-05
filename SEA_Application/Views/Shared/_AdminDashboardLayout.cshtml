@@ -23,7 +23,7 @@
 
     <link rel="stylesheet" href="~/Content/assets/css/style.css">
     <script src="~/AdminLTE/plugins/jquery/js/jQuery-2.1.4.min.js"></script>
-    <script src="~/Content/assets/js/lesson.js"></script>
+    <link rel="stylesheet" href="~/Content/assets/assets/summernote.min.css">
 
     <style>
         table.dataTable.hover tbody tr:hover,
@@ -34,6 +34,21 @@
 
         .hidden {
             display: none;
+        }
+
+        .Floating_label{
+            background: white;
+            margin-left: 0.5rem;
+            border-left: 4px solid white;
+            border-right: 4px solid white;
+            transform: translateY(-1.75rem);
+            top: 1.3rem;
+            color: black;
+        }
+
+        .Floating_text{
+            border:2px solid #eee ;
+            border-radius: 0.3rem;
         }
     </style>
 
@@ -347,10 +362,10 @@
                                         <h1 id="PageHeader" class="float-left"></h1>
 
                                     </div>
-                                    @*<div class="col-sm-12 col-md-9 col-lg-9">
+                                    <div class="col-sm-12 col-md-9 col-lg-9 hidden" id="generic_div">
                                             <button type="button" class="btn btn-primary pull-right rounded rounded-lg createBtn">Create</button>
                                             <input type="text" placeholder="Type Keyword" id="global_filter" class="searchBox pull-right pl-4 p-2 pull-right rounded rounded-lg   mr-3">
-                                        </div>*@
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -413,7 +428,9 @@
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="~/Content/assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-    <script src="~/Content/assets/demo/demo.js"></script>
+    @*<script src="~/Content/assets/demo/demo.js"></script>_*@
+    <script src="~/Content/assets/js/lesson.js"></script>
+
     <!--<link rel="stylesheet" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">-->
     <!--<script src="http://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>-->
     <!--<script src="https://cdn.datatables.net/buttons/1.10.20/js/buttons.flash.min.js" type="text/javascript"></script>-->
@@ -429,7 +446,9 @@
             ).draw();
         }
         $(document).ready(function () {
-            debugger;
+            
+            $("#datatable_filter").hide();
+
             $.post(
                       "/AspNetUser/GetProfilePic",
                       $(".changepassword-form").serialize(),
