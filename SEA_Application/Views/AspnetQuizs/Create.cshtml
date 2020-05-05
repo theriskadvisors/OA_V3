@@ -9,7 +9,7 @@
 <script>
     $(document).ready(function () {
 
-          
+
         $("#PageHeader").html("Add Quiz");
 
         $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
@@ -189,135 +189,146 @@
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
-                    <div class="box box-primary">
-                        <div class="box-title"></div>
 
-                        <div class="box-body">
-                            <div class="form-horizontal">
-                              
-                               
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6 pl-5 pr-5  border-color-sea">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group bmd-form-group my-3">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "bmd-label-floating" })
+
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group bmd-form-group my-3">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "bmd-label-floating" })
+
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Start Date</label>
+
+
+                            @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { type = "date", @class = "form-control", @required = true } })
+                            @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+
+
+                            <label class="control-label">Due Date </label>
+
+
+                            @Html.EditorFor(model => model.Due_Date, new { htmlAttributes = new { type = "date", @class = "form-control", @required = true } })
+                            @Html.ValidationMessageFor(model => model.Due_Date, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        @*<div class="form-group">
+                    <div class="col-md-2">
+                        <label>Section <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-control SecIdDDL" id="SecId" name="SecId"></select>
+                    </div>
+                </div>*@
+
+                        <div class="form-group">
+
+                            <label>Course Type <span class="text-danger">*</span></label>
+
+
+                            <select class="form-control CTIdDDL" id="CTId" name="CTId">
+
+                                <option value="">Select One</option>
+
+                                <option value="CSS">CSS</option>
+                                <option value="PMS">PMS</option>
+
+                            </select>
+
+
+                        </div>
+                        <div class="form-group">
+
+                            <label>Subject <span class="text-danger">*</span></label>
+
+
+                            <select class="form-control SubIdDDL" id="SubId" name="SubId"></select>
+
+                        </div>
+
+
+                    </div><!--End Column-->
+                    <div class="col-md-12 pl-5 pr-5  border-color-sea">
+
+                        <div class="form-group">
+
+                            <div class="col-md-12">
+
+                                <div class="row">
                                     <div class="col-md-6">
-                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = true } })
-                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
+                                        <div class="box box-primary">
+                                            <div class="box-header with-border"><h3 class="orange">Topics:<span class="red-mark">*</span></h3></div>
 
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-6">
-                                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
+                                            <div class="box-body">
 
-                                <div class="form-group">
-                                    <div class="col-md-2">
-                                        Start Date
-                                    </div>
-                                    <div class="col-md-6">
-                                        @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { type = "date", @class = "form-control", @required = true } })
-                                        @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-
-                                    <div class="col-md-2">
-                                        Due Date
-                                    </div>
-                                    <div class="col-md-6">
-                                        @Html.EditorFor(model => model.Due_Date, new { htmlAttributes = new { type = "date", @class = "form-control", @required = true } })
-                                        @Html.ValidationMessageFor(model => model.Due_Date, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                @*<div class="form-group">
-                                        <div class="col-md-2">
-                                            <label>Section <span class="text-danger">*</span></label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <select class="form-control SecIdDDL" id="SecId" name="SecId"></select>
-                                        </div>
-                                    </div>*@
-
-                                <div class="form-group">
-                                    <div class="col-md-2">
-                                        <label>Course Type <span class="text-danger">*</span></label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <select class="form-control CTIdDDL" id="CTId" name="CTId">
-
-                                            <option value="">Select One</option>
-
-                                            <option value="CSS">CSS</option>
-                                            <option value="PMS">PMS</option>
-
-                                        </select>
-
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-2">
-                                        <label>Subject <span class="text-danger">*</span></label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <select class="form-control SubIdDDL" id="SubId" name="SubId"></select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-
-                                    <div class="col-md-12">
-
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="box box-primary">
-                                                    <div class="box-header with-border"><h3 class="orange">Topics:<span class="red-mark">*</span></h3></div>
-
-                                                    <div class="box-body">
-
-                                                        @*@Html.ListBox("TopicId", null, htmlAttributes: new { @class = "form-control", @style = "height:400px;" })*@
-                                                        <select multiple style="height:400px;overflow-x:scroll" class="form-control" id="TopicId" name="TopicId" required></select>
+                                                @*@Html.ListBox("TopicId", null, htmlAttributes: new { @class = "form-control", @style = "height:400px;" })*@
+                                                <select multiple style="height:400px;overflow-x:scroll" class="form-control" id="TopicId" name="TopicId" required></select>
 
 
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-md-6">
-                                                <div class="box box-primary">
-                                                    <div class="box-header with-border"><h3 class="orange">Questions:<span class="red-mark">*</span></h3></div>
-
-                                                    <div class="box-body">
-                                                        <select multiple style="height:400px;overflow-x:scroll" class="form-control" id="QuestionID" name="QuestionID" required></select>
-
-                                                    </div>
-                                                </div>
                                             </div>
 
                                         </div>
                                     </div>
-                                </div>
 
 
+                                    <div class="col-md-6">
+                                        <div class="box box-primary">
+                                            <div class="box-header with-border"><h3 class="orange">Questions:<span class="red-mark">*</span></h3></div>
 
-                                <div class="form-group">
-                                    <div class="col-md-offset-1 col-md-10">
-                                        <input type="submit" value="Create" class="btn btn-primary" />
+                                            <div class="box-body">
+                                                <select multiple style="height:400px;overflow-x:scroll" class="form-control" id="QuestionID" name="QuestionID" required></select>
 
-                                        <button type="button" class="btn btn-danger" id="btnCancel">Cancel</button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <br />
+                                </div>
                             </div>
                         </div>
+
+
+
+
+
+
+
                     </div>
+
+
+                    @*<div class="form-group">
+                        <div class="col-md-offset-1 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+
+                            <button type="button" class="btn btn-danger" id="btnCancel">Cancel</button>
+                        </div>
+                    </div>*@
+
+                
+
+                    <hr class="mt-5 mb-4">
+
+                    <button type="submit"  class="btn btn-primary pull-right rounded rounded-lg"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Save &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </button>
+                    <button type="button"  id="btnCancel" class="btn btn-primary pull-right rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
+                        <i class="material-icons mr-2">cached</i>  Reset &nbsp; &nbsp;
+                    </button>
+                    <div class="clearfix"></div>
+
                 }
 
 
@@ -326,8 +337,8 @@
         </div>
     </div>
 </div>
-                
-                <script>
+
+<script>
 
 
     $(document).ready(function () {
@@ -388,7 +399,7 @@
 
     })
 
-   </script>
+</script>
 
 
 
