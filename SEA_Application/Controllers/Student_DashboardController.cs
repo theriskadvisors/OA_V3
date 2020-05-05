@@ -41,8 +41,8 @@ namespace SEA_Application.Controllers
         public ActionResult Dashboard()
         {
 
-         
-            return View("BlankPage");
+            return RedirectToAction("Index", "StudentCourses");
+            //return View("BlankPage");
         }
 
 
