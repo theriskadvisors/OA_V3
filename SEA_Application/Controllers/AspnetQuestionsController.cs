@@ -78,24 +78,30 @@ namespace SEA_Application.Controllers
         public ActionResult Create(QuestionAnswerViewModel QuestionAnswerViewModel)
         {
 
+
+
+
+
             var id = User.Identity.GetUserId();
             var username = db.AspNetUsers.Where(x => x.Id == id).Select(x => x.Name).FirstOrDefault();
 
             AspnetQuestion Question = new AspnetQuestion();
             Question.Name = QuestionAnswerViewModel.QuestionName;
 
-            string IsMandatory = Request.Form["IsMandatory"];
-            if (IsMandatory == "on")
-            {
-                Question.Is_Active = true;
+            /// string IsMandatory = Request.Form["IsMandatory"];
+            //if (IsMandatory == "on")
+            //{
+            //    Question.Is_Active = true;
 
-            }
-            else
-            {
-                Question.Is_Active = false;
-            }
+            //}
+            //else
+            //{
+            //    Question.Is_Active = false;
+            //}
 
             // Question.Is_Active = QuestionAnswerViewModel.QuestionIsActive;
+            Question.Is_Active = QuestionAnswerViewModel.QuestionIsActive;
+
             Question.Is_Quiz = QuestionAnswerViewModel.QuestionIsQuiz;
             Question.Type = QuestionAnswerViewModel.QuestionType;
             Question.LessonId = QuestionAnswerViewModel.LessonId;
