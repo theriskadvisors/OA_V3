@@ -345,7 +345,7 @@
                                     <div class="col-md-2 pl-3 pr-5">
                                         <div style="height: 120px;" class="upload-photo border rounded d-flex align-items-center justify-content-center flex-column mb-4">
                                             <a href="#">
-                                                <img id="imgPreview" src="../assets/assets/icons/Upload.png" onclick="$('#UploadImg').click();" />
+                                                <img id="imgPreview" src="~/Content/Images/Upload.png" onclick="$('#UploadImg').click();" />
                                             </a>
                                             <input style="display:none;" id="UploadImg" type="file" name="image" />
                                             <div id="UploadPhotoDiv" class="mt-3">Upload Photo</div>
@@ -360,10 +360,14 @@
                                             @Html.TextBoxFor(m => m.Name, new { @class = "form-control round-border" })
                                         </div>
 
-                                        <div class="form-group bmd-form-group my-3">
+                                        @*<div class="form-group bmd-form-group my-3">
                                             <label class="bmd-label-floating">User Name *</label>
                                             @Html.TextBoxFor(m => m.UserName, new { @class = "form-control round-border" })
                                             @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger", @id = "UserName-Error" })
+                                        </div>*@
+                                        <div class="form-group bmd-form-group my-3 is-filled">
+                                            <label class="bmd-label-floating">User ID <span class="red-mark">*</span></label>
+                                            <input type="text" id="UserName" class="form-control round-border" value="@ViewBag.UserName" name="UserName" readonly />
                                         </div>
 
                                         <div class="form-group bmd-form-group my-3">
@@ -399,9 +403,9 @@
                                         <div class="form-group bmd-form-group is-filled">
                                             <label class="bmd-label-floating">Email <span class="red-mark">*</span></label>
                                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control round-border" })
-                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", @id = "Email-Error" })
+                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", @id = "Email-Error", @required = true })
                                         </div>
-
+                                     
                                         <div class="form-group bmd-form-group my-3">
                                             <label class="bmd-label-floating">Cell No <span class="red-mark">*</span> </label>
                                             <input type="text" class="form-control round-border" id="inputEmail3" name="cellNo" onblur="checkPhone(this)" required>
