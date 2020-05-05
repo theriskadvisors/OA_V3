@@ -1,8 +1,27 @@
-﻿
+﻿<script src="~/Content/Toaster/toastr.min.js"></script>
+<link href="~/Content/Toaster/toastr.min.css" rel="stylesheet" />
 @{
-    ViewBag.Title = "Create";
-
+    ViewBag.Title = "Edit";
+}
+@if (this.User.IsInRole("Admin"))
+{
     Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+else if (this.User.IsInRole("Principal"))
+{
+    Layout = "~/Views/Shared/Principal_DashboardLayout.cshtml";
+}
+else if (this.User.IsInRole("Accountant"))
+{
+    Layout = "~/Views/Shared/_AccountantDashboardLayout.cshtml";
+}
+else if (this.User.IsInRole("Parent"))
+{
+    Layout = "~/Views/Shared/_ParentDashboardLayout.cshtml";
+}
+else if (this.User.IsInRole("Teacher"))
+{
+    Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
 }
 
 <style>
@@ -24,107 +43,161 @@
         height: 126px;
     }
 </style>
+
 <script>
 
-    $(document).ready(function () {
-
-
-        $("#PageHeader").html("Profile");
-
-        $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
-        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Profile</a></li>');
-
-
-
-        $("#btnCancel").click(function () {
-
-            window.location.href = "/AspnetSubjectTopics/ViewTopicsAndLessons";
-        })
-
-
-
-
-        var course = 'CSS';
-        var Class;
-        $('#CTId').change(function () {
-
-
-            var crse = $(this).val();
-
-            if (crse != "") {
-
-                console.log(crse);
-                course = crse;
-                $.ajax({
-                    type: "POST",
-                    cache: false,
-                    url: "/AspNetProject/GetSubjectsByClass?CT=" + course,
-                    processData: false,
-                    contentType: false,
-                    success: function (data) {
-                        var sch = JSON.parse(data);
-                        console.log(sch);
-                        var $el = $(".SubIdDDL");
-                        $el.empty();
-                        if (sch.length > 0) {
-                            $el.append($("<option></option>")
-                                .attr("value", "").text('Select Subject'));
-                            for (i = 0; i < sch.length; i++) {
-
-                                $el.append($("<option></option>")
-                                    .attr("value", sch[i].Id).text(sch[i].SubjectName));
-                            }
-                        }
-                        else {
-                            $el.append($("<option></option>")
-                                .attr("value", '').text('Select'));
-                        }
-                    }
-                });
-
-            }
-            else {
-                var $el = $(".SubIdDDL");
-                $el.empty();
-            }
-
-        });
-
-
-        $('#ClassID').change(function () {
-
-            var UserName = $(this).val();
-            Class = UserName;
-            $.ajax({
-                type: "POST",
-                cache: false,
-                url: "/AspNetProject/GetSubjectsByClass?ClassID=" + UserName + "&&CT=" + course,
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    var sch = JSON.parse(data);
-                    console.log(sch);
-                    var $el = $(".SubIdDDL");
-                    $el.empty();
-                    if (sch.length > 0) {
-                        $el.append($("<option></option>")
-                            .attr("value", "").text('Select Subject'));
-                        for (i = 0; i < sch.length; i++) {
-
-                            $el.append($("<option></option>")
-                                .attr("value", sch[i].Id).text(sch[i].SubjectName));
-                        }
-                    }
-                    else {
-                        $el.append($("<option></option>")
-                            .attr("value", '').text('Select'));
-                    }
+    var usernameupdate = function () {
+        debugger;
+        $('.usernameupdate-form').validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block', // default input error message class
+            focusInvalid: false, // do not focus the last invalid input
+            ignore: "",
+            rules: {
+                username: {
+                    required: true
+                },
+                emailaddress: {
+                    required: true
+                },
+                phoneno: {
+                    required: true
                 }
-            });
+            },
 
+            invalidHandler: function (event, validator) { //display error alert on form submit
+
+            },
+
+            highlight: function (element) { // hightlight error inputs
+                $(element)
+                    .closest('.form-group').addClass('has-error'); // set error class to the control group
+            },
+
+            success: function (label) {
+                label.closest('.form-group').removeClass('has-error');
+                label.remove();
+            },
+
+            errorPlacement: function (error, element) {
+                if (element.closest('.input-icon') === 1) {
+                    error.insertAfter(element.closest('.input-icon'));
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+
+            submitHandler: function (form) {
+          
+                $.post(
+                    "/Manage/username_update",
+                    $(".usernameupdate-form").serialize(),
+                    function (data) {
+                        debugger;
+                        if (data === "success") {
+                            toastr.success('Profile updated successfully..')
+                        }
+
+                        else {
+                            toastr.error('Error ! Profile not updated.')
+                        }
+                    },
+                    "text"
+                );
+
+            }
         });
-    })
 
+
+        jQuery('#btn-changepassword').unbind().click(function () {
+            if ($('.changepassword-form').validate().form()) {
+
+                $('.changepassword-form').submit();
+            }
+        });
+    }
+
+    // change passwrdo
+    var changepassword = function () {
+        debugger;
+        $('.changepassword-form').validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block', // default input error message class
+            focusInvalid: false, // do not focus the last invalid input
+            ignore: "",
+            rules: {
+                OldPassword: {
+                    required: true
+                },
+                NewPassword: {
+                    required: true
+                },
+                ConfirmPassword: {
+                    required: true
+                }
+            },
+
+            invalidHandler: function (event, validator) { //display error alert on form submit
+
+            },
+
+            highlight: function (element) { // hightlight error inputs
+                $(element)
+                    .closest('.form-group').addClass('has-error'); // set error class to the control group
+            },
+
+            success: function (label) {
+                label.closest('.form-group').removeClass('has-error');
+                label.remove();
+            },
+
+            errorPlacement: function (error, element) {
+                if (element.closest('.input-icon') === 1) {
+                    error.insertAfter(element.closest('.input-icon'));
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+
+            submitHandler: function (form) {
+                debugger;
+                var x = $(".changepassword-form").serialize();
+                $.post(
+                    "/Manage/ChangePassword",
+                    $(".changepassword-form").serialize(),
+                    function (data) {
+                        debugger;
+                        if (data === "success") {
+                            //      ShowSuccess("", "Your name updated successfully.");
+                            toastr.success('Password changed successfully')
+                        }
+
+                        else {
+                            //  ShowError("", "Your username not updated.");
+                            toastr.error('Error ! Password not changed')
+                        }
+                    },
+                    "text"
+                );
+
+            }
+        });
+
+
+        jQuery('#btn-update-username').unbind().click(function () {
+            if ($('.usernameupdate-form').validate().form()) {
+
+                $('.usernameupdate-form').submit();
+            }
+        });
+    }
+
+
+    $(document).ready(function () {
+        debugger;
+        usernameupdate();
+        changepassword();
+      })
 
 </script>
 
@@ -134,44 +207,36 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body p-5">
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-
+                <form class="changepassword-form">
                     <div class="col-md-8 pl-5 pr-5 ">
                         <h2 class="column-heading mb-4"> Change Password</h2>
                         <div class="form-group bmd-form-group is-filled">
-                          
                         </div>
-                        <div class="form-group bmd-form-group is-filled">
-                           
-                        </div>
-
-
 
                         <div class="form-group bmd-form-group my-3">
                             <label class="bmd-label-floating">Old Password *</label>
-                            <input type="text" class="form-control round-border" id="OldPassword" name="OldPassword">
+                            <input type="password" class="form-control round-border" id="OldPassword" name="OldPassword">
                         </div>
 
 
                         <div class="form-group bmd-form-group my-3">
                             <label class="bmd-label-floating">New Password *</label>
-                            <input type="text" class="form-control round-border" id="OldPassword" name="OldPassword">
+                            <input type="password" class="form-control round-border" id="NewPassword" name="NewPassword">
                         </div>
 
                         <div class="form-group bmd-form-group my-3">
                             <label class="bmd-label-floating">Confirm Password *</label>
-                            <input type="text" class="form-control round-border" id="OldPassword" name="OldPassword">
+                            <input type="password" class="form-control round-border" id="ConfirmPassword" name="ConfirmPassword">
                         </div>
 
-                     
+
 
                     </div> <!-- End Column -->
+                    </form>
 
-
+               
                     <div class="col-md-8 pl-5 pr-5 ">
-                        <button type="submit" class="btn btn-primary rounded rounded-lg"> Save </button>
+                        <input type="submit" class="btn btn-primary rounded rounded-lg" id="btn-changepassword" value="Save">
 
 
                         <button type="button" id="btnCancel" class="btn btn-primary rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
@@ -179,9 +244,9 @@
                         </button>
 
                     </div>
-                }
 
-            </div>
+
+</div>
         </div>
     </div>
 </div>
