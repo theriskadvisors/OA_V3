@@ -23,6 +23,10 @@ else if (this.User.IsInRole("Teacher"))
 {
     Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
 }
+else if (this.User.IsInRole("Student"))
+{
+    Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
+}
 
 <style>
     .page-sidebar .page-sidebar-menu, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu {

@@ -1,7 +1,5 @@
-﻿
-
-@{
-   // Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+    // Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using System.Linq;
@@ -24,11 +22,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="~/Content/assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="~/Content/assets/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/Content/assets/assets/img/orignal.png">
+    <link rel="icon" type="image/png" href="~/Content/assets/assets/img/orignal.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        Subject
+        Student
     </title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -49,8 +47,8 @@
     <link rel="stylesheet" href="~/Content/assets/assets/summernote.min.css">
 
     <style>
-        .hidden{
-            display:none;
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -67,7 +65,7 @@
             -->
             <div class="logo">
                 <a class="simple-text logo-normal" href="#">
-                    <img class="transparent" alt="" src="~/Content/assets/assets/img/logo%20SEA1.png">
+                    <img class="transparent" alt="" src="~/Content/assets/assets/img/orignal.png" height="143" width="143">
                 </a>
             </div>
 
@@ -78,7 +76,7 @@
                     <li class="nav-item active">
                         <a href="@Url.Action("Dashboard", "Student_Dashboard")" class="nav-link nav-toggle">
                             <i class="sea-dash">
-                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
+                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/icon-home.png" alt="">
                             </i>
                             <p id="">Home </p>
                         </a>
@@ -87,7 +85,7 @@
                     <li class="nav-item hidden">
                         <a href="@(Url.Action("View_Project", "Student_Dashboard"))" class="nav-link nav-toggle">
                             <i class="sea-dash">
-                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
+                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon.png" alt="">
                             </i>
                             <p id="">Course Topics/ Study Material </p>
                         </a>
@@ -106,7 +104,7 @@
                         <a href="@(Url.Action("Index", "AspNetOrderNotes"))" class="nav-link nav-toggle">
 
                             <i class="sea-dash">
-                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
+                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/icon-questions.png" alt="">
                             </i>
                             <p>Order Notes</p>
                         </a>
@@ -118,7 +116,7 @@
                             <a href="@(Url.Action("PrepaidNotesIndex", "AspNetOrderNotes"))" class="nav-link nav-toggle">
 
                                 <i class="sea-dash">
-                                    <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
+                                    <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Dashboard.png" alt="">
                                 </i>
                                 <p>Prepaid Order Notes</p>
                             </a>
@@ -126,18 +124,18 @@
                     }
 
                     @*<li class="nav-item">
-                        <a href="@(Url.Action("Index", "AspNetFeeDetail"))" class="nav-link nav-toggle">
-                            <i class="sea-dash">
-                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
-                            </i>
-                            <p>Online Courses</p>
-                        </a>
-                    </li>*@
+                            <a href="@(Url.Action("Index", "AspNetFeeDetail"))" class="nav-link nav-toggle">
+                                <i class="sea-dash">
+                                    <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
+                                </i>
+                                <p>Online Courses</p>
+                            </a>
+                        </li>*@
 
                     <li class="nav-item">
                         <a href="@(Url.Action("Index", "StudentCourses"))" class="nav-link nav-toggle">
                             <i class="sea-dash">
-                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
+                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/icon-lessons.png" alt="">
                             </i>
                             <p>My Courses</p>
                         </a>
@@ -146,7 +144,7 @@
                     <li class="nav-item">
                         <a href="@(Url.Action("Quizes", "Student_Dashboard"))" class="nav-link nav-toggle">
                             <i class="sea-dash">
-                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
+                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/icon-quiz.png" alt="">
                             </i>
                             <p>My Quizes </p>
                         </a>
@@ -155,7 +153,7 @@
                     <li class="nav-item">
                         <a href="@(Url.Action("Index", "AspNetFeeDetail"))" class="nav-link nav-toggle">
                             <i class="sea-dash">
-                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
+                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/icon-teacher.png" alt="">
                             </i>
                             <p>Fee Detail </p>
                         </a>
@@ -164,25 +162,25 @@
                     <li class="nav-item">
                         <a href="@(Url.Action("Student_Attendance", "Student_Dashboard"))" class="nav-link nav-toggle">
                             <i class="sea-dash">
-                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
+                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Vouchers.png" alt="">
                             </i>
                             <p>Attendance </p>
                         </a>
                     </li>
-                  
-                    @*<li class="nav-item  ">
-            <a href="@(Url.Action("Student_Dairy", "Student_Dashboard"))">
-                <i class="fa fa-database"></i>
-                <span class="title">Dairy</span>
-            </a>
-        </li>
 
-        <li class="nav-item  ">
-            <a href="@(Url.Action("StudentAssessment", "Student_Dashboard"))">
-                <i class="fa fa-calendar"></i>
-                <span class="title">Student Term Assessment</span>
-            </a>
-        </li>*@
+                    @*<li class="nav-item  ">
+                            <a href="@(Url.Action("Student_Dairy", "Student_Dashboard"))">
+                                <i class="fa fa-database"></i>
+                                <span class="title">Dairy</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item  ">
+                            <a href="@(Url.Action("StudentAssessment", "Student_Dashboard"))">
+                                <i class="fa fa-calendar"></i>
+                                <span class="title">Student Term Assessment</span>
+                            </a>
+                        </li>*@
 
                     <li class="nav-item hidden">
                         <a href="@(Url.Action("Inbox", "AspNetMessages"))" class="nav-link nav-toggle">
@@ -206,85 +204,85 @@
 
 
                     @*<li class="nav-item" id="studenttopic">
-            <a href="@Url.Action("Index", "AspnetSubjectTopics")" class="nav-link nav-toggle">
-                <i class="fa fa-list-ul"></i>
-                <span class="title">Topic</span>
-            </a>
-        </li>
-        <li class="nav-item" id="studentlesson">
-            <a href="@Url.Action("Index", "AspnetLessons")" class="nav-link nav-toggle">
-                <i class="fa fa-leaf"></i>
-                <span class="title">Lesson</span>
-            </a>
-        </li>*@
+                            <a href="@Url.Action("Index", "AspnetSubjectTopics")" class="nav-link nav-toggle">
+                                <i class="fa fa-list-ul"></i>
+                                <span class="title">Topic</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="studentlesson">
+                            <a href="@Url.Action("Index", "AspnetLessons")" class="nav-link nav-toggle">
+                                <i class="fa fa-leaf"></i>
+                                <span class="title">Lesson</span>
+                            </a>
+                        </li>*@
 
                     @*<li class="nav-item" id="studentQuestionAnswer">
-            <a href="@Url.Action("Index", "AspnetQuestions")" class="nav-link nav-toggle">
-                <i class="fa fa-book"></i>
-                <span class="title">Questions Answers</span>
-            </a>
-        </li>
+                            <a href="@Url.Action("Index", "AspnetQuestions")" class="nav-link nav-toggle">
+                                <i class="fa fa-book"></i>
+                                <span class="title">Questions Answers</span>
+                            </a>
+                        </li>
 
 
 
-        <li class="nav-item" id="TestQuestions">
-            <a href="@Url.Action("TestQuestions", "AspnetQuestions")" class="nav-link nav-toggle">
-                <i class="fa fa-book"></i>
-                <span class="title">Test Questions</span>
-            </a>
-        </li>*@
+                        <li class="nav-item" id="TestQuestions">
+                            <a href="@Url.Action("TestQuestions", "AspnetQuestions")" class="nav-link nav-toggle">
+                                <i class="fa fa-book"></i>
+                                <span class="title">Test Questions</span>
+                            </a>
+                        </li>*@
 
                     @*<li class="nav-item" id="studentQuiz">
-            <a href="@Url.Action("Index", "AspnetQuizs")" class="nav-link nav-toggle">
-                <i class="fa fa-pencil-square-o"></i>
-                <span class="title">Quiz</span>
-            </a>
-        </li>*@
+                            <a href="@Url.Action("Index", "AspnetQuizs")" class="nav-link nav-toggle">
+                                <i class="fa fa-pencil-square-o"></i>
+                                <span class="title">Quiz</span>
+                            </a>
+                        </li>*@
 
                     @*<li class="nav-item  ">
-            <a href="@(Url.Action("Teacher_Announcement", "Teacher_Dashboard"))">
-                <i class="fa fa-bullhorn"></i>
-                <span class="title">Announcement</span>
-            </a>
-        </li>
+                            <a href="@(Url.Action("Teacher_Announcement", "Teacher_Dashboard"))">
+                                <i class="fa fa-bullhorn"></i>
+                                <span class="title">Announcement</span>
+                            </a>
+                        </li>
 
-        <li class="nav-item  ">
-            <a href="@(Url.Action("Attendance", "Teacher_Dashboard"))">
-                <i class="fa fa-list-ol"></i>
-                <span class="title">Student Attendance</span>
-            </a>
-        </li>
+                        <li class="nav-item  ">
+                            <a href="@(Url.Action("Attendance", "Teacher_Dashboard"))">
+                                <i class="fa fa-list-ol"></i>
+                                <span class="title">Student Attendance</span>
+                            </a>
+                        </li>
 
-        <li class="nav-item">
-            <a href="@(Url.Action("ParentTeacherMeeting", "Teacher_Dashboard"))">
-                <i class="fa fa-users"></i>
-                <span class="title">Parent Teacher Meeting</span>
-            </a>
-        </li>
+                        <li class="nav-item">
+                            <a href="@(Url.Action("ParentTeacherMeeting", "Teacher_Dashboard"))">
+                                <i class="fa fa-users"></i>
+                                <span class="title">Parent Teacher Meeting</span>
+                            </a>
+                        </li>
 
 
-        <li class="nav-item">
-            <a href="#" class="nav-link nav-toggle">
-                <i class="fa fa-book"></i>
-                <span class="title">Assessment</span>
-            </a>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link nav-toggle">
+                                <i class="fa fa-book"></i>
+                                <span class="title">Assessment</span>
+                            </a>
 
-            <ul class="sub-menu">
-                <li class="nav-item  ">
-                    <a href="@(Url.Action("Subject_Assessment","Teacher_Dashboard"))">
-                        <i class="fa fa-circle-o"></i>
-                        <span class="title">Subject Assessment</span>
-                    </a>
-                </li>
+                            <ul class="sub-menu">
+                                <li class="nav-item  ">
+                                    <a href="@(Url.Action("Subject_Assessment","Teacher_Dashboard"))">
+                                        <i class="fa fa-circle-o"></i>
+                                        <span class="title">Subject Assessment</span>
+                                    </a>
+                                </li>
 
-                <li class="nav-item  ">
-                    <a href="@(Url.Action("Class_Assessment", "Teacher_Dashboard"))">
-                        <i class="fa fa-circle-o"></i>
-                        <span class="title">Class Assessment</span>
-                    </a>
-                </li>
-            </ul>
-        </li>*@
+                                <li class="nav-item  ">
+                                    <a href="@(Url.Action("Class_Assessment", "Teacher_Dashboard"))">
+                                        <i class="fa fa-circle-o"></i>
+                                        <span class="title">Class Assessment</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>*@
 
 
 
@@ -298,8 +296,7 @@
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
                         <div class="bread-crumbs">
-                            <ul id="BreadCrumbs">
-                            </ul>
+                            <ul id="BreadCrumbs"></ul>
                         </div>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -371,13 +368,17 @@
                             }
                             <li class="nav-item dropdown">
                                 <a class="nav-link p-0" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img style="width: 45px;height: 45px;" src="~/Content/assets/assets/img/Profile.png">
+
+
+
+                                    <div id="theDiv"><img id="theImg" src="" /></div>
+
                                     <p class="d-lg-none d-md-block">
                                         Account
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                                    <a class="dropdown-item" href="#">Profile</a>
+                                    <a class="dropdown-item" href="/Manage/Index">Profile</a>
                                     <a class="dropdown-item" href="#">Privacy</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Settings</a>
@@ -399,38 +400,9 @@
                                         <h1 id="PageHeader" class="float-left"></h1>
 
                                     </div>
-
-                                    <div class="col-sm-12 col-md-9 col-lg-9 text-right hidden" id="GenericDiv">
-                                        <div class="d-inline-block">
-                                            <div class="d-flex text-right">
-
-                                                <div class="countStuffLeft">
-                                                    <div class="countComplete">
-                                                        <span id="topicCompleted"></span> of <span id="Totaltopic"></span> Complete.<!--<a href="#"> Reset</a>-->
-                                                    </div>
-                                                    <div class="finishCourseText">Finish course to get your certificate</div>
-                                                </div>
-
-                                                <div>
-                                                    <input type="hidden" value="30" type="number" step="5" min="0" max="100" class="progressVal">
-                                                    <div class="trophyProgressCon" style="position: relative;width: 44px;height: 44px;">
-                                                        <span class="progressGrayRing" style="background: #e2e2ee;position: absolute;width: 40px;height: 40px;left: 0;border-radius: 50%;top: 0px;">
-                                                            <span class="trophyIcon">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                                                                    <g id="prefix__Group_503" data-name="Group 503" transform="translate(-591 -244)">
-                                                                        <path id="prefix__Path_530" d="M608.473 245.3h-2.31q.013-.384.013-.772a.528.528 0 0 0-.527-.527h-11.3a.527.527 0 0 0-.527.527q0 .388.013.772h-2.31a.527.527 0 0 0-.527.527 11.429 11.429 0 0 0 1.739 6.277 5.5 5.5 0 0 0 4.18 2.714 5.415 5.415 0 0 0 1.142.959v2.344h-.885a1.942 1.942 0 0 0-1.94 1.939v.885h-.034a.527.527 0 1 0 0 1.055h9.6a.527.527 0 1 0 0-1.055h-.037v-.885a1.942 1.942 0 0 0-1.94-1.939h-.885v-2.344a5.419 5.419 0 0 0 1.142-.959 5.5 5.5 0 0 0 4.18-2.714 11.43 11.43 0 0 0 1.74-6.277.527.527 0 0 0-.527-.527zm-14.856 6.22a10.163 10.163 0 0 1-1.551-5.166h1.83a17.619 17.619 0 0 0 1.638 6.4q.211.422.44.8a5.085 5.085 0 0 1-2.358-2.029zm12.766 0a5.085 5.085 0 0 1-2.358 2.029q.229-.376.44-.8a17.627 17.627 0 0 0 1.638-6.4h1.83a10.164 10.164 0 0 1-1.551 5.166zm0 0" data-name="Path 530" style="fill:#00b8ec"></path>
-                                                                    </g>
-                                                                </svg>
-                                                            </span>
-                                                            <svg class="progress-ring" width="44" height="44">
-                                                                <circle class="progress-ring__circle" stroke="#00b8ec" stroke-width="4" fill="transparent" r="18" style="stroke-dasharray: 113.097px, 113.097px; stroke-dashoffset: 100px;" cy="20" cx="24"></circle>
-                                                            </svg>
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                    <div class="col-sm-12 col-md-9 col-lg-9">
+                                        <button type="button" class="btn btn-primary pull-right rounded rounded-lg createBtn" id="global_Createbtn">Create</button>
+                                        <input type="text" placeholder="Type Keyword" id="global_filter" class="searchBox pull-right pl-4 p-2 pull-right rounded rounded-lg   mr-3">
                                     </div>
                                 </div>
                             </div>
@@ -509,9 +481,24 @@
 
         $(document).ready(function () {
 
+
+
         });
 
         $(document).ready(function () {
+            debugger;
+            $.post(
+               "/AspNetUser/GetProfilePic",
+
+               function (data) {
+                   debugger;
+                   $('#theDiv').prepend('<img id="theImg" height ="45" width = "45" src="/Content/Images/StudentImages/' + data + '" />')
+
+
+
+               },
+               "text"
+           );
 
 
             $().ready(function () {
@@ -682,6 +669,31 @@
                 });
             });
 
+            // Ring Functionality JS
+            var circle = document.querySelector('circle');
+            var radius = circle.r.baseVal.value;
+            var circumference = radius * 2 * Math.PI;
+
+            circle.style.strokeDasharray = `${circumference} ${circumference}`;
+            circle.style.strokeDashoffset = `${circumference}`;
+
+            function setProgress(percent) {
+                const offset = circumference - percent / 100 * circumference;
+                circle.style.strokeDashoffset = offset;
+            }
+
+            const input = document.querySelector('input.progressVal');
+            setProgress(input.value);
+
+            input.addEventListener('change', function (e) {
+                if (input.value < 101 && input.value > -1) {
+                    setProgress(input.value);
+                }
+            });
+            // #End Ring Functionality JS
+
+
+
             //Tabs Tabbable
             $('#myClassicTab a').on('click', function (e) {
                 e.preventDefault()
@@ -694,22 +706,22 @@
 
     <script src="~/Content/assets/assets/summernote.min.js"></script>
     <script>
-    $('#summernote').summernote({
-        height: 150,
-        placeholder: 'Write your response',
-        codeviewFilter: false,
-        codeviewIframeFilter: false,
-        toolbar: [
-            ['style', ['style']],
-            ['font', ['bold', 'underline', 'clear']],
-            ['fontname', []],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['table', []],
-            ['insert', ['link', 'picture']],
-            ['view', ['fullscreen']],
-        ]
-    });
+        $('#summernote').summernote({
+            height: 150,
+            placeholder: 'Write your response',
+            codeviewFilter: false,
+            codeviewIframeFilter: false,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', []],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', []],
+                ['insert', ['link', 'picture']],
+                ['view', ['fullscreen']],
+            ]
+        });
     </script>
 
 

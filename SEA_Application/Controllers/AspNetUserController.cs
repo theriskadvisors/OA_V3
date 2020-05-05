@@ -23,7 +23,7 @@ using System.IO;
 
 namespace SEA_Application.Controllers
 {
-    [Authorize(Roles = "Admin,Principal,Accountant")]
+    [Authorize(Roles = "Admin,Principal,Accountant,Student")]
     public class AspNetUserController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -732,19 +732,49 @@ namespace SEA_Application.Controllers
             return View(model);
         }
 
+        public ActionResult GetProfilePic()
+        {
+
+             var id = User.Identity.GetUserId();
+             string status = "logo_dp.jpg";      
+            AspNetStudent std   = db.AspNetStudents.Where(x => x.StudentID == id).FirstOrDefault();
+                
+            
+            if(std == null)
+                    {
+                        status= "logo_dp.jpg";
+                    }
+                    else
+                    {
+                        if(std.StudentIMG == null)
+                        {
+                           status = "logo_dp.jpg";
+                        }
+                        else
+                        {
+                            status= std.StudentIMG;
+
+                        }
+
+                    }
+            return Content(status);
+        }
+
+
         public ActionResult GetRollNumber()
         {
             int Roll_Number = 0;
             /////
             // List<RollNumberList> rl = new List<RollNumberList>();
-            string Max = db.GetStudentRollNo().FirstOrDefault().ToString();
-
+        //    string Max = db.GetStudentRollNo().FirstOrDefault().ToString();
+            string Max = "iuiu";
             if (Max != null)
             {
                 string myString = Max;
                 string[] splitString = myString.Split('O');
 
-                int MAX_RollNumber = Int32.Parse(splitString[0]);
+                //int MAX_RollNumber = Int32.Parse(splitString[0]);
+                int MAX_RollNumber = 55555;
 
                 Roll_Number = ++MAX_RollNumber;
             }
