@@ -71,75 +71,77 @@
                 <div class="tab-pane active show" id="Notes-attr" role="tabpanel" aria-labelledby="Notes-tab-attr">
                     <div class="box box-primary">
                         <div class="box-title"></div>
-                        <div class="box-body">
-                            <table class="table" id="datatable1">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Id)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Title)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Description)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.CourseType)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.NotesType)
-                                        </th>
-                                        <th>
-                                            Price
-                                        </th>
+                        <div class="box-body"><div class="table-responsive">
+    <table class="table" id="datatable1">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CourseType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NotesType)
+                </th>
+                <th>
+                    Price
+                </th>
 
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.AspNetSubject.SubjectName)
-                                        </th>
-                                        <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AspNetSubject.SubjectName)
+                </th>
+                <th></th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
+            </tr>
+        </thead>
+        <tbody>
 
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Id)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Title)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Description)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.CourseType)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.NotesType)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.GrandTotal)
-                                            </td>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NotesType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GrandTotal)
+                    </td>
 
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.AspNetSubject.SubjectName)
-                                            </td>
-                                            <td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AspNetSubject.SubjectName)
+                    </td>
+                    <td>
 
 
-                                                <a href="/AspNetOrderNotes/Details/@item.EncryptedID">  <button type="button" class="btn btn-success" id="@item.Id">Add to Cart</button> </a>
+                        <a href="/AspNetOrderNotes/Details/@item.EncryptedID">  <button type="button" class="btn btn-success" id="@item.Id">Add to Cart</button> </a>
 
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
+                    </td>
+                </tr>
+            }
+        </tbody>
 
-                            </table>
-                        </div>
+    </table>
+                            </div>
+</div>
+
                     </div>
                 </div>
 
@@ -147,46 +149,47 @@
                 <div class="tab-pane" id="Cart-attr" role="tabpanel" aria-labelledby="Cart-tab-attr">
                     <div class="box box-primary">
                         <div class="box-title"></div>
-                        <div class="box-body">
-                            <table class="table" id="datatable2">
-                                <thead>
-                                    <tr>
+                        <div class="box-body"><div class="table-responsive">
+    <table class="table" id="datatable2">
+        <thead>
+            <tr>
 
-                                        <th>
-                                            Title
-                                        </th>
-                                        <th>
-                                            Description
-                                        </th>
-                                        <th>
-                                            Course Type
-                                        </th>
-                                        <th>
-                                            Price
-                                        </th>
-                                        <th>
-                                            Quantity
-                                        </th>
-                                        <th>
-                                            Total
-                                        </th>
-                                        <th>
-                                            Status
-                                        </th>
-                                        <th>
-                                            <input style="display:none" type="checkbox" id="checkBoxToAllChek" name="name" value="" />
-                                            Select
-                                        </th>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Course Type
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Total
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    <input style="display:none" type="checkbox" id="checkBoxToAllChek" name="name" value="" />
+                    Select
+                </th>
 
-                                    </tr>
-                                </thead>
+            </tr>
+        </thead>
 
 
 
-                                <tbody id="CartOrders"></tbody>
+        <tbody id="CartOrders"></tbody>
 
-                            </table>
-                        </div>
+    </table>
+                            </div>
+</div>
                     </div>
                     <label style="font-size:15px;color:black">Total  <span id="TotalAmount"> 0.00</span> </label>
 
@@ -200,42 +203,43 @@
                     <div class="box box-primary">
                         <div class="box-title"></div>
                         <div class="box-body">
+                            <div class="table-responsive">
+                                <table class="table" id="datatable3">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Order Id
+                                            </th>
+                                            <th>
+                                                Title
+                                            </th>
+                                            <th>
+                                                Description
+                                            </th>
+                                            <th>
+                                                Course Type
+                                            </th>
+                                            <th>
+                                                Price
+                                            </th>
+                                            <th>
+                                                Quantity
+                                            </th>
+                                            <th>
+                                                Status
+                                            </th>
 
-                            <table class="table" id="datatable3">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Order Id
-                                        </th>
-                                        <th>
-                                            Title
-                                        </th>
-                                        <th>
-                                            Description
-                                        </th>
-                                        <th>
-                                            Course Type
-                                        </th>
-                                        <th>
-                                            Price
-                                        </th>
-                                        <th>
-                                            Quantity
-                                        </th>
-                                        <th>
-                                            Status
-                                        </th>
+                                        </tr>
 
-                                    </tr>
-
-                                </thead>
-                                <tbody id="RecentOrderTableBody"></tbody>
+                                    </thead>
+                                    <tbody id="RecentOrderTableBody"></tbody>
 
 
 
-                            </table>
+                                </table>
+                                </div>
 
-                        </div>
+                            </div>
                     </div>
                 </div>
             </div>
