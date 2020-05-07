@@ -62,6 +62,279 @@
                 })
             }
 
+            var selectedClass = $("#ClassID").val();
+            var CourseType = $("input[name='CourseType']:checked").val();
+
+            if (selectedClass == "") {
+                return;
+            }
+            else {
+
+                $.get('@Url.Action("SubjectsByClass")',
+                    { id: selectedClass, coursetype: CourseType }, function (data) {
+
+                        //$('#MandatorySubjectsCSS').html('');
+                        //$('#MandatorySubjectsCSS').html('');
+                        //console.log(data);
+
+                        var MandatorySubjectsList = data.MandatorySubjectsList;
+                        var OptionalSubjecsList = data.OptionalSubjectsList;
+                        $("#MandatorySubjectsPMS").html('');
+                        $("#SubjectPMSGroup1").html('');
+                        $("#SubjectPMSGroup2").html('');
+                        $("#SubjectPMSGroup3").html('');
+                        $("#SubjectPMSGroup4").html('');
+                        $("#SubjectPMSGroup5").html('');
+
+                        $("#MandatorySubjectsCSS").html('');
+                        $("#SubjectCSSGroup1").html('');
+                        $("#SubjectCSSGroup2").html('');
+                        $("#SubjectCSSGroup3").html('');
+                        $("#SubjectCSSGroup4").html('');
+                        $("#SubjectCSSGroup5").html('');
+                        $("#SubjectCSSGroup6").html('');
+                        $("#SubjectCSSGroup7").html('');
+
+                        if (CourseType == "CSS") {
+
+                            $(".SubjectsBoxesCSS").css('display', 'block');
+                            $(".SubjectsBoxesPMS").css('display', 'none');
+
+                            $("#MandatorySubjectsCSS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects </b></span><input type="checkbox" id="CheckboxCSSMandatory"></h3>');
+                            $("#MandatorySubjectsCSS").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsCSSTableBody"></tbody></table>');
+                            $.each(MandatorySubjectsList, function (key, value1) {
+                                $("#MandatorySubjectsCSSTableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">' + value1.Points + '</td><td align="center"><input class="form-check-input"   type="checkbox" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects0"></td></tr>');
+                            })
+                            $("#SubjectCSSGroup1").append('<h3><span style="color:#3C8DBC !important"><b>Group 1</b></span>   <label class="form-check-label"><input  type="checkbox" class="CheckboxCSSGroup1"></label></h3>');
+                            $("#SubjectCSSGroup2").append('<h3><span style="color:#3C8DBC !important"><b>Group 2</b></span>  <label class="form-check-label"><input  type="checkbox" class="CheckboxCSSGroup2"></label></h3>');
+                            $("#SubjectCSSGroup3").append('<h3><span style="color:#3C8DBC !important"><b>Group 3</b></span> <label class="form-check-label"><input  type="checkbox" class="CheckboxCSSGroup3"></label></h3>');
+                            $("#SubjectCSSGroup4").append('<h3><span style="color:#3C8DBC !important"><b>Group 4</b></span>  <label class="form-check-label"><input  type="checkbox" class="CheckboxCSSGroup4"></label></h3>');
+                            $("#SubjectCSSGroup5").append('<h3><span style="color:#3C8DBC !important"><b>Group 5</b></span> <label class="form-check-label"><input  type="checkbox" class="CheckboxCSSGroup5"></label></h3>');
+                            $("#SubjectCSSGroup6").append('<h3><span style="color:#3C8DBC !important"><b>Group 6</b></span>  <label class="form-check-label"><input  type="checkbox" class="CheckboxCSSGroup6"></label></h3>');
+                            $("#SubjectCSSGroup7").append('<h3><span style="color:#3C8DBC !important"><b>Group 7</b></span> <label class="form-check-label"><input  type="checkbox" class="CheckboxCSSGroup7"></label></h3>');
+
+                            $("#SubjectCSSGroup1").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup1TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup2").append('<table  class="table table-condensed table-hover"><thead><tr><th  class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup2TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup3").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup3TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup4").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup4TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup5").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup5TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup6").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup6TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup7").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup7TableBody"></tbody></table>');
+
+                            $.each(OptionalSubjecsList, function (key, value1) {
+                                if (value1.SubjectGroup == "1") {
+                                    $("#SubjectCSSGroup1TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">' + value1.Points + '</td><td align="center"><input onclick=' + "group(this,'.CheckboxCSSGroup1')" + ' class="CSSSubjects1" type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects1"></td></tr>');
+                                }
+                                else if (value1.SubjectGroup == "2") {
+                                    $("#SubjectCSSGroup2TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">' + value1.Points + '</td><td align="center"><input onclick=' + "group(this,'.CheckboxCSSGroup2')" + ' class="CSSSubjects2" type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects2"></td></tr>');
+                                }
+                                else if (value1.SubjectGroup == "3") {
+                                    $("#SubjectCSSGroup3TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">' + value1.Points + '</td><td align="center"><input onclick=' + "group(this,'.CheckboxCSSGroup3')" + ' class="CSSSubjects3" type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects3"></td></tr>');
+                                }
+                                else if (value1.SubjectGroup == "4") {
+                                    $("#SubjectCSSGroup4TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">' + value1.Points + '</td><td align="center"><input onclick=' + "group(this,'.CheckboxCSSGroup4')" + ' class="CSSSubjects4" type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects4"></td></tr>');
+                                }
+                                else if (value1.SubjectGroup == "5") {
+                                    $("#SubjectCSSGroup5TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">' + value1.Points + '</td><td align="center"><input onclick=' + "group(this,'.CheckboxCSSGroup5')" + ' class="CSSSubjects5" type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects5"></td></tr>');
+                                }
+                                else if (value1.SubjectGroup == "6") {
+                                    $("#SubjectCSSGroup6TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">' + value1.Points + '</td><td align="center"><input onclick=' + "group(this,'.CheckboxCSSGroup6')" + ' class="CSSSubjects6" type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects6"></td></tr>');
+                                }
+                                else if (value1.SubjectGroup == "7") {
+                                    $("#SubjectCSSGroup7TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">' + value1.Points + '</td><td align="center"><input onclick=' + "group(this,'.CheckboxCSSGroup7')" + ' class="CSSSubjects7" type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects7"></td></tr>');
+                                }
+                                else {
+                                }
+                            })
+                        }
+
+                        else if (CourseType == "PMS") {
+
+                            $(".SubjectsBoxesCSS").css('display', 'none');
+
+                            $(".SubjectsBoxesPMS").css('display', 'block');
+
+                            $("#MandatorySubjectsPMS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects</b></span><input  type="checkbox" id="CheckboxPMSMandatory"></h3>');
+                            $("#MandatorySubjectsPMS").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsPMSTableBody"></tbody></table>');
+                            $.each(MandatorySubjectsList, function (key, value1) {
+                                $("#MandatorySubjectsPMSTableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">' + value1.Points + '</td><td align="center"><input  type="checkbox" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects0"></td></tr>');
+                            })
+                            $("#SubjectPMSGroup1").append('<h3><span style="color:#3C8DBC !important"><b>Group 1</b></span> <input  type="checkbox" class="CheckboxPMSGroup1"></h3>');
+                            $("#SubjectPMSGroup2").append('<h3><span style="color:#3C8DBC !important"><b>Group 2</b></span> <input  type="checkbox" class="CheckboxPMSGroup2"></h3>');
+                            $("#SubjectPMSGroup3").append('<h3><span style="color:#3C8DBC !important"><b>Group 3</b></span> <input  type="checkbox" class="CheckboxPMSGroup3"></h3>');
+                            $("#SubjectPMSGroup4").append('<h3><span style="color:#3C8DBC !important"><b>Group 4</b></span> <input  type="checkbox" class="CheckboxPMSGroup4"></h3>');
+                            $("#SubjectPMSGroup5").append('<h3><span style="color:#3C8DBC !important"><b>Group 5</b></span> <input  type="checkbox" class="CheckboxPMSGroup5"></h3>');
+
+                            $("#SubjectPMSGroup1").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup1TableBody"></tbody></table>');
+                            $("#SubjectPMSGroup2").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup2TableBody"></tbody></table>');
+                            $("#SubjectPMSGroup3").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup3TableBody"></tbody></table>');
+                            $("#SubjectPMSGroup4").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup4TableBody"></tbody></table>');
+                            $("#SubjectPMSGroup5").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup5TableBody"></tbody></table>');
+
+                            $.each(OptionalSubjecsList, function (key, value1) {
+
+                                if (value1.SubjectGroup == "1") {
+                                    $("#SubjectPMSGroup1TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">' + value1.Points + '</td><td align="center"><input  onclick=' + "group(this,'.CheckboxPMSGroup1')" + ' type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects1"></td></tr>');
+                                }
+                                else if (value1.SubjectGroup == "2") {
+                                    $("#SubjectPMSGroup2TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">' + value1.Points + '</td><td align="center"><input onclick=' + "group(this,'.CheckboxPMSGroup2')" + '  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects2"></td></tr>');
+                                }
+                                else if (value1.SubjectGroup == "3") {
+                                    $("#SubjectPMSGroup3TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">' + value1.Points + '</td><td align="center"><input onclick=' + "group(this,'.CheckboxPMSGroup3')" + '  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects3"></td></tr>');
+                                }
+                                else if (value1.SubjectGroup == "4") {
+                                    $("#SubjectPMSGroup4TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">' + value1.Points + '</td><td align="center"><input onclick=' + "group(this,'.CheckboxPMSGroup4')" + '  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects4"></td></tr>');
+                                }
+                                else if (value1.SubjectGroup == "5") {
+                                    $("#SubjectPMSGroup5TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">' + value1.Points + '</td><td align="center"><input  onclick=' + "group(this,'.CheckboxPMSGroup5')" + ' type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects5"></td></tr>');
+                                }
+                                else {
+                                }
+                            })
+                        }
+                    })
+            }
+        })
+
+        $("#MandatorySubjectsCSS").on('change', "#CheckboxCSSMandatory", function () {
+
+            var CourseType = $("input[name='CourseType']").val();
+            event.stopPropagation();
+
+            if ($(this).is(':checked')) {
+                $("input[name='CSSSubjects0']").prop("checked", true);
+            }
+            else {
+                $("input[name='CSSSubjects0']").prop("checked", false);
+            }
+        })
+
+        $("#MandatorySubjectsPMS").on('change', "#CheckboxPMSMandatory", function () {
+
+            var CourseType = $("input[name='CourseType']").val();
+            event.stopPropagation();
+
+            if ($(this).is(':checked')) {
+                $("input[name='PMSSubjects0']").prop("checked", true);
+            }
+            else {
+                $("input[name='PMSSubjects0']").prop("checked", false);
+            }
+        })
+
+        $("#SubjectCSSGroup1").on('change', ".CheckboxCSSGroup1", function () {
+            if ($(this).is(':checked')) {
+
+                //$("input[name='CSSSubjects1']:first").prop("checked", true);
+            }
+            else {
+                $("input[name='CSSSubjects1']").prop("checked", false);
+            }
+        })
+
+        $("#SubjectCSSGroup2").on('change', ".CheckboxCSSGroup2", function () {
+            if ($(this).is(':checked')) {
+                //$("input[name='CSSSubjects2']:first").prop("checked", true);
+            }
+            else {
+                $("input[name='CSSSubjects2']").prop("checked", false);
+            }
+        })
+
+        $("#SubjectCSSGroup3").on('change', ".CheckboxCSSGroup3", function () {
+            if ($(this).is(':checked')) {
+                //$("input[name='CSSSubjects3']:first").prop("checked", true);
+            }
+            else {
+                $("input[name='CSSSubjects3']").prop("checked", false);
+            }
+        })
+
+
+        $("#SubjectCSSGroup4").on('change', ".CheckboxCSSGroup4", function () {
+            if ($(this).is(':checked')) {
+                //$("input[name='CSSSubjects4']:first").prop("checked", true);
+            }
+            else {
+                $("input[name='CSSSubjects4']").prop("checked", false);
+            }
+        })
+
+
+        $("#SubjectCSSGroup5").on('change', ".CheckboxCSSGroup5", function () {
+            if ($(this).is(':checked')) {
+                //$("input[name='CSSSubjects5']:first").prop("checked", true);
+            }
+            else {
+                $("input[name='CSSSubjects5']").prop("checked", false);
+            }
+        })
+
+
+        $("#SubjectCSSGroup6").on('change', ".CheckboxCSSGroup6", function () {
+            if ($(this).is(':checked')) {
+                //$("input[name='CSSSubjects6']:first").prop("checked", true);
+            }
+            else {
+                $("input[name='CSSSubjects6']").prop("checked", false);
+            }
+        })
+
+
+        $("#SubjectCSSGroup7").on('change', ".CheckboxCSSGroup7", function () {
+            if ($(this).is(':checked')) {
+                //$("input[name='CSSSubjects7']:first").prop("checked", true);
+            }
+            else {
+                $("input[name='CSSSubjects7']").prop("checked", false);
+            }
+        })
+
+
+        $("#SubjectPMSGroup1").on('change', ".CheckboxPMSGroup1", function () {
+            if ($(this).is(':checked')) {
+                //$("input[name='PMSSubjects1']:first").prop("checked", true);
+            }
+            else {
+                $("input[name='PMSSubjects1']").prop("checked", false);
+            }
+        })
+
+        $("#SubjectPMSGroup2").on('change', ".CheckboxPMSGroup2", function () {
+
+            if ($(this).is(':checked')) {
+                //$("input[name='PMSSubjects2']:first").prop("checked", true);
+            }
+            else {
+                $("input[name='PMSSubjects2']").prop("checked", false);
+            }
+        })
+
+        $("#SubjectPMSGroup3").on('change', ".CheckboxPMSGroup3", function () {
+            if ($(this).is(':checked')) {
+                //$("input[name='PMSSubjects3']:first").prop("checked", true);
+            }
+            else {
+                $("input[name='PMSSubjects3']").prop("checked", false);
+            }
+        })
+
+        $("#SubjectPMSGroup4").on('change', ".CheckboxPMSGroup4", function () {
+            if ($(this).is(':checked')) {
+                //$("input[name='PMSSubjects4']:first").prop("checked", true);
+            }
+            else {
+                $("input[name='PMSSubjects4']").prop("checked", false);
+            }
+        })
+
+        $("#SubjectPMSGroup5").on('change', ".CheckboxPMSGroup5", function () {
+            if ($(this).is(':checked')) {
+                //$("input[name='PMSSubjects5']:first").prop("checked", true);
+            }
+            else {
+                $("input[name='PMSSubjects5']").prop("checked", false);
+            }
         })
 
         var MandatorySub;
@@ -276,214 +549,7 @@
         })
 
 
-        $("#ClassID").click(function () {
-            debugger;
-            //  $("#MandatorySubjects").removeAttr('checked');
-
-            //  alert($("#ClassID").val());
-
-          //  alert("123");
-            var selectedClass = $("#ClassID").val();
-            var CourseType = $("input[name='CourseType']:checked").val();
-
-            if (selectedClass == "") {
-                //    alert("Please select a Class");
-            }
-            else {
-
-                $.get('@Url.Action("SubjectsByClass")',
-                    { id: selectedClass, coursetype: CourseType }, function (data) {
-
-                        // $('#SubjectsList').html('');
-                        debugger
-
-                        var MandatorySubjectsList = data.MandatorySubjectsList;
-                        var OptionalSubjecsList = data.OptionalSubjectsList;
-                        $("#MandatorySubjectsPMS").html('');
-                        $("#SubjectPMSGroup1").html('');
-                        $("#SubjectPMSGroup2").html('');
-                        $("#SubjectPMSGroup3").html('');
-                        $("#SubjectPMSGroup4").html('');
-                        $("#SubjectPMSGroup5").html('');
-
-                        $("#MandatorySubjectsCSS").html('');
-                        $("#SubjectCSSGroup1").html('');
-                        $("#SubjectCSSGroup2").html('');
-                        $("#SubjectCSSGroup3").html('');
-                        $("#SubjectCSSGroup4").html('');
-                        $("#SubjectCSSGroup5").html('');
-                        $("#SubjectCSSGroup6").html('');
-                        $("#SubjectCSSGroup7").html('');
-
-                        if (CourseType == "CSS") {
-
-                            $(".SubjectsBoxesCSS").css('display', 'block');
-                            $(".SubjectsBoxesPMS").css('display', 'none');
-
-                            $("#MandatorySubjectsCSS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects </b><input onclick= "CheckMandatoryCheckBoxes(this)"  type="checkbox" ></span></h3>');
-                            $("#MandatorySubjectsCSS").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsCSSTableBody"></tbody></table>');
-                            $.each(MandatorySubjectsList, function (key, value1) {
-
-                                $("#MandatorySubjectsCSSTableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input class="form-check-input"   type="checkbox" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects0"></td></tr>');
-
-                            })
-                            $("#SubjectCSSGroup1").append('<h3><span style="color:#3C8DBC !important"><b>Group 1</b></span>   <label class="form-check-label"><input  type="checkbox" class="CheckboxCSSGroup1"></label></h3>');
-                            $("#SubjectCSSGroup2").append('<h3><span style="color:#3C8DBC !important"><b>Group 2</b></span>  </h3>');
-                            $("#SubjectCSSGroup3").append('<h3><span style="color:#3C8DBC !important"><b>Group 3</b></span> </h3>');
-                            $("#SubjectCSSGroup4").append('<h3><span style="color:#3C8DBC !important"><b>Group 4</b></span>  </h3>');
-                            $("#SubjectCSSGroup5").append('<h3><span style="color:#3C8DBC !important"><b>Group 5</b></span> </h3>');
-                            $("#SubjectCSSGroup6").append('<h3><span style="color:#3C8DBC !important"><b>Group 6</b></span>  </h3>');
-                            $("#SubjectCSSGroup7").append('<h3><span style="color:#3C8DBC !important"><b>Group 7</b></span> </h3>');
-
-                            $("#SubjectCSSGroup1").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup1TableBody"></tbody></table>');
-                            $("#SubjectCSSGroup2").append('<table  class="table table-condensed table-hover"><thead><tr><th  class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup2TableBody"></tbody></table>');
-                            $("#SubjectCSSGroup3").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup3TableBody"></tbody></table>');
-                            $("#SubjectCSSGroup4").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup4TableBody"></tbody></table>');
-                            $("#SubjectCSSGroup5").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup5TableBody"></tbody></table>');
-                            $("#SubjectCSSGroup6").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup6TableBody"></tbody></table>');
-                            $("#SubjectCSSGroup7").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup7TableBody"></tbody></table>');
-
-                            $.each(OptionalSubjecsList, function (key, value1) {
-
-                                if (value1.SubjectGroup == "1") {
-
-
-                                    $("#SubjectCSSGroup1TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input onclick=' + "group(this,'.CheckboxCSSGroup1')" + ' class="CSSSubjects1" type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects1"></td></tr>');
-
-                                }
-                                else if (value1.SubjectGroup == "2") {
-
-                                    $("#SubjectCSSGroup2TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input   onclick=' + "group(this,'.CheckboxCSSGroup2')" + '   type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects2"></td></tr>');
-
-                                }
-                                else if (value1.SubjectGroup == "3") {
-
-                                    $("#SubjectCSSGroup3TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  onclick=' + "group(this,'.CheckboxCSSGroup3')" + '  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects3"></td></tr>');
-
-                                }
-                                else if (value1.SubjectGroup == "4") {
-
-                                    $("#SubjectCSSGroup4TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  onclick=' + "group(this,'.CheckboxCSSGroup4')" + '  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects4"></td></tr>');
-
-                                }
-                                else if (value1.SubjectGroup == "5") {
-
-                                    $("#SubjectCSSGroup5TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  onclick=' + "group(this,'.CheckboxCSSGroup5')" + ' type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects5"></td></tr>');
-
-                                }
-                                else if (value1.SubjectGroup == "6") {
-
-                                    $("#SubjectCSSGroup6TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input   onclick=' + "group(this,'.CheckboxCSSGroup6')" + ' type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects6"></td></tr>');
-
-                                }
-                                else if (value1.SubjectGroup == "7") {
-
-                                    $("#SubjectCSSGroup7TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  onclick=' + "group(this,'.CheckboxCSSGroup7')" + '  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects7"></td></tr>');
-
-                                }
-                                else {
-
-                                }
-
-                            })
-
-                        }
-
-                        else if (CourseType == "PMS") {
-
-                            $(".SubjectsBoxesCSS").css('display', 'none');
-
-                            $(".SubjectsBoxesPMS").css('display', 'block');
-
-                            $("#MandatorySubjectsPMS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects</b></span> </h3>');
-                            $("#MandatorySubjectsPMS").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsPMSTableBody"></tbody></table>');
-                            $.each(MandatorySubjectsList, function (key, value1) {
-
-
-                                $("#MandatorySubjectsPMSTableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="checkbox" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects0"></td></tr>');
-
-                            })
-                            $("#SubjectPMSGroup1").append('<h3><span style="color:#3C8DBC !important"><b>Group 1</b></span> </h3>');
-                            $("#SubjectPMSGroup2").append('<h3><span style="color:#3C8DBC !important"><b>Group 2</b></span></h3>');
-                            $("#SubjectPMSGroup3").append('<h3><span style="color:#3C8DBC !important"><b>Group 3</b></span></h3>');
-                            $("#SubjectPMSGroup4").append('<h3><span style="color:#3C8DBC !important"><b>Group 4</b></span></h3>');
-                            $("#SubjectPMSGroup5").append('<h3><span style="color:#3C8DBC !important"><b>Group 5</b></span></h3>');
-
-                            $("#SubjectPMSGroup1").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup1TableBody"></tbody></table>');
-                            $("#SubjectPMSGroup2").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup2TableBody"></tbody></table>');
-                            $("#SubjectPMSGroup3").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup3TableBody"></tbody></table>');
-                            $("#SubjectPMSGroup4").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup4TableBody"></tbody></table>');
-                            $("#SubjectPMSGroup5").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup5TableBody"></tbody></table>');
-
-
-                            $.each(OptionalSubjecsList, function (key, value1) {
-
-                                if (value1.SubjectGroup == "1") {
-
-
-                                    $("#SubjectPMSGroup1TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  onclick=' + "group(this,'.CheckboxPMSGroup1')" + ' type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects1"></td></tr>');
-
-
-                                }
-                                else if (value1.SubjectGroup == "2") {
-
-                                    $("#SubjectPMSGroup2TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input onclick=' + "group(this,'.CheckboxPMSGroup2')" + '  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects2"></td></tr>');
-
-
-
-                                }
-                                else if (value1.SubjectGroup == "3") {
-
-                                    $("#SubjectPMSGroup3TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input onclick=' + "group(this,'.CheckboxPMSGroup3')" + '  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects3"></td></tr>');
-
-
-
-                                }
-                                else if (value1.SubjectGroup == "4") {
-
-                                    $("#SubjectPMSGroup4TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input onclick=' + "group(this,'.CheckboxPMSGroup4')" + '  type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects4"></td></tr>');
-
-
-
-                                }
-                                else if (value1.SubjectGroup == "5") {
-
-                                    $("#SubjectPMSGroup5TableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  onclick=' + "group(this,'.CheckboxPMSGroup5')" + ' type="radio" id=' + value1.Id + ' value=' + value1.Id + ' name="PMSSubjects5"></td></tr>');
-
-
-
-                                }
-
-                                else {
-
-                                }
-
-
-
-                            })
-
-                        }
-
-                    })
-
-
-            }
-
-        });
-
-        
-    
-       // $("#MandatorySubjectsCSS").on('change', "#CheckboxCSSMandatory", function () {
-            debugger
-
-       
-
-        //})
-
-
         $("#NotesAmount").bind('keyup mouseup', function () {
-
-
             $("#DiscountInAmount").val(0);
             $("#RemainingAmount").val(0);
             $("#Discount").val(0);
@@ -631,20 +697,10 @@
     });
 
      function CheckMandatoryCheckBoxes(a) {
-
-        
-         //alert("usama");
            if (a.checked=true) {
-           
-
                $("input[name='CSSSubjects0']").prop("checked", true);
-
-            }
-
-            else {
-                   alert("usama");
+           } else if (a.checked = false) {
                $("input[name='CSSSubjects0']").prop("checked", false);
-
             }
         }
 
