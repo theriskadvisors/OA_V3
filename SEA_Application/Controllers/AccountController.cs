@@ -366,35 +366,41 @@ namespace SEA_Application.Controllers
          //  GetSessionID =  model.SessionID;
             SEA_DatabaseEntities db = new SEA_DatabaseEntities();
 
-
+           // var data2 = db.AspNetUsers.Where(x => x.AspNetRoles.Select(y => y.Name).Contains("Accountant") && x.Status != "False").ToList();
+           
             
           AspNetUser asp =   db.AspNetUsers.Where(x => x.UserName == model.UserName).FirstOrDefault();
-            if(asp == null)
-            {
+          var VerifyUser = db.AspNetUsers.Where(x => x.AspNetRoles.Select(y => y.Name).Contains("Student") && x.Id == asp.Id).FirstOrDefault();
+          if (VerifyUser != null)
+          {
+              if (asp == null)
+              {
 
-                ViewBag.SessionID = db.AspNetSessions.ToList().Select(x => new SelectListItem
-                {
-                    Value = x.Id.ToString(),
-                    Text = x.SessionName,
-                    Selected = (x.Status == "Active")
-                });
-               
-                return View(model);
-            }
-            AspNetUsers_Session aus = db.AspNetUsers_Session.Where(x => x.SessionID.ToString() == model.SessionID && x.UserID == asp.Id).FirstOrDefault();
-            if (aus == null)
-            {
-              
-                ViewBag.SessionID = db.AspNetSessions.ToList().Select(x => new SelectListItem
-                {
-                    Value = x.Id.ToString(),
-                    Text = x.SessionName,
-                    Selected = (x.Status == "Active")
-                });
-                ModelState.AddModelError("", "Kindly select valid section.");
-                return View(model);
-            }
+                  ViewBag.SessionID = db.AspNetSessions.ToList().Select(x => new SelectListItem
+                  {
+                      Value = x.Id.ToString(),
+                      Text = x.SessionName,
+                      Selected = (x.Status == "Active")
+                  });
 
+                  return View(model);
+              }
+              AspNetUsers_Session aus = db.AspNetUsers_Session.Where(x => x.SessionID.ToString() == model.SessionID && x.UserID == asp.Id).FirstOrDefault();
+              if (aus == null)
+              {
+
+
+
+                  ViewBag.SessionID = db.AspNetSessions.ToList().Select(x => new SelectListItem
+                  {
+                      Value = x.Id.ToString(),
+                      Text = x.SessionName,
+                      Selected = (x.Status == "Active")
+                  });
+                  ModelState.AddModelError("", "Kindly select valid section.");
+                  return View(model);
+              }
+          }
             if (!ModelState.IsValid)
             {
 
