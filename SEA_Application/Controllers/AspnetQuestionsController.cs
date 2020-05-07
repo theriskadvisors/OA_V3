@@ -88,21 +88,13 @@ namespace SEA_Application.Controllers
             AspnetQuestion Question = new AspnetQuestion();
             Question.Name = QuestionAnswerViewModel.QuestionName;
 
-            /// string IsMandatory = Request.Form["IsMandatory"];
-            //if (IsMandatory == "on")
-            //{
-            //    Question.Is_Active = true;
+            if (Request.Form["QuestionIsActive"] == "on")
+            {
+                Question.Is_Active = true;
+            } else
+                Question.Is_Active = false;
 
-            //}
-            //else
-            //{
-            //    Question.Is_Active = false;
-            //}
-
-            // Question.Is_Active = QuestionAnswerViewModel.QuestionIsActive;
-            Question.Is_Active = QuestionAnswerViewModel.QuestionIsActive;
-
-            Question.Is_Quiz = QuestionAnswerViewModel.QuestionIsQuiz;
+            Question.Is_Quiz = false;
             Question.Type = QuestionAnswerViewModel.QuestionType;
             Question.LessonId = QuestionAnswerViewModel.LessonId;
             Question.AnswerId = null;
