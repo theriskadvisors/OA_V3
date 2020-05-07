@@ -12,6 +12,8 @@
 <script>
     $(document).ready(function () {
 
+        
+
         $("#PageHeader").html("Add Student");
 
         $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
@@ -318,7 +320,7 @@
                             $(".SubjectsBoxesCSS").css('display', 'block');
                             $(".SubjectsBoxesPMS").css('display', 'none');
 
-                            $("#MandatorySubjectsCSS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects </b></span></h3>');
+                            $("#MandatorySubjectsCSS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects </b><input onclick= "CheckMandatoryCheckBoxes(this)"  type="checkbox" ></span></h3>');
                             $("#MandatorySubjectsCSS").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsCSSTableBody"></tbody></table>');
                             $.each(MandatorySubjectsList, function (key, value1) {
 
@@ -469,6 +471,14 @@
 
         });
 
+        
+    
+       // $("#MandatorySubjectsCSS").on('change', "#CheckboxCSSMandatory", function () {
+            debugger
+
+       
+
+        //})
 
 
         $("#NotesAmount").bind('keyup mouseup', function () {
@@ -620,6 +630,24 @@
 
     });
 
+     function CheckMandatoryCheckBoxes(a) {
+
+        
+         //alert("usama");
+           if (a.checked=true) {
+           
+
+               $("input[name='CSSSubjects0']").prop("checked", true);
+
+            }
+
+            else {
+                   alert("usama");
+               $("input[name='CSSSubjects0']").prop("checked", false);
+
+            }
+        }
+
     function redirect() {
         var url = '@Url.Action("TeachersIndex", "AspNetUser")';
         window.location.href = url;
@@ -718,7 +746,8 @@
 
      function group(a, y) {
          $(y).prop('checked', true);
-     }
+    }
+
 
 </script>
 
@@ -769,9 +798,9 @@
                                         <h2 class="column-heading mb-4">User Information</h2>
 
                                         <div class="form-group bmd-form-group is-filled">
-                                            <label class="bmd-label-floating" >Name <span class="red-mark">*</span></label>
+                                            <label class="bmd-label-floating">Name <span class="red-mark">*</span></label>
                                             @Html.TextBoxFor(m => m.Name, new { @class = "form-control round-border", @required = "true" })
-                                        </div>
+                                       </div>
 
                                         <div class="form-group bmd-form-group my-3">
                                             <label class="bmd-label-floating">Father Name *</label>
@@ -807,9 +836,8 @@
                                                 <label><input type="radio" name="CourseType" id="OnePaper" value="OnePaper"> One Paper </label>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-md-5 pl-5 pr-5 ">
+
                                         <h2 class="column-heading mb-4">Account Information</h2>
 
                                         <div class="form-group bmd-form-group">
@@ -834,100 +862,9 @@
                                             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control round-border", Value = "Oa@1234" })
                                             @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger", @id = "ConfirmPassword-Error" })
                                         </div>
-                                    </div>
-                                </div>
 
-                                <hr class="mt-5 mb-4">
+                                        <!--Fee Details-->
 
-                                <div class="row">
-                                    <div class="col-md-5 pl-5 pr-5 ">
-                                        <h2 class="column-heading mb-4">Subject Details</h2>
-
-                                        <div class="form-group bmd-form-group my-3">
-                                            <label class="control-label">Section <span class="red-mark">*</span></label>
-                                            @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control", name = "ClassID", @required = true })
-                                            <br />
-                                            <span style="color:red"> @ViewBag.SubjectsErrorMsg</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <br />
-
-                                <div class="row">
-                                    <div class="col-md-5 pl-5 pr-5 border-right border-color-sea">
-
-                                        <div class="form-group SubjectsBoxesCSS" id="MandatorySubjectCss">
-                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="MandatorySubjectsCSS"></div>
-                                        </div>
-
-                                        <div class="form-group SubjectsBoxesCSS" id="Group3CSS">
-                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup3"></div>
-                                        </div>
-
-                                        <div class="form-group SubjectsBoxesCSS" id="Group5CSS">
-                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup5"></div>
-                                        </div>
-
-                                        <div class="form-group SubjectsBoxesCSS" id="Group7CSS">
-                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup7"></div>
-                                        </div>
-
-                                        <!--PMS-->
-                                        <div class="form-group SubjectsBoxesPMS" id="MandatorySubjectPMS">
-                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="MandatorySubjectsPMS"></div>
-                                        </div>
-
-                                        <div class="form-group SubjectsBoxesPMS" id="Group3PMS">
-                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup3"></div>
-                                        </div>
-
-                                        <div class="form-group SubjectsBoxesPMS" id="Group5PMS">
-                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup5"></div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-md-5 pl-5 pr-5 ">
-
-                                        <div class="form-group bmd-form-group my-3" id="Group1CSS">
-                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup1"></div>
-                                        </div>
-
-                                        <div class="form-group SubjectsBoxesCSS" id="Group2CSS">
-                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup2"></div>
-                                        </div>
-
-                                        <div class="form-group SubjectsBoxesCSS" id="Group4CSS">
-                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup4"></div>
-                                        </div>
-
-                                        <div class="form-group SubjectsBoxesCSS" id="Group6CSS">
-                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup6"></div>
-                                        </div>
-
-                                        <!--PMS-->
-                                        <div class="form-group SubjectsBoxesPMS" id="Group1PMS">
-                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup1"></div>
-                                        </div>
-
-                                        <div class="form-group SubjectsBoxesPMS" id="Group2PMS">
-                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup2"></div>
-                                        </div>
-
-                                        <div class="form-group SubjectsBoxesPMS" id="Group4PMS">
-                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup4"></div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-                                <hr class="mt-5 mb-4">
-
-                                <div class="row">
-                                    <div class="col-md-5 pl-5 pr-5 border-right border-color-sea">
                                         <h2 class="column-heading mb-4">Fee Details</h2>
 
                                         <div class="form-group bmd-form-group my-3">
@@ -976,9 +913,7 @@
                                                 <label><input type="radio" name="DiscountRadioGroup" id="DiscountAmountRadio" value="DiscountAmount"> Discount Amount </label>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-md-5 pl-5 pr-5 ">
                                         <div class="form-group bmd-form-group my-3">
                                             <label class="bmd-label-floating">Fee</label>
                                             <input type="text" required class="form-control round-border" name="Fee" value="0" id="Fee" readonly />
@@ -1014,8 +949,111 @@
                                             <label class="bmd-label-floating">Due Date <span class="red-mark">*</span> </label>
                                             <input type="date" id="DueDate" name="DueDate" class="form-control" required>
                                         </div>
+
+
+                                    </div>
+
+                                    <div class="col-md-5 pl-5 pr-5 ">
+
+
+                                        <h2 class="column-heading mb-4">Subject Details</h2>
+
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="control-label">Section <span class="red-mark">*</span></label>
+                                            @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control", name = "ClassID", @required = true })
+                                            <br />
+                                            <span style="color:red"> @ViewBag.SubjectsErrorMsg</span>
+                                        </div>
+                                        <br />
+
+                                        <!--CSS-->
+                                        <div class="form-group SubjectsBoxesCSS" id="MandatorySubjectCss">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="MandatorySubjectsCSS"></div>
+                                        </div>
+
+                                        <div class="form-group bmd-form-group my-3" id="Group1CSS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup1"></div>
+                                        </div>
+
+                                        <div class="form-group SubjectsBoxesCSS" id="Group2CSS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup2"></div>
+                                        </div>
+
+                                        <div class="form-group SubjectsBoxesCSS" id="Group3CSS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup3"></div>
+                                        </div>
+
+                                        <div class="form-group SubjectsBoxesCSS" id="Group4CSS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup4"></div>
+                                        </div>
+
+                                        <div class="form-group SubjectsBoxesCSS" id="Group5CSS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup5"></div>
+                                        </div>
+                                        <div class="form-group SubjectsBoxesCSS" id="Group6CSS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup6"></div>
+                                        </div>
+                                        <div class="form-group SubjectsBoxesCSS" id="Group7CSS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup7"></div>
+                                        </div>
+                                        <!--CSS-->
+                                        <!--PMS-->
+                                        <div class="form-group SubjectsBoxesPMS" id="MandatorySubjectPMS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="MandatorySubjectsPMS"></div>
+                                        </div>
+                                        <div class="form-group SubjectsBoxesPMS" id="Group1PMS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup1"></div>
+                                        </div>
+                                        <div class="form-group SubjectsBoxesPMS" id="Group2PMS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup2"></div>
+                                        </div>
+                                        <div class="form-group SubjectsBoxesPMS" id="Group3PMS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup3"></div>
+                                        </div>
+
+                                        <div class="form-group SubjectsBoxesPMS" id="Group4PMS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup4"></div>
+                                        </div>
+                                        <div class="form-group SubjectsBoxesPMS" id="Group5PMS">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup5"></div>
+                                        </div>
+
+
                                     </div>
                                 </div>
+
+                                @*<hr class="mt-5 mb-4">*@
+
+                                @*<div class="row">
+                                    <div class="col-md-5 pl-5 pr-5 ">
+                                        <h2 class="column-heading mb-4">Subject Details</h2>
+
+                                        <div class="form-group bmd-form-group my-3">
+                                            <label class="control-label">Section <span class="red-mark">*</span></label>
+                                            @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control", name = "ClassID", @required = true })
+                                            <br />
+                                            <span style="color:red"> @ViewBag.SubjectsErrorMsg</span>
+                                        </div>
+
+                                    </div>
+                                </div>*@
+
+                                @*<br />*@
+
+                            
+
+
+                                @*<hr class="mt-5 mb-4">
+
+                                <div class="row">
+                                    <div class="col-md-5 pl-5 pr-5 border-right border-color-sea">
+                                  
+                                    </div>
+
+                                    <div class="col-md-5 pl-5 pr-5 ">
+                                     
+                                    </div>
+                                </div>*@
 
 
                                 <hr class="mt-5 mb-4">

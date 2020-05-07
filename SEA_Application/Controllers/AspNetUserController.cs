@@ -1409,7 +1409,7 @@ namespace SEA_Application.Controllers
             var employ = db.AspNetStudents.Where(x => x.StudentID == aspNetUser.Id).Select(x => x).FirstOrDefault();
 
 
-
+            
             ViewBag.StudentImage = studentimg;
 
             AspNetStudent employee = new AspNetStudent();

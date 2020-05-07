@@ -262,7 +262,7 @@ namespace SEA_Application.Controllers
                                     join lessonsesion in db.Lesson_Session on lesson.Id equals lessonsesion.LessonId
                                     select new
                                     {
-                                      lessonsesion.Id,
+                                        lessonsesion.Id,
                                         lesson.Name,
                                         lessonsesion.AspNetSession.SessionName,
                                         lessonsesion.StartDate,
@@ -271,10 +271,10 @@ namespace SEA_Application.Controllers
                                     };
 
 
-                    return Json(AllLessonSessions, JsonRequestBehavior.AllowGet);
+            return Json(AllLessonSessions, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
-        public ActionResult EditLessonSession(int id )
+        public ActionResult EditLessonSession(int id)
         {
 
             ViewBag.Id = id;
@@ -297,7 +297,7 @@ namespace SEA_Application.Controllers
                 ViewBag.SubId = new SelectList(db.GenericSubjects.Where(x => x.SubjectType == SubjectType), "Id", "SubjectName", SubjectId);
                 ViewBag.TopicId = new SelectList(db.AspnetSubjectTopics.Where(x => x.SubjectId == SubjectId), "Id", "Name", TopicId);
                 ViewBag.LessonId = new SelectList(db.AspnetLessons.Where(x => x.TopicId == TopicId), "Id", "Name", LS.LessonId);
-               
+
                 ViewBag.SessionId = new SelectList(db.AspNetSessions, "Id", "SessionName", LS.SessionId);
 
                 ViewBag.CTId = SubjectType;
@@ -333,14 +333,14 @@ namespace SEA_Application.Controllers
         public ActionResult EditLessonSession(int SessionId, int TopicId)
         {
 
-            
-              var LessonSessionId =  Convert.ToInt64( Request.Form["LessonSessionId"]);
 
-              var LessonSessionToDelete =    db.Lesson_Session.Where(x => x.Id == LessonSessionId).FirstOrDefault();
+            var LessonSessionId = Convert.ToInt64(Request.Form["LessonSessionId"]);
+
+            var LessonSessionToDelete = db.Lesson_Session.Where(x => x.Id == LessonSessionId).FirstOrDefault();
 
             db.Lesson_Session.Remove(LessonSessionToDelete);
             db.SaveChanges();
-                
+
 
 
             var SessionId1 = Request.Form["SessionId"];
@@ -367,7 +367,7 @@ namespace SEA_Application.Controllers
 
 
 
-          
+
         }
 
         public ActionResult CreateLessonSession()
@@ -388,16 +388,16 @@ namespace SEA_Application.Controllers
         public ActionResult CreateLessonSession(int SessionId)
         {
 
-                var SessionId1 =   Request.Form["SessionId"];
-                var LessonId = Request.Form["LessonId"];
-                var StartDate = Request.Form["StartDate"];
-                var DueDate = Request.Form["DueDate"];
+            var SessionId1 = Request.Form["SessionId"];
+            var LessonId = Request.Form["LessonId"];
+            var StartDate = Request.Form["StartDate"];
+            var DueDate = Request.Form["DueDate"];
 
-                
+
 
             Lesson_Session ls = new Lesson_Session();
 
-            ls.LessonId = Convert.ToInt32( LessonId);
+            ls.LessonId = Convert.ToInt32(LessonId);
             ls.SessionId = Convert.ToInt32(SessionId1);
             ls.StartDate = Convert.ToDateTime(StartDate);
             ls.DueDate = Convert.ToDateTime(DueDate);
@@ -409,7 +409,7 @@ namespace SEA_Application.Controllers
             return RedirectToAction("LessonSessionView");
         }
 
-        
+
 
         // GET: AspnetLessons/Edit/5
         public ActionResult Edit(int? id)
@@ -434,7 +434,7 @@ namespace SEA_Application.Controllers
             lessonViewModel.LessonName = aspnetLesson.Name;
             lessonViewModel.LessonDuration = aspnetLesson.DurationMinutes;
 
-        //    Lesson_Session LessonSession = db.Lesson_Session.Where(x => x.LessonId == id).FirstOrDefault();
+            //    Lesson_Session LessonSession = db.Lesson_Session.Where(x => x.LessonId == id).FirstOrDefault();
 
             lessonViewModel.IsActive = Convert.ToBoolean(aspnetLesson.IsActive);
 
@@ -555,7 +555,7 @@ namespace SEA_Application.Controllers
 
             ViewBag.SubId = new SelectList(db.GenericSubjects.Where(x => x.SubjectType == Subject.SubjectType), "Id", "SubjectName", SubjectId);
             ViewBag.TopicId = new SelectList(db.AspnetSubjectTopics.Where(x => x.SubjectId == SubjectId), "Id", "Name", aspnetLesson.TopicId);
-           // ViewBag.SessionId = new SelectList(db.AspNetSessions, "Id", "SessionName", LessonSession.SessionId);
+            // ViewBag.SessionId = new SelectList(db.AspNetSessions, "Id", "SessionName", LessonSession.SessionId);
 
             ViewBag.CTId = Subject.SubjectType;
 
