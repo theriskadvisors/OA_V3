@@ -134,15 +134,15 @@
                         </a>
                     </li>
                     @*
-                        <li class="nav-item">
-                            <a href="@(Url.Action("MonthlyFeeStudent", "Admin_Dashboard" ))">
+        <li class="nav-item">
+            <a href="@(Url.Action("MonthlyFeeStudent", "Admin_Dashboard" ))">
 
-                                <i class="sea-dash">
-                                    <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
-                                </i>
-                                <p>Fee Status</p>
-                            </a>
-                        </li>*@
+                <i class="sea-dash">
+                    <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
+                </i>
+                <p>Fee Status</p>
+            </a>
+        </li>*@
 
                     <li class="nav-item">
                         <a href="@Url.Action("Index", "Expense" )" class="nav-link nav-toggle">
@@ -191,6 +191,16 @@
                             <p>Questions & Quizs</p>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="@Url.Action("LessonSessionView", "AspnetLessons" )" class="nav-link nav-toggle">
+                            <i class="sea-dash">
+                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/icon-questions.png" alt="">
+                            </i>
+                            <p>Lesson Session</p>
+                        </a>
+                    </li>
+
                     <li class="nav-item">
 
                         <a href="@Url.Action("Index", "AspNetNotes" )" class="nav-link nav-toggle">

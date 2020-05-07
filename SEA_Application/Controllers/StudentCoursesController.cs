@@ -394,13 +394,13 @@ namespace SEA_Application.Controllers
 
                     Topic TopicObj = new Topic();
 
-                    var LessonList = db.AspnetLessons.Where(x => x.TopicId == a.Id).ToList();
+                  //  var LessonList = db.AspnetLessons.Where(x => x.TopicId == a.Id).ToList();
                     
                     var today = DateTime.Today;
-                    //var LessonList = (from Lesson in db.AspnetLessons
-                    //                  join LessonSession in db.Lesson_Session on Lesson.Id equals LessonSession.LessonId
-                    //                  where Lesson.TopicId == a.Id && Lesson.IsActive == true && LessonSession.SessionId == userSessionId && LessonSession.StartDate <= today && today <= LessonSession.DueDate
-                    //                  select Lesson).ToList();
+                    var LessonList = (from Lesson in db.AspnetLessons
+                                      join LessonSession in db.Lesson_Session on Lesson.Id equals LessonSession.LessonId
+                                      where Lesson.TopicId == a.Id/* && Lesson.IsActive == true*/ && LessonSession.SessionId == userSessionId && LessonSession.StartDate <= today && today <= LessonSession.DueDate
+                                      select Lesson).ToList();
 
 
 
@@ -522,7 +522,7 @@ namespace SEA_Application.Controllers
 
                 var LessonList = (from Lesson in db.AspnetLessons
                                   join LessonSession in db.Lesson_Session on Lesson.Id equals LessonSession.LessonId
-                                  where Lesson.TopicId == a.Id && Lesson.IsActive == true && LessonSession.SessionId == userSessionId && LessonSession.StartDate <= today && today <= LessonSession.DueDate
+                                  where Lesson.TopicId == a.Id /*&& Lesson.IsActive == true*/ && LessonSession.SessionId == userSessionId && LessonSession.StartDate <= today && today <= LessonSession.DueDate
                                   select Lesson).ToList();
 
                 List<Lesson> LessonsList = new List<Lesson>();

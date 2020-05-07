@@ -362,7 +362,7 @@
 
 
             <div class="card-body p-5">
-                @using (Html.BeginForm("Create", "AspnetLessons", FormMethod.Post, new { id = "createLessonForm", enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("Edit", "AspnetLessons", FormMethod.Post, new {  enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -499,10 +499,11 @@
                                                 <div class="file-field d-flex">
                                                     <div class="btn btn-primary btn-md mb-0">
                                                         <span onclick='event.stopPropagation();  document.getElementById("Assignment").click();'>Choose file</span>
+                                                        <input id="Assignment" name="Assignment" type="file">
                                                         <a href="~/Content/StudentAssignments/@Model.AssignmentName"></a>
                                                     </div>
                                                     <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
-                                                        <input class="file-path validate form-control" type="text" readonly disabled value="@Model.AssignmentName" placeholder="No file Chosen">
+                                                        <input class="file-path validate form-control" type="text" readonly disabled value="@ViewBag.AssignmentFileName" placeholder="No file Chosen">
                                                     </div>
                                                 </div>
                                                 <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
@@ -552,10 +553,11 @@
                                                 <div class="file-field d-flex">
                                                     <div class="btn btn-primary btn-md mb-0">
                                                         <span onclick='event.stopPropagation(); document.getElementById("Attachment1").click();'>Choose file</span>
+                                                        <input id="Attachment1" name="Attachment1" type="file">
                                                         <a href="~/Content/StudentAssignments/@Model.AttachmentName1"></a>
                                                     </div>
                                                     <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
-                                                        <input class="file-path validate form-control" type="text" readonly value="@Model.AttachmentName1" disabled placeholder="No file Chosen">
+                                                        <input class="file-path validate form-control" type="text" readonly value="@ViewBag.Attachment1FileName" disabled placeholder="No file Chosen">
                                                     </div>
                                                 </div>
                                                 <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
@@ -594,10 +596,11 @@
                                                 <div class="file-field d-flex">
                                                     <div class="btn btn-primary btn-md mb-0">
                                                         <span onclick='event.stopPropagation(); document.getElementById("Attachment3").click();'>Choose file</span>
+                                                        <input id="Attachment3" name="Attachment3" type="file">
                                                         <a href="~/Content/StudentAssignments/@Model.AttachmentName3"></a>
                                                     </div>
                                                     <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
-                                                        <input class="file-path validate form-control" type="text" readonly disabled value="@Model.AttachmentName3" placeholder="No file Chosen">
+                                                        <input class="file-path validate form-control" type="text" readonly disabled value="@ViewBag.Attachment3FileName" placeholder="No file Chosen">
                                                     </div>
                                                 </div>
                                                 <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
@@ -639,10 +642,11 @@
                                                 <div class="file-field d-flex">
                                                     <div class="btn btn-primary btn-md mb-0">
                                                         <span onclick='event.stopPropagation(); document.getElementById("Attachment2").click();'>Choose file</span>
+                                                        <input id="Attachment2" name="Attachment2" type="file">
                                                         <a href="~/Content/StudentAssignments/@Model.AttachmentName2"></a>
                                                     </div>
                                                     <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
-                                                        <input class="file-path validate form-control" type="text" readonly disabled value="@Model.AttachmentName3" placeholder="No file Chosen">
+                                                        <input class="file-path validate form-control" type="text" readonly disabled value="@ViewBag.Attachment2FileName" placeholder="No file Chosen">
                                                     </div>
                                                 </div>
                                                 <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
@@ -714,7 +718,7 @@
                         <button id="prevBtn" onclick="nextPrev(-1)" class="btn btn-primary pull-left rounded rounded-lg bg-transparent text-muted shadow-none mr-3" type="reset">Back</button>
                         <button class="btn btn-primary pull-left rounded rounded-lg shadow-none mr-3" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
 
-                        <input type="submit" value="Create" id="CreateBtn" class="btn btn-success pull-right rounded rounded-lg shadow-none mr-3" />
+                        <input type="submit" value="Update" id="CreateBtn" class="btn btn-success pull-right rounded rounded-lg shadow-none mr-3" />
                         <button onclick="/*showTab(0); currentTab = 0;*/" class="btn btn-primary pull-right rounded rounded-lg bg-transparent text-muted shadow-none mr-3" type="reset">
                             <i class="material-icons mr-2">cached</i>  Reset &nbsp; &nbsp;
                             <div class="ripple-container"></div>

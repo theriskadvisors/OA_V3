@@ -69,9 +69,6 @@ namespace SEA_Application.Controllers
         public ActionResult Create(LessonViewModel LessonViewModel)
         {
 
-
-
-
             AspnetLesson Lesson = new AspnetLesson();
 
             Lesson.Name = LessonViewModel.LessonName;
@@ -98,14 +95,14 @@ namespace SEA_Application.Controllers
 
 
 
-            Lesson_Session lessonSession = new Lesson_Session();
-            lessonSession.LessonId = Lesson.Id;
-            lessonSession.SessionId = LessonViewModel.SessionId;
-            lessonSession.StartDate = LessonViewModel.StartDate;
-            lessonSession.DueDate = LessonViewModel.DueDate;
-            db.Lesson_Session.Add(lessonSession);
+            //Lesson_Session lessonSession = new Lesson_Session();
+            //lessonSession.LessonId = Lesson.Id;
+            //lessonSession.SessionId = LessonViewModel.SessionId;
+            //lessonSession.StartDate = LessonViewModel.StartDate;
+            //lessonSession.DueDate = LessonViewModel.DueDate;
+            //db.Lesson_Session.Add(lessonSession);
 
-            db.SaveChanges();
+            //db.SaveChanges();
 
 
 
@@ -370,7 +367,7 @@ namespace SEA_Application.Controllers
 
 
 
-            return View();
+          
         }
 
         public ActionResult CreateLessonSession()
@@ -437,23 +434,23 @@ namespace SEA_Application.Controllers
             lessonViewModel.LessonName = aspnetLesson.Name;
             lessonViewModel.LessonDuration = aspnetLesson.DurationMinutes;
 
-            Lesson_Session LessonSession = db.Lesson_Session.Where(x => x.LessonId == id).FirstOrDefault();
+        //    Lesson_Session LessonSession = db.Lesson_Session.Where(x => x.LessonId == id).FirstOrDefault();
 
             lessonViewModel.IsActive = Convert.ToBoolean(aspnetLesson.IsActive);
 
-            var StartDate = Convert.ToDateTime(LessonSession.StartDate);
+            //var StartDate = Convert.ToDateTime(LessonSession.StartDate);
 
-            var StartDateInString = StartDate.ToString("yyyy-MM-dd");
+            //var StartDateInString = StartDate.ToString("yyyy-MM-dd");
 
-            ViewBag.LessonStartDate = StartDateInString;
+            //ViewBag.LessonStartDate = StartDateInString;
 
             ////Due Date
-            var DueDate = Convert.ToDateTime(LessonSession.DueDate);
+            //var DueDate = Convert.ToDateTime(LessonSession.DueDate);
 
-            var DueDateInString = DueDate.ToString("yyyy-MM-dd");
+            //var DueDateInString = DueDate.ToString("yyyy-MM-dd");
 
 
-            ViewBag.LessonDueDate = DueDateInString;
+            //ViewBag.LessonDueDate = DueDateInString;
 
 
             int? TopicId = aspnetLesson.TopicId;
@@ -558,7 +555,7 @@ namespace SEA_Application.Controllers
 
             ViewBag.SubId = new SelectList(db.GenericSubjects.Where(x => x.SubjectType == Subject.SubjectType), "Id", "SubjectName", SubjectId);
             ViewBag.TopicId = new SelectList(db.AspnetSubjectTopics.Where(x => x.SubjectId == SubjectId), "Id", "Name", aspnetLesson.TopicId);
-            ViewBag.SessionId = new SelectList(db.AspNetSessions, "Id", "SessionName", LessonSession.SessionId);
+           // ViewBag.SessionId = new SelectList(db.AspNetSessions, "Id", "SessionName", LessonSession.SessionId);
 
             ViewBag.CTId = Subject.SubjectType;
 
@@ -586,27 +583,6 @@ namespace SEA_Application.Controllers
 
             db.SaveChanges();
 
-
-            Lesson_Session LessonSessionToDelete = db.Lesson_Session.Where(x => x.LessonId == Lesson.Id).FirstOrDefault();
-
-            db.Lesson_Session.Remove(LessonSessionToDelete);
-            db.SaveChanges();
-
-            Lesson_Session lessonSession = new Lesson_Session();
-
-            lessonSession.SessionId = LessonViewModel.SessionId;
-            lessonSession.StartDate = LessonViewModel.StartDate;
-            lessonSession.DueDate = LessonViewModel.DueDate;
-            lessonSession.LessonId = Lesson.Id;
-            db.Lesson_Session.Add(lessonSession);
-            db.SaveChanges();
-
-
-            //Lesson_Session lessonSession =  db.Lesson_Session.Where(x => x.LessonId == Lesson.Id).FirstOrDefault();
-
-
-
-            // db.SaveChanges();
 
 
             HttpPostedFileBase Assignment = Request.Files["Assignment"];
