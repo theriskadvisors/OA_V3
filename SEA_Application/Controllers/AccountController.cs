@@ -388,16 +388,13 @@ namespace SEA_Application.Controllers
               AspNetUsers_Session aus = db.AspNetUsers_Session.Where(x => x.SessionID.ToString() == model.SessionID && x.UserID == asp.Id).FirstOrDefault();
               if (aus == null)
               {
-
-
-
                   ViewBag.SessionID = db.AspNetSessions.ToList().Select(x => new SelectListItem
                   {
                       Value = x.Id.ToString(),
                       Text = x.SessionName,
                       Selected = (x.Status == "Active")
                   });
-                  ModelState.AddModelError("", "Kindly select valid section.");
+                  ModelState.AddModelError("", "Kindly select your enrolled session to login.");
                   return View(model);
               }
           }

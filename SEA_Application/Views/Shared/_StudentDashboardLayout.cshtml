@@ -16,6 +16,8 @@
 
     var NotesFee = db.StudentFeeMonths.Where(x => x.StudentId == StudentId).FirstOrDefault().NotesFee;
 
+    var Session = db.AspNetUsers_Session.Where(x => x.UserID == CurrentUserId).Select(x => x.AspNetSession.SessionName).FirstOrDefault();
+
 }
 
 <!DOCTYPE html>
@@ -134,14 +136,17 @@
                             </a>
                         </li>*@
 
-                    <li class="nav-item">
-                        <a href="@(Url.Action("Index", "StudentCourses"))" class="nav-link nav-toggle">
-                            <i class="sea-dash">
-                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/icon-lessons.png" alt="">
-                            </i>
-                            <p>My Courses</p>
-                        </a>
-                    </li>
+                       @if (Session == "Online Session")
+                       {
+                        <li class="nav-item">
+                            <a href="@(Url.Action("Index", "StudentCourses"))" class="nav-link nav-toggle">
+                                <i class="sea-dash">
+                                    <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/icon-lessons.png" alt="">
+                                </i>
+                                <p>My Courses</p>
+                            </a>
+                        </li>
+                       }
 
                     <li class="nav-item hidden">
                         <a href="@(Url.Action("Quizes", "Student_Dashboard"))" class="nav-link nav-toggle">
@@ -380,10 +385,10 @@
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                                    <a class="dropdown-item" href="/Manage/Index">Profile</a>
-                                    <a class="dropdown-item" href="#">Privacy</a>
+                                    <a class="dropdown-item" href="/Manage/Index">Profile</a> <!---->
+                                    @*<a class="dropdown-item" href="#">Privacy</a>*@
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Settings</a>
+                                    <a class="dropdown-item" href="#">Notification</a>
                                 </div>
                             </li>
                         </ul>
