@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SEA_Application.Models.AssignmentViewModel>
 @{
     ViewBag.Title = "StudentAssignments";
-    Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
 }
 <style>
 
@@ -18,48 +18,7 @@
 
 <script>
     $(document).ready(function () {
-
-                   $("#PageHeader").html("View Assignments");
-
-            $("#BreadCrumbs").append(' <li> <a href="#"> Home </a> <span>&gt;</span></li>');
-            $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">View Assignments </a></li>');
-
-
-          var   table = $('#datatable').dataTable({
-                buttons: [
-                    {
-                        text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
-                    },
-                    {
-                        text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
-                        action: function (e, dt, button, config) {
-                            window.location.href = '';
-                        }
-                    },
-                    {
-                        text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
-                    }
-                ],
-                "language": {
-                    "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
-                        "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
-                        "  </div>\n" +
-                        "  </div>",
-                    "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
-                    "paginate": {
-                        "first": "Firstt",
-                        "last": "Lastt",
-                        "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
-                        "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
-                    }
-                },
-                "searching": true,
-                // dom: '<"class">Blfrtip',
-                dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
-                    "<'row'<'col-sm-12 datatablesData'tr>>" +
-                    "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
-               });
-
+        $("#example").dataTable();
 
         $('.table').on('click', 'tbody tr', function () {
 
@@ -116,124 +75,124 @@
 
 
 <br />
-<div class="card">
-    <div class="card-body p-4">
-        <div class="box box-primary">
-            <div class="box-title"></div>
+<h4 class="orange">&nbsp;View Assignments &nbsp;</h4>
 
-            <div class="box-body">
+<div class="box box-primary">
+    <div class="box-title"></div>
 
-                <div class="table-responsive">
-
-                    <table class="table hover table-striped table-bordered" id="datatable">
-                        <thead>
-
-                            <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.NameOfStudent)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Section)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.CourseType)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.SubjectName)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Topic)
-                                </th>
-
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Lesson)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.AssignmnetDueDate)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.AssignmentSubmittedDate)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.AssignmentName)
-                                </th>
-                                <th>
-                                    Actions
-                                </th>
-
-                            </tr>
-
-                        </thead>
-                        <tbody>
+    <div class="box-body">
 
 
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NameOfStudent)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Section)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.CourseType)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.SubjectName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Topic)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Lesson)
-                                    </td>
+        <table class="table table-striped table-bordered" id="example">
+            <thead>
 
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.AssignmnetDueDate)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.AssignmentSubmittedDate)
-                                    </td>
-                                    <td>
-                                        <a href="/StudentAssignmentSubmitted/DownloadFileOfAssignment/@item.AssignmentId">@item.AssignmentName</a>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NameOfStudent)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Section)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CourseType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SubjectName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Topic)
+                    </th>
 
-                                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lesson)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AssignmnetDueDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AssignmentSubmittedDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AssignmentName)
+                    </th>
+                    <th>
+                        Actions
+                    </th>
 
-                                    <td>
+                </tr>
 
-                                        <button class="btn btn-sm btn-primary">@Html.ActionLink("Comments", "TeacherComments", new { id = item.AssignmentId })</button>
-
-                                    </td>
-
-                                </tr>
-                            }
-                        </tbody>
+            </thead>
+            <tbody>
 
 
-                    </table>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NameOfStudent)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Section)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CourseType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubjectName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Topic)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Lesson)
+                        </td>
 
-                </div>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AssignmnetDueDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AssignmentSubmittedDate)
+                        </td>
+                        <td>
+                            <a href="/StudentAssignmentSubmitted/DownloadFileOfAssignment/@item.AssignmentId">@item.AssignmentName</a>
+
+                        </td>
+
+                        <td>
+
+                            <button class="btn btn-sm btn-primary">@Html.ActionLink("Comments", "TeacherComments", new { id = item.AssignmentId })</button>
+
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
 
 
-            </div>
-        </div>
+        </table>
+
+
+
     </div>
 </div>
-        <script>
 
-            $(document).ready(function () {
+<script>
 
-
-
-
-            });
+    $(document).ready(function () {
 
 
 
+        $('#datatable').dataTable({
+        });
 
 
-        </script>
 
+    });
+
+
+
+
+
+</script>
 
 

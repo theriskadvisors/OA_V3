@@ -33,13 +33,6 @@
     $(document).ready(function () {
 
 
-              $("#PageHeader").html("Edit Question");
-
-        $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
-        $("#BreadCrumbs").append(' <li> <a href="/AspnetQuestions/ViewQuestionAndQuiz">Question & Quiz </a> <span>&gt;</span></li>');
-        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Edit </a></li>');
-
-
 
         var course = 'CSS';
         var Class;
@@ -174,301 +167,211 @@
     })
 </script>
 
-<style>
-    .onoffswitch {
-        position: relative;
-        width: 90px;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-    }
 
-    .onoffswitch-checkbox {
-        display: none;
-    }
+<div class="box box-primary">
 
-    .onoffswitch-label {
-        display: block;
-        overflow: hidden;
-        cursor: pointer;
-        border: 2px solid #999999;
-        border-radius: 20px;
-    }
+    <div class="box-header with-border"><h3 class="orange">Edit Question & Answers<span class="red-mark">*</span></h3></div>
+    <div class="box-body">
 
-    .onoffswitch-inner {
-        display: block;
-        width: 200%;
-        margin-left: -100%;
-        transition: margin 0.3s ease-in 0s;
-    }
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        .onoffswitch-inner:before, .onoffswitch-inner:after {
-            display: block;
-            float: left;
-            width: 50%;
-            height: 30px;
-            padding: 0;
-            line-height: 30px;
-            font-size: 14px;
-            color: white;
-            font-family: Trebuchet, Arial, sans-serif;
-            font-weight: bold;
-            box-sizing: border-box;
-        }
-
-        .onoffswitch-inner:before {
-            content: "True";
-            padding-left: 10px;
-            background-color: #00b8ec;
-            color: #FFFFFF;
-        }
-
-        .onoffswitch-inner:after {
-            content: "False";
-            padding-right: 10px;
-            background-color: #EEEEEE;
-            color: #999999;
-            text-align: right;
-        }
-
-    .onoffswitch-switch {
-        display: block;
-        width: 18px;
-        margin: 6px;
-        background: #FFFFFF;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 56px;
-        border: 2px solid #999999;
-        border-radius: 20px;
-        transition: all 0.3s ease-in 0s;
-    }
-
-    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
-        margin-left: 0;
-    }
-
-    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-        right: 0px;
-    }
-</style>
+            <div class="form-horizontal">
 
 
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-body p-5">
-
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-
-
-                    <div class="row">
-                        <div class="col-md-6 pl-5 pr-5 ">
-
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            @Html.HiddenFor(model => model.Id)
-
-                            <div class="form-group bmd-form-group is-filled">
-                                @Html.LabelFor(model => model.QuestionName, htmlAttributes: new { @class = "bmd-label-floating" })
-
-                                @Html.EditorFor(model => model.QuestionName, new { htmlAttributes = new { id = "textareastyle", @class = "form-control", @required = true } })
-                                @Html.ValidationMessageFor(model => model.QuestionName, "", new { @class = "text-danger" })
-
-                            </div>
-
-                            <div class="form-group">
-
-                                <label class="control-label">Course Type <span class="text-danger">*</span></label>
-
-
-                                @Html.DropDownList("CTId", new List<SelectListItem>
-                                {
-
-                              new SelectListItem{ Text="Select One", Value = "" },
-                                 new SelectListItem{ Text="CSS", Value = "CSS" },
-                                new SelectListItem{ Text="PMS", Value = "PMS" },
-
-                                 }, htmlAttributes: new { @class = "form-control", @required = true })
-
-
-
-                            </div>
-                            <div class="form-group">
-                                <label class="form-check-label" for="QuestionIsActive">Is Active</label>
-                                <div class="onoffswitch">
-                                    <input type="checkbox" name="QuestionIsActive" class="onoffswitch-checkbox" id="QuestionIsActive" checked>
-                                    <label class="onoffswitch-label" for="QuestionIsActive">
-                                        <span class="onoffswitch-inner"></span>
-                                        <span class="onoffswitch-switch"></span>
-                                    </label>
-                                </div>
-                            </div>
-
-
-                        </div> <!--end column 6-->
-                        @*<div class="form-group">
-                    <div class="col-md-2">
-                        <label>Subject <span class="text-danger">*</span></label>
-                    </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.QuestionName, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-6">
-                        <select class="form-control SubIdDDL" id="SubId" name="SubId" required></select>
+                        @Html.EditorFor(model => model.QuestionName, new { htmlAttributes = new { id = "textareastyle", @class = "form-control", @required = true } })
+                        @Html.ValidationMessageFor(model => model.QuestionName, "", new { @class = "text-danger" })
                     </div>
-                </div>*@
-
-
-                        @*<div class="form-group">
-                    <div class="col-md-2">
-                        <label>Topic <span class="text-danger">*</span></label>
-                    </div>
-                    <div class="col-md-6">
-                        <select class="form-control TopIdDDL" id="TopId" name="TopId" required></select>
-                    </div>
-                </div>*@
-
-
-                        @*<div class="form-group">
-                    <div class="col-md-2">
-                        <label>Lesson <span class="text-danger">*</span></label>
-                    </div>
-                    <div class="col-md-6">
-                        <select class="form-control LessIdDDL" id="LessonId" name="LessonId" required></select>
-                    </div>
-                </div>*@
-                        <div class="col-md-6 pl-5 pr-5 ">
-
-                            <div class="form-group">
-                                <label class="control-label">Subject</label>
-
-
-                                @Html.DropDownList("SubId", null, htmlAttributes: new { @class = "form-control" })
-
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Topic</label>
-
-
-                                @Html.DropDownList("TopicId", null, htmlAttributes: new { @class = "form-control" })
-
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label">Lesson</label>
-
-
-                                @Html.DropDownList("LessonId", null, htmlAttributes: new { @class = "form-control" })
-
-                            </div>
-
-                        </div>  <!--end column -->
-                    </div><!--end row-->
-
-
-                    <br>
-                    <br>
-
-
-
-
-                    @*<div class="form-group">
-                @Html.LabelFor(model => model.QuestionIsActive, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    <div class="checkbox">
-                            @Html.EditorFor(model => model.QuestionIsActive)
-                            @Html.ValidationMessageFor(model => model.QuestionIsActive, "", new { @class = "text-danger" })
-                        </div>
-                    <input type="checkbox" id="IsMandatory" name="IsMandatory" checked data-toggle="toggle">
                 </div>
-            </div>*@
 
-                    <div class="row">
-                        <div class="col-md-6 pl-5 pr-5 ">
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label>Course Type <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-md-6">
+                        @Html.DropDownList("CTId", new List<SelectListItem>
+                        {
 
+                      new SelectListItem{ Text="Select One", Value = "" },
+                         new SelectListItem{ Text="CSS", Value = "CSS" },
+                        new SelectListItem{ Text="PMS", Value = "PMS" },
 
-
-                            <div class="form-group">
-                                @*@Html.LabelFor(model => model.QuestionType, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                                <label for="" class="control-label">Question Type* </label>
-
-
-                                <select class="form-control" id="QuestionType" name="QuestionType" required>
-
-                                    <option value="MCQ" selected>MCQ</option>
-
-                                </select>
-
-
-                            </div>
-
-
-                            @*<div id="OptionsBlock" style="display:none;">*@
-
-                            <div class="form-group bmd-form-group my-3">
-                                @Html.LabelFor(model => model.OptionNameOne, htmlAttributes: new { @class = "bmd-label-floating" })
-
-                                @Html.EditorFor(model => model.OptionNameOne, new { htmlAttributes = new { @class = "form-control", @required = true } })
-                                @Html.ValidationMessageFor(model => model.OptionNameOne, "", new { @class = "text-danger" })
-
-                            </div>
-
-                            <div class="form-group bmd-form-group my-3">
-                                @Html.LabelFor(model => model.QuestionNameTwo, htmlAttributes: new { @class = "bmd-label-floating" })
-
-                                @Html.EditorFor(model => model.QuestionNameTwo, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.QuestionNameTwo, "", new { @class = "text-danger" })
-
-                            </div>
-                        </div> <!--end of Column 6-->
-
-                        <div class="col-md-6 pl-5 pr-5 ">
-
-                            <br />
-                            <div class="form-group bmd-form-group my-3">
-                                @Html.LabelFor(model => model.QuestionNameThree, htmlAttributes: new { @class = "bmd-label-floating" })
-
-                                @Html.EditorFor(model => model.QuestionNameThree, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.QuestionNameThree, "", new { @class = "text-danger" })
-
-                            </div>
-
-                            <div class="form-group bmd-form-group my-3">
-                                @Html.LabelFor(model => model.QuesitonNameFour, htmlAttributes: new { @class = "bmd-label-floating" })
-
-                                @Html.EditorFor(model => model.QuesitonNameFour, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.QuesitonNameFour, "", new { @class = "text-danger" })
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label class="control-label">Select Correct Answer </label>
+                         }, htmlAttributes: new { @class = "form-control", @required = true })
 
 
 
-                                @Html.DropDownList("Answer", new List<SelectListItem>
-                                     {
 
-                                      new SelectListItem{ Text="Select One", Value = "" },
-                                      new SelectListItem{ Text="(a)", Value = "a" },
-                                      new SelectListItem{ Text="(b)", Value = "b" },
-                                      new SelectListItem{ Text="(c)", Value = "c" },
-                                      new SelectListItem{ Text="(d)", Value = "d" },
-
-                                      }, htmlAttributes: new { @class = "form-control", @required = true })
+                    </div>
+                </div>
 
 
+                @*<div class="form-group">
+                        <div class="col-md-2">
+                            <label>Subject <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-control SubIdDDL" id="SubId" name="SubId" required></select>
+                        </div>
+                    </div>*@
 
-                            </div>
+
+                @*<div class="form-group">
+                        <div class="col-md-2">
+                            <label>Topic <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-control TopIdDDL" id="TopId" name="TopId" required></select>
+                        </div>
+                    </div>*@
+
+
+                @*<div class="form-group">
+                        <div class="col-md-2">
+                            <label>Lesson <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-control LessIdDDL" id="LessonId" name="LessonId" required></select>
+                        </div>
+                    </div>*@
+
+                <div class="form-group">
+                    <label class="col-md-2">Subject</label>
+
+                    <div class="col-md-6">
+                        @Html.DropDownList("SubId", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">Topic</label>
+
+                    <div class="col-md-6">
+                        @Html.DropDownList("TopicId", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">Lesson</label>
+
+                    <div class="col-md-6">
+                        @Html.DropDownList("LessonId", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.QuestionIsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @*<div class="checkbox">
+                                @Html.EditorFor(model => model.QuestionIsActive)
+                                @Html.ValidationMessageFor(model => model.QuestionIsActive, "", new { @class = "text-danger" })
+                            </div>*@
+                        <input type="checkbox" value="@ViewBag.IsMandatory" id="IsMandatory" name="IsMandatory" checked data-toggle="toggle">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.QuestionIsQuiz, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.QuestionIsQuiz)
+                            @Html.ValidationMessageFor(model => model.QuestionIsQuiz, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                </div>
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.QuestionIsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6">
+                            <div class="checkbox">
+                                    @Html.EditorFor(model => model.QuestionIsActive)
+                                    @Html.ValidationMessageFor(model => model.QuestionIsActive, "", new { @class = "text-danger" })
+                                </div>
+                            <input type="checkbox" id="IsMandatory" name="IsMandatory" checked data-toggle="toggle">
+                        </div>
+                    </div>*@
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.QuestionType, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    <div class="col-md-6">
+
+                        <select class="form-control" id="QuestionType" name="QuestionType" required>
+
+                            <option value="MCQ" selected>MCQ</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div id="OptionsBlock" style="display:none;">
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.OptionNameOne, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.OptionNameOne, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                            @Html.ValidationMessageFor(model => model.OptionNameOne, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.QuestionNameTwo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.QuestionNameTwo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.QuestionNameTwo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.QuestionNameThree, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.QuestionNameThree, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.QuestionNameThree, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.QuesitonNameFour, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.QuesitonNameFour, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.QuesitonNameFour, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            Select Correct Answer
+                        </div>
+                        <div class="col-md-6">
+
+                            @Html.DropDownList("Answer", new List<SelectListItem>
+                                 {
+
+                                  new SelectListItem{ Text="Select One", Value = "" },
+                                  new SelectListItem{ Text="(a)", Value = "a" },
+                                  new SelectListItem{ Text="(b)", Value = "b" },
+                                  new SelectListItem{ Text="(c)", Value = "c" },
+                                  new SelectListItem{ Text="(d)", Value = "d" },
+
+                                  }, htmlAttributes: new { @class = "form-control", @required = true })
+
+
 
                         </div>
-                        @*</div>*@
+
+                    </div>
+                </div>
 
 
-                        @*<div class="form-group" id="FillAnswerBlock" style="display:none">
+                <div class="form-group" id="FillAnswerBlock" style="display:none">
                     <label class="control-label col-md-2">Enter Answer </label>
                     <div class="col-md-6">
 
@@ -476,116 +379,106 @@
 
 
                     </div>
-                </div>*@
+                </div>
 
 
+
+
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.AnswerId, "AnswerId", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("AnswerId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.AnswerId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+
+
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.Is_Quiz, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Is_Quiz)
+                                @Html.ValidationMessageFor(model => model.Is_Quiz, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
                     </div>
 
-                    @*<div class="form-group">
-                @Html.LabelFor(model => model.AnswerId, "AnswerId", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("AnswerId", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.AnswerId, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Is_Active, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Is_Active)
+                                @Html.ValidationMessageFor(model => model.Is_Active, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>*@
+
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
 
 
-
-                    @*<div class="form-group">
-                @Html.LabelFor(model => model.Is_Quiz, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.Is_Quiz)
-                        @Html.ValidationMessageFor(model => model.Is_Quiz, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
                     </div>
                 </div>
             </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Is_Active, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.Is_Active)
-                        @Html.ValidationMessageFor(model => model.Is_Active, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>*@
-
-                    @*<div class="form-group">
-                @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+        }
 
 
-                    @*<div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
-                </div>
-            </div>*@
-                    <br>
-                    <hr class="mt-5 mb-4">
-                    <button type="submit" class="btn btn-primary pull-right rounded rounded-lg"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Save &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </button>
-                    <button id="btnCancel" type="button" class="btn btn-primary pull-right rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
-                        <i class="material-icons mr-2">cached</i>  Cancel &nbsp; &nbsp;
-                    </button>
-                    <div class="clearfix"></div>
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+
+        $("#btnCancel").click(function () {
+
+            window.location.href = "/AspnetQuestions/Index";
+        })
 
 
+        //    $("#QuestionType").change(function () {
 
 
-                }
+        var QuestionType = "MCQ";
 
-            </div>
-            </div>
-            </div>
-        </div>
-        <script>
+        if (QuestionType == "MCQ" || QuestionType == "TF") {
 
-            $(document).ready(function () {
+            $("#OptionsBlock").css('display', 'block');
+            $("#FillAnswerBlock").css('display', 'none');
 
-                $("#btnCancel").click(function () {
-  window.location.href = "/AspnetQuestions/ViewQuestionAndQuiz";
-                })
+            $("#OptionsBlock input,select").prop('required', true);
+            $("#FillAnswer").prop('required', false);
+            $("#FillAnswer").val("");
 
+        }
+        else {
 
-                //    $("#QuestionType").change(function () {
-
-
-                var QuestionType = "MCQ";
-
-                if (QuestionType == "MCQ" || QuestionType == "TF") {
-
-                    $("#OptionsBlock").css('display', 'block');
-                    $("#FillAnswerBlock").css('display', 'none');
-
-                    $("#OptionsBlock input,select").prop('required', true);
-                    $("#FillAnswer").prop('required', false);
-                    $("#FillAnswer").val("");
-
-                }
-                else {
-
-                    $("#OptionsBlock input").val("");
+            $("#OptionsBlock input").val("");
 
 
-                    $("#OptionsBlock").css('display', 'none');
-                    $("#FillAnswerBlock").css('display', 'block');
+            $("#OptionsBlock").css('display', 'none');
+            $("#FillAnswerBlock").css('display', 'block');
 
-                    $("#OptionsBlock input,select").prop('required', false);
-                    $("#FillAnswer").prop('required', true);
+            $("#OptionsBlock input,select").prop('required', false);
+            $("#FillAnswer").prop('required', true);
 
 
-                }
+        }
 
 
 
-                //  })
+        //  })
 
 
 
-            })
+    })
 
-        </script>
+</script>
