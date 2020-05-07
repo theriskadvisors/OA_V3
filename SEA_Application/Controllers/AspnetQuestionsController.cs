@@ -88,19 +88,19 @@ namespace SEA_Application.Controllers
             AspnetQuestion Question = new AspnetQuestion();
             Question.Name = QuestionAnswerViewModel.QuestionName;
 
-            /// string IsMandatory = Request.Form["IsMandatory"];
-            //if (IsMandatory == "on")
-            //{
-            //    Question.Is_Active = true;
+            string IsMandatory = Request.Form["QuestionIsActive"];
+            if (IsMandatory == "on")
+            {
+                Question.Is_Active = true;
 
-            //}
-            //else
-            //{
-            //    Question.Is_Active = false;
-            //}
+            }
+            else
+            {
+                Question.Is_Active = false;
+            }
 
-            // Question.Is_Active = QuestionAnswerViewModel.QuestionIsActive;
-            Question.Is_Active = QuestionAnswerViewModel.QuestionIsActive;
+            //Question.Is_Active = QuestionAnswerViewModel.QuestionIsActive;
+     
 
             Question.Is_Quiz = QuestionAnswerViewModel.QuestionIsQuiz;
             Question.Type = QuestionAnswerViewModel.QuestionType;
@@ -243,8 +243,11 @@ namespace SEA_Application.Controllers
                 QuestionViewModel.QuestionName = aspnetQuestion.Name;
                 QuestionViewModel.Id = aspnetQuestion.Id;
                 QuestionViewModel.QuestionIsActive = Convert.ToBoolean(aspnetQuestion.Is_Active);
-                string IsMandatory;
+               // string IsMandatory;
 
+
+                //var IsMandatory = aspNetSubject.IsManadatory;
+                //ViewBag.IsMandatory = aspNetSubject.IsManadatory;
 
                 //if(QuestionViewModel.QuestionIsActive  ==true)
                 //{
