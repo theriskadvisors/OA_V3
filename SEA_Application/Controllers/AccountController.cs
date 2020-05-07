@@ -365,6 +365,36 @@ namespace SEA_Application.Controllers
         {
          //  GetSessionID =  model.SessionID;
             SEA_DatabaseEntities db = new SEA_DatabaseEntities();
+
+
+            
+          AspNetUser asp =   db.AspNetUsers.Where(x => x.UserName == model.UserName).FirstOrDefault();
+            if(asp == null)
+            {
+
+                ViewBag.SessionID = db.AspNetSessions.ToList().Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.SessionName,
+                    Selected = (x.Status == "Active")
+                });
+               
+                return View(model);
+            }
+            AspNetUsers_Session aus = db.AspNetUsers_Session.Where(x => x.SessionID.ToString() == model.SessionID && x.UserID == asp.Id).FirstOrDefault();
+            if (aus == null)
+            {
+              
+                ViewBag.SessionID = db.AspNetSessions.ToList().Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.SessionName,
+                    Selected = (x.Status == "Active")
+                });
+                ModelState.AddModelError("", "Kindly select valid section.");
+                return View(model);
+            }
+
             if (!ModelState.IsValid)
             {
 
@@ -411,8 +441,9 @@ namespace SEA_Application.Controllers
                     }
                     else if (UserManager.IsInRole(userID, "Student"))
                     {
-                        System.Web.HttpContext.Current.Session["StudentID"] = userID;
-                        return RedirectToAction("Dashboard", "Student_Dashboard");
+                       System.Web.HttpContext.Current.Session["StudentID"] = userID;
+                         return RedirectToAction("Dashboard", "Student_Dashboard");
+                    
                     }
                     else if (UserManager.IsInRole(userID, "Supervisor"))
                     {
