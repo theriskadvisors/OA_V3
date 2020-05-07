@@ -3,98 +3,58 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
 }
-<link href="~/Content/tilescss.css" rel="stylesheet" />
-<style>
-    .SubjectBoxes {
-        min-height: 200px;
-        min-width: 200px;
-        height: 200px;
-        width: 200px;
-        border: 1px solid silver;
-        display: inline-block;
-        text-align: center;
-        line-height: 200px;
-        margin-left: 10px;
-        margin-bottom: 10px;
-    }
 
-        .SubjectBoxes a {
-            display: block;
-            text-decoration: none;
-        }
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pageHeading">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h1 class="float-left">Subjects List</h1>
+                        </div>
 
-            .SubjectBoxes a:hover {
-                background: #2b3b55;
-                color: white;
-                display: block;
-                text-decoration: none;
-            }
-
-    #SubjectBoxesDiv {
-    }
-
-    .SubjectNames {
-        font-size: 15px;
-    }
-
-    .sea-tile{
-        background-color: #00b8ec !important;
-        color: white !important;
-    }
-</style>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-body p-5">
-                <div class="row" id="TilesDivContainer">
-
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+
+                    <div class="p-5">
+
+                        <div class="row" id="Subjectlist">
+                     </div>
+
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
+    </div>
 
-                    <script>
+<script>
 
-                        $(document).ready(function () {
+    $(document).ready(function () {
 
-                            // $("#SubjectBoxesDiv").append('<div class="SubjectBoxes"><h3> usama </h3> </div>')
-                            $("#PageHeader").html("Courses");
+      $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span></span></li>');
 
-                            $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span></span></li>');
+        $.ajax({
+            type: "POST",
+            url: "/StudentCourses/AllSubjectsOfStudent",
+            data: {},
+            success: function (data) {
 
-                            $.ajax({
+                $.each(data, function (key, value1) {
 
+                    $("#Subjectlist").append(' <div class="col-md-6 col-lg-3"> <a href="/StudentCourses/SubjectTopics/' + value1.Id + '" class="subject-list-box"> ' + value1.SubjectName + ' <br /> Science </a></div>');
 
-                                type: "POST",
-                                url: "/StudentCourses/AllSubjectsOfStudent",
-                                data: {},
-                                success: function (data) {
+                })
 
-                                    $.each(data, function (key, value1) {
+            }
+        })
+    })
 
-                                        //   $("#SubjectBoxesDiv").append('<div class="SubjectBoxes"><a href="/StudentCourses/SubjectTopics/' + value1.Id + '" class="SubjectNames"> ' + value1.SubjectName + ' </a>  </div>')
-
-                                        $("#TilesDivContainer").append(' <div  class="col-sm-4"><a  class="tile sea-tile" href="/StudentCourses/SubjectTopics/' + value1.Id + '"> <h3 class="title"> ' + value1.SubjectName + '</h3> <p></p></a></div> ');
-
-                                    })
-
-
-                                }
-
-
-
-
-
-                            })
-
-
-
-                        })
-
-
-
-                    </script>
-
-
+</script>
