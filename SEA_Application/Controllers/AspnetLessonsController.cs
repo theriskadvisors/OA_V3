@@ -266,8 +266,8 @@ namespace SEA_Application.Controllers
                                         lesson.Name,
                                         lessonsesion.AspNetSession.SessionName,
                                         lessonsesion.StartDate,
-                                        lessonsesion.DueDate
-
+                                        lessonsesion.DueDate,
+                                        lesson.AspnetSubjectTopic.GenericSubject.SubjectName,
                                     };
 
 
