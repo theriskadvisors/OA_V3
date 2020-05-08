@@ -36,7 +36,6 @@
     }
 
     table {
-     
     }
 
     .table .SubjectHeader {
@@ -48,6 +47,11 @@
 
     table input[type=radio] {
     }
+    .dropdownstyle
+    {
+        pointer-events:none;
+    }
+
 </style>
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script type="text/javascript">
@@ -82,6 +86,8 @@
 
 
         var FeeTypeOfStudent = $("#FeeTypeOfStudent").val();
+
+      //  alert(FeeTypeOfStudent);
         if (FeeTypeOfStudent != "") {
 
          $("#FeeType option[value='" + FeeTypeOfStudent + "']").prop('selected', true);
@@ -108,7 +114,7 @@
                     $("#NotesAmount").val(NotesAmountHidden);
 
 
-                    $("#FeeType  option[value='PerMonth']").remove();
+                  //  $("#FeeType  option[value='PerMonth']").remove();
                    $("#NotesAmount").prop('required', true);
 
                     $('#NotesID').show();
@@ -1180,259 +1186,259 @@
                                     <label><input type="radio" name="CourseType" id="OnePaper" value="OnePaper"> One Paper </label>
                                 </div>
                             </div>
-                                <br />
-                                <br />
+                            <br />
+                            <br />
 
-                                <h2 class="column-heading mb-4">Account Information</h2>
+                            <h2 class="column-heading mb-4">Account Information</h2>
 
-                                <div class="form-group bmd-form-group">
-                                    <label class="bmd-label-floating">Email <span class="red-mark">*</span></label>
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control round-border" })
-                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", @id = "Email-Error" })
-                                </div>
+                            <div class="form-group bmd-form-group">
+                                <label class="bmd-label-floating">Email <span class="red-mark">*</span></label>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control round-border" })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", @id = "Email-Error" })
+                            </div>
 
-                                <div class="form-group bmd-form-group my-3 is-filled">
-                                    <label class="bmd-label-floating">Roll Number <span class="red-mark">*</span></label>
-                                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger", @id = "UserName-Error" })
-                                </div>
+                            <div class="form-group bmd-form-group my-3 is-filled">
+                                <label class="bmd-label-floating">Roll Number <span class="red-mark">*</span></label>
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger", @id = "UserName-Error" })
+                            </div>
 
-                                <br />
-                                <br />
+                            <br />
+                            <br />
 
-                                <div id="FeeDetailDiv" style="display:none">
-                                    <h2 class="column-heading mb-4">Fee Details</h2>
-
-                                    <div class="form-group bmd-form-group my-3">
-                                        <label class="bmd-label-floating">Notes Category <span class="red-mark">*</span> </label>
-                                        <div id="NotesCategoryDiv">
-
-                                            <div class="radio RadioButtonsInline">
-                                                <label><input type="radio" name="NotesCategory" id="WithOutNotes" value="WithOutNotes"> Without Notes</label>
-                                            </div>
-
-                                            <div class="radio RadioButtonsInline">
-                                                <label><input type="radio" name="NotesCategory" id="WithNotes" value="WithNotes"> With Notes </label>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-                                    <div class="form-group bmd-form-group my-3" style="display:none" id="NotesID">
-                                        <label class="bmd-label-floating">Notes Amount <span class="red-mark">*</span></label>
-
-                                        @if (ViewBag.NotesFee != null)
-                                        {
-                                            <input type="hidden" value="@ViewBag.NotesFee" id="NotesAmountHidden" />
-
-                                            <input value="@ViewBag.NotesFee" type="number" class="form-control round-border" name="NotesAmount" id="NotesAmount" />
-
-                                        }
-                                        else
-                                        {
-                                            <input type="number" class="form-control round-border" name="NotesAmount" id="NotesAmount" />
-                                        }
-
-
-                                    
-                                    </div>
-
-                                        <div class="form-group bmd-form-group my-3">
-                                            <label class="bmd-label-floating">Session Fee</label>
-                                            <input type="text" class="form-control round-border" name="SessionFee" id="SessionFee" value="0" readonly />
-                                        </div>
-
-
-
-                                        <div class="form-group bmd-form-group my-3 is-filled">
-                                            <label class="bmd-label-floating">Fee Type <span class="red-mark">*</span> </label>
-
-                                            <input type="hidden" id="FeeTypeOfStudent" name="name" value="@ViewBag.FeeType" />
-
-                                            <select name="FeeType" id="FeeType" class="form-control" style="color: #b9cbe1;">
-                                                <option value="" selected>   Select One</option>
-                                                <option value="FullFee">Full Fee</option>
-                                                <option value="Installment">Installment</option>
-                                                <option value="PerMonth">Per Month</option>
-
-                                            </select>
-                                        </div>
-
-
-                                        <div class="form-group bmd-form-group my-3">
-                                            <button id="CalculateFee" type="button" onclick="Calc()" class="btn btn-primary ">Calculate Fee</button>
-                                        </div>
-
-
-
-
-
-                                    <div class="form-group bmd-form-group my-3">
-                                        <label class="bmd-label-floating">Fee</label>
-                                        <input type="text" value="@ViewBag.StudentFeeOfFeeType" required class="form-control text_box_style" name="Fee" id="Fee" readonly />
-                                    </div>
-                                    <div id="DiscountDiv">
-                                        <div class="form-group bmd-form-group my-3" id="DiscountPercentageDiv">
-                                            <label class="bmd-label-floating">Discount Percentage</label>
-                                            <input type="number" value="@ViewBag.DiscountPercentage" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control round-border" name="DiscountPercentage" id="DiscountPercentage" />
-                                        </div>
-
-                                        <div id="DiscountAmountDiv" class="form-group bmd-form-group my-3" style="display:none">
-                                            <label class="bmd-label-floating">Discount Amount</label>
-                                            @if (ViewBag.Discount != null)
-                                            {
-                                                <input type="number" readonly value="@ViewBag.Discount" class="form-control round-border" name="Discount" id="Discount" />
-
-                                            }
-                                            else
-                                            {
-
-                                                <input type="number" readonly value="0" class="form-control round-border" name="Discount" id="Discount" />
-
-                                            }
-
-                                        </div>
-
-
-                                        <div class="form-group bmd-form-group my-3">
-                                            <label class="bmd-label-floating">Remaining Amount</label>
-                                            <input type="number" value="@ViewBag.RemainingAmount" class="form-control round-border" name="RemainingAmount" id="RemainingAmount" readonly />
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group bmd-form-group my-3">
-                                        <label class="bmd-label-floating">Total Fee</label>
-                                        @if (ViewBag.FeePayAbleAsTotalFee != null)
-                                        {
-                                            <input type="text" value="@ViewBag.FeePayAbleAsTotalFee" required class="form-control text_box_style totalfeeclass" name="TotalFee" id="TotalFee" readonly />
-
-                                        }
-                                        else
-
-                                        {
-
-                                            <input type="text" required class="form-control text_box_style totalfeeclass" name="TotalFee" id="TotalFee" readonly />
-
-
-                                        }
-
-                                    </div>
-
-
-
-                                </div><!--end fee detail div-->
-                            </div> <!--end of column-->
-
-                            <div class="col-md-5 pl-5 pr-5 ">
-
-
-                                <h2 class="column-heading mb-4">Subject Details</h2>
+                            <div id="FeeDetailDiv" style="display:none">
+                                <h2 class="column-heading mb-4">Fee Details</h2>
 
                                 <div class="form-group bmd-form-group my-3">
-                                    <label class="bmd-label-floating">Section <span class="red-mark">*</span></label>
-                                    @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
-                                    <br />
-                                    <span style="color:red"> @ViewBag.SubjectsErrorMsg</span>
-                                </div>
+                                    <label class="bmd-label-floating">Notes Category <span class="red-mark">*</span> </label>
+                                    <div id="NotesCategoryDiv">
 
-                                <!--css subjects-->
+                                        <div class="radio RadioButtonsInline">
+                                            <label><input type="radio" name="NotesCategory" id="WithOutNotes" value="WithOutNotes"> Without Notes</label>
+                                        </div>
 
-                                <div class="form-group SubjectsBoxesCSS" id="MandatorySubjectCss">
-                                    <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="MandatorySubjectsCSS"></div>
-                                </div>
-                                <div class="form-group bmd-form-group my-3" id="Group1CSS">
-                                    <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup1"></div>
-                                </div>
-
-                                <div class="form-group SubjectsBoxesCSS" id="Group2CSS">
-                                    <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup2"></div>
-                                </div>
-                                <div class="form-group SubjectsBoxesCSS" id="Group3CSS">
-                                    <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup3"></div>
-                                </div>
-                                <div class="form-group SubjectsBoxesCSS" id="Group4CSS">
-                                    <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup4"></div>
-                                </div>
-
-                                <div class="form-group SubjectsBoxesCSS" id="Group5CSS">
-                                    <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup5"></div>
-                                </div>
-
-                                <div class="form-group SubjectsBoxesCSS" id="Group6CSS">
-                                    <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup6"></div>
-                                </div>
+                                        <div class="radio RadioButtonsInline">
+                                            <label><input type="radio" name="NotesCategory" id="WithNotes" value="WithNotes"> With Notes </label>
+                                        </div>
+                                    </div>
 
 
-                                <div class="form-group SubjectsBoxesCSS" id="Group7CSS">
-                                    <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup7"></div>
                                 </div>
 
+                                <div class="form-group bmd-form-group my-3" style="display:none" id="NotesID">
+                                    <label class="bmd-label-floating">Notes Amount <span class="red-mark">*</span></label>
 
-                                <!--PMS-->
+                                    @if (ViewBag.NotesFee != null)
+                                    {
+                                        <input type="hidden" value="@ViewBag.NotesFee" id="NotesAmountHidden" />
 
-                                <div class="form-group SubjectsBoxesPMS" id="MandatorySubjectPMS">
-                                    <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="MandatorySubjectsPMS"></div>
+                                        <input value="@ViewBag.NotesFee" type="number" class="form-control round-border" name="NotesAmount" id="NotesAmount" />
+
+                                    }
+                                    else
+                                    {
+                                        <input type="number" class="form-control round-border" name="NotesAmount" id="NotesAmount" />
+                                    }
+
+
+
                                 </div>
 
-                                <div class="form-group SubjectsBoxesPMS" id="Group1PMS">
-                                    <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup1"></div>
-                                </div>
-
-                                <div class="form-group SubjectsBoxesPMS" id="Group2PMS">
-                                    <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup2"></div>
-                                </div>
-
-                                <div class="form-group SubjectsBoxesPMS" id="Group3PMS">
-                                    <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup3"></div>
-                                </div>
-                                <div class="form-group SubjectsBoxesPMS" id="Group4PMS">
-                                    <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup4"></div>
+                                <div class="form-group bmd-form-group my-3">
+                                    <label class="bmd-label-floating">Session Fee</label>
+                                    <input type="text" class="form-control round-border" name="SessionFee" id="SessionFee" value="0" readonly />
                                 </div>
 
 
-                                <div class="form-group SubjectsBoxesPMS" id="Group5PMS">
-                                    <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup5"></div>
+
+                                <div class="form-group bmd-form-group my-3 is-filled">
+                                    <label class="bmd-label-floating">Fee Type <span class="red-mark">*</span> </label>
+
+                                    <input type="hidden" id="FeeTypeOfStudent" name="name" value="@ViewBag.FeeType" />
+
+                                    <select name="FeeType" id="FeeType" class="form-control" style="color: #b9cbe1;">
+                                        <option value="" selected>   Select One</option>
+                                        <option value="FullFee">Full Fee</option>
+                                        <option value="Installment">Installment</option>
+                                        <option value="PerMonth">Per Month</option>
+
+                                    </select>
+                                </div>
+
+
+                                <div class="form-group bmd-form-group my-3">
+                                    <button id="CalculateFee" type="button" onclick="Calc()" class="btn btn-primary ">Calculate Fee</button>
                                 </div>
 
 
 
 
 
+                                <div class="form-group bmd-form-group my-3">
+                                    <label class="bmd-label-floating">Fee</label>
+                                    <input type="text" value="@ViewBag.StudentFeeOfFeeType" required class="form-control text_box_style" name="Fee" id="Fee" readonly />
+                                </div>
+                                <div id="DiscountDiv">
+                                    <div class="form-group bmd-form-group my-3" id="DiscountPercentageDiv">
+                                        <label class="bmd-label-floating">Discount Percentage</label>
+                                        <input type="number" value="@ViewBag.DiscountPercentage" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control round-border" name="DiscountPercentage" id="DiscountPercentage" />
+                                    </div>
+
+                                    <div id="DiscountAmountDiv" class="form-group bmd-form-group my-3" style="display:none">
+                                        <label class="bmd-label-floating">Discount Amount</label>
+                                        @if (ViewBag.Discount != null)
+                                        {
+                                            <input type="number" readonly value="@ViewBag.Discount" class="form-control round-border" name="Discount" id="Discount" />
+
+                                        }
+                                        else
+                                        {
+
+                                            <input type="number" readonly value="0" class="form-control round-border" name="Discount" id="Discount" />
+
+                                        }
+
+                                    </div>
+
+
+                                    <div class="form-group bmd-form-group my-3">
+                                        <label class="bmd-label-floating">Remaining Amount</label>
+                                        <input type="number" value="@ViewBag.RemainingAmount" class="form-control round-border" name="RemainingAmount" id="RemainingAmount" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="form-group bmd-form-group my-3">
+                                    <label class="bmd-label-floating">Total Fee</label>
+                                    @if (ViewBag.FeePayAbleAsTotalFee != null)
+                                    {
+                                        <input type="text" value="@ViewBag.FeePayAbleAsTotalFee" required class="form-control text_box_style totalfeeclass" name="TotalFee" id="TotalFee" readonly />
+
+                                    }
+                                    else
+
+                                    {
+
+                                        <input type="text" required class="form-control text_box_style totalfeeclass" name="TotalFee" id="TotalFee" readonly />
+
+
+                                    }
+
+                                </div>
+
+
+
+                            </div><!--end fee detail div-->
+                        </div> <!--end of column-->
+
+                        <div class="col-md-5 pl-5 pr-5 ">
+
+
+                            <h2 class="column-heading mb-4">Subject Details</h2>
+
+                            <div class="form-group bmd-form-group my-3">
+                                <label class="control-label">Section <span class="red-mark">*</span></label>
+                                @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control dropdownstyle", @readonly = "readonly" })
+                                <br />
+                                <span style="color:red"> @ViewBag.SubjectsErrorMsg</span>
+                            </div>
+
+                            <!--css subjects-->
+
+                            <div class="form-group SubjectsBoxesCSS" id="MandatorySubjectCss">
+                                <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="MandatorySubjectsCSS"></div>
+                            </div>
+                            <div class="form-group bmd-form-group my-3" id="Group1CSS">
+                                <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup1"></div>
+                            </div>
+
+                            <div class="form-group SubjectsBoxesCSS" id="Group2CSS">
+                                <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup2"></div>
+                            </div>
+                            <div class="form-group SubjectsBoxesCSS" id="Group3CSS">
+                                <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup3"></div>
+                            </div>
+                            <div class="form-group SubjectsBoxesCSS" id="Group4CSS">
+                                <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup4"></div>
+                            </div>
+
+                            <div class="form-group SubjectsBoxesCSS" id="Group5CSS">
+                                <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup5"></div>
+                            </div>
+
+                            <div class="form-group SubjectsBoxesCSS" id="Group6CSS">
+                                <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup6"></div>
+                            </div>
+
+
+                            <div class="form-group SubjectsBoxesCSS" id="Group7CSS">
+                                <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectCSSGroup7"></div>
+                            </div>
+
+
+                            <!--PMS-->
+
+                            <div class="form-group SubjectsBoxesPMS" id="MandatorySubjectPMS">
+                                <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="MandatorySubjectsPMS"></div>
+                            </div>
+
+                            <div class="form-group SubjectsBoxesPMS" id="Group1PMS">
+                                <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup1"></div>
+                            </div>
+
+                            <div class="form-group SubjectsBoxesPMS" id="Group2PMS">
+                                <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup2"></div>
+                            </div>
+
+                            <div class="form-group SubjectsBoxesPMS" id="Group3PMS">
+                                <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup3"></div>
+                            </div>
+                            <div class="form-group SubjectsBoxesPMS" id="Group4PMS">
+                                <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup4"></div>
+                            </div>
+
+
+                            <div class="form-group SubjectsBoxesPMS" id="Group5PMS">
+                                <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup5"></div>
                             </div>
 
 
 
 
 
-
-                        </div> 
-                        <!--end of column-->
-
-
-                        <br />
-
-
-                        <hr class="mt-5 mb-4">
-
-                        <button type="submit" value="Register" id="FormSubmit" class="btn btn-primary pull-right rounded rounded-lg"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Update &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </button>
-                        <button onclick="redirect()" id="cancel" type="button" class="btn btn-primary pull-right rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
-                            <i class="material-icons mr-2">cached</i>  Cancel &nbsp; &nbsp;
-                        </button>
-                        <div class="clearfix"></div>
+                        </div>
 
 
 
 
-                        
-                     
-                        }
+
 
                     </div>
-                </div>
+                    <!--end of column-->
+
+
+                    <br />
+
+
+                    <hr class="mt-5 mb-4">
+
+                    <button type="submit" value="Register" id="FormSubmit" class="btn btn-primary pull-right rounded rounded-lg"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Update &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </button>
+                    <button onclick="redirect()" id="cancel" type="button" class="btn btn-primary pull-right rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
+                        <i class="material-icons mr-2">cached</i>  Cancel &nbsp; &nbsp;
+                    </button>
+                    <div class="clearfix"></div>
+
+
+
+
+
+
+                }
+
             </div>
         </div>
- 
+    </div>
+</div>
+
 <script>
     function redirect() {
         window.location.href = "StudentsIndex";
@@ -1444,11 +1450,17 @@
     $(document).ready(function () {
         $("#UploadImg").change(function () {
 
+
+
             $("#imgPreview").css('display', 'block');
             readURL(this);
         });
 
         function readURL(input) {
+
+            $("#imgPreview").height("150");
+            $("#imgPreview").width("150");
+
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
@@ -1468,6 +1480,7 @@
 
         $("form").submit(function () {
             debugger
+           // alert("usama");
             var TotalFee = $("#TotalFee").val();
 
             if (TotalFee == "" && TotalFee < 0) {
@@ -1515,274 +1528,276 @@
         }
 
 
-        //$("#MandatorySubjectsCSS").on('change', ".CheckboxCSSMandatory", function () {
-        //    debugger
+        $("#MandatorySubjectsCSS").on('change', ".CheckboxCSSMandatory", function () {
+            debugger
 
-        //    var CourseType = $("input[name='CourseType']").val();
+            var CourseType = $("input[name='CourseType']").val();
+              event.stopPropagation();
 
 
-        //    if ($(this).is(':checked')) {
+            if ($(this).is(':checked')) {
 
 
-        //        $("input[name='CSSSubjects0']").prop("checked", true);
+                $("input[name='CSSSubjects0']").prop("checked", true);
 
-        //    }
+            }
 
-        //    else {
+            else {
 
-        //        $("input[name='CSSSubjects0']").prop("checked", false);
+                $("input[name='CSSSubjects0']").prop("checked", false);
 
-        //    }
+            }
 
-        //})
+        })
 
 
-        //$("#SubjectCSSGroup1").on('change', ".CheckboxCSSGroup1", function () {
+        $("#SubjectCSSGroup1").on('change', ".CheckboxCSSGroup1", function () {
 
-        //    if ($(this).is(':checked')) {
+            if ($(this).is(':checked')) {
 
-        //        $("input[name='CSSSubjects1']:first").prop("checked", true);
+                $("input[name='CSSSubjects1']:first").prop("checked", true);
 
-        //    }
+            }
 
-        //    else {
+            else {
 
-        //        $("input[name='CSSSubjects1']").prop("checked", false);
+                $("input[name='CSSSubjects1']").prop("checked", false);
 
 
 
-        //    }
+            }
 
-        //})
+        })
 
 
-        //$("#SubjectCSSGroup2").on('change', ".CheckboxCSSGroup2", function () {
+        $("#SubjectCSSGroup2").on('change', ".CheckboxCSSGroup2", function () {
 
-        //    if ($(this).is(':checked')) {
+            if ($(this).is(':checked')) {
 
-        //        $("input[name='CSSSubjects2']:first").prop("checked", true);
+                $("input[name='CSSSubjects2']:first").prop("checked", true);
 
-        //    }
+            }
 
-        //    else {
+            else {
 
-        //        $("input[name='CSSSubjects2']").prop("checked", false);
+                $("input[name='CSSSubjects2']").prop("checked", false);
 
 
 
-        //    }
+            }
 
-        //})
+        })
 
 
-        //$("#SubjectCSSGroup3").on('change', ".CheckboxCSSGroup3", function () {
+        $("#SubjectCSSGroup3").on('change', ".CheckboxCSSGroup3", function () {
 
-        //    if ($(this).is(':checked')) {
+            if ($(this).is(':checked')) {
 
-        //        $("input[name='CSSSubjects3']:first").prop("checked", true);
+                $("input[name='CSSSubjects3']:first").prop("checked", true);
 
-        //    }
+            }
 
-        //    else {
+            else {
 
-        //        $("input[name='CSSSubjects3']").prop("checked", false);
+                $("input[name='CSSSubjects3']").prop("checked", false);
 
 
 
-        //    }
+            }
 
-        //})
+        })
 
 
-        //$("#SubjectCSSGroup4").on('change', ".CheckboxCSSGroup4", function () {
+        $("#SubjectCSSGroup4").on('change', ".CheckboxCSSGroup4", function () {
 
-        //    if ($(this).is(':checked')) {
+            if ($(this).is(':checked')) {
 
-        //        $("input[name='CSSSubjects4']:first").prop("checked", true);
+                $("input[name='CSSSubjects4']:first").prop("checked", true);
 
-        //    }
+            }
 
-        //    else {
+            else {
 
-        //        $("input[name='CSSSubjects4']").prop("checked", false);
+                $("input[name='CSSSubjects4']").prop("checked", false);
 
 
 
-        //    }
+            }
 
-        //})
+        })
 
 
-        //$("#SubjectCSSGroup5").on('change', ".CheckboxCSSGroup5", function () {
+        $("#SubjectCSSGroup5").on('change', ".CheckboxCSSGroup5", function () {
 
-        //    if ($(this).is(':checked')) {
+            if ($(this).is(':checked')) {
 
-        //        $("input[name='CSSSubjects5']:first").prop("checked", true);
+                $("input[name='CSSSubjects5']:first").prop("checked", true);
 
-        //    }
+            }
 
-        //    else {
+            else {
 
-        //        $("input[name='CSSSubjects5']").prop("checked", false);
+                $("input[name='CSSSubjects5']").prop("checked", false);
 
 
 
-        //    }
+            }
 
-        //})
+        })
 
 
-        //$("#SubjectCSSGroup6").on('change', ".CheckboxCSSGroup6", function () {
+        $("#SubjectCSSGroup6").on('change', ".CheckboxCSSGroup6", function () {
 
-        //    if ($(this).is(':checked')) {
+            if ($(this).is(':checked')) {
 
-        //        $("input[name='CSSSubjects6']:first").prop("checked", true);
+                $("input[name='CSSSubjects6']:first").prop("checked", true);
 
-        //    }
+            }
 
-        //    else {
+            else {
 
-        //        $("input[name='CSSSubjects6']").prop("checked", false);
+                $("input[name='CSSSubjects6']").prop("checked", false);
 
 
 
-        //    }
+            }
 
-        //})
+        })
 
 
-        //$("#SubjectCSSGroup7").on('change', ".CheckboxCSSGroup7", function () {
+        $("#SubjectCSSGroup7").on('change', ".CheckboxCSSGroup7", function () {
 
-        //    if ($(this).is(':checked')) {
+            if ($(this).is(':checked')) {
 
-        //        $("input[name='CSSSubjects7']:first").prop("checked", true);
+                $("input[name='CSSSubjects7']:first").prop("checked", true);
 
-        //    }
+            }
 
-        //    else {
+            else {
 
-        //        $("input[name='CSSSubjects7']").prop("checked", false);
+                $("input[name='CSSSubjects7']").prop("checked", false);
 
 
 
-        //    }
+            }
 
-        //})
+        })
 
 
 
-        //$("#MandatorySubjectsPMS").on('change', ".CheckboxPMSMandatory", function () {
-        //    debugger
+        $("#MandatorySubjectsPMS").on('change', ".CheckboxPMSMandatory", function () {
+            debugger
 
-        //    var CourseType = $("input[name='CourseType']").val();
+            var CourseType = $("input[name='CourseType']").val();
+              event.stopPropagation();
 
 
-        //    if ($(this).is(':checked')) {
+            if ($(this).is(':checked')) {
 
 
-        //        $("input[name='PMSSubjects0']").prop("checked", true);
+                $("input[name='PMSSubjects0']").prop("checked", true);
 
-        //    }
+            }
 
-        //    else {
+            else {
 
-        //        $("input[name='PMSSubjects0']").prop("checked", false);
+                $("input[name='PMSSubjects0']").prop("checked", false);
 
-        //    }
-        //})
+            }
+        })
 
 
 
 
-        //$("#SubjectPMSGroup1").on('change', ".CheckboxPMSGroup1", function () {
+        $("#SubjectPMSGroup1").on('change', ".CheckboxPMSGroup1", function () {
 
-        //    if ($(this).is(':checked')) {
+            if ($(this).is(':checked')) {
 
-        //        $("input[name='PMSSubjects1']:first").prop("checked", true);
+                $("input[name='PMSSubjects1']:first").prop("checked", true);
 
-        //    }
+            }
 
-        //    else {
+            else {
 
-        //        $("input[name='PMSSubjects1']").prop("checked", false);
+                $("input[name='PMSSubjects1']").prop("checked", false);
 
 
 
-        //    }
+            }
 
-        //})
+        })
 
-        //$("#SubjectPMSGroup2").on('change', ".CheckboxPMSGroup2", function () {
+        $("#SubjectPMSGroup2").on('change', ".CheckboxPMSGroup2", function () {
 
-        //    if ($(this).is(':checked')) {
+            if ($(this).is(':checked')) {
 
-        //        $("input[name='PMSSubjects2']:first").prop("checked", true);
+                $("input[name='PMSSubjects2']:first").prop("checked", true);
 
-        //    }
+            }
 
-        //    else {
+            else {
 
-        //        $("input[name='PMSSubjects2']").prop("checked", false);
+                $("input[name='PMSSubjects2']").prop("checked", false);
 
 
 
-        //    }
+            }
 
-        //})
+        })
 
-        //$("#SubjectPMSGroup3").on('change', ".CheckboxPMSGroup3", function () {
+        $("#SubjectPMSGroup3").on('change', ".CheckboxPMSGroup3", function () {
 
-        //    if ($(this).is(':checked')) {
+            if ($(this).is(':checked')) {
 
-        //        $("input[name='PMSSubjects3']:first").prop("checked", true);
+                $("input[name='PMSSubjects3']:first").prop("checked", true);
 
-        //    }
+            }
 
-        //    else {
+            else {
 
-        //        $("input[name='PMSSubjects3']").prop("checked", false);
+                $("input[name='PMSSubjects3']").prop("checked", false);
 
 
 
-        //    }
+            }
 
-        //})
+        })
 
-        //$("#SubjectPMSGroup4").on('change', ".CheckboxPMSGroup4", function () {
+        $("#SubjectPMSGroup4").on('change', ".CheckboxPMSGroup4", function () {
 
-        //    if ($(this).is(':checked')) {
+            if ($(this).is(':checked')) {
 
-        //        $("input[name='PMSSubjects4']:first").prop("checked", true);
+                $("input[name='PMSSubjects4']:first").prop("checked", true);
 
-        //    }
+            }
 
-        //    else {
+            else {
 
-        //        $("input[name='PMSSubjects4']").prop("checked", false);
+                $("input[name='PMSSubjects4']").prop("checked", false);
 
 
 
-        //    }
+            }
 
-        //})
+        })
 
-        //$("#SubjectPMSGroup5").on('change', ".CheckboxPMSGroup5", function () {
+        $("#SubjectPMSGroup5").on('change', ".CheckboxPMSGroup5", function () {
 
-        //    if ($(this).is(':checked')) {
+            if ($(this).is(':checked')) {
 
-        //        $("input[name='PMSSubjects5']:first").prop("checked", true);
+                $("input[name='PMSSubjects5']:first").prop("checked", true);
 
-        //    }
+            }
 
-        //    else {
+            else {
 
-        //        $("input[name='PMSSubjects5']").prop("checked", false);
+                $("input[name='PMSSubjects5']").prop("checked", false);
 
 
 
-        //    }
+            }
 
-        //})
+        })
 
 
 

@@ -26,7 +26,7 @@
             window.location.href = '@Url.Action("StudentsIndex", "AspNetUser")';
         });
 
-        $("#ClassID").change(function () {
+        $("#ClassID").click(function () {
 
             $("#DiscountInAmount").val(0);
 
@@ -872,7 +872,7 @@
                                         <div class="form-group bmd-form-group my-3 is-filled">
                                             <label class="bmd-label-floating">Section Timings <span class="red-mark">*</span> </label>
                                             <select name="ClassTimings" class="form-control" style="color: #b9cbe1;">
-                                                <option selected="">Select</option>
+                                                @*<option selected="">Select</option>*@
                                                 <option value="Morning">Morning</option>
                                                 <option value="Evening">Evening</option>
                                             </select>
@@ -1020,6 +1020,7 @@
                                             <br />
                                             <span style="color:red"> @ViewBag.SubjectsErrorMsg</span>
                                         </div>
+                                      
                                         <br />
 
                                         <!--CSS-->

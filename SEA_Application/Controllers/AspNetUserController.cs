@@ -839,7 +839,7 @@ namespace SEA_Application.Controllers
         {
 
 
-        //  var ChecktotalFee =  Convert.ToDouble(Request.Form["TotalFee"]);
+          var ChecktotalFee =  Request.Form["TotalFee"];
          // var CheckDiscount = Request.Form["Discount"];
 
 
@@ -960,6 +960,18 @@ namespace SEA_Application.Controllers
                     ViewBag.VoucherExist = VoucherExist1;
 
 
+                    if(ChecktotalFee == "")
+                    {
+                        var employee = db.AspNetStudents.Where(x => x.StudentID == aspNetUser.Id).Select(x => x).FirstOrDefault();
+                        ViewBag.CourseType = employee.CourseType;
+
+                        ViewBag.SubjectsErrorMsg = "please enter fee";
+                        ViewBag.ClassID = new SelectList(db.AspNetClasses, "Id", "ClassName");
+
+                      
+
+                        return View(aspNetUser);
+                    }
                     //block
 
 
@@ -1029,10 +1041,7 @@ namespace SEA_Application.Controllers
                         selectedsubjects = null;
                     }
 
-                    List<string> listofIDs = selectedsubjects.ToList();
-                    List<int> myIntegersSubjectsList = listofIDs.Select(s => int.Parse(s)).ToList();
-
-
+                  
                     string selectedClass = Request.Form["ClassID"];
 
                     int ClassInt = Convert.ToInt32(selectedClass);
@@ -1091,6 +1100,10 @@ namespace SEA_Application.Controllers
 
                     if (selectedsubjects != null)
                     {
+                        List<string> listofIDs = selectedsubjects.ToList();
+                        List<int> myIntegersSubjectsList = listofIDs.Select(s => int.Parse(s)).ToList();
+
+
 
                         foreach (var item in selectedsubjects)
                         {
@@ -1100,10 +1113,8 @@ namespace SEA_Application.Controllers
                             db.AspNetStudent_Subject.Add(stu_sub);
                             db.SaveChanges();
                         }
-                    }
+                  
 
-                    if (selectedsubjects != null)
-                    {
                         var AllSubjectsOfAStudent = from subject in db.AspNetSubjects
                                                     where myIntegersSubjectsList.Contains(subject.Id)
                                                     select subject;
