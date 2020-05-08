@@ -485,7 +485,7 @@
                             $(".SubjectsBoxesPMS").css('display', 'none');
 
                             $("#MandatorySubjectsCSS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects</b></span><input  type="checkbox" class="CheckboxCSSMandatory"></h3>');
-                            $("#MandatorySubjectsCSS").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsCSSTableBody"></tbody></table>');
+                            $("#MandatorySubjectsCSS").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsCSSTableBody"></tbody></table></div>');
                             $.each(MandatorySubjectsList, function (key, value1) {
 
                              $("#MandatorySubjectsCSSTableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="checkbox" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects0"></td></tr>');
@@ -499,13 +499,13 @@
                             $("#SubjectCSSGroup6").append('<h3><span style="color:#3C8DBC !important"><b>Group 6</b></span> <input  type="checkbox" class="CheckboxCSSGroup6"></h3>');
                             $("#SubjectCSSGroup7").append('<h3><span style="color:#3C8DBC !important"><b>Group 7</b></span> <input  type="checkbox" class="CheckboxCSSGroup7"></h3>');
 
-                            $("#SubjectCSSGroup1").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup1TableBody"></tbody></table>');
-                            $("#SubjectCSSGroup2").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup2TableBody"></tbody></table>');
-                            $("#SubjectCSSGroup3").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup3TableBody"></tbody></table>');
-                            $("#SubjectCSSGroup4").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup4TableBody"></tbody></table>');
-                            $("#SubjectCSSGroup5").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup5TableBody"></tbody></table>');
-                            $("#SubjectCSSGroup6").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup6TableBody"></tbody></table>');
-                            $("#SubjectCSSGroup7").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup7TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup1").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup1TableBody"></tbody></table></div>');
+                            $("#SubjectCSSGroup2").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup2TableBody"></tbody></table></div>');
+                            $("#SubjectCSSGroup3").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup3TableBody"></tbody></table></div>');
+                            $("#SubjectCSSGroup4").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup4TableBody"></tbody></table></div>');
+                            $("#SubjectCSSGroup5").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup5TableBody"></tbody></table></div>');
+                            $("#SubjectCSSGroup6").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup6TableBody"></tbody></table></div>');
+                            $("#SubjectCSSGroup7").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup7TableBody"></tbody></table></div>');
 
                             $.each(OptionalSubjecsList, function (key, value1) {
 
@@ -562,7 +562,7 @@
                             $(".SubjectsBoxesPMS").css('display', 'block');
 
                             $("#MandatorySubjectsPMS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects</b></span> <input  type="checkbox" class="CheckboxPMSMandatory"></h3>');
-                            $("#MandatorySubjectsPMS").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsPMSTableBody"></tbody></table>');
+                            $("#MandatorySubjectsPMS").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsPMSTableBody"></tbody></table></div>');
                             $.each(MandatorySubjectsList, function (key, value1) {
 
 
@@ -575,11 +575,11 @@
                             $("#SubjectPMSGroup4").append('<h3><span style="color:#3C8DBC !important"><b>Group 4</b></span><input  type="checkbox" class="CheckboxPMSGroup4"></h3>');
                             $("#SubjectPMSGroup5").append('<h3><span style="color:#3C8DBC !important"><b>Group 5</b></span><input  type="checkbox" class="CheckboxPMSGroup5"></h3>');
 
-                            $("#SubjectPMSGroup1").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup1TableBody"></tbody></table>');
-                            $("#SubjectPMSGroup2").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup2TableBody"></tbody></table>');
-                            $("#SubjectPMSGroup3").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup3TableBody"></tbody></table>');
-                            $("#SubjectPMSGroup4").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup4TableBody"></tbody></table>');
-                            $("#SubjectPMSGroup5").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup5TableBody"></tbody></table>');
+                            $("#SubjectPMSGroup1").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup1TableBody"></tbody></table></div>');
+                            $("#SubjectPMSGroup2").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup2TableBody"></tbody></table></div>');
+                            $("#SubjectPMSGroup3").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup3TableBody"></tbody></table></div>');
+                            $("#SubjectPMSGroup4").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup4TableBody"></tbody></table></div>');
+                            $("#SubjectPMSGroup5").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup5TableBody"></tbody></table></div>');
 
 
                             $.each(OptionalSubjecsList, function (key, value1) {
@@ -788,7 +788,7 @@
                             $(".SubjectsBoxesPMS").css('display', 'none');
 
                             $("#MandatorySubjectsCSS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects</b></span><input  type="checkbox" class="CheckboxCSSMandatory"></h3>');
-                            $("#MandatorySubjectsCSS").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsCSSTableBody"></tbody></table>');
+                            $("#MandatorySubjectsCSS").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsCSSTableBody"></tbody></table></div>');
                             $.each(MandatorySubjectsList, function (key, value1) {
 
                              $("#MandatorySubjectsCSSTableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">'+value1.Points+'</td><td align="center"><input  type="checkbox" id=' + value1.Id + ' value=' + value1.Id + ' name="CSSSubjects0"></td></tr>');
@@ -802,13 +802,13 @@
                             $("#SubjectCSSGroup6").append('<h3><span style="color:#3C8DBC !important"><b>Group 6</b></span> <input  type="checkbox" class="CheckboxCSSGroup6"></h3>');
                             $("#SubjectCSSGroup7").append('<h3><span style="color:#3C8DBC !important"><b>Group 7</b></span> <input  type="checkbox" class="CheckboxCSSGroup7"></h3>');
 
-                            $("#SubjectCSSGroup1").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup1TableBody"></tbody></table>');
-                            $("#SubjectCSSGroup2").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup2TableBody"></tbody></table>');
-                            $("#SubjectCSSGroup3").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup3TableBody"></tbody></table>');
-                            $("#SubjectCSSGroup4").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup4TableBody"></tbody></table>');
-                            $("#SubjectCSSGroup5").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup5TableBody"></tbody></table>');
-                            $("#SubjectCSSGroup6").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup6TableBody"></tbody></table>');
-                            $("#SubjectCSSGroup7").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup7TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup1").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup1TableBody"></tbody></table></div>');
+                            $("#SubjectCSSGroup2").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup2TableBody"></tbody></table></div>');
+                            $("#SubjectCSSGroup3").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup3TableBody"></tbody></table></div>');
+                            $("#SubjectCSSGroup4").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup4TableBody"></tbody></table></div>');
+                            $("#SubjectCSSGroup5").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup5TableBody"></tbody></table></div>');
+                            $("#SubjectCSSGroup6").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup6TableBody"></tbody></table></div>');
+                            $("#SubjectCSSGroup7").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup7TableBody"></tbody></table></div>');
 
                             $.each(OptionalSubjecsList, function (key, value1) {
 
@@ -865,7 +865,7 @@
                             $(".SubjectsBoxesPMS").css('display', 'block');
 
                             $("#MandatorySubjectsPMS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects</b></span><input  type="checkbox" class="CheckboxPMSMandatory"></h3>');
-                            $("#MandatorySubjectsPMS").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsPMSTableBody"></tbody></table>');
+                            $("#MandatorySubjectsPMS").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsPMSTableBody"></tbody></table></div>');
                             $.each(MandatorySubjectsList, function (key, value1) {
 
 
@@ -878,11 +878,11 @@
                             $("#SubjectPMSGroup4").append('<h3><span style="color:#3C8DBC !important"><b>Group 4</b></span> </span><input  type="checkbox" class="CheckboxPMSGroup4"></h3>');
                             $("#SubjectPMSGroup5").append('<h3><span style="color:#3C8DBC !important"><b>Group 5</b></span> </span><input  type="checkbox" class="CheckboxPMSGroup5"></h3>');
 
-                            $("#SubjectPMSGroup1").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup1TableBody"></tbody></table>');
-                            $("#SubjectPMSGroup2").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup2TableBody"></tbody></table>');
-                            $("#SubjectPMSGroup3").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup3TableBody"></tbody></table>');
-                            $("#SubjectPMSGroup4").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup4TableBody"></tbody></table>');
-                            $("#SubjectPMSGroup5").append('<table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup5TableBody"></tbody></table>');
+                            $("#SubjectPMSGroup1").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup1TableBody"></tbody></table></div>');
+                            $("#SubjectPMSGroup2").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup2TableBody"></tbody></table></div>');
+                            $("#SubjectPMSGroup3").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup3TableBody"></tbody></table></div>');
+                            $("#SubjectPMSGroup4").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup4TableBody"></tbody></table></div>');
+                            $("#SubjectPMSGroup5").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectPMSGroup5TableBody"></tbody></table></div>');
 
 
                             $.each(OptionalSubjecsList, function (key, value1) {

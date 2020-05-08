@@ -247,7 +247,7 @@
                             //$(".SubjectsBoxesPMS").css('display', 'none');
 
                             $("#MandatorySubjectsCSS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects </b></span></h3>');
-                            $("#MandatorySubjectsCSS").append('<table  class="table  table-bordered table-condensed table-hover"><thead><tr><th style="width:600px;" class="SubjectHeader">Subjects</th><th>Course Type</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsCSSTableBody"></tbody></table>');
+                            $("#MandatorySubjectsCSS").append('<div class="table-responsive"><table  class="table  table-bordered table-condensed table-hover"><thead><tr><th style="width:600px;" class="SubjectHeader">Subjects</th><th>Course Type</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsCSSTableBody"></tbody></table></div>');
 
 
                             $.each(MandatorySubjectsList, function (key, value1) {
@@ -258,7 +258,7 @@
 
 
                             $("#SubjectCSSGroup1").append('<h3><span style="color:#3C8DBC !important"><b>Optional Subjects</b></span></h3>');
-                            $("#SubjectCSSGroup1").append('<table  class="table table-bordered table-condensed table-hover"><thead><tr><th style="width:600px;" class="SubjectHeader">Subjects</th><th>Course Type</th> <th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup1TableBody"></tbody></table>');
+                            $("#SubjectCSSGroup1").append('<div class="table-responsive"><table  class="table table-bordered table-condensed table-hover"><thead><tr><th style="width:600px;" class="SubjectHeader">Subjects</th><th>Course Type</th> <th>Marks</th><th>Select</th></tr></thead><tbody id ="SubjectCSSGroup1TableBody"></tbody></table></div>');
 
                             $.each(OptionalSubjecsList, function (key, value1) {
 
@@ -519,6 +519,8 @@ else
                                             </thead>
                                             <tbody id="submission_table"></tbody>
                                         </table>
+
+
                                         </div>
                                     
                             </div>
