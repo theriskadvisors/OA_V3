@@ -15,16 +15,19 @@
                             <table class="table table1 hover table-bordered table-striped" id="datatable">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
-
+                                        @*<th>Id</th>*@
+                                        <th>
+                                            Subject Name
+                                        </th>
                                         <th>
                                             Lesson Name
                                         </th>
+
                                         <th>
                                             Session Name
                                         </th>
                                         <th>
-                                            Strat Date
+                                            Start Date
                                         </th>
                                         <th>
                                             End Date
@@ -127,7 +130,7 @@
 
 
 
-                                        table.fnAddData([data[index].Id,data[index].Name, data[index].SessionName,dat,dat1]);
+                                        table.fnAddData([data[index].SubjectName+"<input  type=hidden value="+data[index].Id+">",data[index].Name, data[index].SessionName,dat,dat1]);
 
                                     })
 
@@ -136,12 +139,15 @@
                             })
 
           $('.table1').on('click', 'tbody tr', function () {
-            var td = $(this).children("td");
-            var userName = $(td[0]).children("input").val();
+              var td = $(this).children("td");
+
+            var hiddenid = $(td[0]).children("input").val();
 
             //alert($(td[0]).html());
-            var Id = parseInt($(td[0]).html())
-            // alert(Id);
+              var Id = parseInt(hiddenid);
+
+
+             //alert(Id);
             //userName = userName.trim();
             window.location.href = "/AspnetLessons/EditLessonSession?id=" + Id;
         });
@@ -151,4 +157,7 @@
 
 
                         })
+
+
+             
                     </script>

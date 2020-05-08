@@ -102,10 +102,13 @@
 
         $('.table1').on('click', 'tbody tr', function () {
             var td = $(this).children("td");
-            var userName = $(td[0]).children("input").val();
+            var LessonId = $(td[0]).children("input").val();
 
             //alert($(td[0]).html());
-            var Id = parseInt($(td[0]).html())
+        //    var Id = parseInt($(td[0]).html())
+            var Id = parseInt(LessonId);
+
+           // alert(Id); 
             // alert(Id);
             //userName = userName.trim();
             window.location.href = "/AspnetLessons/Edit?id=" + Id;
@@ -124,7 +127,7 @@
 
                 $.each(data, function (index) {
 
-                    table1.fnAddData([data[index].LessonId, data[index].LessonName, data[index].LessonVidoeUrl, data[index].LessonDescription, data[index].LessonDuration, data[index].LessonSubjectTopicName]);
+                    table1.fnAddData([ data[index].LessonName+"<input  type=hidden value="+data[index].LessonId+">", data[index].LessonVidoeUrl, data[index].LessonDescription, data[index].LessonDuration, data[index].LessonSubjectTopicName]);
 
                 })
                 table1.fnDraw();
@@ -223,12 +226,12 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="box-title"></div>
-
+                        <div class="table-responsive">
                         <table class="table hover table-striped table-bordered" id="datatable">
 
                             @*<p>
-                                    @Html.ActionLink("Create New", "Create")
-                                </p>*@
+                    @Html.ActionLink("Create New", "Create")
+                </p>*@
 
                             <thead>
 
@@ -241,11 +244,11 @@
                                         @Html.DisplayNameFor(model => model.Description)
                                     </th>
                                     @*<th>
-                                            @Html.DisplayNameFor(model => model.StartDate)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.EndDate)
-                                        </th>*@
+                            @Html.DisplayNameFor(model => model.StartDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EndDate)
+                        </th>*@
                                     <th>
                                         @Html.DisplayNameFor(model => model.FAQ)
                                     </th>
@@ -276,11 +279,11 @@
                                             @Html.DisplayFor(modelItem => item.Description)
                                         </td>
                                         @*<td>
-                                                @Html.DisplayFor(modelItem => item.StartDate)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.EndDate)
-                                            </td>*@
+                                @Html.DisplayFor(modelItem => item.StartDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EndDate)
+                            </td>*@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.FAQ)
                                         </td>
@@ -288,17 +291,18 @@
                                             @Html.DisplayFor(modelItem => item.GenericSubject.SubjectName)
                                         </td>
                                         @*<td>
-                                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                                            </td>*@
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            </td>*@
                                     </tr>
                                 }
 
                             </tbody>
                         </table>
-
                     </div>
+
+                </div>
 
                 </div>
 
@@ -312,32 +316,34 @@
                     <div class="box-title"></div>
                     <div class="box-body">
                         <div class="col-md-12">
+                            <div class="table-responsive">
 
-                            <table class="table1 hover table-striped table-bordered" id="datatable1">
-                                <thead>
-                                    <tr>
-                                        <th>  ID</th>
-                                        <th>
-                                            Name
-                                        </th>
-                                        <th>
-                                            Video Url
-                                        </th>
-                                        <th>
-                                            Description
-                                        </th>
-                                        <th>
-                                            Duration Minutes
-                                        </th>
-                                        <th>
-                                            Topic Name
-                                        </th>
+                                <table class="table1 hover table-striped table-bordered" id="datatable1">
+                                    <thead>
+                                        <tr>
+                                            @*<th>  ID</th>*@
+                                            <th>
+                                                Name
+                                            </th>
+                                            <th>
+                                                Video Url
+                                            </th>
+                                            <th>
+                                                Description
+                                            </th>
+                                            <th>
+                                                Duration Minutes
+                                            </th>
+                                            <th>
+                                                Topic Name
+                                            </th>
 
-                                    </tr>
-                                </thead>
-                                <tbody id="LessonsList">
-                                </tbody>
-                            </table>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="LessonsList">
+                                    </tbody>
+                                </table>
+                            </div>
 
 
 

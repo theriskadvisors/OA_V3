@@ -42,7 +42,32 @@
            $("#btnCancel").click(function () {
 
                  window.location.href = "/AspnetLessons/LessonSessionView";
-            })
+           })
+           $("form").submit(function () {
+
+            event.stopPropagation();
+
+            var StartDate = document.getElementById('StartDate').value;
+            var EndDate = document.getElementById('DueDate').value;
+            var eDate = new Date(EndDate);
+            var sDate = new Date(StartDate);
+
+
+            if (StartDate != '' && EndDate != '' && sDate < eDate  ) {
+
+                $("#ErrorMsg").html("");
+
+                return true;
+            }
+          
+            if(StartDate != '' && EndDate != '' && sDate > eDate) {
+
+                $("#ErrorMsg").html("Start Date Should be lesser than Due Date");
+
+                return false;
+            }
+
+             });
 
 
         //$.ajax({
@@ -327,6 +352,7 @@
 
 
                                 <input type="date" name="DueDate" id="DueDate" value="@ViewBag.LessonDueDate" class="form-control" required />
+                                <span style="color:red;" id="ErrorMsg"></span>
 
 
 

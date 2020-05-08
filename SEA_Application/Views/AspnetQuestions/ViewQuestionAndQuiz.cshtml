@@ -132,7 +132,7 @@
                         "/" +
                         value3.getFullYear();
 
-                    table.fnAddData([data[index].QuizId, data[index].QuizName, data[index].QuizDescription, dat1, dat2, data[index].QuizCreatedBy, dat3]);
+                    table.fnAddData([ data[index].QuizName+"<input  type=hidden value="+data[index].QuizId+">", data[index].QuizDescription, dat1, dat2, data[index].QuizCreatedBy, dat3]);
 
                 })
                 table.fnDraw();
@@ -159,10 +159,13 @@
 
 
             var td = $(this).children("td");
-            // var userName = $(td[0]).children("input").val();
+             var QuizId = $(td[0]).children("input").val();
 
             //alert($(td[0]).html());
-            var Id = parseInt($(td[0]).html())
+           // var Id = parseInt($(td[0]).html())
+            var Id = parseInt(QuizId);
+
+            //QuizId
             // alert(Id);
             //userName = userName.trim();
             window.location.href = "/AspnetQuizs/Edit?id=" + Id;
@@ -262,94 +265,96 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="box-title"></div>
+                        <div class="table-responsive">
 
-                        <table class="table hover table-striped table-bordered" id="datatable">
-                            <thead>
+                            <table class="table hover  table-bordered" id="datatable">
+                                <thead>
 
-                                <tr>
-                                    <th style="display:none">  11</th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Name)
-                                    </th>
-                                    <th>
-                                        Quiz Question?
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Type)
-                                    </th>
-
-                                    <th>
-                                        Lesson Name
-                                    </th>
-                                    <th>
-                                        Answer
-                                    </th>
-                                    <th>
-                                        Creation Date
-                                    </th>
-                                    @*<th></th>*@
-                                </tr>
-                            </thead>
-
-                            <tbody>
-
-                                @foreach (var item in Model)
-                                {
                                     <tr>
-                                        <td style="display:none">
+                                        <th style="display:none">  11</th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Name)
+                                        </th>
+                                        <th>
+                                            Quiz Question?
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Type)
+                                        </th>
 
-                                            @item.Id
-                                        </td>
-
-
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Name)
-                                        </td>
-                                        <td>
-                                            @if (item.Is_Quiz == true)
-                                            {
-                                                <span>Yes</span>
-                                            }
-                                            else if (item.Is_Quiz == false)
-                                            {
-                                                <span>No</span>
-                                            }
-                                            else
-                                            {
-                                                <span>Not Set</span>
-
-                                            }
-
-
-
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Type)
-                                        </td>
-
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.AspnetLesson.Name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.AspnetOption.Name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.CreationDate)
-                                        </td>
-                                        @*<td>
-                                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                                            </td>*@
+                                        <th>
+                                            Lesson Name
+                                        </th>
+                                        <th>
+                                            Answer
+                                        </th>
+                                        <th>
+                                            Creation Date
+                                        </th>
+                                        @*<th></th>*@
                                     </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td style="display:none">
+
+                                                @item.Id
+                                            </td>
 
 
-                                }
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Name)
+                                            </td>
+                                            <td>
+                                                @if (item.Is_Quiz == true)
+                                                {
+                                                    <span>Yes</span>
+                                                }
+                                                else if (item.Is_Quiz == false)
+                                                {
+                                                    <span>No</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Not Set</span>
 
-                            </tbody>
+                                                }
 
-                        </table>
 
+
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Type)
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AspnetLesson.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AspnetOption.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CreationDate)
+                                            </td>
+                                            @*<td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            </td>*@
+                                        </tr>
+
+
+                                    }
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
 
 
 
@@ -364,35 +369,37 @@
                     <div class="box-body">
                         <div class="col-md-12">
 
+                            <div class="table-responsive">
 
-                            <table class="table1 hover table-striped table-bordered" id="datatable1">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>
-                                            Name
-                                        </th>
-                                        <th>
-                                            Description
-                                        </th>
-                                        <th>
-                                            Start Date
-                                        </th>
-                                        <th>
-                                            Due Date
-                                        </th>
-                                        <th>
-                                            Created By
-                                        </th>
+                                <table class="table1 hover  table-bordered" id="datatable1">
+                                    <thead>
+                                        <tr>
+                                            @*<th>ID</th>*@
+                                            <th>
+                                                Name
+                                            </th>
+                                            <th>
+                                                Description
+                                            </th>
+                                            <th>
+                                                Start Date
+                                            </th>
+                                            <th>
+                                                Due Date
+                                            </th>
+                                            <th>
+                                                Created By
+                                            </th>
 
-                                        <th>
-                                            Creation Date
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody id="QuizList">
-                                </tbody>
-                            </table>
+                                            <th>
+                                                Creation Date
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="QuizList">
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </div>
                     </div>

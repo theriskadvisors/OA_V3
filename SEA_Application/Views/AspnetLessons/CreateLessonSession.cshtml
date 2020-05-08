@@ -33,10 +33,10 @@
     $(document).ready(function () {
 
 
-           $("#btnCancel").click(function () {
+        $("#btnCancel").click(function () {
 
-                 window.location.href = "/AspnetLessons/LessonSessionView";
-            })
+            window.location.href = "/AspnetLessons/LessonSessionView";
+        })
 
 
         $("#PageHeader").html("Add Lesson Session");
@@ -197,8 +197,8 @@
                 });
             }
             else {
-                  var $el = $("#LessonId");
-                        $el.empty();
+                var $el = $("#LessonId");
+                $el.empty();
             }
 
         });
@@ -241,14 +241,59 @@
                 });
             }
             else {
-                   var $el = $("#TopId");
-                        $el.empty();
-                        var $e1 = $("#LessonId");
-                        $e1.empty();
+                var $el = $("#TopId");
+                $el.empty();
+                var $e1 = $("#LessonId");
+                $e1.empty();
             }
         });
 
-    })
+        $("form").submit(function () {
+
+            event.stopPropagation();
+
+            var StartDate = document.getElementById('StartDate').value;
+            var EndDate = document.getElementById('DueDate').value;
+            var eDate = new Date(EndDate);
+            var sDate = new Date(StartDate);
+
+
+            if (StartDate != '' && EndDate != '' && sDate < eDate  ) {
+
+                $("#ErrorMsg").html("");
+
+                return true;
+            }
+          
+            if(StartDate != '' && EndDate != '' && sDate > eDate) {
+
+                $("#ErrorMsg").html("Start Date Should be lesser than Due Date");
+
+                return false;
+            }
+
+             });
+      
+        $("#DueDate").change(function () {
+
+           $("#ErrorMsg").html("");
+           
+        })
+
+        
+        $("#StartDate").change(function () {
+
+        $("#ErrorMsg").html("");
+           
+        })
+
+        //               function DateCheck()
+        //            {
+
+        //            }
+
+        //})
+              });
 </script>
 
 
@@ -258,83 +303,83 @@
         <div class="card">
             <div class="card-body p-5">
 
-                @using (Html.BeginForm("CreateLessonSession", "AspnetLessons", FormMethod.Post, new {  role = "form" }))
+                @using (Html.BeginForm("CreateLessonSession", "AspnetLessons", FormMethod.Post, new { role = "form" }))
                 {
                     @Html.AntiForgeryToken()
 
                     @Html.AntiForgeryToken()
 
-                <div class="row">
-                    <div class="col-md-6 pl-5 pr-5 ">
+                    <div class="row">
+                        <div class="col-md-6 pl-5 pr-5 ">
 
 
 
-                        <div class="form-group">
-                            <label for="" class="control-label">Course Type* </label>
+                            <div class="form-group">
+                                <label for="" class="control-label">Course Type* </label>
 
-                            <select class="form-control CTIdDDL" id="CTId" name="CTId" required>
+                                <select class="form-control CTIdDDL" id="CTId" name="CTId" required>
 
-                                <option value="">Select One</option>
+                                    <option value="">Select One</option>
 
-                                <option value="CSS">CSS</option>
-                                <option value="PMS">PMS</option>
+                                    <option value="CSS">CSS</option>
+                                    <option value="PMS">PMS</option>
 
-                            </select>
-                        </div>
-
-
-                        <div class="form-group ">
-                            <label for="" class="control-label">Subject* </label>
-
-                            <select class="form-control SubIdDDL" id="SubId" name="SubId" required></select>
-                        </div>
-
-                        <div class="form-group  ">
-                            <label for="" class="control-label">Topic* </label>
-
-                            <select class="form-control TopIdDDL" id="TopId" name="TopId" required></select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="" class="control-label">Lesson* </label>
-
-                            <select class="form-control LessIdDDL" id="LessonId" name="LessonId" required></select>
-                        </div>
-
-
-                        <div class="form-row mt-3">
-                            <div class="form-group col-md-12 bmd-form-group">
-                                <label for="" class="bmd-label-static pl-2">Select Section*</label>
-                                <select class="form-control SecIdDDL" id="SessionId" name="SessionId" required></select>
+                                </select>
                             </div>
+
+
+                            <div class="form-group ">
+                                <label for="" class="control-label">Subject* </label>
+
+                                <select class="form-control SubIdDDL" id="SubId" name="SubId" required></select>
+                            </div>
+
+                            <div class="form-group  ">
+                                <label for="" class="control-label">Topic* </label>
+
+                                <select class="form-control TopIdDDL" id="TopId" name="TopId" required></select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="control-label">Lesson* </label>
+
+                                <select class="form-control LessIdDDL" id="LessonId" name="LessonId" required></select>
+                            </div>
+
+
+                            <div class="form-row mt-3">
+                                <div class="form-group col-md-12 bmd-form-group">
+                                    <label for="" class="bmd-label-static pl-2">Select Section*</label>
+                                    <select class="form-control SecIdDDL" id="SessionId" name="SessionId" required></select>
+                                </div>
+                            </div>
+                            <span style="padding:10px"></span>
+
+                            <div class="form-group">
+                                Start Date
+
+
+                                <input type="date" name="StartDate" id="StartDate" value="" class="form-control" required />
+
+
+                            </div>
+
+                            <span style="padding:10px"></span>
+                            <div class="form-group">
+                                <label>Due Date</label>
+
+
+                                <input type="date" name="DueDate" id="DueDate" value="" class="form-control" required />
+                                <br />
+                                <span style="color:red;" id="ErrorMsg"></span>
+
+                            </div>
+
                         </div>
-                        <span style="padding:10px"></span>
-
-                        <div class="form-group">
-                            Start Date
-
-
-                            <input type="date" name="StartDate" id="StartDate" value="" class="form-control" required />
-
-
-                        </div>
-
-                        <span style="padding:10px"></span>
-                        <div class="form-group">
-                            <label>Due Date</label>
-
-
-                            <input type="date" name="DueDate" id="DueDate" value="" class="form-control" required />
 
 
 
-                        </div>
-
-                    </div>
-
-
-                   
-                </div><!--row end-->
+                    </div><!--row end-->
 
 
 
