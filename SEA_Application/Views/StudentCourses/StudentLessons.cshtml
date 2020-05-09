@@ -1,7 +1,16 @@
-﻿
+﻿@using Microsoft.AspNet.Identity;
 @{
-    ViewBag.Title = "StudentLessons";
-    Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
+    if (User.IsInRole("Teacher"))
+    {
+        ViewBag.Title = "TeacherLessons";
+        Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
+    }
+    else
+    {
+        ViewBag.Title = "StudentLessons";
+        Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
+    }
+
 }
 
 <style>
@@ -10,8 +19,146 @@
         }
 
 </style>
+
+<style>
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+transition, #container a.view-slide {
+	 transition: all 0.25s ease-in-out;
+}
+ #overlay {
+	 position: fixed;
+	 background: rgba(48, 69, 92, 0.5);
+	 width: 100%;
+	 height: 100%;
+	 top: 0;
+	 left: 0;
+	 text-align: center;
+	 z-index: 9999;
+	 display: none;
+}
+ #overlay iframe {
+	 margin-top: 10%;
+}
+ #container {
+	 background: rgba(255, 104, 115, 1);
+	 display: flex;
+	 flex-flow: column nowrap;
+	 align-items: center;
+	 justify-content: center;
+	 width: 100%;
+	 height: 100vh;
+	 text-transform: uppercase;
+}
+ #container header {
+	 font-family: 'Source Sans Pro', sans-serif;
+	 font-weight: 700;
+	 font-size: 1.5em;
+	 color: rgba(254, 255, 250, 1);
+	 line-height: 1;
+	 padding: 0.5em 2em;
+	 border-bottom: 0.5em solid rgba(220, 231, 235, 0.25);
+}
+ /*#container a.view-slide {
+	 font-size: 0.9em;
+	 font-family: 'Ubuntu', sans-serif;
+	 font-weight: 400;
+	 text-decoration: none;
+	 color: rgba(34, 190, 198, 1);
+	 background: rgba(254, 255, 250, 1);
+	 margin-top: 2em;
+	 padding: 1.2em;
+	 border-radius: 0.25em;
+}
+ #container a.view-slide:hover {
+	 color: rgba(48, 69, 92, 0.5);
+	 background: rgba(48, 69, 92, 0.15);
+}*/
+
+/*.overlay {
+  height: 100%;
+  width: 100%;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+}
+
+.overlay-content {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+  z-index: 99999;
+}
+
+.overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+}*/
+
+/*media screen and (max-height: 450px) {
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+  font-size: 40px;
+  top: 15px;
+  right: 35px;
+  }
+}*/
+
+
+</style>
+
 <script>
-    $(document).ready(function () {
+    $(document).ready(function () {     
+                            
+        var $overlay = $('<div id="overlay"></div>');
+        var $iframe = $('<iframe src="" frameborder="0" border="0" scrolling="auto" allowtransparency="true" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="1" style="border: none; background-color: transparent; width: 70%; height: 60%;" ></iframe>');
+
+        // append iframe to overaly
+        $overlay.append($iframe);
+
+        // append overlay to body
+        $('body').append($overlay);
+
+        // slideshare slides - capture the click event on a link to the slide
+        $('#iframeBtn').click(function (event) {
+            event.preventDefault();
+            
+            // update overlay with iframe
+            //$iframe.attr('src', src);
+            // show overlay
+            $overlay.show();
+        });
+
+        // when overlay is clicked
+        $overlay.click(function () {
+            // hide overlay
+            $overlay.hide();
+            //$iframe.attr('src', '');
+        });
+
 
         $("#PageHeader").html("Lessons");
 
@@ -95,10 +242,10 @@
 
                         if (lesson.LessonExistInTrackingTable == "Yes") {
                             trueCount = trueCount + 1;
-                            Lesson = Lesson + '<div class="col-md-12"><div class="form-check  my-2"><a name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '" target="_blank"> <label class="form-check-label"><input class="form-check-input" type="checkbox" checked="" disabled><span class="form-check-sign"><span class="check"></span></span>' + lesson.LessonName + '<div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></a></div></div>';
+                            Lesson = Lesson + '<div class="col-md-12"><div class="form-check  my-2"><label class="form-check-label"><input class="form-check-input" type="checkbox" checked="" disabled><span class="form-check-sign"><span class="check"></span></span><a name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '" target="_blank">' + lesson.LessonName + '</a><div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></a></div></div>';
                         }
                         else {
-                            Lesson = Lesson + '<div class="col-md-12"><div class="form-check  my-2"><a name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '" target="_blank"> <label class="form-check-label"><input class="form-check-input" type="checkbox" disabled><span class="form-check-sign"><span class="check"></span></span>' + lesson.LessonName + '<div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></a></div></div>';
+                            Lesson = Lesson + '<div class="col-md-12"><div class="form-check  my-2"><label class="form-check-label"><input class="form-check-input" type="checkbox" disabled><span class="form-check-sign"><span class="check"></span></span><a name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '" target="_blank">' + lesson.LessonName + '</a><div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></a></div></div>';
                         }
                     })
                     $("#accordionEx").append(Topic + Lesson + '</div></div></div></div>');
@@ -176,8 +323,19 @@
                         </div>
 
                         <div style="/*! height: 120px; */" class="upload-photo videoBox border rounded d-flex align-items-center justify-content-center flex-column mb-4">
-                            <iframe src="" frameborder="0" border="0" scrolling="auto" allowtransparency="true" allowfullscreen="1" style="border: none; background-color: transparent; width: 100%; height: 100%;"></iframe>
+                            <button class="btn btn-lg btn-white btn-round btn-just-icon m-0" id="iframeBtn" >
+                                <img src="~/Content/assets/assets/icons/play.png" style="vertical-align: -4px;margin-left: 5px;">
+                            </button>
                         </div>
+
+                        <!--<div id="myNav" class="overlay">
+                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                            <iframe src="" frameborder="0" border="0" scrolling="auto" allowtransparency="true" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="1" style="border: none; background-color: transparent; width: 70%; height: 60%; position: absolute" ></iframe>
+                        </div>-->
+
+                        <!--<div style="/*! height: 120px; */" class="upload-photo videoBox border rounded d-flex align-items-center justify-content-center flex-column mb-4">
+                            <iframe src="" frameborder="0" border="0" scrolling="auto" allowtransparency="true" allowfullscreen="1" style="border: none; background-color: transparent; width: 100%; height: 100%;"></iframe>
+                        </div>-->
 
                         <div class="tabsCon">
                             <!-- Nav tabs -->

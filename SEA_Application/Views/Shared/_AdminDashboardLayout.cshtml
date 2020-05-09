@@ -197,7 +197,7 @@
                             <i class="sea-dash">
                                 <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/icon-questions.png" alt="">
                             </i>
-                            <p>Lesson Session</p>
+                            <p>Schedule Lesson</p>
                         </a>
                     </li>
 
@@ -210,18 +210,7 @@
                             <p>Notes</p>
                         </a>
                     </li>
-                    <li class="nav-item hidden">
-
-                        <a href="@Url.Action("Index", "AspNetTimeTable" )" class="nav-link nav-toggle">
-                            <i class="sea-dash">
-                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
-                            </i>
-                            <p>Time Table</p>
-                        </a>
-                    </li>
                     <li class="nav-item">
-
-
                         <a href="@Url.Action("Index", "AspNetSession" )" class="nav-link nav-toggle">
                             <i class="sea-dash">
                                 <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
@@ -229,9 +218,17 @@
                             <p>Session</p>
                         </a>
                     </li>
+
                     <li class="nav-item hidden">
+                        <a href="@Url.Action("Index", "AspNetTimeTable" )" class="nav-link nav-toggle">
+                            <i class="sea-dash">
+                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
+                            </i>
+                            <p>Time Table</p>
+                        </a>
+                    </li>                    
 
-
+                    <li class="nav-item hidden">
                         <a href="@Url.Action("Index", "AspNetTimeslots" )" class="nav-link nav-toggle">
                             <i class="sea-dash">
                                 <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
@@ -239,9 +236,8 @@
                             <p>Slot</p>
                         </a>
                     </li>
+
                     <li class="nav-item hidden">
-
-
                         <a href="@(Url.Action("Inbox", "AspNetMessages" ))" class="nav-link nav-toggle">
                             <i class="sea-dash">
                                 <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/icon-mailpay.png" alt="">
@@ -249,9 +245,8 @@
                             <p>Mail Box</p>
                         </a>
                     </li>
+
                     <li class="nav-item hidden">
-
-
                         <a href="https://smartereduanalytics.on.spiceworks.com/portal/tickets" class="nav-link nav-toggle">
                             <i class="sea-dash">
                                 <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">

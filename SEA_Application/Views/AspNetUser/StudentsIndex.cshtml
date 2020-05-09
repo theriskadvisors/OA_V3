@@ -54,7 +54,7 @@
 
                     table.fnClearTable();
                     $.each(data, function (i, item) {
-                        table.fnAddData([item.UserName , item.Name, item.Email, item.PhoneNumber, item.ClassName]);
+                        table.fnAddData([item.UserName + "<input type='hidden' value=" + item.Id + " />", item.Name, item.Email, item.PhoneNumber, item.ClassName]);
                     });
                     table.fnDraw();
                     $('.eeniart0017').css("display", "none");
@@ -65,13 +65,19 @@
 
   
 
-          $('.table').on('click', 'tbody tr', function() {
+        $('.table').on('click', 'tbody tr', function () {
+
             var td = $(this).children("td");
+            var id = $(td[0]).children("input").val();
+            if (id != "")
+                window.location.href = "EditStudent?id=" + id;
 
-             // alert( $(td[0]).html());
-            if ($(td).html() != "No data available in table");
+            //var td = $(this).children("td");
+            // // alert( $(td[0]).html());
+            //if ($(td).html() != "No data available in table");
 
-            window.location.href = "StudentDetail?userName=" + $(td[0]).html();
+
+            //window.location.href = "StudentDetail?userName=" + $(td[0]).html();
 
       });
 
