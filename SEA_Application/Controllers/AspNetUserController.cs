@@ -23,7 +23,7 @@ using System.IO;
 
 namespace SEA_Application.Controllers
 {
-    [Authorize(Roles = "Admin,Principal,Accountant,Student")]
+    [Authorize(Roles = "Admin,Principal,Accountant,Student,Teacher")]
     public class AspNetUserController : Controller
     {
         private ApplicationSignInManager _signInManager;

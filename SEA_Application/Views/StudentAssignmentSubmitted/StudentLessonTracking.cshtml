@@ -17,16 +17,16 @@
              var   table = $('#datatable').dataTable({
                 buttons: [
                     {
-                        text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
+                        text: ''
                     },
                     {
-                        text: '<span class="datatableButtonsEdit"> <img src="/Content/assets/assets/icons/Icon-edit.png" alt=""> Create</span>',
+                        text: '',
                         action: function (e, dt, button, config) {
                             window.location.href = '';
                         }
                     },
                     {
-                        text: '<span class="datatableButtonsDownload"> <img src="/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
+                        text: ''
                     }
                 ],
                 "language": {
@@ -127,17 +127,17 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.AspNetUser.Name)
                                 </th>
+                                
                                 <th>
-                                    @Html.DisplayNameFor(model => model.IsCompleted)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Assignment_Status)
+                                   Assignment Status
                                 </th>
                                 <th>
                                     <span>Lesson Name</span>
                                 </th>
 
-
+                                <th>
+                                    Is Completed
+                                </th>
                             </tr>
                         </thead>
 
@@ -148,6 +148,13 @@
                                 <tr>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.AspNetUser.Name)
+                                    </td>
+                                   
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Assignment_Status)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AspnetLesson.Name)
                                     </td>
                                     <td>
 
@@ -162,13 +169,6 @@
                                         }
 
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Assignment_Status)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.AspnetLesson.Name)
-                                    </td>
-
 
                                 </tr>
                             }
