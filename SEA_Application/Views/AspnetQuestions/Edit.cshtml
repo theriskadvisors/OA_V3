@@ -101,34 +101,41 @@
 
             var topid = $(this).val();
             console.log(topid);
+            if (topid != "") {
 
-            $.ajax({
-                type: "POST",
-                cache: false,
-                url: "/AspNetProject/GetLession?TopID=" + topid,
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    var sch = JSON.parse(data);
-                    console.log(sch);
 
-                    var $el = $("#LessonId");
-                    $el.empty();
-                    if (sch.length > 0) {
-                        $el.append($("<option></option>")
-                            .attr("value", "").text('Select Lesson'));
-                        for (i = 0; i < sch.length; i++) {
+                $.ajax({
+                    type: "POST",
+                    cache: false,
+                    url: "/AspNetProject/GetLession?TopID=" + topid,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        var sch = JSON.parse(data);
+                        console.log(sch);
 
+                        var $el = $("#LessonId");
+                        $el.empty();
+                        if (sch.length > 0) {
                             $el.append($("<option></option>")
-                                .attr("value", sch[i].Id).text(sch[i].Name));
+                                .attr("value", "").text('Select Lesson'));
+                            for (i = 0; i < sch.length; i++) {
+
+                                $el.append($("<option></option>")
+                                    .attr("value", sch[i].Id).text(sch[i].Name));
+                            }
+                        }
+                        else {
+                            $el.append($("<option></option>")
+                                .attr("value", '').text('Select'));
                         }
                     }
-                    else {
-                        $el.append($("<option></option>")
-                            .attr("value", '').text('Select'));
-                    }
-                }
-            });
+                });
+            }
+            else {
+                     var $el = $("#LessonId");
+                        $el.empty();
+            }
 
         });
 
@@ -137,38 +144,49 @@
 
             var subid = $(this).val();
             console.log(subid);
-
-            $.ajax({
-                type: "POST",
-                cache: false,
-                url: "/AspNetProject/GetTopic?SubID=" + subid,
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    var sch = JSON.parse(data);
-                    console.log(sch);
-                    var $el = $("#TopicId");
-                    $el.empty();
-                    var $e1 = $("#LessonId");
-                    $e1.empty();
+            if (subid != "") {
 
 
-                    if (sch.length > 0) {
-                        $el.append($("<option></option>")
-                            .attr("value", "").text('Select Topic'));
-                        for (i = 0; i < sch.length; i++) {
+                $.ajax({
+                    type: "POST",
+                    cache: false,
+                    url: "/AspNetProject/GetTopic?SubID=" + subid,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        var sch = JSON.parse(data);
+                        console.log(sch);
+                        var $el = $("#TopicId");
+                        $el.empty();
+                        var $e1 = $("#LessonId");
+                        $e1.empty();
 
+
+                        if (sch.length > 0) {
                             $el.append($("<option></option>")
-                                .attr("value", sch[i].Id).text(sch[i].Name));
+                                .attr("value", "").text('Select Topic'));
+                            for (i = 0; i < sch.length; i++) {
+
+                                $el.append($("<option></option>")
+                                    .attr("value", sch[i].Id).text(sch[i].Name));
+                            }
+                        }
+                        else {
+                            $el.append($("<option></option>")
+                                .attr("value", '').text('Select'));
                         }
                     }
-                    else {
-                        $el.append($("<option></option>")
-                            .attr("value", '').text('Select'));
-                    }
-                }
-            });
+                });
+            }
+            else {
 
+
+                var $el = $("#TopicId");
+                        $el.empty();
+                        var $e1 = $("#LessonId");
+                        $e1.empty();
+
+            }
         });
 
     })
@@ -279,6 +297,7 @@
                                 @Html.ValidationMessageFor(model => model.QuestionName, "", new { @class = "text-danger" })
 
                             </div>
+
 
 
 

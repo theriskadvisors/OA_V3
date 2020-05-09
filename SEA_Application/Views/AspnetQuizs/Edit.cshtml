@@ -50,6 +50,8 @@
                         var $e2 = $("#TopicId");
                         $e2.empty();
                         $el.empty();
+                            var $e3 = $("#QuestionID");
+                    $e3.empty();
                         if (sch.length > 0) {
                             $el.append($("<option></option>")
                                 .attr("value", "").text('Select Subject'));
@@ -144,33 +146,41 @@
 
             var SubjectId = $("#SubjectId").val();
 
-            $.ajax({
+            if (SubjectId != "") {
 
-                type: "POST",
-                url: "/AspnetQuizs/GetSubjectTopics",
-                data: { "SubjectId": SubjectId },
-                success: function (data) {
+                $.ajax({
 
-                    $('#TopicId').html('');
+                    type: "POST",
+                    url: "/AspnetQuizs/GetSubjectTopics",
+                    data: { "SubjectId": SubjectId },
+                    success: function (data) {
 
-                         $('#QuestionID').html('');
-                    $.each(data, function (i, item) {
+                        $('#TopicId').html('');
 
-                        debugger
-                        // var classname = $("#ClassID option[value='" + item.ClassID + "']").text();
-                        $('#TopicId').append('<option value=' + item.Id + '>' + item.Name + ' </option>');
+                        $('#QuestionID').html('');
+                        $.each(data, function (i, item) {
 
-
-
-
-                    });
-
-                }
+                            debugger
+                            // var classname = $("#ClassID option[value='" + item.ClassID + "']").text();
+                            $('#TopicId').append('<option value=' + item.Id + '>' + item.Name + ' </option>');
 
 
-            })
 
 
+                        });
+
+                    }
+
+
+                })
+
+            }
+
+            else {
+                 $('#TopicId').html('');
+
+                        $('#QuestionID').html('');
+            }
         })
 
 

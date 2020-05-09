@@ -53,12 +53,38 @@ namespace SEA_Application.Controllers
 
         }
 
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.TopicId = new SelectList(db.AspnetSubjectTopics, "Id", "Name");
+            if (id != 0)
+            {
+                AspnetSubjectTopic aspnetSubjectTopic = db.AspnetSubjectTopics.Find(id);
 
-            ViewBag.ClassID = new SelectList(db.AspNetClasses, "Id", "ClassName");
+              
+                int? SubjectId = aspnetSubjectTopic.SubjectId;
+                GenericSubject Subject = db.GenericSubjects.Where(x => x.Id == SubjectId).FirstOrDefault();
+
+                ViewBag.TopicExist = 1;
+
+                ViewBag.TopicId = id;
+                ViewBag.SubjectId = aspnetSubjectTopic.SubjectId;
+                ViewBag.CTId = Subject.SubjectType;
+
+                return View();
+
+            }
+            else
+            {
+
+            ViewBag.TopicId = null;
+            ViewBag.SubjectId = null;
+            ViewBag.CTId = null;
+            ViewBag.TopicExist = 0;
+         //   ViewBag.TopicId = new SelectList(db.AspnetSubjectTopics, "Id", "Name");
+           // ViewBag.ClassID = new SelectList(db.AspNetClasses, "Id", "ClassName");
+
             return View();
+            }
+
         }
 
         // POST: AspnetLessons/Create

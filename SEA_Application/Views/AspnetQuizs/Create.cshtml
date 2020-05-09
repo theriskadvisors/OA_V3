@@ -72,21 +72,27 @@
                     success: function (data) {
                         var sch = JSON.parse(data);
                         console.log(sch);
-                        var $el = $(".SubIdDDL");
-                        var $e2 = $(".TopIdDDL");
+
+
+                        var $e1 = $(".SubIdDDL");
+                        var $e2 = $("#TopicId");
                         $e2.empty();
-                        $el.empty();
+
+                        $e1.empty();
+                         var $e3 = $("#QuestionID");
+                $e3.empty();
+                    
                         if (sch.length > 0) {
-                            $el.append($("<option></option>")
+                            $e1.append($("<option></option>")
                                 .attr("value", "").text('Select Subject'));
                             for (i = 0; i < sch.length; i++) {
 
-                                $el.append($("<option></option>")
+                                $e1.append($("<option></option>")
                                     .attr("value", sch[i].Id).text(sch[i].SubjectName));
                             }
                         }
                         else {
-                            $el.append($("<option></option>")
+                            $e1.append($("<option></option>")
                                 .attr("value", '').text('Select'));
                         }
                     }
@@ -96,7 +102,7 @@
 
                 var $el = $(".SubIdDDL");
                 $el.empty();
-                var $e2 = $(".TopIdDDL");
+                var $e2 = $("#TopicId");
                 $e2.empty();
                 var $e3 = $("#QuestionID");
                 $e3.empty();
@@ -144,39 +150,52 @@
 
         });
 
-        $('#SubId').change(function () {
+        //$('#SubId').change(function () {
+        //    debugger
+        //    var subid = $(this).val();
+        //    console.log(subid);
+        //    if (subid != "") {
 
-            var subid = $(this).val();
-            console.log(subid);
 
-            $.ajax({
-                type: "POST",
-                cache: false,
-                url: "/AspNetProject/GetTopic?SubID=" + subid,
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    var sch = JSON.parse(data);
-                    console.log(sch);
-                    var $el = $(".TopIdDDL");
-                    $el.empty();
-                    if (sch.length > 0) {
-                        $el.append($("<option></option>")
-                            .attr("value", "").text('Select Topic'));
-                        for (i = 0; i < sch.length; i++) {
+        //        $.ajax({
+        //            type: "POST",
+        //            cache: false,
+        //            url: "/AspNetProject/GetTopic?SubID=" + subid,
+        //            processData: false,
+        //            contentType: false,
+        //            success: function (data) {
+        //                var sch = JSON.parse(data);
+        //                console.log(sch);
+        //                var $el = $("#TopicId");
+        //                $el.empty();
+        //                   var $e2 = $("#QuestionID");
+        //                $e2.empty();
 
-                            $el.append($("<option></option>")
-                                .attr("value", sch[i].Id).text(sch[i].Name));
-                        }
-                    }
-                    else {
-                        $el.append($("<option></option>")
-                            .attr("value", '').text('Select'));
-                    }
-                }
-            });
+        //                if (sch.length > 0) {
+        //                    $el.append($("<option></option>")
+        //                        .attr("value", "").text('Select Topic'));
+        //                    for (i = 0; i < sch.length; i++) {
 
-        });
+        //                        $el.append($("<option></option>")
+        //                            .attr("value", sch[i].Id).text(sch[i].Name));
+        //                    }
+        //                }
+        //                else {
+        //                    $el.append($("<option></option>")
+        //                        .attr("value", '').text('Select'));
+        //                }
+        //            }
+        //        });
+        //    }
+        //    else {
+        //        var $el = $("#TopicId");
+        //        $el.empty();
+
+        //             var $e2 = $("#QuestionID");
+        //                $e2.empty();
+        //    }
+
+        //});
 
     })
 </script>
@@ -212,7 +231,7 @@
 
 
 
-                            <label >Start Date</label>
+                            <label>Start Date</label>
                             <div>
 
 
@@ -234,13 +253,13 @@
                         </div>
 
                         @*<div class="form-group">
-                    <div class="col-md-2">
-                        <label>Section <span class="text-danger">*</span></label>
-                    </div>
-                    <div class="col-md-6">
-                        <select class="form-control SecIdDDL" id="SecId" name="SecId"></select>
-                    </div>
-                </div>*@
+                                <div class="col-md-2">
+                                    <label>Section <span class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control SecIdDDL" id="SecId" name="SecId"></select>
+                                </div>
+                            </div>*@
 
                         <div class="form-group">
 
@@ -321,19 +340,19 @@
 
 
                     @*<div class="form-group">
-                        <div class="col-md-offset-1 col-md-10">
-                            <input type="submit" value="Create" class="btn btn-primary" />
+                            <div class="col-md-offset-1 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-primary" />
 
-                            <button type="button" class="btn btn-danger" id="btnCancel">Cancel</button>
-                        </div>
-                    </div>*@
+                                <button type="button" class="btn btn-danger" id="btnCancel">Cancel</button>
+                            </div>
+                        </div>*@
 
-                
+
 
                     <hr class="mt-5 mb-4">
 
-                    <button type="submit"  class="btn btn-primary pull-right rounded rounded-lg"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Save &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </button>
-                    <button type="button"  id="btnCancel" class="btn btn-primary pull-right rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
+                    <button type="submit" class="btn btn-primary pull-right rounded rounded-lg"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Save &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </button>
+                    <button type="button" id="btnCancel" class="btn btn-primary pull-right rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
                         <i class="material-icons mr-2">cached</i>  Cancel &nbsp; &nbsp;
                     </button>
                     <div class="clearfix"></div>
@@ -354,6 +373,8 @@
 
         $("#TopicId").click(function () {
             var selectedTopic = $("#TopicId").val();
+
+
             debugger
             $.ajax({
                 url: '@Url.Action("QuestionsByTopics")',
@@ -381,28 +402,39 @@
         $("#SubId").change(function () {
 
             var SubjectId = $("#SubId").val();
+            if (SubjectId != "") {
 
-            $.ajax({
+                $.ajax({
 
-                type: "POST",
-                url: "/AspnetQuizs/GetSubjectTopics",
-                data: { "SubjectId": SubjectId },
-                success: function (data) {
+                    type: "POST",
+                    url: "/AspnetQuizs/GetSubjectTopics",
+                    data: { "SubjectId": SubjectId },
+                    success: function (data) {
 
-                    $('#TopicId').html('');
+                        $('#TopicId').html('');
+                          $('#QuestionID').html('');
 
-                    $.each(data, function (i, item) {
+                        $.each(data, function (i, item) {
 
-                        debugger
-                        // var classname = $("#ClassID option[value='" + item.ClassID + "']").text();
-                        $('#TopicId').append('<option value=' + item.Id + '>' + item.Name + ' </option>');
+                            debugger
+                            // var classname = $("#ClassID option[value='" + item.ClassID + "']").text();
+                            $('#TopicId').append('<option value=' + item.Id + '>' + item.Name + ' </option>');
 
-                    });
+                        });
 
-                }
+                    }
 
 
-            })
+                })
+            }
+            else {
+
+                  var $el = $("#TopicId");
+                $el.empty();
+
+                     var $e2 = $("#QuestionID");
+                        $e2.empty();
+            }
 
         })
 

@@ -205,34 +205,40 @@
 
             var subid = $(this).val();
             console.log(subid);
+            if (subid != "") {
 
-            $.ajax({
-                type: "POST",
-                cache: false,
-                url: "/AspNetProject/GetTopic?SubID=" + subid,
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    var sch = JSON.parse(data);
-                    console.log(sch);
-                    var $el = $(".TopicIdDDL");
-                    $el.empty();
-                    if (sch.length > 0) {
-                        $el.append($("<option></option>")
-                            .attr("value", "").text('Select Topic'));
-                        for (i = 0; i < sch.length; i++) {
 
+                $.ajax({
+                    type: "POST",
+                    cache: false,
+                    url: "/AspNetProject/GetTopic?SubID=" + subid,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        var sch = JSON.parse(data);
+                        console.log(sch);
+                        var $el = $(".TopicIdDDL");
+                        $el.empty();
+                        if (sch.length > 0) {
                             $el.append($("<option></option>")
-                                .attr("value", sch[i].Id).text(sch[i].Name));
+                                .attr("value", "").text('Select Topic'));
+                            for (i = 0; i < sch.length; i++) {
+
+                                $el.append($("<option></option>")
+                                    .attr("value", sch[i].Id).text(sch[i].Name));
+                            }
+                        }
+                        else {
+                            $el.append($("<option></option>")
+                                .attr("value", '').text('Select'));
                         }
                     }
-                    else {
-                        $el.append($("<option></option>")
-                            .attr("value", '').text('Select'));
-                    }
-                }
-            });
-
+                });
+            }
+            else {
+                      var $el = $(".TopicIdDDL");
+                        $el.empty();
+            }
         });
 
         $("form").submit(function () {
