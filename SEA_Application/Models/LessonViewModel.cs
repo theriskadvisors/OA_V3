@@ -32,6 +32,8 @@ namespace SEA_Application.Models
         public int TopicId { get; set; }
 
 
+        public int OrderBy { get; set; }
+
         [Display(Name = "Assignment Name")]
 
         public string AssignmentName { get; set; }

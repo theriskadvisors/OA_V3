@@ -59,7 +59,7 @@ namespace SEA_Application.Controllers
             {
                 AspnetSubjectTopic aspnetSubjectTopic = db.AspnetSubjectTopics.Find(id);
 
-              
+
                 int? SubjectId = aspnetSubjectTopic.SubjectId;
                 GenericSubject Subject = db.GenericSubjects.Where(x => x.Id == SubjectId).FirstOrDefault();
 
@@ -75,16 +75,38 @@ namespace SEA_Application.Controllers
             else
             {
 
-            ViewBag.TopicId = null;
-            ViewBag.SubjectId = null;
-            ViewBag.CTId = null;
-            ViewBag.TopicExist = 0;
-         //   ViewBag.TopicId = new SelectList(db.AspnetSubjectTopics, "Id", "Name");
-           // ViewBag.ClassID = new SelectList(db.AspNetClasses, "Id", "ClassName");
+                ViewBag.TopicId = null;
+                ViewBag.SubjectId = null;
+                ViewBag.CTId = null;
+                ViewBag.TopicExist = 0;
+                //   ViewBag.TopicId = new SelectList(db.AspnetSubjectTopics, "Id", "Name");
+                // ViewBag.ClassID = new SelectList(db.AspNetClasses, "Id", "ClassName");
 
-            return View();
+                return View();
             }
 
+        }
+
+        public ActionResult CheckLessonOrderBy(string TopicId, string OrderBy)
+        {
+
+            int TopId = Convert.ToInt32(TopicId);
+            int OrderByValue = Convert.ToInt32(OrderBy);
+
+            var TopicExist = "";
+            AspnetLesson Lesson = db.AspnetLessons.Where(x => x.TopicId == TopId && x.OrderBy == OrderByValue).FirstOrDefault();
+
+            if (Lesson == null)
+            {
+                TopicExist = "No";
+            }
+            else
+            {
+                TopicExist = "Yes";
+            }
+
+
+            return Json(TopicExist, JsonRequestBehavior.AllowGet);
         }
 
         // POST: AspnetLessons/Create
@@ -104,6 +126,7 @@ namespace SEA_Application.Controllers
             Lesson.IsActive = LessonViewModel.IsActive;
             Lesson.CreationDate = LessonViewModel.CreationDate;
             Lesson.Description = LessonViewModel.LessonDescription;
+            Lesson.OrderBy = LessonViewModel.OrderBy;
             Lesson.CreationDate = DateTime.Now;
 
             string EncrID = Lesson.Name + Lesson.Description + Lesson.Id;
@@ -585,7 +608,7 @@ namespace SEA_Application.Controllers
 
             ViewBag.CTId = Subject.SubjectType;
 
-
+            ViewBag.OrderBy = aspnetLesson.OrderBy;
 
             return View(lessonViewModel);
         }
@@ -606,7 +629,7 @@ namespace SEA_Application.Controllers
             Lesson.DurationMinutes = LessonViewModel.LessonDuration;
             Lesson.Description = LessonViewModel.LessonDescription;
             Lesson.IsActive = LessonViewModel.IsActive;
-
+            Lesson.OrderBy = LessonViewModel.OrderBy;
             db.SaveChanges();
 
 

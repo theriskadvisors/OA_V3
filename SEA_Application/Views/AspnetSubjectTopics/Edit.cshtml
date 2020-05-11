@@ -34,18 +34,26 @@
 <script>
 
     $(document).ready(function () {
+
+
+        var DropDown = $("#DropdownHiddenValue").val();
+        if (DropDown != "") {
+
+            $('#OrderBy').val(DropDown);
+        }
+
         $("#btnCancel").click(function () {
 
             window.location.href = "/AspnetSubjectTopics/Index";
         })
 
-                $("#PageHeader").html("Edit Topic");
+        $("#PageHeader").html("Edit Topic");
 
         $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
         $("#BreadCrumbs").append(' <li> <a href="/AspnetSubjectTopics/ViewTopicsAndLessons"> Topic </a> <span>&gt;</span></li>');
         $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Edit</a></li>');
 
-        
+
         $("#btnCancel").click(function () {
 
             window.location.href = "/AspnetSubjectTopics/ViewTopicsAndLessons";
@@ -140,9 +148,75 @@
             });
 
         });
+
+
+        
+    $("#OrderBy").change(function () {
+
+
+        OrderBy();
+
+
+    })
+
+    $("#SubjectId").change(function () {
+
+        OrderBy();
     })
 
 
+    })
+
+    
+
+    
+    function OrderBy() {
+
+        var SubjectId = $("#SubjectId").val();
+        var OrderBy = $("#OrderBy").val();
+
+
+
+        if (SubjectId != null && SubjectId != "" && OrderBy != "" && OrderBy != null) {
+
+
+
+            $.ajax({
+
+                type: "POST",
+                url: '/AspnetSubjectTopics/CheckTopicOrderBy',
+                data: { "SubjectId": SubjectId, "OrderBy": OrderBy },
+                success: function (data) {
+
+                    if (data == "Yes") {
+
+
+                        $("#SaveButton").attr("disabled", true);
+
+                        $("#ErrorOrderBy").html("Selected order is already assigned to a topic of same subject.");
+                    }
+                    else {
+
+                        $("#SaveButton").attr("disabled", false);
+                        $("#ErrorOrderBy").html("");
+
+                    }
+
+
+
+                }
+            })
+
+        }
+
+          else {
+                 $("#SaveButton").attr("disabled", false);
+                        $("#ErrorOrderBy").html("");
+
+        }
+
+
+    }
 </script>
 
 @*<div class="box-header with-border"><h3 class="orange">Edit Topic<span class="red-mark">*</span></h3></div>*@
@@ -184,14 +258,14 @@
 
 
                         @*<div class="form-group">
-                    <label class="col-md-2 col-lg-2 control-label"> Section:<span class="red-mark">*</span></label>
-                    <div class="col-md-6">
-                        @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control text_box_style", @required = true })
+                                <label class="col-md-2 col-lg-2 control-label"> Section:<span class="red-mark">*</span></label>
+                                <div class="col-md-6">
+                                    @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control text_box_style", @required = true })
 
-                        <span style="color:red"> @ViewBag.SubjectsErrorMsg</span>
-                    </div>
+                                    <span style="color:red"> @ViewBag.SubjectsErrorMsg</span>
+                                </div>
 
-                </div>*@
+                            </div>*@
 
 
                         <div class="form-row mt-4">
@@ -224,27 +298,55 @@
                             </div>
                         </div>
 
+                        <div class="form-row mt-4">
+                            <div class="form-group col-md-12 bmd-form-group">
+                                <label for="" class="bmd-label-static pl-2">Order By </label>
+                                <input type="hidden" name="name" id="DropdownHiddenValue" value="@ViewBag.OrderBy" />
+
+                                <select class="form-control" id="OrderBy" name="OrderBy" required>
+
+                                    <option value="">Select One</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+
+                                </select>
+                                <br />
+                                <span id="ErrorOrderBy" style="color:red"></span>
+
+                            </div>
+                        </div>
+
+
 
 
 
                         @*<div class="form-group">
-                    @Html.LabelFor(model => model.FAQ, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.TextAreaFor(model => model.FAQ, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.FAQ, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
+                                @Html.LabelFor(model => model.FAQ, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-6">
+                                    @Html.TextAreaFor(model => model.FAQ, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FAQ, "", new { @class = "text-danger" })
+                                </div>
+                            </div>*@
 
                         @*<div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Save" class="btn btn-default" />
-                    </div>
-                </div>*@
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Save" class="btn btn-default" />
+                                </div>
+                            </div>*@
 
 
 
 
                     </div> <!--end column-->
+                    <br>
                     <br>
 
 
@@ -252,7 +354,7 @@
 
                         <button id="CreateLesson" type="button" class="btn btn-success rounded rounded-lg"> Create Lesson </button>
 
-                        <button type="submit" class="btn btn-primary rounded rounded-lg"> Update </button>
+                        <button type="submit" id="SaveButton" class="btn btn-primary rounded rounded-lg"> Update </button>
 
                         <button type="button" id="btnCancel" class="btn btn-primary rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
                             <i class="material-icons mr-2">cached</i>  Cancel
@@ -262,6 +364,6 @@
 
                 }
             </div>
-                </div>
+        </div>
     </div>
 </div>
