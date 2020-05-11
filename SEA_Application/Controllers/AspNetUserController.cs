@@ -839,7 +839,7 @@ namespace SEA_Application.Controllers
         {
 
 
-          var ChecktotalFee =  Request.Form["TotalFee"];
+        //  var ChecktotalFee =  Request.Form["TotalFee"];
          // var CheckDiscount = Request.Form["Discount"];
 
 
@@ -960,18 +960,18 @@ namespace SEA_Application.Controllers
                     ViewBag.VoucherExist = VoucherExist1;
 
 
-                    if(ChecktotalFee == "")
-                    {
-                        var employee = db.AspNetStudents.Where(x => x.StudentID == aspNetUser.Id).Select(x => x).FirstOrDefault();
-                        ViewBag.CourseType = employee.CourseType;
+                    //if(ChecktotalFee == "")
+                    //{
+                    //    var employee = db.AspNetStudents.Where(x => x.StudentID == aspNetUser.Id).Select(x => x).FirstOrDefault();
+                    //    ViewBag.CourseType = employee.CourseType;
 
-                        ViewBag.SubjectsErrorMsg = "please enter fee";
-                        ViewBag.ClassID = new SelectList(db.AspNetClasses, "Id", "ClassName");
+                    //    ViewBag.SubjectsErrorMsg = "please enter fee";
+                    //    ViewBag.ClassID = new SelectList(db.AspNetClasses, "Id", "ClassName");
 
                       
 
-                        return View(aspNetUser);
-                    }
+                    //    return View(aspNetUser);
+                    //}
                     //block
 
 
