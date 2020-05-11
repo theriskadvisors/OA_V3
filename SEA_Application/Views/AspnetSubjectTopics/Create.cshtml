@@ -42,7 +42,23 @@
         $("#btnCancel").click(function () {
 
             window.location.href = "/AspnetSubjectTopics/ViewTopicsAndLessons";
+        });
+
+        $("#OrderBy").change(function () {
+
+
+            OrderBy();
+
+
         })
+
+        $("#SubjectId").change(function () {
+
+            OrderBy();
+        })
+
+
+
 
 
 
@@ -51,7 +67,7 @@
         var Class;
         $('#CTId').change(function () {
 
-            
+
             var crse = $(this).val();
 
             if (crse != "") {
@@ -129,6 +145,55 @@
     })
 
 
+    function OrderBy() {
+
+        var SubjectId = $("#SubjectId").val();
+        var OrderBy = $("#OrderBy").val();
+
+
+
+        if (SubjectId != null && SubjectId != "" && OrderBy != "" && OrderBy != null) {
+
+
+
+            $.ajax({
+
+                type: "POST",
+                url: '/AspnetSubjectTopics/CheckTopicOrderBy',
+                data: { "SubjectId": SubjectId, "OrderBy": OrderBy },
+                success: function (data) {
+
+                    if (data == "Yes") {
+
+
+                        $("#SaveButton").attr("disabled", true);
+
+                        $("#ErrorOrderBy").html("Selected order is already assigned to a topic of same subject.");
+                    }
+                    else {
+
+                        $("#SaveButton").attr("disabled", false);
+                        $("#ErrorOrderBy").html("");
+
+                    }
+
+
+
+
+
+                }
+            })
+
+        }
+        else {
+                 $("#SaveButton").attr("disabled", false);
+                        $("#ErrorOrderBy").html("");
+
+        }
+
+
+    }
+
 </script>
 
 
@@ -142,8 +207,8 @@
                     @Html.AntiForgeryToken()
 
                     <div class="col-md-8 pl-5 pr-5 ">
-                      
-                
+
+
                         <h2 class="column-heading mb-4"> Topic Info</h2>
                         <div class="form-group bmd-form-group is-filled">
                             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "bmd-label-floating" })
@@ -171,20 +236,51 @@
                             </div>
                         </div>
 
+
+
+
+
+
                         <div class="form-row mt-4">
                             <div class="form-group col-md-12 bmd-form-group">
                                 <label for="" class="bmd-label-static pl-2">Subject*</label>
 
-                                <select class="form-control SubIdDDL" id="SubjectId" name="SubjectId" required></select>    
+                                <select class="form-control SubIdDDL" id="SubjectId" name="SubjectId" required></select>
 
                             </div>
                         </div>
 
+                        <div class="form-row mt-4">
+                            <div class="form-group col-md-12 bmd-form-group">
+                                <label for="" class="bmd-label-static pl-2">Order By </label>
+
+                                <select class="form-control" id="OrderBy" name="OrderBy" required>
+
+                                    <option value="">Select One</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+
+                                </select>
+                                <br />
+                                <span id="ErrorOrderBy" style="color:red"></span>
+
+                            </div>
+                        </div>
+
+
                     </div> <!-- End Column -->
-                    
+
 
                     <div class="col-md-8 pl-5 pr-5 ">
-                        <button type="submit" class="btn btn-primary rounded rounded-lg"> Save </button>
+                        <button type="submit" id="SaveButton" class="btn btn-primary rounded rounded-lg"> Save </button>
 
 
                         <button type="button" id="btnCancel" class="btn btn-primary rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
@@ -195,6 +291,6 @@
                 }
 
             </div>
-            </div>
+        </div>
     </div>
 </div>

@@ -116,7 +116,7 @@ namespace SEA_Application.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,SubjectId,FAQ")] AspnetSubjectTopic aspnetSubjectTopic)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,SubjectId,FAQ,OrderBy")] AspnetSubjectTopic aspnetSubjectTopic)
         {
             aspnetSubjectTopic.StartDate = null;
             aspnetSubjectTopic.EndDate = null;
@@ -142,6 +142,30 @@ namespace SEA_Application.Controllers
 
             ViewBag.SubjectId = new SelectList(SubjectofCurrentSessionTeacher, "Id", "SubjectName", aspnetSubjectTopic.SubjectId);
             return View(aspnetSubjectTopic);
+        }
+
+
+        public ActionResult CheckTopicOrderBy(string SubjectId, string OrderBy)
+        {
+
+
+            int SubId = Convert.ToInt32(SubjectId);
+            int OrderByValue = Convert.ToInt32(OrderBy);
+
+            var TopicExist = "";
+            AspnetSubjectTopic subjectTopic = db.AspnetSubjectTopics.Where(x => x.SubjectId == SubId && x.OrderBy ==OrderByValue).FirstOrDefault();
+
+            if (subjectTopic == null)
+            {
+                TopicExist = "No";
+            }
+            else
+            {
+                TopicExist = "Yes";
+            }
+
+
+            return Json(TopicExist, JsonRequestBehavior.AllowGet);
         }
 
         //public JsonResult StudentByClass(int id)
@@ -184,6 +208,8 @@ namespace SEA_Application.Controllers
 
             ViewBag.CTId = Subject.SubjectType;
 
+            ViewBag.OrderBy = aspnetSubjectTopic.OrderBy;
+
             return View(aspnetSubjectTopic);
         }
 
@@ -192,7 +218,7 @@ namespace SEA_Application.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,StartDate,EndDate,SubjectId,FAQ")] AspnetSubjectTopic aspnetSubjectTopic)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,StartDate,EndDate,SubjectId,FAQ,OrderBy")] AspnetSubjectTopic aspnetSubjectTopic)
         {
             if (ModelState.IsValid)
             {

@@ -122,6 +122,14 @@
     $(document).ready(function () {
 
 
+        
+        var DropDown = $("#DropdownHiddenValue").val();
+        if (DropDown != "") {
+
+            $('#OrderBy').val(DropDown);
+        }
+
+
         $("#PageHeader").html("Edit Lesson");
 
         $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
@@ -236,8 +244,8 @@
                 });
             }
             else {
-                      var $el = $(".TopicIdDDL");
-                        $el.empty();
+                var $el = $(".TopicIdDDL");
+                $el.empty();
             }
         });
 
@@ -315,8 +323,65 @@
         $("#btnCancel").click(function () {
             window.location.href = "/AspnetSubjectTopics/ViewTopicsAndLessons";
         })
-    })//end of document ready
 
+        $("#OrderBy").change(function () {
+
+            OrderBy();
+            // alert($(this).val());
+
+        })
+
+        $("#TopicId").change(function () {
+
+            OrderBy();
+            //  alert($(this).val());
+        })
+
+
+
+
+
+    })//end of document ready
+    function OrderBy() {
+
+        var TopicId = $("#TopicId").val();
+        var OrderBy = $("#OrderBy").val();
+
+        if (TopicId != null && TopicId != "" && OrderBy != "" && OrderBy != null) {
+
+            $.ajax({
+
+                type: "POST",
+                url: '/AspnetLessons/CheckLessonOrderBy',
+                data: { "TopicId": TopicId, "OrderBy": OrderBy },
+                success: function (data) {
+
+                    if (data == "Yes") {
+
+
+                        $("#CreateBtn").attr("disabled", true);
+
+                        $("#ErrorOrderBy").html("Selected order is already assigned to a lesson of same topic.");
+                    }
+                    else {
+
+                        $("#CreateBtn").attr("disabled", false);
+                        $("#ErrorOrderBy").html("");
+
+                    }
+
+                }
+            })
+
+        }
+        else {
+            $("#CreateBtn").attr("disabled", false);
+            $("#ErrorOrderBy").html("");
+
+        }
+
+
+    }
     function validateYouTubeUrl() {
         var url = $('#LessonVideoURL').val();
         if (url != undefined || url != '') {
@@ -368,15 +433,15 @@
 
 
             <div class="card-body p-5">
-                @using (Html.BeginForm("Edit", "AspnetLessons", FormMethod.Post, new {  enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("Edit", "AspnetLessons", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                     @*<form id="createLessonForm" class="md-form">*@
-                        <!-- Circles which indicates the steps of the form: -->
-                
-                @Html.HiddenFor(model => model.Id)
+                    <!-- Circles which indicates the steps of the form: -->
+
+                    @Html.HiddenFor(model => model.Id)
 
                     <div class="mb-3 text-center">
                         <div class="inline-block stepsCon">
@@ -387,351 +452,377 @@
                         </div>
                     </div>
 
-                        <!-- One "tab" for each step in the form: -->
-                        <div class="tab">
-                            <h2 class="column-heading wizard-heading mb-4">Lesson Basic Info</h2>
-                            <div class="row">
-                                <div class="col-md-6 leftCol">
+                    <!-- One "tab" for each step in the form: -->
+                    <div class="tab">
+                        <h2 class="column-heading wizard-heading mb-4">Lesson Basic Info</h2>
+                        <div class="row">
+                            <div class="col-md-6 leftCol">
 
-                                    <div class="form-group bmd-form-group">
-                                        <label class="bmd-label-floating">Lesson Name</label>
-                                        @Html.EditorFor(model => model.LessonName, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.LessonName, "", new { @class = "text-danger" })
-                                    </div>
-
-                                    <div class="form-group bmd-form-group my-3">
-                                        <label class="bmd-label-floating">Lesson video URL. Enter ispringcloud video Link</label>
-                                        @Html.EditorFor(model => model.LessonVideoURL, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.LessonVideoURL, "", new { @class = "text-danger" })
-                                        <span style="color:red;" id="youtubeErrorMsg"></span>
-                                    </div>
-
-                                    <div class="form-group bmd-form-group pt-5">
-                                        <label class="bmd-label-floating">Lesson Description</label>
-                                        <textarea class="form-control" name="LessonDescription" id="LessonDescription" rows="5">@Model.LessonDescription</textarea>
-                                        @*@Html.TextAreaFor(model => model.LessonDescription, new { htmlAttributes = new { @rows= "5", @class="form-control" } })
-                                            @Html.ValidationMessageFor(model => model.LessonDescription, "", new { @class = "text-danger" })*@
-
-
-                                    </div>
-
+                                <div class="form-group bmd-form-group">
+                                    <label class="bmd-label-floating">Lesson Name</label>
+                                    @Html.EditorFor(model => model.LessonName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LessonName, "", new { @class = "text-danger" })
                                 </div>
 
-                                <div class="col-md-6 pl-5 pr-5 ">
+                                <div class="form-group bmd-form-group my-3">
+                                    <label class="bmd-label-floating">Lesson video URL. Enter ispringcloud video Link</label>
+                                    @Html.EditorFor(model => model.LessonVideoURL, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LessonVideoURL, "", new { @class = "text-danger" })
+                                    <span style="color:red;" id="youtubeErrorMsg"></span>
+                                </div>
 
-                                    @*<div class="form-row mt-3">
-                                            <div class="form-group col-md-12 bmd-form-group">
-                                                <label for="" class="bmd-label-static pl-2">Select Section*</label>
-                                                <select class="form-control SecIdDDL" id="SessionId" name="SessionId" required></select>
-                                            </div>
-                                        </div>*@
-                                    <div class="form-row mt-3">
-                                        <div class="form-group col-md-12 bmd-form-group">
-                                            <label for="" class="bmd-label-static pl-2">Select Course Type*</label>
-                                            @Html.DropDownList("CTId", new List<SelectListItem>
-                                                {
-                                                new SelectListItem{ Text="CSS", Value = "CSS" },
-                                                new SelectListItem{ Text="PMS", Value = "PMS" },
-                                                 }, htmlAttributes: new { @class = "form-control CTIdDDL" })
-                                        </div>
-                                    </div>
-                                    <div class="form-row mt-3">
-                                        <div class="form-group col-md-12 bmd-form-group">
-                                            <label for="" class="bmd-label-static pl-2">Select Subject*</label>
-                                            @Html.DropDownList("SubId", null, htmlAttributes: new { @class = "form-control SubIdDDL" })
-                                            @*<select class="form-control SubIdDDL" id="SubId" name="SubId" required></select>*@
-                                        </div>
-                                    </div>
-                                    <div class="form-row mt-3">
-                                        <div class="form-group col-md-12 bmd-form-group">
-                                            <label for="" class="bmd-label-static pl-2">Select Topic*</label>
-
-                                            @Html.DropDownList("TopicId", null, htmlAttributes: new { @class = "form-control TopicIdDDL" })
-                                            @*<select class="form-control TopicIdDDL" id="TopicId" name="TopicId" required></select>*@
-
-                                        </div>
-                                    </div>
-
-                                    <div class="form-row mt-3">
-                                        <div class="form-group col-md-12 bmd-form-group">
-                                            <label class="bmd-label-floating">Lesson Duration*</label>
-                                            <input type="number" min="30" max="60" value="@ViewBag.LessonDuration"   onkeydown="return false" class="form-control" name="LessonDuration" id="LessonDuration" required />
-                                            @Html.ValidationMessageFor(model => model.LessonDuration, "", new { @class = "text-danger" })
-
-                                        </div>
-                                    </div>
+                                <div class="form-group bmd-form-group pt-5">
+                                    <label class="bmd-label-floating">Lesson Description</label>
+                                    <textarea class="form-control" name="LessonDescription" id="LessonDescription" rows="5">@Model.LessonDescription</textarea>
+                                    @*@Html.TextAreaFor(model => model.LessonDescription, new { htmlAttributes = new { @rows= "5", @class="form-control" } })
+                                        @Html.ValidationMessageFor(model => model.LessonDescription, "", new { @class = "text-danger" })*@
 
 
                                 </div>
 
                             </div>
 
+                            <div class="col-md-6 pl-5 pr-5 ">
 
-                        </div>
-                        <div class="tab">
-                            <h2 class="column-heading wizard-heading mb-4">Student Assignment</h2>
-
-                            <div class="row">
-                                <div class="col-md-6 leftCol">
-
-                                    <div class="form-group bmd-form-group">
-                                        <label class="bmd-label-floating">Assignment Name</label>
-                                        @Html.EditorFor(model => model.AssignmentName, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.AssignmentName, "", new { @class = "text-danger" })
+                                @*<div class="form-row mt-3">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <label for="" class="bmd-label-static pl-2">Select Section*</label>
+                                            <select class="form-control SecIdDDL" id="SessionId" name="SessionId" required></select>
+                                        </div>
+                                    </div>*@
+                                <div class="form-row mt-3">
+                                    <div class="form-group col-md-12 bmd-form-group">
+                                        <label for="" class="bmd-label-static pl-2">Select Course Type*</label>
+                                        @Html.DropDownList("CTId", new List<SelectListItem>
+                                            {
+                                            new SelectListItem{ Text="CSS", Value = "CSS" },
+                                            new SelectListItem{ Text="PMS", Value = "PMS" },
+                                             }, htmlAttributes: new { @class = "form-control CTIdDDL" })
                                     </div>
-                                    <br />
-                                    <br />
+                                </div>
+                                <div class="form-row mt-3">
+                                    <div class="form-group col-md-12 bmd-form-group">
+                                        <label for="" class="bmd-label-static pl-2">Select Subject*</label>
+                                        @Html.DropDownList("SubId", null, htmlAttributes: new { @class = "form-control SubIdDDL" })
+                                        @*<select class="form-control SubIdDDL" id="SubId" name="SubId" required></select>*@
+                                    </div>
+                                </div>
+                                <div class="form-row mt-3">
+                                    <div class="form-group col-md-12 bmd-form-group">
+                                        <label for="" class="bmd-label-static pl-2">Select Topic*</label>
 
-                                    <div class="form-group">
-                                        <label class="control-label">Assignment Due Date </label>
-                                        <input type="date" name="AssignmentDueDate" id="AssignmentDueDate" value="@ViewBag.Date" class="form-control" />
-                                        @Html.ValidationMessageFor(model => model.AssignmentDueDate, "", new { @class = "text-danger" })
+                                        @Html.DropDownList("TopicId", null, htmlAttributes: new { @class = "form-control TopicIdDDL" })
+                                        @*<select class="form-control TopicIdDDL" id="TopicId" name="TopicId" required></select>*@
 
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 pl-5 pr-5 ">
+                                <div class="form-row mt-4">
+                                    <div class="form-group col-md-12 bmd-form-group">
+                                        <label for="" class="bmd-label-static pl-2">Order By </label>
+                                        <input type="hidden" name="name" id="DropdownHiddenValue" value="@ViewBag.OrderBy" />
+                                        <select class="form-control" id="OrderBy" name="OrderBy" required>
 
-                                    <div class="form-group bmd-form-group mt-3 pt-3">
-                                        <label class="bmd-label-floating">Assignment Description</label>
-                                        <textarea name="AssignmentDescription" id="AssignmentDescription" class="form-control" rows="5">@Model.AssignmentDescription</textarea>
+                                            <option value="">Select One</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+
+                                        </select>
+                                        <br />
+                                        <span id="ErrorOrderBy" style="color:red"></span>
 
                                     </div>
+                                </div>
 
-                                    @if (Model.AssignmentName != null)
-                                    {
-                                        <div class="form-row mt-5">
-                                            <div class="form-group col-md-12 bmd-form-group">
-                                                <div class="file-field d-flex">
-                                                    <div class="btn btn-primary btn-md mb-0">
-                                                        <span onclick='event.stopPropagation();  document.getElementById("Assignment").click();'>Choose file</span>
-                                                        <input id="Assignment" name="Assignment" type="file">
-                                                        <a href="~/Content/StudentAssignments/@Model.AssignmentName"></a>
-                                                    </div>
-                                                    <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
-                                                        <input class="file-path validate form-control" type="text" readonly disabled value="@ViewBag.AssignmentFileName" placeholder="No file Chosen">
-                                                    </div>
+
+                                <div class="form-row mt-3">
+                                    <div class="form-group col-md-12 bmd-form-group">
+                                        <label class="bmd-label-floating">Lesson Duration*</label>
+                                        <input type="number" min="30" max="60" value="@ViewBag.LessonDuration" onkeydown="return false" class="form-control" name="LessonDuration" id="LessonDuration" required />
+                                        @Html.ValidationMessageFor(model => model.LessonDuration, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="tab">
+                        <h2 class="column-heading wizard-heading mb-4">Student Assignment</h2>
+
+                        <div class="row">
+                            <div class="col-md-6 leftCol">
+
+                                <div class="form-group bmd-form-group">
+                                    <label class="bmd-label-floating">Assignment Name</label>
+                                    @Html.EditorFor(model => model.AssignmentName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.AssignmentName, "", new { @class = "text-danger" })
+                                </div>
+                                <br />
+                                <br />
+
+                                <div class="form-group">
+                                    <label class="control-label">Assignment Due Date </label>
+                                    <input type="date" name="AssignmentDueDate" id="AssignmentDueDate" value="@ViewBag.Date" class="form-control" />
+                                    @Html.ValidationMessageFor(model => model.AssignmentDueDate, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 pl-5 pr-5 ">
+
+                                <div class="form-group bmd-form-group mt-3 pt-3">
+                                    <label class="bmd-label-floating">Assignment Description</label>
+                                    <textarea name="AssignmentDescription" id="AssignmentDescription" class="form-control" rows="5">@Model.AssignmentDescription</textarea>
+
+                                </div>
+
+                                @if (Model.AssignmentName != null)
+                                {
+                                    <div class="form-row mt-5">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <div class="file-field d-flex">
+                                                <div class="btn btn-primary btn-md mb-0">
+                                                    <span onclick='event.stopPropagation();  document.getElementById("Assignment").click();'>Choose file</span>
+                                                    <input id="Assignment" name="Assignment" type="file">
+                                                    <a href="~/Content/StudentAssignments/@Model.AssignmentName"></a>
                                                 </div>
-                                                <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="form-row">
-                                            <div class="form-group col-md-12 bmd-form-group">
-                                                <div class="file-field d-flex">
-                                                    <div class="btn btn-primary btn-md mb-0">
-                                                        <span onclick='event.stopPropagation(); document.getElementById("Assignment").click();'>Choose file</span>
-                                                        <input id="Assignment" name="Assignment" type="file">
-                                                    </div>
-                                                    <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
-                                                        <input class="file-path validate form-control" type="text" readonly disabled placeholder="No file Chosen">
-                                                    </div>
+                                                <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
+                                                    <input class="file-path validate form-control" type="text" readonly disabled value="@ViewBag.AssignmentFileName" placeholder="No file Chosen">
                                                 </div>
-                                                <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
                                             </div>
+                                            <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
                                         </div>
-                                    }
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <div class="file-field d-flex">
+                                                <div class="btn btn-primary btn-md mb-0">
+                                                    <span onclick='event.stopPropagation(); document.getElementById("Assignment").click();'>Choose file</span>
+                                                    <input id="Assignment" name="Assignment" type="file">
+                                                </div>
+                                                <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
+                                                    <input class="file-path validate form-control" type="text" readonly disabled placeholder="No file Chosen">
+                                                </div>
+                                            </div>
+                                            <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
+                                        </div>
+                                    </div>
+                                }
 
 
-                                    <div style="margin-bottom: 100px;"></div>
+                                <div style="margin-bottom: 100px;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab">
+                        <h2 class="column-heading wizard-heading mb-4">Reading Material</h2>
+
+                        <div class="row">
+                            <div class="col-md-6 leftCol">
+
+                                <div class="form-group bmd-form-group">
+                                    <label class="bmd-label-floating">Attachment Name-1</label>
+                                    @Html.EditorFor(model => model.AttachmentName1, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.AttachmentName1, "", new { @class = "text-danger" })
+                                </div>
+
+                                @if (Model.AttachmentName1 != null)
+                                {
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <div class="file-field d-flex">
+                                                <div class="btn btn-primary btn-md mb-0">
+                                                    <span onclick='event.stopPropagation(); document.getElementById("Attachment1").click();'>Choose file</span>
+                                                    <input id="Attachment1" name="Attachment1" type="file">
+                                                    <a href="~/Content/StudentAssignments/@Model.AttachmentName1"></a>
+                                                </div>
+                                                <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
+                                                    <input class="file-path validate form-control" type="text" readonly value="@ViewBag.Attachment1FileName" disabled placeholder="No file Chosen">
+                                                </div>
+                                            </div>
+                                            <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <div class="file-field d-flex">
+                                                <div class="btn btn-primary btn-md mb-0">
+                                                    <span onclick='event.stopPropagation(); document.getElementById("Attachment1").click();'>Choose file</span>
+                                                    <input id="Attachment1" name="Attachment1" type="file">
+                                                </div>
+                                                <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
+                                                    <input class="file-path validate form-control" type="text" readonly disabled placeholder="No file Chosen">
+                                                </div>
+                                            </div>
+                                            <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
+                                        </div>
+                                    </div>
+                                }
+
+
+                                <div class="form-group bmd-form-group">
+                                    <label class="bmd-label-floating">Attachment Name-3</label>
+                                    @Html.EditorFor(model => model.AttachmentName3, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.AttachmentName3, "", new { @class = "text-danger" })
+                                </div>
+
+                                @if (Model.AttachmentName3 != null)
+                                {
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <div class="file-field d-flex">
+                                                <div class="btn btn-primary btn-md mb-0">
+                                                    <span onclick='event.stopPropagation(); document.getElementById("Attachment3").click();'>Choose file</span>
+                                                    <input id="Attachment3" name="Attachment3" type="file">
+                                                    <a href="~/Content/StudentAssignments/@Model.AttachmentName3"></a>
+                                                </div>
+                                                <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
+                                                    <input class="file-path validate form-control" type="text" readonly disabled value="@ViewBag.Attachment3FileName" placeholder="No file Chosen">
+                                                </div>
+                                            </div>
+                                            <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <div class="file-field d-flex">
+                                                <div class="btn btn-primary btn-md mb-0">
+                                                    <span onclick='event.stopPropagation(); document.getElementById("Attachment3").click();'>Choose file</span>
+                                                    <input id="Attachment3" name="Attachment3" type="file">
+                                                </div>
+                                                <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
+                                                    <input class="file-path validate form-control" type="text" readonly disabled placeholder="No file Chosen">
+                                                </div>
+                                            </div>
+                                            <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+
+                            <div class="col-md-6 pl-5 pr-5 leftCol">
+
+                                <div class="form-group bmd-form-group">
+                                    <label class="bmd-label-floating">Attachment Name-2</label>
+                                    @Html.EditorFor(model => model.AttachmentName2, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.AttachmentName2, "", new { @class = "text-danger" })
+                                </div>
+
+                                @if (Model.AttachmentName2 != null)
+                                {
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <div class="file-field d-flex">
+                                                <div class="btn btn-primary btn-md mb-0">
+                                                    <span onclick='event.stopPropagation(); document.getElementById("Attachment2").click();'>Choose file</span>
+                                                    <input id="Attachment2" name="Attachment2" type="file">
+                                                    <a href="~/Content/StudentAssignments/@Model.AttachmentName2"></a>
+                                                </div>
+                                                <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
+                                                    <input class="file-path validate form-control" type="text" readonly disabled value="@ViewBag.Attachment2FileName" placeholder="No file Chosen">
+                                                </div>
+                                            </div>
+                                            <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12 bmd-form-group">
+                                            <div class="file-field d-flex">
+                                                <div class="btn btn-primary btn-md mb-0">
+                                                    <span onclick='event.stopPropagation(); document.getElementById("Attachment2").click();'>Choose file</span>
+                                                    <input id="Attachment2" name="Attachment2" type="file">
+                                                </div>
+                                                <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
+                                                    <input class="file-path validate form-control" type="text" readonly disabled placeholder="No file Chosen">
+                                                </div>
+                                            </div>
+                                            <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab">
+                        <h2 class="column-heading wizard-heading mb-4">Material Links (URL)</h2>
+
+                        <div class="row">
+
+                            <div class="col-md-6 leftCol">
+
+                                <div class="form-group bmd-form-group">
+                                    <label class="bmd-label-floating">Material Link 1</label>
+                                    @Html.EditorFor(model => model.LinkUrl1, new { htmlAttributes = new { @placeholder = "Enter Data Must be a URL", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LinkUrl1, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group bmd-form-group mt-4">
+                                    <label class="bmd-label-floating">Material Link 3</label>
+                                    @Html.EditorFor(model => model.LinkUrl3, new { htmlAttributes = new { @placeholder = "Enter Data Must be a URL", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LinkUrl3, "", new { @class = "text-danger" })
+                                </div>
+
+
+
+                                <div style="margin-bottom: 100px;">&nbsp;</div>
+                                <div style="margin-bottom: 100px;">&nbsp;</div>
+
+
+                            </div>
+
+                            <div class="col-md-6 pl-5 pr-5 leftCol">
+
+
+                                <div class="form-group bmd-form-group">
+                                    <label class="bmd-label-floating">Material Link 2</label>
+                                    @Html.EditorFor(model => model.LinkUrl2, new { htmlAttributes = new { @placeholder = "Enter Data Must be a URL", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LinkUrl2, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="tab">
-                            <h2 class="column-heading wizard-heading mb-4">Reading Material</h2>
+                    <hr class="mt-5 mb-4">
+                    <button id="prevBtn" onclick="nextPrev(-1)" class="btn btn-primary pull-left rounded rounded-lg bg-transparent text-muted shadow-none mr-3" type="reset">Back</button>
+                    <button class="btn btn-primary pull-left rounded rounded-lg shadow-none mr-3" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
 
-                            <div class="row">
-                                <div class="col-md-6 leftCol">
+                    <input type="submit" value="Update" id="CreateBtn" class="btn btn-success pull-right rounded rounded-lg shadow-none mr-3" />
+                    <button onclick="/*showTab(0); currentTab = 0;*/" class="btn btn-primary pull-right rounded rounded-lg bg-transparent text-muted shadow-none mr-3" type="reset">
+                        <i class="material-icons mr-2">cached</i>  Reset &nbsp; &nbsp;
+                        <div class="ripple-container"></div>
+                    </button>
 
-                                    <div class="form-group bmd-form-group">
-                                        <label class="bmd-label-floating">Attachment Name-1</label>
-                                        @Html.EditorFor(model => model.AttachmentName1, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.AttachmentName1, "", new { @class = "text-danger" })
-                                    </div>
-
-                                    @if (Model.AttachmentName1 != null)
-                                    {
-                                        <div class="form-row">
-                                            <div class="form-group col-md-12 bmd-form-group">
-                                                <div class="file-field d-flex">
-                                                    <div class="btn btn-primary btn-md mb-0">
-                                                        <span onclick='event.stopPropagation(); document.getElementById("Attachment1").click();'>Choose file</span>
-                                                        <input id="Attachment1" name="Attachment1" type="file">
-                                                        <a href="~/Content/StudentAssignments/@Model.AttachmentName1"></a>
-                                                    </div>
-                                                    <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
-                                                        <input class="file-path validate form-control" type="text" readonly value="@ViewBag.Attachment1FileName" disabled placeholder="No file Chosen">
-                                                    </div>
-                                                </div>
-                                                <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="form-row">
-                                            <div class="form-group col-md-12 bmd-form-group">
-                                                <div class="file-field d-flex">
-                                                    <div class="btn btn-primary btn-md mb-0">
-                                                        <span onclick='event.stopPropagation(); document.getElementById("Attachment1").click();'>Choose file</span>
-                                                        <input id="Attachment1" name="Attachment1" type="file">
-                                                    </div>
-                                                    <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
-                                                        <input class="file-path validate form-control" type="text" readonly disabled placeholder="No file Chosen">
-                                                    </div>
-                                                </div>
-                                                <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
-                                            </div>
-                                        </div>
-                                    }
-                                    
-
-                                    <div class="form-group bmd-form-group">
-                                        <label class="bmd-label-floating">Attachment Name-3</label>
-                                        @Html.EditorFor(model => model.AttachmentName3, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.AttachmentName3, "", new { @class = "text-danger" })
-                                    </div>
-
-                                    @if (Model.AttachmentName3 != null)
-                                    {
-                                        <div class="form-row">
-                                            <div class="form-group col-md-12 bmd-form-group">
-                                                <div class="file-field d-flex">
-                                                    <div class="btn btn-primary btn-md mb-0">
-                                                        <span onclick='event.stopPropagation(); document.getElementById("Attachment3").click();'>Choose file</span>
-                                                        <input id="Attachment3" name="Attachment3" type="file">
-                                                        <a href="~/Content/StudentAssignments/@Model.AttachmentName3"></a>
-                                                    </div>
-                                                    <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
-                                                        <input class="file-path validate form-control" type="text" readonly disabled value="@ViewBag.Attachment3FileName" placeholder="No file Chosen">
-                                                    </div>
-                                                </div>
-                                                <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="form-row">
-                                            <div class="form-group col-md-12 bmd-form-group">
-                                                <div class="file-field d-flex">
-                                                    <div class="btn btn-primary btn-md mb-0">
-                                                        <span onclick='event.stopPropagation(); document.getElementById("Attachment3").click();'>Choose file</span>
-                                                        <input id="Attachment3" name="Attachment3" type="file">
-                                                    </div>
-                                                    <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
-                                                        <input class="file-path validate form-control" type="text" readonly disabled placeholder="No file Chosen">
-                                                    </div>
-                                                </div>
-                                                <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
-                                            </div>
-                                        </div>
-                                    }
-                                    
-                                </div>
-
-                                <div class="col-md-6 pl-5 pr-5 leftCol">
-
-                                    <div class="form-group bmd-form-group">
-                                        <label class="bmd-label-floating">Attachment Name-2</label>
-                                        @Html.EditorFor(model => model.AttachmentName2, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.AttachmentName2, "", new { @class = "text-danger" })
-                                    </div>
-                                    
-                                    @if (Model.AttachmentName2 != null)
-                                    {
-                                        <div class="form-row">
-                                            <div class="form-group col-md-12 bmd-form-group">
-                                                <div class="file-field d-flex">
-                                                    <div class="btn btn-primary btn-md mb-0">
-                                                        <span onclick='event.stopPropagation(); document.getElementById("Attachment2").click();'>Choose file</span>
-                                                        <input id="Attachment2" name="Attachment2" type="file">
-                                                        <a href="~/Content/StudentAssignments/@Model.AttachmentName2"></a>
-                                                    </div>
-                                                    <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
-                                                        <input class="file-path validate form-control" type="text" readonly disabled value="@ViewBag.Attachment2FileName" placeholder="No file Chosen">
-                                                    </div>
-                                                </div>
-                                                <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="form-row">
-                                            <div class="form-group col-md-12 bmd-form-group">
-                                                <div class="file-field d-flex">
-                                                    <div class="btn btn-primary btn-md mb-0">
-                                                        <span onclick='event.stopPropagation(); document.getElementById("Attachment2").click();'>Choose file</span>
-                                                        <input id="Attachment2" name="Attachment2" type="file">
-                                                    </div>
-                                                    <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
-                                                        <input class="file-path validate form-control" type="text" readonly disabled placeholder="No file Chosen">
-                                                    </div>
-                                                </div>
-                                                <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
-                                            </div>
-                                        </div>
-                                    }
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tab">
-                            <h2 class="column-heading wizard-heading mb-4">Material Links (URL)</h2>
-
-                            <div class="row">
-
-                                <div class="col-md-6 leftCol">
-
-                                    <div class="form-group bmd-form-group">
-                                        <label class="bmd-label-floating">Material Link 1</label>
-                                        @Html.EditorFor(model => model.LinkUrl1, new { htmlAttributes = new { @placeholder = "Enter Data Must be a URL", @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.LinkUrl1, "", new { @class = "text-danger" })
-                                    </div>
-
-                                    <div class="form-group bmd-form-group mt-4">
-                                        <label class="bmd-label-floating">Material Link 3</label>
-                                        @Html.EditorFor(model => model.LinkUrl3, new { htmlAttributes = new { @placeholder = "Enter Data Must be a URL", @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.LinkUrl3, "", new { @class = "text-danger" })
-                                    </div>
-
-
-
-                                    <div style="margin-bottom: 100px;">&nbsp;</div>
-                                    <div style="margin-bottom: 100px;">&nbsp;</div>
-
-
-                                </div>
-
-                                <div class="col-md-6 pl-5 pr-5 leftCol">
-
-
-                                    <div class="form-group bmd-form-group">
-                                        <label class="bmd-label-floating">Material Link 2</label>
-                                        @Html.EditorFor(model => model.LinkUrl2, new { htmlAttributes = new { @placeholder = "Enter Data Must be a URL", @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.LinkUrl2, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr class="mt-5 mb-4">
-                        <button id="prevBtn" onclick="nextPrev(-1)" class="btn btn-primary pull-left rounded rounded-lg bg-transparent text-muted shadow-none mr-3" type="reset">Back</button>
-                        <button class="btn btn-primary pull-left rounded rounded-lg shadow-none mr-3" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-
-                        <input type="submit" value="Update" id="CreateBtn" class="btn btn-success pull-right rounded rounded-lg shadow-none mr-3" />
-                        <button onclick="/*showTab(0); currentTab = 0;*/" class="btn btn-primary pull-right rounded rounded-lg bg-transparent text-muted shadow-none mr-3" type="reset">
-                            <i class="material-icons mr-2">cached</i>  Reset &nbsp; &nbsp;
-                            <div class="ripple-container"></div>
-                        </button>
-
-                        <div class="clearfix"></div>
-                        @*</form>*@
+                    <div class="clearfix"></div>
+                    @*</form>*@
                 }
             </div>
         </div>

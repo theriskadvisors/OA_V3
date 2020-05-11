@@ -406,6 +406,7 @@ namespace SEA_Application.Controllers
 
                     TopicObj.TopicId = a.Id;
                     TopicObj.TopicName = a.Name;
+                    TopicObj.Orderby = Convert.ToInt32( a.OrderBy);                    
 
                     List<Lesson> LessonsList = new List<Lesson>();
 
@@ -426,9 +427,11 @@ namespace SEA_Application.Controllers
                         Lesson lessonobj = new Lesson();
                         lessonobj.LessonId = lesson.Id;
                         lessonobj.LessonName = lesson.Name;
+                        lessonobj.OrderBy = Convert.ToInt32( lesson.OrderBy);
                         lessonobj.LessonDuration = Int32.Parse(lesson.DurationMinutes.ToString());
                         lessonobj.LessonExistInTrackingTable = LessonExist;
                         lessonobj.EncryptedID = lesson.EncryptedID;
+
 
                         DurationCount = DurationCount + lesson.DurationMinutes ?? 0;
 
@@ -437,7 +440,7 @@ namespace SEA_Application.Controllers
                         count1++;
                     }
 
-                    List<Lesson> OrderByLessons = LessonsList.OrderBy(x => x.LessonName).ToList();
+                    List<Lesson> OrderByLessons = LessonsList.OrderBy(x => x.OrderBy).ToList();
 
                     TopicObj.LessonList = OrderByLessons;
 
@@ -447,7 +450,7 @@ namespace SEA_Application.Controllers
 
                     TopicListObj.Add(TopicObj);
                 }
-                return Json(TopicListObj.OrderBy(x => x.TopicName).ToList(), JsonRequestBehavior.AllowGet);
+                return Json(TopicListObj.OrderBy(x => x.Orderby).ToList(), JsonRequestBehavior.AllowGet);
 
             }
 
@@ -516,7 +519,8 @@ namespace SEA_Application.Controllers
 
                 TopicObj.TopicId = a.Id;
                 TopicObj.TopicName = a.Name;
-
+                TopicObj.Orderby = Convert.ToInt32(a.OrderBy);
+              
 
                 var today = DateTime.Today;
 
@@ -546,16 +550,18 @@ namespace SEA_Application.Controllers
                     lessonobj.LessonName = lesson.Name;
                     lessonobj.LessonDuration = Int32.Parse(lesson.DurationMinutes.ToString());
                     lessonobj.LessonExistInTrackingTable = LessonExist;
+                    lessonobj.OrderBy = Convert.ToInt32(lesson.OrderBy);
 
                     LessonsList.Add(lessonobj);
                     Count++;
                     count1++;
                 }
 
-                List<Lesson> OrderByLessons = LessonsList.OrderBy(x => x.LessonName).ToList();
+                // List<Lesson> OrderByLessons = LessonsList.OrderBy(x => x.LessonName).ToList();
+
+                List<Lesson> OrderByLessons = LessonsList.OrderBy(x => x.OrderBy).ToList();
 
                 TopicObj.LessonList = OrderByLessons;
-
                 TopicObj.TotalLessons = Count;
                 TopicObj.TotalLessons1 = count1;
 
@@ -564,7 +570,8 @@ namespace SEA_Application.Controllers
 
             // return Json(TopicListObj, JsonRequestBehavior.AllowGet);
 
-            return Json(TopicListObj.OrderBy(x => x.TopicName).ToList(), JsonRequestBehavior.AllowGet);
+
+            return Json(TopicListObj.OrderBy(x => x.Orderby).ToList(), JsonRequestBehavior.AllowGet);
 
 
         }
@@ -955,6 +962,7 @@ namespace SEA_Application.Controllers
             public string LessonExistInTrackingTable { get; set; }
             public string EncryptedID { get; set; }
 
+            public int OrderBy { get; set; }
             public int LessonCount { get; set; }
         }
 
@@ -963,7 +971,7 @@ namespace SEA_Application.Controllers
             public int TopicId { get; set; }
             public string TopicName { get; set; }
             public int TopicDuration { get; set; }
-
+            public int Orderby { get; set; }
             public int TotalLessons { get; set; }
             public int TotalLessons1 { get; set; }
             public List<Lesson> LessonList { get; set; }
