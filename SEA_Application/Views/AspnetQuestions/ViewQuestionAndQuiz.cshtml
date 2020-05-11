@@ -7,11 +7,12 @@
 
 <script>
     $(document).ready(function () {
-        // $("#example").dataTable();
+        
+        $("#PageHeader").html("Questions And Quizs");
 
-        // $("#Tab2").click();
 
-        /// var table = $("#example1").dataTable();
+        $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Questions And Quizs</a></li>');
 
         var table = $('#datatable').dataTable({
             buttons: [
@@ -83,16 +84,7 @@
                 "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
         });
 
-
-        $("#PageHeader").html("Questions And Quizs");
-
-        $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
-        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Questions And Quizs</a></li>');
-
-
-
-
-
+        $("#datatable1_filter").hide();
 
         $.ajax({
             type: "POST",
@@ -249,163 +241,168 @@
 
 
 
-<div class="nav-tabs-custom">
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab_1" data-toggle="tab">Question</a></li>
-        <li><a id="Tab2" href="#tab_2" data-toggle="tab">Quiz</a></li>
+<div class="tabsCon">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" id="myTabAttr" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="Question-tab-attr" data-toggle="tab" href="#Question-attr" role="tab" aria-controls="Question-attr"
+               aria-selected="true">Question</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="Quiz-tab-attr" data-toggle="tab" href="#Quiz-attr" role="tab" aria-controls="Quiz-attr"
+               aria-selected="false">Quiz</a>
+        </li>
     </ul>
-</div>
 
+    <div class="card">
+        <div class="card-body p-4">
+            <div class="tab-content" style="padding: 10px 0px 0px 0px;">
 
-<div class="card">
-    <div class="card-body p-4">
-        <div class="tab-content" style=" padding: 10px 0px 0px 0px; ">
-
-            <div class="tab-pane active" id="tab_1">
-                <div class="box box-primary">
-                    <div class="box-body">
-                        <div class="box-title"></div>
-                        <div class="table-responsive">
-
-                            <table class="table hover  table-bordered" id="datatable">
-                                <thead>
-
-                                    <tr>
-                                        <th style="display:none">  11</th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Name)
-                                        </th>
-                                        <th>
-                                            Quiz Question?
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Type)
-                                        </th>
-
-                                        <th>
-                                            Lesson Name
-                                        </th>
-                                        <th>
-                                            Answer
-                                        </th>
-                                        <th>
-                                            Creation Date
-                                        </th>
-                                        @*<th></th>*@
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td style="display:none">
-
-                                                @item.Id
-                                            </td>
-
-
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Name)
-                                            </td>
-                                            <td>
-                                                @if (item.Is_Quiz == true)
-                                                {
-                                                    <span>Yes</span>
-                                                }
-                                                else if (item.Is_Quiz == false)
-                                                {
-                                                    <span>No</span>
-                                                }
-                                                else
-                                                {
-                                                    <span>Not Set</span>
-
-                                                }
-
-
-
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Type)
-                                            </td>
-
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.AspnetLesson.Name)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.AspnetOption.Name)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.CreationDate)
-                                            </td>
-                                            @*<td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                            </td>*@
-                                        </tr>
-
-
-                                    }
-
-                                </tbody>
-
-                            </table>
-
-                        </div>
-
-
-
-                    </div>
-                </div>
-            </div> <!--End of Tab 1-->
-
-            <div class="tab-pane" id="tab_2">
-
-                <div class="box box-primary">
-                    <div class="box-title"></div>
-                    <div class="box-body">
-                        <div class="col-md-12">
-
+                <div class="tab-pane active show" id="Question-attr" role="tabpanel" aria-labelledby="Question-tab-attr">
+                    <div class="box box-primary">
+                        <div class="box-body">
+                            <div class="box-title"></div>
                             <div class="table-responsive">
 
-                                <table class="table1 hover  table-bordered" id="datatable1">
+                                <table class="table hover  table-bordered" id="datatable">
                                     <thead>
+
                                         <tr>
-                                            @*<th>ID</th>*@
+                                            <th style="display:none">  11</th>
                                             <th>
-                                                Name
+                                                @Html.DisplayNameFor(model => model.Name)
                                             </th>
                                             <th>
-                                                Description
+                                                Quiz Question?
                                             </th>
                                             <th>
-                                                Start Date
-                                            </th>
-                                            <th>
-                                                Due Date
-                                            </th>
-                                            <th>
-                                                Created By
+                                                @Html.DisplayNameFor(model => model.Type)
                                             </th>
 
+                                            <th>
+                                                Lesson Name
+                                            </th>
+                                            <th>
+                                                Answer
+                                            </th>
                                             <th>
                                                 Creation Date
                                             </th>
+                                            @*<th></th>*@
                                         </tr>
                                     </thead>
-                                    <tbody id="QuizList">
+
+                                    <tbody>
+
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td style="display:none">
+
+                                                    @item.Id
+                                                </td>
+
+
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Name)
+                                                </td>
+                                                <td>
+                                                    @if (item.Is_Quiz == true)
+                                                    {
+                                                        <span>Yes</span>
+                                                    }
+                                                    else if (item.Is_Quiz == false)
+                                                    {
+                                                        <span>No</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>Not Set</span>
+
+                                                    }
+
+
+
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Type)
+                                                </td>
+
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.AspnetLesson.Name)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.AspnetOption.Name)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.CreationDate)
+                                                </td>
+                                                @*<td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                        </td>*@
+                                            </tr>
+
+
+                                        }
+
                                     </tbody>
+
                                 </table>
+
                             </div>
+
+
 
                         </div>
                     </div>
-                </div>
-            </div>
+                </div> <!--End of Tab 1-->
 
+                <div class="tab-pane" id="Quiz-attr" role="tabpanel" aria-labelledby="Quiz-tab-attr">
+
+                    <div class="box box-primary">
+                        <div class="box-title"></div>
+                        <div class="box-body">
+                            <div class="col-md-12">
+
+                                <div class="table-responsive">
+
+                                    <table class="table1 hover  table-bordered" id="datatable1">
+                                        <thead>
+                                            <tr>
+                                                @*<th>ID</th>*@
+                                                <th>
+                                                    Name
+                                                </th>
+                                                <th>
+                                                    Description
+                                                </th>
+                                                <th>
+                                                    Start Date
+                                                </th>
+                                                <th>
+                                                    Due Date
+                                                </th>
+                                                <th>
+                                                    Created By
+                                                </th>
+
+                                                <th>
+                                                    Creation Date
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="QuizList"></tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

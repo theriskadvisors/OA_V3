@@ -9461,8 +9461,8 @@ a.text-dark:focus {
 
 .btn.btn-primary {
   color: #fff;
-  background-color: #00b8ec;
-  border-color: #00b8ec;
+  background-color: #053f89;
+  border-color: #053f89;
   box-shadow: 0 2px 2px 0 rgba(19, 160, 174, 0.14), 0 3px 1px -2px rgba(156, 39, 176, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12);
 }
 
@@ -15465,7 +15465,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .sidebar[data-color="azure"] li.active>a {
-  background-color: #009ecb;
+  background-color: #bf7a01;
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
 }
 
@@ -15881,8 +15881,8 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 
 .fixed-plugin .btn.btn-primary {
   color: #fff;
-  background-color: #00b8ec;
-  border-color: #00b8ec;
+  background-color: #063f90;
+  border-color: #063f90;
   box-shadow: 0 2px 2px 0 rgba(19, 160, 174, 0.14), 0 3px 1px -2px rgba(156, 39, 176, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12);
 }
 

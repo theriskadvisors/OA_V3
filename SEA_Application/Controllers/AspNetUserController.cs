@@ -1556,7 +1556,7 @@ namespace SEA_Application.Controllers
                 db.AspNetStudent_Session_class on std.Id equals t2.StudentID
                             select new
                             {
-
+                                std.AspNetUser.Id,
                                 std.AspNetUser.Name,
                                 std.AspNetUser.Email,
                                 std.AspNetUser.PhoneNumber,
