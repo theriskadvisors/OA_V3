@@ -22,10 +22,10 @@ body * {
     font-weight: 500;
 }
 .sidebar {
-    background-color: #00b8ec;
+    background-color: #053f89;
 }
 .sidebar .logo {
-    background: #00b8ec;
+    background: #fff;
     margin-top: 10px;
 }.sidebar * {
      color: #fff;
@@ -119,9 +119,9 @@ input.form-control::placeholder{
     background: #fff;
 }
 .form-check .form-check-input:checked ~ .form-check-sign .check::before {
-    color: #00b8ec;}
+    color: #053f89;}
 .sidebar::before, .off-canvas-sidebar nav .navbar-collapse::before {
-    background-color: #00b8ec;
+    background-color: #053f89;
 }
 button.btn {
     font-weight: 600;
@@ -129,7 +129,7 @@ button.btn {
 .pageHeading h1 {
     font-size: 34px;
     font-weight: 600;
-    color: #00b8ec;
+    color: #053f89;
 }
 .searchBox:focus{
     box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.13);
@@ -197,7 +197,7 @@ button.btn {
 .datatableButtonsCon button {
     background-color: transparent !important;
     box-shadow: none !important;
-    color: #00b8ec !important;
+    color: #053f89 !important;
     font-size: 13px !important;
     font-weight: 500 !important;
 }
@@ -294,7 +294,7 @@ button.btn {
 }
 .countComplete a {
     font-size: 14px;
-    color: #00b8ec;
+    color: #053f89;
     font-weight: 600;
     margin-left: 10px;
 }
@@ -347,11 +347,11 @@ transform: rotate(-90deg);
     color: #141437;
 }
 .topicsCount {
-    color: #00b8ec;
+    color: #053f89;
     /*! vertical-align: 45px; */
 }
 .topicsCount span {
-    background-color: #00b8ec;
+    background-color: #053f89;
     display: inline-block;
     width: 24px;
     height: 24px;
@@ -442,7 +442,7 @@ a.collapsed > h5 > .fa-angle-up::before {
     font-weight: 500;
 }
 .nav-tabs .nav-item .nav-link.active {
-    border-bottom: 3px solid #00b8ec !important;
+    border-bottom: 3px solid #053f89 !important;
 }
 .tabsCon .nav-tabs .nav-item .nav-link {
     padding-right: 1px;
@@ -513,7 +513,7 @@ a.collapsed > h5 > .fa-angle-up::before {
 /*QA*/
 
 .askQues a {
-    color: #00b8ec !important;
+    color: #053f89 !important;
     font-weight: 600 !important;margin-top: -3px;
 }
 .askQues {
@@ -529,7 +529,7 @@ a.collapsed > h5 > .fa-angle-up::before {
     font-weight: 600 !important;
     line-height: 34.5px !important;
     text-align: center;
-    color: #00b8ec !important;
+    color: #053f89 !important;
 }
 .metaInfoQues, .metaInfoQues strong {
     color: #a2a2c3 !important;
@@ -748,7 +748,7 @@ button:hover {
     color: #ffffff;
     box-shadow: 2px 6px 12px 0 rgba(0, 0, 0, 0.16);
     border: solid 3px #ffffff;
-    background-color: #00b8ec;
+    background-color: #053f89;
     scale: 1.03;
 }
 .subject-list-box:focus,

@@ -133,34 +133,8 @@ transition, #container a.view-slide {
 <script>
     $(document).ready(function () {     
                             
-        var $overlay = $('<div id="overlay"></div>');
-        var $iframe = $('<iframe src="" frameborder="0" border="0" scrolling="auto" allowtransparency="true" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="1" style="border: none; background-color: transparent; width: 70%; height: 60%;" ></iframe>');
-
-        // append iframe to overaly
-        $overlay.append($iframe);
-
-        // append overlay to body
-        $('body').append($overlay);
-
-        // slideshare slides - capture the click event on a link to the slide
-        $('#iframeBtn').click(function (event) {
-            event.preventDefault();
-            
-            // update overlay with iframe
-            //$iframe.attr('src', src);
-            // show overlay
-            $overlay.show();
-        });
-
-        // when overlay is clicked
-        $overlay.click(function () {
-            // hide overlay
-            $overlay.hide();
-            //$iframe.attr('src', '');
-        });
-
-
         $("#PageHeader").html("Lessons");
+        var src = "";
 
         $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
         $("#BreadCrumbs").append(' <li> <a href="/StudentCourses/Index"> Courses </a> <span>&gt;</span></li>');
@@ -170,6 +144,10 @@ transition, #container a.view-slide {
 
         var LessonId = $("#LessonID").val();
         var sub = $("#SubjectId").val();
+
+        $("#iframeBtn").click(function () {
+            window.open(src);
+        });
 
         // Ring Functionality JS
         var circle = document.querySelector('circle');
@@ -202,7 +180,8 @@ transition, #container a.view-slide {
 
                 console.log(data);
 
-                $("iframe").attr('src', data.LessonVideo);
+                //$("iframe").attr('src', data.LessonVideo);
+                src = data.LessonVideo;
                 $("#LessonName").text(data.LessonName);
                 $("#LessonDescription").text("");
                 $("#LessonDescription").text(data.LessonDescription);
@@ -307,6 +286,33 @@ transition, #container a.view-slide {
             }
         })
 
+
+        $.ajax({
+
+
+            type: "POST",
+            url: "/StudentCourses/ReadingMaterials",
+            data: { "LessonID": LessonId },
+            success: function (data) {
+
+                var Attachment = data.StuAttachment;
+                var Links = data.StuLinks;
+                $.each(Attachment, function (key, value1) {
+
+                    var file = value1.AttachmentName.split('.').slice(0, -1).join('.');
+                    //  $("#Attachment").append('<tr><td>Attachment Name </td>  <td>' + file + '</td></tr>');
+                    //  $("#Attachment").append('<tr><td> Download Attach File  </td>  <td><a href ="/StudentCourses/DownloadFile/' + value1.AttachmentId + '">' + value1.AttachmentPath + '</a></td></tr>');
+
+                    $("#AttachmentAndLinkTable").append('<div class="col-md-12"> <span class="col-md-2">Attachment Name:</span >  <div class="col-md-6">' + file + '</div></div>');
+                    $("#AttachmentAndLinkTable").append('<div class="col-md-12"> <span class="col-md-2">Download Attach File:</span > <div class="col-md-6"><a href ="/StudentCourses/DownloadFile/' + value1.AttachmentId + '">' + value1.AttachmentPath + '</div></div> <hr>');
+                })
+
+                $.each(Links, function (key, value2) {
+                    // $("#LinksTable").append('<tr><td>Link URL  </td>  <td><a href =' + value2.LinkUrl + ' target="_blank">' + value2.LinkUrl + '</a></td></tr>');
+                    $("#AttachmentAndLinkTable").append('<div class="col-md-12"><span class="col-md-2">Link URL:</span ><span class="col-md-6"><a href =' + value2.LinkUrl + ' target="_blank"> ' + value2.LinkUrl + '</a></span><hr>');
+                })
+            }
+        })
     });
 </script>
 
@@ -344,9 +350,9 @@ transition, #container a.view-slide {
                                     <a class="nav-link active" id="overview-tab-attr" data-toggle="tab" href="#overview-attr" role="tab" aria-controls="overview-attr"
                                        aria-selected="true">Overview</a>
                                 </li>
-                                <li class="nav-item hidden">
-                                    <a class="nav-link" id="activity-tab-attr" data-toggle="tab" href="#activity-attr" role="tab" aria-controls="activity-attr"
-                                       aria-selected="false">Activity</a>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="Material-tab-attr" data-toggle="tab" href="#Material-attr" role="tab" aria-controls="Material-attr"
+                                       aria-selected="false">Reading Material</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="qa-tab-attr" data-toggle="tab" href="#qa-attr" role="tab" aria-controls="qa-attr"
@@ -371,128 +377,15 @@ transition, #container a.view-slide {
 
                                 </div>
 
-                                <div class="tab-pane" id="activity-attr" role="tabpanel" aria-labelledby="activity-tab-attr">
+                                <div class="tab-pane" id="Material-attr" role="tabpanel" aria-labelledby="Material-tab-attr">
 
 
                                     <!--Activity Tab Content-->
-                                    <h3 class="tabMainHeading mb-3">M.C.Q.S Section</h3>
-
-                                    <div class="questionCon">
-                                        <h4 class="tabHeading">Question 1: What we used computers?</h4>
-
-                                        <div class="row my-3">
-                                            <div class="col-md-12 mb-2">
-
-                                                <div class="custom-control custom-radio custom-control-inline mr-5">
-                                                    <input type="radio" class="custom-control-input" id="defaultInline1" name="inlineDefaultRadiosExample">
-                                                    <label class="custom-control-label" for="defaultInline1">&nbsp;&nbsp;&nbsp;A. Option 1</label>
-                                                </div>
-                                                &nbsp;&nbsp;&nbsp;&nbsp;
-
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" class="custom-control-input" id="defaultInline3" name="inlineDefaultRadiosExample">
-                                                    <label class="custom-control-label" for="defaultInline3">&nbsp;&nbsp;&nbsp;C. Option 3</label>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-md-12">
-
-                                                <div class="custom-control custom-radio custom-control-inline mr-5">
-                                                    <input type="radio" class="custom-control-input" id="defaultInline2" name="inlineDefaultRadiosExample">
-                                                    <label class="custom-control-label" for="defaultInline2">&nbsp;&nbsp;&nbsp;B. Option 2</label>
-                                                </div>
-                                                &nbsp;&nbsp;&nbsp;
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" class="custom-control-input" id="defaultInline4" name="inlineDefaultRadiosExample">
-                                                    <label class="custom-control-label" for="defaultInline4">&nbsp;&nbsp;&nbsp;D. Option 4</label>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <p>Your answer is wrong. Correct answer is C. You need to revise OOP Subject Topic Lesson 1.</p>
-
+                                    <h3 class="tabMainHeading mb-3">Reading Material</h3>
+                                    <div class="row" id="AttachmentAndLinkTable">
                                     </div>
-                                    <div class="questionCon">
-                                        <h4 class="tabHeading">Question 2: What we used computers?</h4>
-
-                                        <div class="row my-3">
-                                            <div class="col-md-12 mb-2">
-
-                                                <div class="custom-control custom-radio custom-control-inline mr-5">
-                                                    <input type="radio" class="custom-control-input" id="defaultInline1" name="inlineDefaultRadiosExample">
-                                                    <label class="custom-control-label" for="defaultInline1">&nbsp;&nbsp;&nbsp;A. Option 1</label>
-                                                </div>
-                                                &nbsp;&nbsp;&nbsp;&nbsp;
-
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" class="custom-control-input" id="defaultInline3" name="inlineDefaultRadiosExample">
-                                                    <label class="custom-control-label" for="defaultInline3">&nbsp;&nbsp;&nbsp;C. Option 3</label>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-md-12">
-
-                                                <div class="custom-control custom-radio custom-control-inline mr-5">
-                                                    <input type="radio" class="custom-control-input" id="defaultInline2" name="inlineDefaultRadiosExample">
-                                                    <label class="custom-control-label" for="defaultInline2">&nbsp;&nbsp;&nbsp;B. Option 2</label>
-                                                </div>
-                                                &nbsp;&nbsp;&nbsp;
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" class="custom-control-input" id="defaultInline4" name="inlineDefaultRadiosExample">
-                                                    <label class="custom-control-label" for="defaultInline4">&nbsp;&nbsp;&nbsp;D. Option 4</label>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <p>Your answer is wrong. Correct answer is C. You need to revise OOP Subject Topic Lesson 1.</p>
-
-                                    </div>
-                                    <div class="questionCon">
-                                        <h4 class="tabHeading">Question 3: What we used computers?</h4>
-
-                                        <div class="row my-3">
-                                            <div class="col-md-12 mb-2">
-
-                                                <div class="custom-control custom-radio custom-control-inline mr-5">
-                                                    <input type="radio" class="custom-control-input" id="defaultInline1" name="inlineDefaultRadiosExample">
-                                                    <label class="custom-control-label" for="defaultInline1">&nbsp;&nbsp;&nbsp;A. Option 1</label>
-                                                </div>
-                                                &nbsp;&nbsp;&nbsp;&nbsp;
-
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" class="custom-control-input" id="defaultInline3" name="inlineDefaultRadiosExample">
-                                                    <label class="custom-control-label" for="defaultInline3">&nbsp;&nbsp;&nbsp;C. Option 3</label>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-md-12">
-
-                                                <div class="custom-control custom-radio custom-control-inline mr-5">
-                                                    <input type="radio" class="custom-control-input" id="defaultInline2" name="inlineDefaultRadiosExample">
-                                                    <label class="custom-control-label" for="defaultInline2">&nbsp;&nbsp;&nbsp;B. Option 2</label>
-                                                </div>
-                                                &nbsp;&nbsp;&nbsp;
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" class="custom-control-input" id="defaultInline4" name="inlineDefaultRadiosExample">
-                                                    <label class="custom-control-label" for="defaultInline4">&nbsp;&nbsp;&nbsp;D. Option 4</label>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <p>Your answer is wrong. Correct answer is C. You need to revise OOP Subject Topic Lesson 1.</p>
-
-                                    </div>
-
-                                    <!--Activity Tab Content-->
+                                        <!--Activity Tab Content-->
                                 </div>
-
-
 
                                 <div class="tab-pane" id="qa-attr" role="tabpanel" aria-labelledby="qa-tab-attr">
 
