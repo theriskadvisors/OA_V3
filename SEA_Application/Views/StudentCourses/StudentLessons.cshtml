@@ -311,8 +311,9 @@
                     //  $("#Attachment").append('<tr><td>Attachment Name </td>  <td>' + file + '</td></tr>');
                     //  $("#Attachment").append('<tr><td> Download Attach File  </td>  <td><a href ="/StudentCourses/DownloadFile/' + value1.AttachmentId + '">' + value1.AttachmentPath + '</a></td></tr>');
 
-                    $("#AttachmentAndLinkTable").append('<div class="col-md-12"> <span class="col-md-2">Attachment Name:</span >  <div class="col-md-6">' + file + '</div></div>');
-                    $("#AttachmentAndLinkTable").append('<div class="col-md-12"> <span class="col-md-2">Download Attach File:</span > <div class="col-md-6"><a href ="/StudentCourses/DownloadFile/' + value1.AttachmentId + '">' + value1.AttachmentPath + '</div></div> <hr>');
+                    $("#AttachmentAndLinkTable").append('<div class="col-md-12"> <span class="col-md-2">Attachment Name:</span >  <span class="col-md-6">' + file + '</span></div>');
+                    $("#AttachmentAndLinkTable").append('<div class="col-md-12"> <span class="col-md-2">Download Attach File:</span > <span class="col-md-6"><a href ="/StudentCourses/DownloadFile/' + value1.AttachmentId + '">' + value1.AttachmentPath + '</span></div>');
+                    $("#AttachmentAndLinkTable").append('<hr>');
                 })
 
                 $.each(Links, function (key, value2) {

@@ -3,16 +3,45 @@
     ViewBag.Title = "StudentsIndex";
 }
 
+<style>
+    tfoot {
+        display: table-header-group;
+    }
+
+    tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+</style>
 
 @*<script src="~/AdminLTE/selectone.js"></script>*@
 
 <script src="~/AdminLTE/plugins/jquery/js/jQuery-2.1.4.min.js"></script>
 <script>
+   
     $(document).ready(function () {
 
-        // var table = $('#datatable').dataTable();
+        $('#datatable tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" class="round-border" style="border-color:#053f89; border-radius:5px" placeholder="Search ' + title + '" />');
+        });
 
-           var table = $('#datatable').dataTable({
+        var table = $('#datatable').dataTable({
+            initComplete: function () {
+                // Apply the search
+                this.api().columns().every(function () {
+                    var that = this;
+
+                    $('input', this.footer()).on('keyup change clear', function () {
+                        if (that.search() !== this.value) {
+                            that
+                                .search(this.value)
+                                .draw();
+                        }
+                    });
+                });
+            },
             buttons: [
                 {
                     text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
@@ -49,6 +78,7 @@
         $('input#global_filter').on('keyup click', function () {
             filterGlobal();
         });
+
        $.get('@Url.Action("AllStudents", "AspNetUser")',
                 function (data) {
 
@@ -62,8 +92,7 @@
 
            });
 
-
-  
+        $('#datatable tfoot tr').appendTo('#datatable thead');
 
         $('.table').on('click', 'tbody tr', function () {
 
@@ -137,7 +166,25 @@
                                         </tr>
                                     </thead>
                                     <tbody id="submission_table"></tbody>
-
+                                    <tfoot>
+                                        <tr>
+                                            <th>
+                                                Roll Number
+                                            </th>
+                                            <th>
+                                                Name
+                                            </th>
+                                            <th>
+                                                Email
+                                            </th>
+                                            <th>
+                                                Phone Number
+                                            </th>
+                                            <th>
+                                                Class
+                                            </th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                             <div id="Error"></div>

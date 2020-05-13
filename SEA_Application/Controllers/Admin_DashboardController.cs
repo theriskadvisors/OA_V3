@@ -12,7 +12,9 @@ using System.Data.Entity;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -98,10 +100,46 @@ namespace SEA_Application.Controllers
 
         public ActionResult test1()
         {
-            //SendMail("azeemazeem187@gmail.com", "Email Test", "1234321");
+            //SendMail("talhaghaffar98@gmail.com", "Email Test", "1234321");
+             SendMail44("talhaghaffar98@gmail.com", "Email Test", "1234321");
+        //  SendMail44
+            
             var Error = "Sent";
-            return RedirectToAction("StudentIndex", "AspNetUser", new { Error });
+            return RedirectToAction("StudentIndex", "AspNetUser", new { Error
+          });
             //return View();
+        }
+
+        public bool SendMail44(string toEmail, string subject, string emailBody)
+        {
+            try
+            {
+                string senderEmail = System.Configuration.ConfigurationManager.AppSettings["SenderEmail"].ToString();
+                string senderPassword = System.Configuration.ConfigurationManager.AppSettings["SenderPassword"].ToString();
+
+                string[] EmailList = new string[] { toEmail, "azeemazeem187@gmail.com" };
+                foreach (var item in EmailList)
+                {
+                    SmtpClient client = new SmtpClient("smtpout.secureserver.net", 465);
+                    client.EnableSsl = true;
+                    client.Timeout = 100000;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential(senderEmail, senderPassword);
+
+                    MailMessage mailMessage = new MailMessage(senderEmail, item, subject, emailBody);
+                    mailMessage.IsBodyHtml = true;
+                    mailMessage.BodyEncoding = UTF8Encoding.UTF8;
+
+                    client.Send(mailMessage);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
         }
 
         public Admin_DashboardController()
@@ -1326,7 +1364,7 @@ namespace SEA_Application.Controllers
             return View();
         }
 
-        public async Task<bool> SendMail(string toemail, string subject, string body)
+        public async Task<bool> SendMail_old(string toemail, string subject, string body)
         {
             bool IsMailSent = false;
 
@@ -1362,44 +1400,6 @@ namespace SEA_Application.Controllers
 
             return IsMailSent;
         }
-
-        public async Task<bool> SendMail1(string toemail, string subject, string body)
-        {
-            bool IsMailSent = false;
-
-            try
-            {
-                MailMessage msg = new MailMessage();
-                //msg.To.Add(new MailAddress(toemail));
-                msg.From = new MailAddress("admin@cssofficersonline.com", "SEA | Smarter Education Analytics");
-                msg.Subject = subject;
-                msg.Body = body;
-                msg.IsBodyHtml = true;
-                string ccMail = string.Empty;
-                string bccMail = string.Empty;
-                ccMail = "admin@cssofficersonline.com";
-                bccMail = "admin@cssofficersonline.com";
-                msg.To.Add(toemail);
-                msg.Bcc.Add(bccMail);
-                SmtpClient client = new SmtpClient();
-                client.UseDefaultCredentials = false;
-                client.Credentials = new System.Net.NetworkCredential("admin@cssofficersonline.com", "Fortnite@");
-                client.Port = 25; // You can use Port 25 if 587 is blocked (mine is!)
-                client.Host = "smtp.gmail.com";
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.EnableSsl = true;
-                string userState = "call back object on success";
-                await Task.Run(() => client.SendAsync(msg, userState));
-                IsMailSent = true;
-            }
-            catch (Exception ex)
-            {
-                //    logAppException(ex.ToString(), "email send");
-            }
-
-            return IsMailSent;
-        }
-
 
         public ActionResult ConfirmAccount(string id)
         {
@@ -2146,6 +2146,11 @@ namespace SEA_Application.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> StudentRegister(RegisterViewModel model, HttpPostedFileBase image)
         {
+            //string pass = Encrpt.Encrypt(model.UserName, true);
+            //var newpassword = Regex.Replace(pass, @"[^0-9a-zA-Z]+", "s");
+            //string passowrd = newpassword.Substring(0, 7);
+            //model.Password = passowrd;
+            //model.ConfirmPassword = passowrd;
 
             // Discount
             int? SessionIdOfSelectedStudent = db.AspNetClasses.Where(x => x.Id == model.ClassID).FirstOrDefault().SessionID;
@@ -2263,7 +2268,7 @@ namespace SEA_Application.Controllers
                     var result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
-                        SendMail(model.Email, "Admission Confirmed", "" + EmailDesign.SignupEmailTemplate(model.Name, model.UserName, model.Password));
+                        SendMail_old(model.Email, "Admission Confirmed", "" + EmailDesign.SignupEmailTemplate(model.Name, model.UserName, model.Password));
 
                         ruffdata rd = new ruffdata();
                         rd.SessionID = SessionIdOfSelectedStudent;

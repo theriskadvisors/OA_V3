@@ -25,30 +25,16 @@ namespace SEA_Application.Controllers
 
         public ActionResult Index()
         {
-
-                
-
             return View();
         }
 
+        [HttpPost]
         public ActionResult AllSubjectsOfStudent()
         {
 
             var userID = User.Identity.GetUserId();
             var UserRole = db.GetUserRoleById(userID).FirstOrDefault();
             int ClassID = db.AspNetClasses.Where(x => x.SessionID == SessionID).FirstOrDefault().Id;
-
-
-            //var AllSubjectsOfStudent = from Subject in db.AspNetSubjects
-            //                           join StudentSubject in db.AspNetStudent_Subject on Subject.Id equals StudentSubject.SubjectID
-            //                           where StudentSubject.StudentID == userID
-            //                           select new
-            //                           {
-            //                               Subject.Id,
-            //                               Subject.SubjectName,
-            //                               Subject.CourseType,
-            //                               Subject.Points,
-            //                            };
 
             var AllSubjectsOfStudent = from Subject in db.GenericSubjects
                                        join StudentSubject in db.Student_GenericSubjects on Subject.Id equals StudentSubject.GenericSubjectId

@@ -16,7 +16,7 @@ namespace SEA_Application.Controllers
     {
         private SEA_DatabaseEntities db = new SEA_DatabaseEntities();
 
-       int SessionID = Int32.Parse(SessionIDStaticController.GlobalSessionID);
+        int SessionID = Int32.Parse(SessionIDStaticController.GlobalSessionID);
         // GET: AspNetTimeTable
         public ActionResult Index()
         {
@@ -61,7 +61,7 @@ namespace SEA_Application.Controllers
         }
 
         public ActionResult TimeTableFromFile()
-            {
+        {
             var dbTransaction = db.Database.BeginTransaction();
 
             HttpPostedFileBase file = Request.Files["subjects"];
@@ -82,17 +82,18 @@ namespace SEA_Application.Controllers
 
                 string ErrorMsg = null;
                 int rowIterator;
-                for (rowIterator = 2; rowIterator <= 4; rowIterator++)
+                for (rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                 {
                     var TimeTable = new AspNetTimeTable();
-                    var SessionName = workSheet.Cells[rowIterator, 7].Value.ToString();
+                    var SessionName = workSheet.Cells[rowIterator, 6].Value.ToString();
                     int GetSessionID;
                     int GetClassID;
+
                     AspNetSession Session = db.AspNetSessions.Where(x => x.SessionName == SessionName).FirstOrDefault();
-                    
+
                     if (Session == null)
                     {
-                        ErrorMsg = "Error in Row " + Convert.ToString(rowIterator -1) + " Session Name is not valid";
+                        ErrorMsg = "Error in Row " + Convert.ToString(rowIterator - 1) + " Session Name is not valid or empty";
 
                         TempData["ErrorMsg"] = ErrorMsg;
 
@@ -102,25 +103,25 @@ namespace SEA_Application.Controllers
                     else
                     {
                         GetSessionID = Session.Id;
-                        GetClassID = Session.AspNetClasses.Select(x => x.Id).FirstOrDefault();
+                        GetClassID = db.AspNetClasses.Where(x => x.SessionID == GetSessionID).Select(x=> x.Id).FirstOrDefault();
                     }
 
-                    var CourseType = workSheet.Cells[rowIterator, 6].Value.ToString();
+                    var CourseType = workSheet.Cells[rowIterator, 5].Value.ToString();
 
                     var CourseTypeLower = CourseType.ToLower();
-                   
-                    if(CourseTypeLower=="css" || CourseTypeLower == "pms" )
+
+                    if (CourseTypeLower == "css" || CourseTypeLower == "pms")
                     {
                         //valid course Type css or pms 
                     }
                     else
                     {
 
-                        ErrorMsg = "Error in Row " + Convert.ToString(rowIterator - 1) + "Course Type  is not valid";
+                        ErrorMsg = "Error in Row " + Convert.ToString(rowIterator - 1) + "Course Type  is not valid or empty";
                         TempData["ErrorMsg"] = ErrorMsg;
                         return RedirectToAction("Create", "AspNetTimeTable");
                     }
-                    
+
                     var RoomName = workSheet.Cells[rowIterator, 1].Value.ToString();
                     //RoomID;
                     int RoomID = db.AspNetRooms.Where(x => x.Name == RoomName).FirstOrDefault().Id;
@@ -130,7 +131,7 @@ namespace SEA_Application.Controllers
 
                     if (room == null)
                     {
-                        ErrorMsg = "Error in Row " + Convert.ToString(rowIterator - 1) + "Room Name is not valid";
+                        ErrorMsg = "Error in Row " + Convert.ToString(rowIterator - 1) + "Room Name is not valid or empty";
 
                         TempData["ErrorMsg"] = ErrorMsg;
 
@@ -151,7 +152,7 @@ namespace SEA_Application.Controllers
 
                     if (slot == null)
                     {
-                        ErrorMsg = "Error in Row " + Convert.ToString(rowIterator -1) + " Slot Name is not valid";
+                        ErrorMsg = "Error in Row " + Convert.ToString(rowIterator - 1) + " Slot Name is not valid or empty";
 
                         TempData["ErrorMsg"] = ErrorMsg;
 
@@ -166,11 +167,11 @@ namespace SEA_Application.Controllers
                     int SubjectID;
                     AspNetSubject subject = new AspNetSubject();
 
-                    subject = db.AspNetSubjects.Where(x => x.SubjectName == SubName && x.ClassID== GetClassID && x.CourseType ==CourseType ).FirstOrDefault();
-                  
+                    subject = db.AspNetSubjects.Where(x => x.SubjectName == SubName && x.ClassID == GetClassID && x.CourseType == CourseType).FirstOrDefault();
+
                     if (subject == null)
                     {
-                        ErrorMsg = "Error in Row " + Convert.ToString(rowIterator -1) + " Subject Name is not valid";
+                        ErrorMsg = "Error in Row " + Convert.ToString(rowIterator - 1) + " Subject Name is not valid or empty";
                         TempData["ErrorMsg"] = ErrorMsg;
                         return RedirectToAction("Create", "AspNetTimeTable");
                     }
@@ -179,45 +180,45 @@ namespace SEA_Application.Controllers
                         SubjectID = subject.Id;
                     }
 
-                    var UserName = workSheet.Cells[rowIterator, 4].Value.ToString();
+                    //var UserName = workSheet.Cells[rowIterator, 4].Value.ToString();
 
-                    string TeacherID;
-                    AspNetUser teacher = new AspNetUser();
+                    //string TeacherID;
+                    //AspNetUser teacher = new AspNetUser();
 
-                    teacher = db.AspNetUsers.Where(x => x.UserName == UserName).FirstOrDefault();
+                    //teacher = db.AspNetUsers.Where(x => x.UserName == UserName).FirstOrDefault();
 
-                    if (teacher == null)
-                    {
-                        ErrorMsg = "Error in Row " + Convert.ToString(rowIterator - 1) + " Teacher Name is not valid";
+                    //if (teacher == null)
+                    //{
+                    //    ErrorMsg = "Error in Row " + Convert.ToString(rowIterator - 1) + " Teacher Name is not valid or empty";
 
-                        TempData["ErrorMsg"] = ErrorMsg;
+                    //    TempData["ErrorMsg"] = ErrorMsg;
 
-                        return RedirectToAction("Create", "AspNetTimeTable");
+                    //    return RedirectToAction("Create", "AspNetTimeTable");
 
-                    }
-                    else
-                    {
-                        TeacherID = teacher.Id;
-                    }
+                    //}
+                    //else
+                    //{
+                    //    TeacherID = teacher.Id;
+                    //}
 
-                    // DateTime Day = Convert.ToDateTime(workSheet.Cells[rowIterator, 5].Value.ToString());
-                    var Date = workSheet.Cells[rowIterator, 5].Value.ToString();
-                    DateTime Day = DateTime.ParseExact(Date, "dd/MM/yyyy", null);
-                 
+                    DateTime Day = Convert.ToDateTime(workSheet.Cells[rowIterator, 4].Value.ToString());
+                    //var Date = workSheet.Cells[rowIterator, 5].Value.ToString();
+                    //DateTime Day = DateTime.ParseExact(Date, "dd/MM/yyyy", null);
+
                     TimeTable.RoomID = RoomID;
                     TimeTable.SlotID = SlotID;
                     TimeTable.SubjectID = SubjectID;
-                    TimeTable.Teacher_ID = TeacherID;
+                    //TimeTable.Teacher_ID = TeacherID;
                     TimeTable.Day = Day.ToString();
                     TimeTable.IsPopulated = false;
-                //    TimeTable.SessionID = GetSessionID;
+                    //    TimeTable.SessionID = GetSessionID;
 
 
                     db.AspNetTimeTables.Add(TimeTable);
                     db.SaveChanges();
                 }
             }
-              dbTransaction.Commit();
+            dbTransaction.Commit();
 
             //   return RedirectToAction("Index", "AspNetTimeTable");
 
@@ -227,8 +228,6 @@ namespace SEA_Application.Controllers
             //}
 
             return RedirectToAction("CreateTimetable");
-
-
         }
 
         public ActionResult CreateTimetable()
@@ -240,7 +239,7 @@ namespace SEA_Application.Controllers
                 var subjectID = item.SubjectID;
                 var students = db.AspNetStudent_Subject.Where(x => x.SubjectID == subjectID).Select(x => x.StudentID).ToList();
 
-                string[] color = { "Red", "Blue", "Green", "Pink", "Orange" };
+                string[] color = { "Red", "Blue", "Green", "Yellow", "Orange", "Purple", "Aqua" };
 
                 foreach (var items in students)
                 {
@@ -251,14 +250,15 @@ namespace SEA_Application.Controllers
                     newEvent.IsFullDay = false;
                     newEvent.IsPublic = false;
                     newEvent.Subject = item.AspNetRoom.Name + "_" + item.AspNetSubject.SubjectName;
-                    newEvent.SessionID = db.AspNetSessions.Where(x => x.Status == "Active").FirstOrDefault().Id;
+                    newEvent.Description = "The Lecture of Subject '" + item.AspNetSubject.SubjectName + "' will start on " + ((DateTime)item.AspNetTimeslot.Start_Time).ToString("hh:mm");
+                    newEvent.SessionID = db.AspNetUsers_Session.Where(x => x.UserID == items).Select(x => x.SessionID).FirstOrDefault();
                     newEvent.ThemeColor = color[colorcode];
                     var starttime = ((DateTime)item.AspNetTimeslot.Start_Time).ToString("hh:mm");
                     var Endtime = ((DateTime)item.AspNetTimeslot.End_Time).ToString("hh:mm");
                     var day = item.Day.Split(' ');
                     newEvent.Start = Convert.ToDateTime(day[0] + " " + starttime);
                     newEvent.End = Convert.ToDateTime(day[0] + " " + Endtime);
-                   // newEvent.TimeTableId = item.Id;
+                    newEvent.TimeTableId = item.Id;
 
                     db.Events.Add(newEvent);
                 }
@@ -335,9 +335,9 @@ namespace SEA_Application.Controllers
                 db.SaveChanges();
             }
 
-         //   var EventsToDelete = db.Events.Where(x => x.TimeTableId == aspNetTimeTable.Id);
-        //    db.Events.RemoveRange(EventsToDelete);
-           // db.SaveChanges();
+             var EventsToDelete = db.Events.Where(x => x.TimeTableId == aspNetTimeTable.Id);
+             db.Events.RemoveRange(EventsToDelete);
+             db.SaveChanges();
 
             var subjectID = aspNetTimeTable.SubjectID;
             var students = db.AspNetStudent_Subject.Where(x => x.SubjectID == subjectID).Select(x => x.StudentID).ToList();
@@ -363,7 +363,7 @@ namespace SEA_Application.Controllers
                 var day = aspNetTimeTable.Day.Split(' ');
                 newEvent.Start = Convert.ToDateTime(day[0] + " " + starttime);
                 newEvent.End = Convert.ToDateTime(day[0] + " " + Endtime);
-              //  newEvent.TimeTableId = aspNetTimeTable.Id;
+                //  newEvent.TimeTableId = aspNetTimeTable.Id;
 
                 db.Events.Add(newEvent);
             }
@@ -399,9 +399,10 @@ namespace SEA_Application.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
 
-            //var AllEventsToDelete = db.Events.Where(x => x.TimeTableId == id).ToList();
-           // db.Events.RemoveRange(AllEventsToDelete);
-            //db.SaveChanges();
+            var AllEventsToDelete = db.Events.Where(x => x.TimeTableId == id).ToList();
+             db.Events.RemoveRange(AllEventsToDelete);
+            db.SaveChanges();
+
             AspNetTimeTable aspNetTimeTable = db.AspNetTimeTables.Find(id);
             db.AspNetTimeTables.Remove(aspNetTimeTable);
             db.SaveChanges();

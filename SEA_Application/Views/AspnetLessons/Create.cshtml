@@ -639,7 +639,7 @@
                                 <div class="form-row mt-3">
                                     <div class="form-group col-md-12 bmd-form-group">
                                         <label class="bmd-label-floating">Lesson Duration*</label>
-                                        <input type="number" min="30" max="60" value="30" onkeydown="return false" class="form-control" name="LessonDuration" id="LessonDuration" required />
+                                        <input type="number" min="10" max="120" value="30" onkeydown="return false" class="form-control" name="LessonDuration" id="LessonDuration" required />
                                         @Html.ValidationMessageFor(model => model.LessonDuration, "", new { @class = "text-danger" })
 
                                     </div>
