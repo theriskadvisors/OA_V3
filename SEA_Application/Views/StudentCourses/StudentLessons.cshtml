@@ -64,7 +64,12 @@
                 padding: 0.5em 2em;
                 border-bottom: 0.5em solid rgba(220, 231, 235, 0.25);
             }
-        /*#container a.view-slide {
+
+            .QuestionHeader:hover
+            {
+                text-decoration:underline;
+            }
+    /*#container a.view-slide {
          font-size: 0.9em;
          font-family: 'Ubuntu', sans-serif;
          font-weight: 400;
@@ -282,7 +287,7 @@
                     var initials = data[index].UserName.match(/\b\w/g) || [];
                     initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
 
-                    $("#AllComments").append('<div class="d-flex py-3"><div class="mr-3 tabHeading"><span class="initialCircle">' + initials + '</span></div><div class=""><h3 class="tabMainHeading mt-0 mb-2">' + data[index].Title + '</h3><p>' + data[index].Body + '</p><div class="metaInfoQues">' + data[index].UserName + ' <strong class="ml-2">' + dat + '</strong></div></div></div><hr>');
+                    $("#AllComments").append('<div class="d-flex py-3"><div class="mr-3 tabHeading"><span class="initialCircle">' + initials + '</span></div><div class=""> <a href = "/StudentCourses/CommentsPage1/' + data[index].EncryptedID + '"><h3  class="tabMainHeading mt-0 mb-2 QuestionHeader">' + data[index].Title + '</h3></a><p>' + data[index].Body + '</p><div class="metaInfoQues">' + data[index].UserName + ' <strong class="ml-2">' + dat + '</strong></div></div></div><hr>');
                     //$("#AllCommentsHead").append('<a href = "/StudentCourses/CommentsPage1/' + data[index].EncryptedID + '"><div id="QADiv"  name ="' + data[index].CommentHeadId + '"   class ="CommentDivs" ><p id="TitleParagraph" class="titleParagraphs" style="padding:10px;" ><b>' + data[index].Title + '</b> </p> <div style="padding:10px;"> <p>' + data[index].Body + '</p> <p><b>' + dat + ' &nbsp;&nbsp;&nbsp; ' + data[index].UserName + '</b></p><p><b></p> </b></div> </div></a>');
                 });
                 $("#TotalQuestions").html(TotalQuestions);
@@ -321,11 +326,13 @@
         $("#AddButton").click(function () {
             debugger
             var ThreadTitle = $("#ThreadTitle").val();
-            var ThreadBody = $(".note-editable p").html();
+            var ThreadBody = $("#commentbox").val();
 
             ThreadTitle = "Question";
-        if (ThreadBody != "") {
+        if (ThreadBody != "" && ThreadBody !="<br>" ) {
 
+
+           //alert(ThreadBody);
 
             $.ajax({
 
@@ -451,8 +458,14 @@
                                         </div>
                                         <div class="w-100">
 
-                                            <div class="w-100" name="summernote CommentBody" id="summernote"></div>
+                                            @*<div class="w-100" name="summernote CommentBody" id="summernote"></div>*@
 
+                                            <div class="form-group">
+                                                <label for="comment">Write a Comment:</label>
+                                                <br />
+                                                <textarea class="form-control" rows="5" id="commentbox"></textarea>
+                                            </div>
+                                            
                                             <button type="button" class="btn btn-primary pull-right mt-3 addCommentBtn" id="AddButton">Add<div class="ripple-container"></div><div class="ripple-container"></div></button>
 
                                         </div>

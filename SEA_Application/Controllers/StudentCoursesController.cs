@@ -26,7 +26,7 @@ namespace SEA_Application.Controllers
         public ActionResult Index()
         {
 
-
+                
 
             return View();
         }
@@ -764,10 +764,10 @@ namespace SEA_Application.Controllers
 
             var newString = Regex.Replace(commentHead.EncryptedID, @"[^0-9a-zA-Z]+", "s");
 
-            string str = newString.Substring(0, 32);
+          //  string str = newString.Substring(0, 32);
 
 
-            commentHead.EncryptedID = str;
+            commentHead.EncryptedID = newString;
 
             //Comment_Head commentHead = new Comment_Head();
             commentHead.Comment_Head = Title;

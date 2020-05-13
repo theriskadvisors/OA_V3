@@ -20,7 +20,7 @@
         color: white;
     }*/
     .HeaderStyleOfComments {
-        background: rgb(51, 70, 102);
+        background:#00B8EC;
         color: white;
     }
 
@@ -46,6 +46,7 @@
 </style>
 
 <input type="hidden" id="CommentHeadId" name="name" value="@ViewBag.CommentHeadId" />
+
 
 
 <div class="col-md-12">
@@ -85,6 +86,11 @@
     $(document).ready(function () {
 
 
+          $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li> <a href="/StudentCourses/Index"> Courses </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li class=""><a id="BreadCrumps1" href="#">Lessons</a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li class=""><a id="BreadCrumps1" href="#">Comments</a> </li>');
+
         var id = $("#CommentHeadId").val();
         //Comments page of lesson
         $.ajax({
@@ -120,6 +126,7 @@
 
             var ReplyTextAreaValue = $("#ReplyTextArea").val();
 
+            if (ReplyTextAreaValue != "") {
 
             $.ajax({
 
@@ -138,6 +145,7 @@
 
             })
 
+            }
 
 
 
