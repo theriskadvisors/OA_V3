@@ -14,125 +14,128 @@
 }
 
 <style>
-    #TotalQuestions { 
-            all:unset; 
-        }
-
+    #TotalQuestions {
+        all: unset;
+    }
 </style>
 
 <style>
-body {
-  font-family: 'Lato', sans-serif;
-}
+        body {
+            font-family: 'Lato', sans-serif;
+        }
 
-transition, #container a.view-slide {
-	 transition: all 0.25s ease-in-out;
-}
- #overlay {
-	 position: fixed;
-	 background: rgba(48, 69, 92, 0.5);
-	 width: 100%;
-	 height: 100%;
-	 top: 0;
-	 left: 0;
-	 text-align: center;
-	 z-index: 9999;
-	 display: none;
-}
- #overlay iframe {
-	 margin-top: 10%;
-}
- #container {
-	 background: rgba(255, 104, 115, 1);
-	 display: flex;
-	 flex-flow: column nowrap;
-	 align-items: center;
-	 justify-content: center;
-	 width: 100%;
-	 height: 100vh;
-	 text-transform: uppercase;
-}
- #container header {
-	 font-family: 'Source Sans Pro', sans-serif;
-	 font-weight: 700;
-	 font-size: 1.5em;
-	 color: rgba(254, 255, 250, 1);
-	 line-height: 1;
-	 padding: 0.5em 2em;
-	 border-bottom: 0.5em solid rgba(220, 231, 235, 0.25);
-}
- /*#container a.view-slide {
-	 font-size: 0.9em;
-	 font-family: 'Ubuntu', sans-serif;
-	 font-weight: 400;
-	 text-decoration: none;
-	 color: rgba(34, 190, 198, 1);
-	 background: rgba(254, 255, 250, 1);
-	 margin-top: 2em;
-	 padding: 1.2em;
-	 border-radius: 0.25em;
-}
- #container a.view-slide:hover {
-	 color: rgba(48, 69, 92, 0.5);
-	 background: rgba(48, 69, 92, 0.15);
-}*/
+        transition, #container a.view-slide {
+            transition: all 0.25s ease-in-out;
+        }
 
-/*.overlay {
-  height: 100%;
-  width: 100%;
-  display: none;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0, 0.9);
-}
+        #overlay {
+            position: fixed;
+            background: rgba(48, 69, 92, 0.5);
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            text-align: center;
+            z-index: 9999;
+            display: none;
+        }
 
-.overlay-content {
-  position: relative;
-  top: 25%;
-  width: 100%;
-  text-align: center;
-  margin-top: 30px;
-}
+            #overlay iframe {
+                margin-top: 10%;
+            }
 
-.overlay a {
-  padding: 8px;
-  text-decoration: none;
-  font-size: 36px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
-  z-index: 99999;
-}
+        #container {
+            background: rgba(255, 104, 115, 1);
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100vh;
+            text-transform: uppercase;
+        }
 
-.overlay a:hover, .overlay a:focus {
-  color: #f1f1f1;
-}
+            #container header {
+                font-family: 'Source Sans Pro', sans-serif;
+                font-weight: 700;
+                font-size: 1.5em;
+                color: rgba(254, 255, 250, 1);
+                line-height: 1;
+                padding: 0.5em 2em;
+                border-bottom: 0.5em solid rgba(220, 231, 235, 0.25);
+            }
+        /*#container a.view-slide {
+         font-size: 0.9em;
+         font-family: 'Ubuntu', sans-serif;
+         font-weight: 400;
+         text-decoration: none;
+         color: rgba(34, 190, 198, 1);
+         background: rgba(254, 255, 250, 1);
+         margin-top: 2em;
+         padding: 1.2em;
+         border-radius: 0.25em;
+    }
+     #container a.view-slide:hover {
+         color: rgba(48, 69, 92, 0.5);
+         background: rgba(48, 69, 92, 0.15);
+    }*/
 
-.overlay .closebtn {
-  position: absolute;
-  top: 20px;
-  right: 45px;
-  font-size: 60px;
-}*/
+        /*.overlay {
+      height: 100%;
+      width: 100%;
+      display: none;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: rgb(0,0,0);
+      background-color: rgba(0,0,0, 0.9);
+    }
 
-/*media screen and (max-height: 450px) {
-  .overlay a {font-size: 20px}
-  .overlay .closebtn {
-  font-size: 40px;
-  top: 15px;
-  right: 35px;
-  }
-}*/
+    .overlay-content {
+      position: relative;
+      top: 25%;
+      width: 100%;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .overlay a {
+      padding: 8px;
+      text-decoration: none;
+      font-size: 36px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+      z-index: 99999;
+    }
+
+    .overlay a:hover, .overlay a:focus {
+      color: #f1f1f1;
+    }
+
+    .overlay .closebtn {
+      position: absolute;
+      top: 20px;
+      right: 45px;
+      font-size: 60px;
+    }*/
+
+        /*media screen and (max-height: 450px) {
+      .overlay a {font-size: 20px}
+      .overlay .closebtn {
+      font-size: 40px;
+      top: 15px;
+      right: 35px;
+      }
+    }*/
 
 
 </style>
 
 <script>
-    $(document).ready(function () {     
-                            
+    $(document).ready(function () {
+
         $("#PageHeader").html("Lessons");
         var src = "";
 
@@ -231,7 +234,7 @@ transition, #container a.view-slide {
                     $("#TotalTopics").html(Count);
                     percent = (trueCount / value1.TotalLessons) * 100;
                     total = value1.TotalLessons;
-                    
+
                     $("#topicCompleted").html(trueCount);
                     $("#Totaltopic").html(total);
 
@@ -251,7 +254,7 @@ transition, #container a.view-slide {
                     //});
 
                 })
-                
+
             }
         })
 
@@ -313,7 +316,44 @@ transition, #container a.view-slide {
                 })
             }
         })
+
+
+        $("#AddButton").click(function () {
+            debugger
+            var ThreadTitle = $("#ThreadTitle").val();
+            var ThreadBody = $(".note-editable p").html();
+
+            ThreadTitle = "Question";
+        if (ThreadBody != "") {
+
+
+            $.ajax({
+
+                type: "POST",
+                url: "/StudentCourses/SaveCommentHead",
+                data: { "LessonID": LessonId, "Title": ThreadTitle, "Body": ThreadBody },
+                success: function (data) {
+
+
+                    location.reload();
+
+                }
+
+            })
+
+        }
+
+    })
+
+
+
     });
+
+
+
+
+
+
 </script>
 
 <div class="row">
@@ -329,7 +369,7 @@ transition, #container a.view-slide {
                         </div>
 
                         <div style="/*! height: 120px; */" class="upload-photo videoBox border rounded d-flex align-items-center justify-content-center flex-column mb-4">
-                            <button class="btn btn-lg btn-white btn-round btn-just-icon m-0" id="iframeBtn" >
+                            <button class="btn btn-lg btn-white btn-round btn-just-icon m-0" id="iframeBtn">
                                 <img src="~/Content/assets/assets/icons/play.png" style="vertical-align: -4px;margin-left: 5px;">
                             </button>
                         </div>
@@ -338,7 +378,6 @@ transition, #container a.view-slide {
                             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                             <iframe src="" frameborder="0" border="0" scrolling="auto" allowtransparency="true" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="1" style="border: none; background-color: transparent; width: 70%; height: 60%; position: absolute" ></iframe>
                         </div>-->
-
                         <!--<div style="/*! height: 120px; */" class="upload-photo videoBox border rounded d-flex align-items-center justify-content-center flex-column mb-4">
                             <iframe src="" frameborder="0" border="0" scrolling="auto" allowtransparency="true" allowfullscreen="1" style="border: none; background-color: transparent; width: 100%; height: 100%;"></iframe>
                         </div>-->
@@ -384,7 +423,7 @@ transition, #container a.view-slide {
                                     <h3 class="tabMainHeading mb-3">Reading Material</h3>
                                     <div class="row" id="AttachmentAndLinkTable">
                                     </div>
-                                        <!--Activity Tab Content-->
+                                    <!--Activity Tab Content-->
                                 </div>
 
                                 <div class="tab-pane" id="qa-attr" role="tabpanel" aria-labelledby="qa-tab-attr">
@@ -403,8 +442,8 @@ transition, #container a.view-slide {
                                     <hr class="mt-2">
 
                                     <div id="AllComments">
-                                        
-                                    </div>                                  
+
+                                    </div>
 
                                     <div class="d-flex py-3">
                                         <div class="mr-3 tabHeading">
@@ -412,9 +451,9 @@ transition, #container a.view-slide {
                                         </div>
                                         <div class="w-100">
 
-                                            <div class="w-100" name="summernote" id="summernote"></div>
+                                            <div class="w-100" name="summernote CommentBody" id="summernote"></div>
 
-                                            <button type="submit" class="btn btn-primary pull-right mt-3 addCommentBtn">Add<div class="ripple-container"></div><div class="ripple-container"></div></button>
+                                            <button type="button" class="btn btn-primary pull-right mt-3 addCommentBtn" id="AddButton">Add<div class="ripple-container"></div><div class="ripple-container"></div></button>
 
                                         </div>
 
