@@ -30,6 +30,7 @@ namespace SEA_Application.Controllers
     {
         private SEA_DatabaseEntities db = new SEA_DatabaseEntities();
         private string StudentID;
+        public int SessionID = Convert.ToInt32(SessionIDStaticController.GlobalSessionID);
 
         public Student_DashboardController()
         {
@@ -57,6 +58,34 @@ namespace SEA_Application.Controllers
 
             return View();
         }
+
+        public ActionResult AllSubjectsOfStudent()
+        {
+            try
+            {
+                var userID = User.Identity.GetUserId();
+                var UserRole = db.GetUserRoleById(userID).FirstOrDefault();
+                int ClassID = db.AspNetClasses.Where(x => x.SessionID == SessionID).FirstOrDefault().Id;
+
+                var AllSubjectsOfStudent = from Subject in db.GenericSubjects
+                                           join StudentSubject in db.Student_GenericSubjects on Subject.Id equals StudentSubject.GenericSubjectId
+                                           where StudentSubject.StudentId == userID
+                                           select new
+                                           {
+                                               Subject.Id,
+                                               Subject.SubjectName,
+
+                                           };
+
+
+                return Json(AllSubjectsOfStudent, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex, JsonRequestBehavior.AllowGet);
+            }
+        }
+
 
         public JsonResult Quiz_student_check()
         {

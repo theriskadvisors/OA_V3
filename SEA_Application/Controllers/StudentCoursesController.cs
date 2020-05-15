@@ -15,41 +15,17 @@ namespace SEA_Application.Controllers
 {
     public class StudentCoursesController : Controller
     {
-        public static List<question1> QuestionsStaticList = new List<question1>();
-        public static string TotalScore { get; set; }
-        public static string ReviseLessons { get; set; }
+        public  List<question1> QuestionsStaticList = new List<question1>();
+        public  string TotalScore { get; set; }
+        public  string ReviseLessons { get; set; }
 
         private SEA_DatabaseEntities db = new SEA_DatabaseEntities();
-        public static int SessionID = Convert.ToInt32(SessionIDStaticController.GlobalSessionID);
+        public  int SessionID = Convert.ToInt32(SessionIDStaticController.GlobalSessionID);
 
 
         public ActionResult Index()
         {
             return View();
-        }
-
-        [HttpPost]
-        public ActionResult AllSubjectsOfStudent()
-        {
-
-            var userID = User.Identity.GetUserId();
-            var UserRole = db.GetUserRoleById(userID).FirstOrDefault();
-            int ClassID = db.AspNetClasses.Where(x => x.SessionID == SessionID).FirstOrDefault().Id;
-
-            var AllSubjectsOfStudent = from Subject in db.GenericSubjects
-                                       join StudentSubject in db.Student_GenericSubjects on Subject.Id equals StudentSubject.GenericSubjectId
-                                       where StudentSubject.StudentId == userID
-                                       select new
-                                       {
-                                           Subject.Id,
-                                           Subject.SubjectName,
-
-                                       };
-
-
-            return Json(AllSubjectsOfStudent, JsonRequestBehavior.AllowGet);
-
-
         }
 
         public ActionResult SubjectTopics(int id)
