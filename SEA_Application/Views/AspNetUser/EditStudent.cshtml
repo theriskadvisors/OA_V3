@@ -1400,41 +1400,52 @@
                             <div class="form-group SubjectsBoxesPMS" id="Group5PMS">
                                 <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup5"></div>
                             </div>
-
-
-
-
-
                         </div>
-
-
-
-
-
-
                     </div>
                     <!--end of column-->
 
-
                     <br />
 
-
                     <hr class="mt-5 mb-4">
+
+                    if (Model.Status == "False")
+                    {
+                        <button type="button" id="enable" class="btn btn-primary pull-right rounded rounded-lg" onclick="Enable()">Enable</button>
+                    }
+                    else
+                    {
+                        <button type="button" id="disable" class="btn btn-danger pull-right rounded rounded-lg" onclick="DISABLE()">Disable</button>
+                    }
 
                     <button type="submit" value="Register" id="FormSubmit" class="btn btn-primary pull-right rounded rounded-lg"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Update &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </button>
                     <button onclick="redirect()" id="cancel" type="button" class="btn btn-primary pull-right rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
                         <i class="material-icons mr-2">cached</i>  Cancel &nbsp; &nbsp;
                     </button>
                     <div class="clearfix"></div>
-
-
-
-
-
-
                 }
 
             </div>
+
+            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Disable</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Do you really want to disable this Student?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="cnfmDisable()">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -1444,8 +1455,17 @@
         window.location.href = "StudentsIndex";
     }
 
-
-
+    function DISABLE() {
+        $("#myModal1").modal('show');
+    }
+    function cnfmDisable() {
+        var id = $("#Id").val();
+        window.location.href = "/AspNetUser/Delete?id=" + id + "&type=Student";
+    }
+    function Enable() {
+        var id = $("#Id").val();
+        window.location.href = "/AspNetUser/Enable?id=" + id + "&type=Student";
+    }
 
     $(document).ready(function () {
         $("#UploadImg").change(function () {
