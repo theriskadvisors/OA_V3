@@ -5,9 +5,8 @@
 }
 
 
-<h2>SubjectTopics</h2>
 
-<style>
+@*<style>
 
     .TopicsAndLesson {
         height: 50px;
@@ -39,25 +38,78 @@
         padding: 0;
         height: 2200px !important;
     }
+</style>*@
+
+
+<style>
+    .mb-0 {
+        color: #141437;
+    }
 </style>
 
-<input type="hidden" id="SubjectId" name="name" value="@ViewBag.SubjectId" />
+@*<input type="hidden" id="SubjectId" name="name" value="@ViewBag.SubjectId" />
 
-<div class="col-md-12">
-
-
-    <div id="TopicList" style=" margin: auto;">
+    <div class="col-md-12">
 
 
-        <h3 style="color:black">Course Content</h3>
-
-        <h3 style="float:right">Total Lessons &nbsp;&nbsp;<span id="TotalLessons"></span> </h3>
+        <div id="TopicList" style=" margin: auto;">
 
 
+            <h3 style="color:black">Course Content</h3>
+
+            <h3 style="float:right">Total Lessons &nbsp;&nbsp;<span id="TotalLessons"></span> </h3>
+
+
+            <br />
+        </div>
         <br />
+        <br />
+    </div>*@
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body p-5">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="hidden" id="SubjectId" name="name" value="@ViewBag.SubjectId" />
+                        <div class="pageHeading">
+                            <div class="row">
+                                <div class="col-lg-10 col-md-12">
+                                    <div class="row column-heading accordion-heading mt-0 mb-2 hidden">
+                                        <div class="col-md">
+                                            Course Content
+                                        </div>
+                                        <div class="col-md text-right">
+                                            <span class="topicsCount">
+                                                Topics &nbsp;
+                                                <span>5</span>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordionIn">
+
+                                        <!--Accordion Wrapper-->
+                                        <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+
+                                        </div>
+                                        <!--Accordion Wrapper-->
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <br />
-    <br />
 </div>
 
 
@@ -68,53 +120,144 @@
     $(document).ready(function () {
 
         // $("#SubjectBoxesDiv").append('<div class="SubjectBoxes"><h3> usama </h3> </div>')
+        $("#PageHeader").html("Topics");
 
-
+        $("#BreadCrumbs").append(' <li> <a href="/Teacher_Dashboard/Dashboard"> Home </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li> <a href="/TeacherCommentsOnCourses/Index"> Courses </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Topics</a></li>');
 
         var sub = $("#SubjectId").val();
+        $("#GenericDiv").show();
+        var circle = document.querySelector('circle');
+        var radius = circle.r.baseVal.value;
+        var circumference = radius * 2 * Math.PI;
+
+        circle.style.strokeDasharray = `${circumference} ${circumference}`;
+        circle.style.strokeDashoffset = `${circumference}`;
+
+        function setProgress(percent) {
+            const offset = circumference - percent / 100 * circumference;
+            circle.style.strokeDashoffset = offset;
+        }
+
+
+        const input = document.querySelector('input.progressVal');
+        setProgress(input.value);
+
+        input.addEventListener('change', function (e) {
+            if (input.value < 101 && input.value > -1) {
+                setProgress(input.value);
+            }
+        });
+
+
+
         var Count = 0;
+        var heading = "headingOne";
+        var collapse = "collapseOne";
+        var index = 0;
+        var trueCount = 0;
+        var percent = 0;
+
         $.ajax({
-
-
             type: "POST",
             url: "/TeacherCommentsOnCourses/GetSubjectTopicsAndLessons",
             data: { "SubjectId": sub },
             success: function (data) {
-
+                console.log(data);
+                //console.log("Working");
                 $.each(data, function (key, value1) {
-
-                    debugger
-
-                    Count = value1.TotalLessons;
-
+                    //Count = value1.TotalLessons;
+                    Count = Count + 1;
                     var lessonlist = value1.LessonList;
+                    var heading = "headingOne";
+                    index = index + 1;
+                    var headingIndex = heading + index;
+                    var collapseindex = collapse + index;
 
-                    $("#TopicList").append('<div   class ="TopicsAndLesson TopicDiv" style="border:1px solid black"><b> ' + value1.TopicName + '</b> <b><span style ="float:right">' + value1.TotalLessons1 + '  Lesson </span></b></div>');
+                    var Topic;
+                    var Lesson = "";
+
+                    Topic = '<div class="card"><div class="card-header" role="tab" id="' + headingIndex + '"><a data-toggle="collapse" data-parent="#accordionEx" href="#' + collapseindex + '" aria-expanded="true" aria-controls="' + collapseindex + '" class=""><h5 class="mb-0">' + value1.TopicName + '<span class="completedAndTime">  (' + value1.TotalLessons1 + '-' + value1.TopicDuration + ' min) </span><i class="fas fa-angle-down rotate-icon pull-right"></i></h5></a></div><div id="' + collapseindex + '" class="collapse show" role="tabpanel" aria-labelledby="' + headingIndex + '" data-parent="#accordionEx" style=""><div class="card-body"><div class="row">';
 
                     $.each(lessonlist, function (key, lesson) {
-
-                        $("#TopicList").append('<div   class ="TopicsAndLesson" style="border:1px solid black"><a href = "/TeacherCommentsOnCourses/StudentLessons/' + lesson.LessonId + '">' + lesson.LessonName + '</a></div>');
-
-
+                        if (lesson.LessonExistInTrackingTable == "Yes") {
+                            trueCount = trueCount + 1;
+                            Lesson = Lesson + '<div class="col-md-12"><div class="form-check  my-2"><label class="form-check-label"><input class="form-check-input" type="checkbox" checked="" disabled><span class="form-check-sign"><span class="check"></span></span><a name = "' + lesson.LessonId + '"   href = "/TeacherCommentsOnCourses/StudentLessons/' + lesson.LessonId + '" target="_blank">' + lesson.LessonName + '</a><div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></div></div>';
+                        }
+                        else {
+                            Lesson = Lesson + '<div class="col-md-12"><div class="form-check  my-2"><label class="form-check-label"><input class="form-check-input" type="checkbox" disabled><span class="form-check-sign"><span class="check"></span></span><a name = "' + lesson.LessonId + '"   href = "/TeacherCommentsOnCourses/StudentLessons/' + lesson.LessonId + '" target="_blank">' + lesson.LessonName + '</a><div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></div></div>';
+                        }
                     })
 
+                    $("#accordionEx").append(Topic + Lesson + '</div></div></div></div>');
+                    percent = (trueCount / value1.TotalLessons) * 100;
+                    $("#topicCompleted").html(trueCount);
+                    $("#Totaltopic").html(value1.TotalLessons);
+
+                    setProgress(percent);
+
+                    //$('i').click(function () {
+                    //    var className = $(this).attr("class");
+                    //    if (~className.indexOf("fa-angle-down")) {
+                    //        $(this).removeClass("fa-angle-down");
+                    //        $(this).addClass("fa-angle-up");
+                    //        //console.log("up");
+                    //    } else {
+                    //        $(this).removeClass("fa-angle-up");
+                    //        $(this).addClass("fa-angle-down");
+                    //        //console.log("down");
+                    //    }
+                    //});
+
                 })
-
-                $("#TotalLessons").text(Count);
-
             }
-
         })
 
-        $(".TopicDiv").click(function () {
 
-            $(".div2").fadeToggle("slow");
+        //var Count = 0;
+        //$.ajax({
 
-        })
+
+        //    type: "POST",
+        //    url: "/TeacherCommentsOnCourses/GetSubjectTopicsAndLessons",
+        //    data: { "SubjectId": sub },
+        //    success: function (data) {
+
+        //        $.each(data, function (key, value1) {
+
+        //            debugger
+
+        //            Count = value1.TotalLessons;
+
+        //            var lessonlist = value1.LessonList;
+
+        //            $("#TopicList").append('<div   class ="TopicsAndLesson TopicDiv" style="border:1px solid black"><b> ' + value1.TopicName + '</b> <b><span style ="float:right">' + value1.TotalLessons1 + '  Lesson </span></b></div>');
+
+        //            $.each(lessonlist, function (key, lesson) {
+
+        //                $("#TopicList").append('<div   class ="TopicsAndLesson" style="border:1px solid black"><a href = "/TeacherCommentsOnCourses/StudentLessons/' + lesson.LessonId + '">' + lesson.LessonName + '</a></div>');
+
+
+        //            })
+
+        //        })
+
+        //        $("#TotalLessons").text(Count);
+
+        //    }
+
+        //})
+
+        //$(".TopicDiv").click(function () {
+
+        //    $(".div2").fadeToggle("slow");
+
+        //})
 
 
     })
 
 
 
-    </script>
+</script>

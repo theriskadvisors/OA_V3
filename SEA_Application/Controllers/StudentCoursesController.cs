@@ -15,17 +15,41 @@ namespace SEA_Application.Controllers
 {
     public class StudentCoursesController : Controller
     {
-        public  List<question1> QuestionsStaticList = new List<question1>();
-        public  string TotalScore { get; set; }
-        public  string ReviseLessons { get; set; }
+        public static List<question1> QuestionsStaticList = new List<question1>();
+        public static string TotalScore { get; set; }
+        public static string ReviseLessons { get; set; }
 
         private SEA_DatabaseEntities db = new SEA_DatabaseEntities();
-        public  int SessionID = Convert.ToInt32(SessionIDStaticController.GlobalSessionID);
+        public static int SessionID = Convert.ToInt32(SessionIDStaticController.GlobalSessionID);
 
 
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult AllSubjectsOfStudent()
+        {
+
+            var userID = User.Identity.GetUserId();
+            var UserRole = db.GetUserRoleById(userID).FirstOrDefault();
+            int ClassID = db.AspNetClasses.Where(x => x.SessionID == SessionID).FirstOrDefault().Id;
+
+            var AllSubjectsOfStudent = from Subject in db.GenericSubjects
+                                       join StudentSubject in db.Student_GenericSubjects on Subject.Id equals StudentSubject.GenericSubjectId
+                                       where StudentSubject.StudentId == userID
+                                       select new
+                                       {
+                                           Subject.Id,
+                                           Subject.SubjectName,
+
+                                       };
+
+
+            return Json(AllSubjectsOfStudent, JsonRequestBehavior.AllowGet);
+
+
         }
 
         public ActionResult SubjectTopics(int id)
@@ -568,10 +592,12 @@ namespace SEA_Application.Controllers
             var DueDate = "";
             var AssignmentId = "";
             var AssignName = "";
+            var AssignmentExist = "No";
             if (a != null)
             {
                 FileName = a.FileName;
                 AssignName = a.Name;
+                AssignmentExist = "Yes";
 
                 if (a.DueDate != null)
                 {
@@ -585,14 +611,16 @@ namespace SEA_Application.Controllers
             }
 
             var TeacherComments = "";
+            var SubmittedAssignmentFileName = "Empty";
             if (AssignmentSubmission != null)
             {
                 TeacherComments = AssignmentSubmission.TeacherComments;
+                SubmittedAssignmentFileName = AssignmentSubmission.AssignmentFileName;
             }
 
 
 
-            return Json(new { StudentAssigmentName = AssignName, FileName = FileName, StudentAssignmentDueDate = DueDate, StudentAssignmentId = AssignmentId, TeacherComments = TeacherComments }, JsonRequestBehavior.AllowGet);
+            return Json(new { SubmittedAssignmentFileName = SubmittedAssignmentFileName, AssignmentExist = AssignmentExist, StudentAssigmentName = AssignName, FileName = FileName, StudentAssignmentDueDate = DueDate, StudentAssignmentId = AssignmentId, TeacherComments = TeacherComments }, JsonRequestBehavior.AllowGet);
         }
 
 

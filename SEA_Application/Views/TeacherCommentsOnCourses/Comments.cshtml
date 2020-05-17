@@ -6,10 +6,10 @@
 
 <style>
     #ReplyDiv {
-        border: 1px solid #26344B;
+        /*border: 1px solid #26344B;*/
         cursor: pointer;
-        margin: auto;
-        width: 80%;
+        /*margin: auto;
+        width: 80%;*/
     }
 
     #CommentsSection {
@@ -20,7 +20,7 @@
         color: white;
     }*/
     .HeaderStyleOfComments {
-        background: rgb(51, 70, 102);
+        background: #053F89;
         color: white;
     }
 
@@ -45,44 +45,85 @@
     }
 </style>
 
-<input type="hidden" id="CommentHeadId" name="name" value="@ViewBag.CommentHeadId" />
 
 
-<div class="col-md-12">
-    <h3>Comments</h3>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
 
 
-    <div id="CommentHead">
-        <center>
-
-            <a href="/TeacherCommentsOnCourses/StudentLessons/@ViewBag.LessonId"> <input id="BackButton" type="button" class="btn btn-danger " name="name" value="Back To Lesson" /></a>
-        </center>
-
-        <br />
-        <br />
+            <div class="card-body p-5">
 
 
+
+                <input type="hidden" id="CommentHeadId" name="name" value="@ViewBag.CommentHeadId" />
+
+                <input type="hidden" id="HiddenLessonId" name="name" value="@ViewBag.LessonId" />
+                @*<center>
+
+                    <a href="/TeacherCommentsOnCourses/StudentLessons/@ViewBag.LessonId"> <input id="BackButton" type="button" class="btn btn-danger " name="name" value="Back To Lesson" /></a>
+                </center>*@
+
+                <div class="col-md-8">
+
+
+                    <div id="CommentHead">
+
+
+                        <div id="CommentHeader">
+
+                        </div>
+
+
+                    </div>
+
+                    <br>
+                    <br>
+
+                </div>
+
+
+                <div class="col-md-8">
+
+                    <div id="CommentsSection">
+
+
+                    
+
+                        <br />
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-8">
+
+                    <div id="ReplyBox">
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
     </div>
-
-    <br>
-    <br>
-
 </div>
-
-
-<div class="col-md-12">
-
-    <div id="CommentsSection" style="margin:auto;width:80%;">
-        <h3 style="color:black">All Comments</h3>
-
-        <br />
-    </div>
-
-</div>
-
 <script>
 
     $(document).ready(function () {
+
+        
+         var HiddenLessonId =  $("#HiddenLessonId").val();
+
+       
+        $("#BreadCrumbs").append(' <li> <a href="/Teacher_Dashboard/Dashboard"> Home </a> <span>&gt;</span></li>');
+
+         $("#BreadCrumbs").append(' <li> <a href="/TeacherCommentsOnCourses/Index"> Courses </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li class=""><a id="BreadCrumps1" href="/TeacherCommentsOnCourses/StudentLessons/'+HiddenLessonId+' ">Lessons</a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Comments</a> </li>');
+        $("#PageHeader").html("Discussion Forum");
 
 
         var id = $("#CommentHeadId").val();
@@ -102,11 +143,17 @@
                     "/" +
                     value.getFullYear();
 
+                var initials = data.UserName.match(/\b\w/g) || [];
+                initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
 
 
-                $("#CommentHead").append('<div id="QADiv"  name ="' + data.CommentHeadId + '"   class ="CommentDivs" ><p class="HeaderStyleOfComments" id="TitleParagraph" style="padding:10px;"><b>' + data.Title + '</b></p><div style="padding:10px"> <p>' + data.Body + '</p> <p><b>' + dat + ' &nbsp; &nbsp; &nbsp;  ' + data.UserName + '</b></p><p><b></p> </b> </div></div>');
 
-                $("#CommentHead").append('<div id="ReplyDiv" > <div class="form-group" id="ReplySection"> <p class="HeaderStyleOfComments" style="padding:10px;"  for="comment">Reply:</p><div style="padding:10px;"> <textarea id="ReplyTextArea" class="form-control" rows="5" id="ReplyBox"></textarea> <br> <input  class="btn btn-primary " id="ReplyButton" name="ReplyButton" value="Reply"> </div>  </div> </div>');
+              //  $("#CommentHead").append('<div id="QADiv"  name ="' + data.CommentHeadId + '"   class ="CommentDivs" ><p class="HeaderStyleOfComments" id="TitleParagraph" style="padding:10px;"><b>' + data.Title + '</b></p><div style="padding:10px"> <p>' + data.Body + '</p> <p><b>' + dat + ' &nbsp; &nbsp; &nbsp;  ' + data.UserName + '</b></p><p><b></p> </b> </div></div>');
+
+
+                $("#CommentHeader").append('<div class="d-flex py-3"><div class="mr-3 tabHeading"><span class="initialCircle">' + initials + '</span></div><div class=""> <a href = "#"><h3  class="tabMainHeading mt-0 mb-2 QuestionHeader">' + data.Title + '</h3></a><p>' + data.Body + '</p><div class="metaInfoQues">' + data.UserName + ' <strong class="ml-2">' + dat + '</strong></div></div></div><hr>');
+
+                //$("#CommentHead").append('<div id="ReplyDiv" > <div class="form-group" id="ReplySection"> <p class="HeaderStyleOfComments" style="padding:10px;"  for="comment">Reply:</p><div style="padding:10px;"> <textarea id="ReplyTextArea" class="form-control" rows="5" id="ReplyBox"></textarea> <br> <input  class="btn btn-primary " id="ReplyButton" name="ReplyButton" value="Reply"> </div>  </div> </div>');
 
                 AllComments();
 
@@ -116,9 +163,11 @@
         })
 
 
-        $("#CommentHead").on('click', "#ReplyButton", function () {
+        $("#ReplyBox").on('click', "#ReplyButton", function () {
 
             var ReplyTextAreaValue = $("#ReplyTextArea").val();
+
+            if (ReplyTextAreaValue != "") {
 
 
             $.ajax({
@@ -134,18 +183,13 @@
 
                 }
 
-
-
             })
-
-
-
-
-
-
+            }
 
         })
 
+
+       
 
         function AllComments() {
 
@@ -158,8 +202,15 @@
 
                     debugger
 
+
+
+                    var a = 0;
+
+
+
                     $.each(data, function (index) {
 
+                        a = 1;
                         var value = new Date(parseInt(data[index].Date.replace(/(^.*\()|([+-].*$)/g, '')));
                         var dat = value.getMonth() +
                             1 +
@@ -168,18 +219,32 @@
                             "/" +
                             value.getFullYear();
 
+                           var initials = data[index].UserName.match(/\b\w/g) || [];
+                        initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
 
-                        $("#CommentsSection").append('<div id=""  class ="CommentDivs" ><p id="TitleParagraph"  class="HeaderStyleOfComments" style="padding:10px;"><b>' + data[index].UserName + '</b></p> <div style="padding:10px"> <p>' + data[index].CommentName + '</p> <p><b>' + dat + '</b></p></div></div>');
+
+                        //$("#CommentsSection").append('<div id=""  class ="CommentDivs" ><p id="TitleParagraph"  class="HeaderStyleOfComments" style="padding:10px;"><b>' + data[index].UserName + '</b></p> <div style="padding:10px"> <p>' + data[index].CommentName + '</p> <p><b>' + dat + '</b></p></div></div>');
+
+                        $("#CommentsSection").append('<div class="d-flex py-3"><div class="mr-3 tabHeading"><span class="initialCircle">' + initials + '</span></div><div class=""> <a href = "#"><h3  class="tabMainHeading mt-0 mb-2 QuestionHeader">' + data[index].UserName + '</h3></a><p>' + data[index].CommentName + '</p><div class="metaInfoQues">' + dat + ' </div></div></div><hr>');
 
 
                     })
 
+                    if (a == 1) {
+                        $("#CommentsSection").prepend('<h3 style="color:black">All Comments</h3>');
+
+                    }
                 }
 
             })
 
+                $("#ReplyBox").append('<div id="ReplyDiv" > <div class="form-group" id="ReplySection"> <p class="" style="padding:10px;font-size:18px;"    for="comment">Reply:</p><div style=""> <textarea id="ReplyTextArea" class="form-control" rows="5" id="ReplyBox"></textarea> <br> <input  class="btn btn-primary " id="ReplyButton" name="ReplyButton" value="Reply"> </div>  </div> </div>');
 
-        }
+
+        }//All Comment Function 
+
+      
+
 
     })
 
@@ -187,4 +252,4 @@
 
 
 
-    </script>
+</script>

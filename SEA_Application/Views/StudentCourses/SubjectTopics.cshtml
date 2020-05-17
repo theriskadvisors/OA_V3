@@ -15,7 +15,7 @@
 
         $("#PageHeader").html("Topics");
 
-        $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li> <a href="/Student_Dashboard/Dashboard"> Home </a> <span>&gt;</span></li>');
         $("#BreadCrumbs").append(' <li> <a href="/StudentCourses/Index"> Courses </a> <span>&gt;</span></li>');
         $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Topics</a></li>');
 
@@ -77,10 +77,10 @@
                     $.each(lessonlist, function (key, lesson) {
                         if (lesson.LessonExistInTrackingTable == "Yes") {
                             trueCount = trueCount + 1;
-                            Lesson = Lesson + '<div class="col-md-12"><div class="form-check  my-2"><label class="form-check-label"><input class="form-check-input" type="checkbox" checked="" disabled><span class="form-check-sign"><span class="check"></span></span><a name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '" target="_blank">' + lesson.LessonName + '</a><div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></div></div>';
+                            Lesson = Lesson + '<div class="col-md-12"><div class="form-check  my-2"><label class="form-check-label"><input class="form-check-input" type="checkbox" checked="" disabled><span class="form-check-sign"><span class="check"></span></span><a name = "' + lesson.LessonId + '"  onclick=" UpdateLessonTrackingTable('+lesson.LessonId+')"  href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '" target="_blank">' + lesson.LessonName + '</a><div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></div></div>';
                         }
                         else {
-                            Lesson = Lesson + '<div class="col-md-12"><div class="form-check  my-2"><label class="form-check-label"><input class="form-check-input" type="checkbox" disabled><span class="form-check-sign"><span class="check"></span></span><a name = "' + lesson.LessonId + '"   href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '" target="_blank">' + lesson.LessonName + '</a><div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></div></div>';
+                            Lesson = Lesson + '<div class="col-md-12"><div class="form-check  my-2"><label class="form-check-label"><input class="form-check-input" type="checkbox" disabled><span class="form-check-sign"><span class="check"></span></span><a name = "' + lesson.LessonId + '"  onclick=" UpdateLessonTrackingTable('+lesson.LessonId+')" href = "/StudentCourses/StudentLessons/' + lesson.EncryptedID + '" target="_blank">' + lesson.LessonName + '</a><div class="lengthCheckbox">' + lesson.LessonDuration + 'min</div></label></div></div>';
                         }
                     })
 
@@ -107,7 +107,34 @@
                 })
             }
         })
+
+
+
     });
+
+
+    function UpdateLessonTrackingTable(id) {
+
+
+         var LessonId = $(this).attr('name');
+
+    
+            $.ajax({
+                type: "POST",
+                url: "/StudentCourses/UpdateStudentLessonTracking",
+                data: { "LessonId": id },
+
+                success: function (data) {
+
+
+
+
+                }
+
+
+            })
+
+    }
 </script>
 
 <div class="row">

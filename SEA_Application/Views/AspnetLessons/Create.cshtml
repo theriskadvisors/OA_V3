@@ -740,6 +740,9 @@
                                             <div class="btn btn-primary btn-md mb-0">
                                                 <span onclick='event.stopPropagation(); document.getElementById("Attachment3").click();'>Choose file</span>
                                                 <input id="Attachment3" name="Attachment3" type="file">
+                                          
+                                                
+                                            
                                             </div>
                                             <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
                                                 <input class="file-path validate form-control" type="text" readonly disabled placeholder="No file Chosen">
@@ -786,6 +789,8 @@
                                     <label class="bmd-label-floating">Material Link 1</label>
                                     @Html.EditorFor(model => model.LinkUrl1, new { htmlAttributes = new { @placeholder = "Enter Data Must be a URL", @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.LinkUrl1, "", new { @class = "text-danger" })
+
+                               
                                 </div>
 
                                 <div class="form-group bmd-form-group mt-4">

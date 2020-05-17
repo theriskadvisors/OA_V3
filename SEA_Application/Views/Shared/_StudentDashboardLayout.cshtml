@@ -137,17 +137,17 @@
                             </a>
                         </li>*@
 
-                       @if (Session == "Online Session")
-                       {
-                        <li class="nav-item">
-                            <a href="@(Url.Action("Index", "StudentCourses"))" class="nav-link nav-toggle">
-                                <i class="sea-dash">
-                                    <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/icon-lessons.png" alt="">
-                                </i>
-                                <p>My Courses</p>
-                            </a>
-                        </li>
-                       }
+                    @*@if (Session == "Online Session")
+                        {*@
+                    <li class="nav-item">
+                        <a href="@(Url.Action("Index", "StudentCourses"))" class="nav-link nav-toggle">
+                            <i class="sea-dash">
+                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/icon-lessons.png" alt="">
+                            </i>
+                            <p>My Courses</p>
+                        </a>
+                    </li>
+                    @*}*@
 
                     <li class="nav-item hidden">
                         <a href="@(Url.Action("Quizes", "Student_Dashboard"))" class="nav-link nav-toggle">
@@ -449,12 +449,12 @@
 
 
                         </div>
-                    </div>                
-            </div>
+                    </div>
+                </div>
 
+            </div>
         </div>
     </div>
-  </div>  
     <!--   Core JS Files   -->
     <script src="~/Content/assets/js/core/jquery.min.js"></script>
     <script src="~/Content/assets/js/core/popper.min.js"></script>
@@ -500,6 +500,7 @@
     <script src="~/Content/assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
     <!--<script src="~/Content/assets/demo/demo.js"></script>-->
+    <script src="~/Content/assets/js/lesson.js"></script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
 
@@ -522,17 +523,17 @@
         $(document).ready(function () {
             debugger;
             $.post(
-               "/AspNetUser/GetProfilePic",
+                "/AspNetUser/GetProfilePic",
 
-               function (data) {
-                   debugger;
-                   $('#theDiv').prepend('<img id="theImg" height ="45" width = "45" src="/Content/Images/StudentImages/' + data + '" />')
+                function (data) {
+                    debugger;
+                    $('#theDiv').prepend('<img id="theImg" height ="45" width = "45" src="/Content/Images/StudentImages/' + data + '" />')
 
 
 
-               },
-               "text"
-           );
+                },
+                "text"
+            );
 
 
             $().ready(function () {

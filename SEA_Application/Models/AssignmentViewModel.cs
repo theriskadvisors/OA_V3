@@ -28,11 +28,12 @@ namespace SEA_Application.Models
         public string SubjectName { get; set; }
 
         [Display(Name = "Assignment Due Date")]
-        public DateTime? AssignmnetDueDate { get; set; }
+        public string AssignmnetDueDate { get; set; }
 
         [Display(Name = "Assignment Submitted Date")]
 
-        public DateTime? AssignmentSubmittedDate { get; set; }
+        public string AssignmentSubmittedDate { get; set; }
+        public string TeacherComments { get; set; }
 
     }
 }

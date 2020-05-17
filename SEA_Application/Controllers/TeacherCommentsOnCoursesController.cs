@@ -72,6 +72,10 @@ namespace SEA_Application.Controllers
             ViewBag.LessonID = id;
 
 
+
+            ViewBag.SubjectId = db.AspnetLessons.Where(x => x.Id == id).Select(x => x.AspnetSubjectTopic.GenericSubject.Id).FirstOrDefault();
+
+
             return View();
         }
 
@@ -120,14 +124,14 @@ namespace SEA_Application.Controllers
             foreach (var a in SubjectsTopics)
             {
                 int count1 = 0;
+                decimal DurationCount = 0;
                 Topic TopicObj = new Topic();
 
                 var list = db.AspnetLessons.Where(x => x.TopicId == a.Id).ToList();
 
                 TopicObj.TopicId = a.Id;
                 TopicObj.TopicName = a.Name;
-
-
+                TopicObj.Orderby = Convert.ToInt32(a.OrderBy);
 
                 List<Lesson> LessonsList = new List<Lesson>();
 
@@ -137,26 +141,27 @@ namespace SEA_Application.Controllers
                     Lesson lessonobj = new Lesson();
                     lessonobj.LessonId = lesson.Id;
                     lessonobj.LessonName = lesson.Name;
-                    lessonobj.LessonDuration = lesson.Duration;
-
+                    lessonobj.OrderBy = Convert.ToInt32(lesson.OrderBy);
+                    lessonobj.LessonDuration = Int32.Parse(lesson.DurationMinutes.ToString());
+                    DurationCount = DurationCount + lesson.DurationMinutes ?? 0;
                     LessonsList.Add(lessonobj);
                     Count++;
                     count1++;
                 }
 
-
-                List<Lesson> OrderByLessons = LessonsList.OrderBy(x => x.LessonName).ToList();
+                // List<Lesson> OrderByLessons = LessonsList.OrderBy(x => x.LessonName).ToList();
+                List<Lesson> OrderByLessons = LessonsList.OrderBy(x => x.OrderBy).ToList();
                 TopicObj.LessonList = OrderByLessons;
 
                 TopicObj.TotalLessons = Count;
                 TopicObj.TotalLessons1 = count1;
-
+                TopicObj.TopicDuration = Int32.Parse(DurationCount.ToString());
                 TopicListObj.Add(TopicObj);
             }
 
 
             // return Json(TopicListObj, JsonRequestBehavior.AllowGet);
-            return Json(TopicListObj.OrderBy(x => x.TopicName).ToList(), JsonRequestBehavior.AllowGet);
+            return Json(TopicListObj.OrderBy(x => x.Orderby).ToList(), JsonRequestBehavior.AllowGet);
 
 
 
@@ -193,7 +198,7 @@ namespace SEA_Application.Controllers
                     Lesson lessonobj = new Lesson();
                     lessonobj.LessonId = lesson.Id;
                     lessonobj.LessonName = lesson.Name;
-                    lessonobj.LessonDuration = lesson.Duration;
+                    lessonobj.LessonDuration = Int32.Parse(lesson.DurationMinutes.ToString());
 
                     LessonsList.Add(lessonobj);
                     Count++;
@@ -536,8 +541,8 @@ namespace SEA_Application.Controllers
         {
             public int LessonId { get; set; }
             public string LessonName { get; set; }
-            public TimeSpan? LessonDuration { get; set; }
-
+            public int LessonDuration { get; set; }
+            public int OrderBy { get; set; }
             public int LessonCount { get; set; }
         }
 
@@ -546,7 +551,7 @@ namespace SEA_Application.Controllers
             public int TopicId { get; set; }
             public string TopicName { get; set; }
             public int TopicDuration { get; set; }
-
+            public int Orderby { get; set; }
             public int TotalLessons { get; set; }
             public int TotalLessons1 { get; set; }
             public List<Lesson> LessonList { get; set; }

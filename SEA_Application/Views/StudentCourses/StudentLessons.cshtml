@@ -20,55 +20,58 @@
 </style>
 
 <style>
-        body {
-            font-family: 'Lato', sans-serif;
+    body {
+        font-family: 'Lato', sans-serif;
+    }
+
+    transition, #container a.view-slide {
+        transition: all 0.25s ease-in-out;
+    }
+
+    #overlay {
+        position: fixed;
+        background: rgba(48, 69, 92, 0.5);
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        text-align: center;
+        z-index: 9999;
+        display: none;
+    }
+
+        #overlay iframe {
+            margin-top: 10%;
         }
 
-        transition, #container a.view-slide {
-            transition: all 0.25s ease-in-out;
+    #container {
+        background: rgba(255, 104, 115, 1);
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100vh;
+        text-transform: uppercase;
+    }
+
+        #container header {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 700;
+            font-size: 1.5em;
+            color: rgba(254, 255, 250, 1);
+            line-height: 1;
+            padding: 0.5em 2em;
+            border-bottom: 0.5em solid rgba(220, 231, 235, 0.25);
         }
 
-        #overlay {
-            position: fixed;
-            background: rgba(48, 69, 92, 0.5);
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            text-align: center;
-            z-index: 9999;
-            display: none;
-        }
-
-            #overlay iframe {
-                margin-top: 10%;
-            }
-
-        #container {
-            background: rgba(255, 104, 115, 1);
-            display: flex;
-            flex-flow: column nowrap;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100vh;
-            text-transform: uppercase;
-        }
-
-            #container header {
-                font-family: 'Source Sans Pro', sans-serif;
-                font-weight: 700;
-                font-size: 1.5em;
-                color: rgba(254, 255, 250, 1);
-                line-height: 1;
-                padding: 0.5em 2em;
-                border-bottom: 0.5em solid rgba(220, 231, 235, 0.25);
-            }
-
-            .QuestionHeader:hover
-            {
-                text-decoration:underline;
-            }
+    .QuestionHeader:hover {
+        text-decoration: underline;
+    }
+   #Assignment a{
+       
+       text-decoration:underline;
+    }
     /*#container a.view-slide {
          font-size: 0.9em;
          font-family: 'Ubuntu', sans-serif;
@@ -85,7 +88,7 @@
          background: rgba(48, 69, 92, 0.15);
     }*/
 
-        /*.overlay {
+    /*.overlay {
       height: 100%;
       width: 100%;
       display: none;
@@ -126,7 +129,7 @@
       font-size: 60px;
     }*/
 
-        /*media screen and (max-height: 450px) {
+    /*media screen and (max-height: 450px) {
       .overlay a {font-size: 20px}
       .overlay .closebtn {
       font-size: 40px;
@@ -134,6 +137,8 @@
       right: 35px;
       }
     }*/
+
+
 
 
 </style>
@@ -144,7 +149,7 @@
         $("#PageHeader").html("Lessons");
         var src = "";
 
-        $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li> <a href="/Student_Dashboard/Dashboard"> Home </a> <span>&gt;</span></li>');
         $("#BreadCrumbs").append(' <li> <a href="/StudentCourses/Index"> Courses </a> <span>&gt;</span></li>');
         $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Lessons</a></li>');
 
@@ -288,6 +293,9 @@
                     initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
 
                     $("#AllComments").append('<div class="d-flex py-3"><div class="mr-3 tabHeading"><span class="initialCircle">' + initials + '</span></div><div class=""> <a href = "/StudentCourses/CommentsPage1/' + data[index].EncryptedID + '"><h3  class="tabMainHeading mt-0 mb-2 QuestionHeader">' + data[index].Title + '</h3></a><p>' + data[index].Body + '</p><div class="metaInfoQues">' + data[index].UserName + ' <strong class="ml-2">' + dat + '</strong></div></div></div><hr>');
+
+
+
                     //$("#AllCommentsHead").append('<a href = "/StudentCourses/CommentsPage1/' + data[index].EncryptedID + '"><div id="QADiv"  name ="' + data[index].CommentHeadId + '"   class ="CommentDivs" ><p id="TitleParagraph" class="titleParagraphs" style="padding:10px;" ><b>' + data[index].Title + '</b> </p> <div style="padding:10px;"> <p>' + data[index].Body + '</p> <p><b>' + dat + ' &nbsp;&nbsp;&nbsp; ' + data[index].UserName + '</b></p><p><b></p> </b></div> </div></a>');
                 });
                 $("#TotalQuestions").html(TotalQuestions);
@@ -321,8 +329,122 @@
                     $("#AttachmentAndLinkTable").append('<div class="col-md-12"><span class="col-md-2">Link URL:</span ><span class="col-md-6"><a href =' + value2.LinkUrl + ' target="_blank"> ' + value2.LinkUrl + '</a></span><hr>');
                 })
             }
-        })
+        })//End of Reading Material
 
+
+           $.ajax({
+
+
+            type: "POST",
+            url: "/StudentCourses/StudentAssignment",
+            data: { "LessonID": LessonId },
+            success: function (data) {
+
+                debugger
+                //var value = new Date(parseInt(data.StudentAssignmentDueDate.replace(/(^.*\()|([+-].*$)/g, '')));
+                //var dat = value.getMonth() +
+                //    1 +
+                //    "/" +
+                //    value.getDate() +
+                //    "/" +
+                //    value.getFullYear();
+
+
+
+                if (data.FileName == "") {
+
+                    $("#AssignmentSubmitButton").addClass('submitAssignmentBtn');
+
+                }
+
+                if (data.AssignmentExist == "Yes") {
+
+                    $("#AssignmentBlock").css('display', 'block');
+                }
+                else {
+                    $("#AssignmentBlock").css('display', 'none');
+
+                }
+
+                if (data.SubmittedAssignmentFileName == "Empty") {
+
+                    $("#AssignmentSubmitButton").css('display', 'block');
+
+                    $("#AssingmentFileToShow").html("");
+                 
+
+                }
+                else {
+
+                    $("#AssignmentSubmitButton").css('display', 'none');
+                    $("#FilePath").val(data.SubmittedAssignmentFileName);
+                }
+
+
+
+                $("#Assignment").append('<br><div class="form-group"><div ><span class="col-md-2">Assignment Name</span ><span class="col-md-8">' + data.StudentAssigmentName + ' </span></div>');
+
+                $("#Assignment").append('<div class="form-group"><span class="col-md-2">Download Attach File</span ><span class="col-md-10"><a href ="/StudentCourses/DownloadFileOfAssignment/' + data.StudentAssignmentId + '">' + data.FileName + '</a></span> </div> ');
+
+
+                $("#Assignment").append('<div class="form-group"><span class="col-md-2">Assignment DueDate</span><span class="col-md-10">' + data.StudentAssignmentDueDate + ' </span></div>');
+
+                //  $("#Assignment").append('<tr><td>Assignment Name </td>  <td>' + data.StudentAssigmentName + '</td></tr>');
+                //  $("#Assignment").append('<tr><td> Download Attach File  </td>  <td><a href ="/StudentCourses/DownloadFileOfAssignment/' + data.StudentAssignmentId + '">' + data.StudentAssigmentName + '</a></td></tr>');
+                // $("#Assignment").append('<tr><td>Assignment DueDate </td>  <td>' + data.StudentAssignmentDueDate + '</td></tr>');
+                $("#TeacherComments").text(data.TeacherComments);
+
+
+                
+
+            }
+
+           })// End of Student Assignment 
+
+
+
+              $("#AssignmentSubmitButton").click(function (evt) {
+
+
+                  debugger
+                var fileUpload = $("#SubmitAssignment").get(0).files;
+
+                    var data = new FormData();
+                    data.append('LessonID', LessonId);
+
+                  if (fileUpload.length > 0) {
+
+                     
+                      data.append("file", fileUpload[0]);
+                      $.ajax({
+                          type: "POST",
+                          url: "/StudentCourses/StudentAssignmentSubmission",
+                          contentType: false,
+                          processData: false,
+                          data: data,
+                          success: function (message) {
+
+                              $("#AssignmentMessage").html(message);
+
+                              //  window.location.href = "/StudentCourses/Index";
+
+                                $("#AssignmentSubmitButton").css('display', 'none');
+
+                          },
+                          error: function () {
+                              alert("There was error uploading files!");
+                          }
+                      });
+                  }
+                  else {
+                      $("#AssignmentMessage").css('color', 'red');
+
+
+                      $("#AssignmentMessage").html("Please Select Assignment");
+
+
+                  }
+        });// Assignment Submission
 
         $("#AddButton").click(function () {
             debugger
@@ -330,28 +452,28 @@
             var ThreadBody = $("#commentbox").val();
 
             ThreadTitle = "Question";
-        if (ThreadBody != "" && ThreadBody !="<br>" ) {
+            if (ThreadBody != "" && ThreadBody != "<br>") {
 
 
-           //alert(ThreadBody);
+                //alert(ThreadBody);
 
-            $.ajax({
+                $.ajax({
 
-                type: "POST",
-                url: "/StudentCourses/SaveCommentHead",
-                data: { "LessonID": LessonId, "Title": ThreadTitle, "Body": ThreadBody },
-                success: function (data) {
+                    type: "POST",
+                    url: "/StudentCourses/SaveCommentHead",
+                    data: { "LessonID": LessonId, "Title": ThreadTitle, "Body": ThreadBody },
+                    success: function (data) {
 
 
-                    location.reload();
+                        location.reload();
 
-                }
+                    }
 
-            })
+                })
 
-        }
+            }
 
-    })
+        })
 
 
 
@@ -397,10 +519,16 @@
                                     <a class="nav-link active" id="overview-tab-attr" data-toggle="tab" href="#overview-attr" role="tab" aria-controls="overview-attr"
                                        aria-selected="true">Overview</a>
                                 </li>
+
                                 <li class="nav-item">
                                     <a class="nav-link" id="Material-tab-attr" data-toggle="tab" href="#Material-attr" role="tab" aria-controls="Material-attr"
                                        aria-selected="false">Reading Material</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="Assignment-tab-attr" data-toggle="tab" href="#Assignment-attr" role="tab" aria-controls="Assignments-attr"
+                                       aria-selected="false"> Assignment </a>
+                                </li>
+
                                 <li class="nav-item">
                                     <a class="nav-link" id="qa-tab-attr" data-toggle="tab" href="#qa-attr" role="tab" aria-controls="qa-attr"
                                        aria-selected="false">Discussion Forum</a>
@@ -434,6 +562,94 @@
                                     <!--Activity Tab Content-->
                                 </div>
 
+                                <div class="tab-pane" id="Assignment-attr" role="tabpanel" aria-labelledby="Assignment-tab-attr">
+
+                                    @*<h3>Assignment View</h3>*@
+
+                                    <div id="AssignmentBlock" style="display:none">
+
+                                        <div class="box" style="border:0">
+                                            <div class="box-title" style="border:0"></div>
+
+
+                                            <div class="box-body">
+                                                <div id="Assignment">
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group" id="">
+
+                                            <span class="col-md-2"> Teacher Comments  </span>
+
+                                            <div id="" class="col-md-10">
+
+                                                <textarea readonly class="form-control" rows="5" id="TeacherComments"></textarea>
+
+
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-12">
+
+                                            <div class="form-group">
+                                               
+                                                <hr />
+                                                <span class="" style="font-weight:bold">Submit your Assignment </span>
+
+                                                @*<i class="fa fa-paperclip" style="padding-left:80px"></i> Choose File
+                        <input type="file" style="padding-left:80px" id="SubmitAssignment" name="SubmitAssignment">
+                    </div>
+                    <div class="col-md-offset-2 col-lg-offset-2" style="padding-left:80px">
+                        <p class="help-block">Max. 32MB</p>
+                    </div>*@
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-12 bmd-form-group">
+                                                        <div class="file-field d-flex">
+                                                            <div class="btn btn-primary btn-md mb-0">
+                                                                <span style="color:white" onclick='event.stopPropagation(); document.getElementById("SubmitAssignment").click();'>Choose file</span>
+                                                                <input id="SubmitAssignment" name="SubmitAssignment" type="file">
+                                                            </div>
+                                                            <div class="file-path-wrapper d-flex align-items-end ml-3 w-100">
+                                                                <input id="FilePath" class="file-path validate form-control" type="text" readonly disabled placeholder="No file Chosen">
+                                                            </div>
+                                                        </div>
+                                                        <div style="color: #afbccc;font-size: 14px;font-weight: 500;" class="my-3">Max: 32 MB (Filename should be unique)</div>
+                                                    </div>
+                                                </div>
+                                                <span id="AssingmentFileToShow"></span>
+                                                <span style="color:blue" id="AssignmentMessage"></span>
+
+
+                                                <div @*class="col-md-10"*@>
+
+
+                                                    @*<input type="file" class="btn btn-default" id="SubmitAssignment" name="SubmitAssignment" />
+
+
+                        <span style="color:blue" id="AssignmentMessage"></span>*@
+
+                                                    <br />
+
+                                                    <input style="display:none" class="btn btn-default" type="button" id="AssignmentSubmitButton" name="" value="Submit" />
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div><!--Assignment-->
+
+
                                 <div class="tab-pane" id="qa-attr" role="tabpanel" aria-labelledby="qa-tab-attr">
 
 
@@ -447,6 +663,7 @@
                                             </a>
                                         </span>
                                     </h3>
+
                                     <hr class="mt-2">
 
                                     <div id="AllComments">
@@ -466,7 +683,7 @@
                                                 <br />
                                                 <textarea class="form-control" rows="5" id="commentbox"></textarea>
                                             </div>
-                                            
+
                                             <button type="button" class="btn btn-primary pull-right mt-3 addCommentBtn" id="AddButton">Add<div class="ripple-container"></div><div class="ripple-container"></div></button>
 
                                         </div>
@@ -478,17 +695,6 @@
 
                                 </div>
                                 <!--<div class="tab-pane" id="settings-attr" role="tabpanel" aria-labelledby="settings-tab-attr">...</div>-->
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -25,7 +26,23 @@ namespace SEA_Application.Controllers
         public ActionResult TeacherComments(int id)
         {
             ViewBag.Id = id;
+
+            AspnetStudentAssignmentSubmission StudentAssignmentSubmission =      db.AspnetStudentAssignmentSubmissions.Where(x => x.Id == id).FirstOrDefault();
           
+            if(StudentAssignmentSubmission !=null)
+            {
+
+              ViewBag.TeacherComments =   StudentAssignmentSubmission.TeacherComments;
+
+            }
+            else
+            {
+                ViewBag.TeacherComments = null;
+
+            }
+
+
+
             return View();
 
         }
@@ -88,6 +105,8 @@ namespace SEA_Application.Controllers
                 int? StudentId = submittedAssignment.StudentId;
                 int AssignemntId = submittedAssignment.Id;
 
+
+
                 var ClassName = db.AspNetClasses.Where(x => x.Id == ClassId).FirstOrDefault().ClassName;
                 var SubjectName = db.GenericSubjects.Where(x => x.Id == SubjectId).FirstOrDefault().SubjectName;
                 var TopicName = db.AspnetSubjectTopics.Where(x => x.Id == TopicId).FirstOrDefault().Name;
@@ -99,14 +118,51 @@ namespace SEA_Application.Controllers
 
                 assignmentViewModel.AssignmentId = AssignemntId;
                 assignmentViewModel.AssignmentName = FileName;
-                assignmentViewModel.AssignmnetDueDate = DueDate;
-                assignmentViewModel.AssignmentSubmittedDate = SubmittedDate;
+
+                DateTime ConvertedDueDate = Convert.ToDateTime( DueDate);
+
+                assignmentViewModel.AssignmnetDueDate = ConvertedDueDate.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
+
+                DateTime ConvertedSubmittedDate = Convert.ToDateTime(SubmittedDate);
+
+                assignmentViewModel.AssignmentSubmittedDate = ConvertedSubmittedDate.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
+
+
                 assignmentViewModel.Section = ClassName;
                 assignmentViewModel.SubjectName = SubjectName;
                 assignmentViewModel.Topic = TopicName;
                 assignmentViewModel.Lesson = LessonName;
                 assignmentViewModel.NameOfStudent = StudentName;
                 assignmentViewModel.CourseType = CourseType;
+
+                if(submittedAssignment.TeacherComments != null)
+                {
+
+                    var TrimStringStart  = submittedAssignment.TeacherComments.TrimStart();
+                    var TrimStringEnd = TrimStringStart.TrimEnd();
+
+                    if(TrimStringEnd.Count() > 10)
+                    {
+
+                    string sub = TrimStringEnd.Substring(0, 10);
+
+                        assignmentViewModel.TeacherComments = sub + "....";
+                    }
+                    else
+                    {
+
+
+                    assignmentViewModel.TeacherComments = TrimStringEnd;
+                    }
+
+                }
+                else
+
+                {
+                    assignmentViewModel.TeacherComments = submittedAssignment.TeacherComments;
+
+                }
+
 
                 listAssignmentViewModel.Add(assignmentViewModel);
 

@@ -19,59 +19,62 @@
 <script>
     $(document).ready(function () {
 
-                   $("#PageHeader").html("View Assignments");
+        $("#PageHeader").html("View Assignments");
 
-            $("#BreadCrumbs").append(' <li> <a href="#"> Home </a> <span>&gt;</span></li>');
-            $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">View Assignments </a></li>');
+        $("#BreadCrumbs").append(' <li> <a href="#"> Home </a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">View Assignments </a></li>');
 
 
-          var   table = $('#datatable').dataTable({
-                buttons: [
-                    {
-                        text: ''
-                    },
-                    {
-                        text: '',
-                        action: function (e, dt, button, config) {
-                            window.location.href = '';
-                        }
-                    },
-                    {
-                        text: ''
-                    }
-                ],
-                "language": {
-                    "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
-                        "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
-                        "  </div>\n" +
-                        "  </div>",
-                    "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
-                    "paginate": {
-                        "first": "Firstt",
-                        "last": "Lastt",
-                        "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
-                        "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
+        var table = $('#datatable').dataTable({
+            buttons: [
+                {
+                    text: ''
+                },
+                {
+                    text: '',
+                    action: function (e, dt, button, config) {
+                        window.location.href = '';
                     }
                 },
-                "searching": true,
-                // dom: '<"class">Blfrtip',
-                dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
-                    "<'row'<'col-sm-12 datatablesData'tr>>" +
-                    "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
-               });
-
+                {
+                    text: ''
+                }
+            ],
+            "language": {
+                "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
+                    "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
+                    "  </div>\n" +
+                    "  </div>",
+                "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
+                "paginate": {
+                    "first": "Firstt",
+                    "last": "Lastt",
+                    "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
+                    "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
+                }
+            },
+            "searching": true,
+            // dom: '<"class">Blfrtip',
+            dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
+                "<'row'<'col-sm-12 datatablesData'tr>>" +
+                "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
+        });
 
         $('.table').on('click', 'tbody tr', function () {
 
 
-            //  var td = $(this).children("td");
-            //var userName = $(td[0]).children("input").val();
+            var td = $(this).children("td");
+            var userName = $(td[0]).children("input").val();
 
             //alert($(td[0]).html());
-            //   var Id =  parseInt($(td[0]).html())
+            var Id = parseInt($(td[0]).html());
+
+           
+
+
             // alert(Id);
             //userName = userName.trim();
-            //window.location.href = "/AspnetSubjectTopics/Edit?id=" + Id;
+             window.location.href = "/StudentAssignmentSubmitted/TeacherComments?id=" + Id;
         });
 
         DrawTable();
@@ -129,36 +132,39 @@
                         <thead>
 
                             <tr>
+
+                                <th style="display:none">  11</th>
+
                                 <th>
                                     @Html.DisplayNameFor(model => model.NameOfStudent)
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Section)
-                                </th>
+                                @*<th>
+                                        @Html.DisplayNameFor(model => model.Section)
+                                    </th>*@
                                 <th>
                                     @Html.DisplayNameFor(model => model.CourseType)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.SubjectName)
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Topic)
-                                </th>
+                                @*<th>
+                                        @Html.DisplayNameFor(model => model.Topic)
+                                    </th>*@
 
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Lesson)
+                                    Lesson Name
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.AssignmnetDueDate)
+                                    Due Date
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.AssignmentSubmittedDate)
+                                    Submitted Date
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.AssignmentName)
                                 </th>
                                 <th>
-                                    Actions
+                                    Teacher Comments
                                 </th>
 
                             </tr>
@@ -173,21 +179,26 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
+
+                                    <td style="display:none">
+
+                                        @item.AssignmentId
+                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.NameOfStudent)
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Section)
-                                    </td>
+                                    @*<td>
+                                            @Html.DisplayFor(modelItem => item.Section)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.CourseType)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.SubjectName)
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Topic)
-                                    </td>
+                                    @*<td>
+                                            @Html.DisplayFor(modelItem => item.Topic)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Lesson)
                                     </td>
@@ -204,8 +215,9 @@
                                     </td>
 
                                     <td>
+                                        @Html.DisplayFor(modelItem => item.TeacherComments)
 
-                                        <button class="btn btn-sm btn-primary">@Html.ActionLink("Comments", "TeacherComments", new { id = item.AssignmentId })</button>
+                                        @*<button class="btn btn-sm btn-primary">@Html.ActionLink("Comments", "TeacherComments", new { id = item.AssignmentId })</button>*@
 
                                     </td>
 
@@ -223,20 +235,20 @@
         </div>
     </div>
 </div>
-        <script>
+<script>
 
-            $(document).ready(function () {
-
-
-
-
-            });
+    $(document).ready(function () {
 
 
 
 
+    });
 
-        </script>
+
+
+
+
+</script>
 
 
 
