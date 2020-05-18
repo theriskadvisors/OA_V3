@@ -156,6 +156,7 @@ namespace SEA_Application.Controllers
         {
 
 
+
             var subjectTopics = db.AspnetSubjectTopics.Where(x => x.SubjectId == SubjectId).Select(x => new { x.Id, x.Name }).ToList();
 
 

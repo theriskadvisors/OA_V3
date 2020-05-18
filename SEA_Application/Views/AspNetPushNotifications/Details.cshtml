@@ -4,82 +4,142 @@
     ViewBag.Title = "Details";
 }
 
-    <style>
-        a{
-            color:white;
+<style>
+    a {
+        color: white;
+        text-decoration: none;
+    }
 
-            text-decoration:none;
-
+        a:hover {
+            /*color: white;*/
+            text-decoration: none;
         }
-        a:hover{
-            color:white;
-            text-decoration:none;
-
-        }
-
-    </style>
-<h4>Details</h4>
-
+</style>
 <div class="row">
     <div class="col-md-12">
-        <div class="box box-primary">
-            <div class="box-header">
-                <h4>Notification</h4>
-            </div>
-            <hr />
-
-            <div class="box-body">
-                <dl class="dl-horizontal">
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Subject)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Subject)
-                    </dd>
+        <div class="card">
 
 
+            <div class="card-body p-5">
+
+                <div class="col-md-8 pl-5 pr-5 ">
+                    @*<dt>
+                @Html.DisplayNameFor(model => model.Subject)
+            </dt>
+
+            <dd>
+            </dd>*@
+
+                    <div class="form-group bmd-form-group is-filled">
+
+                        <span style="" class="" for="UserName">Subject Name <span class="red-mark"></span></span>
+
+
+                        @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+                    </div>
 
 
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Time)
-                    </dt>
+                    <div class="form-group bmd-form-group is-filled">
 
-                    <dd>
-                        @Html.DisplayFor(model => model.Time)
-                    </dd>
-                    <dt>
+
+                        <span>@Html.DisplayNameFor(model => model.Time)</span>
+
+
+
+                        @*@Html.DisplayFor(model => model.Time)*@
+                        @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+
+
+                    </div>
+
+                    <div class="form-group bmd-form-group is-filled">
+
+
                         @Html.DisplayNameFor(model => model.AspNetUser.UserName)
-                    </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.AspNetUser.UserName)
-                    </dd>
-                    <dt>
+
+                        @Html.EditorFor(model => model.AspNetUser.UserName, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+
+
+                    </div>
+
+                    <div class="form-group bmd-form-group is-filled">
+
+
                         @Html.DisplayNameFor(model => model.Description)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Description)
-                    </dd>
 
 
-                    <dt>
-                        <span>Student Comment</span>
-                    </dt>
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
 
-                    <dd>
-                        <button class="btn btn-primary"> <a href="@Model.Url"> @ViewBag.AchorTagText </a></button>
-                    </dd>
-                </dl>
 
-                <button class="btn btn-danger col-md-offset-1" onclick="window.location.href = '/Account/Dashboard'">Back</button>
+                    </div>
 
 
 
+
+                    <br />
+
+                  
+
+                    @*<button class="btn btn-danger col-md-offset-1">Back</button>*@
+                    @*onclick="window.location.href = '/Teacher_Dashboard/Dashboard'"*@
+                </div>
+                <div class="col-md-8 pl-5 pr-5 ">
+
+                    <br />
+
+
+                    @if (this.User.IsInRole("Teacher"))
+                    {
+
+
+                        <button onclick="window.location.href = '/Teacher_Dashboard/Dashboard'" type="button" id="cancel" class="btn btn-primary rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
+                            <i class="material-icons mr-2">cached</i>  Cancel 
+                        </button>
+
+                    }
+
+                    @if (this.User.IsInRole("Student"))
+                    {
+
+
+                        <button onclick="window.location.href = '/Student_Dashboard/Dashboard'" type="button" id="cancel" class="btn btn-primary rounded rounded-lg bg-transparent text-muted shadow-none mr-3">
+                            <i class="material-icons mr-2">cached</i>  Cancel 
+                        </button>
+
+                    }
+
+                    <button type="button" class="btn btn-primary rounded rounded-lg"> <a href="@Model.Url"> @ViewBag.AchorTagText </a></button>
+
+
+
+
+
+
+                </div>
+
+
+
+            </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+
+
+
+
+        <script>
+
+            $(document).ready(function () {
+
+                // alert("usama");
+
+                $("#BreadCrumbs").append(' <li> <a href="#"> Home </a> <span>&gt;</span></li>');
+                $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Notification Details</a> </li>');
+
+                $("#PageHeader").html("Notification Details");
+
+            })
+
+        </script>

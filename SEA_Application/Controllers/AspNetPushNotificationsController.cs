@@ -49,6 +49,7 @@ namespace SEA_Application.Controllers
             }
 
             AspNetNotification_User aspNetNotification = db.AspNetNotification_User.Where(x => x.Id == id).FirstOrDefault();
+
             if (aspNetNotification.UserID== currentUser.Id)
             {
                 aspNetNotification.Seen = true;
