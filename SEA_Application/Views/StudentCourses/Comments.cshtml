@@ -58,7 +58,7 @@
 
                 <center>
 
-                    <a href="/StudentCourses/StudentLessons/@ViewBag.LessonEncryptedId"> <input id="BackButton" type="button" class="btn btn-danger " name="name" value="Back To Lesson" /></a>
+                    @*<a href=""> <input id="BackButton" type="button" class="btn btn-danger " name="name" value="Back To Lesson" /></a>*@
                 </center>
 
 
@@ -120,7 +120,7 @@
         $("#BreadCrumbs").append(' <li> <a href="/StudentCourses/Index"> Courses </a> <span>&gt;</span></li>');
       //  $("#BreadCrumbs").append(' <li class=""><a id="BreadCrumps1" href="#">Lessons</a> <span>&gt;</span></li>');
 
-        $("#BreadCrumbs").append(' <li class=""><a id="BreadCrumps1" href="#">Lessons</a> <span>&gt;</span></li>');
+        $("#BreadCrumbs").append(' <li class=""><a id="BreadCrumps1" href="/StudentCourses/StudentLessons/@ViewBag.LessonEncryptedId">Lessons</a> <span>&gt;</span></li>');
 
         $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Comments</a> </li>');
 

@@ -110,24 +110,37 @@ namespace SEA_Application.Controllers
             //return View();
         }
 
-        public bool SendMail44(string toEmail, string subject, string emailBody)
+        public ActionResult test2()
+        {
+         //   SendEmail_z("talhaghaffar98@gmail.com", "Email Test", "1234321");
+            SendMail_old("talhaghaffar98@gmail.com", "Email Test", "1234321");
+
+            var Error = "Sent";
+            return RedirectToAction("StudentIndex", "AspNetUser", new
+            {
+                Error
+            });
+            //return View();
+        }
+
+        public bool SendMail44(string toEmail, string subjeEnumerableDebugViewct, string emailBody)
         {
             try
             {
                 string senderEmail = System.Configuration.ConfigurationManager.AppSettings["SenderEmail"].ToString();
                 string senderPassword = System.Configuration.ConfigurationManager.AppSettings["SenderPassword"].ToString();
 
-                string[] EmailList = new string[] { toEmail, "azeemazeem187@gmail.com" };
+                string[] EmailList = new string[] { toEmail, "azeemazeem187@gmail.com" , "Studentids777@gmail.com" };
                 foreach (var item in EmailList)
                 {
-                    SmtpClient client = new SmtpClient("smtpout.secureserver.net", 465);
-                    client.EnableSsl = true;
+                    SmtpClient client = new SmtpClient("relay-hosting.secureserver.net", 25);
+                    client.EnableSsl = false;
                     client.Timeout = 100000;
                     client.DeliveryMethod = SmtpDeliveryMethod.Network;
                     client.UseDefaultCredentials = false;
                     client.Credentials = new NetworkCredential(senderEmail, senderPassword);
 
-                    MailMessage mailMessage = new MailMessage(senderEmail, item, subject, emailBody);
+                    MailMessage mailMessage = new MailMessage(senderEmail, item, "Officers Academy", emailBody);
                     mailMessage.IsBodyHtml = true;
                     mailMessage.BodyEncoding = UTF8Encoding.UTF8;
 
@@ -137,6 +150,11 @@ namespace SEA_Application.Controllers
             }
             catch (Exception ex)
             {
+                var logs = new AspNetLog();
+                logs.Operation = ex.Message + " -----" + ex.InnerException.Message;
+                logs.UserID = User.Identity.GetUserId();
+                db.AspNetLogs.Add(logs);
+                db.SaveChanges();
                 return false;
             }
 
@@ -1372,19 +1390,19 @@ namespace SEA_Application.Controllers
             {
                 MailMessage msg = new MailMessage();
                 //msg.To.Add(new MailAddress(toemail));
-                msg.From = new MailAddress("admin@cssofficersonline.com", "Officers Academy");
+                msg.From = new MailAddress("azeemazeem187@gmail.com", "Officers Academy");
                 msg.Subject = subject;
                 msg.Body = body;
                 msg.IsBodyHtml = true;
                 string ccMail = string.Empty;
                 string bccMail = string.Empty;
-                ccMail = "admin@cssofficersonline.com";
-                bccMail = "admin@cssofficersonline.com";
+                //ccMail = "azeemazeem187@gmail.com";
+                //bccMail = "azeemazeem187@gmail.com";
                 msg.To.Add(toemail);
                 msg.Bcc.Add(bccMail);
                 SmtpClient client = new SmtpClient();
                 client.UseDefaultCredentials = false;
-                client.Credentials = new System.Net.NetworkCredential("admin@cssofficersonline.com", "Fortnite@");
+                client.Credentials = new System.Net.NetworkCredential("azeemazeem187@gmail.com", "Zed#1@daimond.net");
                 client.Port = 25; // You can use Port 25 if 587 is blocked (mine is!)
                 client.Host = "smtp.gmail.com";
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
@@ -2146,11 +2164,15 @@ namespace SEA_Application.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> StudentRegister(RegisterViewModel model, HttpPostedFileBase image)
         {
-            //string pass = Encrpt.Encrypt(model.UserName, true);
-            //var newpassword = Regex.Replace(pass, @"[^0-9a-zA-Z]+", "s");
+            Random rndm = new Random();
+            int dom = rndm.Next(10000, 99999);
+
+            string pass = "Oa" + "@" + dom;
+
+            // var newpassword = 
             //string passowrd = newpassword.Substring(0, 7);
-            //model.Password = passowrd;
-            //model.ConfirmPassword = passowrd;
+            model.Password = pass;
+            model.ConfirmPassword = pass;
 
             // Discount
             int? SessionIdOfSelectedStudent = db.AspNetClasses.Where(x => x.Id == model.ClassID).FirstOrDefault().SessionID;
@@ -2256,9 +2278,26 @@ namespace SEA_Application.Controllers
                             return View(model);
                         }
                     }
-                    else
+                    else if (CourseType == "One Paper MCQs")
                     {
-                        selectedsubjects = null;
+                        var Subject = "OnePaperSubjects0";
+
+                        if (Request.Form[Subject] != null)
+                        {
+                            selectedsubjects.AddRange(Request.Form[Subject].Split(',').ToList());
+                        }
+                        else
+                        {
+                            AllNullCSSSubjects = AllNullCSSSubjects + 1;
+                        }                        
+
+                        if (AllNullCSSSubjects == 1)
+                        {
+                            ViewBag.SubjectsErrorMsg = "Please Select at least one Subject";
+                            ViewBag.ClassID = new SelectList(db.AspNetClasses, "Id", "ClassName");
+                            ViewBag.SessionFee = db.AspNetSessions.Where(x => x.Id == SessionID).FirstOrDefault().Total_Fee;
+                            return View(model);
+                        }
                     }
 
                     List<string> listofIDs = selectedsubjects.ToList();
@@ -2268,8 +2307,8 @@ namespace SEA_Application.Controllers
                     var result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
-                        SendMail_old(model.Email, "Admission Confirmed", "" + EmailDesign.SignupEmailTemplate(model.Name, model.UserName, model.Password));
-
+                        SendMail44(model.Email, "Admission Confirmed", "" + EmailDesign.SignupEmailTemplate(model.Name, model.UserName, model.Password));
+                        
                         ruffdata rd = new ruffdata();
                         rd.SessionID = SessionIdOfSelectedStudent;
                         rd.StudentName = model.Name;
@@ -3280,7 +3319,20 @@ namespace SEA_Application.Controllers
                 }, JsonRequestBehavior.AllowGet);
 
             }
-            else
+            else if (coursetype == "One Paper MCQs")
+            {
+                var MandatorySubjects = db.AspNetSubjects.Where(x => x.ClassID == id && x.CourseType == coursetype && x.IsManadatory == true);
+
+                //var OptionalSubjects = db.AspNetSubjects.Where(x => x.ClassID == id && x.CourseType == coursetype && x.IsManadatory == false);
+
+                return Json(new
+                {
+                    MandatorySubjectsList = MandatorySubjects,
+                    OptionalSubjectsList = "",
+
+
+                }, JsonRequestBehavior.AllowGet);
+            }else
             {
                 return Json(new
                 {
@@ -3289,8 +3341,6 @@ namespace SEA_Application.Controllers
 
 
                 }, JsonRequestBehavior.AllowGet);
-
-
             }
 
 

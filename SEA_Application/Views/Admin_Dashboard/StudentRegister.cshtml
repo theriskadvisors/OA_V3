@@ -95,10 +95,14 @@
                         $("#SubjectCSSGroup6").html('');
                         $("#SubjectCSSGroup7").html('');
 
+                        $("#MandatorySubjectOnePaper").html('');
+                        
+
                         if (CourseType == "CSS") {
 
                             $(".SubjectsBoxesCSS").css('display', 'block');
                             $(".SubjectsBoxesPMS").css('display', 'none');
+                            $(".SubjectsBoxesOnePaper").css('display', 'none');
 
                             $("#MandatorySubjectsCSS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects </b></span><input type="checkbox" id="CheckboxCSSMandatory"></h3>');
                             $("#MandatorySubjectsCSS").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsCSSTableBody"></tbody></table></div>');
@@ -151,7 +155,7 @@
                         else if (CourseType == "PMS") {
 
                             $(".SubjectsBoxesCSS").css('display', 'none');
-
+                            $(".SubjectsBoxesOnePaper").css('display', 'none');
                             $(".SubjectsBoxesPMS").css('display', 'block');
 
                             $("#MandatorySubjectsPMS").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects</b></span><input  type="checkbox" id="CheckboxPMSMandatory"></h3>');
@@ -192,6 +196,18 @@
                                 }
                             })
                         }
+                        else if (CourseType == "One Paper MCQs") {
+
+                            $(".SubjectsBoxesCSS").css('display', 'none');
+                            $(".SubjectsBoxesPMS").css('display', 'none'); 
+                            $(".SubjectsBoxesOnePaper").css('display', 'block');
+
+                            $("#MandatorySubjectOnePaper").append('<h3><span style="color:#3C8DBC !important"><b>Mandatory Subjects</b></span><input  type="checkbox" id="CheckboxOnePaperMandatory"></h3>');
+                            $("#MandatorySubjectOnePaper").append('<div class="table-responsive"><table  class="table table-condensed table-hover"><thead><tr><th class="SubjectHeader">Subjects</th><th>Marks</th><th>Select</th></tr></thead><tbody id ="MandatorySubjectsOnePaperTableBody"></tbody></table></div>');
+                            $.each(MandatorySubjectsList, function (key, value1) {
+                                $("#MandatorySubjectsOnePaperTableBody").append('<tr> <td>' + value1.SubjectName + '</td > <td align="center">' + value1.Points + '</td><td align="center"><input  type="checkbox" id=' + value1.Id + ' value=' + value1.Id + ' name="OnePaperSubjects0"></td></tr>');
+                            })
+                        }
                     })
             }
         })
@@ -219,6 +235,19 @@
             }
             else {
                 $("input[name='PMSSubjects0']").prop("checked", false);
+            }
+        })
+
+        $("#MandatorySubjectOnePaper").on('change', "#CheckboxOnePaperMandatory", function () {
+
+            var CourseType = $("input[name='CourseType']").val();
+            event.stopPropagation();
+
+            if ($(this).is(':checked')) {
+                $("input[name='OnePaperSubjects0']").prop("checked", true);
+            }
+            else {
+                $("input[name='OnePaperSubjects0']").prop("checked", false);
             }
         })
 
@@ -889,7 +918,7 @@
                                             </div>
 
                                             <div class="radio RadioButtonsInline">
-                                                <label><input type="radio" name="CourseType" id="OnePaper" value="OnePaper"> One Paper </label>
+                                                <label><input type="radio" name="CourseType" id="OnePaper" value="One Paper MCQs"> One Paper MCQs</label>
                                             </div>
                                         </div>
 
@@ -1073,6 +1102,10 @@
                                         </div>
                                         <div class="form-group SubjectsBoxesPMS" id="Group5PMS">
                                             <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="SubjectPMSGroup5"></div>
+                                        </div>
+                                        <!--OnePaper-->
+                                        <div class="form-group SubjectsBoxesOnePaper" id="MandatorySubjectOnePaper">
+                                            <div class="col-md-12 col-md-offset-1 col-lg-offset-1" id="MandatorySubjectsOnePaper"></div>
                                         </div>
 
 
