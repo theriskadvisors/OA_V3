@@ -202,12 +202,14 @@ namespace SEA_Application.Controllers
                     //}
 
                     DateTime Day = Convert.ToDateTime(workSheet.Cells[rowIterator, 4].Value.ToString());
+                    var Description = (workSheet.Cells[rowIterator, 7].Value.ToString());
                     //var Date = workSheet.Cells[rowIterator, 5].Value.ToString();
                     //DateTime Day = DateTime.ParseExact(Date, "dd/MM/yyyy", null);
 
                     TimeTable.RoomID = RoomID;
                     TimeTable.SlotID = SlotID;
                     TimeTable.SubjectID = SubjectID;
+                    TimeTable.Description = Description;
                     //TimeTable.Teacher_ID = TeacherID;
                     TimeTable.Day = Day.ToString();
                     TimeTable.IsPopulated = false;
@@ -249,8 +251,8 @@ namespace SEA_Application.Controllers
                     newEvent.UserId = items;
                     newEvent.IsFullDay = false;
                     newEvent.IsPublic = false;
-                    newEvent.Subject = item.AspNetRoom.Name + "_" + item.AspNetSubject.SubjectName;
-                    newEvent.Description = "The Lecture of Subject '" + item.AspNetSubject.SubjectName + "' will start on " + ((DateTime)item.AspNetTimeslot.Start_Time).ToString("hh:mm");
+                    newEvent.Subject = item.AspNetSubject.SubjectName + " (" + item.Description + ")";
+                    newEvent.Description = "The Lecture of Subject '" + item.AspNetSubject.SubjectName + "(" + item.Description + ")" + "' will start on " + ((DateTime)item.AspNetTimeslot.Start_Time).ToString("hh:mm");
                     newEvent.SessionID = db.AspNetUsers_Session.Where(x => x.UserID == items).Select(x => x.SessionID).FirstOrDefault();
                     newEvent.ThemeColor = color[colorcode];
                     var starttime = ((DateTime)item.AspNetTimeslot.Start_Time).ToString("hh:mm");

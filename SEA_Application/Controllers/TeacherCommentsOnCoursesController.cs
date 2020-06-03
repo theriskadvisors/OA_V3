@@ -406,7 +406,7 @@ namespace SEA_Application.Controllers
         {
             ViewBag.CommentHeadId = id;
 
-            ViewBag.LessonId = db.AspnetComment_Head.Where(x => x.Id == id).FirstOrDefault().LessonId;
+            ViewBag.LessonId = db.AspnetComment_Head.Where(x => x.Id == id).Select(x => x.LessonId).FirstOrDefault();
 
             return View("Comments");
         }

@@ -37,11 +37,11 @@ namespace SEA_Application.Controllers
             }
             if (this.User.IsInRole("Teacher"))
             {
-                ViewBag.AchorTagText = "Reply to Student Comment";
+                ViewBag.AchorTagText = "Reply to Student";
             }
             else if (this.User.IsInRole("Student"))
             {
-                ViewBag.AchorTagText = "See Teacher Reply";
+                ViewBag.AchorTagText = "Teacher Reply";
             }
             else
             {
