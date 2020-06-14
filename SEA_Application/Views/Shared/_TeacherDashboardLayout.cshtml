@@ -3,35 +3,31 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="~/Content/assets/assets/img/orignal.png">
-    <link rel="icon" type="image/png" href="~/Content/assets/assets/img/orignal.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        Officers Academy
+        OA | Best Acadmey for CSS
     </title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- CSS Files -->
     <link href="~/Content/assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <!--    <link href="~/Content/assets/demo/demo.css" rel="stylesheet" />-->
+    <!--    <link href="../assets/demo/demo.css" rel="stylesheet" />-->
 
     <link rel="stylesheet" href="~/Content/assets/css/style.css">
-    <script src="~/AdminLTE/plugins/jquery/js/jQuery-2.1.4.min.js"></script>
 
     <style>
         table.dataTable.hover tbody tr:hover,
         table.dataTable.display tbody tr:hover {
             background-color: #F2F5FA;
             cursor: pointer;
-        }
-
-        .hidden {
-            display: none;
         }
 
         .footer {
@@ -42,19 +38,45 @@
             display: flex;
         }
 
-        #Notification_Dropdown_Area {
-            list-style-type: none;
-            margin:0px;
-            padding:0px;
+
+
+        .hidden {
+            display: none !important;
         }
 
+        .Floating_label {
+            background: white;
+            margin-left: 0.5rem;
+            border-left: 4px solid white;
+            border-right: 4px solid white;
+            transform: translateY(-1.75rem);
+            top: 1.3rem;
+            color: #AAAAAA;
+        }
 
+        .Floating_text {
+            border: 2px solid #00b8ec;
+            border-radius: 0.3rem;
+        }
+
+        #Notification_Dropdown_Area {
+            list-style-type: none;
+            margin: 0px;
+            padding: 0px;
+        }
     </style>
 
 </head>
 
 
 <body class="">
+
+    <!--   Core JS Files   -->
+    <script src="~/Content/assets/js/core/jquery.min.js"></script>
+    <script src="~/Content/assets/js/core/popper.min.js"></script>
+    <script src="~/Content/assets/js/core/bootstrap-material-design.min.js"></script>
+    <script src="~/Content/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+
     <div class="wrapper ">
         <!--SIDEBAR-->
         <div class="sidebar" data-color="azure" data-background-color="azure">
@@ -63,63 +85,63 @@
 
                 Tip 2: you can also add an image using data-image tag
             -->
-            <div class="logo">
-                <a class="simple-text logo-normal" href="#">
+            <div class="logo d-flex" style="background-color:white !important;">
+                <a class="simple-text logo-normal" href="#" style="flex: 3;">
                     <img class="transparent" alt="" src="~/Content/assets/assets/img/orignal.png" height="143" width="143">
                 </a>
+                <a class="simple-text collapseSide hidden" onclick="collapseSide(this);" href="#" style="flex: 1;">
+                    <img class="transparent" alt="" src="~/Content/assets/img/sidebar.png">
+                </a>
             </div>
-
-
-
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     @*<li class="nav-item  ">
-                            <a href="@(Url.Action("View_LessonPlan", "AspNetLessonPlan"))">
-                                <i class="fa fa-graduation-cap"></i>
-                                <span class="title">LessonPlan</span>
-                            </a>
-                        </li>*@
+                    <a href="@(Url.Action("View_LessonPlan", "AspNetLessonPlan"))">
+                        <i class="fa fa-graduation-cap"></i>
+                        <span class="title">LessonPlan</span>
+                    </a>
+                </li>*@
 
                     @*<li class="nav-item  " id="Item34">
-                            <a href="@(Url.Action("Index", "AspNetProject"))">
-                                <i class="fa fa-product-hunt"></i>
-                                <span class="title">Topics Course Study Material</span>
-                            </a>
-                        </li>*@
+                    <a href="@(Url.Action("Index", "AspNetProject"))">
+                        <i class="fa fa-product-hunt"></i>
+                        <span class="title">Topics Course Study Material</span>
+                    </a>
+                </li>*@
                     @*<li class="nav-item  ">
-                            <a href="@(Url.Action("Index", "AspNetStudentPerformanceReport"))">
-                                <i class="fa fa-bullhorn"></i>
-                                <span class="title">Progress Report</span>
-                            </a>
-                        </li>*@
+                    <a href="@(Url.Action("Index", "AspNetStudentPerformanceReport"))">
+                        <i class="fa fa-bullhorn"></i>
+                        <span class="title">Progress Report</span>
+                    </a>
+                </li>*@
                     @*<li class="nav-item" id="Item35">
-                            <a href="#" class="nav-link nav-toggle">
-                                <i class="fa fa-list-ul"></i>
-                                <span class="title">Subjects</span>
+                    <a href="#" class="nav-link nav-toggle">
+                        <i class="fa fa-list-ul"></i>
+                        <span class="title">Subjects</span>
+                    </a>
+
+                    <ul class="sub-menu" style="z-index:10000">
+                        <li class="nav-item  ">
+                            <a href="@(Url.Action("Teacher_Subject","Teacher_Dashboard"))">
+                                <i class="fa fa-circle-o"></i>
+                                <span class="title">View Subjects</span>
                             </a>
+                        </li>
 
-                            <ul class="sub-menu" style="z-index:10000">
-                                <li class="nav-item  ">
-                                    <a href="@(Url.Action("Teacher_Subject","Teacher_Dashboard"))">
-                                        <i class="fa fa-circle-o"></i>
-                                        <span class="title">View Subjects</span>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item  ">
-                                    <a href="@(Url.Action("Topics", "Teacher_Dashboard"))">
-                                        <i class="fa fa-circle-o"></i>
-                                        <span class="title">Manage Topics</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>*@
+                        <li class="nav-item  ">
+                            <a href="@(Url.Action("Topics", "Teacher_Dashboard"))">
+                                <i class="fa fa-circle-o"></i>
+                                <span class="title">Manage Topics</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>*@
                     @*<li class="nav-item  ">
-                            <a href="@(Url.Action("Index", "AspNetHomeworks"))">
-                                <i class="fa fa-database"></i>
-                                <span class="title">Diary</span>
-                            </a>
-                        </li>*@
+                    <a href="@(Url.Action("Index", "AspNetHomeworks"))">
+                        <i class="fa fa-database"></i>
+                        <span class="title">Diary</span>
+                    </a>
+                </li>*@
 
 
                     <li class="nav-item active hidden">
@@ -152,22 +174,22 @@
                         </a>
                     </li>
                     @*<li class="nav-item">
-                            <a href="@Url.Action("ViewTopicsAndLessons", "AspnetSubjectTopics")" class="nav-link nav-toggle">
+                    <a href="@Url.Action("ViewTopicsAndLessons", "AspnetSubjectTopics")" class="nav-link nav-toggle">
 
-                                <i class="sea-dash">
-                                    <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
-                                </i>
-                                <p>Topics & Lessons</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="@Url.Action("ViewQuestionAndQuiz", "AspnetQuestions")" class="nav-link nav-toggle">
-                                <i class="sea-dash">
-                                    <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
-                                </i>
-                                <p>Questions & Quizs</p>
-                            </a>
-                        </li>*@
+                        <i class="sea-dash">
+                            <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
+                        </i>
+                        <p>Topics & Lessons</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("ViewQuestionAndQuiz", "AspnetQuestions")" class="nav-link nav-toggle">
+                        <i class="sea-dash">
+                            <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
+                        </i>
+                        <p>Questions & Quizs</p>
+                    </a>
+                </li>*@
 
                     <li class="nav-item">
                         <a href="@Url.Action("StudentLessonTracking", "StudentAssignmentSubmitted")" class="nav-link nav-toggle">
@@ -201,85 +223,85 @@
 
 
                     @*<li class="nav-item" id="studenttopic">
-                            <a href="@Url.Action("Index", "AspnetSubjectTopics")" class="nav-link nav-toggle">
-                                <i class="fa fa-list-ul"></i>
-                                <span class="title">Topic</span>
-                            </a>
-                        </li>
-                        <li class="nav-item" id="studentlesson">
-                            <a href="@Url.Action("Index", "AspnetLessons")" class="nav-link nav-toggle">
-                                <i class="fa fa-leaf"></i>
-                                <span class="title">Lesson</span>
-                            </a>
-                        </li>*@
+                    <a href="@Url.Action("Index", "AspnetSubjectTopics")" class="nav-link nav-toggle">
+                        <i class="fa fa-list-ul"></i>
+                        <span class="title">Topic</span>
+                    </a>
+                </li>
+                <li class="nav-item" id="studentlesson">
+                    <a href="@Url.Action("Index", "AspnetLessons")" class="nav-link nav-toggle">
+                        <i class="fa fa-leaf"></i>
+                        <span class="title">Lesson</span>
+                    </a>
+                </li>*@
 
                     @*<li class="nav-item" id="studentQuestionAnswer">
-                            <a href="@Url.Action("Index", "AspnetQuestions")" class="nav-link nav-toggle">
-                                <i class="fa fa-book"></i>
-                                <span class="title">Questions Answers</span>
-                            </a>
-                        </li>
+                    <a href="@Url.Action("Index", "AspnetQuestions")" class="nav-link nav-toggle">
+                        <i class="fa fa-book"></i>
+                        <span class="title">Questions Answers</span>
+                    </a>
+                </li>
 
 
 
-                        <li class="nav-item" id="TestQuestions">
-                            <a href="@Url.Action("TestQuestions", "AspnetQuestions")" class="nav-link nav-toggle">
-                                <i class="fa fa-book"></i>
-                                <span class="title">Test Questions</span>
-                            </a>
-                        </li>*@
+                <li class="nav-item" id="TestQuestions">
+                    <a href="@Url.Action("TestQuestions", "AspnetQuestions")" class="nav-link nav-toggle">
+                        <i class="fa fa-book"></i>
+                        <span class="title">Test Questions</span>
+                    </a>
+                </li>*@
 
                     @*<li class="nav-item" id="studentQuiz">
-                            <a href="@Url.Action("Index", "AspnetQuizs")" class="nav-link nav-toggle">
-                                <i class="fa fa-pencil-square-o"></i>
-                                <span class="title">Quiz</span>
-                            </a>
-                        </li>*@
+                    <a href="@Url.Action("Index", "AspnetQuizs")" class="nav-link nav-toggle">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span class="title">Quiz</span>
+                    </a>
+                </li>*@
 
                     @*<li class="nav-item  ">
-                            <a href="@(Url.Action("Teacher_Announcement", "Teacher_Dashboard"))">
-                                <i class="fa fa-bullhorn"></i>
-                                <span class="title">Announcement</span>
+                    <a href="@(Url.Action("Teacher_Announcement", "Teacher_Dashboard"))">
+                        <i class="fa fa-bullhorn"></i>
+                        <span class="title">Announcement</span>
+                    </a>
+                </li>
+
+                <li class="nav-item  ">
+                    <a href="@(Url.Action("Attendance", "Teacher_Dashboard"))">
+                        <i class="fa fa-list-ol"></i>
+                        <span class="title">Student Attendance</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="@(Url.Action("ParentTeacherMeeting", "Teacher_Dashboard"))">
+                        <i class="fa fa-users"></i>
+                        <span class="title">Parent Teacher Meeting</span>
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link nav-toggle">
+                        <i class="fa fa-book"></i>
+                        <span class="title">Assessment</span>
+                    </a>
+
+                    <ul class="sub-menu">
+                        <li class="nav-item  ">
+                            <a href="@(Url.Action("Subject_Assessment","Teacher_Dashboard"))">
+                                <i class="fa fa-circle-o"></i>
+                                <span class="title">Subject Assessment</span>
                             </a>
                         </li>
 
                         <li class="nav-item  ">
-                            <a href="@(Url.Action("Attendance", "Teacher_Dashboard"))">
-                                <i class="fa fa-list-ol"></i>
-                                <span class="title">Student Attendance</span>
+                            <a href="@(Url.Action("Class_Assessment", "Teacher_Dashboard"))">
+                                <i class="fa fa-circle-o"></i>
+                                <span class="title">Class Assessment</span>
                             </a>
                         </li>
-
-                        <li class="nav-item">
-                            <a href="@(Url.Action("ParentTeacherMeeting", "Teacher_Dashboard"))">
-                                <i class="fa fa-users"></i>
-                                <span class="title">Parent Teacher Meeting</span>
-                            </a>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link nav-toggle">
-                                <i class="fa fa-book"></i>
-                                <span class="title">Assessment</span>
-                            </a>
-
-                            <ul class="sub-menu">
-                                <li class="nav-item  ">
-                                    <a href="@(Url.Action("Subject_Assessment","Teacher_Dashboard"))">
-                                        <i class="fa fa-circle-o"></i>
-                                        <span class="title">Subject Assessment</span>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item  ">
-                                    <a href="@(Url.Action("Class_Assessment", "Teacher_Dashboard"))">
-                                        <i class="fa fa-circle-o"></i>
-                                        <span class="title">Class Assessment</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>*@
+                    </ul>
+                </li>*@
 
 
 
@@ -293,20 +315,37 @@
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
                         <div class="bread-crumbs">
-                            <ul id="BreadCrumbs">
+                            <ul>
+                                @*<li class="active"><a href="#"></a></li>*@
                             </ul>
                         </div>
                     </div>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+                            aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="navbar-toggler-icon icon-bar"></span>
                         <span class="navbar-toggler-icon icon-bar"></span>
                         <span class="navbar-toggler-icon icon-bar"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-end">
+
+                        <div class="timeCon">
+                            <div class="d-flex">
+                                <div class="timeYearDayCon">
+                                    <div class="timeYear">Year</div>
+                                    <div class="timeDay">Day, 00 Mon</div>
+                                </div>
+                                <div class="timeTimeCon">
+                                    00:00
+                                </div>
+                                <div class="timeAMPM">
+                                    <div class="timeAM">AM</div>
+                                    <div class="timePM">PM</div>
+                                </div>
+                            </div>
+                        </div>
+
                         <ul class="navbar-nav">
-
-
                             <li class="dropdown notifications-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
@@ -318,15 +357,7 @@
 
                                     <li>
                                         <!-- inner menu: contains the actual data -->
-                                        <ul class="menu" id="Notification_Dropdown_Area">
-
-                                            @*<li>
-                                                    <a href="#">
-                                                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                                    </a>
-                                                </li>*@
-
-                                        </ul>
+                                        <ul class="menu" id="Notification_Dropdown_Area"></ul>
                                     </li>
                                     <li class="footer"><a href="#">View all</a></li>
                                 </ul>
@@ -366,19 +397,18 @@
                                 </li>
                             }
                             <li class="nav-item dropdown">
-                                <a class="nav-link p-0" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
+                                <a class="nav-link p-0" href="javascript:;" id="navbarDropdownProfile"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div id="theDiv"><img id="theImg" src="" /></div>
-
                                     <p class="d-lg-none d-md-block">
                                         Account
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                                    <a class="dropdown-item" href="/Manage/Index">Profile</a>
-                                    <a class="dropdown-item" href="#">Privacy</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Settings</a>
+                                    <a class="dropdown-item" href="/Manage/Index">Security</a>
+                                    <a class="dropdown-item hidden" href="#">Privacy</a>
+                                    <div class="dropdown-divider hidden"></div>
+                                    <a class="dropdown-item hidden" href="#">Settings</a>
                                 </div>
                             </li>
                         </ul>
@@ -392,39 +422,14 @@
                         <div class="col-md-12">
                             <div class="pageHeading">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-4 col-lg-4">
+                                    <div class="col-sm-12 col-md-5 col-lg-5">
 
                                         <h1 id="PageHeader" class="float-left"></h1>
 
                                     </div>
-                                    <div class="col-sm-12 col-md-8 col-lg-8 text-right hidden" id="GenericDiv">
-                                        <div class="d-inline-block">
-                                            <div class="d-flex text-right">
-                                                <div class="countStuffLeft">
-                                                    <div class="countComplete">
-                                                        <span id="topicCompleted"></span> of <span id="Totaltopic"></span> Complete.<!--<a href="#"> Reset</a>-->
-                                                    </div>
-                                                    <div class="finishCourseText hidden">Finish course to get your certificate</div>
-                                                </div>
-                                                <div>
-                                                    <input type="hidden" value="30" type="number" step="5" min="0" max="100" class="progressVal">
-                                                    <div class="trophyProgressCon" style="position: relative;width: 44px;height: 44px;">
-                                                        <span class="progressGrayRing" style="background: #e2e2ee;position: absolute;width: 40px;height: 40px;left: 0;border-radius: 50%;top: 0px;">
-                                                            <span class="trophyIcon">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                                                                    <g id="prefix__Group_503" data-name="Group 503" transform="translate(-591 -244)">
-                                                                        <path id="prefix__Path_530" d="M608.473 245.3h-2.31q.013-.384.013-.772a.528.528 0 0 0-.527-.527h-11.3a.527.527 0 0 0-.527.527q0 .388.013.772h-2.31a.527.527 0 0 0-.527.527 11.429 11.429 0 0 0 1.739 6.277 5.5 5.5 0 0 0 4.18 2.714 5.415 5.415 0 0 0 1.142.959v2.344h-.885a1.942 1.942 0 0 0-1.94 1.939v.885h-.034a.527.527 0 1 0 0 1.055h9.6a.527.527 0 1 0 0-1.055h-.037v-.885a1.942 1.942 0 0 0-1.94-1.939h-.885v-2.344a5.419 5.419 0 0 0 1.142-.959 5.5 5.5 0 0 0 4.18-2.714 11.43 11.43 0 0 0 1.74-6.277.527.527 0 0 0-.527-.527zm-14.856 6.22a10.163 10.163 0 0 1-1.551-5.166h1.83a17.619 17.619 0 0 0 1.638 6.4q.211.422.44.8a5.085 5.085 0 0 1-2.358-2.029zm12.766 0a5.085 5.085 0 0 1-2.358 2.029q.229-.376.44-.8a17.627 17.627 0 0 0 1.638-6.4h1.83a10.164 10.164 0 0 1-1.551 5.166zm0 0" data-name="Path 530" style="fill:#00b8ec"></path>
-                                                                    </g>
-                                                                </svg>
-                                                            </span>
-                                                            <svg class="progress-ring" width="44" height="44">
-                                                                <circle class="progress-ring__circle" stroke="#00b8ec" stroke-width="4" fill="transparent" r="18" style="stroke-dasharray: 113.097px, 113.097px; stroke-dashoffset: 100px;" cy="20" cx="24"></circle>
-                                                            </svg>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="col-sm-12 col-md-7 col-lg-7 hidden" id="generic_div">
+                                        <button type="button" class="btn btn-primary pull-right rounded rounded-lg createBtn" id="GenericCreate">Create</button>
+                                        <input type="text" placeholder="Type Keyword" id="global_filter" class="searchBox pull-right pl-4 p-2 pull-right rounded rounded-lg   mr-3">
                                     </div>
                                 </div>
                             </div>
@@ -439,17 +444,13 @@
 
                         </div>
                     </div>
-                </div>
 
+
+                </div>
             </div>
 
         </div>
     </div>
-    <!--   Core JS Files   -->
-    <script src="~/Content/assets/js/core/jquery.min.js"></script>
-    <script src="~/Content/assets/js/core/popper.min.js"></script>
-    <script src="~/Content/assets/js/core/bootstrap-material-design.min.js"></script>
-    <script src="~/Content/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
     <!-- Plugin for the momentJs  -->
     <script src="~/Content/assets/js/plugins/moment.min.js"></script>
     <!--  Plugin for Sweet Alert -->
@@ -487,241 +488,1668 @@
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="~/Content/assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-    <script src="~/Content/assets/demo/demo.js"></script>
+    @*<script src="~/Content/assets/demo/demo.js"></script>_*@
+    <script src="~/Content/assets/js/lesson.js"></script>
+
+
+
     <!--<link rel="stylesheet" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">-->
     <!--<script src="http://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>-->
     <!--<script src="https://cdn.datatables.net/buttons/1.10.20/js/buttons.flash.min.js" type="text/javascript"></script>-->
     <!--<script src="https://cdn.datatables.net/buttons/1.10.20/js/dataTables.buttons.min.js" type="text/javascript"></script>-->
 
+    <link href='~/Content/assets/packages/core/main.css' rel='stylesheet' />
+    <link href='~/Content/assets/packages/daygrid/main.css' rel='stylesheet' />
+    <link href='~/Content/assets/packages/timegrid/main.css' rel='stylesheet' />
+    <link href='~/Content/assets/packages/list/main.css' rel='stylesheet' />
+    <style>
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -12px;
+            /*margin-left: -33px;*/
+        }
+        /*!
+            * FullCalendar v3.9.0
+            * Docs & License: https://fullcalendar.io/
+            * (c) 2020 Adam Shaw
+            */
+        .fc button,
+        .fc table,
+        body .fc {
+            font-size: 1em;
+        }
+
+        .fc-bg,
+        .fc-row .fc-bgevent-skeleton,
+        .fc-row .fc-highlight-skeleton {
+            bottom: 0;
+        }
+
+        .fc-icon,
+        .fc-unselectable {
+            -webkit-touch-callout: none;
+            -khtml-user-select: none;
+        }
+
+        .fc {
+            direction: ltr;
+            text-align: left;
+        }
+
+        .fc-rtl {
+            text-align: right;
+        }
+
+        .fc th,
+        .fc-basic-view td.fc-week-number,
+        .fc-icon,
+        .fc-toolbar {
+            text-align: center;
+        }
+
+        .fc-highlight {
+            background: #bce8f1;
+            opacity: .3;
+        }
+
+        .fc-bgevent {
+            background: #8fdf82;
+            opacity: .3;
+        }
+
+        .fc-nonbusiness {
+            background: #d7d7d7;
+        }
+
+        .fc button {
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            margin: 0;
+            height: 2.1em;
+            padding: 0 .6em;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+            .fc button::-moz-focus-inner {
+                margin: 0;
+                padding: 0;
+            }
+
+        .fc-state-default {
+            border: 1px solid;
+            background-color: #f5f5f5;
+            background-image: -moz-linear-gradient(top, #fff, #e6e6e6);
+            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#e6e6e6));
+            background-image: -webkit-linear-gradient(top, #fff, #e6e6e6);
+            background-image: -o-linear-gradient(top, #fff, #e6e6e6);
+            background-image: linear-gradient(to bottom, #fff, #e6e6e6);
+            background-repeat: repeat-x;
+            border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+            border-color: rgba(0, 0, 0, .1) rgba(0, 0, 0, .1) rgba(0, 0, 0, .25);
+            color: #333;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, .75);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 1px 2px rgba(0, 0, 0, .05);
+        }
+
+            .fc-state-default.fc-corner-left {
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
+
+            .fc-state-default.fc-corner-right {
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
+            }
+
+        .fc button .fc-icon {
+            position: relative;
+            top: -.05em;
+            margin: 0 .2em;
+            vertical-align: middle;
+        }
+
+        .fc-state-active,
+        .fc-state-disabled,
+        .fc-state-down,
+        .fc-state-hover {
+            color: #333;
+            background-color: #e6e6e6;
+        }
+
+        .fc-state-hover {
+            color: #333;
+            text-decoration: none;
+            background-position: 0 -15px;
+            -webkit-transition: background-position .1s linear;
+            -moz-transition: background-position .1s linear;
+            -o-transition: background-position .1s linear;
+            transition: background-position .1s linear;
+        }
+
+        .fc-state-active,
+        .fc-state-down {
+            background-color: #ccc;
+            background-image: none;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, .15), 0 1px 2px rgba(0, 0, 0, .05);
+        }
+
+        .fc-state-disabled {
+            cursor: default;
+            background-image: none;
+            opacity: .65;
+            box-shadow: none;
+        }
+
+        .fc-event.fc-draggable,
+        .fc-event[href],
+        .fc-popover .fc-header .fc-close,
+        a[data-goto] {
+            cursor: pointer;
+        }
+
+        .fc-button-group {
+            display: inline-block;
+        }
+
+        .fc .fc-button-group > * {
+            float: left;
+            margin: 0 0 0 -1px;
+        }
+
+        .fc .fc-button-group > :first-child {
+            margin-left: 0;
+        }
+
+        .fc-popover {
+            position: absolute;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .15);
+        }
+
+            .fc-popover .fc-header {
+                padding: 2px 4px;
+            }
+
+                .fc-popover .fc-header .fc-title {
+                    margin: 0 2px;
+                }
+
+        .fc-ltr .fc-popover .fc-header .fc-title,
+        .fc-rtl .fc-popover .fc-header .fc-close {
+            float: left;
+        }
+
+        .fc-ltr .fc-popover .fc-header .fc-close,
+        .fc-rtl .fc-popover .fc-header .fc-title {
+            float: right;
+        }
+
+        .fc-divider {
+            border-style: solid;
+            border-width: 1px;
+        }
+
+        hr.fc-divider {
+            height: 0;
+            margin: 0;
+            padding: 0 0 2px;
+            border-width: 1px 0;
+        }
+
+        .fc-bg table,
+        .fc-row .fc-bgevent-skeleton table,
+        .fc-row .fc-highlight-skeleton table {
+            height: 100%;
+        }
+
+        .fc-clear {
+            clear: both;
+        }
+
+        .fc-bg,
+        .fc-bgevent-skeleton,
+        .fc-helper-skeleton,
+        .fc-highlight-skeleton {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .fc table {
+            width: 100%;
+            box-sizing: border-box;
+            table-layout: fixed;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .fc td,
+        .fc th {
+            border-style: solid;
+            border-width: 1px;
+            padding: 0;
+            vertical-align: top;
+        }
+
+            .fc td.fc-today {
+                border-style: double;
+            }
+
+        a[data-goto]:hover {
+            text-decoration: underline;
+        }
+
+        .fc .fc-row {
+            border-style: solid;
+            border-width: 0;
+        }
+
+        .fc-row table {
+            border-left: 0 hidden transparent;
+            border-right: 0 hidden transparent;
+            border-bottom: 0 hidden transparent;
+        }
+
+        .fc-row:first-child table {
+            border-top: 0 hidden transparent;
+        }
+
+        .fc-row {
+            position: relative;
+        }
+
+            .fc-row .fc-bg {
+                z-index: 1;
+            }
+
+            .fc-row .fc-bgevent-skeleton td,
+            .fc-row .fc-highlight-skeleton td {
+                border-color: transparent;
+            }
+
+            .fc-row .fc-bgevent-skeleton {
+                z-index: 2;
+            }
+
+            .fc-row .fc-highlight-skeleton {
+                z-index: 3;
+            }
+
+            .fc-row .fc-content-skeleton {
+                position: relative;
+                z-index: 4;
+                padding-bottom: 2px;
+            }
+
+            .fc-row .fc-helper-skeleton {
+                z-index: 5;
+            }
+
+        .fc .fc-row .fc-content-skeleton table,
+        .fc .fc-row .fc-content-skeleton td,
+        .fc .fc-row .fc-helper-skeleton td {
+            background: 0 0;
+            border-color: transparent;
+        }
+
+        .fc-row .fc-content-skeleton td,
+        .fc-row .fc-helper-skeleton td {
+            border-bottom: 0;
+        }
+
+        .fc-row .fc-content-skeleton tbody td,
+        .fc-row .fc-helper-skeleton tbody td {
+            border-top: 0;
+        }
+
+        .fc-scroller {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .fc-icon,
+        .fc-row.fc-rigid,
+        .fc-time-grid-event {
+            overflow: hidden;
+        }
+
+        .fc-scroller > .fc-day-grid,
+        .fc-scroller > .fc-time-grid {
+            position: relative;
+            width: 100%;
+        }
+
+        .fc-event {
+            position: relative;
+            display: block;
+            font-size: .85em;
+            line-height: 1.3;
+            border-radius: 3px;
+            border: 1px solid #3a87ad;
+        }
+
+        .fc-event,
+        .fc-event-dot {
+            background-color: #3a87ad;
+        }
+
+            .fc-event,
+            .fc-event:hover {
+                color: #fff;
+                text-decoration: none;
+            }
+
+        .fc-not-allowed,
+        .fc-not-allowed .fc-event {
+            cursor: not-allowed;
+        }
+
+        .fc-event .fc-bg {
+            z-index: 1;
+            background: #fff;
+            opacity: .25;
+        }
+
+        .fc-event .fc-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .fc-event .fc-resizer {
+            position: absolute;
+            z-index: 4;
+            display: none;
+        }
+
+        .fc-event.fc-allow-mouse-resize .fc-resizer,
+        .fc-event.fc-selected .fc-resizer {
+            display: block;
+        }
+
+            .fc-event.fc-selected .fc-resizer:before {
+                content: "";
+                position: absolute;
+                z-index: 9999;
+                top: 50%;
+                left: 50%;
+                width: 40px;
+                height: 40px;
+                margin-left: -20px;
+                margin-top: -20px;
+            }
+
+        .fc-event.fc-selected {
+            z-index: 9999 !important;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+        }
+
+            .fc-event.fc-selected.fc-dragging {
+                box-shadow: 0 2px 7px rgba(0, 0, 0, .3);
+            }
+
+        .fc-h-event.fc-selected:before {
+            content: "";
+            position: absolute;
+            z-index: 3;
+            top: -10px;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+        }
+
+        .fc-ltr .fc-h-event.fc-not-start,
+        .fc-rtl .fc-h-event.fc-not-end {
+            margin-left: 0;
+            border-left-width: 0;
+            padding-left: 1px;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .fc-ltr .fc-h-event.fc-not-end,
+        .fc-rtl .fc-h-event.fc-not-start {
+            margin-right: 0;
+            border-right-width: 0;
+            padding-right: 1px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .fc-ltr .fc-h-event .fc-start-resizer,
+        .fc-rtl .fc-h-event .fc-end-resizer {
+            cursor: w-resize;
+            left: -1px;
+        }
+
+        .fc-ltr .fc-h-event .fc-end-resizer,
+        .fc-rtl .fc-h-event .fc-start-resizer {
+            cursor: e-resize;
+            right: -1px;
+        }
+
+        .fc-h-event.fc-allow-mouse-resize .fc-resizer {
+            width: 7px;
+            top: -1px;
+            bottom: -1px;
+        }
+
+        .fc-h-event.fc-selected .fc-resizer {
+            border-radius: 4px;
+            border-width: 1px;
+            width: 6px;
+            height: 6px;
+            border-style: solid;
+            border-color: inherit;
+            background: #fff;
+            top: 50%;
+            margin-top: -4px;
+        }
+
+        .fc-ltr .fc-h-event.fc-selected .fc-start-resizer,
+        .fc-rtl .fc-h-event.fc-selected .fc-end-resizer {
+            margin-left: -4px;
+        }
+
+        .fc-ltr .fc-h-event.fc-selected .fc-end-resizer,
+        .fc-rtl .fc-h-event.fc-selected .fc-start-resizer {
+            margin-right: -4px;
+        }
+
+        .fc-day-grid-event {
+            margin: 1px 2px 0;
+            padding: 0 1px;
+        }
+
+        tr:first-child > td > .fc-day-grid-event {
+            margin-top: 2px;
+        }
+
+        .fc-day-grid-event.fc-selected:after {
+            content: "";
+            position: absolute;
+            z-index: 1;
+            top: -1px;
+            right: -1px;
+            bottom: -1px;
+            left: -1px;
+            background: #000;
+            opacity: .25;
+        }
+
+        .fc-day-grid-event .fc-content {
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .fc-day-grid-event .fc-time {
+            font-weight: 700;
+        }
+
+        .fc-ltr .fc-day-grid-event.fc-allow-mouse-resize .fc-start-resizer,
+        .fc-rtl .fc-day-grid-event.fc-allow-mouse-resize .fc-end-resizer {
+            margin-left: -2px;
+        }
+
+        .fc-ltr .fc-day-grid-event.fc-allow-mouse-resize .fc-end-resizer,
+        .fc-rtl .fc-day-grid-event.fc-allow-mouse-resize .fc-start-resizer {
+            margin-right: -2px;
+        }
+
+        a.fc-more {
+            margin: 1px 3px;
+            font-size: .85em;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+            a.fc-more:hover {
+                text-decoration: underline;
+            }
+
+        .fc.fc-bootstrap3 a,
+        .ui-widget .fc-event {
+            text-decoration: none;
+        }
+
+        .fc-limited {
+            display: none;
+        }
+
+        .fc-icon,
+        .fc-toolbar .fc-center {
+            display: inline-block;
+        }
+
+        .fc-day-grid .fc-row {
+            z-index: 1;
+        }
+
+        .fc-more-popover {
+            z-index: 2;
+            width: 220px;
+        }
+
+            .fc-more-popover .fc-event-container {
+                padding: 10px;
+            }
+
+        .fc-bootstrap3 .fc-popover .panel-body,
+        .fc-bootstrap4 .fc-popover .card-body {
+            padding: 0;
+        }
+
+        .fc-now-indicator {
+            position: absolute;
+            border: 0 solid red;
+        }
+
+        .fc-bootstrap3 .fc-today.alert,
+        .fc-bootstrap4 .fc-today.alert {
+            border-radius: 0;
+        }
+
+        .fc-unselectable {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .fc-unthemed .fc-content,
+        .fc-unthemed .fc-divider,
+        .fc-unthemed .fc-list-heading td,
+        .fc-unthemed .fc-list-view,
+        .fc-unthemed .fc-popover,
+        .fc-unthemed .fc-row,
+        .fc-unthemed tbody,
+        .fc-unthemed td,
+        .fc-unthemed th,
+        .fc-unthemed thead {
+            border-color: #ddd;
+        }
+
+        .fc-unthemed .fc-popover {
+            background-color: #fff;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+            .fc-unthemed .fc-divider,
+            .fc-unthemed .fc-list-heading td,
+            .fc-unthemed .fc-popover .fc-header {
+                background: #eee;
+            }
+
+        .fc-unthemed td.fc-today {
+            background: #fcf8e3;
+        }
+
+        .fc-unthemed .fc-disabled-day {
+            background: #d7d7d7;
+            opacity: .3;
+        }
+
+        .fc-icon {
+            height: 1em;
+            line-height: 1em;
+            font-size: 1em;
+            font-family: "Courier New", Courier, monospace;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            .fc-icon:after {
+                position: relative;
+            }
+
+        .fc-icon-left-single-arrow:after {
+            content: "\2039";
+            font-weight: 700;
+            font-size: 200%;
+            top: -7%;
+        }
+
+        .fc-icon-right-single-arrow:after {
+            content: "\203A";
+            font-weight: 700;
+            font-size: 200%;
+            top: -7%;
+        }
+
+        .fc-icon-left-double-arrow:after {
+            content: "\AB";
+            font-size: 160%;
+            top: -7%;
+        }
+
+        .fc-icon-right-double-arrow:after {
+            content: "\BB";
+            font-size: 160%;
+            top: -7%;
+        }
+
+        .fc-icon-left-triangle:after {
+            content: "\25C4";
+            font-size: 125%;
+            top: 3%;
+        }
+
+        .fc-icon-right-triangle:after {
+            content: "\25BA";
+            font-size: 125%;
+            top: 3%;
+        }
+
+        .fc-icon-down-triangle:after {
+            content: "\25BC";
+            font-size: 125%;
+            top: 2%;
+        }
+
+        .fc-icon-x:after {
+            content: "\D7";
+            font-size: 200%;
+            top: 6%;
+        }
+
+        .fc-unthemed .fc-popover .fc-header .fc-close {
+            color: #666;
+            font-size: .9em;
+            margin-top: 2px;
+        }
+
+        .fc-unthemed .fc-list-item:hover td {
+            background-color: #f5f5f5;
+        }
+
+        .ui-widget .fc-disabled-day {
+            background-image: none;
+        }
+
+        .fc-bootstrap3 .fc-time-grid .fc-slats table,
+        .fc-bootstrap4 .fc-time-grid .fc-slats table,
+        .fc-time-grid .fc-slats .ui-widget-content {
+            background: 0 0;
+        }
+
+        .fc-popover > .ui-widget-header + .ui-widget-content {
+            border-top: 0;
+        }
+
+        .fc-bootstrap3 hr.fc-divider,
+        .fc-bootstrap4 hr.fc-divider {
+            border-color: inherit;
+        }
+
+        .ui-widget .fc-event {
+            color: #fff;
+            font-weight: 400;
+        }
+
+        .ui-widget td.fc-axis {
+            font-weight: 400;
+        }
+
+        .fc.fc-bootstrap3 a[data-goto]:hover {
+            text-decoration: underline;
+        }
+
+        .fc.fc-bootstrap4 a {
+            text-decoration: none;
+        }
+
+            .fc.fc-bootstrap4 a[data-goto]:hover {
+                text-decoration: underline;
+            }
+
+        /*.main-panel > .content {
+            margin-top: 15px !important;
+            padding: 30px 15px;
+            min-height: calc(100vh - 123px);
+        }*/
+
+        .fc-bootstrap4 a.fc-event:not([href]):not([tabindex]) {
+            color: #fff;
+        }
+
+        .fc-bootstrap4 .fc-popover.card {
+            position: absolute;
+        }
+
+        .fc-toolbar.fc-header-toolbar {
+            margin-bottom: 1em;
+        }
+
+        .fc-toolbar.fc-footer-toolbar {
+            margin-top: 1em;
+        }
+
+        .fc-toolbar .fc-left {
+            float: left;
+        }
+
+        .fc-toolbar .fc-right {
+            float: right;
+        }
+
+        .fc .fc-toolbar > * > * {
+            float: left;
+            margin-left: .75em;
+        }
+
+        .fc .fc-toolbar > * > :first-child {
+            margin-left: 0;
+        }
+
+        .fc-toolbar h2 {
+            margin: 0;
+            font-size: 1.75em;
+        }
+
+        .fc-toolbar button {
+            position: relative;
+        }
+
+        .fc-toolbar .fc-state-hover,
+        .fc-toolbar .ui-state-hover {
+            z-index: 2;
+        }
+
+        .fc-toolbar .fc-state-down {
+            z-index: 3;
+        }
+
+        .fc-toolbar .fc-state-active,
+        .fc-toolbar .ui-state-active {
+            z-index: 4;
+        }
+
+        .fc-toolbar button:focus {
+            z-index: 5;
+        }
+
+        .fc-view-container *,
+        .fc-view-container :after,
+        .fc-view-container :before {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+        }
+
+        .fc-view,
+        .fc-view > table {
+            position: relative;
+            z-index: 1;
+        }
+
+        .fc-basicDay-view .fc-content-skeleton,
+        .fc-basicWeek-view .fc-content-skeleton {
+            padding-bottom: 1em;
+        }
+
+        .fc-basic-view .fc-body .fc-row {
+            min-height: 4em;
+        }
+
+        .fc-row.fc-rigid .fc-content-skeleton {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .fc-day-top.fc-other-month {
+            opacity: .3;
+        }
+
+        .fc-basic-view .fc-day-number,
+        .fc-basic-view .fc-week-number {
+            padding: 2px;
+        }
+
+        .fc-basic-view th.fc-day-number,
+        .fc-basic-view th.fc-week-number {
+            padding: 0 2px;
+        }
+
+        .fc-ltr .fc-basic-view .fc-day-top .fc-day-number {
+            float: right;
+        }
+
+        .fc-rtl .fc-basic-view .fc-day-top .fc-day-number {
+            float: left;
+        }
+
+        .fc-ltr .fc-basic-view .fc-day-top .fc-week-number {
+            float: left;
+            border-radius: 0 0 3px;
+        }
+
+        .fc-rtl .fc-basic-view .fc-day-top .fc-week-number {
+            float: right;
+            border-radius: 0 0 0 3px;
+        }
+
+        .fc-basic-view .fc-day-top .fc-week-number {
+            min-width: 1.5em;
+            text-align: center;
+            background-color: #f2f2f2;
+            color: grey;
+        }
+
+        .fc-basic-view td.fc-week-number > * {
+            display: inline-block;
+            min-width: 1.25em;
+        }
+
+        .fc-agenda-view .fc-day-grid {
+            position: relative;
+            z-index: 2;
+        }
+
+            .fc-agenda-view .fc-day-grid .fc-row {
+                min-height: 3em;
+            }
+
+                .fc-agenda-view .fc-day-grid .fc-row .fc-content-skeleton {
+                    padding-bottom: 1em;
+                }
+
+        .fc .fc-axis {
+            vertical-align: middle;
+            padding: 0 4px;
+            white-space: nowrap;
+        }
+
+        .fc-ltr .fc-axis {
+            text-align: right;
+        }
+
+        .fc-rtl .fc-axis {
+            text-align: left;
+        }
+
+        .fc-time-grid,
+        .fc-time-grid-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .fc-time-grid {
+            min-height: 100%;
+        }
+
+            .fc-time-grid table {
+                border: 0 hidden transparent;
+            }
+
+            .fc-time-grid > .fc-bg {
+                z-index: 1;
+            }
+
+            .fc-time-grid .fc-slats,
+            .fc-time-grid > hr {
+                position: relative;
+                z-index: 2;
+            }
+
+            .fc-time-grid .fc-content-col {
+                position: relative;
+            }
+
+            .fc-time-grid .fc-content-skeleton {
+                position: absolute;
+                z-index: 3;
+                top: 0;
+                left: 0;
+                right: 0;
+            }
+
+            .fc-time-grid .fc-business-container {
+                position: relative;
+                z-index: 1;
+            }
+
+            .fc-time-grid .fc-bgevent-container {
+                position: relative;
+                z-index: 2;
+            }
+
+            .fc-time-grid .fc-highlight-container {
+                z-index: 3;
+                position: relative;
+            }
+
+            .fc-time-grid .fc-event-container {
+                position: relative;
+                z-index: 4;
+            }
+
+            .fc-time-grid .fc-now-indicator-line {
+                z-index: 5;
+            }
+
+            .fc-time-grid .fc-helper-container {
+                position: relative;
+                z-index: 6;
+            }
+
+            .fc-time-grid .fc-slats td {
+                height: 1.5em;
+                border-bottom: 0;
+            }
+
+            .fc-time-grid .fc-slats .fc-minor td {
+                border-top-style: dotted;
+            }
+
+            .fc-time-grid .fc-highlight {
+                position: absolute;
+                left: 0;
+                right: 0;
+            }
+
+        .fc-ltr .fc-time-grid .fc-event-container {
+            margin: 0 2.5% 0 2px;
+        }
+
+        .fc-rtl .fc-time-grid .fc-event-container {
+            margin: 0 2px 0 2.5%;
+        }
+
+        .fc-time-grid .fc-bgevent,
+        .fc-time-grid .fc-event {
+            position: absolute;
+            z-index: 1;
+        }
+
+        .fc-time-grid .fc-bgevent {
+            left: 0;
+            right: 0;
+        }
+
+        .fc-v-event.fc-not-start {
+            border-top-width: 0;
+            padding-top: 1px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .fc-v-event.fc-not-end {
+            border-bottom-width: 0;
+            padding-bottom: 1px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .fc-time-grid-event.fc-selected {
+            overflow: visible;
+        }
+
+            .fc-time-grid-event.fc-selected .fc-bg {
+                display: none;
+            }
+
+        .fc-time-grid-event .fc-content {
+            overflow: hidden;
+        }
+
+        .fc-time-grid-event .fc-time,
+        .fc-time-grid-event .fc-title {
+            padding: 0 1px;
+        }
+
+        .fc-time-grid-event .fc-time {
+            font-size: .85em;
+            white-space: nowrap;
+        }
+
+        .fc-time-grid-event.fc-short .fc-content {
+            white-space: nowrap;
+        }
+
+        .fc-time-grid-event.fc-short .fc-time,
+        .fc-time-grid-event.fc-short .fc-title {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+            .fc-time-grid-event.fc-short .fc-time span {
+                display: none;
+            }
+
+            .fc-time-grid-event.fc-short .fc-time:before {
+                content: attr(data-start);
+            }
+
+            .fc-time-grid-event.fc-short .fc-time:after {
+                content: "\A0-\A0";
+            }
+
+        .fc-time-grid-event.fc-short .fc-title {
+            font-size: .85em;
+            padding: 0;
+        }
+
+        .fc-time-grid-event.fc-allow-mouse-resize .fc-resizer {
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 8px;
+            overflow: hidden;
+            line-height: 8px;
+            font-size: 11px;
+            font-family: monospace;
+            text-align: center;
+            cursor: s-resize;
+        }
+
+            .fc-time-grid-event.fc-allow-mouse-resize .fc-resizer:after {
+                content: "=";
+            }
+
+        .fc-time-grid-event.fc-selected .fc-resizer {
+            border-radius: 5px;
+            border-width: 1px;
+            width: 8px;
+            height: 8px;
+            border-style: solid;
+            border-color: inherit;
+            background: #fff;
+            left: 50%;
+            margin-left: -5px;
+            bottom: -5px;
+        }
+
+        .fc-time-grid .fc-now-indicator-line {
+            border-top-width: 1px;
+            left: 0;
+            right: 0;
+        }
+
+        .fc-time-grid .fc-now-indicator-arrow {
+            margin-top: -5px;
+        }
+
+        .fc-ltr .fc-time-grid .fc-now-indicator-arrow {
+            left: 0;
+            border-width: 5px 0 5px 6px;
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+        }
+
+        .fc-rtl .fc-time-grid .fc-now-indicator-arrow {
+            right: 0;
+            border-width: 5px 6px 5px 0;
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+        }
+
+        .fc-event-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+        }
+
+        .fc-rtl .fc-list-view {
+            direction: rtl;
+        }
+
+        .fc-list-view {
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .fc .fc-list-table {
+            table-layout: auto;
+        }
+
+        .fc-list-table td {
+            border-width: 1px 0 0;
+            padding: 8px 14px;
+        }
+
+        .fc-list-table tr:first-child td {
+            border-top-width: 0;
+        }
+
+        .fc-list-heading {
+            border-bottom-width: 1px;
+        }
+
+            .fc-list-heading td {
+                font-weight: 700;
+            }
+
+        .fc-ltr .fc-list-heading-main {
+            float: left;
+        }
+
+        .fc-ltr .fc-list-heading-alt,
+        .fc-rtl .fc-list-heading-main {
+            float: right;
+        }
+
+        .fc-rtl .fc-list-heading-alt {
+            float: left;
+        }
+
+        .fc-list-item.fc-has-url {
+            cursor: pointer;
+        }
+
+        .fc-list-item-marker,
+        .fc-list-item-time {
+            white-space: nowrap;
+            width: 1px;
+        }
+
+        .fc-ltr .fc-list-item-marker {
+            padding-right: 0;
+        }
+
+        .fc-rtl .fc-list-item-marker {
+            padding-left: 0;
+        }
+
+        .fc-list-item-title a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+            .fc-list-item-title a[href]:hover {
+                text-decoration: underline;
+            }
+
+        .fc-list-empty-wrap2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .fc-list-empty-wrap1 {
+            width: 100%;
+            height: 100%;
+            display: table;
+        }
+
+        .fc-list-empty {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .fc-unthemed .fc-list-empty {
+            background-color: #eee;
+        }
+
+        .fc-time-grid-event .fc-content .fc-title {
+            word-wrap: normal !important;
+        }
+    </style>
+
+    <script src='~/Content/assets/packages/core/main.js'></script>
+    <script src='~/Content/assets/packages/interaction/main.js'></script>
+    <script src='~/Content/assets/packages/daygrid/main.js'></script>
+    <script src='~/Content/assets/packages/timegrid/main.js'></script>
+    <script src='~/Content/assets/packages/list/main.js'></script>
+    <script src='~/Content/assets/packages/cal.js'></script>
+
     <script>
-    function filterGlobal() {
+        function filterGlobal() {
 
-        $('#datatable').DataTable().search(
-            $('#global_filter').val(), false, true
-            /*$('#global_regex').prop('checked'),
-            $('#global_smart').prop('checked')*/
-        ).draw();
-    }
-    $(document).ready(function () {
+            $('#datatable').DataTable().search(
+                $('#global_filter').val(), false, true
+                /*$('#global_regex').prop('checked'),
+                $('#global_smart').prop('checked')*/
+            ).draw();
+        }
+        $(document).ready(function () {
 
-        $("#datatable_filter").hide();
+            $.get('@Url.Action("GetNotifications","AspNetPushNotifications")', function (data) {
+                debugger
 
-        $.post(
-                  "/AspNetUser/GetProfilePic",
-                  $(".changepassword-form").serialize(),
-                  function (data) {
-
-                      $('#theDiv').prepend('<img id="theImg" height ="45" width = "45" src="/Content/Images/StudentImages/' + data + '" />')
-
-
-
-                  },
-                  "text"
-              );
-        //empty
-
-
-    });//End of Document Ready
-    $(document).ready(function () {
-
-
-        $().ready(function () {
-
-
-
-            $sidebar = $('.sidebar');
-
-            $sidebar_img_container = $sidebar.find('.sidebar-background');
-
-            $full_page = $('.full-page');
-
-            $sidebar_responsive = $('body > .navbar-collapse');
-
-            window_width = $(window).width();
-
-            fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
-
-            if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
-                if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
-                    $('.fixed-plugin .dropdown').addClass('open');
+                if (data.length == 0) {
+                    $('#Notification_Numbers').html('0');
+                }
+                else {
+                    $('#Notification_Numbers').html(data.length);
                 }
 
-            }
+                $('#Notification_Header').html('You have ' + data.length + ' unread notifications');
+                $.each(data, function (i, item) {
+                    // item.Message = item.Message.substring(0, 10);
+                    //item.Message = item.Message + "...";
+                    // $('#notification_Dropdown_area').append('<li><a href="/AspNetPushNotifications/Details?id=' + item.Id + '"><p>' + item.Message + '</p></a></li>');
+                    $('#Notification_Dropdown_Area').append('<li><a href="/AspNetPushNotifications/Details?id=' + item.Id + '"> ' + item.Description + '</a></li>')
 
-            $('.fixed-plugin a').click(function (event) {
-                // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
-                if ($(this).hasClass('switch-trigger')) {
-                    if (event.stopPropagation) {
-                        event.stopPropagation();
-                    } else if (window.event) {
-                        window.event.cancelBubble = true;
+                });
+            });
+
+            $("#datatable_filter").hide();
+
+            $.post(
+                "/AspNetUser/GetProfilePic",
+                $(".changepassword-form").serialize(),
+                function (data) {
+
+                    $('#theDiv').prepend('<img id="theImg" height ="45" width = "45" src="/Content/Images/StudentImages/' + data + '" />')
+
+
+
+                },
+                "text"
+            );
+            //empty
+
+
+        });//End of Document Ready
+        $(document).ready(function () {
+
+
+            $().ready(function () {
+
+
+
+                $sidebar = $('.sidebar');
+
+                $sidebar_img_container = $sidebar.find('.sidebar-background');
+
+                $full_page = $('.full-page');
+
+                $sidebar_responsive = $('body > .navbar-collapse');
+
+                window_width = $(window).width();
+
+                fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+                if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
+                    if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+                        $('.fixed-plugin .dropdown').addClass('open');
                     }
-                }
-            });
 
-            $('.fixed-plugin .active-color span').click(function () {
-                $full_page_background = $('.full-page-background');
-
-                $(this).siblings().removeClass('active');
-                $(this).addClass('active');
-
-                var new_color = $(this).data('color');
-
-                if ($sidebar.length != 0) {
-                    $sidebar.attr('data-color', new_color);
                 }
 
-                if ($full_page.length != 0) {
-                    $full_page.attr('filter-color', new_color);
-                }
+                $('.fixed-plugin a').click(function (event) {
+                    // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+                    if ($(this).hasClass('switch-trigger')) {
+                        if (event.stopPropagation) {
+                            event.stopPropagation();
+                        } else if (window.event) {
+                            window.event.cancelBubble = true;
+                        }
+                    }
+                });
 
-                if ($sidebar_responsive.length != 0) {
-                    $sidebar_responsive.attr('data-color', new_color);
-                }
-            });
+                $('.fixed-plugin .active-color span').click(function () {
+                    $full_page_background = $('.full-page-background');
 
-            $('.fixed-plugin .background-color .badge').click(function () {
-                $(this).siblings().removeClass('active');
-                $(this).addClass('active');
+                    $(this).siblings().removeClass('active');
+                    $(this).addClass('active');
 
-                var new_color = $(this).data('background-color');
+                    var new_color = $(this).data('color');
 
-                if ($sidebar.length != 0) {
-                    $sidebar.attr('data-background-color', new_color);
-                }
-            });
+                    if ($sidebar.length != 0) {
+                        $sidebar.attr('data-color', new_color);
+                    }
 
-            $('.fixed-plugin .img-holder').click(function () {
-                $full_page_background = $('.full-page-background');
+                    if ($full_page.length != 0) {
+                        $full_page.attr('filter-color', new_color);
+                    }
 
-                $(this).parent('li').siblings().removeClass('active');
-                $(this).parent('li').addClass('active');
+                    if ($sidebar_responsive.length != 0) {
+                        $sidebar_responsive.attr('data-color', new_color);
+                    }
+                });
+
+                $('.fixed-plugin .background-color .badge').click(function () {
+                    $(this).siblings().removeClass('active');
+                    $(this).addClass('active');
+
+                    var new_color = $(this).data('background-color');
+
+                    if ($sidebar.length != 0) {
+                        $sidebar.attr('data-background-color', new_color);
+                    }
+                });
+
+                $('.fixed-plugin .img-holder').click(function () {
+                    $full_page_background = $('.full-page-background');
+
+                    $(this).parent('li').siblings().removeClass('active');
+                    $(this).parent('li').addClass('active');
 
 
-                var new_image = $(this).find("img").attr('src');
+                    var new_image = $(this).find("img").attr('src');
 
-                if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-                    $sidebar_img_container.fadeOut('fast', function () {
+                    if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                        $sidebar_img_container.fadeOut('fast', function () {
+                            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                            $sidebar_img_container.fadeIn('fast');
+                        });
+                    }
+
+                    if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                        var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                        $full_page_background.fadeOut('fast', function () {
+                            $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                            $full_page_background.fadeIn('fast');
+                        });
+                    }
+
+                    if ($('.switch-sidebar-image input:checked').length == 0) {
+                        var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
+                        var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
                         $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-                        $sidebar_img_container.fadeIn('fast');
-                    });
-                }
-
-                if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-                    var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
-
-                    $full_page_background.fadeOut('fast', function () {
                         $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-                        $full_page_background.fadeIn('fast');
-                    });
-                }
-
-                if ($('.switch-sidebar-image input:checked').length == 0) {
-                    var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
-                    var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
-
-                    $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-                    $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-                }
-
-                if ($sidebar_responsive.length != 0) {
-                    $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
-                }
-            });
-
-            $('.switch-sidebar-image input').change(function () {
-                $full_page_background = $('.full-page-background');
-
-                $input = $(this);
-
-                if ($input.is(':checked')) {
-                    if ($sidebar_img_container.length != 0) {
-                        $sidebar_img_container.fadeIn('fast');
-                        $sidebar.attr('data-image', '#');
                     }
 
-                    if ($full_page_background.length != 0) {
-                        $full_page_background.fadeIn('fast');
-                        $full_page.attr('data-image', '#');
+                    if ($sidebar_responsive.length != 0) {
+                        $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
+                    }
+                });
+
+                $('.switch-sidebar-image input').change(function () {
+                    $full_page_background = $('.full-page-background');
+
+                    $input = $(this);
+
+                    if ($input.is(':checked')) {
+                        if ($sidebar_img_container.length != 0) {
+                            $sidebar_img_container.fadeIn('fast');
+                            $sidebar.attr('data-image', '#');
+                        }
+
+                        if ($full_page_background.length != 0) {
+                            $full_page_background.fadeIn('fast');
+                            $full_page.attr('data-image', '#');
+                        }
+
+                        background_image = true;
+                    } else {
+                        if ($sidebar_img_container.length != 0) {
+                            $sidebar.removeAttr('data-image');
+                            $sidebar_img_container.fadeOut('fast');
+                        }
+
+                        if ($full_page_background.length != 0) {
+                            $full_page.removeAttr('data-image', '#');
+                            $full_page_background.fadeOut('fast');
+                        }
+
+                        background_image = false;
+                    }
+                });
+
+                $('.switch-sidebar-mini input').change(function () {
+                    $body = $('body');
+
+                    $input = $(this);
+
+                    if (md.misc.sidebar_mini_active == true) {
+                        $('body').removeClass('sidebar-mini');
+                        md.misc.sidebar_mini_active = false;
+
+                        $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+                    } else {
+
+                        $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+
+                        setTimeout(function () {
+                            $('body').addClass('sidebar-mini');
+
+                            md.misc.sidebar_mini_active = true;
+                        }, 300);
                     }
 
-                    background_image = true;
-                } else {
-                    if ($sidebar_img_container.length != 0) {
-                        $sidebar.removeAttr('data-image');
-                        $sidebar_img_container.fadeOut('fast');
-                    }
+                    // we simulate the window Resize so the charts will get updated in realtime.
+                    var simulateWindowResize = setInterval(function () {
+                        window.dispatchEvent(new Event('resize'));
+                    }, 180);
 
-                    if ($full_page_background.length != 0) {
-                        $full_page.removeAttr('data-image', '#');
-                        $full_page_background.fadeOut('fast');
-                    }
-
-                    background_image = false;
-                }
-            });
-
-            $('.switch-sidebar-mini input').change(function () {
-                $body = $('body');
-
-                $input = $(this);
-
-                if (md.misc.sidebar_mini_active == true) {
-                    $('body').removeClass('sidebar-mini');
-                    md.misc.sidebar_mini_active = false;
-
-                    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
-
-                } else {
-
-                    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
-
+                    // we stop the simulation of Window Resize after the animations are completed
                     setTimeout(function () {
-                        $('body').addClass('sidebar-mini');
+                        clearInterval(simulateWindowResize);
+                    }, 1000);
 
-                        md.misc.sidebar_mini_active = true;
-                    }, 300);
-                }
-
-                // we simulate the window Resize so the charts will get updated in realtime.
-                var simulateWindowResize = setInterval(function () {
-                    window.dispatchEvent(new Event('resize'));
-                }, 180);
-
-                // we stop the simulation of Window Resize after the animations are completed
-                setTimeout(function () {
-                    clearInterval(simulateWindowResize);
-                }, 1000);
-
+                });
             });
+
         });
-
-
-        $.get('@Url.Action("GetNotifications","AspNetPushNotifications")', function (data) {
-            debugger
-
-               if (data.length == 0) {
-                $('#Notification_Numbers').html('0');
-            }
-            else {
-                $('#Notification_Numbers').html(data.length);
-            }
-
-            $('#Notification_Header').html('You have ' + data.length + ' unread notifications');
-            $.each(data, function (i, item) {
-                // item.Message = item.Message.substring(0, 10);
-                //item.Message = item.Message + "...";
-                // $('#notification_Dropdown_area').append('<li><a href="/AspNetPushNotifications/Details?id=' + item.Id + '"><p>' + item.Message + '</p></a></li>');
-                $('#Notification_Dropdown_Area').append('<li><a href="/AspNetPushNotifications/Details?id=' + item.Id + '"> '+ item.Description + '</a></li>')
-
-            });
-        });
-
-
-    }); // End of document ready
     </script>
 
+    @*<script>
+            function filterGlobal() {
 
+                $('#datatable').DataTable().search(
+                    $('#global_filter').val(), false, true
+                    /*$('#global_regex').prop('checked'),
+                    $('#global_smart').prop('checked')*/
+                ).draw();
+            }
+            $(document).ready(function () {
+
+                $('#datatable').DataTable({
+                    buttons: [
+                        {
+                            text: '<span class="datatableButtonsReset"> <img src="~/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
+                        },
+                        {
+                            text: '<span class="datatableButtonsEdit"> <img src="~/Content/assets/assets/icons/Icon-edit.png" alt=""> Edit</span>'
+                        },
+                        {
+                            text: '<span class="datatableButtonsDelete"> <img src="~/Content/assets/assets/icons/Icon-bin.png" alt=""> Delete</span>'
+                        },
+                        {
+                            text: '<span class="datatableButtonsDownload"> <img src="~/Content/assets/assets/icons/Icon-download.png" alt=""> Download</span>'
+                        }
+                    ],
+                    "language": {
+                        "lengthMenu": "<div class=\"d-flex showEntriesCon\">\n" +
+                            "  <div class=\"p-2\">Show </div> <div class=\"showEntries\"> _MENU_\n" +
+                            "  </div>\n" +
+                            "  </div>",
+                        "info": "<div class='showingEntriesOfTotal'>Showing <span class=\"text-info\">_START_ to _END_</span> of _TOTAL_ entries</div>",
+                        "paginate": {
+                            "first": "Firstt",
+                            "last": "Lastt",
+                            "next": ' <img src="~/Content/assets/assets/icons/Arrow2.png" alt=""> ',
+                            "previous": ' <img src="~/Content/assets/assets/icons/Arrow1.png" alt=""> '
+                        }
+                    },
+                    "searching": true,
+                    // dom: '<"class">Blfrtip',
+                    dom: "<'row mb-3'<'col-sm-12 col-md-2 col-lg-2'l><'col-sm-12 col-md-10 col-lg-10 datatableButtonsCon text-right'Bf>>" +
+                        "<'row'<'col-sm-12 datatablesData'tr>>" +
+                        "<'row mt-4'<'col-sm-12 col-md-4 col-lg-6 infoCon'i><'col-sm-12 col-md-8 col-lg-6 pagCon'p>>",
+                });
+                $('input#global_filter').on('keyup click', function () {
+                    filterGlobal();
+                });
+            });
+            $(document).ready(function () {
+                $().ready(function () {
+
+                    $sidebar = $('.sidebar');
+
+                    $sidebar_img_container = $sidebar.find('.sidebar-background');
+
+                    $full_page = $('.full-page');
+
+                    $sidebar_responsive = $('body > .navbar-collapse');
+
+                    window_width = $(window).width();
+
+                    fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+                    if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
+                        if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+                            $('.fixed-plugin .dropdown').addClass('open');
+                        }
+
+                    }
+
+                    $('.fixed-plugin a').click(function (event) {
+                        // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+                        if ($(this).hasClass('switch-trigger')) {
+                            if (event.stopPropagation) {
+                                event.stopPropagation();
+                            } else if (window.event) {
+                                window.event.cancelBubble = true;
+                            }
+                        }
+                    });
+
+                    $('.fixed-plugin .active-color span').click(function () {
+                        $full_page_background = $('.full-page-background');
+
+                        $(this).siblings().removeClass('active');
+                        $(this).addClass('active');
+
+                        var new_color = $(this).data('color');
+
+                        if ($sidebar.length != 0) {
+                            $sidebar.attr('data-color', new_color);
+                        }
+
+                        if ($full_page.length != 0) {
+                            $full_page.attr('filter-color', new_color);
+                        }
+
+                        if ($sidebar_responsive.length != 0) {
+                            $sidebar_responsive.attr('data-color', new_color);
+                        }
+                    });
+
+                    $('.fixed-plugin .background-color .badge').click(function () {
+                        $(this).siblings().removeClass('active');
+                        $(this).addClass('active');
+
+                        var new_color = $(this).data('background-color');
+
+                        if ($sidebar.length != 0) {
+                            $sidebar.attr('data-background-color', new_color);
+                        }
+                    });
+
+                    $('.fixed-plugin .img-holder').click(function () {
+                        $full_page_background = $('.full-page-background');
+
+                        $(this).parent('li').siblings().removeClass('active');
+                        $(this).parent('li').addClass('active');
+
+
+                        var new_image = $(this).find("img").attr('src');
+
+                        if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                            $sidebar_img_container.fadeOut('fast', function () {
+                                $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                                $sidebar_img_container.fadeIn('fast');
+                            });
+                        }
+
+                        if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                            $full_page_background.fadeOut('fast', function () {
+                                $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                                $full_page_background.fadeIn('fast');
+                            });
+                        }
+
+                        if ($('.switch-sidebar-image input:checked').length == 0) {
+                            var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
+                            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                            $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                        }
+
+                        if ($sidebar_responsive.length != 0) {
+                            $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
+                        }
+                    });
+
+                    $('.switch-sidebar-image input').change(function () {
+                        $full_page_background = $('.full-page-background');
+
+                        $input = $(this);
+
+                        if ($input.is(':checked')) {
+                            if ($sidebar_img_container.length != 0) {
+                                $sidebar_img_container.fadeIn('fast');
+                                $sidebar.attr('data-image', '#');
+                            }
+
+                            if ($full_page_background.length != 0) {
+                                $full_page_background.fadeIn('fast');
+                                $full_page.attr('data-image', '#');
+                            }
+
+                            background_image = true;
+                        } else {
+                            if ($sidebar_img_container.length != 0) {
+                                $sidebar.removeAttr('data-image');
+                                $sidebar_img_container.fadeOut('fast');
+                            }
+
+                            if ($full_page_background.length != 0) {
+                                $full_page.removeAttr('data-image', '#');
+                                $full_page_background.fadeOut('fast');
+                            }
+
+                            background_image = false;
+                        }
+                    });
+
+                    $('.switch-sidebar-mini input').change(function () {
+                        $body = $('body');
+
+                        $input = $(this);
+
+                        if (md.misc.sidebar_mini_active == true) {
+                            $('body').removeClass('sidebar-mini');
+                            md.misc.sidebar_mini_active = false;
+
+                            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+                        } else {
+
+                            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+
+                            setTimeout(function () {
+                                $('body').addClass('sidebar-mini');
+
+                                md.misc.sidebar_mini_active = true;
+                            }, 300);
+                        }
+
+                        // we simulate the window Resize so the charts will get updated in realtime.
+                        var simulateWindowResize = setInterval(function () {
+                            window.dispatchEvent(new Event('resize'));
+                        }, 180);
+
+                        // we stop the simulation of Window Resize after the animations are completed
+                        setTimeout(function () {
+                            clearInterval(simulateWindowResize);
+                        }, 1000);
+
+                    });
+                });
+
+            });
+        </script>*@
 </body>
 
 </html>

@@ -4,15 +4,30 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
 }
+<style>
+    tfoot {
+        display: table-header-group;
+    }
 
-                      <style>
-                          div#datatable_filter {
-                              display: block !important;
-                          }
-                          div#datatable1_filter {
-                              display: block !important;
-                          }
-                      </style>
+        tfoot input {
+            width: 100%;
+            padding: 3px;
+            box-sizing: border-box;
+        }
+
+        div#datatable_filter {
+            display: block !important;
+       }
+
+        a.page-link{
+            padding-top: 5px;
+        }
+
+        /*div#datatable1_filter {
+             display: block !important;
+        }*/
+</style>
+
 <script>
     $(document).ready(function () {
 
@@ -20,6 +35,11 @@
 
         $("#BreadCrumbs").append(' <li> <a href="/Account/Dashboard"> Home </a> <span>&gt;</span></li>');
         $("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Topics And Lessons</a></li>');
+
+        $('#datatable1 tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" class="round-border" style="border-color:#053f89; border-radius:5px; width:100%" placeholder="Search" />');
+        });
 
         var table = $('#datatable').dataTable({
                     buttons: [
@@ -57,6 +77,20 @@
                 });
         
         var table1 = $('#datatable1').dataTable({
+            initComplete: function () {
+                // Apply the search
+                this.api().columns().every(function () {
+                    var that = this;
+
+                    $('input', this.footer()).on('keyup change clear', function () {
+                        if (that.search() !== this.value) {
+                            that
+                                .search(this.value)
+                                .draw();
+                        }
+                    });
+                });
+            },
                     buttons: [
                         {
                             text: '<span class="datatableButtonsReset"> <img src="/Content/assets/assets/icons/Icon-Reset2.png" alt=""> Reset</span>'
@@ -131,13 +165,23 @@
 
                 $.each(data, function (index) {
 
-                    table1.fnAddData([ data[index].LessonName+"<input  type=hidden value="+data[index].LessonId+">", data[index].LessonVidoeUrl, data[index].LessonDescription, data[index].LessonDuration, data[index].LessonSubjectTopicName]);
+                    var value = new Date(parseInt(data[index].CreationDate.replace(/(^.*\()|([+-].*$)/g, '')));
+                    var dat = value.getMonth() +
+                        1 +
+                        "/" +
+                        value.getDate() +
+                        "/" +
+                        value.getFullYear();
+
+                    table1.fnAddData([dat + "<input  type=hidden value=" + data[index].LessonId + ">", data[index].SubjectName, data[index].LessonName, data[index].LessonDescription, data[index].LessonDuration, data[index].LessonSubjectTopicName]);
 
                 })
                 table1.fnDraw();
 
             }
         })
+
+        $('#datatable1 tfoot tr').appendTo('#datatable1 thead');
     })
 </script>
 
@@ -259,12 +303,12 @@
                                     <table class="table1 hover table-striped table-bordered" id="datatable1">
                                         <thead>
                                             <tr>
-                                                @*<th>  ID</th>*@
+                                                <th>Creation Date</th>
                                                 <th>
-                                                    Name
+                                                    Subject Name
                                                 </th>
                                                 <th>
-                                                    Video Url
+                                                    Lesson Name
                                                 </th>
                                                 <th>
                                                     Description
@@ -279,6 +323,27 @@
                                             </tr>
                                         </thead>
                                         <tbody id="LessonsList"></tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Creation Date</th>
+                                                <th>
+                                                    Subject Name
+                                                </th>
+                                                <th>
+                                                    Lesson Name
+                                                </th>
+                                                <th>
+                                                    Description
+                                                </th>
+                                                <th>
+                                                    Duration Minutes
+                                                </th>
+                                                <th>
+                                                    Topic Name
+                                                </th>
+
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
 

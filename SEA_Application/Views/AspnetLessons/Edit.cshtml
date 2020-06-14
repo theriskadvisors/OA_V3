@@ -338,7 +338,15 @@
         })
 
 
+        $("#DeleteButton").click(function () {
 
+            var Id = $("#Id").val();
+
+            // window.location.href = "/AspnetSubjectTopics/Delete";
+
+            window.location.href = "/AspnetLessons/DeleteLessons?id=" + Id;
+
+        })
 
 
     })//end of document ready
@@ -455,6 +463,7 @@
                     <!-- One "tab" for each step in the form: -->
                     <div class="tab">
                         <h2 class="column-heading wizard-heading mb-4">Lesson Basic Info</h2>
+                        @Html.HiddenFor(model => model.Id)
                         <div class="row">
                             <div class="col-md-6 leftCol">
 
@@ -820,6 +829,12 @@
                     <button onclick="/*showTab(0); currentTab = 0;*/" class="btn btn-primary pull-right rounded rounded-lg bg-transparent text-muted shadow-none mr-3" type="reset">
                         <i class="material-icons mr-2">cached</i>  Reset &nbsp; &nbsp;
                         <div class="ripple-container"></div>
+                    </button>
+                    @*<button type="button" id="DeleteButton" class="btn btn-danger pull-right rounded rounded-lg">
+                        Delete &nbsp; &nbsp;
+                    </button>*@
+                    <button id="DeleteButton" class="btn btn-danger pull-right rounded rounded-lg shadow-none mr-3" type="button">
+                        Delete &nbsp; &nbsp;
                     </button>
 
                     <div class="clearfix"></div>

@@ -41,7 +41,18 @@ namespace SEA_Application.Controllers
         // GET: Student_Dashboard
         public ActionResult Dashboard()
         {
+            var ID = User.Identity.GetUserId();
 
+            var Classes1 = db.AspNetStudent_Subject.Where(x => x.StudentID == ID).Select(x => x.AspNetSubject.SubjectName).Distinct().ToList();
+            List<string> classes = new List<string>();
+
+            foreach (var clas in Classes1)
+            {
+                classes.Add(clas);
+            }
+
+            //classes.Add("Not Published");
+            ViewBag.AllClasses = classes;
             //return RedirectToAction("Index", "StudentCourses");
             return View("BlankPage");
         }

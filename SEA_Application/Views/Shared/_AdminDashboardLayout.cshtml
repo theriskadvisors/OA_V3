@@ -2,28 +2,26 @@
 <html lang="en">
 
 <head>
-    
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="~/Content/assets/assets/img/orignal.png">
-    <link rel="icon" type="image/png" href="~/Content/assets/assets/img/orignal.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        Officers Academy
+        OA | Best Academy for CSS
     </title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/Content/assets/css/vendors.bundle.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
     <!-- CSS Files -->
     <link href="~/Content/assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <!--    <link href="~/Content/assets/demo/demo.css" rel="stylesheet" />-->
+    <!--    <link href="../assets/demo/demo.css" rel="stylesheet" />-->
 
     <link rel="stylesheet" href="~/Content/assets/css/style.css">
-    <script src="~/AdminLTE/plugins/jquery/js/jQuery-2.1.4.min.js"></script>
-    <link rel="stylesheet" href="~/Content/assets/assets/summernote.min.css">
 
     <style>
         table.dataTable.hover tbody tr:hover,
@@ -32,22 +30,32 @@
             cursor: pointer;
         }
 
-        .hidden {
-            display: none;
+        .footer {
+            padding: 0.9375rem 0;
+            text-align: center;
+            padding: 25px;
+            display: -webkit-flex;
+            display: flex;
         }
 
-        .Floating_label{
+
+
+        .hidden {
+            display: none !important;
+        }
+
+        .Floating_label {
             background: white;
             margin-left: 0.5rem;
             border-left: 4px solid white;
             border-right: 4px solid white;
             transform: translateY(-1.75rem);
             top: 1.3rem;
-            color: black;
+            color: #AAAAAA;
         }
 
-        .Floating_text{
-            border:2px solid #eee ;
+        .Floating_text {
+            border: 2px solid #00b8ec;
             border-radius: 0.3rem;
         }
     </style>
@@ -56,6 +64,13 @@
 
 
 <body class="">
+
+    <!--   Core JS Files   -->
+    <script src="~/Content/assets/js/core/jquery.min.js"></script>
+    <script src="~/Content/assets/js/core/popper.min.js"></script>
+    <script src="~/Content/assets/js/core/bootstrap-material-design.min.js"></script>
+    <script src="~/Content/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+
     <div class="wrapper ">
         <!--SIDEBAR-->
         <div class="sidebar" data-color="azure" data-background-color="azure">
@@ -64,9 +79,12 @@
 
                 Tip 2: you can also add an image using data-image tag
             -->
-            <div class="logo">
-                <a class="simple-text logo-normal" href="#">
+            <div class="logo d-flex" style="background-color:white !important;">
+                <a class="simple-text logo-normal" href="#" style="flex: 3;">
                     <img class="transparent" alt="" src="~/Content/assets/assets/img/orignal.png" height="143" width="143">
+                </a>
+                <a class="simple-text collapseSide hidden" onclick="collapseSide(this);" href="#" style="flex: 1;">
+                    <img class="transparent" alt="" src="~/Content/assets/img/sidebar.png">
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -74,18 +92,14 @@
 
                     <li class="nav-item active">
                         <a href="@Url.Action("Dashboard", "Admin_Dashboard" )" class="nav-link nav-toggle">
-                            <i class="sea-dash">
-                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/icon-home.png" alt="">
-                            </i>
+                            <i class="fal fa-home-alt"></i>
                             <p id="">Home </p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="@Url.Action("StudentsIndex", "AspNetUser")" class="nav-link nav-toggle">
-                            <i class="sea-dash">
-                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
-                            </i>
+                            <i class="fal fa-users-class"></i>
                             <p id="">Students </p>
                         </a>
                     </li>
@@ -134,15 +148,15 @@
                         </a>
                     </li>
                     @*
-        <li class="nav-item">
-            <a href="@(Url.Action("MonthlyFeeStudent", "Admin_Dashboard" ))">
+                <li class="nav-item">
+                    <a href="@(Url.Action("MonthlyFeeStudent", "Admin_Dashboard" ))">
 
-                <i class="sea-dash">
-                    <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
-                </i>
-                <p>Fee Status</p>
-            </a>
-        </li>*@
+                        <i class="sea-dash">
+                            <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
+                        </i>
+                        <p>Fee Status</p>
+                    </a>
+                </li>*@
 
                     <li class="nav-item">
                         <a href="@Url.Action("Index", "Expense" )" class="nav-link nav-toggle">
@@ -177,9 +191,7 @@
                     <li class="nav-item">
                         <a href="@Url.Action("ViewTopicsAndLessons", "AspnetSubjectTopics" )" class="nav-link nav-toggle">
 
-                            <i class="sea-dash">
-                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/icon-lessons.png" alt="">
-                            </i>
+                            <i class="fal fa-chalkboard-teacher"></i>
                             <p>Topics & Lessons</p>
                         </a>
                     </li>
@@ -204,18 +216,14 @@
                     <li class="nav-item">
 
                         <a href="@Url.Action("Index", "AspNetNotes" )" class="nav-link nav-toggle">
-                            <i class="sea-dash">
-                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Stats.png" alt="">
-                            </i>
+                            <i class="fal fa-books"></i>
                             <p>Notes</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="@Url.Action("Index", "AspNetTimeTable" )" class="nav-link nav-toggle">
-                            <i class="sea-dash">
-                                <img style="width: 18px;line-height: 30px;font-size: 24px;vertical-align: -1px;" src="~/Content/assets/assets/icons/Icon-Students.png" alt="">
-                            </i>
+                            <i class="fal fa-calendar-alt"></i>
                             <p>Time Table</p>
                         </a>
                     </li>
@@ -227,7 +235,7 @@
                             </i>
                             <p>Session</p>
                         </a>
-                    </li>                    
+                    </li>
 
                     <li class="nav-item">
                         <a href="@Url.Action("Password", "AspNetSession" )" class="nav-link nav-toggle">
@@ -236,7 +244,7 @@
                             </i>
                             <p>Student Passwords</p>
                         </a>
-                    </li> 
+                    </li>
                     <li class="nav-item">
                         <a href="@Url.Action("Index", "AspNetTimeslots" )" class="nav-link nav-toggle">
                             <i class="sea-dash">
@@ -274,43 +282,59 @@
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
                         <div class="bread-crumbs">
-                            <ul id="BreadCrumbs"></ul>
+                            <ul>
+                                @*<li class="active"><a href="#"></a></li>*@
+                            </ul>
                         </div>
                     </div>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+                            aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="navbar-toggler-icon icon-bar"></span>
                         <span class="navbar-toggler-icon icon-bar"></span>
                         <span class="navbar-toggler-icon icon-bar"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-end">
+
+                        <div class="timeCon">
+                            <div class="d-flex">
+                                <div class="timeYearDayCon">
+                                    <div class="timeYear">Year</div>
+                                    <div class="timeDay">Day, 00 Mon</div>
+                                </div>
+                                <div class="timeTimeCon">
+                                    00:00
+                                </div>
+                                <div class="timeAMPM">
+                                    <div class="timeAM">AM</div>
+                                    <div class="timePM">PM</div>
+                                </div>
+                            </div>
+                        </div>
+
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="javascript:;">
-                                    <i class="sea-icons-nav">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 26.284 26.261">
-                                            <defs>
-                                                <style>
-                                                    .prefix__cls-1 {
-                                                        fill: none;
-                                                        stroke: #afbccc;
-                                                        stroke-width: 2px;
-                                                    }
-                                                </style>
-                                            </defs>
-                                            <g id="prefix__Icon-setting" transform="translate(-1914.284 -667.899)">
-                                                <path id="prefix__Path_362" d="M1924.777 669.03a12.339 12.339 0 0 0-3.581 1.4 3.344 3.344 0 0 1-3.228 4.274 3.5 3.5 0 0 1-1.029-.156 12.2 12.2 0 0 0-1.49 3.492 3.343 3.343 0 0 1 0 5.986 12.2 12.2 0 0 0 1.49 3.494 3.479 3.479 0 0 1 1.03-.157 3.343 3.343 0 0 1 3.227 4.273 12.284 12.284 0 0 0 3.581 1.4 3.379 3.379 0 0 1 5.752-.123 12.273 12.273 0 0 0 3.566-1.556 3.364 3.364 0 0 1 3.319-3.994 3.537 3.537 0 0 1 .543.042 12.193 12.193 0 0 0 1.492-3.665 3.339 3.339 0 0 1 0-5.408 12.194 12.194 0 0 0-1.492-3.665 3.432 3.432 0 0 1-.544.043 3.365 3.365 0 0 1-3.318-3.994 12.227 12.227 0 0 0-3.566-1.555 3.38 3.38 0 0 1-5.752-.125z" class="prefix__cls-1" data-name="Path 362" />
-                                                <path id="prefix__Path_363" d="M1930.863 685.107a5.319 5.319 0 1 1-3.415-9.4" class="prefix__cls-1" data-name="Path 363" />
-                                                <path id="prefix__Path_364" d="M1927.448 675.71a5.327 5.327 0 0 1 5.321 5.322" class="prefix__cls-1" data-name="Path 364" />
-                                            </g>
-                                        </svg>
-                                    </i>
-                                    <span class="d-lg-inline-block d-md-inline-block">
-                                        Notifications
-                                    </span>
-                                    <div class="ripple-container"></div>
+                            <li class="dropdown notifications-menu hidden">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-bell-o"></i>
+                                    <span class="label label-warning">10</span>
                                 </a>
+                                <ul class="dropdown-menu">
+                                    <li class="header">You have 10 notifications</li>
+                                    <li>
+                                        <!-- inner menu: contains the actual data -->
+                                        <ul class="menu">
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                    <li class="footer"><a href="#">View all</a></li>
+                                </ul>
                             </li>
+
                             @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "form_padding_20" }))
                             {
                                 @Html.AntiForgeryToken()
@@ -345,19 +369,18 @@
                                 </li>
                             }
                             <li class="nav-item dropdown">
-                                <a class="nav-link p-0" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
+                                <a class="nav-link p-0" href="javascript:;" id="navbarDropdownProfile"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div id="theDiv"><img id="theImg" src="" /></div>
-
                                     <p class="d-lg-none d-md-block">
                                         Account
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                                    <a class="dropdown-item" href="/Manage/Index">Profile</a>
-                                    <a class="dropdown-item" href="#">Privacy</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Settings</a>
+                                    <a class="dropdown-item" href="/Manage/Index">Security</a>
+                                    <a class="dropdown-item hidden" href="#">Privacy</a>
+                                    <div class="dropdown-divider hidden"></div>
+                                    <a class="dropdown-item hidden" href="#">Settings</a>
                                 </div>
                             </li>
                         </ul>
@@ -371,15 +394,15 @@
                         <div class="col-md-12">
                             <div class="pageHeading">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-4 col-lg-4">
+                                    <div class="col-sm-12 col-md-5 col-lg-5">
 
                                         <h1 id="PageHeader" class="float-left"></h1>
 
                                     </div>
-                                    <div class="col-sm-12 col-md-9 col-lg-9 hidden" id="generic_div">
-                                            <button type="button" id="global_create" class="btn btn-primary pull-right rounded rounded-lg createBtn">Create</button>
-                                            <input type="text" placeholder="Type Keyword" id="global_filter" class="searchBox pull-right pl-4 p-2 pull-right rounded rounded-lg   mr-3">
-                                        </div>
+                                    <div class="col-sm-12 col-md-7 col-lg-7 hidden" id="generic_div">
+                                        <button type="button" class="btn btn-primary pull-right rounded rounded-lg createBtn hidden" id="GenericCreate">Create</button>
+                                        <input type="text" placeholder="Type Keyword" id="global_filter" class="searchBox pull-right pl-4 p-2 pull-right rounded rounded-lg mr-3">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -400,11 +423,6 @@
 
         </div>
     </div>
-    <!--   Core JS Files   -->
-    <script src="~/Content/assets/js/core/jquery.min.js"></script>
-    <script src="~/Content/assets/js/core/popper.min.js"></script>
-    <script src="~/Content/assets/js/core/bootstrap-material-design.min.js"></script>
-    <script src="~/Content/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
     <!-- Plugin for the momentJs  -->
     <script src="~/Content/assets/js/plugins/moment.min.js"></script>
     <!--  Plugin for Sweet Alert -->
@@ -445,10 +463,1213 @@
     @*<script src="~/Content/assets/demo/demo.js"></script>_*@
     <script src="~/Content/assets/js/lesson.js"></script>
 
+
+
     <!--<link rel="stylesheet" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">-->
     <!--<script src="http://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>-->
     <!--<script src="https://cdn.datatables.net/buttons/1.10.20/js/buttons.flash.min.js" type="text/javascript"></script>-->
     <!--<script src="https://cdn.datatables.net/buttons/1.10.20/js/dataTables.buttons.min.js" type="text/javascript"></script>-->
+
+    <link href='~/Content/assets/packages/core/main.css' rel='stylesheet' />
+    <link href='~/Content/assets/packages/daygrid/main.css' rel='stylesheet' />
+    <link href='~/Content/assets/packages/timegrid/main.css' rel='stylesheet' />
+    <link href='~/Content/assets/packages/list/main.css' rel='stylesheet' />
+    <style>
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -12px;
+            /*margin-left: -33px;*/
+        }
+        /*!
+            * FullCalendar v3.9.0
+            * Docs & License: https://fullcalendar.io/
+            * (c) 2020 Adam Shaw
+            */
+        .fc button,
+        .fc table,
+        body .fc {
+            font-size: 1em;
+        }
+
+        .fc-bg,
+        .fc-row .fc-bgevent-skeleton,
+        .fc-row .fc-highlight-skeleton {
+            bottom: 0;
+        }
+
+        .fc-icon,
+        .fc-unselectable {
+            -webkit-touch-callout: none;
+            -khtml-user-select: none;
+        }
+
+        .fc {
+            direction: ltr;
+            text-align: left;
+        }
+
+        .fc-rtl {
+            text-align: right;
+        }
+
+        .fc th,
+        .fc-basic-view td.fc-week-number,
+        .fc-icon,
+        .fc-toolbar {
+            text-align: center;
+        }
+
+        .fc-highlight {
+            background: #bce8f1;
+            opacity: .3;
+        }
+
+        .fc-bgevent {
+            background: #8fdf82;
+            opacity: .3;
+        }
+
+        .fc-nonbusiness {
+            background: #d7d7d7;
+        }
+
+        .fc button {
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            margin: 0;
+            height: 2.1em;
+            padding: 0 .6em;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+            .fc button::-moz-focus-inner {
+                margin: 0;
+                padding: 0;
+            }
+
+        .fc-state-default {
+            border: 1px solid;
+            background-color: #f5f5f5;
+            background-image: -moz-linear-gradient(top, #fff, #e6e6e6);
+            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#e6e6e6));
+            background-image: -webkit-linear-gradient(top, #fff, #e6e6e6);
+            background-image: -o-linear-gradient(top, #fff, #e6e6e6);
+            background-image: linear-gradient(to bottom, #fff, #e6e6e6);
+            background-repeat: repeat-x;
+            border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+            border-color: rgba(0, 0, 0, .1) rgba(0, 0, 0, .1) rgba(0, 0, 0, .25);
+            color: #333;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, .75);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 1px 2px rgba(0, 0, 0, .05);
+        }
+
+            .fc-state-default.fc-corner-left {
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
+
+            .fc-state-default.fc-corner-right {
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
+            }
+
+        .fc button .fc-icon {
+            position: relative;
+            top: -.05em;
+            margin: 0 .2em;
+            vertical-align: middle;
+        }
+
+        .fc-state-active,
+        .fc-state-disabled,
+        .fc-state-down,
+        .fc-state-hover {
+            color: #333;
+            background-color: #e6e6e6;
+        }
+
+        .fc-state-hover {
+            color: #333;
+            text-decoration: none;
+            background-position: 0 -15px;
+            -webkit-transition: background-position .1s linear;
+            -moz-transition: background-position .1s linear;
+            -o-transition: background-position .1s linear;
+            transition: background-position .1s linear;
+        }
+
+        .fc-state-active,
+        .fc-state-down {
+            background-color: #ccc;
+            background-image: none;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, .15), 0 1px 2px rgba(0, 0, 0, .05);
+        }
+
+        .fc-state-disabled {
+            cursor: default;
+            background-image: none;
+            opacity: .65;
+            box-shadow: none;
+        }
+
+        .fc-event.fc-draggable,
+        .fc-event[href],
+        .fc-popover .fc-header .fc-close,
+        a[data-goto] {
+            cursor: pointer;
+        }
+
+        .fc-button-group {
+            display: inline-block;
+        }
+
+        .fc .fc-button-group > * {
+            float: left;
+            margin: 0 0 0 -1px;
+        }
+
+        .fc .fc-button-group > :first-child {
+            margin-left: 0;
+        }
+
+        .fc-popover {
+            position: absolute;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .15);
+        }
+
+            .fc-popover .fc-header {
+                padding: 2px 4px;
+            }
+
+                .fc-popover .fc-header .fc-title {
+                    margin: 0 2px;
+                }
+
+        .fc-ltr .fc-popover .fc-header .fc-title,
+        .fc-rtl .fc-popover .fc-header .fc-close {
+            float: left;
+        }
+
+        .fc-ltr .fc-popover .fc-header .fc-close,
+        .fc-rtl .fc-popover .fc-header .fc-title {
+            float: right;
+        }
+
+        .fc-divider {
+            border-style: solid;
+            border-width: 1px;
+        }
+
+        hr.fc-divider {
+            height: 0;
+            margin: 0;
+            padding: 0 0 2px;
+            border-width: 1px 0;
+        }
+
+        .fc-bg table,
+        .fc-row .fc-bgevent-skeleton table,
+        .fc-row .fc-highlight-skeleton table {
+            height: 100%;
+        }
+
+        .fc-clear {
+            clear: both;
+        }
+
+        .fc-bg,
+        .fc-bgevent-skeleton,
+        .fc-helper-skeleton,
+        .fc-highlight-skeleton {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .fc table {
+            width: 100%;
+            box-sizing: border-box;
+            table-layout: fixed;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .fc td,
+        .fc th {
+            border-style: solid;
+            border-width: 1px;
+            padding: 0;
+            vertical-align: top;
+        }
+
+            .fc td.fc-today {
+                border-style: double;
+            }
+
+        a[data-goto]:hover {
+            text-decoration: underline;
+        }
+
+        .fc .fc-row {
+            border-style: solid;
+            border-width: 0;
+        }
+
+        .fc-row table {
+            border-left: 0 hidden transparent;
+            border-right: 0 hidden transparent;
+            border-bottom: 0 hidden transparent;
+        }
+
+        .fc-row:first-child table {
+            border-top: 0 hidden transparent;
+        }
+
+        .fc-row {
+            position: relative;
+        }
+
+            .fc-row .fc-bg {
+                z-index: 1;
+            }
+
+            .fc-row .fc-bgevent-skeleton td,
+            .fc-row .fc-highlight-skeleton td {
+                border-color: transparent;
+            }
+
+            .fc-row .fc-bgevent-skeleton {
+                z-index: 2;
+            }
+
+            .fc-row .fc-highlight-skeleton {
+                z-index: 3;
+            }
+
+            .fc-row .fc-content-skeleton {
+                position: relative;
+                z-index: 4;
+                padding-bottom: 2px;
+            }
+
+            .fc-row .fc-helper-skeleton {
+                z-index: 5;
+            }
+
+        .fc .fc-row .fc-content-skeleton table,
+        .fc .fc-row .fc-content-skeleton td,
+        .fc .fc-row .fc-helper-skeleton td {
+            background: 0 0;
+            border-color: transparent;
+        }
+
+        .fc-row .fc-content-skeleton td,
+        .fc-row .fc-helper-skeleton td {
+            border-bottom: 0;
+        }
+
+        .fc-row .fc-content-skeleton tbody td,
+        .fc-row .fc-helper-skeleton tbody td {
+            border-top: 0;
+        }
+
+        .fc-scroller {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .fc-icon,
+        .fc-row.fc-rigid,
+        .fc-time-grid-event {
+            overflow: hidden;
+        }
+
+        .fc-scroller > .fc-day-grid,
+        .fc-scroller > .fc-time-grid {
+            position: relative;
+            width: 100%;
+        }
+
+        .fc-event {
+            position: relative;
+            display: block;
+            font-size: .85em;
+            line-height: 1.3;
+            border-radius: 3px;
+            border: 1px solid #3a87ad;
+        }
+
+        .fc-event,
+        .fc-event-dot {
+            background-color: #3a87ad;
+        }
+
+            .fc-event,
+            .fc-event:hover {
+                color: #fff;
+                text-decoration: none;
+            }
+
+        .fc-not-allowed,
+        .fc-not-allowed .fc-event {
+            cursor: not-allowed;
+        }
+
+        .fc-event .fc-bg {
+            z-index: 1;
+            background: #fff;
+            opacity: .25;
+        }
+
+        .fc-event .fc-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .fc-event .fc-resizer {
+            position: absolute;
+            z-index: 4;
+            display: none;
+        }
+
+        .fc-event.fc-allow-mouse-resize .fc-resizer,
+        .fc-event.fc-selected .fc-resizer {
+            display: block;
+        }
+
+            .fc-event.fc-selected .fc-resizer:before {
+                content: "";
+                position: absolute;
+                z-index: 9999;
+                top: 50%;
+                left: 50%;
+                width: 40px;
+                height: 40px;
+                margin-left: -20px;
+                margin-top: -20px;
+            }
+
+        .fc-event.fc-selected {
+            z-index: 9999 !important;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+        }
+
+            .fc-event.fc-selected.fc-dragging {
+                box-shadow: 0 2px 7px rgba(0, 0, 0, .3);
+            }
+
+        .fc-h-event.fc-selected:before {
+            content: "";
+            position: absolute;
+            z-index: 3;
+            top: -10px;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+        }
+
+        .fc-ltr .fc-h-event.fc-not-start,
+        .fc-rtl .fc-h-event.fc-not-end {
+            margin-left: 0;
+            border-left-width: 0;
+            padding-left: 1px;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .fc-ltr .fc-h-event.fc-not-end,
+        .fc-rtl .fc-h-event.fc-not-start {
+            margin-right: 0;
+            border-right-width: 0;
+            padding-right: 1px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .fc-ltr .fc-h-event .fc-start-resizer,
+        .fc-rtl .fc-h-event .fc-end-resizer {
+            cursor: w-resize;
+            left: -1px;
+        }
+
+        .fc-ltr .fc-h-event .fc-end-resizer,
+        .fc-rtl .fc-h-event .fc-start-resizer {
+            cursor: e-resize;
+            right: -1px;
+        }
+
+        .fc-h-event.fc-allow-mouse-resize .fc-resizer {
+            width: 7px;
+            top: -1px;
+            bottom: -1px;
+        }
+
+        .fc-h-event.fc-selected .fc-resizer {
+            border-radius: 4px;
+            border-width: 1px;
+            width: 6px;
+            height: 6px;
+            border-style: solid;
+            border-color: inherit;
+            background: #fff;
+            top: 50%;
+            margin-top: -4px;
+        }
+
+        .fc-ltr .fc-h-event.fc-selected .fc-start-resizer,
+        .fc-rtl .fc-h-event.fc-selected .fc-end-resizer {
+            margin-left: -4px;
+        }
+
+        .fc-ltr .fc-h-event.fc-selected .fc-end-resizer,
+        .fc-rtl .fc-h-event.fc-selected .fc-start-resizer {
+            margin-right: -4px;
+        }
+
+        .fc-day-grid-event {
+            margin: 1px 2px 0;
+            padding: 0 1px;
+        }
+
+        tr:first-child > td > .fc-day-grid-event {
+            margin-top: 2px;
+        }
+
+        .fc-day-grid-event.fc-selected:after {
+            content: "";
+            position: absolute;
+            z-index: 1;
+            top: -1px;
+            right: -1px;
+            bottom: -1px;
+            left: -1px;
+            background: #000;
+            opacity: .25;
+        }
+
+        .fc-day-grid-event .fc-content {
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .fc-day-grid-event .fc-time {
+            font-weight: 700;
+        }
+
+        .fc-ltr .fc-day-grid-event.fc-allow-mouse-resize .fc-start-resizer,
+        .fc-rtl .fc-day-grid-event.fc-allow-mouse-resize .fc-end-resizer {
+            margin-left: -2px;
+        }
+
+        .fc-ltr .fc-day-grid-event.fc-allow-mouse-resize .fc-end-resizer,
+        .fc-rtl .fc-day-grid-event.fc-allow-mouse-resize .fc-start-resizer {
+            margin-right: -2px;
+        }
+
+        a.fc-more {
+            margin: 1px 3px;
+            font-size: .85em;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+            a.fc-more:hover {
+                text-decoration: underline;
+            }
+
+        .fc.fc-bootstrap3 a,
+        .ui-widget .fc-event {
+            text-decoration: none;
+        }
+
+        .fc-limited {
+            display: none;
+        }
+
+        .fc-icon,
+        .fc-toolbar .fc-center {
+            display: inline-block;
+        }
+
+        .fc-day-grid .fc-row {
+            z-index: 1;
+        }
+
+        .fc-more-popover {
+            z-index: 2;
+            width: 220px;
+        }
+
+            .fc-more-popover .fc-event-container {
+                padding: 10px;
+            }
+
+        .fc-bootstrap3 .fc-popover .panel-body,
+        .fc-bootstrap4 .fc-popover .card-body {
+            padding: 0;
+        }
+
+        .fc-now-indicator {
+            position: absolute;
+            border: 0 solid red;
+        }
+
+        .fc-bootstrap3 .fc-today.alert,
+        .fc-bootstrap4 .fc-today.alert {
+            border-radius: 0;
+        }
+
+        .fc-unselectable {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .fc-unthemed .fc-content,
+        .fc-unthemed .fc-divider,
+        .fc-unthemed .fc-list-heading td,
+        .fc-unthemed .fc-list-view,
+        .fc-unthemed .fc-popover,
+        .fc-unthemed .fc-row,
+        .fc-unthemed tbody,
+        .fc-unthemed td,
+        .fc-unthemed th,
+        .fc-unthemed thead {
+            border-color: #ddd;
+        }
+
+        .fc-unthemed .fc-popover {
+            background-color: #fff;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+            .fc-unthemed .fc-divider,
+            .fc-unthemed .fc-list-heading td,
+            .fc-unthemed .fc-popover .fc-header {
+                background: #eee;
+            }
+
+        .fc-unthemed td.fc-today {
+            background: #fcf8e3;
+        }
+
+        .fc-unthemed .fc-disabled-day {
+            background: #d7d7d7;
+            opacity: .3;
+        }
+
+        .fc-icon {
+            height: 1em;
+            line-height: 1em;
+            font-size: 1em;
+            font-family: "Courier New", Courier, monospace;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            .fc-icon:after {
+                position: relative;
+            }
+
+        .fc-icon-left-single-arrow:after {
+            content: "\2039";
+            font-weight: 700;
+            font-size: 200%;
+            top: -7%;
+        }
+
+        .fc-icon-right-single-arrow:after {
+            content: "\203A";
+            font-weight: 700;
+            font-size: 200%;
+            top: -7%;
+        }
+
+        .fc-icon-left-double-arrow:after {
+            content: "\AB";
+            font-size: 160%;
+            top: -7%;
+        }
+
+        .fc-icon-right-double-arrow:after {
+            content: "\BB";
+            font-size: 160%;
+            top: -7%;
+        }
+
+        .fc-icon-left-triangle:after {
+            content: "\25C4";
+            font-size: 125%;
+            top: 3%;
+        }
+
+        .fc-icon-right-triangle:after {
+            content: "\25BA";
+            font-size: 125%;
+            top: 3%;
+        }
+
+        .fc-icon-down-triangle:after {
+            content: "\25BC";
+            font-size: 125%;
+            top: 2%;
+        }
+
+        .fc-icon-x:after {
+            content: "\D7";
+            font-size: 200%;
+            top: 6%;
+        }
+
+        .fc-unthemed .fc-popover .fc-header .fc-close {
+            color: #666;
+            font-size: .9em;
+            margin-top: 2px;
+        }
+
+        .fc-unthemed .fc-list-item:hover td {
+            background-color: #f5f5f5;
+        }
+
+        .ui-widget .fc-disabled-day {
+            background-image: none;
+        }
+
+        .fc-bootstrap3 .fc-time-grid .fc-slats table,
+        .fc-bootstrap4 .fc-time-grid .fc-slats table,
+        .fc-time-grid .fc-slats .ui-widget-content {
+            background: 0 0;
+        }
+
+        .fc-popover > .ui-widget-header + .ui-widget-content {
+            border-top: 0;
+        }
+
+        .fc-bootstrap3 hr.fc-divider,
+        .fc-bootstrap4 hr.fc-divider {
+            border-color: inherit;
+        }
+
+        .ui-widget .fc-event {
+            color: #fff;
+            font-weight: 400;
+        }
+
+        .ui-widget td.fc-axis {
+            font-weight: 400;
+        }
+
+        .fc.fc-bootstrap3 a[data-goto]:hover {
+            text-decoration: underline;
+        }
+
+        .fc.fc-bootstrap4 a {
+            text-decoration: none;
+        }
+
+            .fc.fc-bootstrap4 a[data-goto]:hover {
+                text-decoration: underline;
+            }
+
+        /*.main-panel > .content {
+            margin-top: 15px !important;
+            padding: 30px 15px;
+            min-height: calc(100vh - 123px);
+        }*/
+
+        .fc-bootstrap4 a.fc-event:not([href]):not([tabindex]) {
+            color: #fff;
+        }
+
+        .fc-bootstrap4 .fc-popover.card {
+            position: absolute;
+        }
+
+        .fc-toolbar.fc-header-toolbar {
+            margin-bottom: 1em;
+        }
+
+        .fc-toolbar.fc-footer-toolbar {
+            margin-top: 1em;
+        }
+
+        .fc-toolbar .fc-left {
+            float: left;
+        }
+
+        .fc-toolbar .fc-right {
+            float: right;
+        }
+
+        .fc .fc-toolbar > * > * {
+            float: left;
+            margin-left: .75em;
+        }
+
+        .fc .fc-toolbar > * > :first-child {
+            margin-left: 0;
+        }
+
+        .fc-toolbar h2 {
+            margin: 0;
+            font-size: 1.75em;
+        }
+
+        .fc-toolbar button {
+            position: relative;
+        }
+
+        .fc-toolbar .fc-state-hover,
+        .fc-toolbar .ui-state-hover {
+            z-index: 2;
+        }
+
+        .fc-toolbar .fc-state-down {
+            z-index: 3;
+        }
+
+        .fc-toolbar .fc-state-active,
+        .fc-toolbar .ui-state-active {
+            z-index: 4;
+        }
+
+        .fc-toolbar button:focus {
+            z-index: 5;
+        }
+
+        .fc-view-container *,
+        .fc-view-container :after,
+        .fc-view-container :before {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+        }
+
+        .fc-view,
+        .fc-view > table {
+            position: relative;
+            z-index: 1;
+        }
+
+        .fc-basicDay-view .fc-content-skeleton,
+        .fc-basicWeek-view .fc-content-skeleton {
+            padding-bottom: 1em;
+        }
+
+        .fc-basic-view .fc-body .fc-row {
+            min-height: 4em;
+        }
+
+        .fc-row.fc-rigid .fc-content-skeleton {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .fc-day-top.fc-other-month {
+            opacity: .3;
+        }
+
+        .fc-basic-view .fc-day-number,
+        .fc-basic-view .fc-week-number {
+            padding: 2px;
+        }
+
+        .fc-basic-view th.fc-day-number,
+        .fc-basic-view th.fc-week-number {
+            padding: 0 2px;
+        }
+
+        .fc-ltr .fc-basic-view .fc-day-top .fc-day-number {
+            float: right;
+        }
+
+        .fc-rtl .fc-basic-view .fc-day-top .fc-day-number {
+            float: left;
+        }
+
+        .fc-ltr .fc-basic-view .fc-day-top .fc-week-number {
+            float: left;
+            border-radius: 0 0 3px;
+        }
+
+        .fc-rtl .fc-basic-view .fc-day-top .fc-week-number {
+            float: right;
+            border-radius: 0 0 0 3px;
+        }
+
+        .fc-basic-view .fc-day-top .fc-week-number {
+            min-width: 1.5em;
+            text-align: center;
+            background-color: #f2f2f2;
+            color: grey;
+        }
+
+        .fc-basic-view td.fc-week-number > * {
+            display: inline-block;
+            min-width: 1.25em;
+        }
+
+        .fc-agenda-view .fc-day-grid {
+            position: relative;
+            z-index: 2;
+        }
+
+            .fc-agenda-view .fc-day-grid .fc-row {
+                min-height: 3em;
+            }
+
+                .fc-agenda-view .fc-day-grid .fc-row .fc-content-skeleton {
+                    padding-bottom: 1em;
+                }
+
+        .fc .fc-axis {
+            vertical-align: middle;
+            padding: 0 4px;
+            white-space: nowrap;
+        }
+
+        .fc-ltr .fc-axis {
+            text-align: right;
+        }
+
+        .fc-rtl .fc-axis {
+            text-align: left;
+        }
+
+        .fc-time-grid,
+        .fc-time-grid-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .fc-time-grid {
+            min-height: 100%;
+        }
+
+            .fc-time-grid table {
+                border: 0 hidden transparent;
+            }
+
+            .fc-time-grid > .fc-bg {
+                z-index: 1;
+            }
+
+            .fc-time-grid .fc-slats,
+            .fc-time-grid > hr {
+                position: relative;
+                z-index: 2;
+            }
+
+            .fc-time-grid .fc-content-col {
+                position: relative;
+            }
+
+            .fc-time-grid .fc-content-skeleton {
+                position: absolute;
+                z-index: 3;
+                top: 0;
+                left: 0;
+                right: 0;
+            }
+
+            .fc-time-grid .fc-business-container {
+                position: relative;
+                z-index: 1;
+            }
+
+            .fc-time-grid .fc-bgevent-container {
+                position: relative;
+                z-index: 2;
+            }
+
+            .fc-time-grid .fc-highlight-container {
+                z-index: 3;
+                position: relative;
+            }
+
+            .fc-time-grid .fc-event-container {
+                position: relative;
+                z-index: 4;
+            }
+
+            .fc-time-grid .fc-now-indicator-line {
+                z-index: 5;
+            }
+
+            .fc-time-grid .fc-helper-container {
+                position: relative;
+                z-index: 6;
+            }
+
+            .fc-time-grid .fc-slats td {
+                height: 1.5em;
+                border-bottom: 0;
+            }
+
+            .fc-time-grid .fc-slats .fc-minor td {
+                border-top-style: dotted;
+            }
+
+            .fc-time-grid .fc-highlight {
+                position: absolute;
+                left: 0;
+                right: 0;
+            }
+
+        .fc-ltr .fc-time-grid .fc-event-container {
+            margin: 0 2.5% 0 2px;
+        }
+
+        .fc-rtl .fc-time-grid .fc-event-container {
+            margin: 0 2px 0 2.5%;
+        }
+
+        .fc-time-grid .fc-bgevent,
+        .fc-time-grid .fc-event {
+            position: absolute;
+            z-index: 1;
+        }
+
+        .fc-time-grid .fc-bgevent {
+            left: 0;
+            right: 0;
+        }
+
+        .fc-v-event.fc-not-start {
+            border-top-width: 0;
+            padding-top: 1px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .fc-v-event.fc-not-end {
+            border-bottom-width: 0;
+            padding-bottom: 1px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .fc-time-grid-event.fc-selected {
+            overflow: visible;
+        }
+
+            .fc-time-grid-event.fc-selected .fc-bg {
+                display: none;
+            }
+
+        .fc-time-grid-event .fc-content {
+            overflow: hidden;
+        }
+
+        .fc-time-grid-event .fc-time,
+        .fc-time-grid-event .fc-title {
+            padding: 0 1px;
+        }
+
+        .fc-time-grid-event .fc-time {
+            font-size: .85em;
+            white-space: nowrap;
+        }
+
+        .fc-time-grid-event.fc-short .fc-content {
+            white-space: nowrap;
+        }
+
+        .fc-time-grid-event.fc-short .fc-time,
+        .fc-time-grid-event.fc-short .fc-title {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+            .fc-time-grid-event.fc-short .fc-time span {
+                display: none;
+            }
+
+            .fc-time-grid-event.fc-short .fc-time:before {
+                content: attr(data-start);
+            }
+
+            .fc-time-grid-event.fc-short .fc-time:after {
+                content: "\A0-\A0";
+            }
+
+        .fc-time-grid-event.fc-short .fc-title {
+            font-size: .85em;
+            padding: 0;
+        }
+
+        .fc-time-grid-event.fc-allow-mouse-resize .fc-resizer {
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 8px;
+            overflow: hidden;
+            line-height: 8px;
+            font-size: 11px;
+            font-family: monospace;
+            text-align: center;
+            cursor: s-resize;
+        }
+
+            .fc-time-grid-event.fc-allow-mouse-resize .fc-resizer:after {
+                content: "=";
+            }
+
+        .fc-time-grid-event.fc-selected .fc-resizer {
+            border-radius: 5px;
+            border-width: 1px;
+            width: 8px;
+            height: 8px;
+            border-style: solid;
+            border-color: inherit;
+            background: #fff;
+            left: 50%;
+            margin-left: -5px;
+            bottom: -5px;
+        }
+
+        .fc-time-grid .fc-now-indicator-line {
+            border-top-width: 1px;
+            left: 0;
+            right: 0;
+        }
+
+        .fc-time-grid .fc-now-indicator-arrow {
+            margin-top: -5px;
+        }
+
+        .fc-ltr .fc-time-grid .fc-now-indicator-arrow {
+            left: 0;
+            border-width: 5px 0 5px 6px;
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+        }
+
+        .fc-rtl .fc-time-grid .fc-now-indicator-arrow {
+            right: 0;
+            border-width: 5px 6px 5px 0;
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+        }
+
+        .fc-event-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+        }
+
+        .fc-rtl .fc-list-view {
+            direction: rtl;
+        }
+
+        .fc-list-view {
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .fc .fc-list-table {
+            table-layout: auto;
+        }
+
+        .fc-list-table td {
+            border-width: 1px 0 0;
+            padding: 8px 14px;
+        }
+
+        .fc-list-table tr:first-child td {
+            border-top-width: 0;
+        }
+
+        .fc-list-heading {
+            border-bottom-width: 1px;
+        }
+
+            .fc-list-heading td {
+                font-weight: 700;
+            }
+
+        .fc-ltr .fc-list-heading-main {
+            float: left;
+        }
+
+        .fc-ltr .fc-list-heading-alt,
+        .fc-rtl .fc-list-heading-main {
+            float: right;
+        }
+
+        .fc-rtl .fc-list-heading-alt {
+            float: left;
+        }
+
+        .fc-list-item.fc-has-url {
+            cursor: pointer;
+        }
+
+        .fc-list-item-marker,
+        .fc-list-item-time {
+            white-space: nowrap;
+            width: 1px;
+        }
+
+        .fc-ltr .fc-list-item-marker {
+            padding-right: 0;
+        }
+
+        .fc-rtl .fc-list-item-marker {
+            padding-left: 0;
+        }
+
+        .fc-list-item-title a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+            .fc-list-item-title a[href]:hover {
+                text-decoration: underline;
+            }
+
+        .fc-list-empty-wrap2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .fc-list-empty-wrap1 {
+            width: 100%;
+            height: 100%;
+            display: table;
+        }
+
+        .fc-list-empty {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .fc-unthemed .fc-list-empty {
+            background-color: #eee;
+        }
+    </style>
+
+    <script src='~/Content/assets/packages/core/main.js'></script>
+    <script src='~/Content/assets/packages/interaction/main.js'></script>
+    <script src='~/Content/assets/packages/daygrid/main.js'></script>
+    <script src='~/Content/assets/packages/timegrid/main.js'></script>
+    <script src='~/Content/assets/packages/list/main.js'></script>
+    <script src='~/Content/assets/packages/cal.js'></script>
 
     <script>
         function filterGlobal() {
@@ -460,21 +1681,27 @@
             ).draw();
         }
         $(document).ready(function () {
-            
+
+            //      $("#PageHeader").html("Students");
+
+            //$("#BreadCrumbs").append(' <li> <a href="#"> Home </a> <span>&gt;</span></li>');
+            //$("#BreadCrumbs").append(' <li class="active"><a id="BreadCrumps1" href="#">Students</a></li>');
+
+
             $("#datatable_filter").hide();
 
             $.post(
-                      "/AspNetUser/GetProfilePic",
-                      $(".changepassword-form").serialize(),
-                      function (data) {
-                          
-                          $('#theDiv').prepend('<img id="theImg" height ="45" width = "45" src="/Content/Images/StudentImages/' + data + '" />')
+                "/AspNetUser/GetProfilePic",
+                $(".changepassword-form").serialize(),
+                function (data) {
+
+                    $('#theDiv').prepend('<img id="theImg" height ="45" width = "45" src="/Content/Images/StudentImages/' + data + '" />')
 
 
 
-                      },
-                      "text"
-                  );
+                },
+                "text"
+            );
             //empty
 
 
@@ -616,6 +1843,11 @@
 
                         background_image = false;
                     }
+                });
+
+                $('.datatableButtonsReset').click(function () {
+                    $('#global_filter').val("");
+                    $('#global_filter').click();
                 });
 
                 $('.switch-sidebar-mini input').change(function () {

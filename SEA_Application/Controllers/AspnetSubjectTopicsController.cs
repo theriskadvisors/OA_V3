@@ -57,6 +57,8 @@ namespace SEA_Application.Controllers
                                   LessonVidoeUrl = lesson.Video_Url,
                                   LessonDuration = lesson.DurationMinutes,
                                   LessonDescription = lesson.Description,
+                                  CreationDate = lesson.CreationDate,
+                                  SubjectName = lesson.AspnetSubjectTopic.GenericSubject.SubjectName
                               }).ToList();
 
             return Json(AllLessons, JsonRequestBehavior.AllowGet);

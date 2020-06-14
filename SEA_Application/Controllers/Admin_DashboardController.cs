@@ -478,67 +478,16 @@ namespace SEA_Application.Controllers
             ViewBag.TotalMessages = db.AspNetMessage_Receiver.Where(m => m.ReceiverID == CurrentUserId && m.Seen == "Not Seen").Count();
             ViewBag.TotalNotifications = db.AspNetNotification_User.Where(m => m.UserID == CurrentUserId && m.Seen == false).Count();
 
-            List<TODOLIST> kjlk = new List<TODOLIST>();
-            foreach (var t in ty)
+            var Classes1 = db.AspNetSubjects.Select(x => x.SubjectName).Distinct().ToList();
+            List<string> classes = new List<string>();
+
+            foreach (var clas in Classes1)
             {
-                TODOLIST tyr = new TODOLIST();
-                tyr.Classname = t.ClassName;
-                tyr.HomeWorkId = t.Id;
-
-                if (t.Date.Value.Day + "/" + t.Date.Value.Month + "/" + t.Date.Value.Year != DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year)
-                {
-                    tyr.isToDay = false;
-
-                }
-                else
-                {
-                    tyr.isToDay = true;
-                }
-                tyr.date = t.Date.Value.Day + "/" + t.Date.Value.Month + "/" + t.Date.Value.Year;
-                if (t.Date < DateTime.Now)
-                {
-                    int ActualTime = (DateTime.Now - t.Date.Value.Date).Days;
-                    if (ActualTime == 1)
-                    {
-                        tyr.Actualdate = ActualTime + " day ago";
-                    }
-                    else if (ActualTime >= 30)
-                    {
-                        int months = ActualTime / 30;
-                        if (months == 1)
-                        {
-                            tyr.Actualdate = months + " month ago";
-                        }
-                        else
-                        {
-                            tyr.Actualdate = months + " months ago";
-                        }
-                    }
-
-                    else
-                    {
-                        int weeks = ActualTime / 7;
-                        if (weeks == 0)
-                        {
-                            tyr.Actualdate = ActualTime + " days ago";
-                        }
-                        else
-                        {
-                            if (weeks == 1)
-                                tyr.Actualdate = weeks + " week ago";
-                            else
-                                tyr.Actualdate = weeks + " weeks ago";
-                        }
-                    }
-                }
-                else
-                {
-                    tyr.Actualdate = "Today";
-                }
-                tyr.date = t.Date.Value.Day + "/" + t.Date.Value.Month + "/" + t.Date.Value.Year;
-                kjlk.Add(tyr);
+                classes.Add(clas);
             }
-            ViewBag.ClassName = kjlk;
+
+            //classes.Add("Not Published");
+            ViewBag.AllClasses = classes;
 
             return View("BlankPage");
         }
