@@ -72,6 +72,15 @@
        
        text-decoration:underline;
     }
+
+.modal .modal-fluid {
+    width:100%;
+    max-width:100%
+}
+.modal .modal-fluid .modal-content {
+    width:100%
+}
+
     /*#container a.view-slide {
          font-size: 0.9em;
          font-family: 'Ubuntu', sans-serif;
@@ -141,6 +150,8 @@
 
 
 
+
+
 </style>
 
 <script>
@@ -195,6 +206,8 @@
 
                 //$("iframe").attr('src', data.LessonVideo);
                 src = data.LessonVideo;
+
+                $("iframe").attr('src', data.LessonVideo);
                 $("#LessonName").text(data.LessonName);
                 $("#LessonDescription").text("");
                 $("#LessonDescription").text(data.LessonDescription);
@@ -499,18 +512,64 @@
                         </div>
 
                         <div style="/*! height: 120px; */" class="upload-photo videoBox border rounded d-flex align-items-center justify-content-center flex-column mb-4">
-                            <button class="btn btn-lg btn-white btn-round btn-just-icon m-0" id="iframeBtn">
+
+                            @*<button class="btn btn-lg btn-white btn-round btn-just-icon m-0" id="iframeBtn">
+                <img src="~/Content/assets/assets/icons/play.png" style="vertical-align: -4px;margin-left: 5px;">
+            </button>*@
+
+                            <button id="VideoButton" type="button" class="btn btn-lg btn-white btn-round btn-just-icon m-0" data-toggle="modal" data-target="#centralModalSm">
                                 <img src="~/Content/assets/assets/icons/play.png" style="vertical-align: -4px;margin-left: 5px;">
                             </button>
+
+                        </div>
+
+                        <div class="modal fade" id="centralModalSm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                             aria-hidden="true">
+
+                            <!-- Change class .modal-sm to change the size of the modal -->
+                            <div class="modal-dialog modal-video modal-fluid" role="document">
+
+
+                                <div class="modal-content">
+                                    <!-- <div class="modal-header">
+                    <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div> -->
+                                    <div class="modal-body">
+                                        <button type="button" class="close closevideo" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                        <iframe style="height: calc( 100vh - 100px);" width="100%" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+
+                                <!--<div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe width="100%" height="420" src="https://www.youtube-nocookie.com/embed/tcnHLeiMDyY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-sm">Save changes</button>
+                </div>
+            </div>-->
+                            </div>
                         </div>
 
                         <!--<div id="myNav" class="overlay">
-                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                            <iframe src="" frameborder="0" border="0" scrolling="auto" allowtransparency="true" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="1" style="border: none; background-color: transparent; width: 70%; height: 60%; position: absolute" ></iframe>
-                        </div>-->
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <iframe src="" frameborder="0" border="0" scrolling="auto" allowtransparency="true" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="1" style="border: none; background-color: transparent; width: 70%; height: 60%; position: absolute" ></iframe>
+    </div>-->
                         <!--<div style="/*! height: 120px; */" class="upload-photo videoBox border rounded d-flex align-items-center justify-content-center flex-column mb-4">
-                            <iframe src="" frameborder="0" border="0" scrolling="auto" allowtransparency="true" allowfullscreen="1" style="border: none; background-color: transparent; width: 100%; height: 100%;"></iframe>
-                        </div>-->
+        <iframe src="" frameborder="0" border="0" scrolling="auto" allowtransparency="true" allowfullscreen="1" style="border: none; background-color: transparent; width: 100%; height: 100%;"></iframe>
+    </div>-->
 
                         <div class="tabsCon">
                             <!-- Nav tabs -->
@@ -534,9 +593,9 @@
                                        aria-selected="false">Discussion Forum</a>
                                 </li>
                                 <!--<li class="nav-item">
-                                    <a class="nav-link" id="settings-tab-attr" data-toggle="tab" href="#settings-attr" role="tab" aria-controls="settings-attr"
-                                       aria-selected="false">Settings</a>
-                                </li>-->
+                <a class="nav-link" id="settings-tab-attr" data-toggle="tab" href="#settings-attr" role="tab" aria-controls="settings-attr"
+                   aria-selected="false">Settings</a>
+            </li>-->
                             </ul>
 
                             <!-- Tab panes -->
@@ -598,16 +657,16 @@
                                         <div class="col-md-12">
 
                                             <div class="form-group">
-                                               
+
                                                 <hr />
                                                 <span class="" style="font-weight:bold">Submit your Assignment </span>
 
                                                 @*<i class="fa fa-paperclip" style="padding-left:80px"></i> Choose File
-                        <input type="file" style="padding-left:80px" id="SubmitAssignment" name="SubmitAssignment">
-                    </div>
-                    <div class="col-md-offset-2 col-lg-offset-2" style="padding-left:80px">
-                        <p class="help-block">Max. 32MB</p>
-                    </div>*@
+                                    <input type="file" style="padding-left:80px" id="SubmitAssignment" name="SubmitAssignment">
+                                </div>
+                                <div class="col-md-offset-2 col-lg-offset-2" style="padding-left:80px">
+                                    <p class="help-block">Max. 32MB</p>
+                                </div>*@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12 bmd-form-group">
                                                         <div class="file-field d-flex">
@@ -632,7 +691,7 @@
                                                     @*<input type="file" class="btn btn-default" id="SubmitAssignment" name="SubmitAssignment" />
 
 
-                        <span style="color:blue" id="AssignmentMessage"></span>*@
+                                    <span style="color:blue" id="AssignmentMessage"></span>*@
 
                                                     <br />
 
